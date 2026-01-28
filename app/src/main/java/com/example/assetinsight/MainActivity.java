@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.assetinsight.databinding.ActivityMainBinding;
 import com.example.assetinsight.ui.input.InputActivity;
+import com.example.assetinsight.util.PreferenceManager;
 import com.example.assetinsight.util.SecurityHelper;
 import com.example.assetinsight.util.SecurityHelper.BiometricStatus;
 
@@ -20,18 +21,27 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private SecurityHelper securityHelper;
+    private PreferenceManager prefManager;
     private boolean isAuthenticated = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        prefManager = new PreferenceManager(this);
+
+        // 테마 적용
+        prefManager.applyTheme();
+
         EdgeToEdge.enable(this);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // 화면 보안 활성화 (스크린샷 방지, 최근 앱에서 내용 숨김)
-        SecurityHelper.enableScreenSecurity(this);
+        // 화면 보안 설정에 따라 적용
+        if (prefManager.isScreenSecurityEnabled()) {
+            SecurityHelper.enableScreenSecurity(this);
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.main, (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -41,8 +51,14 @@ public class MainActivity extends AppCompatActivity {
 
         securityHelper = new SecurityHelper(this);
 
-        // 초기 상태: 메인 콘텐츠 숨김
-        showAuthScreen();
+        // 생체인증 설정이 꺼져 있으면 바로 메인 화면 표시
+        if (!prefManager.isBiometricEnabled()) {
+            isAuthenticated = true;
+            showMainContent();
+        } else {
+            // 초기 상태: 메인 콘텐츠 숨김
+            showAuthScreen();
+        }
 
         // 다시 시도 버튼
         binding.btnRetry.setOnClickListener(v -> requestBiometricAuth());
@@ -57,6 +73,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        // 생체인증이 비활성화되어 있으면 항상 인증된 상태
+        if (!prefManager.isBiometricEnabled()) {
+            if (!isAuthenticated) {
+                isAuthenticated = true;
+                showMainContent();
+            }
+            return;
+        }
+
         // 타임아웃 체크: 5분 이상 백그라운드에 있었으면 재인증
         if (isAuthenticated && lastPausedTime > 0) {
             long elapsed = System.currentTimeMillis() - lastPausedTime;

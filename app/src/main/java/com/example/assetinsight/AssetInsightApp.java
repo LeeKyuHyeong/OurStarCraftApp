@@ -2,6 +2,8 @@ package com.example.assetinsight;
 
 import android.app.Application;
 
+import com.example.assetinsight.util.PreferenceManager;
+
 import timber.log.Timber;
 
 /**
@@ -19,6 +21,9 @@ public class AssetInsightApp extends Application {
             Timber.d("Timber initialized in DEBUG mode");
         }
         // Release 빌드에서는 로그 출력하지 않음 (보안)
+
+        // 저장된 테마 설정 적용
+        new PreferenceManager(this).applyTheme();
     }
 
     private boolean isDebugBuild() {

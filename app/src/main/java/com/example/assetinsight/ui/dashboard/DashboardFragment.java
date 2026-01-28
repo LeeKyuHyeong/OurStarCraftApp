@@ -17,7 +17,10 @@ import com.example.assetinsight.data.local.AppDatabase;
 import com.example.assetinsight.data.local.Category;
 import com.example.assetinsight.data.repository.AssetRepository;
 import com.example.assetinsight.databinding.FragmentDashboardBinding;
+import com.example.assetinsight.ui.assetlist.AssetListActivity;
 import com.example.assetinsight.ui.backup.BackupRestoreActivity;
+import com.example.assetinsight.ui.category.CategoryDetailActivity;
+import com.example.assetinsight.ui.settings.SettingsActivity;
 import com.example.assetinsight.util.DatabaseKeyManager;
 import com.example.assetinsight.ui.category.CategoryManageActivity;
 
@@ -133,8 +136,17 @@ public class DashboardFragment extends Fragment {
             PopupMenu popup = new PopupMenu(requireContext(), v);
             popup.getMenuInflater().inflate(R.menu.menu_dashboard, popup.getMenu());
             popup.setOnMenuItemClickListener(item -> {
-                if (item.getItemId() == R.id.action_backup) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.action_asset_list) {
+                    Intent intent = new Intent(requireContext(), AssetListActivity.class);
+                    startActivity(intent);
+                    return true;
+                } else if (itemId == R.id.action_backup) {
                     Intent intent = new Intent(requireContext(), BackupRestoreActivity.class);
+                    startActivity(intent);
+                    return true;
+                } else if (itemId == R.id.action_settings) {
+                    Intent intent = new Intent(requireContext(), SettingsActivity.class);
                     startActivity(intent);
                     return true;
                 }
@@ -173,8 +185,16 @@ public class DashboardFragment extends Fragment {
 
     private void setupRecyclerView() {
         categoryAdapter = new CategoryAdapter();
+        categoryAdapter.setOnCategoryClickListener(this::onCategoryClick);
         binding.rvCategories.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.rvCategories.setAdapter(categoryAdapter);
+    }
+
+    private void onCategoryClick(CategoryAssetItem item) {
+        Intent intent = new Intent(requireContext(), CategoryDetailActivity.class);
+        intent.putExtra(CategoryDetailActivity.EXTRA_CATEGORY_ID, item.getCategoryId());
+        intent.putExtra(CategoryDetailActivity.EXTRA_CATEGORY_NAME, item.getCategoryName());
+        startActivity(intent);
     }
 
     private void loadDashboardData() {

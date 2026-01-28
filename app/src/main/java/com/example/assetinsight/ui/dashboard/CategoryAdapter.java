@@ -22,8 +22,18 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     private final NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.KOREA);
     private final NumberFormat percentFormat = NumberFormat.getPercentInstance(Locale.KOREA);
 
+    private OnCategoryClickListener clickListener;
+
+    public interface OnCategoryClickListener {
+        void onCategoryClick(CategoryAssetItem item);
+    }
+
     public CategoryAdapter() {
         percentFormat.setMaximumFractionDigits(1);
+    }
+
+    public void setOnCategoryClickListener(OnCategoryClickListener listener) {
+        this.clickListener = listener;
     }
 
     public void submitList(List<CategoryAssetItem> newItems) {
@@ -65,6 +75,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             binding.tvCategoryAmount.setText(currencyFormat.format(item.getAmount()));
             binding.tvCategoryDate.setText(item.getLastUpdatedDate() + " 기준");
             binding.tvCategoryPercent.setText(percentFormat.format(item.getPercentOfTotal() / 100));
+
+            binding.getRoot().setOnClickListener(v -> {
+                if (clickListener != null) {
+                    clickListener.onCategoryClick(item);
+                }
+            });
         }
     }
 }

@@ -52,6 +52,15 @@ public class InputActivity extends AppCompatActivity {
     // 카테고리 목록 (DB에서 로드)
     private List<Category> categories = new ArrayList<>();
 
+    // 수정 모드 관련
+    private boolean isEditMode = false;
+    private String editDate;
+    private String editCategoryId;
+
+    // 카테고리 사전설정 (상세 화면에서 진입 시)
+    private String presetCategoryId;
+    private String presetCategoryName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +83,10 @@ public class InputActivity extends AppCompatActivity {
         database.ensureDefaultCategories();
         repository = new AssetRepository(this, DatabaseKeyManager.getKey());
 
+        // 수정 모드 및 사전설정 확인
+        checkEditMode();
+        checkPresetCategory();
+
         setupToolbar();
         setupDatePicker();
         setupAmountInput();
@@ -82,8 +95,54 @@ public class InputActivity extends AppCompatActivity {
         // 카테고리 로드 후 드롭다운 설정
         loadCategories();
 
-        // 오늘 날짜로 초기화
-        setDate(System.currentTimeMillis());
+        // 수정 모드가 아닌 경우만 오늘 날짜로 초기화
+        if (!isEditMode) {
+            setDate(System.currentTimeMillis());
+        }
+    }
+
+    private void checkEditMode() {
+        editDate = getIntent().getStringExtra("edit_date");
+        editCategoryId = getIntent().getStringExtra("edit_category_id");
+
+        if (editDate != null && editCategoryId != null) {
+            isEditMode = true;
+
+            // 날짜 설정
+            selectedDate = editDate;
+            try {
+                Date date = dateFormat.parse(editDate);
+                binding.etDate.setText(displayDateFormat.format(date));
+            } catch (Exception e) {
+                binding.etDate.setText(editDate);
+            }
+
+            // 금액 설정
+            long editAmount = getIntent().getLongExtra("edit_amount", 0);
+            if (editAmount > 0) {
+                binding.etAmount.setText(amountFormat.format(editAmount));
+            }
+
+            // 메모 설정
+            String editMemo = getIntent().getStringExtra("edit_memo");
+            if (editMemo != null) {
+                binding.etMemo.setText(editMemo);
+            }
+
+            // 수정 모드에서는 날짜와 카테고리 변경 불가
+            binding.etDate.setEnabled(false);
+            binding.tilDate.setEndIconMode(com.google.android.material.textfield.TextInputLayout.END_ICON_NONE);
+
+            // 타이틀 변경
+            binding.toolbar.setTitle(R.string.input_edit_title);
+        }
+    }
+
+    private void checkPresetCategory() {
+        if (!isEditMode) {
+            presetCategoryId = getIntent().getStringExtra("preset_category_id");
+            presetCategoryName = getIntent().getStringExtra("preset_category_name");
+        }
     }
 
     private void setupToolbar() {
@@ -141,6 +200,28 @@ public class InputActivity extends AppCompatActivity {
                 checkExistingRecord();
             }
         });
+
+        // 수정 모드일 때 카테고리 선택
+        if (isEditMode && editCategoryId != null) {
+            for (int i = 0; i < categories.size(); i++) {
+                if (categories.get(i).getId().equals(editCategoryId)) {
+                    binding.actvCategory.setText(categories.get(i).getName(), false);
+                    selectedCategoryId = editCategoryId;
+                    binding.actvCategory.setEnabled(false);
+                    break;
+                }
+            }
+        }
+        // 사전설정 카테고리 (수정 모드가 아닐 때)
+        else if (presetCategoryId != null) {
+            for (int i = 0; i < categories.size(); i++) {
+                if (categories.get(i).getId().equals(presetCategoryId)) {
+                    binding.actvCategory.setText(categories.get(i).getName(), false);
+                    selectedCategoryId = presetCategoryId;
+                    break;
+                }
+            }
+        }
     }
 
     private void setupAmountInput() {

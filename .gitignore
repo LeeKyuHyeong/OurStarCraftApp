@@ -24,3 +24,14 @@
 local.properties
 *.keystore
 *.jks
+
+# Node.js (MCP tools)
+node_modules/
+package.json
+package-lock.json
+
+# MCP configuration (local development)
+.mcp.json
+
+# Feature planning docs (optional)
+FEATURE_IMPROVEMENTS.md
