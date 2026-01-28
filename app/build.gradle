@@ -2,6 +2,13 @@ plugins {
     alias(libs.plugins.android.application)
 }
 
+// local.properties에서 DB 키 로드
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localProperties.load(localPropertiesFile.newDataInputStream())
+}
+
 android {
     namespace 'com.example.assetinsight'
     compileSdk {
@@ -20,13 +27,27 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
         }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
+    }
+
+    buildFeatures {
+        viewBinding true
+        buildConfig true
+    }
+
+    defaultConfig {
+        // local.properties에서 DB 암호화 키 로드
+        buildConfigField "String", "DB_KEY", "\"${localProperties.getProperty('DB_ENCRYPTION_KEY', 'default_key')}\""
     }
 }
 
@@ -35,6 +56,30 @@ dependencies {
     implementation libs.material
     implementation libs.activity
     implementation libs.constraintlayout
+
+    // Room Database
+    implementation libs.room.runtime
+    annotationProcessor libs.room.compiler
+
+    // SQLCipher (DB 암호화)
+    implementation libs.sqlcipher
+    implementation libs.sqlite
+
+    // Biometric (생체 인증)
+    implementation libs.biometric
+
+    // GridLayout
+    implementation libs.gridlayout
+
+    // MPAndroidChart
+    implementation libs.mpandroidchart
+
+    // Timber (로깅)
+    implementation libs.timber
+
+    // LeakCanary (Debug 빌드에서만 메모리 누수 감지)
+    debugImplementation libs.leakcanary
+
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
