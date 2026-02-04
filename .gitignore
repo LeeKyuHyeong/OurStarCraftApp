@@ -40,3 +40,7 @@ Thumbs.db
 *.g.dart
 *.freezed.dart
 *.gr.dart
+
+# Flutter auto-generated
+.flutter-plugins-dependencies
+.metadata
