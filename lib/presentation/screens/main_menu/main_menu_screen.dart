@@ -1,76 +1,184 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../app/theme.dart';
+import '../../../core/utils/responsive.dart';
+import '../../../core/constants/initial_data.dart';
+import '../../../domain/models/models.dart';
+import '../../../data/providers/game_provider.dart';
 
-class MainMenuScreen extends ConsumerStatefulWidget {
+/// 메인 메뉴 화면 - 일정 및 행동 관리
+class MainMenuScreen extends ConsumerWidget {
   const MainMenuScreen({super.key});
 
   @override
-  ConsumerState<MainMenuScreen> createState() => _MainMenuScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    Responsive.init(context);
+    final gameState = ref.watch(gameStateProvider);
 
-class _MainMenuScreenState extends ConsumerState<MainMenuScreen>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
+    // Preview 모드: gameState가 없을 때 초기 데이터 사용
+    final isPreviewMode = gameState == null;
+    final allTeams = isPreviewMode ? InitialData.createTeams() : gameState.saveData.allTeams;
+    final playerTeam = isPreviewMode ? allTeams.first : gameState.playerTeam;
+    final seasonNumber = isPreviewMode ? 1 : gameState.saveData.currentSeason.number;
 
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 4, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('SK텔레콤 T1'), // TODO: 실제 선택한 팀명
-        automaticallyImplyLeading: false,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.save),
-            onPressed: () => context.go('/save-load'),
-            tooltip: '세이브/로드',
-          ),
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              // TODO: 설정
-            },
-            tooltip: '설정',
-          ),
-        ],
-        bottom: TabBar(
-          controller: _tabController,
-          indicatorColor: AppTheme.accentGreen,
-          tabs: const [
-            Tab(icon: Icon(Icons.calendar_today), text: '일정'),
-            Tab(icon: Icon(Icons.people), text: '팀관리'),
-            Tab(icon: Icon(Icons.store), text: '상점'),
-            Tab(icon: Icon(Icons.search), text: '상대팀'),
+      backgroundColor: const Color(0xFF0a0a12),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Column(
+              children: [
+                // 상단 헤더
+                _buildHeader(playerTeam, seasonNumber),
+
+                // 메인 컨텐츠 - 참조화면처럼 정규시즌 일정만
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(16.sp),
+                    child: Row(
+                      children: [
+                        // 왼쪽: 팀 로고
+                        _buildTeamLogo(playerTeam),
+
+                        SizedBox(width: 16.sp),
+
+                        // 중앙: 정규 시즌 일정 (메인)
+                        Expanded(
+                          child: _buildSeasonScheduleMain(context, gameState, playerTeam, allTeams, isPreviewMode),
+                        ),
+
+                        SizedBox(width: 16.sp),
+
+                        // 오른쪽: 팀 로고
+                        _buildTeamLogo(playerTeam),
+                      ],
+                    ),
+                  ),
+                ),
+
+                // 하단 버튼
+                _buildBottomButtons(context),
+              ],
+            ),
+
+            // R 버튼 (좌측 하단)
+            Positioned(
+              bottom: 80.sp,
+              left: 16.sp,
+              child: _buildRButton(context),
+            ),
           ],
         ),
       ),
-      body: Column(
-        children: [
-          // 상단 정보 바
-          _StatusBar(),
+    );
+  }
 
-          // 탭 콘텐츠
+  Widget _buildRButton(BuildContext context) {
+    return Container(
+      width: 36.sp,
+      height: 36.sp,
+      decoration: BoxDecoration(
+        color: Colors.red[800],
+        borderRadius: BorderRadius.circular(6.sp),
+        border: Border.all(color: Colors.red[400]!, width: 2),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(6.sp),
+          onTap: () => context.go('/'),
+          child: Center(
+            child: Text(
+              'R',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 16.sp,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeader(dynamic playerTeam, int seasonNumber) {
+    final teamColor = Color(playerTeam.colorValue);
+
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 12.sp, horizontal: 16.sp),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1a1a2e),
+        border: Border(
+          bottom: BorderSide(color: Colors.grey[800]!, width: 2),
+        ),
+      ),
+      child: Row(
+        children: [
+          // 팀 로고
+          Container(
+            width: 50.sp,
+            height: 50.sp,
+            decoration: BoxDecoration(
+              color: teamColor.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(8.sp),
+              border: Border.all(color: teamColor, width: 2),
+            ),
+            child: Center(
+              child: Text(
+                playerTeam.shortName,
+                style: TextStyle(
+                  color: teamColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16.sp,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(width: 16.sp),
+
+          // 팀명
           Expanded(
-            child: TabBarView(
-              controller: _tabController,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _ScheduleTab(),
-                _TeamManagementTab(),
-                _ShopTab(),
-                _OpponentViewTab(),
+                Text(
+                  playerTeam.name,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  '에이스: ${playerTeam.acePlayerId ?? "미정"}',
+                  style: TextStyle(
+                    color: Colors.grey[400],
+                    fontSize: 12.sp,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // 우측: 모드 정보
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 12.sp, vertical: 6.sp),
+            decoration: BoxDecoration(
+              color: Colors.black54,
+              borderRadius: BorderRadius.circular(4.sp),
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.star, color: Colors.amber, size: 16.sp),
+                SizedBox(width: 8.sp),
+                Text(
+                  'MyStarcraft  |  Season Mode  |  2012  S$seasonNumber',
+                  style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 12.sp,
+                  ),
+                ),
               ],
             ),
           ),
@@ -78,447 +186,1055 @@ class _MainMenuScreenState extends ConsumerState<MainMenuScreen>
       ),
     );
   }
-}
 
-class _StatusBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildTeamLogo(dynamic playerTeam) {
+    final teamColor = Color(playerTeam.colorValue);
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      color: AppTheme.cardBackground,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+      width: 120.sp,
+      padding: EdgeInsets.all(16.sp),
+      decoration: BoxDecoration(
+        color: const Color(0xFF12121a),
+        borderRadius: BorderRadius.circular(8.sp),
+        border: Border.all(color: teamColor.withOpacity(0.5), width: 2),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _StatusItem(
-            icon: Icons.event,
-            label: '시즌 1',
-            value: 'R1',
-          ),
-          _StatusItem(
-            icon: Icons.attach_money,
-            label: '자금',
-            value: '500만',
-          ),
-          _StatusItem(
-            icon: Icons.flash_on,
-            label: '행동력',
-            value: '100',
-            color: AppTheme.accentGreen,
+          Container(
+            width: 80.sp,
+            height: 80.sp,
+            decoration: BoxDecoration(
+              color: teamColor.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(8.sp),
+              border: Border.all(color: teamColor, width: 2),
+            ),
+            child: Center(
+              child: Text(
+                playerTeam.shortName,
+                style: TextStyle(
+                  color: teamColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24.sp,
+                ),
+              ),
+            ),
           ),
         ],
       ),
     );
   }
-}
 
-class _StatusItem extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final String value;
-  final Color? color;
+  // 개인리그 일정 이름 (7라운드)
+  static const List<String> _individualLeagueNames = [
+    'PC방 예선전',
+    '듀얼토너먼트 1R',
+    '듀얼토너먼트 2R',
+    '조지명식 / 듀얼토너먼트 3R',
+    '32강 1,2R',
+    '16강 1,2R',
+    '8강 / 4강 / 결승',
+  ];
 
-  const _StatusItem({
-    required this.icon,
-    required this.label,
-    required this.value,
-    this.color,
-  });
+  Widget _buildSeasonScheduleMain(BuildContext context, dynamic gameState, Team playerTeam, List<Team> allTeams, bool isPreviewMode) {
+    // Preview 모드일 때 샘플 일정 생성 (14라운드)
+    final List<Map<String, dynamic>> previewMatches = isPreviewMode
+        ? List.generate(14, (i) {
+            final opponentTeam = allTeams[(i + 1) % allTeams.length];
+            return {
+              'round': i + 1,
+              'opponent': opponentTeam.shortName,
+              'opponentColor': opponentTeam.colorValue,
+              'opponentName': opponentTeam.name,
+              'opponentId': opponentTeam.id,
+              'isCompleted': i < 4,
+              'isHome': i % 2 == 0,
+              'homeScore': i < 4 ? (i % 2 == 0 ? 3 : 1) : null,
+              'awayScore': i < 4 ? (i % 2 == 0 ? 1 : 3) : null,
+            };
+          })
+        : [];
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Icon(icon, color: color ?? AppTheme.textSecondary, size: 20),
-        const SizedBox(height: 4),
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 12,
-            color: AppTheme.textSecondary,
-          ),
-        ),
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: color ?? AppTheme.textPrimary,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-// 일정 탭
-class _ScheduleTab extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: ListView.builder(
-            padding: const EdgeInsets.all(16),
-            itemCount: 10, // TODO: 실제 일정 수
-            itemBuilder: (context, index) {
-              final isNext = index == 0;
-              return _ScheduleCard(
-                round: index + 1,
-                opponent: '삼성전자 칸', // TODO: 실제 상대팀
-                isNext: isNext,
-                isCompleted: false,
-              );
-            },
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SizedBox(
-            width: double.infinity,
-            height: 56,
-            child: ElevatedButton(
-              onPressed: () => context.go('/roster-select'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppTheme.accentGreen,
-                foregroundColor: Colors.black,
-              ),
-              child: const Text(
-                '일정 진행',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+    return Container(
+      decoration: BoxDecoration(
+        color: const Color(0xFF12121a),
+        borderRadius: BorderRadius.circular(8.sp),
+        border: Border.all(color: Colors.grey[800]!),
+      ),
+      child: Column(
+        children: [
+          // 헤더: 팀명 + 컨디션 회복
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 16.sp, vertical: 10.sp),
+            decoration: BoxDecoration(
+              color: const Color(0xFF1a1a2e),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(7.sp)),
             ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _ScheduleCard extends StatelessWidget {
-  final int round;
-  final String opponent;
-  final bool isNext;
-  final bool isCompleted;
-
-  const _ScheduleCard({
-    required this.round,
-    required this.opponent,
-    required this.isNext,
-    required this.isCompleted,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: isNext ? AppTheme.primaryBlue : AppTheme.cardBackground,
-      margin: const EdgeInsets.only(bottom: 8),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          children: [
-            Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                color: isCompleted
-                    ? AppTheme.accentGreen.withOpacity(0.2)
-                    : AppTheme.primaryBlue.withOpacity(0.3),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Center(
-                child: Text(
-                  'R$round',
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  playerTeam.name,
                   style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
-                    color: isCompleted ? AppTheme.accentGreen : AppTheme.textPrimary,
                   ),
                 ),
-              ),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'vs $opponent',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
+                Text(
+                  '총 14경기 | 2경기마다 개인리그 & 컨디션 회복',
+                  style: TextStyle(
+                    color: Colors.cyan,
+                    fontSize: 11.sp,
                   ),
-                  if (isNext)
-                    const Text(
-                      '다음 경기',
-                      style: TextStyle(
-                        color: AppTheme.accentGreen,
-                        fontSize: 12,
-                      ),
-                    ),
-                ],
+                ),
+              ],
+            ),
+          ),
+
+          // 일정 리스트
+          Expanded(
+            child: isPreviewMode
+                ? ListView.builder(
+                    padding: EdgeInsets.symmetric(horizontal: 8.sp, vertical: 4.sp),
+                    itemCount: 28, // 14 matches + 7 condition rows + 7 league rows
+                    itemBuilder: (ctx, index) {
+                      // 4개마다 그룹: match1, match2, 컨디션회복, 개인리그
+                      final groupIndex = index ~/ 4;
+                      final posInGroup = index % 4;
+
+                      if (posInGroup == 2) {
+                        // 컨디션 회복 행
+                        return _buildConditionRow();
+                      } else if (posInGroup == 3) {
+                        // 개인리그 행
+                        return _buildLeagueRow(context, groupIndex);
+                      } else {
+                        // 매치 행 (posInGroup 0 or 1)
+                        final matchIndex = groupIndex * 2 + posInGroup;
+                        if (matchIndex >= 14) return const SizedBox.shrink();
+                        final match = previewMatches[matchIndex];
+                        return _buildScheduleRow(
+                          context: context,
+                          round: match['round'] as int,
+                          opponentShort: match['opponent'] as String,
+                          opponentName: match['opponentName'] as String,
+                          opponentColor: match['opponentColor'] as int,
+                          opponentId: match['opponentId'] as String,
+                          isCompleted: match['isCompleted'] as bool,
+                          isHome: match['isHome'] as bool,
+                          homeScore: match['homeScore'] as int?,
+                          awayScore: match['awayScore'] as int?,
+                          isNext: matchIndex == 4,
+                        );
+                      }
+                    },
+                  )
+                : _buildRealScheduleList(context, gameState, playerTeam),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // 개인리그 라우트 매핑
+  static const List<String> _individualLeagueRoutes = [
+    '/individual-league/pcbang',      // PC방 예선전
+    '/individual-league/dual/1',      // 듀얼토너먼트 1R
+    '/individual-league/dual/2',      // 듀얼토너먼트 2R
+    '/individual-league/group-draw',  // 조지명식 / 듀얼토너먼트 3R
+    '/individual-league/main/32',     // 32강
+    '/individual-league/main/16',     // 16강
+    '/individual-league/main/final',  // 8강 / 4강 / 결승
+  ];
+
+  Widget _buildConditionRow() {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 2.sp),
+      padding: EdgeInsets.symmetric(horizontal: 12.sp, vertical: 6.sp),
+      decoration: BoxDecoration(
+        color: Colors.cyan.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(4.sp),
+        border: Border.all(color: Colors.cyan.withOpacity(0.3), width: 1),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.favorite, color: Colors.cyan, size: 14.sp),
+          SizedBox(width: 8.sp),
+          Text(
+            '컨디션 회복',
+            style: TextStyle(
+              color: Colors.cyan,
+              fontSize: 10.sp,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLeagueRow(BuildContext context, int eventIndex) {
+    final eventName = eventIndex < _individualLeagueNames.length
+        ? _individualLeagueNames[eventIndex]
+        : '개인리그';
+    final route = eventIndex < _individualLeagueRoutes.length
+        ? _individualLeagueRoutes[eventIndex]
+        : '/individual-league';
+
+    return GestureDetector(
+      onTap: () {
+        // 개인리그 대진표 화면으로 이동
+        context.go(route);
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 2.sp),
+        padding: EdgeInsets.symmetric(horizontal: 12.sp, vertical: 6.sp),
+        decoration: BoxDecoration(
+          color: Colors.amber.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(4.sp),
+          border: Border.all(color: Colors.amber.withOpacity(0.3), width: 1),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.emoji_events, color: Colors.amber, size: 14.sp),
+            SizedBox(width: 8.sp),
+            Text(
+              eventName,
+              style: TextStyle(
+                color: Colors.amber,
+                fontSize: 10.sp,
+                fontWeight: FontWeight.bold,
               ),
             ),
-            if (isCompleted)
-              const Text(
-                '4:2 승',
-                style: TextStyle(
-                  color: AppTheme.accentGreen,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+            SizedBox(width: 8.sp),
+            Icon(Icons.arrow_forward_ios, color: Colors.grey[500], size: 10.sp),
           ],
         ),
       ),
     );
   }
-}
 
-// 팀 관리 탭
-class _TeamManagementTab extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildRealScheduleList(BuildContext context, dynamic gameState, Team playerTeam) {
+    final schedule = gameState.saveData.currentSeason.proleagueSchedule;
+    final playerTeamId = gameState.saveData.playerTeamId;
+
+    final myMatches = schedule.where((s) =>
+      s.homeTeamId == playerTeamId || s.awayTeamId == playerTeamId
+    ).toList();
+
+    return ListView.builder(
+      padding: EdgeInsets.all(8.sp),
+      itemCount: myMatches.length,
+      itemBuilder: (ctx, index) {
+        final match = myMatches[index];
+        final isHome = match.homeTeamId == playerTeamId;
+        final opponentId = isHome ? match.awayTeamId : match.homeTeamId;
+        final opponent = gameState.saveData.getTeamById(opponentId);
+
+        return _buildScheduleRow(
+          context: context,
+          round: match.roundNumber,
+          opponentShort: opponent?.shortName ?? '???',
+          opponentName: opponent?.name ?? '???',
+          opponentColor: opponent?.colorValue ?? 0xFF888888,
+          opponentId: opponentId,
+          isCompleted: match.isCompleted,
+          isHome: isHome,
+          homeScore: match.result?.homeScore,
+          awayScore: match.result?.awayScore,
+          isNext: !match.isCompleted && index == myMatches.indexWhere((m) => !m.isCompleted),
+        );
+      },
+    );
+  }
+
+  Widget _buildScheduleRow({
+    required BuildContext context,
+    required int round,
+    required String opponentShort,
+    required String opponentName,
+    required int opponentColor,
+    required String opponentId,
+    required bool isCompleted,
+    required bool isHome,
+    int? homeScore,
+    int? awayScore,
+    required bool isNext,
+  }) {
+    return GestureDetector(
+      onTap: () {
+        // 팀 정보 화면으로 이동 (해당 팀 선택)
+        context.go('/team-ranking?teamId=$opponentId');
+      },
+      child: Container(
+        margin: EdgeInsets.only(bottom: 4.sp),
+        padding: EdgeInsets.symmetric(horizontal: 12.sp, vertical: 10.sp),
+        decoration: BoxDecoration(
+          color: isNext ? Colors.amber.withOpacity(0.15) : const Color(0xFF1a1a2e),
+          borderRadius: BorderRadius.circular(4.sp),
+          border: isNext ? Border.all(color: Colors.amber, width: 1) : null,
+        ),
+        child: Row(
         children: [
-          // 행동 버튼들
-          Row(
-            children: [
-              Expanded(
-                child: _ActionButton(
-                  label: '컨디션 회복',
-                  cost: 50,
-                  icon: Icons.favorite,
-                  onPressed: () {},
+          // 라운드
+          Container(
+            width: 30.sp,
+            height: 24.sp,
+            decoration: BoxDecoration(
+              color: const Color(0xFF2a2a3e),
+              borderRadius: BorderRadius.circular(4.sp),
+            ),
+            child: Center(
+              child: Text(
+                'R$round',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: _ActionButton(
-                  label: '훈련',
-                  cost: 100,
-                  icon: Icons.fitness_center,
-                  onPressed: () {},
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: _ActionButton(
-                  label: '팬미팅',
-                  cost: 200,
-                  icon: Icons.groups,
-                  onPressed: () {},
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 24),
-
-          // 선수 목록
-          const Text(
-            '로스터',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 12),
-          ...List.generate(8, (index) => _PlayerListItem(index: index)),
+
+          SizedBox(width: 12.sp),
+
+          // VS
+          Text(
+            'VS',
+            style: TextStyle(
+              color: Colors.grey[500],
+              fontSize: 11.sp,
+            ),
+          ),
+
+          SizedBox(width: 12.sp),
+
+          // 상대팀 로고
+          Container(
+            width: 28.sp,
+            height: 28.sp,
+            decoration: BoxDecoration(
+              color: Color(opponentColor).withOpacity(0.2),
+              borderRadius: BorderRadius.circular(4.sp),
+              border: Border.all(color: Color(opponentColor), width: 1),
+            ),
+            child: Center(
+              child: Text(
+                opponentShort.length >= 2 ? opponentShort.substring(0, 2) : opponentShort,
+                style: TextStyle(
+                  color: Color(opponentColor),
+                  fontSize: 9.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+
+          SizedBox(width: 10.sp),
+
+          // 상대팀명
+          Expanded(
+            child: Text(
+              opponentName,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 12.sp,
+              ),
+            ),
+          ),
+
+          // 결과 또는 상태
+          if (isCompleted && homeScore != null && awayScore != null)
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 8.sp, vertical: 4.sp),
+              decoration: BoxDecoration(
+                color: (isHome ? homeScore > awayScore : awayScore > homeScore)
+                    ? Colors.green.withOpacity(0.3)
+                    : Colors.red.withOpacity(0.3),
+                borderRadius: BorderRadius.circular(4.sp),
+              ),
+              child: Text(
+                isHome ? '$homeScore : $awayScore' : '$awayScore : $homeScore',
+                style: TextStyle(
+                  color: (isHome ? homeScore > awayScore : awayScore > homeScore)
+                      ? Colors.greenAccent
+                      : Colors.redAccent,
+                  fontSize: 11.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            )
+          else if (isCompleted)
+            Text(
+              '완료',
+              style: TextStyle(
+                color: Colors.grey[500],
+                fontSize: 11.sp,
+              ),
+            )
+          else if (isNext)
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 8.sp, vertical: 4.sp),
+              decoration: BoxDecoration(
+                color: Colors.amber.withOpacity(0.3),
+                borderRadius: BorderRadius.circular(4.sp),
+              ),
+              child: Text(
+                '다음 경기',
+                style: TextStyle(
+                  color: Colors.amber,
+                  fontSize: 11.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            )
+          else
+            Text(
+              'No Match',
+              style: TextStyle(
+                color: Colors.grey[600],
+                fontSize: 11.sp,
+              ),
+            ),
+        ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSeasonSchedule(dynamic gameState, Team playerTeam, List<Team> allTeams, bool isPreviewMode) {
+    // Preview 모드일 때 샘플 일정 생성
+    final List<Map<String, dynamic>> previewMatches = isPreviewMode
+        ? List.generate(7, (i) {
+            final opponentTeam = allTeams[(i + 1) % allTeams.length];
+            return {
+              'round': i + 1,
+              'opponent': opponentTeam.shortName,
+              'opponentColor': opponentTeam.colorValue,
+              'isCompleted': i < 3,
+              'isHome': i % 2 == 0,
+            };
+          })
+        : [];
+
+    if (isPreviewMode) {
+      return Container(
+        margin: EdgeInsets.all(8.sp),
+        decoration: BoxDecoration(
+          color: const Color(0xFF12121a),
+          borderRadius: BorderRadius.circular(8.sp),
+          border: Border.all(color: Colors.grey[800]!),
+        ),
+        child: Column(
+          children: [
+            // 헤더
+            Container(
+              padding: EdgeInsets.all(8.sp),
+              decoration: BoxDecoration(
+                color: const Color(0xFF1a1a2e),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(8.sp)),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.flag, color: Colors.amber, size: 16.sp),
+                  SizedBox(width: 8.sp),
+                  Text(
+                    '정 규 시 즌 일 정',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 2,
+                    ),
+                  ),
+                  SizedBox(width: 8.sp),
+                  Icon(Icons.flag, color: Colors.amber, size: 16.sp),
+                ],
+              ),
+            ),
+            // 일정 리스트
+            Expanded(
+              child: ListView.builder(
+                padding: EdgeInsets.all(8.sp),
+                itemCount: previewMatches.length,
+                itemBuilder: (context, index) {
+                  final match = previewMatches[index];
+                  return _buildMatchItem(
+                    round: match['round'] as int,
+                    opponent: match['opponent'] as String,
+                    opponentColor: match['opponentColor'] as int,
+                    isCompleted: match['isCompleted'] as bool,
+                    result: null,
+                    isHome: match['isHome'] as bool,
+                    isNext: index == 3,
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    final schedule = gameState.saveData.currentSeason.proleagueSchedule;
+    final playerTeamId = gameState.saveData.playerTeamId;
+
+    // 내 팀 경기만 필터링
+    final myMatches = schedule.where((s) =>
+      s.homeTeamId == playerTeamId || s.awayTeamId == playerTeamId
+    ).toList();
+
+    return Container(
+      margin: EdgeInsets.all(8.sp),
+      decoration: BoxDecoration(
+        color: const Color(0xFF12121a),
+        borderRadius: BorderRadius.circular(8.sp),
+        border: Border.all(color: Colors.grey[800]!),
+      ),
+      child: Column(
+        children: [
+          // 헤더
+          Container(
+            padding: EdgeInsets.all(8.sp),
+            decoration: BoxDecoration(
+              color: const Color(0xFF1a1a2e),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(8.sp)),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.flag, color: Colors.amber, size: 16.sp),
+                SizedBox(width: 8.sp),
+                Text(
+                  '정 규 시 즌 일 정',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 2,
+                  ),
+                ),
+                SizedBox(width: 8.sp),
+                Icon(Icons.flag, color: Colors.amber, size: 16.sp),
+              ],
+            ),
+          ),
+
+          // 일정 리스트
+          Expanded(
+            child: ListView.builder(
+              padding: EdgeInsets.all(8.sp),
+              itemCount: myMatches.length,
+              itemBuilder: (context, index) {
+                final match = myMatches[index];
+                final isHome = match.homeTeamId == playerTeamId;
+                final opponentId = isHome ? match.awayTeamId : match.homeTeamId;
+                final opponent = gameState.saveData.getTeamById(opponentId);
+
+                return _buildMatchItem(
+                  round: match.roundNumber,
+                  opponent: opponent?.shortName ?? '???',
+                  opponentColor: opponent?.colorValue ?? 0xFF888888,
+                  isCompleted: match.isCompleted,
+                  result: match.result,
+                  isHome: isHome,
+                  isNext: !match.isCompleted && index == myMatches.indexWhere((m) => !m.isCompleted),
+                );
+              },
+            ),
+          ),
         ],
       ),
     );
   }
+
+  Widget _buildMatchItem({
+    required int round,
+    required String opponent,
+    required int opponentColor,
+    required bool isCompleted,
+    dynamic result,
+    required bool isHome,
+    required bool isNext,
+  }) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 6.sp),
+      padding: EdgeInsets.symmetric(horizontal: 8.sp, vertical: 8.sp),
+      decoration: BoxDecoration(
+        color: isNext ? Colors.amber.withOpacity(0.2) : Colors.black26,
+        borderRadius: BorderRadius.circular(4.sp),
+        border: Border.all(
+          color: isNext ? Colors.amber : Colors.transparent,
+          width: isNext ? 1 : 0,
+        ),
+      ),
+      child: Row(
+        children: [
+          // 라운드
+          Container(
+            width: 28.sp,
+            height: 28.sp,
+            decoration: BoxDecoration(
+              color: isCompleted ? Colors.green.withOpacity(0.3) : Colors.grey[800],
+              borderRadius: BorderRadius.circular(4.sp),
+            ),
+            child: Center(
+              child: Text(
+                'R$round',
+                style: TextStyle(
+                  color: isCompleted ? Colors.greenAccent : Colors.white70,
+                  fontSize: 9.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+
+          SizedBox(width: 8.sp),
+
+          // VS
+          Text(
+            'VS',
+            style: TextStyle(
+              color: Colors.grey[500],
+              fontSize: 10.sp,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+
+          SizedBox(width: 8.sp),
+
+          // 상대팀 로고
+          Container(
+            width: 28.sp,
+            height: 28.sp,
+            decoration: BoxDecoration(
+              color: Color(opponentColor).withOpacity(0.3),
+              borderRadius: BorderRadius.circular(4.sp),
+            ),
+            child: Center(
+              child: Text(
+                opponent.length >= 2 ? opponent.substring(0, 2) : opponent,
+                style: TextStyle(
+                  color: Color(opponentColor),
+                  fontSize: 9.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+
+          const Spacer(),
+
+          // 결과 또는 상태
+          Text(
+            isCompleted
+                ? (result != null ? '${result.homeScore}:${result.awayScore}' : '완료')
+                : (isNext ? '다음 경기' : 'No Match'),
+            style: TextStyle(
+              color: isNext ? Colors.amber : (isCompleted ? Colors.greenAccent : Colors.grey[600]),
+              fontSize: 10.sp,
+              fontWeight: isNext ? FontWeight.bold : FontWeight.normal,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTeamInfo(dynamic playerTeam, dynamic gameState, bool isPreviewMode) {
+    final teamColor = Color(playerTeam.colorValue);
+    final players = isPreviewMode
+        ? InitialData.createPlayers().where((p) => p.teamId == playerTeam.id).toList()
+        : gameState.playerTeamPlayers;
+
+    return Container(
+      margin: EdgeInsets.all(8.sp),
+      child: Column(
+        children: [
+          // 팀 로고 영역
+          Container(
+            padding: EdgeInsets.all(20.sp),
+            decoration: BoxDecoration(
+              color: const Color(0xFF12121a),
+              borderRadius: BorderRadius.circular(8.sp),
+              border: Border.all(color: Colors.grey[800]!),
+            ),
+            child: Column(
+              children: [
+                // 큰 팀 로고
+                Container(
+                  width: 100.sp,
+                  height: 100.sp,
+                  decoration: BoxDecoration(
+                    color: teamColor.withOpacity(0.2),
+                    shape: BoxShape.circle,
+                    border: Border.all(color: teamColor, width: 3),
+                    boxShadow: [
+                      BoxShadow(
+                        color: teamColor.withOpacity(0.3),
+                        blurRadius: 20,
+                        spreadRadius: 5,
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Text(
+                      playerTeam.shortName,
+                      style: TextStyle(
+                        color: teamColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 28.sp,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16.sp),
+                Text(
+                  playerTeam.name,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 4.sp),
+                Text(
+                  isPreviewMode
+                      ? '순위: 1위  |  0승 0패'
+                      : '순위: ${_calculateRank(gameState)}위  |  ${playerTeam.record.wins}승 ${playerTeam.record.losses}패',
+                  style: TextStyle(
+                    color: Colors.grey[400],
+                    fontSize: 12.sp,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          SizedBox(height: 8.sp),
+
+          // 선수 목록 (간략)
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.all(12.sp),
+              decoration: BoxDecoration(
+                color: const Color(0xFF12121a),
+                borderRadius: BorderRadius.circular(8.sp),
+                border: Border.all(color: Colors.grey[800]!),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '로스터 (${players.length}명)',
+                    style: TextStyle(
+                      color: Colors.amber,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 8.sp),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: players.length > 6 ? 6 : players.length,
+                      itemBuilder: (context, index) {
+                        final player = players[index];
+                        return Padding(
+                          padding: EdgeInsets.only(bottom: 4.sp),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 20.sp,
+                                height: 20.sp,
+                                decoration: BoxDecoration(
+                                  color: _getRaceColor(player.race.code).withOpacity(0.3),
+                                  borderRadius: BorderRadius.circular(4.sp),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    player.race.code[0],
+                                    style: TextStyle(
+                                      color: _getRaceColor(player.race.code),
+                                      fontSize: 10.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 8.sp),
+                              Text(
+                                player.name,
+                                style: TextStyle(
+                                  color: Colors.white70,
+                                  fontSize: 11.sp,
+                                ),
+                              ),
+                              const Spacer(),
+                              Text(
+                                '컨디션 ${player.condition}%',
+                                style: TextStyle(
+                                  color: player.condition >= 80 ? Colors.greenAccent : Colors.orange,
+                                  fontSize: 10.sp,
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildIndividualSchedule() {
+    final events = [
+      {'name': 'PC방 예선전', 'round': '1R', 'status': 'current'},
+      {'name': '듀얼토너먼트', 'round': '2~4R', 'status': 'upcoming'},
+      {'name': '조지명식', 'round': '5R', 'status': 'upcoming'},
+      {'name': '32강', 'round': '6~7R', 'status': 'upcoming'},
+      {'name': '16강', 'round': '8~9R', 'status': 'upcoming'},
+      {'name': '8강', 'round': '10~11R', 'status': 'upcoming'},
+      {'name': '4강', 'round': '?R', 'status': 'upcoming'},
+      {'name': '결승', 'round': '?R', 'status': 'upcoming'},
+    ];
+
+    return Container(
+      margin: EdgeInsets.all(8.sp),
+      decoration: BoxDecoration(
+        color: const Color(0xFF12121a),
+        borderRadius: BorderRadius.circular(8.sp),
+        border: Border.all(color: Colors.grey[800]!),
+      ),
+      child: Column(
+        children: [
+          // 헤더
+          Container(
+            padding: EdgeInsets.all(8.sp),
+            decoration: BoxDecoration(
+              color: const Color(0xFF1a1a2e),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(8.sp)),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.emoji_events, color: Colors.amber, size: 16.sp),
+                SizedBox(width: 8.sp),
+                Text(
+                  '개 인 리 그 일 정',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 2,
+                  ),
+                ),
+                SizedBox(width: 8.sp),
+                Icon(Icons.emoji_events, color: Colors.amber, size: 16.sp),
+              ],
+            ),
+          ),
+
+          // 일정 리스트
+          Expanded(
+            child: ListView.builder(
+              padding: EdgeInsets.all(8.sp),
+              itemCount: events.length,
+              itemBuilder: (context, index) {
+                final event = events[index];
+                final isCurrent = event['status'] == 'current';
+
+                return Container(
+                  margin: EdgeInsets.only(bottom: 6.sp),
+                  padding: EdgeInsets.symmetric(horizontal: 12.sp, vertical: 10.sp),
+                  decoration: BoxDecoration(
+                    color: isCurrent ? Colors.amber.withOpacity(0.15) : Colors.black26,
+                    borderRadius: BorderRadius.circular(4.sp),
+                    border: Border.all(
+                      color: isCurrent ? Colors.amber.withOpacity(0.5) : Colors.transparent,
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        isCurrent ? Icons.play_circle : Icons.circle,
+                        color: isCurrent ? Colors.amber : Colors.grey[700],
+                        size: isCurrent ? 16.sp : 8.sp,
+                      ),
+                      SizedBox(width: 12.sp),
+                      Expanded(
+                        child: Text(
+                          event['name'] as String,
+                          style: TextStyle(
+                            color: isCurrent ? Colors.amber : Colors.grey[400],
+                            fontSize: 13.sp,
+                            fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        event['round'] as String,
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 11.sp,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBottomButtons(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(12.sp),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1a1a2e),
+        border: Border(
+          top: BorderSide(color: Colors.grey[800]!, width: 2),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // 아이템 상점
+          _BottomButton(
+            icon: Icons.shopping_cart,
+            label: '아이템 상점',
+            onPressed: () {},
+          ),
+
+          SizedBox(width: 12.sp),
+
+          // Next 버튼 (메인)
+          SizedBox(
+            width: 200.sp,
+            height: 44.sp,
+            child: ElevatedButton(
+              onPressed: () {
+                context.go('/roster-select');
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.amber,
+                foregroundColor: Colors.black,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4.sp),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Next [Bar]',
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(width: 8.sp),
+                  Icon(Icons.double_arrow, size: 20.sp),
+                ],
+              ),
+            ),
+          ),
+
+          SizedBox(width: 12.sp),
+
+          // 정보 관리
+          _BottomButton(
+            icon: Icons.info_outline,
+            label: '정보 관리',
+            onPressed: () {},
+          ),
+
+          SizedBox(width: 12.sp),
+
+          // 행동 관리
+          _BottomButton(
+            icon: Icons.settings,
+            label: '행동 관리',
+            onPressed: () {},
+          ),
+
+          SizedBox(width: 12.sp),
+
+          // 저장
+          _BottomButton(
+            icon: Icons.save,
+            label: '저장',
+            onPressed: () {
+              context.go('/save-load');
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  int _calculateRank(dynamic gameState) {
+    // TODO: 실제 순위 계산
+    return 1;
+  }
+
+  Color _getRaceColor(String raceCode) {
+    switch (raceCode.toUpperCase()) {
+      case 'T':
+        return Colors.blue;
+      case 'Z':
+        return Colors.purple;
+      case 'P':
+        return Colors.amber;
+      default:
+        return Colors.grey;
+    }
+  }
 }
 
-class _ActionButton extends StatelessWidget {
-  final String label;
-  final int cost;
+class _BottomButton extends StatelessWidget {
   final IconData icon;
+  final String label;
   final VoidCallback onPressed;
 
-  const _ActionButton({
-    required this.label,
-    required this.cost,
+  const _BottomButton({
     required this.icon,
+    required this.label,
     required this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: AppTheme.cardBackground,
-        padding: const EdgeInsets.symmetric(vertical: 16),
-      ),
-      child: Column(
-        children: [
-          Icon(icon, size: 24),
-          const SizedBox(height: 4),
-          Text(label, style: const TextStyle(fontSize: 12)),
-          Text(
-            '$cost AP',
-            style: const TextStyle(
-              fontSize: 10,
-              color: AppTheme.textSecondary,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _PlayerListItem extends StatelessWidget {
-  final int index;
-
-  const _PlayerListItem({required this.index});
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: 실제 선수 데이터
-    final names = ['김택용', '도재욱', '정명훈', '박재혁', '이승석', '한상봉', '정경두', '권오혁'];
-    final races = ['P', 'P', 'T', 'T', 'Z', 'Z', 'P', 'T'];
-
-    return Card(
-      margin: const EdgeInsets.only(bottom: 8),
-      child: ListTile(
-        leading: CircleAvatar(
-          backgroundColor: AppTheme.getRaceColor(races[index]),
-          child: Text(
-            races[index],
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+    return SizedBox(
+      height: 44.sp,
+      child: ElevatedButton.icon(
+        onPressed: onPressed,
+        icon: Icon(icon, size: 16.sp),
+        label: Text(
+          label,
+          style: TextStyle(fontSize: 11.sp),
         ),
-        title: Text(names[index]),
-        subtitle: Text('컨디션: 100%'),
-        trailing: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-          decoration: BoxDecoration(
-            color: AppTheme.getGradeColor('S'),
-            borderRadius: BorderRadius.circular(4),
-          ),
-          child: const Text(
-            'S',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF2a2a3e),
+          foregroundColor: Colors.white70,
+          padding: EdgeInsets.symmetric(horizontal: 12.sp),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(4.sp),
           ),
         ),
       ),
-    );
-  }
-}
-
-// 상점 탭
-class _ShopTab extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(16),
-      children: const [
-        _ShopItem(
-          name: '컨디션 드링크',
-          description: '컨디션 +5',
-          price: 10,
-        ),
-        _ShopItem(
-          name: '스나이퍼',
-          description: '상대 예측 시 승리확률 대폭 상승',
-          price: 50,
-        ),
-        _ShopItem(
-          name: '껌',
-          description: '패배 시 능력치 하락폭 감소',
-          price: 30,
-        ),
-        _ShopItem(
-          name: '세레모니',
-          description: '승리 시 팀 컨디션 +1, 재화 +5',
-          price: 20,
-        ),
-      ],
-    );
-  }
-}
-
-class _ShopItem extends StatelessWidget {
-  final String name;
-  final String description;
-  final int price;
-
-  const _ShopItem({
-    required this.name,
-    required this.description,
-    required this.price,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.only(bottom: 8),
-      child: ListTile(
-        title: Text(name),
-        subtitle: Text(description),
-        trailing: ElevatedButton(
-          onPressed: () {},
-          style: ElevatedButton.styleFrom(
-            backgroundColor: AppTheme.accentGreen,
-            foregroundColor: Colors.black,
-          ),
-          child: Text('${price}만'),
-        ),
-      ),
-    );
-  }
-}
-
-// 상대팀 조회 탭
-class _OpponentViewTab extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final opponents = [
-      '화승 오즈',
-      '삼성전자 칸',
-      'KT 롤스터',
-      'CJ 엔투스',
-      '웅진 스타즈',
-      '하이트 스파키즈',
-      'STX SouL',
-      '위메이드 폭스',
-      'MBC게임 히어로',
-      '이스트로',
-      '공군 에이스',
-    ];
-
-    return ListView.builder(
-      padding: const EdgeInsets.all(16),
-      itemCount: opponents.length,
-      itemBuilder: (context, index) {
-        return Card(
-          margin: const EdgeInsets.only(bottom: 8),
-          child: ListTile(
-            leading: const CircleAvatar(
-              backgroundColor: AppTheme.primaryBlue,
-              child: Icon(Icons.groups, color: Colors.white),
-            ),
-            title: Text(opponents[index]),
-            subtitle: const Text('순위: -위'),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () {
-              // TODO: 상대팀 상세 보기
-            },
-          ),
-        );
-      },
     );
   }
 }

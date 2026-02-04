@@ -7,6 +7,21 @@ import '../presentation/screens/main_menu/main_menu_screen.dart';
 import '../presentation/screens/roster_select/roster_select_screen.dart';
 import '../presentation/screens/match_simulation/match_simulation_screen.dart';
 import '../presentation/screens/save_load/save_load_screen.dart';
+import '../presentation/screens/transfer/transfer_screen.dart';
+import '../presentation/screens/practice_match/practice_match_screen.dart';
+import '../presentation/screens/team_ranking/team_ranking_screen.dart';
+import '../presentation/screens/individual_league/pcbang_qualifier_screen.dart';
+import '../presentation/screens/individual_league/dual_tournament_screen.dart';
+import '../presentation/screens/individual_league/group_draw_screen.dart';
+import '../presentation/screens/individual_league/main_tournament_screen.dart';
+import '../presentation/screens/player_ranking/player_ranking_screen.dart';
+import '../presentation/screens/match_result/match_result_ranking_screen.dart';
+import '../presentation/screens/season_schedule/season_schedule_screen.dart';
+import '../presentation/screens/player_info/player_info_screen.dart';
+import '../presentation/screens/season_end/season_end_screen.dart';
+import '../presentation/screens/winners_league/winners_league_screen.dart';
+import '../presentation/screens/director_name/director_name_screen.dart';
+import '../presentation/screens/season_map_draw/season_map_draw_screen.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
@@ -41,6 +56,94 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/save-load',
         name: 'saveLoad',
         builder: (context, state) => const SaveLoadScreen(),
+      ),
+      GoRoute(
+        path: '/transfer',
+        name: 'transfer',
+        builder: (context, state) => const TransferScreen(),
+      ),
+      GoRoute(
+        path: '/practice-match',
+        name: 'practiceMatch',
+        builder: (context, state) => const PracticeMatchScreen(),
+      ),
+      GoRoute(
+        path: '/team-ranking',
+        name: 'teamRanking',
+        builder: (context, state) => const TeamRankingScreen(),
+      ),
+      // 개인리그 화면들
+      GoRoute(
+        path: '/individual-league/pcbang',
+        name: 'pcbangQualifier',
+        builder: (context, state) => const PcBangQualifierScreen(),
+      ),
+      GoRoute(
+        path: '/individual-league/dual/:round',
+        name: 'dualTournament',
+        builder: (context, state) {
+          final round = int.tryParse(state.pathParameters['round'] ?? '1') ?? 1;
+          return DualTournamentScreen(round: round);
+        },
+      ),
+      GoRoute(
+        path: '/individual-league/group-draw',
+        name: 'groupDraw',
+        builder: (context, state) => const GroupDrawScreen(),
+      ),
+      GoRoute(
+        path: '/individual-league/main/:stage',
+        name: 'mainTournament',
+        builder: (context, state) {
+          final stage = state.pathParameters['stage'] ?? '32';
+          return MainTournamentScreen(stage: stage);
+        },
+      ),
+      GoRoute(
+        path: '/player-ranking',
+        name: 'playerRanking',
+        builder: (context, state) => const PlayerRankingScreen(),
+      ),
+      GoRoute(
+        path: '/match-result-ranking',
+        name: 'matchResultRanking',
+        builder: (context, state) => const MatchResultRankingScreen(),
+      ),
+      GoRoute(
+        path: '/season-schedule',
+        name: 'seasonSchedule',
+        builder: (context, state) => const SeasonScheduleScreen(),
+      ),
+      GoRoute(
+        path: '/player-info',
+        name: 'playerInfo',
+        builder: (context, state) => const PlayerInfoScreen(),
+      ),
+      GoRoute(
+        path: '/season-end',
+        name: 'seasonEnd',
+        builder: (context, state) => const SeasonEndScreen(),
+      ),
+      GoRoute(
+        path: '/winners-league',
+        name: 'winnersLeague',
+        builder: (context, state) => const WinnersLeagueScreen(),
+      ),
+      // 새 게임 시작 플로우
+      GoRoute(
+        path: '/director-name',
+        name: 'directorName',
+        builder: (context, state) => const DirectorNameScreen(),
+      ),
+      GoRoute(
+        path: '/season-map-draw',
+        name: 'seasonMapDraw',
+        builder: (context, state) => const SeasonMapDrawScreen(),
+      ),
+      GoRoute(
+        path: '/initial-recruit',
+        name: 'initialRecruit',
+        builder: (context, state) => const TransferScreen(isInitialRecruit: true),
       ),
     ],
     errorBuilder: (context, state) => Scaffold(

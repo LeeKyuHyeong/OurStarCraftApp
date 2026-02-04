@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../app/theme.dart';
+import '../../../core/utils/responsive.dart';
+import '../../widgets/reset_button.dart';
 
 class RosterSelectScreen extends ConsumerStatefulWidget {
   const RosterSelectScreen({super.key});
@@ -28,6 +30,7 @@ class _RosterSelectScreenState extends ConsumerState<RosterSelectScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Responsive.init(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('로스터 선택'),
@@ -36,7 +39,9 @@ class _RosterSelectScreenState extends ConsumerState<RosterSelectScreen> {
           onPressed: () => context.go('/main'),
         ),
       ),
-      body: Column(
+      body: Stack(
+        children: [
+          Column(
         children: [
           // 매치 정보
           Container(
@@ -167,6 +172,9 @@ class _RosterSelectScreenState extends ConsumerState<RosterSelectScreen> {
               ),
             ),
           ),
+        ],
+          ),
+          ResetButton.positioned(),
         ],
       ),
     );

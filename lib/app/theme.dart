@@ -1,5 +1,18 @@
 import 'package:flutter/material.dart';
 
+/// 앱 색상 상수
+class AppColors {
+  static const Color background = Color(0xFF0A0E14);
+  static const Color cardBackground = Color(0xFF141E2B);
+  static const Color primary = Color(0xFF1E3A5F);
+  static const Color accent = Color(0xFF00FF00);
+  static const Color terran = Color(0xFFCC0000);
+  static const Color zerg = Color(0xFF9900CC);
+  static const Color protoss = Color(0xFFFFCC00);
+  static const Color textPrimary = Color(0xFFE0E0E0);
+  static const Color textSecondary = Color(0xFF8899AA);
+}
+
 class AppTheme {
   // 스타크래프트 테마 색상
   static const Color primaryBlue = Color(0xFF1E3A5F);
@@ -60,7 +73,7 @@ class AppTheme {
         elevation: 0,
         centerTitle: true,
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: cardBackground,
         elevation: 4,
         shape: RoundedRectangleBorder(

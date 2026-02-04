@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../app/theme.dart';
+import '../../../core/utils/responsive.dart';
+import '../../widgets/reset_button.dart';
 
 class MatchSimulationScreen extends ConsumerStatefulWidget {
   const MatchSimulationScreen({super.key});
@@ -280,6 +282,7 @@ class _MatchSimulationScreenState extends ConsumerState<MatchSimulationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Responsive.init(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('경기 진행'),
@@ -294,7 +297,9 @@ class _MatchSimulationScreenState extends ConsumerState<MatchSimulationScreen> {
           ),
         ],
       ),
-      body: Column(
+      body: Stack(
+        children: [
+          Column(
         children: [
           // 매치 스코어
           Container(
@@ -430,6 +435,9 @@ class _MatchSimulationScreenState extends ConsumerState<MatchSimulationScreen> {
               ],
             ),
           ),
+        ],
+          ),
+          ResetButton.positioned(),
         ],
       ),
     );
