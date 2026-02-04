@@ -284,29 +284,99 @@ class _TitleScreenState extends ConsumerState<TitleScreen> {
     final teamColor = Color(team['color'] as int);
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24.sp),
+      padding: EdgeInsets.symmetric(horizontal: 16.sp),
+      child: Column(
+        children: [
+          // 상단: 팀 정보 (컴팩트)
+          _buildTeamHeader(team, teamColor),
+
+          SizedBox(height: 12.sp),
+
+          // 중단: 로스터 + 선수 정보 (탭 또는 분할)
+          Expanded(
+            child: Row(
+              children: [
+                // 로스터 리스트
+                Expanded(
+                  flex: 1,
+                  child: _buildRosterList(teamColor),
+                ),
+                SizedBox(width: 8.sp),
+                // 선수 정보
+                Expanded(
+                  flex: 1,
+                  child: _buildPlayerInfo(teamColor),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTeamHeader(Map<String, dynamic> team, Color teamColor) {
+    return Container(
+      padding: EdgeInsets.all(12.sp),
+      decoration: BoxDecoration(
+        color: teamColor.withOpacity(0.15),
+        borderRadius: BorderRadius.circular(8.sp),
+        border: Border.all(color: teamColor.withOpacity(0.5)),
+      ),
       child: Row(
         children: [
-          // 왼쪽: 팀 로고
-          Expanded(
-            flex: 2,
-            child: _buildTeamLogo(team, teamColor),
+          // 팀 로고
+          Container(
+            width: 50.sp,
+            height: 50.sp,
+            decoration: BoxDecoration(
+              color: teamColor.withOpacity(0.3),
+              shape: BoxShape.circle,
+              border: Border.all(color: teamColor, width: 2),
+            ),
+            child: Center(
+              child: Text(
+                team['shortName'] as String,
+                style: TextStyle(
+                  color: teamColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16.sp,
+                ),
+              ),
+            ),
           ),
-
-          SizedBox(width: 16.sp),
-
-          // 중앙: 로스터 리스트
+          SizedBox(width: 12.sp),
+          // 팀 정보
           Expanded(
-            flex: 3,
-            child: _buildRosterList(teamColor),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  team['name'] as String,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 4.sp),
+                Text(
+                  'ACE: ${team['ace']}',
+                  style: TextStyle(
+                    color: Colors.amber,
+                    fontSize: 12.sp,
+                  ),
+                ),
+              ],
+            ),
           ),
-
-          SizedBox(width: 16.sp),
-
-          // 오른쪽: 선수 정보 + 레이더 차트
-          Expanded(
-            flex: 4,
-            child: _buildPlayerInfo(teamColor),
+          // 선수 수
+          Text(
+            '${_teamRoster.length}명',
+            style: TextStyle(
+              color: Colors.grey[400],
+              fontSize: 12.sp,
+            ),
           ),
         ],
       ),

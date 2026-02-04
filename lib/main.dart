@@ -7,12 +7,10 @@ import 'app/app.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // 모든 방향 허용 (사용자가 필요에 따라 회전)
+  // 세로 모드 고정
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
-    DeviceOrientation.landscapeLeft,
-    DeviceOrientation.landscapeRight,
   ]);
 
   // 전체 화면 모드 (상태바, 네비게이션바 숨김)

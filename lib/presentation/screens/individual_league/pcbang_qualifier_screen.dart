@@ -56,30 +56,35 @@ class _PcBangQualifierScreenState extends ConsumerState<PcBangQualifierScreen> {
                 _buildHeader(context, playerTeam),
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.all(16.sp),
-                    child: Row(
+                    padding: EdgeInsets.symmetric(horizontal: 8.sp, vertical: 8.sp),
+                    child: Column(
                       children: [
-                        // 좌측: 24개 조 버튼
-                    SizedBox(
-                      width: 180.sp,
-                      child: _buildGroupButtons(bracket),
+                        // 상단: 24개 조 버튼 (가로 스크롤)
+                        SizedBox(
+                          height: 50.sp,
+                          child: _buildGroupButtons(bracket),
+                        ),
+                        SizedBox(height: 8.sp),
+                        // 중앙: 대진표 + 참가 현황 (좌우 분할)
+                        Expanded(
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 2,
+                                child: _buildCenterPanel(bracket, playerMap, playerTeam),
+                              ),
+                              SizedBox(width: 8.sp),
+                              Expanded(
+                                flex: 1,
+                                child: _buildRightPanel(bracket, playerMap, playerTeam.id),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                    SizedBox(width: 16.sp),
-                    // 중앙: 대진표 또는 상태 메시지
-                    Expanded(
-                      flex: 3,
-                      child: _buildCenterPanel(bracket, playerMap, playerTeam),
-                    ),
-                    SizedBox(width: 16.sp),
-                    // 우측: 참가 현황 또는 통과자 명단
-                    SizedBox(
-                      width: 220.sp,
-                      child: _buildRightPanel(bracket, playerMap, playerTeam.id),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
                 _buildBottomButtons(context, bracket, playerMap),
               ],
             ),
@@ -181,27 +186,21 @@ class _PcBangQualifierScreenState extends ConsumerState<PcBangQualifierScreen> {
         color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(8.sp),
       ),
-      padding: EdgeInsets.all(8.sp),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      padding: EdgeInsets.symmetric(horizontal: 8.sp, vertical: 4.sp),
+      child: Row(
         children: [
           Text(
             '조 선택',
             style: TextStyle(
               color: AppColors.accent,
-              fontSize: 14.sp,
+              fontSize: 12.sp,
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 8.sp),
+          SizedBox(width: 8.sp),
           Expanded(
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 4.sp,
-                crossAxisSpacing: 4.sp,
-                childAspectRatio: 2,
-              ),
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
               itemCount: 24,
               itemBuilder: (context, index) {
                 final isSelected = _selectedGroupIndex == index;
@@ -214,6 +213,8 @@ class _PcBangQualifierScreenState extends ConsumerState<PcBangQualifierScreen> {
                       ? () => setState(() => _selectedGroupIndex = index)
                       : null,
                   child: Container(
+                    width: 40.sp,
+                    margin: EdgeInsets.only(right: 4.sp),
                     decoration: BoxDecoration(
                       color: isSelected
                           ? AppColors.accent.withOpacity(0.3)
@@ -232,7 +233,7 @@ class _PcBangQualifierScreenState extends ConsumerState<PcBangQualifierScreen> {
                           color: isSelected || isRevealed
                               ? Colors.white
                               : Colors.grey,
-                          fontSize: 12.sp,
+                          fontSize: 11.sp,
                           fontWeight:
                               isSelected ? FontWeight.bold : FontWeight.normal,
                         ),

@@ -114,24 +114,34 @@ class _PlayerInfoScreenState extends ConsumerState<PlayerInfoScreen> {
                 // 상단 헤더
                 _buildHeader(selectedTeam, gameState),
 
-                // 메인 컨텐츠
+                // 메인 컨텐츠 - 세로 모드용
                 Expanded(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Column(
                     children: [
-                      // 좌측: 팀 이미지 또는 선수 상세
+                      // 상단: 선수 목록 + 선수 상세 (좌우 분할)
                       Expanded(
-                        flex: 2,
-                        child: _buildLeftPanel(selectedTeam, selectedPlayer),
+                        flex: 3,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // 선수 목록
+                            Expanded(
+                              flex: 2,
+                              child: _buildPlayerList(players),
+                            ),
+                            SizedBox(width: 8.sp),
+                            // 선수 상세 (왼쪽 패널)
+                            Expanded(
+                              flex: 3,
+                              child: _buildLeftPanel(selectedTeam, selectedPlayer),
+                            ),
+                          ],
+                        ),
                       ),
 
-                      // 중앙: 선수 목록
-                      Expanded(
-                        flex: 1,
-                        child: _buildPlayerList(players),
-                      ),
+                      SizedBox(height: 8.sp),
 
-                      // 우측: 팀 정보 또는 선수 전적
+                      // 하단: 팀/선수 전적 정보
                       Expanded(
                         flex: 2,
                         child: _buildRightPanel(selectedTeam, selectedPlayer, gameState),

@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 
 /// 반응형 디자인을 위한 전역 유틸리티 클래스
-/// 세로/가로 모드에 따라 동적으로 기준 해상도 적용
+/// 세로 모드 기준 (360 x 800)
 class Responsive {
   // 모바일 세로 모드 기준
-  static const double basePortraitWidth = 360;
-  static const double basePortraitHeight = 800;
-
-  // 모바일 가로 모드 기준
-  static const double baseLandscapeWidth = 800;
-  static const double baseLandscapeHeight = 360;
+  static const double baseWidth = 360;
+  static const double baseHeight = 800;
 
   static late MediaQueryData _mediaQueryData;
   static late double screenWidth;
@@ -24,11 +20,6 @@ class Responsive {
     screenWidth = _mediaQueryData.size.width;
     screenHeight = _mediaQueryData.size.height;
 
-    // 방향에 따라 기준 해상도 선택
-    final bool portrait = screenHeight > screenWidth;
-    final double baseWidth = portrait ? basePortraitWidth : baseLandscapeWidth;
-    final double baseHeight = portrait ? basePortraitHeight : baseLandscapeHeight;
-
     // 기준 해상도 대비 현재 화면 비율 계산
     scaleWidth = screenWidth / baseWidth;
     scaleHeight = screenHeight / baseHeight;
@@ -37,9 +28,9 @@ class Responsive {
     scale = scaleWidth < scaleHeight ? scaleWidth : scaleHeight;
 
     // 최소 스케일 보장 (너무 작아지지 않도록)
-    if (scale < 0.8) scale = 0.8;
+    if (scale < 0.85) scale = 0.85;
     // 최대 스케일 제한 (태블릿에서 너무 커지지 않도록)
-    if (scale > 2.0) scale = 2.0;
+    if (scale > 1.5) scale = 1.5;
   }
 
   /// 너비 비율 적용

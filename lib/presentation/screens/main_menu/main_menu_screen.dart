@@ -31,28 +31,11 @@ class MainMenuScreen extends ConsumerWidget {
                 // 상단 헤더
                 _buildHeader(playerTeam, seasonNumber),
 
-                // 메인 컨텐츠 - 참조화면처럼 정규시즌 일정만
+                // 메인 컨텐츠 - 세로 모드용 일정
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.all(16.sp),
-                    child: Row(
-                      children: [
-                        // 왼쪽: 팀 로고
-                        _buildTeamLogo(playerTeam),
-
-                        SizedBox(width: 16.sp),
-
-                        // 중앙: 정규 시즌 일정 (메인)
-                        Expanded(
-                          child: _buildSeasonScheduleMain(context, gameState, playerTeam, allTeams, isPreviewMode),
-                        ),
-
-                        SizedBox(width: 16.sp),
-
-                        // 오른쪽: 팀 로고
-                        _buildTeamLogo(playerTeam),
-                      ],
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 12.sp, vertical: 8.sp),
+                    child: _buildSeasonScheduleMain(context, gameState, playerTeam, allTeams, isPreviewMode),
                   ),
                 ),
 
@@ -61,10 +44,10 @@ class MainMenuScreen extends ConsumerWidget {
               ],
             ),
 
-            // R 버튼 (좌측 하단)
+            // R 버튼 (좌측 상단)
             Positioned(
-              bottom: 80.sp,
-              left: 16.sp,
+              top: 60.sp,
+              left: 12.sp,
               child: _buildRButton(context),
             ),
           ],
@@ -1145,28 +1128,19 @@ class MainMenuScreen extends ConsumerWidget {
 
   Widget _buildBottomButtons(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(12.sp),
+      padding: EdgeInsets.symmetric(horizontal: 12.sp, vertical: 8.sp),
       decoration: BoxDecoration(
         color: const Color(0xFF1a1a2e),
         border: Border(
           top: BorderSide(color: Colors.grey[800]!, width: 2),
         ),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          // 아이템 상점
-          _BottomButton(
-            icon: Icons.shopping_cart,
-            label: '아이템 상점',
-            onPressed: () {},
-          ),
-
-          SizedBox(width: 12.sp),
-
           // Next 버튼 (메인)
           SizedBox(
-            width: 200.sp,
+            width: double.infinity,
             height: 44.sp,
             child: ElevatedButton(
               onPressed: () {
@@ -1196,22 +1170,40 @@ class MainMenuScreen extends ConsumerWidget {
             ),
           ),
 
-          SizedBox(width: 12.sp),
+          SizedBox(height: 8.sp),
 
-          // 정보 관리
-          _BottomButton(
-            icon: Icons.info_outline,
-            label: '정보 관리',
-            onPressed: () {},
-          ),
+          // 하단 버튼들
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              // 아이템 상점
+              _BottomButton(
+                icon: Icons.shopping_cart,
+                label: '상점',
+                onPressed: () {},
+              ),
 
-          SizedBox(width: 12.sp),
+              // 정보 관리
+              _BottomButton(
+                icon: Icons.info_outline,
+                label: '정보',
+                onPressed: () {},
+              ),
 
-          // 행동 관리
-          _BottomButton(
-            icon: Icons.settings,
-            label: '행동 관리',
-            onPressed: () {},
+              // 행동 관리
+              _BottomButton(
+                icon: Icons.settings,
+                label: '행동',
+                onPressed: () {},
+              ),
+
+              // 저장
+              _BottomButton(
+                icon: Icons.save,
+                label: '저장',
+                onPressed: () => context.go('/save-load'),
+              ),
+            ],
           ),
 
           SizedBox(width: 12.sp),

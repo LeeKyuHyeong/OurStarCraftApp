@@ -95,44 +95,36 @@ class _TransferScreenState extends ConsumerState<TransferScreen> {
                 // 상단 헤더
                 _buildHeader(context, playerTeam),
 
-                // 메인 컨텐츠
+                // 메인 컨텐츠 - 세로 모드용
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.all(12.sp),
-                    child: Row(
+                    padding: EdgeInsets.symmetric(horizontal: 12.sp, vertical: 8.sp),
+                    child: Column(
                       children: [
-                        // 좌측: 내 팀 선수 목록
+                        // 상단: 정보 패널 (컴팩트)
+                        _buildCompactInfoPanel(playerTeam, myPlayers.length, selectedTargetPlayer, isMyTeamSelected),
+
+                        SizedBox(height: 8.sp),
+
+                        // 중단: 내 팀 + 타겟 선수 (좌우 분할)
                         Expanded(
-                          flex: 2,
-                          child: _buildMyTeamPanel(myPlayers),
-                        ),
-
-                        SizedBox(width: 12.sp),
-
-                        // 중앙: 선수 수 / 보유 금액 / 요구 금액
-                        SizedBox(
-                          width: 120.sp,
-                          child: _buildInfoPanel(
-                            playerTeam,
-                            myPlayers.length,
-                            selectedTargetPlayer,
-                            isMyTeamSelected,
+                          flex: 3,
+                          child: Row(
+                            children: [
+                              // 내 팀 선수 목록
+                              Expanded(child: _buildMyTeamPanel(myPlayers)),
+                              SizedBox(width: 8.sp),
+                              // 타겟 선수 목록
+                              Expanded(child: _buildTargetPanel(targetPlayers)),
+                            ],
                           ),
                         ),
 
-                        SizedBox(width: 12.sp),
+                        SizedBox(height: 8.sp),
 
-                        // 타겟 선수 목록
+                        // 하단: 선택된 선수 상세 정보
                         Expanded(
                           flex: 2,
-                          child: _buildTargetPanel(targetPlayers),
-                        ),
-
-                        SizedBox(width: 12.sp),
-
-                        // 선택된 선수 상세 정보
-                        Expanded(
-                          flex: 3,
                           child: _buildSelectedPlayerPanel(
                             selectedTargetPlayer,
                             playerTeam,
@@ -187,6 +179,54 @@ class _TransferScreenState extends ConsumerState<TransferScreen> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildCompactInfoPanel(Team team, int playerCount, Player? selectedPlayer, bool isRelease) {
+    final requiredMoney = selectedPlayer?.transferFee ?? 0;
+    final releasePrice = selectedPlayer != null ? (selectedPlayer.transferFee * 0.5).round() : 0;
+    final canAfford = team.money >= requiredMoney;
+
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 12.sp, vertical: 8.sp),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1a1a2e),
+        borderRadius: BorderRadius.circular(6.sp),
+        border: Border.all(color: Colors.grey[700]!, width: 1),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          // 선수 수
+          Column(
+            children: [
+              Text('선수 수', style: TextStyle(color: Colors.grey[400], fontSize: 10.sp)),
+              Text('$playerCount/20', style: TextStyle(color: Colors.white, fontSize: 14.sp, fontWeight: FontWeight.bold)),
+            ],
+          ),
+          // 보유 금액
+          Column(
+            children: [
+              Text('보유 금액', style: TextStyle(color: Colors.grey[400], fontSize: 10.sp)),
+              Text('${team.money}만원', style: TextStyle(color: Colors.amber, fontSize: 14.sp, fontWeight: FontWeight.bold)),
+            ],
+          ),
+          // 요구/방출 금액
+          Column(
+            children: [
+              Text(isRelease ? '방출 금액' : '요구 금액', style: TextStyle(color: Colors.grey[400], fontSize: 10.sp)),
+              Text(
+                selectedPlayer != null ? (isRelease ? '+$releasePrice' : '$requiredMoney만원') : '-',
+                style: TextStyle(
+                  color: selectedPlayer != null ? (isRelease ? Colors.green : (canAfford ? Colors.green : Colors.red)) : Colors.grey,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
