@@ -21,12 +21,16 @@ class TransferScreen extends ConsumerStatefulWidget {
 }
 
 class _TransferScreenState extends ConsumerState<TransferScreen> {
-  String? _selectedMyPlayerId;
+  String? _selectedMyPlayerId; // 트레이드에 사용할 내 선수
   String? _selectedTargetPlayerId;
   String _selectedSourceId = 'free_agent'; // 기본값: 무소속
 
   // 영입된 선수 목록 (프리뷰 모드용)
   final List<Player> _recruitedPlayers = [];
+
+  // 트레이드 모드 (다른 팀 선수 선택 시)
+  bool get _isTradeMode =>
+      _selectedSourceId != 'free_agent' && _selectedSourceId != 'my_team';
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +106,7 @@ class _TransferScreenState extends ConsumerState<TransferScreen> {
                     child: Column(
                       children: [
                         // 상단: 정보 패널 (컴팩트)
-                        _buildCompactInfoPanel(playerTeam, myPlayers.length, selectedTargetPlayer, isMyTeamSelected),
+                        _buildCompactInfoPanel(playerTeam, myPlayers.length, selectedTargetPlayer, isMyTeamSelected, myPlayers),
 
                         SizedBox(height: 8.sp),
 
@@ -129,6 +133,7 @@ class _TransferScreenState extends ConsumerState<TransferScreen> {
                             selectedTargetPlayer,
                             playerTeam,
                             isMyTeamSelected,
+                            myPlayers,
                           ),
                         ),
                       ],
@@ -183,10 +188,24 @@ class _TransferScreenState extends ConsumerState<TransferScreen> {
     );
   }
 
-  Widget _buildCompactInfoPanel(Team team, int playerCount, Player? selectedPlayer, bool isRelease) {
+  Widget _buildCompactInfoPanel(Team team, int playerCount, Player? selectedPlayer, bool isRelease, List<Player> myPlayers) {
     final requiredMoney = selectedPlayer?.transferFee ?? 0;
     final releasePrice = selectedPlayer != null ? (selectedPlayer.transferFee * 0.5).round() : 0;
-    final canAfford = team.money >= requiredMoney;
+
+    // 트레이드 모드에서 내 선수 선택 시 차액 계산
+    Player? selectedMyPlayer;
+    int tradeDiff = requiredMoney;
+    if (_isTradeMode && _selectedMyPlayerId != null) {
+      selectedMyPlayer = myPlayers.cast<Player?>().firstWhere(
+        (p) => p?.id == _selectedMyPlayerId,
+        orElse: () => null,
+      );
+      if (selectedMyPlayer != null && selectedPlayer != null) {
+        tradeDiff = requiredMoney - selectedMyPlayer.transferFee;
+      }
+    }
+
+    final canAfford = _isTradeMode ? team.money >= tradeDiff : team.money >= requiredMoney;
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.sp, vertical: 8.sp),
@@ -212,20 +231,36 @@ class _TransferScreenState extends ConsumerState<TransferScreen> {
               Text('${team.money}만원', style: TextStyle(color: Colors.amber, fontSize: 14.sp, fontWeight: FontWeight.bold)),
             ],
           ),
-          // 요구/방출 금액
-          Column(
-            children: [
-              Text(isRelease ? '방출 금액' : '요구 금액', style: TextStyle(color: Colors.grey[400], fontSize: 10.sp)),
-              Text(
-                selectedPlayer != null ? (isRelease ? '+$releasePrice' : '$requiredMoney만원') : '-',
-                style: TextStyle(
-                  color: selectedPlayer != null ? (isRelease ? Colors.green : (canAfford ? Colors.green : Colors.red)) : Colors.grey,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.bold,
+          // 요구/방출/트레이드 금액
+          if (_isTradeMode && selectedPlayer != null) ...[
+            Column(
+              children: [
+                Text('트레이드 차액', style: TextStyle(color: Colors.grey[400], fontSize: 10.sp)),
+                Text(
+                  selectedMyPlayer != null ? '${tradeDiff >= 0 ? "" : "+"}${tradeDiff.abs()}만원' : '선수 선택',
+                  style: TextStyle(
+                    color: selectedMyPlayer != null ? (tradeDiff <= 0 ? Colors.green : (canAfford ? Colors.cyan : Colors.red)) : Colors.grey,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
+          ] else ...[
+            Column(
+              children: [
+                Text(isRelease ? '방출 금액' : '요구 금액', style: TextStyle(color: Colors.grey[400], fontSize: 10.sp)),
+                Text(
+                  selectedPlayer != null ? (isRelease ? '+$releasePrice' : '$requiredMoney만원') : '-',
+                  style: TextStyle(
+                    color: selectedPlayer != null ? (isRelease ? Colors.green : (canAfford ? Colors.green : Colors.red)) : Colors.grey,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ],
         ],
       ),
     );
@@ -312,6 +347,7 @@ class _TransferScreenState extends ConsumerState<TransferScreen> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(6.sp),
+        border: _isTradeMode ? Border.all(color: Colors.cyan, width: 2) : null,
       ),
       child: Column(
         children: [
@@ -319,24 +355,24 @@ class _TransferScreenState extends ConsumerState<TransferScreen> {
           Container(
             padding: EdgeInsets.all(8.sp),
             decoration: BoxDecoration(
-              color: Colors.grey[100],
-              borderRadius: BorderRadius.vertical(top: Radius.circular(6.sp)),
+              color: _isTradeMode ? Colors.cyan[50] : Colors.grey[100],
+              borderRadius: BorderRadius.vertical(top: Radius.circular(4.sp)),
             ),
             child: Column(
               children: [
                 Text(
                   'MY TEAM',
                   style: TextStyle(
-                    color: Colors.red[700],
+                    color: _isTradeMode ? Colors.cyan[700] : Colors.red[700],
                     fontSize: 12.sp,
                     fontWeight: FontWeight.bold,
                     fontStyle: FontStyle.italic,
                   ),
                 ),
                 Text(
-                  'PLAYER',
+                  _isTradeMode ? '트레이드용 선택' : 'PLAYER',
                   style: TextStyle(
-                    color: Colors.red[700],
+                    color: _isTradeMode ? Colors.cyan[700] : Colors.red[700],
                     fontSize: 10.sp,
                     fontStyle: FontStyle.italic,
                   ),
@@ -360,6 +396,7 @@ class _TransferScreenState extends ConsumerState<TransferScreen> {
                     _selectedMyPlayerId = isSelected ? null : player.id;
                   }),
                   showGrade: true,
+                  highlightColor: _isTradeMode ? Colors.cyan : null,
                 );
               },
             ),
@@ -425,21 +462,23 @@ class _TransferScreenState extends ConsumerState<TransferScreen> {
     bool isSelected,
     VoidCallback onTap, {
     bool showGrade = false,
+    Color? highlightColor,
   }) {
+    final selectColor = highlightColor ?? Colors.amber;
     return GestureDetector(
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 8.sp, vertical: 5.sp),
         margin: EdgeInsets.only(bottom: 2.sp),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.amber.withOpacity(0.3) : null,
+          color: isSelected ? selectColor.withOpacity(0.3) : null,
           borderRadius: BorderRadius.circular(4.sp),
-          border: isSelected ? Border.all(color: Colors.amber, width: 1) : null,
+          border: isSelected ? Border.all(color: selectColor, width: 1) : null,
         ),
         child: Row(
           children: [
             if (isSelected)
-              Icon(Icons.check, size: 12.sp, color: Colors.amber[800]),
+              Icon(Icons.check, size: 12.sp, color: selectColor),
             if (isSelected) SizedBox(width: 4.sp),
             Expanded(
               child: Text(
@@ -575,7 +614,7 @@ class _TransferScreenState extends ConsumerState<TransferScreen> {
     );
   }
 
-  Widget _buildSelectedPlayerPanel(Player? player, Team playerTeam, bool isRelease) {
+  Widget _buildSelectedPlayerPanel(Player? player, Team playerTeam, bool isRelease, List<Player> myPlayers) {
     if (player == null) {
       return Container(
         decoration: BoxDecoration(
@@ -604,7 +643,20 @@ class _TransferScreenState extends ConsumerState<TransferScreen> {
       );
     }
 
-    final canAfford = playerTeam.money >= player.transferFee;
+    // 트레이드 모드에서 내 선수 선택 시 차액 계산
+    Player? selectedMyPlayer;
+    int tradeDiff = player.transferFee;
+    if (_isTradeMode && _selectedMyPlayerId != null) {
+      selectedMyPlayer = myPlayers.cast<Player?>().firstWhere(
+        (p) => p?.id == _selectedMyPlayerId,
+        orElse: () => null,
+      );
+      if (selectedMyPlayer != null) {
+        tradeDiff = player.transferFee - selectedMyPlayer.transferFee;
+      }
+    }
+
+    final canAfford = _isTradeMode ? playerTeam.money >= tradeDiff : playerTeam.money >= player.transferFee;
     // 방출 시 받는 금액 (몸값의 50%)
     final releasePrice = (player.transferFee * 0.5).round();
 
@@ -776,7 +828,7 @@ class _TransferScreenState extends ConsumerState<TransferScreen> {
                   ),
                 ),
 
-                // 방출 또는 영입 버튼
+                // 방출, 트레이드, 또는 영입 버튼
                 if (isRelease)
                   ElevatedButton(
                     onPressed: () {
@@ -803,6 +855,51 @@ class _TransferScreenState extends ConsumerState<TransferScreen> {
                       ),
                     ),
                   )
+                else if (_isTradeMode)
+                  // 트레이드 모드
+                  selectedMyPlayer == null
+                      ? Text(
+                          '내 선수 선택 필요',
+                          style: TextStyle(
+                            color: Colors.cyan[400],
+                            fontSize: 12.sp,
+                          ),
+                        )
+                      : canAfford
+                          ? ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  // 트레이드: 상대 선수 영입, 내 선수 방출
+                                  _recruitedPlayers.add(player.copyWith(teamId: 'my_team'));
+                                  _recruitedPlayers.removeWhere((p) => p.id == selectedMyPlayer!.id);
+                                  _selectedTargetPlayerId = null;
+                                  _selectedMyPlayerId = null;
+                                });
+                                _showMessage('${selectedMyPlayer!.name} ↔ ${player.name} 트레이드 완료! (차액: ${tradeDiff >= 0 ? "-" : "+"}${tradeDiff.abs()}만원)');
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.cyan,
+                                foregroundColor: Colors.white,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 16.sp,
+                                  vertical: 8.sp,
+                                ),
+                              ),
+                              child: Text(
+                                '트레이드 (${tradeDiff >= 0 ? "-" : "+"}${tradeDiff.abs()})',
+                                style: TextStyle(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            )
+                          : Text(
+                              '차액 부족 (${tradeDiff}만원)',
+                              style: TextStyle(
+                                color: Colors.red[400],
+                                fontSize: 12.sp,
+                              ),
+                            )
                 else if (canAfford)
                   ElevatedButton(
                     onPressed: () {

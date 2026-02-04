@@ -365,7 +365,7 @@ class _TeamRankingScreenState extends ConsumerState<TeamRankingScreen> {
 
           // EXIT 버튼
           ElevatedButton(
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () => context.go('/main'),
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.cardBackground,
               padding: EdgeInsets.symmetric(horizontal: 48.sp, vertical: 12.sp),
