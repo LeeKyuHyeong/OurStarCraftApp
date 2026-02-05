@@ -107,7 +107,7 @@ class GameMaps {
 
   static const iccupOutlier = GameMap(
     id: 'iccup_outlier',
-    name: '아이웃라이어',
+    name: '아웃라이어',
     rushDistance: 5,
     resources: 5,
     complexity: 6,
@@ -211,7 +211,7 @@ class GameMaps {
 
   static const fightingSpirit = GameMap(
     id: 'fighting_spirit',
-    name: '파이팅 스피릿',
+    name: '투혼',
     rushDistance: 5,
     resources: 5,
     complexity: 5,

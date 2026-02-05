@@ -9,14 +9,20 @@ MyStar - 스타크래프트 프로게이머/팀 육성 시뮬레이션 게임 (F
 ## Build Commands
 
 ```bash
+# 앱 실행 (디버그)
+flutter run
+
 # 릴리스 APK 빌드
 flutter build apk --release
 
-# Hive 모델 변경 시 코드 생성
+# Hive 모델 변경 시 코드 생성 (*.g.dart 파일 재생성)
 dart run build_runner build --delete-conflicting-outputs
 
-# 앱 실행
-flutter run
+# 린트 검사
+flutter analyze
+
+# 테스트 실행
+flutter test
 ```
 
 ## Architecture
@@ -54,6 +60,12 @@ lib/
 - `Match`: 경기 정보 (7전 4선승제)
 - `Season`: 시즌 (프로리그 + 개인리그)
 - Hive 어노테이션 사용 (`@HiveType`, `@HiveField`) - 모델 변경 시 `build_runner` 실행 필요
+- **Hive TypeId 규칙**: PlayerStats=0, Player=1, Team=2, Match=3, Season=4 등 순차 할당
+
+### Navigation (`app/routes.dart`)
+- GoRouter 사용, 명명된 라우트로 이동: `context.pushNamed('teamSelect')`
+- 쿼리 파라미터 지원: `/individual-league/pcbang?viewOnly=true`
+- 경로 파라미터 지원: `/individual-league/dual/:round`
 
 ### Match Simulation (`match_simulation_service.dart`)
 - 빌드오더 기반 경기 시뮬레이션
@@ -72,6 +84,12 @@ lib/
 - **Overflow 방지**: `Expanded`, `Flexible`, `TextOverflow.ellipsis` 사용
 - **반응형 크기**: `Responsive.sp()` 사용 (고정 픽셀 금지)
 - **기준 해상도**: 360 x 800 (세로 모드 고정)
+
+## Code Style
+
+- `*.g.dart`, `*.freezed.dart` 파일은 자동 생성 - 직접 수정 금지
+- `prefer_const_constructors` 활성화 - 가능한 곳에 `const` 사용
+- `avoid_print: false` - 디버그용 print 허용
 
 ## Game Design Reference
 

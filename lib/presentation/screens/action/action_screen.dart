@@ -16,7 +16,7 @@ class ActionScreen extends ConsumerStatefulWidget {
 
 class _ActionScreenState extends ConsumerState<ActionScreen> {
   ActionType _selectedAction = ActionType.rest;
-  String? _selectedPlayerId;
+  Set<String> _selectedPlayerIds = {};
 
   @override
   Widget build(BuildContext context) {
@@ -37,208 +37,341 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
         leading: ResetButton.leading(),
       ),
       body: Column(
-            children: [
-              // 상단: 행동력 표시
-              Container(
-                padding: const EdgeInsets.all(16),
-                color: AppTheme.cardBackground,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          // 상단: 행동력 표시
+          Container(
+            padding: const EdgeInsets.all(16),
+            color: AppTheme.cardBackground,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  '보유 행동력',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: AppTheme.textSecondary,
+                  ),
+                ),
+                Row(
                   children: [
-                    const Text(
-                      '보유 행동력',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: AppTheme.textSecondary,
-                      ),
+                    const Icon(
+                      Icons.flash_on,
+                      color: AppTheme.accentGreen,
                     ),
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.flash_on,
-                          color: AppTheme.accentGreen,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          '$actionPoints',
-                          style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: AppTheme.accentGreen,
-                          ),
-                        ),
-                      ],
+                    const SizedBox(width: 8),
+                    Text(
+                      '$actionPoints',
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: AppTheme.accentGreen,
+                      ),
                     ),
                   ],
                 ),
-              ),
-              const Divider(height: 1),
-              // 메인 콘텐츠
-              Expanded(
-                child: Row(
-                  children: [
-                    // 왼쪽: 선수 목록
-                    SizedBox(
-                      width: 160,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.all(12),
-                            child: Text(
+              ],
+            ),
+          ),
+          const Divider(height: 1),
+          // 메인 콘텐츠
+          Expanded(
+            child: Row(
+              children: [
+                // 왼쪽: 선수 목록
+                SizedBox(
+                  width: 180,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // 선수 목록 헤더 + 전체선택/해제
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
                               '선수 목록',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: AppTheme.textSecondary,
                               ),
                             ),
-                          ),
-                          Expanded(
-                            child: ListView.builder(
-                              padding: const EdgeInsets.symmetric(horizontal: 8),
-                              itemCount: players.length,
-                              itemBuilder: (context, index) {
-                                final player = players[index];
-                                final isSelected = player.id == _selectedPlayerId;
-                                return Card(
-                                  color: isSelected
-                                      ? AppTheme.primaryBlue
-                                      : AppTheme.cardBackground,
-                                  margin: const EdgeInsets.only(bottom: 4),
-                                  child: InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        _selectedPlayerId = player.id;
-                                      });
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8),
-                                      child: Row(
-                                        children: [
-                                          CircleAvatar(
-                                            radius: 12,
-                                            backgroundColor: AppTheme.getRaceColor(player.race.code),
-                                            child: Text(
-                                              player.race.code,
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 9,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
+                            Row(
+                              children: [
+                                _buildSelectAllButton(players),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          itemCount: players.length,
+                          itemBuilder: (context, index) {
+                            final player = players[index];
+                            final isSelected = _selectedPlayerIds.contains(player.id);
+                            final canDoAction = _canPlayerDoAction(player);
+
+                            return Card(
+                              color: isSelected
+                                  ? AppTheme.primaryBlue
+                                  : canDoAction
+                                      ? AppTheme.cardBackground
+                                      : AppTheme.cardBackground.withOpacity(0.5),
+                              margin: const EdgeInsets.only(bottom: 4),
+                              child: InkWell(
+                                onTap: canDoAction
+                                    ? () {
+                                        setState(() {
+                                          if (isSelected) {
+                                            _selectedPlayerIds.remove(player.id);
+                                          } else {
+                                            _selectedPlayerIds.add(player.id);
+                                          }
+                                        });
+                                      }
+                                    : null,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Row(
+                                    children: [
+                                      // 체크박스
+                                      SizedBox(
+                                        width: 24,
+                                        height: 24,
+                                        child: Checkbox(
+                                          value: isSelected,
+                                          onChanged: canDoAction
+                                              ? (value) {
+                                                  setState(() {
+                                                    if (value == true) {
+                                                      _selectedPlayerIds.add(player.id);
+                                                    } else {
+                                                      _selectedPlayerIds.remove(player.id);
+                                                    }
+                                                  });
+                                                }
+                                              : null,
+                                          activeColor: AppTheme.accentGreen,
+                                          checkColor: Colors.black,
+                                          side: BorderSide(
+                                            color: canDoAction
+                                                ? AppTheme.textSecondary
+                                                : AppTheme.textSecondary.withOpacity(0.3),
                                           ),
-                                          const SizedBox(width: 6),
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 4),
+                                      CircleAvatar(
+                                        radius: 12,
+                                        backgroundColor: canDoAction
+                                            ? AppTheme.getRaceColor(player.race.code)
+                                            : AppTheme.getRaceColor(player.race.code).withOpacity(0.4),
+                                        child: Text(
+                                          player.race.code,
+                                          style: TextStyle(
+                                            color: canDoAction ? Colors.white : Colors.white54,
+                                            fontSize: 9,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 6),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              player.name,
+                                              style: TextStyle(
+                                                fontSize: 11,
+                                                color: isSelected
+                                                    ? Colors.white
+                                                    : canDoAction
+                                                        ? AppTheme.textPrimary
+                                                        : AppTheme.textSecondary,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                            Row(
                                               children: [
                                                 Text(
-                                                  player.name,
-                                                  style: TextStyle(
-                                                    fontSize: 11,
-                                                    color: isSelected
-                                                        ? Colors.white
-                                                        : AppTheme.textPrimary,
-                                                  ),
-                                                  overflow: TextOverflow.ellipsis,
-                                                ),
-                                                Text(
-                                                  '컨디션 ${player.condition.clamp(0, 100)}%',
+                                                  '${player.condition.clamp(0, 100)}%',
                                                   style: TextStyle(
                                                     fontSize: 9,
                                                     color: isSelected
                                                         ? Colors.white70
-                                                        : _getConditionColor(player.condition),
+                                                        : canDoAction
+                                                            ? _getConditionColor(player.condition)
+                                                            : AppTheme.textSecondary.withOpacity(0.5),
                                                   ),
                                                 ),
+                                                if (!canDoAction) ...[
+                                                  const SizedBox(width: 4),
+                                                  Text(
+                                                    _getDisabledReason(player),
+                                                    style: TextStyle(
+                                                      fontSize: 8,
+                                                      color: Colors.red.withOpacity(0.7),
+                                                    ),
+                                                  ),
+                                                ],
                                               ],
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    // 오른쪽: 행동 선택 및 실행
-                    Expanded(
-                      child: Column(
-                        children: [
-                          // 행동 선택 버튼
-                          Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Row(
-                              children: [
-                                _buildActionButton(
-                                  ActionType.rest,
-                                  '휴식',
-                                  Icons.hotel,
-                                  50,
-                                  actionPoints,
-                                ),
-                                const SizedBox(width: 8),
-                                _buildActionButton(
-                                  ActionType.training,
-                                  '특훈',
-                                  Icons.fitness_center,
-                                  100,
-                                  actionPoints,
-                                ),
-                                const SizedBox(width: 8),
-                                _buildActionButton(
-                                  ActionType.fanMeeting,
-                                  '팬미팅',
-                                  Icons.people,
-                                  200,
-                                  actionPoints,
-                                ),
-                              ],
-                            ),
-                          ),
-                          const Divider(),
-                          // 행동 상세 정보
-                          Expanded(
-                            child: _buildActionDetail(actionPoints, players),
-                          ),
-                          // 실행 버튼
-                          Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: SizedBox(
-                              width: double.infinity,
-                              height: 56,
-                              child: ElevatedButton(
-                                onPressed: _canExecuteAction(actionPoints)
-                                    ? () => _executeAction(players)
-                                    : null,
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppTheme.accentGreen,
-                                  foregroundColor: Colors.black,
-                                  disabledBackgroundColor: AppTheme.cardBackground,
-                                ),
-                                child: Text(
-                                  _getExecuteButtonText(actionPoints),
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
+                                    ],
                                   ),
                                 ),
                               ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                // 오른쪽: 행동 선택 및 실행
+                Expanded(
+                  child: Column(
+                    children: [
+                      // 행동 선택 버튼
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Row(
+                          children: [
+                            _buildActionButton(
+                              ActionType.rest,
+                              '휴식',
+                              Icons.hotel,
+                              50,
+                              actionPoints,
+                            ),
+                            const SizedBox(width: 8),
+                            _buildActionButton(
+                              ActionType.training,
+                              '특훈',
+                              Icons.fitness_center,
+                              100,
+                              actionPoints,
+                            ),
+                            const SizedBox(width: 8),
+                            _buildActionButton(
+                              ActionType.fanMeeting,
+                              '팬미팅',
+                              Icons.people,
+                              200,
+                              actionPoints,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Divider(),
+                      // 행동 상세 정보
+                      Expanded(
+                        child: _buildActionDetail(actionPoints, players),
+                      ),
+                      // 실행 버튼
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: SizedBox(
+                          width: double.infinity,
+                          height: 56,
+                          child: ElevatedButton(
+                            onPressed: _canExecuteAction(actionPoints)
+                                ? () => _executeAction(players)
+                                : null,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppTheme.accentGreen,
+                              foregroundColor: Colors.black,
+                              disabledBackgroundColor: AppTheme.cardBackground,
+                            ),
+                            child: Text(
+                              _getExecuteButtonText(actionPoints),
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
+        ],
+      ),
     );
+  }
+
+  Widget _buildSelectAllButton(List<Player> players) {
+    final availablePlayers = players.where(_canPlayerDoAction).toList();
+    final allSelected = availablePlayers.isNotEmpty &&
+        availablePlayers.every((p) => _selectedPlayerIds.contains(p.id));
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          if (allSelected) {
+            // 전체 해제
+            _selectedPlayerIds.clear();
+          } else {
+            // 가능한 선수만 전체 선택
+            _selectedPlayerIds = availablePlayers.map((p) => p.id).toSet();
+          }
+        });
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        decoration: BoxDecoration(
+          color: allSelected ? AppTheme.primaryBlue : AppTheme.cardBackground,
+          borderRadius: BorderRadius.circular(4),
+          border: Border.all(
+            color: AppTheme.primaryBlue,
+            width: 1,
+          ),
+        ),
+        child: Text(
+          allSelected ? '해제' : '전체',
+          style: TextStyle(
+            fontSize: 10,
+            color: allSelected ? Colors.white : AppTheme.textPrimary,
+          ),
+        ),
+      ),
+    );
+  }
+
+  bool _canPlayerDoAction(Player player) {
+    switch (_selectedAction) {
+      case ActionType.rest:
+        // 휴식: 컨디션 100 미만인 선수만 가능
+        return player.condition < 100;
+      case ActionType.training:
+        // 특훈: 모든 선수 가능
+        return true;
+      case ActionType.fanMeeting:
+        // 팬미팅: 모든 선수 가능
+        return true;
+    }
+  }
+
+  String _getDisabledReason(Player player) {
+    switch (_selectedAction) {
+      case ActionType.rest:
+        if (player.condition >= 100) {
+          return '(최상)';
+        }
+        return '';
+      case ActionType.training:
+      case ActionType.fanMeeting:
+        return '';
+    }
   }
 
   Widget _buildActionButton(
@@ -256,6 +389,8 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
         onTap: () {
           setState(() {
             _selectedAction = action;
+            // 행동 변경 시 선택된 선수 초기화 (새 행동에서 불가능한 선수가 있을 수 있음)
+            _selectedPlayerIds.clear();
           });
         },
         child: Container(
@@ -338,12 +473,10 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
         break;
     }
 
-    final selectedPlayer = _selectedPlayerId != null
-        ? players.cast<Player?>().firstWhere(
-              (p) => p?.id == _selectedPlayerId,
-              orElse: () => null,
-            )
-        : null;
+    final selectedPlayers = players
+        .where((p) => _selectedPlayerIds.contains(p.id))
+        .toList();
+    final totalCost = cost * selectedPlayers.length;
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
@@ -396,7 +529,7 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('소모 행동력'),
+                    const Text('1인당 행동력'),
                     Text(
                       '$cost',
                       style: TextStyle(
@@ -408,20 +541,40 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
                     ),
                   ],
                 ),
+                if (selectedPlayers.isNotEmpty) ...[
+                  const SizedBox(height: 8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('총 소모 (${selectedPlayers.length}명)'),
+                      Text(
+                        '$totalCost',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: actionPoints >= totalCost
+                              ? AppTheme.accentGreen
+                              : Colors.red,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ],
             ),
           ),
           const SizedBox(height: 16),
           // 선택된 선수 정보
-          if (selectedPlayer != null) ...[
-            const Text(
-              '선택된 선수',
-              style: TextStyle(
+          if (selectedPlayers.isNotEmpty) ...[
+            Text(
+              '선택된 선수 (${selectedPlayers.length}명)',
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 8),
-            Container(
+            ...selectedPlayers.map((player) => Container(
+              margin: const EdgeInsets.only(bottom: 8),
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: AppTheme.cardBackground,
@@ -431,12 +584,13 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
               child: Row(
                 children: [
                   CircleAvatar(
-                    radius: 24,
-                    backgroundColor: AppTheme.getRaceColor(selectedPlayer.race.code),
+                    radius: 16,
+                    backgroundColor: AppTheme.getRaceColor(player.race.code),
                     child: Text(
-                      selectedPlayer.race.code,
+                      player.race.code,
                       style: const TextStyle(
                         color: Colors.white,
+                        fontSize: 10,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -447,37 +601,37 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          selectedPlayer.name,
+                          player.name,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
+                            fontSize: 13,
                           ),
                         ),
-                        const SizedBox(height: 4),
                         Row(
                           children: [
                             Container(
                               padding: const EdgeInsets.symmetric(
-                                horizontal: 6,
-                                vertical: 2,
+                                horizontal: 4,
+                                vertical: 1,
                               ),
                               decoration: BoxDecoration(
-                                color: AppTheme.getGradeColor(selectedPlayer.grade.display),
-                                borderRadius: BorderRadius.circular(4),
+                                color: AppTheme.getGradeColor(player.grade.display),
+                                borderRadius: BorderRadius.circular(2),
                               ),
                               child: Text(
-                                selectedPlayer.grade.display,
+                                player.grade.display,
                                 style: const TextStyle(
                                   color: Colors.black,
-                                  fontSize: 10,
+                                  fontSize: 9,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
-                            const SizedBox(width: 8),
+                            const SizedBox(width: 6),
                             Text(
-                              'Lv.${selectedPlayer.level}',
+                              'Lv.${player.level}',
                               style: const TextStyle(
-                                fontSize: 12,
+                                fontSize: 10,
                                 color: AppTheme.textSecondary,
                               ),
                             ),
@@ -492,23 +646,23 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
                       const Text(
                         '컨디션',
                         style: TextStyle(
-                          fontSize: 10,
+                          fontSize: 9,
                           color: AppTheme.textSecondary,
                         ),
                       ),
                       Text(
-                        '${selectedPlayer.condition.clamp(0, 100)}%',
+                        '${player.condition.clamp(0, 100)}%',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 14,
                           fontWeight: FontWeight.bold,
-                          color: _getConditionColor(selectedPlayer.condition),
+                          color: _getConditionColor(player.condition),
                         ),
                       ),
                     ],
                   ),
                 ],
               ),
-            ),
+            )),
           ] else ...[
             Container(
               padding: const EdgeInsets.all(24),
@@ -522,7 +676,8 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
               ),
               child: const Center(
                 child: Text(
-                  '왼쪽에서 선수를 선택하세요',
+                  '왼쪽에서 선수를 선택하세요\n(복수 선택 가능)',
+                  textAlign: TextAlign.center,
                   style: TextStyle(color: AppTheme.textSecondary),
                 ),
               ),
@@ -540,73 +695,113 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
   }
 
   bool _canExecuteAction(int actionPoints) {
-    if (_selectedPlayerId == null) return false;
+    if (_selectedPlayerIds.isEmpty) return false;
 
+    int costPerPlayer;
     switch (_selectedAction) {
       case ActionType.rest:
-        return actionPoints >= 50;
+        costPerPlayer = 50;
+        break;
       case ActionType.training:
-        return actionPoints >= 100;
+        costPerPlayer = 100;
+        break;
       case ActionType.fanMeeting:
-        return actionPoints >= 200;
+        costPerPlayer = 200;
+        break;
     }
+
+    final totalCost = costPerPlayer * _selectedPlayerIds.length;
+    return actionPoints >= totalCost;
   }
 
   String _getExecuteButtonText(int actionPoints) {
-    if (_selectedPlayerId == null) return '선수를 선택하세요';
+    if (_selectedPlayerIds.isEmpty) return '선수를 선택하세요';
 
-    int requiredPoints;
+    int costPerPlayer;
     switch (_selectedAction) {
       case ActionType.rest:
-        requiredPoints = 50;
+        costPerPlayer = 50;
         break;
       case ActionType.training:
-        requiredPoints = 100;
+        costPerPlayer = 100;
         break;
       case ActionType.fanMeeting:
-        requiredPoints = 200;
+        costPerPlayer = 200;
         break;
     }
 
-    if (actionPoints < requiredPoints) {
-      return '행동력 부족 (${requiredPoints - actionPoints} 필요)';
+    final totalCost = costPerPlayer * _selectedPlayerIds.length;
+
+    if (actionPoints < totalCost) {
+      return '행동력 부족 (${totalCost - actionPoints} 필요)';
     }
 
-    return '실행';
+    return '실행 (${_selectedPlayerIds.length}명)';
   }
 
   void _executeAction(List<Player> players) {
-    if (_selectedPlayerId == null) return;
+    if (_selectedPlayerIds.isEmpty) return;
 
-    final player = players.firstWhere((p) => p.id == _selectedPlayerId);
+    final selectedPlayers = players
+        .where((p) => _selectedPlayerIds.contains(p.id))
+        .toList();
     final notifier = ref.read(gameStateProvider.notifier);
+
+    List<String> resultMessages = [];
+    int totalMoney = 0;
+    int cheerfulCount = 0;
 
     switch (_selectedAction) {
       case ActionType.rest:
-        notifier.playerRest(_selectedPlayerId!);
+        for (final player in selectedPlayers) {
+          notifier.playerRest(player.id);
+          resultMessages.add('${player.name}: 컨디션 회복');
+        }
         _showResultDialog(
           '휴식 완료',
-          '${player.name} 선수가 휴식을 취했습니다.\n컨디션이 회복되었습니다.',
+          '${selectedPlayers.length}명의 선수가 휴식을 취했습니다.\n\n${resultMessages.join('\n')}',
           Icons.hotel,
         );
         break;
       case ActionType.training:
-        notifier.playerTraining(_selectedPlayerId!);
+        for (final player in selectedPlayers) {
+          notifier.playerTraining(player.id);
+          resultMessages.add('${player.name}: 능력치 상승');
+        }
         _showResultDialog(
           '특훈 완료',
-          '${player.name} 선수가 특훈을 완료했습니다.\n능력치가 상승했습니다.',
+          '${selectedPlayers.length}명의 선수가 특훈을 완료했습니다.\n\n${resultMessages.join('\n')}',
           Icons.fitness_center,
         );
         break;
       case ActionType.fanMeeting:
-        final (gotCheerful, moneyEarned) = notifier.playerFanMeeting(_selectedPlayerId!);
-        String message = '${player.name} 선수가 팬미팅을 진행했습니다.\n소지금 +${moneyEarned}만원';
-        if (gotCheerful) {
-          message += '\n\n치어풀을 획득했습니다!';
+        for (final player in selectedPlayers) {
+          final (gotCheerful, moneyEarned) = notifier.playerFanMeeting(player.id);
+          totalMoney += moneyEarned;
+          if (gotCheerful) {
+            cheerfulCount++;
+            resultMessages.add('${player.name}: +${moneyEarned}만원, 치어풀 획득!');
+          } else {
+            resultMessages.add('${player.name}: +${moneyEarned}만원');
+          }
         }
-        _showResultDialog('팬미팅 완료', message, Icons.people);
+        String summary = '${selectedPlayers.length}명의 선수가 팬미팅을 진행했습니다.\n'
+            '총 수입: ${totalMoney}만원';
+        if (cheerfulCount > 0) {
+          summary += '\n치어풀 획득: ${cheerfulCount}명';
+        }
+        _showResultDialog(
+          '팬미팅 완료',
+          '$summary\n\n${resultMessages.join('\n')}',
+          Icons.people,
+        );
         break;
     }
+
+    // 실행 후 선택 초기화
+    setState(() {
+      _selectedPlayerIds.clear();
+    });
   }
 
   void _showResultDialog(String title, String message, IconData icon) {
@@ -621,9 +816,11 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
             Text(title),
           ],
         ),
-        content: Text(
-          message,
-          style: const TextStyle(height: 1.5),
+        content: SingleChildScrollView(
+          child: Text(
+            message,
+            style: const TextStyle(height: 1.5),
+          ),
         ),
         actions: [
           TextButton(

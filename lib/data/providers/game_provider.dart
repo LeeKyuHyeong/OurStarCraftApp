@@ -1144,12 +1144,12 @@ class GameStateNotifier extends StateNotifier<GameState?> {
   Season _createNewSeason(int seasonNumber) {
     final random = DateTime.now().millisecondsSinceEpoch;
 
-    // 시즌맵 랜덤 선정 (7개)
+    // 시즌맵 랜덤 선정 (7개) - game_map.dart의 ID와 일치
     final allMapIds = [
-      'map_fighting_spirit', 'map_longinus', 'map_aztec',
-      'map_destination', 'map_jade', 'map_circuit_breaker',
-      'map_tau_cross', 'map_python', 'map_rush_hour',
-      'map_ground_zero', 'map_medusa', 'map_colosseum',
+      'neo_electric_circuit', 'iccup_outlier', 'chain_reaction',
+      'neo_jade', 'circuit_breaker', 'new_sniper_ridge',
+      'ground_zero', 'neo_bit_way', 'destination',
+      'fighting_spirit', 'match_point', 'python',
     ];
     final shuffledMaps = List<String>.from(allMapIds)..shuffle(Random(random));
     final seasonMaps = shuffledMaps.take(7).toList();
