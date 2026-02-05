@@ -310,17 +310,14 @@ class _RosterSelectScreenState extends ConsumerState<RosterSelectScreen> {
                   setState(() {
                     _selectedMyPlayerIndex = index;
                   });
+                  // 싱글탭으로 배치 (미배치 선수 + 빈 슬롯일 때)
+                  if (!isAssigned && _focusedMapIndex < 6 && selectedPlayers[_focusedMapIndex] == null) {
+                    setState(() {
+                      selectedPlayers[_focusedMapIndex] = index;
+                    });
+                    _moveToNextEmptySlot();
+                  }
                 },
-                onDoubleTap: isAssigned
-                    ? null
-                    : () {
-                        if (_focusedMapIndex < 6 && selectedPlayers[_focusedMapIndex] == null) {
-                          setState(() {
-                            selectedPlayers[_focusedMapIndex] = index;
-                          });
-                          _moveToNextEmptySlot();
-                        }
-                      },
               );
             },
           ),
@@ -344,6 +341,9 @@ class _RosterSelectScreenState extends ConsumerState<RosterSelectScreen> {
       );
     }
 
+    final mapData = getMapByName(currentMap.name);
+    final imageFile = mapData?.imageFile ?? '';
+
     return Container(
       height: 70,
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
@@ -355,81 +355,98 @@ class _RosterSelectScreenState extends ConsumerState<RosterSelectScreen> {
       ),
       child: Row(
         children: [
-          // 세트 번호
+          // 왼쪽: 종족 상성 (세로)
           Container(
-            width: 18, height: 18,
+            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
             decoration: BoxDecoration(
-              color: AppTheme.accentGreen,
-              borderRadius: BorderRadius.circular(9),
+              color: const Color(0xFF252540),
+              borderRadius: BorderRadius.circular(4),
+              border: Border.all(color: Colors.grey.withOpacity(0.3)),
             ),
-            child: Center(
-              child: Text('${_focusedMapIndex + 1}', style: const TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: Colors.black)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _MatchupRowMini('T', 'Z', currentMap.matchup.tvzTerranWinRate),
+                _MatchupRowMini('Z', 'P', currentMap.matchup.zvpZergWinRate),
+                _MatchupRowMini('P', 'T', currentMap.matchup.pvtProtossWinRate),
+              ],
             ),
-          ),
-          const SizedBox(width: 4),
-          // 맵 썸네일
-          Builder(
-            builder: (context) {
-              final mapData = getMapByName(currentMap.name);
-              final imageFile = mapData?.imageFile ?? '';
-              return Container(
-                width: 56,
-                height: 56,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  border: Border.all(color: AppTheme.primaryBlue.withOpacity(0.3)),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(4),
-                  child: imageFile.isEmpty
-                      ? Container(
-                          color: AppTheme.cardBackground,
-                          child: const Icon(Icons.map, size: 24, color: AppTheme.textSecondary),
-                        )
-                      : Image.asset(
-                          'assets/maps/$imageFile',
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) => Container(
-                            color: AppTheme.cardBackground,
-                            child: const Icon(Icons.map, size: 24, color: AppTheme.textSecondary),
-                          ),
-                        ),
-                ),
-              );
-            },
           ),
           const SizedBox(width: 6),
-          // 러시/자원/복잡 (세로)
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _StatBoxMini(label: '러시', value: currentMap.rushDistance),
-              _StatBoxMini(label: '자원', value: currentMap.resources),
-              _StatBoxMini(label: '복잡', value: currentMap.complexity),
-            ],
-          ),
-          const SizedBox(width: 8),
-          // 맵 이름 + 종족 상성 (가로)
+          // 중앙: 맵 번호 + 이름 + 썸네일
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  currentMap.name,
-                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 4),
+                // 세트 번호 + 맵 이름
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _MatchupBoxCompact(label: 'T:Z', value: currentMap.matchup.tvzTerranWinRate),
+                    Container(
+                      width: 16, height: 16,
+                      decoration: BoxDecoration(
+                        color: AppTheme.accentGreen,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Center(
+                        child: Text('${_focusedMapIndex + 1}', style: const TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: Colors.black)),
+                      ),
+                    ),
                     const SizedBox(width: 4),
-                    _MatchupBoxCompact(label: 'Z:P', value: currentMap.matchup.zvpZergWinRate),
-                    const SizedBox(width: 4),
-                    _MatchupBoxCompact(label: 'P:T', value: currentMap.matchup.pvtProtossWinRate),
+                    Flexible(
+                      child: Text(
+                        currentMap.name,
+                        style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
                   ],
                 ),
+                const SizedBox(height: 4),
+                // 맵 썸네일
+                Expanded(
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      border: Border.all(color: AppTheme.primaryBlue.withOpacity(0.3)),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(4),
+                      child: imageFile.isEmpty
+                          ? Container(
+                              color: AppTheme.cardBackground,
+                              child: const Icon(Icons.map, size: 20, color: AppTheme.textSecondary),
+                            )
+                          : Image.asset(
+                              'assets/maps/$imageFile',
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) => Container(
+                                color: AppTheme.cardBackground,
+                                child: const Icon(Icons.map, size: 20, color: AppTheme.textSecondary),
+                              ),
+                            ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 6),
+          // 오른쪽: 러시/자원/복잡 (세로)
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+            decoration: BoxDecoration(
+              color: const Color(0xFF252540),
+              borderRadius: BorderRadius.circular(4),
+              border: Border.all(color: Colors.grey.withOpacity(0.3)),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _StatBoxMini(label: '러시', value: currentMap.rushDistance),
+                _StatBoxMini(label: '자원', value: currentMap.resources),
+                _StatBoxMini(label: '복잡', value: currentMap.complexity),
               ],
             ),
           ),
@@ -920,7 +937,6 @@ class _PlayerGridItem extends StatelessWidget {
   final bool isSelected;
   final int? assignedSet;
   final VoidCallback onTap;
-  final VoidCallback? onDoubleTap;
 
   const _PlayerGridItem({
     required this.player,
@@ -928,14 +944,12 @@ class _PlayerGridItem extends StatelessWidget {
     required this.isSelected,
     this.assignedSet,
     required this.onTap,
-    this.onDoubleTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      onDoubleTap: onDoubleTap,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
         decoration: BoxDecoration(
@@ -1403,6 +1417,41 @@ class _MatchupBoxCompact extends StatelessWidget {
           Text('$value', style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: color)),
         ],
       ),
+    );
+  }
+}
+
+/// 미니 상성 행 (세로 배치용, T 60 40 Z 형식)
+class _MatchupRowMini extends StatelessWidget {
+  final String race1;
+  final String race2;
+  final int percentage;
+
+  const _MatchupRowMini(this.race1, this.race2, this.percentage);
+
+  Color _getRaceColor(String race) {
+    switch (race) {
+      case 'T': return Colors.blue;
+      case 'Z': return Colors.purple;
+      case 'P': return Colors.amber;
+      default: return Colors.white;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final race2Percentage = 100 - percentage;
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(race1, style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: _getRaceColor(race1))),
+        const SizedBox(width: 2),
+        Text('$percentage', style: const TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: Colors.white)),
+        const SizedBox(width: 2),
+        Text('$race2Percentage', style: const TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: Colors.white)),
+        const SizedBox(width: 2),
+        Text(race2, style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: _getRaceColor(race2))),
+      ],
     );
   }
 }

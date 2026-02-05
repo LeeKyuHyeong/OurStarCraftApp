@@ -250,7 +250,7 @@ class _SeasonMapDrawScreenState extends ConsumerState<SeasonMapDrawScreen> {
 
   Widget _buildMapCardFlex(MapData map) {
     return Container(
-      padding: EdgeInsets.all(6.sp),
+      padding: EdgeInsets.all(4.sp),
       decoration: BoxDecoration(
         color: const Color(0xFF1a1a2e),
         borderRadius: BorderRadius.circular(6.sp),
@@ -261,7 +261,7 @@ class _SeasonMapDrawScreenState extends ConsumerState<SeasonMapDrawScreen> {
         children: [
           // 맵 썸네일 + 이름
           Expanded(
-            flex: 5,
+            flex: 4,
             child: Container(
               width: double.infinity,
               decoration: BoxDecoration(
@@ -303,7 +303,7 @@ class _SeasonMapDrawScreenState extends ConsumerState<SeasonMapDrawScreen> {
                     right: 0,
                     bottom: 0,
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 4.sp, vertical: 3.sp),
+                      padding: EdgeInsets.symmetric(horizontal: 4.sp, vertical: 2.sp),
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           begin: Alignment.topCenter,
@@ -322,7 +322,7 @@ class _SeasonMapDrawScreenState extends ConsumerState<SeasonMapDrawScreen> {
                         map.name,
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 9.sp,
+                          fontSize: 8.sp,
                           fontWeight: FontWeight.bold,
                         ),
                         maxLines: 1,
@@ -335,45 +335,51 @@ class _SeasonMapDrawScreenState extends ConsumerState<SeasonMapDrawScreen> {
               ),
             ),
           ),
-          SizedBox(height: 4.sp),
+          SizedBox(height: 3.sp),
 
-          // 맵 특성 박스 (러시/자원/복잡)
+          // 맵 특성 + 종족 상성 통합 박스
           Expanded(
             flex: 3,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 4.sp, vertical: 3.sp),
-              decoration: BoxDecoration(
-                color: const Color(0xFF252540),
-                borderRadius: BorderRadius.circular(4.sp),
-                border: Border.all(color: Colors.grey[700]!, width: 1),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _buildStatBarCompact('러시', map.rushDistance, Colors.green),
-                  _buildStatBarCompact('자원', map.resources, Colors.amber),
-                  _buildStatBarCompact('복잡', map.complexity, Colors.orange),
-                ],
-              ),
-            ),
-          ),
-
-          SizedBox(height: 4.sp),
-
-          // 종족 상성 박스 (T:Z, Z:P, P:T)
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 4.sp, vertical: 4.sp),
-            decoration: BoxDecoration(
-              color: const Color(0xFF252540),
-              borderRadius: BorderRadius.circular(4.sp),
-              border: Border.all(color: Colors.grey[700]!, width: 1),
-            ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _buildMatchupBadge('T', 'Z', map.tvz),
-                _buildMatchupBadge('Z', 'P', map.zvp),
-                _buildMatchupBadge('P', 'T', map.pvt),
+                // 맵 특성 (러시/자원/복잡)
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 3.sp, vertical: 2.sp),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF252540),
+                      borderRadius: BorderRadius.circular(4.sp),
+                      border: Border.all(color: Colors.grey[700]!, width: 1),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _buildStatBarCompact('러시', map.rushDistance, Colors.green),
+                        _buildStatBarCompact('자원', map.resources, Colors.amber),
+                        _buildStatBarCompact('복잡', map.complexity, Colors.orange),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(width: 3.sp),
+                // 종족 상성 박스 (세로 배치)
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 3.sp, vertical: 2.sp),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF252540),
+                    borderRadius: BorderRadius.circular(4.sp),
+                    border: Border.all(color: Colors.grey[700]!, width: 1),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _buildMatchupRow('T', 'Z', map.tvz),
+                      _buildMatchupRow('Z', 'P', map.zvp),
+                      _buildMatchupRow('P', 'T', map.pvt),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -382,61 +388,50 @@ class _SeasonMapDrawScreenState extends ConsumerState<SeasonMapDrawScreen> {
     );
   }
 
-  Widget _buildMatchupBadge(String race1, String race2, int percentage) {
+  Widget _buildMatchupRow(String race1, String race2, int percentage) {
     final race1Color = _getRaceColor(race1);
     final race2Color = _getRaceColor(race2);
     final race2Percentage = 100 - percentage;
 
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 3.sp, vertical: 2.sp),
-      decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.3),
-        borderRadius: BorderRadius.circular(3.sp),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            race1,
-            style: TextStyle(
-              color: race1Color,
-              fontSize: 7.sp,
-              fontWeight: FontWeight.bold,
-            ),
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          race1,
+          style: TextStyle(
+            color: race1Color,
+            fontSize: 7.sp,
+            fontWeight: FontWeight.bold,
           ),
-          Text(
-            '$percentage',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 7.sp,
-              fontWeight: FontWeight.bold,
-            ),
+        ),
+        SizedBox(width: 2.sp),
+        Text(
+          '$percentage',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 7.sp,
+            fontWeight: FontWeight.bold,
           ),
-          Text(
-            ':',
-            style: TextStyle(
-              color: Colors.grey[500],
-              fontSize: 7.sp,
-            ),
+        ),
+        SizedBox(width: 2.sp),
+        Text(
+          '$race2Percentage',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 7.sp,
+            fontWeight: FontWeight.bold,
           ),
-          Text(
-            '$race2Percentage',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 7.sp,
-              fontWeight: FontWeight.bold,
-            ),
+        ),
+        SizedBox(width: 2.sp),
+        Text(
+          race2,
+          style: TextStyle(
+            color: race2Color,
+            fontSize: 7.sp,
+            fontWeight: FontWeight.bold,
           ),
-          Text(
-            race2,
-            style: TextStyle(
-              color: race2Color,
-              fontSize: 7.sp,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
