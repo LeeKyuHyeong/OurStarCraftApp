@@ -46,7 +46,7 @@ class _RosterSelectScreenState extends ConsumerState<RosterSelectScreen> {
   // 맵 정보 / 아이템 토글 (true: 맵 정보, false: 아이템)
   bool _showMapInfo = true;
 
-  /// 매치용 맵 7개 선정
+  /// 매치용 맵 7개 선정 (시즌맵 순서 유지)
   List<GameMap> _getMatchMaps(List<String> seasonMapIds) {
     if (_matchMaps.isNotEmpty) return _matchMaps;
 
@@ -58,8 +58,8 @@ class _RosterSelectScreenState extends ConsumerState<RosterSelectScreen> {
     if (allMaps.isEmpty) {
       _matchMaps = GameMaps.all.take(7).toList();
     } else {
-      final shuffled = List<GameMap>.from(allMaps)..shuffle(Random());
-      _matchMaps = shuffled.take(7).toList();
+      // 시즌맵 순서 그대로 사용 (셔플 X)
+      _matchMaps = allMaps.take(7).toList();
       while (_matchMaps.length < 7) {
         _matchMaps.add(allMaps[_matchMaps.length % allMaps.length]);
       }
