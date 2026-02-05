@@ -119,13 +119,10 @@ class IndividualLeagueService {
         return b.totalStats - a.totalStats;
       });
 
-    // PC방 예선 조 편성 (8명 조 + 6명 조 혼합)
-    // 총 선수 수에 따라 조 구성 결정
-    final totalPcBangPlayers = pcBangPlayers.length;
-    final groupConfig = _calculateGroupConfig(totalPcBangPlayers);
-    final groups8Count = groupConfig.$1; // 8명 조 개수
-    final groups6Count = groupConfig.$2; // 6명 조 개수
-    final totalGroups = groups8Count + groups6Count;
+    // PC방 예선 조 편성 (24개 조 고정 - 듀얼토너먼트 12개 조 × 2명 = 24명 필요)
+    // 24개 조 × 4명 = 96명 필요 (부족하면 아마추어로 채움)
+    const totalGroups = 24;
+    const playersPerGroup = 4; // 각 조 4명
 
     // 우리팀 선수 우선 배정
     final myTeamPcBangPlayers = pcBangPlayers
@@ -135,8 +132,9 @@ class IndividualLeagueService {
         .where((p) => p.teamId != playerTeamId)
         .toList();
 
-    // 조 초기화 (8명 조가 앞에, 6명 조가 뒤에)
+    // 조 초기화 (24개 조)
     final groups = List.generate(totalGroups, (_) => <String>[]);
+    final playerTeamMap = {for (var p in allPlayers) p.id: p.teamId};
 
     // 우리팀 선수 배정 (상위 등급일수록 낮은 조 번호)
     for (var i = 0; i < myTeamPcBangPlayers.length && i < totalGroups; i++) {
@@ -145,7 +143,6 @@ class IndividualLeagueService {
 
     // 남은 선수들 같은 팀 회피하며 배정
     otherPcBangPlayers.shuffle(_random);
-    final playerTeamMap = {for (var p in allPlayers) p.id: p.teamId};
 
     for (final player in otherPcBangPlayers) {
       final playerId = player.id;
@@ -154,8 +151,7 @@ class IndividualLeagueService {
       // 같은 팀 없고, 자리 있는 조 찾기
       int? bestGroup;
       for (var groupIndex = 0; groupIndex < totalGroups; groupIndex++) {
-        final maxPlayers = groupIndex < groups8Count ? 8 : 6;
-        if (groups[groupIndex].length >= maxPlayers) continue;
+        if (groups[groupIndex].length >= playersPerGroup) continue;
 
         final hasTeammate = groups[groupIndex].any((id) => playerTeamMap[id] == playerTeam);
         if (!hasTeammate) {
@@ -167,8 +163,7 @@ class IndividualLeagueService {
       // 회피 불가능하면 빈 자리 있는 조에 배정
       if (bestGroup == null) {
         for (var groupIndex = 0; groupIndex < totalGroups; groupIndex++) {
-          final maxPlayers = groupIndex < groups8Count ? 8 : 6;
-          if (groups[groupIndex].length < maxPlayers) {
+          if (groups[groupIndex].length < playersPerGroup) {
             bestGroup = groupIndex;
             break;
           }
@@ -177,6 +172,15 @@ class IndividualLeagueService {
 
       if (bestGroup != null) {
         groups[bestGroup].add(playerId);
+      }
+    }
+
+    // 부족한 슬롯은 아마추어로 채우기 (F- 등급)
+    var amateurIndex = 0;
+    for (var groupIndex = 0; groupIndex < totalGroups; groupIndex++) {
+      while (groups[groupIndex].length < playersPerGroup) {
+        amateurIndex++;
+        groups[groupIndex].add('amateur_$amateurIndex');
       }
     }
 
@@ -432,6 +436,26 @@ class IndividualLeagueService {
     required IndividualLeagueBracket bracket,
     required Map<String, Player> playerMap,
   }) {
+    // 아마추어 선수 추가 (F- 등급)
+    final extendedPlayerMap = Map<String, Player>.from(playerMap);
+    final races = [Race.terran, Race.zerg, Race.protoss];
+    for (final group in bracket.pcBangGroups) {
+      for (final playerId in group) {
+        if (playerId.startsWith('amateur_') && !extendedPlayerMap.containsKey(playerId)) {
+          extendedPlayerMap[playerId] = Player(
+            id: playerId,
+            name: '아마추어',
+            raceIndex: races[_random.nextInt(3)].index,
+            stats: const PlayerStats(
+              sense: 100, control: 100, attack: 100, harass: 100,
+              strategy: 100, macro: 100, defense: 100, scout: 100,
+            ), // F- 등급 (합계: 800)
+            levelValue: 1,
+          );
+        }
+      }
+    }
+
     final allResults = <IndividualMatchResult>[];
     final dualTournamentWinners = <String>[];
 
@@ -439,7 +463,7 @@ class IndividualLeagueService {
       final result = simulatePcBangGroup(
         groupIndex: i,
         playerIds: bracket.pcBangGroups[i],
-        playerMap: playerMap,
+        playerMap: extendedPlayerMap,
       );
       allResults.addAll(result.matches);
       dualTournamentWinners.add(result.winnerId);

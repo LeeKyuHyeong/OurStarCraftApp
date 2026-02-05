@@ -49,6 +49,24 @@ class _DualTournamentScreenState extends ConsumerState<DualTournamentScreen> {
     final bracket = gameState.saveData.currentSeason.individualLeague;
     final playerMap = {for (var p in gameState.saveData.allPlayers) p.id: p};
 
+    // 아마추어 선수 추가 (듀얼토너먼트에 진출한 경우)
+    if (bracket != null) {
+      for (final playerId in bracket.dualTournamentPlayers) {
+        if (playerId.startsWith('amateur_') && !playerMap.containsKey(playerId)) {
+          playerMap[playerId] = Player(
+            id: playerId,
+            name: '아마추어',
+            raceIndex: Race.values[playerId.hashCode % 3].index,
+            stats: const PlayerStats(
+              sense: 100, control: 100, attack: 100, harass: 100,
+              strategy: 100, macro: 100, defense: 100, scout: 100,
+            ),
+            levelValue: 1,
+          );
+        }
+      }
+    }
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(

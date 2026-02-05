@@ -48,6 +48,26 @@ class _PcBangQualifierScreenState extends ConsumerState<PcBangQualifierScreen> {
     final playerTeam = gameState.playerTeam;
     final playerMap = {for (var p in gameState.saveData.allPlayers) p.id: p};
 
+    // 아마추어 선수 추가 (PC방 예선 조에 있는 경우)
+    if (bracket != null) {
+      for (final group in bracket.pcBangGroups) {
+        for (final playerId in group) {
+          if (playerId.startsWith('amateur_') && !playerMap.containsKey(playerId)) {
+            playerMap[playerId] = Player(
+              id: playerId,
+              name: '아마추어',
+              raceIndex: Race.values[playerId.hashCode % 3].index,
+              stats: const PlayerStats(
+                sense: 100, control: 100, attack: 100, harass: 100,
+                strategy: 100, macro: 100, defense: 100, scout: 100,
+              ),
+              levelValue: 1,
+            );
+          }
+        }
+      }
+    }
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(

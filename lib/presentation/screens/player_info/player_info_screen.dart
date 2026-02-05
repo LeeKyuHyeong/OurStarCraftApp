@@ -38,6 +38,7 @@ class _PlayerInfoScreenState extends ConsumerState<PlayerInfoScreen> {
   late String _selectedTeamId;
   String? _selectedPlayerId;
   PlayerInfoMode _mode = PlayerInfoMode.teamInfo;
+  int _recordTabIndex = 0; // 0: 역대전적, 1: 상대전적
 
   /// 갤러리에서 선수 사진 선택
   Future<void> _pickPlayerImage(Player player) async {
@@ -478,38 +479,6 @@ class _PlayerInfoScreenState extends ConsumerState<PlayerInfoScreen> {
             child: _buildRadarChart(player),
           ),
 
-          SizedBox(height: 12.sp),
-
-          // 등급 + 레벨
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 12.sp, vertical: 4.sp),
-                decoration: BoxDecoration(
-                  color: _getGradeColor(player.grade),
-                  borderRadius: BorderRadius.circular(4.sp),
-                ),
-                child: Text(
-                  player.grade.display,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              SizedBox(width: 8.sp),
-              Text(
-                'Lv.${player.level.value}',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14.sp,
-                ),
-              ),
-            ],
-          ),
-
           SizedBox(height: 8.sp),
 
           // 컨디션
@@ -530,6 +499,9 @@ class _PlayerInfoScreenState extends ConsumerState<PlayerInfoScreen> {
       painter: _RadarChartPainter(
         stats: player.stats,
         raceColor: _getRaceColor(player.race),
+        gradeText: player.grade.display,
+        level: player.level.value,
+        gradeColor: _getGradeColor(player.grade),
       ),
       size: Size.infinite,
     );
@@ -622,11 +594,226 @@ class _PlayerInfoScreenState extends ConsumerState<PlayerInfoScreen> {
       return _buildTeamVsRecordPanel(team, gameState);
     }
 
-    if (_mode == PlayerInfoMode.playerVsRecord) {
-      return _buildPlayerVsRecordPanel(selectedPlayer);
+    // 선수가 선택된 경우: 탭으로 역대전적/상대전적 표시
+    return _buildPlayerRecordTabbedPanel(selectedPlayer, gameState);
+  }
+
+  Widget _buildPlayerRecordTabbedPanel(Player player, GameState gameState) {
+    return Container(
+      margin: EdgeInsets.all(16.sp),
+      decoration: BoxDecoration(
+        color: AppColors.cardBackground,
+        borderRadius: BorderRadius.circular(8.sp),
+      ),
+      child: Column(
+        children: [
+          // 탭 바
+          Container(
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(color: Colors.grey.withValues(alpha: 0.3)),
+              ),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () => setState(() => _recordTabIndex = 0),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 12.sp),
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: _recordTabIndex == 0 ? AppColors.primary : Colors.transparent,
+                            width: 2,
+                          ),
+                        ),
+                      ),
+                      child: Text(
+                        '역대전적',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: _recordTabIndex == 0 ? Colors.white : Colors.grey,
+                          fontSize: 12.sp,
+                          fontWeight: _recordTabIndex == 0 ? FontWeight.bold : FontWeight.normal,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () => setState(() => _recordTabIndex = 1),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 12.sp),
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: _recordTabIndex == 1 ? AppColors.primary : Colors.transparent,
+                            width: 2,
+                          ),
+                        ),
+                      ),
+                      child: Text(
+                        '상대전적',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: _recordTabIndex == 1 ? Colors.white : Colors.grey,
+                          fontSize: 12.sp,
+                          fontWeight: _recordTabIndex == 1 ? FontWeight.bold : FontWeight.normal,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // 탭 컨텐츠
+          Expanded(
+            child: _recordTabIndex == 0
+                ? _buildPlayerRecordContent(player)
+                : _buildPlayerVsRecordContent(player, gameState),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPlayerRecordContent(Player player) {
+    final record = player.record;
+
+    return Padding(
+      padding: EdgeInsets.all(12.sp),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // 종족 아이콘 + 현재
+          Row(
+            children: [
+              Text('현재 ', style: TextStyle(color: Colors.grey, fontSize: 11.sp)),
+              Container(
+                width: 20.sp,
+                height: 20.sp,
+                decoration: BoxDecoration(
+                  color: _getRaceColor(player.race).withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(2.sp),
+                ),
+                child: Center(
+                  child: Text(
+                    player.race.code,
+                    style: TextStyle(
+                      color: _getRaceColor(player.race),
+                      fontSize: 10.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+          SizedBox(height: 12.sp),
+
+          // 총 전적
+          _buildPlayerStatRow('총 전적:', record.wins, record.losses),
+
+          SizedBox(height: 8.sp),
+
+          // vs Terran
+          _buildPlayerStatRow('vs Terran:', record.vsTerranWins, record.vsTerranLosses),
+
+          // vs Zerg
+          _buildPlayerStatRow('vs Zerg:', record.vsZergWins, record.vsZergLosses),
+
+          // vs Protoss
+          _buildPlayerStatRow('vs Protoss:', record.vsProtossWins, record.vsProtossLosses),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPlayerVsRecordContent(Player player, GameState gameState) {
+    final allOpponentIds = player.record.allOpponentIds.toList();
+
+    if (allOpponentIds.isEmpty) {
+      return Center(
+        child: Text(
+          '상대전적이 없습니다',
+          style: TextStyle(color: Colors.grey, fontSize: 12.sp),
+        ),
+      );
     }
 
-    return _buildPlayerRecordPanel(selectedPlayer);
+    return ListView.builder(
+      padding: EdgeInsets.all(12.sp),
+      itemCount: allOpponentIds.length,
+      itemBuilder: (context, index) {
+        final opponentId = allOpponentIds[index];
+        final opponent = gameState.saveData.getPlayerById(opponentId);
+        final (wins, losses) = player.record.getVsPlayerRecord(opponentId);
+        final total = wins + losses;
+        final winRate = total > 0 ? (wins / total * 100).toStringAsFixed(0) : '0';
+
+        return Padding(
+          padding: EdgeInsets.only(bottom: 8.sp),
+          child: Row(
+            children: [
+              // 상대 선수 정보
+              if (opponent != null) ...[
+                Container(
+                  width: 18.sp,
+                  height: 18.sp,
+                  decoration: BoxDecoration(
+                    color: _getRaceColor(opponent.race).withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(2.sp),
+                  ),
+                  child: Center(
+                    child: Text(
+                      opponent.race.code,
+                      style: TextStyle(
+                        color: _getRaceColor(opponent.race),
+                        fontSize: 9.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 6.sp),
+                Expanded(
+                  child: Text(
+                    opponent.name,
+                    style: TextStyle(color: Colors.white, fontSize: 11.sp),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ] else ...[
+                Expanded(
+                  child: Text(
+                    '알 수 없는 선수',
+                    style: TextStyle(color: Colors.grey, fontSize: 11.sp),
+                  ),
+                ),
+              ],
+
+              // 전적
+              Text(
+                '${total}전 ${wins}승 ${losses}패 ($winRate%)',
+                style: TextStyle(
+                  color: wins > losses
+                      ? Colors.green
+                      : wins < losses
+                          ? Colors.red
+                          : Colors.grey,
+                  fontSize: 10.sp,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   Widget _buildTeamInfoPanel(Team team, GameState gameState) {
@@ -1301,10 +1488,16 @@ class _PlayerInfoScreenState extends ConsumerState<PlayerInfoScreen> {
 class _RadarChartPainter extends CustomPainter {
   final PlayerStats stats;
   final Color raceColor;
+  final String? gradeText;
+  final int? level;
+  final Color? gradeColor;
 
   _RadarChartPainter({
     required this.stats,
     required this.raceColor,
+    this.gradeText,
+    this.level,
+    this.gradeColor,
   });
 
   @override
@@ -1388,6 +1581,52 @@ class _RadarChartPainter extends CustomPainter {
         Offset(
           labelPoint.dx - textPainter.width / 2,
           labelPoint.dy - textPainter.height / 2,
+        ),
+      );
+    }
+
+    // 중앙에 등급 + 레벨 표시
+    if (gradeText != null && level != null) {
+      // 등급 배경
+      final gradeBgPaint = Paint()
+        ..color = (gradeColor ?? Colors.grey).withOpacity(0.9)
+        ..style = PaintingStyle.fill;
+
+      final bgRadius = radius * 0.28;
+      canvas.drawCircle(center, bgRadius, gradeBgPaint);
+
+      // 등급 텍스트
+      textPainter.text = TextSpan(
+        text: gradeText,
+        style: const TextStyle(
+          color: Colors.black,
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
+      );
+      textPainter.layout();
+      textPainter.paint(
+        canvas,
+        Offset(
+          center.dx - textPainter.width / 2,
+          center.dy - textPainter.height / 2 - 6,
+        ),
+      );
+
+      // 레벨 텍스트
+      textPainter.text = TextSpan(
+        text: 'Lv.$level',
+        style: const TextStyle(
+          color: Colors.black87,
+          fontSize: 10,
+        ),
+      );
+      textPainter.layout();
+      textPainter.paint(
+        canvas,
+        Offset(
+          center.dx - textPainter.width / 2,
+          center.dy - textPainter.height / 2 + 10,
         ),
       );
     }

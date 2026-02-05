@@ -174,49 +174,79 @@ class _TeamRankingScreenState extends ConsumerState<TeamRankingScreen> {
             '현재 순위 >>',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 16.sp,
+              fontSize: 18.sp,
             ),
           ),
 
-          SizedBox(height: 24.sp),
+          SizedBox(height: 32.sp),
 
           // 팀 로고
           Container(
-            width: 120.sp,
-            height: 80.sp,
+            width: 140.sp,
+            height: 100.sp,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(8.sp),
+              borderRadius: BorderRadius.circular(12.sp),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(displayTeam.colorValue).withValues(alpha: 0.5),
+                  blurRadius: 20,
+                  spreadRadius: 2,
+                ),
+              ],
             ),
             child: Center(
               child: Text(
                 displayTeam.shortName,
                 style: TextStyle(
                   color: Color(displayTeam.colorValue),
-                  fontSize: 24.sp,
+                  fontSize: 32.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
           ),
 
-          SizedBox(height: 16.sp),
+          SizedBox(height: 20.sp),
 
+          // 팀명
           Text(
             displayTeam.name,
             style: TextStyle(
               color: Colors.white,
-              fontSize: 14.sp,
+              fontSize: 16.sp,
+              fontWeight: FontWeight.bold,
             ),
           ),
 
-          SizedBox(height: 8.sp),
+          SizedBox(height: 12.sp),
 
+          // 순위
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 24.sp, vertical: 8.sp),
+            decoration: BoxDecoration(
+              color: _getRankColor(rank).withValues(alpha: 0.2),
+              borderRadius: BorderRadius.circular(20.sp),
+              border: Border.all(color: _getRankColor(rank)),
+            ),
+            child: Text(
+              '$rank위',
+              style: TextStyle(
+                color: _getRankColor(rank),
+                fontSize: 24.sp,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+
+          SizedBox(height: 16.sp),
+
+          // 전적
           Text(
-            '$rank위',
+            '${displayTeam.seasonRecord.wins}W ${displayTeam.seasonRecord.losses}L',
             style: TextStyle(
-              color: Colors.white,
-              fontSize: 12.sp,
+              color: Colors.grey,
+              fontSize: 14.sp,
             ),
           ),
         ],
@@ -224,108 +254,186 @@ class _TeamRankingScreenState extends ConsumerState<TeamRankingScreen> {
     );
   }
 
+  Color _getRankColor(int rank) {
+    if (rank == 1) return Colors.amber;
+    if (rank == 2) return Colors.grey[300]!;
+    if (rank == 3) return Colors.brown[300]!;
+    if (rank <= 4) return Colors.green; // 포스트시즌 진출권
+    return Colors.white;
+  }
+
   Widget _buildRankingList(List<Team> sortedTeams) {
+    final gameState = ref.read(gameStateProvider);
+    final playerTeamId = gameState?.playerTeam.id ?? '';
+
     return Container(
-      margin: EdgeInsets.all(8.sp),
-      child: ListView.builder(
-        itemCount: sortedTeams.length,
-        itemBuilder: (context, index) {
-          final team = sortedTeams[index];
-          final rank = index + 1;
-          final isSelected = _selectedTeamId == team.id;
-
-          return GestureDetector(
-            onTap: () {
-              setState(() {
-                _selectedTeamId = team.id;
-              });
-            },
-            onDoubleTap: () {
-              setState(() {
-                _selectedTeamId = team.id;
-                _showDetail = true;
-              });
-            },
-            child: Container(
-              margin: EdgeInsets.symmetric(vertical: 2.sp),
-              padding: EdgeInsets.symmetric(horizontal: 8.sp, vertical: 8.sp),
-              decoration: BoxDecoration(
-                color: isSelected
-                    ? Colors.amber.withOpacity(0.3)
-                    : AppColors.cardBackground,
-                borderRadius: BorderRadius.circular(4.sp),
-                border: isSelected
-                    ? Border.all(color: Colors.amber, width: 1)
-                    : null,
+      margin: EdgeInsets.all(16.sp),
+      padding: EdgeInsets.all(16.sp),
+      decoration: BoxDecoration(
+        color: AppColors.cardBackground.withValues(alpha: 0.5),
+        borderRadius: BorderRadius.circular(12.sp),
+      ),
+      child: Column(
+        children: [
+          // 테이블 헤더
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 8.sp),
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(color: Colors.grey.withValues(alpha: 0.3)),
               ),
-              child: Row(
-                children: [
-                  // 순위
-                  SizedBox(
-                    width: 32.sp,
-                    child: Text(
-                      '$rank',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
+            ),
+            child: Row(
+              children: [
+                SizedBox(width: 50.sp, child: _headerText('순위')),
+                SizedBox(width: 50.sp, child: _headerText('팀')),
+                Expanded(child: _headerText('팀명')),
+                SizedBox(width: 40.sp, child: _headerText('W')),
+                SizedBox(width: 40.sp, child: _headerText('L')),
+                SizedBox(width: 60.sp, child: _headerText('득실')),
+              ],
+            ),
+          ),
 
-                  // 팀 로고
-                  Container(
-                    width: 36.sp,
-                    height: 28.sp,
-                    margin: EdgeInsets.only(right: 8.sp),
+          // 팀 목록
+          Expanded(
+            child: ListView.builder(
+              itemCount: sortedTeams.length,
+              itemBuilder: (context, index) {
+                final team = sortedTeams[index];
+                final rank = index + 1;
+                final isMyTeam = team.id == playerTeamId;
+                final isSelected = _selectedTeamId == team.id;
+                final setDiff = team.seasonRecord.setWins - team.seasonRecord.setLosses;
+
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _selectedTeamId = team.id;
+                    });
+                  },
+                  onDoubleTap: () {
+                    setState(() {
+                      _selectedTeamId = team.id;
+                      _showDetail = true;
+                    });
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 10.sp),
                     decoration: BoxDecoration(
-                      color: Color(team.colorValue).withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(4.sp),
-                    ),
-                    child: Center(
-                      child: Text(
-                        team.shortName,
-                        style: TextStyle(
-                          color: Color(team.colorValue),
-                          fontSize: 9.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      color: isSelected
+                          ? Colors.amber.withValues(alpha: 0.3)
+                          : isMyTeam
+                              ? AppColors.primary.withValues(alpha: 0.2)
+                              : Colors.transparent,
+                      border: Border(
+                        bottom: BorderSide(color: Colors.grey.withValues(alpha: 0.1)),
                       ),
                     ),
-                  ),
-
-                  // 팀명 + 전적 (세로 배치)
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Row(
                       children: [
-                        Text(
-                          team.name,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12.sp,
+                        // 순위
+                        SizedBox(
+                          width: 50.sp,
+                          child: Text(
+                            '$rank',
+                            style: TextStyle(
+                              color: _getRankColor(rank),
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
                         ),
-                        SizedBox(height: 2.sp),
-                        Text(
-                          '${team.seasonRecord.wins}W ${team.seasonRecord.losses}L (${team.seasonRecord.setWins}:${team.seasonRecord.setLosses})',
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 10.sp,
+                        // 팀 로고
+                        SizedBox(
+                          width: 50.sp,
+                          child: Container(
+                            width: 36.sp,
+                            height: 28.sp,
+                            decoration: BoxDecoration(
+                              color: Color(team.colorValue).withValues(alpha: 0.2),
+                              borderRadius: BorderRadius.circular(4.sp),
+                            ),
+                            child: Center(
+                              child: Text(
+                                team.shortName,
+                                style: TextStyle(
+                                  color: Color(team.colorValue),
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        // 팀명
+                        Expanded(
+                          child: Text(
+                            team.name,
+                            style: TextStyle(
+                              color: isMyTeam ? Colors.amber : Colors.white,
+                              fontSize: 12.sp,
+                              fontWeight: isMyTeam ? FontWeight.bold : FontWeight.normal,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        // 승
+                        SizedBox(
+                          width: 40.sp,
+                          child: Text(
+                            '${team.seasonRecord.wins}',
+                            style: TextStyle(color: Colors.white, fontSize: 12.sp),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        // 패
+                        SizedBox(
+                          width: 40.sp,
+                          child: Text(
+                            '${team.seasonRecord.losses}',
+                            style: TextStyle(color: Colors.white, fontSize: 12.sp),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        // 세트 득실
+                        SizedBox(
+                          width: 60.sp,
+                          child: Text(
+                            setDiff >= 0 ? '+$setDiff' : '$setDiff',
+                            style: TextStyle(
+                              color: setDiff > 0
+                                  ? Colors.green
+                                  : setDiff < 0
+                                      ? Colors.red
+                                      : Colors.grey,
+                              fontSize: 12.sp,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ],
                     ),
                   ),
-                ],
-              ),
+                );
+              },
             ),
-          );
-        },
+          ),
+        ],
       ),
+    );
+  }
+
+  Widget _headerText(String text) {
+    return Text(
+      text,
+      style: TextStyle(
+        color: Colors.grey,
+        fontSize: 11.sp,
+        fontWeight: FontWeight.bold,
+      ),
+      textAlign: TextAlign.center,
     );
   }
 

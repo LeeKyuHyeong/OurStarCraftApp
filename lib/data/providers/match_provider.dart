@@ -155,7 +155,7 @@ class CurrentMatchNotifier extends StateNotifier<CurrentMatchState?> {
     return roster;
   }
 
-  /// 세트 결과 기록
+  /// 세트 결과 기록 (currentSet은 변경하지 않음 - advanceToNextSet에서 별도 처리)
   void recordSetResult(bool homeWin) {
     if (state == null) return;
 
@@ -165,17 +165,21 @@ class CurrentMatchNotifier extends StateNotifier<CurrentMatchState?> {
     // 세트 결과 추가
     final newSetResults = [...state!.setResults, homeWin];
 
-    // 다음 세트로 이동 (매치가 끝나지 않았다면)
-    int nextSet = state!.currentSet;
-    if (newHomeScore < 4 && newAwayScore < 4) {
-      nextSet++;
-    }
-
+    // 점수와 세트 결과만 업데이트 (currentSet은 유지)
     state = state!.copyWith(
       homeScore: newHomeScore,
       awayScore: newAwayScore,
-      currentSet: nextSet,
       setResults: newSetResults,
+    );
+  }
+
+  /// 다음 세트로 이동 (NEXT 버튼 클릭 시 호출)
+  void advanceToNextSet() {
+    if (state == null) return;
+    if (state!.isMatchEnded) return;
+
+    state = state!.copyWith(
+      currentSet: state!.currentSet + 1,
     );
   }
 
@@ -213,35 +217,23 @@ class CurrentMatchNotifier extends StateNotifier<CurrentMatchState?> {
     );
   }
 
-  /// 상대팀 에이스 자동 선택
+  /// 상대팀 에이스 자동 선택 (에이스결정전은 전체 선수 중 선택 가능)
   String? _selectOpponentAce({required bool isOpponentHome}) {
     if (state == null) return null;
 
     final gameState = _ref.read(gameStateProvider);
     if (gameState == null) return null;
 
-    // 상대팀 ID와 로스터 결정
+    // 상대팀 ID 결정
     final opponentTeamId = isOpponentHome ? state!.homeTeamId : state!.awayTeamId;
-    final opponentRoster = isOpponentHome ? state!.homeRoster : state!.awayRoster;
 
     final opponentPlayers = gameState.saveData.getTeamPlayers(opponentTeamId);
     if (opponentPlayers.isEmpty) return null;
 
-    // 이미 출전한 선수 제외
-    final usedPlayers = opponentRoster.whereType<String>().toSet();
-    final availablePlayers = opponentPlayers.where((p) => !usedPlayers.contains(p.id)).toList();
-
-    if (availablePlayers.isEmpty) {
-      // 사용 가능한 선수가 없으면 가장 높은 등급 선수 재출전
-      final bestPlayer = opponentPlayers.reduce((a, b) =>
-          a.grade.index > b.grade.index ? a : b);
-      return bestPlayer.id;
-    }
-
-    // 사용 가능한 선수 중 가장 높은 등급
-    final bestAvailable = availablePlayers.reduce((a, b) =>
+    // 에이스결정전은 전체 선수 중 가장 높은 등급 선수 선택 (이전 출전자 제외 없음)
+    final bestPlayer = opponentPlayers.reduce((a, b) =>
         a.grade.index > b.grade.index ? a : b);
-    return bestAvailable.id;
+    return bestPlayer.id;
   }
 
   /// 모든 선수에게 특수 컨디션 롤 (로스터 선택 화면 진입 시 호출)
