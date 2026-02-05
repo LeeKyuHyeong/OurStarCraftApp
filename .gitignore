@@ -44,3 +44,4 @@ Thumbs.db
 # Flutter auto-generated
 .flutter-plugins-dependencies
 .metadata
+windows/flutter/generated_*
