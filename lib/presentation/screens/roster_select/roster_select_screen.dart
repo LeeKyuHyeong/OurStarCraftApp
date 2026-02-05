@@ -36,6 +36,10 @@ class _RosterSelectScreenState extends ConsumerState<RosterSelectScreen>
   // 예측된 상대 로스터 (스나이핑 사용 시)
   List<String?> _predictedOpponentRoster = [];
 
+  // 특수 컨디션 (최상/최악) - 선수ID -> SpecialCondition
+  Map<String, SpecialCondition> _specialConditions = {};
+  bool _specialConditionsRolled = false;
+
   @override
   void initState() {
     super.initState();
@@ -89,6 +93,24 @@ class _RosterSelectScreenState extends ConsumerState<RosterSelectScreen>
     final teamPlayers = gameState.playerTeamPlayers;
 
     // 스케줄에서 다음 경기 찾기 (라운드 순서대로, 미완료 경기 중 가장 먼저)
+    // 미리 opponentId를 가져와서 특수 컨디션 롤에 사용
+    final scheduleForRoll = gameState.saveData.currentSeason.proleagueSchedule;
+    final nextMatchForRoll = _findNextMatch(scheduleForRoll, playerTeam.id);
+    if (nextMatchForRoll != null && !_specialConditionsRolled) {
+      final isHomeForRoll = nextMatchForRoll.homeTeamId == playerTeam.id;
+      final opponentIdForRoll = isHomeForRoll ? nextMatchForRoll.awayTeamId : nextMatchForRoll.homeTeamId;
+      final opponentPlayersForRoll = gameState.saveData.getTeamPlayers(opponentIdForRoll);
+
+      // 특수 컨디션 롤 (화면 진입 시 한 번만)
+      _specialConditions = {};
+      for (final player in teamPlayers) {
+        _specialConditions[player.id] = SpecialCondition.roll();
+      }
+      for (final player in opponentPlayersForRoll) {
+        _specialConditions[player.id] = SpecialCondition.roll();
+      }
+      _specialConditionsRolled = true;
+    }
     final schedule = gameState.saveData.currentSeason.proleagueSchedule;
     final nextMatch = _findNextMatch(schedule, playerTeam.id);
 
@@ -322,6 +344,7 @@ class _RosterSelectScreenState extends ConsumerState<RosterSelectScreen>
           player: player,
           isAssigned: isAssigned,
           assignedSet: assignedSet >= 0 ? assignedSet + 1 : null,
+          specialCondition: _specialConditions[player.id] ?? SpecialCondition.none,
           onTap: isAssigned
               ? null
               : () {
@@ -505,6 +528,7 @@ class _RosterSelectScreenState extends ConsumerState<RosterSelectScreen>
                 player: player,
                 isPredicted: isPredicted,
                 predictedSet: isPredicted ? _predictedOpponentRoster.indexOf(player.id) + 1 : null,
+                specialCondition: _specialConditions[player.id] ?? SpecialCondition.none,
               );
             },
           ),
@@ -637,6 +661,9 @@ class _RosterSelectScreenState extends ConsumerState<RosterSelectScreen>
         awayRoster: roster,
       );
     }
+
+    // 특수 컨디션 전달
+    ref.read(currentMatchProvider.notifier).setSpecialConditions(_specialConditions);
 
     // 경기 화면으로 이동
     context.go('/match');
@@ -1016,12 +1043,14 @@ class _PlayerCard extends StatelessWidget {
   final Player player;
   final bool isAssigned;
   final int? assignedSet;
+  final SpecialCondition specialCondition;
   final VoidCallback? onTap;
 
   const _PlayerCard({
     required this.player,
     required this.isAssigned,
     this.assignedSet,
+    this.specialCondition = SpecialCondition.none,
     required this.onTap,
   });
 
@@ -1029,7 +1058,7 @@ class _PlayerCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final raceCode = player.race.code;
     final gradeString = player.grade.display;
-    final condition = player.condition;
+    final condition = player.getDisplayConditionWithSpecial(specialCondition);
 
     return Card(
       color: isAssigned
@@ -1077,6 +1106,15 @@ class _PlayerCard extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 8),
+                        // 특수 컨디션 아이콘 (최상: 초록 느낌표, 최악: 빨간 느낌표)
+                        if (specialCondition != SpecialCondition.none)
+                          Icon(
+                            Icons.priority_high,
+                            size: 14,
+                            color: specialCondition == SpecialCondition.best
+                                ? Colors.green
+                                : Colors.red,
+                          ),
                         Icon(
                           Icons.favorite,
                           size: 10,
@@ -1093,6 +1131,20 @@ class _PlayerCard extends StatelessWidget {
                                 : (condition >= 50 ? Colors.orange : Colors.red),
                           ),
                         ),
+                        // 특수 컨디션 텍스트 라벨
+                        if (specialCondition != SpecialCondition.none) ...[
+                          const SizedBox(width: 4),
+                          Text(
+                            specialCondition == SpecialCondition.best ? '최상' : '최악',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                              color: specialCondition == SpecialCondition.best
+                                  ? Colors.green
+                                  : Colors.red,
+                            ),
+                          ),
+                        ],
                       ],
                     ),
                   ],
@@ -1144,18 +1196,20 @@ class _OpponentPlayerCard extends StatelessWidget {
   final Player player;
   final bool isPredicted;
   final int? predictedSet;
+  final SpecialCondition specialCondition;
 
   const _OpponentPlayerCard({
     required this.player,
     this.isPredicted = false,
     this.predictedSet,
+    this.specialCondition = SpecialCondition.none,
   });
 
   @override
   Widget build(BuildContext context) {
     final raceCode = player.race.code;
     final gradeString = player.grade.display;
-    final condition = player.condition;
+    final condition = player.getDisplayConditionWithSpecial(specialCondition);
 
     return Card(
       color: isPredicted
@@ -1228,6 +1282,15 @@ class _OpponentPlayerCard extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 8),
+                      // 특수 컨디션 아이콘 (최상: 초록 느낌표, 최악: 빨간 느낌표)
+                      if (specialCondition != SpecialCondition.none)
+                        Icon(
+                          Icons.priority_high,
+                          size: 14,
+                          color: specialCondition == SpecialCondition.best
+                              ? Colors.green
+                              : Colors.red,
+                        ),
                       Icon(
                         Icons.favorite,
                         size: 10,
@@ -1244,6 +1307,20 @@ class _OpponentPlayerCard extends StatelessWidget {
                               : (condition >= 50 ? Colors.orange : Colors.red),
                         ),
                       ),
+                      // 특수 컨디션 텍스트 라벨
+                      if (specialCondition != SpecialCondition.none) ...[
+                        const SizedBox(width: 4),
+                        Text(
+                          specialCondition == SpecialCondition.best ? '최상' : '최악',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            color: specialCondition == SpecialCondition.best
+                                ? Colors.green
+                                : Colors.red,
+                          ),
+                        ),
+                      ],
                     ],
                   ),
                 ],

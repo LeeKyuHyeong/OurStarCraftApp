@@ -122,12 +122,18 @@ class _MatchSimulationScreenState extends ConsumerState<MatchSimulationScreen> {
     // 배속에 따른 텍스트 간격 (ms)
     final intervalMs = _getIntervalMs();
 
+    // 특수 컨디션 가져오기
+    final homeSpecialCondition = matchState.getSpecialCondition(homePlayer.id);
+    final awaySpecialCondition = matchState.getSpecialCondition(awayPlayer.id);
+
     // 시뮬레이션 스트림 시작
     final stream = _simulationService.simulateMatchWithLog(
       homePlayer: homePlayer,
       awayPlayer: awayPlayer,
       map: map,
       intervalMs: intervalMs,
+      homeSpecialCondition: homeSpecialCondition,
+      awaySpecialCondition: awaySpecialCondition,
     );
 
     _simulationSubscription?.cancel();
@@ -300,12 +306,18 @@ class _MatchSimulationScreenState extends ConsumerState<MatchSimulationScreen> {
 
     final intervalMs = _getIntervalMs();
 
+    // 특수 컨디션 가져오기
+    final homeSpecialCondition = matchState.getSpecialCondition(homePlayer.id);
+    final awaySpecialCondition = matchState.getSpecialCondition(awayPlayer.id);
+
     // 새 시뮬레이션 시작 (현재 상태 유지하며 계속)
     final stream = _simulationService.simulateMatchWithLog(
       homePlayer: homePlayer,
       awayPlayer: awayPlayer,
       map: map,
       intervalMs: intervalMs,
+      homeSpecialCondition: homeSpecialCondition,
+      awaySpecialCondition: awaySpecialCondition,
     );
 
     _simulationSubscription = stream.listen(
@@ -528,6 +540,14 @@ class _MatchSimulationScreenState extends ConsumerState<MatchSimulationScreen> {
         ? _getPlayerById(matchState.currentAwayPlayerId)
         : _getPlayerById(matchState.currentHomePlayerId);
 
+    // 특수 컨디션도 내 팀 기준
+    final leftSpecialCondition = isPlayerHome
+        ? matchState.getSpecialCondition(matchState.currentHomePlayerId ?? '')
+        : matchState.getSpecialCondition(matchState.currentAwayPlayerId ?? '');
+    final rightSpecialCondition = isPlayerHome
+        ? matchState.getSpecialCondition(matchState.currentAwayPlayerId ?? '')
+        : matchState.getSpecialCondition(matchState.currentHomePlayerId ?? '');
+
     // 점수도 내 팀 기준
     final myScore = isPlayerHome ? matchState.homeScore : matchState.awayScore;
     final opponentScore = isPlayerHome ? matchState.awayScore : matchState.homeScore;
@@ -609,9 +629,9 @@ class _MatchSimulationScreenState extends ConsumerState<MatchSimulationScreen> {
                 padding: const EdgeInsets.all(16),
                 child: Row(
                   children: [
-                    Expanded(child: _PlayerPanel(player: leftPlayer, isHome: true)),
+                    Expanded(child: _PlayerPanel(player: leftPlayer, isHome: true, specialCondition: leftSpecialCondition)),
                     const SizedBox(width: 16),
-                    Expanded(child: _PlayerPanel(player: rightPlayer, isHome: false)),
+                    Expanded(child: _PlayerPanel(player: rightPlayer, isHome: false, specialCondition: rightSpecialCondition)),
                   ],
                 ),
               ),
@@ -1207,8 +1227,13 @@ class _MatchSimulationScreenState extends ConsumerState<MatchSimulationScreen> {
 class _PlayerPanel extends StatelessWidget {
   final Player? player;
   final bool isHome;
+  final SpecialCondition specialCondition;
 
-  const _PlayerPanel({required this.player, required this.isHome});
+  const _PlayerPanel({
+    required this.player,
+    required this.isHome,
+    this.specialCondition = SpecialCondition.none,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -1244,17 +1269,44 @@ class _PlayerPanel extends StatelessWidget {
       ),
       child: Column(
         children: [
-          CircleAvatar(
-            radius: 24,
-            backgroundColor: AppTheme.getRaceColor(raceCode),
-            child: Text(
-              raceCode,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
+          // 특수 컨디션 아이콘 + 아바타
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              CircleAvatar(
+                radius: 24,
+                backgroundColor: AppTheme.getRaceColor(raceCode),
+                child: Text(
+                  raceCode,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
               ),
-            ),
+              // 특수 컨디션 배지
+              if (specialCondition != SpecialCondition.none)
+                Positioned(
+                  right: -4,
+                  top: -4,
+                  child: Container(
+                    padding: const EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      color: specialCondition == SpecialCondition.best
+                          ? Colors.green
+                          : Colors.red,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white, width: 1),
+                    ),
+                    child: const Icon(
+                      Icons.priority_high,
+                      size: 12,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+            ],
           ),
           const SizedBox(height: 8),
           Text(
@@ -1265,6 +1317,20 @@ class _PlayerPanel extends StatelessWidget {
             ),
             overflow: TextOverflow.ellipsis,
           ),
+          // 특수 컨디션 라벨
+          if (specialCondition != SpecialCondition.none) ...[
+            const SizedBox(height: 2),
+            Text(
+              specialCondition == SpecialCondition.best ? '컨디션 최상!' : '컨디션 최악',
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+                color: specialCondition == SpecialCondition.best
+                    ? Colors.green
+                    : Colors.red,
+              ),
+            ),
+          ],
           Container(
             margin: const EdgeInsets.only(top: 4),
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),

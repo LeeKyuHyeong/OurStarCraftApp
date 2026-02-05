@@ -15,6 +15,7 @@ class CurrentMatchState {
   final int awayScore;
   final int currentSet; // 현재 진행 중인 세트 (0-6)
   final List<bool> setResults; // 각 세트 결과 (true = 홈 승리, false = 어웨이 승리)
+  final Map<String, SpecialCondition> playerSpecialConditions; // 선수별 특수 컨디션 (임시)
 
   const CurrentMatchState({
     required this.homeTeamId,
@@ -27,7 +28,13 @@ class CurrentMatchState {
     this.awayScore = 0,
     this.currentSet = 0,
     this.setResults = const [],
+    this.playerSpecialConditions = const {},
   });
+
+  /// 특정 선수의 특수 컨디션 조회
+  SpecialCondition getSpecialCondition(String playerId) {
+    return playerSpecialConditions[playerId] ?? SpecialCondition.none;
+  }
 
   /// 현재 세트의 홈 선수 ID
   String? get currentHomePlayerId {
@@ -64,6 +71,7 @@ class CurrentMatchState {
     int? awayScore,
     int? currentSet,
     List<bool>? setResults,
+    Map<String, SpecialCondition>? playerSpecialConditions,
   }) {
     return CurrentMatchState(
       homeTeamId: homeTeamId ?? this.homeTeamId,
@@ -76,6 +84,7 @@ class CurrentMatchState {
       awayScore: awayScore ?? this.awayScore,
       currentSet: currentSet ?? this.currentSet,
       setResults: setResults ?? this.setResults,
+      playerSpecialConditions: playerSpecialConditions ?? this.playerSpecialConditions,
     );
   }
 }
@@ -233,6 +242,34 @@ class CurrentMatchNotifier extends StateNotifier<CurrentMatchState?> {
     final bestAvailable = availablePlayers.reduce((a, b) =>
         a.grade.index > b.grade.index ? a : b);
     return bestAvailable.id;
+  }
+
+  /// 모든 선수에게 특수 컨디션 롤 (로스터 선택 화면 진입 시 호출)
+  void rollSpecialConditions({
+    required List<String> homePlayerIds,
+    required List<String> awayPlayerIds,
+  }) {
+    if (state == null) return;
+
+    final conditions = <String, SpecialCondition>{};
+
+    // 홈팀 선수들 롤
+    for (final playerId in homePlayerIds) {
+      conditions[playerId] = SpecialCondition.roll();
+    }
+
+    // 어웨이팀 선수들 롤
+    for (final playerId in awayPlayerIds) {
+      conditions[playerId] = SpecialCondition.roll();
+    }
+
+    state = state!.copyWith(playerSpecialConditions: conditions);
+  }
+
+  /// 이미 롤된 특수 컨디션을 설정 (로스터 선택 화면에서 롤한 결과 전달)
+  void setSpecialConditions(Map<String, SpecialCondition> conditions) {
+    if (state == null) return;
+    state = state!.copyWith(playerSpecialConditions: conditions);
   }
 
   /// 매치 초기화

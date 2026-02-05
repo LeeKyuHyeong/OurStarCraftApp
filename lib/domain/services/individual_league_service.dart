@@ -23,12 +23,15 @@ class IndividualLeagueService {
   }) {
     // 이전 시즌 정보 추출
     final prevTop8 = previousSeasonBracket?.top8Players ?? [];
-    final prevMainTournamentPlayers = previousSeasonBracket?.mainTournamentPlayers ?? [];
+    final prevMainTournamentResults = previousSeasonBracket?.mainTournamentResults ?? [];
 
-    // 이전 시즌 32강 진출자 중 8강 진출자 제외 = 듀얼토너먼트 시드
-    final prevDualSeeds = prevMainTournamentPlayers
-        .where((id) => !prevTop8.contains(id))
-        .toList();
+    // 이전 시즌 듀얼토너먼트 시드 (순위대로 정렬: 16강탈락 → 32강탈락)
+    final prevDualSeeds = prevMainTournamentResults.isNotEmpty
+        ? _rankDualTournamentSeeds(
+            mainTournamentResults: prevMainTournamentResults,
+            top8Players: prevTop8,
+          )
+        : <String>[];
 
     // 현재 활동 중인 선수만 필터링 (은퇴/이적 고려)
     final activePlayerIds = allPlayers.map((p) => p.id).toSet();
@@ -140,15 +143,40 @@ class IndividualLeagueService {
       groups[i].add(myTeamPcBangPlayers[i].id);
     }
 
-    // 남은 선수들 섞어서 배정
+    // 남은 선수들 같은 팀 회피하며 배정
     otherPcBangPlayers.shuffle(_random);
-    var playerIndex = 0;
-    for (var groupIndex = 0; groupIndex < totalGroups; groupIndex++) {
-      // 해당 조의 최대 인원 결정 (앞 groups8Count개는 8명, 나머지는 6명)
-      final maxPlayers = groupIndex < groups8Count ? 8 : 6;
-      while (groups[groupIndex].length < maxPlayers && playerIndex < otherPcBangPlayers.length) {
-        groups[groupIndex].add(otherPcBangPlayers[playerIndex].id);
-        playerIndex++;
+    final playerTeamMap = {for (var p in allPlayers) p.id: p.teamId};
+
+    for (final player in otherPcBangPlayers) {
+      final playerId = player.id;
+      final playerTeam = playerTeamMap[playerId];
+
+      // 같은 팀 없고, 자리 있는 조 찾기
+      int? bestGroup;
+      for (var groupIndex = 0; groupIndex < totalGroups; groupIndex++) {
+        final maxPlayers = groupIndex < groups8Count ? 8 : 6;
+        if (groups[groupIndex].length >= maxPlayers) continue;
+
+        final hasTeammate = groups[groupIndex].any((id) => playerTeamMap[id] == playerTeam);
+        if (!hasTeammate) {
+          bestGroup = groupIndex;
+          break;
+        }
+      }
+
+      // 회피 불가능하면 빈 자리 있는 조에 배정
+      if (bestGroup == null) {
+        for (var groupIndex = 0; groupIndex < totalGroups; groupIndex++) {
+          final maxPlayers = groupIndex < groups8Count ? 8 : 6;
+          if (groups[groupIndex].length < maxPlayers) {
+            bestGroup = groupIndex;
+            break;
+          }
+        }
+      }
+
+      if (bestGroup != null) {
+        groups[bestGroup].add(playerId);
       }
     }
 
@@ -846,6 +874,35 @@ class IndividualLeagueService {
         ranked.add(id);
       }
     }
+
+    return ranked;
+  }
+
+  /// 듀얼토너먼트 시드 선수를 순위대로 정렬 (9-32등)
+  /// 9-16등: 16강 탈락자, 17-32등: 32강 탈락자
+  List<String> _rankDualTournamentSeeds({
+    required List<IndividualMatchResult> mainTournamentResults,
+    required List<String> top8Players,
+  }) {
+    final ranked = <String>[];
+
+    // 16강 탈락자 (9-16등) 추출
+    final round16Losers = mainTournamentResults
+        .where((r) => r.stage == IndividualLeagueStage.round16)
+        .map((r) => r.loserId)
+        .where((id) => !top8Players.contains(id))
+        .toList();
+
+    // 32강 탈락자 (17-32등) 추출
+    final round32Losers = mainTournamentResults
+        .where((r) => r.stage == IndividualLeagueStage.round32)
+        .map((r) => r.loserId)
+        .where((id) => !top8Players.contains(id))
+        .toList();
+
+    // 순서대로 추가: 16강 탈락 → 32강 탈락
+    ranked.addAll(round16Losers);
+    ranked.addAll(round32Losers);
 
     return ranked;
   }

@@ -457,6 +457,58 @@ class Player {
   /// 컨디션 적용된 실제 능력치
   PlayerStats get effectiveStats => stats.applyCondition(condition);
 
+  /// 특수 컨디션을 적용한 실제 능력치 (경기 시뮬레이션용)
+  PlayerStats getEffectiveStatsWithSpecialCondition(SpecialCondition specialCondition) {
+    int effectiveCondition = condition;
+    double statMultiplier = 1.0;
+
+    switch (specialCondition) {
+      case SpecialCondition.best:
+        // 컨디션 +10% (최대 110)
+        effectiveCondition = (condition + 10).clamp(0, 110);
+        // 추가 능력치 +10%
+        statMultiplier = 1.1;
+        break;
+      case SpecialCondition.worst:
+        // 컨디션 80%로 고정
+        effectiveCondition = 80;
+        break;
+      case SpecialCondition.none:
+        break;
+    }
+
+    // 컨디션 먼저 적용
+    final conditionApplied = stats.applyCondition(effectiveCondition);
+
+    // 최상일 때 추가 10% 보너스
+    if (statMultiplier != 1.0) {
+      return PlayerStats(
+        sense: (conditionApplied.sense * statMultiplier).round(),
+        control: (conditionApplied.control * statMultiplier).round(),
+        attack: (conditionApplied.attack * statMultiplier).round(),
+        harass: (conditionApplied.harass * statMultiplier).round(),
+        strategy: (conditionApplied.strategy * statMultiplier).round(),
+        macro: (conditionApplied.macro * statMultiplier).round(),
+        defense: (conditionApplied.defense * statMultiplier).round(),
+        scout: (conditionApplied.scout * statMultiplier).round(),
+      );
+    }
+
+    return conditionApplied;
+  }
+
+  /// 특수 컨디션을 적용한 표시용 컨디션
+  int getDisplayConditionWithSpecial(SpecialCondition specialCondition) {
+    switch (specialCondition) {
+      case SpecialCondition.best:
+        return min(condition + 10, 100);
+      case SpecialCondition.worst:
+        return 80;
+      case SpecialCondition.none:
+        return displayCondition;
+    }
+  }
+
   /// 경기 후 결과 적용
   Player applyMatchResult({
     required bool isWin,

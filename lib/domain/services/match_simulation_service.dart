@@ -111,6 +111,8 @@ class MatchSimulationService {
     required GameMap map,
     int homeCheerfulBonus = 0,
     int awayCheerfulBonus = 0,
+    SpecialCondition homeSpecialCondition = SpecialCondition.none,
+    SpecialCondition awaySpecialCondition = SpecialCondition.none,
   }) {
     // 1. 종족 상성 (맵 기반)
     final raceMatchupBonus = map.matchup.getWinRate(
@@ -118,9 +120,9 @@ class MatchSimulationService {
       awayPlayer.race,
     );
 
-    // 2. 능력치 비교
-    final homeStats = homePlayer.effectiveStats;
-    final awayStats = awayPlayer.effectiveStats;
+    // 2. 능력치 비교 (특수 컨디션 적용)
+    final homeStats = homePlayer.getEffectiveStatsWithSpecialCondition(homeSpecialCondition);
+    final awayStats = awayPlayer.getEffectiveStatsWithSpecialCondition(awaySpecialCondition);
 
     final homeTotal = homeStats.total + homeCheerfulBonus;
     final awayTotal = awayStats.total + awayCheerfulBonus;
@@ -199,6 +201,8 @@ class MatchSimulationService {
     required GameMap map,
     int homeCheerfulBonus = 0,
     int awayCheerfulBonus = 0,
+    SpecialCondition homeSpecialCondition = SpecialCondition.none,
+    SpecialCondition awaySpecialCondition = SpecialCondition.none,
   }) {
     final winRate = calculateWinRate(
       homePlayer: homePlayer,
@@ -206,6 +210,8 @@ class MatchSimulationService {
       map: map,
       homeCheerfulBonus: homeCheerfulBonus,
       awayCheerfulBonus: awayCheerfulBonus,
+      homeSpecialCondition: homeSpecialCondition,
+      awaySpecialCondition: awaySpecialCondition,
     );
 
     final homeWin = _random.nextDouble() < winRate;
@@ -226,6 +232,8 @@ class MatchSimulationService {
     required int intervalMs,
     int homeCheerfulBonus = 0,
     int awayCheerfulBonus = 0,
+    SpecialCondition homeSpecialCondition = SpecialCondition.none,
+    SpecialCondition awaySpecialCondition = SpecialCondition.none,
   }) async* {
     final winRate = calculateWinRate(
       homePlayer: homePlayer,
@@ -233,11 +241,13 @@ class MatchSimulationService {
       map: map,
       homeCheerfulBonus: homeCheerfulBonus,
       awayCheerfulBonus: awayCheerfulBonus,
+      homeSpecialCondition: homeSpecialCondition,
+      awaySpecialCondition: awaySpecialCondition,
     );
 
     var state = const SimulationState();
-    final homeStats = homePlayer.effectiveStats;
-    final awayStats = awayPlayer.effectiveStats;
+    final homeStats = homePlayer.getEffectiveStatsWithSpecialCondition(homeSpecialCondition);
+    final awayStats = awayPlayer.getEffectiveStatsWithSpecialCondition(awaySpecialCondition);
 
     // 각 선수의 빌드 스타일 결정
     final homeStyle = _determineBuildStyle(homeStats);

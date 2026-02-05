@@ -31,13 +31,11 @@ class _WinnersSetResult {
   final Player homePlayer;
   final Player awayPlayer;
   final bool homeWin;
-  final String? mapName;
 
   _WinnersSetResult({
     required this.homePlayer,
     required this.awayPlayer,
     required this.homeWin,
-    this.mapName,
   });
 }
 

@@ -1,6 +1,8 @@
 /// MyStar 게임 열거형 정의
 library;
 
+import 'dart:math';
+
 /// 종족
 enum Race {
   terran('T', '테란'),
@@ -229,4 +231,24 @@ enum PlayoffMatchType {
 
   final String koreanName;
   const PlayoffMatchType(this.koreanName);
+}
+
+/// 특수 컨디션 (경기별 임시, Hive 저장 X)
+enum SpecialCondition {
+  none('', 0),
+  best('최상', 10),   // 컨디션 +10%, 능력치 +10%
+  worst('최악', 0);   // 컨디션 80%로 고정
+
+  final String koreanName;
+  final int conditionBonus;
+  const SpecialCondition(this.koreanName, this.conditionBonus);
+
+  /// 특수 컨디션 롤 (각 5% 확률)
+  static SpecialCondition roll() {
+    final random = Random();
+    final roll = random.nextDouble();
+    if (roll < 0.05) return SpecialCondition.best;
+    if (roll < 0.10) return SpecialCondition.worst;
+    return SpecialCondition.none;
+  }
 }
