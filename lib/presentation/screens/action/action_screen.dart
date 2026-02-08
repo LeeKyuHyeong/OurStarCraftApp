@@ -27,9 +27,7 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
       );
     }
 
-    final team = gameState.playerTeam;
     final players = gameState.playerTeamPlayers;
-    final actionPoints = team.actionPoints;
 
     return Scaffold(
       appBar: AppBar(
@@ -41,36 +39,29 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
       ),
       body: Column(
         children: [
-          // 상단: 행동력 표시
+          // 상단: 행동 종류별 비용 안내
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             color: AppTheme.cardBackground,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                const Icon(Icons.flash_on, color: AppTheme.accentGreen, size: 18),
+                const SizedBox(width: 8),
                 const Text(
-                  '보유 행동력',
+                  '선수별 행동력',
                   style: TextStyle(
-                    fontSize: 16,
-                    color: AppTheme.textSecondary,
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: AppTheme.textPrimary,
                   ),
                 ),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.flash_on,
-                      color: AppTheme.accentGreen,
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      '$actionPoints',
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: AppTheme.accentGreen,
-                      ),
-                    ),
-                  ],
+                const Spacer(),
+                Text(
+                  '매주 +100 AP/인',
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: AppTheme.textSecondary.withValues(alpha: 0.7),
+                  ),
                 ),
               ],
             ),
@@ -82,7 +73,7 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
               children: [
                 // 왼쪽: 선수 목록
                 SizedBox(
-                  width: 180,
+                  width: 190,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -101,7 +92,7 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
                             ),
                             Row(
                               children: [
-                                _buildSelectAllButton(players, actionPoints),
+                                _buildSelectAllButton(players),
                               ],
                             ),
                           ],
@@ -114,9 +105,9 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
                           itemBuilder: (context, index) {
                             final player = players[index];
                             final isSelected = _selectedPlayerIds.contains(player.id);
-                            final canDoAction = _canPlayerDoAction(player);
                             final cost = _getActionCost();
-                            final canAfford = actionPoints >= cost;
+                            final canDoAction = _canPlayerDoAction(player);
+                            final canAfford = player.actionPoints >= cost;
                             final isSelectable = canDoAction && canAfford;
 
                             return Card(
@@ -124,7 +115,7 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
                                   ? AppTheme.primaryBlue
                                   : isSelectable
                                       ? AppTheme.cardBackground
-                                      : AppTheme.cardBackground.withOpacity(0.5),
+                                      : AppTheme.cardBackground.withValues(alpha: 0.5),
                               margin: const EdgeInsets.only(bottom: 4),
                               child: InkWell(
                                 onTap: isSelectable
@@ -142,7 +133,7 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
                                   padding: const EdgeInsets.all(8),
                                   child: Row(
                                     children: [
-                                      // 체크박스 (행동력 부족 또는 행동 불가 시 숨김)
+                                      // 체크박스
                                       if (isSelectable)
                                         SizedBox(
                                           width: 24,
@@ -172,7 +163,7 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
                                         radius: 12,
                                         backgroundColor: isSelectable
                                             ? AppTheme.getRaceColor(player.race.code)
-                                            : AppTheme.getRaceColor(player.race.code).withOpacity(0.4),
+                                            : AppTheme.getRaceColor(player.race.code).withValues(alpha: 0.4),
                                         child: Text(
                                           player.race.code,
                                           style: TextStyle(
@@ -209,20 +200,29 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
                                                         ? Colors.white70
                                                         : isSelectable
                                                             ? _getConditionColor(player.condition)
-                                                            : AppTheme.textSecondary.withOpacity(0.5),
+                                                            : AppTheme.textSecondary.withValues(alpha: 0.5),
                                                   ),
                                                 ),
                                                 const SizedBox(width: 4),
-                                                // 필요 행동력 표시
+                                                // 선수 행동력 표시
+                                                Icon(
+                                                  Icons.flash_on,
+                                                  size: 9,
+                                                  color: isSelected
+                                                      ? Colors.white70
+                                                      : canAfford
+                                                          ? AppTheme.accentGreen
+                                                          : Colors.red.withValues(alpha: 0.7),
+                                                ),
                                                 Text(
-                                                  '${cost}AP',
+                                                  '${player.actionPoints}',
                                                   style: TextStyle(
-                                                    fontSize: 8,
+                                                    fontSize: 9,
                                                     color: isSelected
                                                         ? Colors.white70
                                                         : canAfford
                                                             ? AppTheme.accentGreen
-                                                            : Colors.red.withOpacity(0.7),
+                                                            : Colors.red.withValues(alpha: 0.7),
                                                   ),
                                                 ),
                                                 if (!canDoAction && canAfford) ...[
@@ -231,7 +231,7 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
                                                     _getDisabledReason(player),
                                                     style: TextStyle(
                                                       fontSize: 8,
-                                                      color: Colors.red.withOpacity(0.7),
+                                                      color: Colors.red.withValues(alpha: 0.7),
                                                     ),
                                                   ),
                                                 ],
@@ -265,7 +265,6 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
                               '휴식',
                               Icons.hotel,
                               50,
-                              actionPoints,
                             ),
                             const SizedBox(width: 8),
                             _buildActionButton(
@@ -273,7 +272,6 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
                               '특훈',
                               Icons.fitness_center,
                               100,
-                              actionPoints,
                             ),
                             const SizedBox(width: 8),
                             _buildActionButton(
@@ -281,7 +279,6 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
                               '팬미팅',
                               Icons.people,
                               200,
-                              actionPoints,
                             ),
                           ],
                         ),
@@ -289,7 +286,7 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
                       const Divider(),
                       // 행동 상세 정보
                       Expanded(
-                        child: _buildActionDetail(actionPoints, players),
+                        child: _buildActionDetail(players),
                       ),
                       // 실행 버튼
                       Padding(
@@ -298,7 +295,7 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
                           width: double.infinity,
                           height: 56,
                           child: ElevatedButton(
-                            onPressed: _canExecuteAction(actionPoints)
+                            onPressed: _selectedPlayerIds.isNotEmpty
                                 ? () => _executeAction(players)
                                 : null,
                             style: ElevatedButton.styleFrom(
@@ -307,7 +304,7 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
                               disabledBackgroundColor: AppTheme.cardBackground,
                             ),
                             child: Text(
-                              _getExecuteButtonText(actionPoints),
+                              _getExecuteButtonText(players),
                               style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -327,12 +324,11 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
     );
   }
 
-  Widget _buildSelectAllButton(List<Player> players, int actionPoints) {
+  Widget _buildSelectAllButton(List<Player> players) {
     final cost = _getActionCost();
-    final canAfford = actionPoints >= cost;
-    final availablePlayers = canAfford
-        ? players.where(_canPlayerDoAction).toList()
-        : <Player>[];
+    final availablePlayers = players
+        .where((p) => _canPlayerDoAction(p) && p.actionPoints >= cost)
+        .toList();
     final allSelected = availablePlayers.isNotEmpty &&
         availablePlayers.every((p) => _selectedPlayerIds.contains(p.id));
 
@@ -340,10 +336,8 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
       onTap: () {
         setState(() {
           if (allSelected) {
-            // 전체 해제
             _selectedPlayerIds.clear();
           } else {
-            // 가능한 선수만 전체 선택
             _selectedPlayerIds = availablePlayers.map((p) => p.id).toSet();
           }
         });
@@ -383,13 +377,10 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
   bool _canPlayerDoAction(Player player) {
     switch (_selectedAction) {
       case ActionType.rest:
-        // 휴식: 컨디션 100 미만인 선수만 가능
         return player.condition < 100;
       case ActionType.training:
-        // 특훈: 모든 선수 가능
         return true;
       case ActionType.fanMeeting:
-        // 팬미팅: 모든 선수 가능
         return true;
     }
   }
@@ -397,9 +388,7 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
   String _getDisabledReason(Player player) {
     switch (_selectedAction) {
       case ActionType.rest:
-        if (player.condition >= 100) {
-          return '(최상)';
-        }
+        if (player.condition >= 100) return '(최상)';
         return '';
       case ActionType.training:
       case ActionType.fanMeeting:
@@ -412,17 +401,14 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
     String label,
     IconData icon,
     int cost,
-    int currentPoints,
   ) {
     final isSelected = _selectedAction == action;
-    final canAfford = currentPoints >= cost;
 
     return Expanded(
       child: GestureDetector(
         onTap: () {
           setState(() {
             _selectedAction = action;
-            // 행동 변경 시 선택된 선수 초기화 (새 행동에서 불가능한 선수가 있을 수 있음)
             _selectedPlayerIds.clear();
           });
         },
@@ -432,11 +418,7 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
             color: isSelected ? AppTheme.primaryBlue : AppTheme.cardBackground,
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: isSelected
-                  ? AppTheme.accentGreen
-                  : canAfford
-                      ? AppTheme.primaryBlue
-                      : Colors.red.withOpacity(0.5),
+              color: isSelected ? AppTheme.accentGreen : AppTheme.primaryBlue,
               width: isSelected ? 2 : 1,
             ),
           ),
@@ -444,11 +426,7 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
             children: [
               Icon(
                 icon,
-                color: isSelected
-                    ? AppTheme.accentGreen
-                    : canAfford
-                        ? AppTheme.textPrimary
-                        : AppTheme.textSecondary,
+                color: isSelected ? AppTheme.accentGreen : AppTheme.textPrimary,
                 size: 24,
               ),
               const SizedBox(height: 4),
@@ -457,19 +435,15 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                  color: isSelected
-                      ? Colors.white
-                      : canAfford
-                          ? AppTheme.textPrimary
-                          : AppTheme.textSecondary,
+                  color: isSelected ? Colors.white : AppTheme.textPrimary,
                 ),
               ),
               const SizedBox(height: 2),
               Text(
                 '$cost AP',
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 10,
-                  color: canAfford ? AppTheme.accentGreen : Colors.red,
+                  color: AppTheme.accentGreen,
                 ),
               ),
             ],
@@ -479,7 +453,7 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
     );
   }
 
-  Widget _buildActionDetail(int actionPoints, List<Player> players) {
+  Widget _buildActionDetail(List<Player> players) {
     String title;
     String description;
     String effect;
@@ -509,7 +483,6 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
     final selectedPlayers = players
         .where((p) => _selectedPlayerIds.contains(p.id))
         .toList();
-    final totalCost = cost * selectedPlayers.length;
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
@@ -562,14 +535,12 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('1인당 행동력'),
+                    const Text('필요 행동력'),
                     Text(
-                      '$cost',
-                      style: TextStyle(
+                      '$cost AP',
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: actionPoints >= cost
-                            ? AppTheme.accentGreen
-                            : Colors.red,
+                        color: AppTheme.accentGreen,
                       ),
                     ),
                   ],
@@ -579,15 +550,13 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('총 소모 (${selectedPlayers.length}명)'),
+                      Text('선택: ${selectedPlayers.length}명'),
                       Text(
-                        '$totalCost',
-                        style: TextStyle(
+                        '각 선수 -$cost AP',
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: actionPoints >= totalCost
-                              ? AppTheme.accentGreen
-                              : Colors.red,
+                          fontSize: 12,
+                          color: AppTheme.accentGreen,
                         ),
                       ),
                     ],
@@ -676,18 +645,31 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      const Text(
-                        '컨디션',
-                        style: TextStyle(
-                          fontSize: 9,
-                          color: AppTheme.textSecondary,
-                        ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.flash_on, size: 12, color: AppTheme.accentGreen),
+                          Text(
+                            '${player.actionPoints}',
+                            style: const TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: AppTheme.accentGreen,
+                            ),
+                          ),
+                          Text(
+                            ' → ${player.actionPoints - cost}',
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.orange.withValues(alpha: 0.8),
+                            ),
+                          ),
+                        ],
                       ),
                       Text(
-                        '${player.condition.clamp(0, 100)}%',
+                        '컨디션 ${player.condition.clamp(0, 100)}%',
                         style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 9,
                           color: _getConditionColor(player.condition),
                         ),
                       ),
@@ -703,7 +685,7 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
                 color: AppTheme.cardBackground,
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: AppTheme.primaryBlue.withOpacity(0.5),
+                  color: AppTheme.primaryBlue.withValues(alpha: 0.5),
                   style: BorderStyle.solid,
                 ),
               ),
@@ -727,48 +709,8 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
     return Colors.red;
   }
 
-  bool _canExecuteAction(int actionPoints) {
-    if (_selectedPlayerIds.isEmpty) return false;
-
-    int costPerPlayer;
-    switch (_selectedAction) {
-      case ActionType.rest:
-        costPerPlayer = 50;
-        break;
-      case ActionType.training:
-        costPerPlayer = 100;
-        break;
-      case ActionType.fanMeeting:
-        costPerPlayer = 200;
-        break;
-    }
-
-    final totalCost = costPerPlayer * _selectedPlayerIds.length;
-    return actionPoints >= totalCost;
-  }
-
-  String _getExecuteButtonText(int actionPoints) {
+  String _getExecuteButtonText(List<Player> players) {
     if (_selectedPlayerIds.isEmpty) return '선수를 선택하세요';
-
-    int costPerPlayer;
-    switch (_selectedAction) {
-      case ActionType.rest:
-        costPerPlayer = 50;
-        break;
-      case ActionType.training:
-        costPerPlayer = 100;
-        break;
-      case ActionType.fanMeeting:
-        costPerPlayer = 200;
-        break;
-    }
-
-    final totalCost = costPerPlayer * _selectedPlayerIds.length;
-
-    if (actionPoints < totalCost) {
-      return '행동력 부족 (${totalCost - actionPoints} 필요)';
-    }
-
     return '실행 (${_selectedPlayerIds.length}명)';
   }
 
@@ -831,7 +773,6 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
         break;
     }
 
-    // 실행 후 선택 초기화
     setState(() {
       _selectedPlayerIds.clear();
     });

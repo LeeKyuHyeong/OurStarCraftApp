@@ -699,10 +699,10 @@ class _DualTournamentScreenState extends ConsumerState<DualTournamentScreen> {
   void _goToNextStage(BuildContext context) {
     if (widget.round < 3) {
       // 다음 듀얼 토너먼트
-      context.push('/dual-tournament/${widget.round + 1}');
+      context.push('/individual-league/dual/${widget.round + 1}');
     } else {
       // 조지명식으로
-      context.push('/group-draw');
+      context.push('/individual-league/group-draw');
     }
   }
 

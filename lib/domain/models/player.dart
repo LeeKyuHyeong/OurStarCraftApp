@@ -441,6 +441,9 @@ class Player {
   @HiveField(13)
   final int experience; // 경험치 (레벨 결정)
 
+  @HiveField(14)
+  final int actionPoints; // 행동력 (선수별)
+
   Player({
     required this.id,
     required this.name,
@@ -454,6 +457,7 @@ class Player {
     int? careerSeasons,
     this.imagePath,
     int? experience,
+    this.actionPoints = 0,
   })  : careerSeasons = careerSeasons ?? _defaultCareerSeasons(levelValue),
         experience = experience ?? _defaultExperience(levelValue);
 
@@ -667,6 +671,16 @@ class Player {
     );
   }
 
+  /// 행동력 추가
+  Player addActionPoints(int amount) {
+    return copyWith(actionPoints: actionPoints + amount);
+  }
+
+  /// 행동력 소모
+  Player spendActionPoints(int amount) {
+    return copyWith(actionPoints: (actionPoints - amount).clamp(0, 9999));
+  }
+
   /// 휴식 적용
   Player applyRest() {
     final random = Random();
@@ -728,6 +742,7 @@ class Player {
     String? imagePath,
     bool clearImagePath = false,
     int? experience,
+    int? actionPoints,
   }) {
     return Player(
       id: id ?? this.id,
@@ -742,6 +757,7 @@ class Player {
       careerSeasons: careerSeasons ?? this.careerSeasons,
       imagePath: clearImagePath ? null : (imagePath ?? this.imagePath),
       experience: experience ?? this.experience,
+      actionPoints: actionPoints ?? this.actionPoints,
     );
   }
 }

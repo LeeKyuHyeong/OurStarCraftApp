@@ -156,34 +156,24 @@ class GameStateNotifier extends StateNotifier<GameState?> {
   void playerRest(String playerId) {
     if (state == null) return;
 
-    final team = state!.playerTeam;
-    if (team.actionPoints < 50) return; // 행동력 부족
-
     final player = state!.saveData.getPlayerById(playerId);
     if (player == null) return;
+    if (player.actionPoints < 50) return; // 행동력 부족
 
-    final updatedPlayer = player.applyRest();
-    final updatedTeam = team.spendActionPoints(50);
-
+    final updatedPlayer = player.applyRest().spendActionPoints(50);
     updatePlayer(updatedPlayer);
-    updateTeam(updatedTeam);
   }
 
   /// 행동: 특훈
   void playerTraining(String playerId) {
     if (state == null) return;
 
-    final team = state!.playerTeam;
-    if (team.actionPoints < 100) return; // 행동력 부족
-
     final player = state!.saveData.getPlayerById(playerId);
     if (player == null) return;
+    if (player.actionPoints < 100) return; // 행동력 부족
 
-    final updatedPlayer = player.applyTraining();
-    final updatedTeam = team.spendActionPoints(100);
-
+    final updatedPlayer = player.applyTraining().spendActionPoints(100);
     updatePlayer(updatedPlayer);
-    updateTeam(updatedTeam);
   }
 
   /// 행동: 팬미팅
@@ -191,12 +181,12 @@ class GameStateNotifier extends StateNotifier<GameState?> {
     if (state == null) return (false, 0);
 
     final team = state!.playerTeam;
-    if (team.actionPoints < 200) return (false, 0); // 행동력 부족
 
     final player = state!.saveData.getPlayerById(playerId);
     if (player == null) return (false, 0);
+    if (player.actionPoints < 200) return (false, 0); // 행동력 부족
 
-    final updatedPlayer = player.applyFanMeeting();
+    final updatedPlayer = player.applyFanMeeting().spendActionPoints(200);
 
     // 치어풀 획득 확률 계산
     final grade = player.grade;
@@ -236,7 +226,7 @@ class GameStateNotifier extends StateNotifier<GameState?> {
     }
     final moneyEarned = minMoney + (random % (maxMoney - minMoney + 1));
 
-    var updatedTeam = team.spendActionPoints(200).addMoney(moneyEarned);
+    var updatedTeam = team.addMoney(moneyEarned);
     var updatedInventory = state!.inventory;
 
     if (gotCheerful) {
@@ -401,30 +391,23 @@ class GameStateNotifier extends StateNotifier<GameState?> {
   void applyTwoMatchBonus() {
     if (state == null) return;
 
-    final playerTeamId = state!.saveData.playerTeamId;
     var updatedPlayers = <Player>[];
-    var updatedTeams = <Team>[];
 
-    // 모든 팀에 보너스 적용
+    // 모든 팀의 선수에게 보너스 적용
     for (final team in state!.saveData.allTeams) {
-      // 행동력 +100
-      updatedTeams.add(team.applyTwoMatchBonus());
-
-      // 전체 선수 컨디션 +5
       final teamPlayers = state!.saveData.getTeamPlayers(team.id);
       for (final player in teamPlayers) {
+        // 행동력 +100, 컨디션 +5
         updatedPlayers.add(
-          player.copyWith(condition: (player.condition + 5).clamp(0, 110)),
+          player.addActionPoints(100).copyWith(
+            condition: (player.condition + 5).clamp(0, 110),
+          ),
         );
       }
     }
 
     // 상태 업데이트
-    var newSaveData = state!.saveData;
-    for (final team in updatedTeams) {
-      newSaveData = newSaveData.updateTeam(team);
-    }
-    newSaveData = newSaveData.updatePlayers(updatedPlayers);
+    var newSaveData = state!.saveData.updatePlayers(updatedPlayers);
     state = state!.copyWith(saveData: newSaveData);
 
     // AI 팀 행동 수행
@@ -529,12 +512,13 @@ class GameStateNotifier extends StateNotifier<GameState?> {
       final teamPlayers = state!.saveData.getTeamPlayers(team.id);
       final playerUpdates = <String, Player>{};
 
+      Player _getLatest(Player player) => playerUpdates[player.id] ?? player;
+
       // 1. 컨디션 80% 이하 선수 휴식 (행동력 50)
       for (final player in teamPlayers) {
-        if (player.condition <= 80 && currentTeam.actionPoints >= 50) {
-          final updatedPlayer = player.applyRest();
-          playerUpdates[player.id] = updatedPlayer;
-          currentTeam = currentTeam.spendActionPoints(50);
+        final p = _getLatest(player);
+        if (p.condition <= 80 && p.actionPoints >= 50) {
+          playerUpdates[player.id] = p.applyRest().spendActionPoints(50);
         }
       }
 
@@ -544,14 +528,13 @@ class GameStateNotifier extends StateNotifier<GameState?> {
       int trainingCount = 0;
       for (final player in sortedByLevel) {
         if (trainingCount >= 2) break;
-        if (currentTeam.actionPoints < 100) break;
         // 이미 휴식한 선수는 제외
         if (playerUpdates.containsKey(player.id)) continue;
 
-        final basePlayer = playerUpdates[player.id] ?? player;
-        final updatedPlayer = basePlayer.applyTraining();
-        playerUpdates[player.id] = updatedPlayer;
-        currentTeam = currentTeam.spendActionPoints(100);
+        final p = _getLatest(player);
+        if (p.actionPoints < 100) continue;
+
+        playerUpdates[player.id] = p.applyTraining().spendActionPoints(100);
         trainingCount++;
       }
 
@@ -562,12 +545,13 @@ class GameStateNotifier extends StateNotifier<GameState?> {
         int fanMeetingCount = 0;
         for (final player in sortedByGrade) {
           if (fanMeetingCount >= 2) break;
-          if (currentTeam.actionPoints < 200) break;
           // 이미 다른 행동한 선수는 제외
           if (playerUpdates.containsKey(player.id)) continue;
 
-          final basePlayer = playerUpdates[player.id] ?? player;
-          final updatedPlayer = basePlayer.applyFanMeeting();
+          final p = _getLatest(player);
+          if (p.actionPoints < 200) continue;
+
+          final updatedPlayer = p.applyFanMeeting().spendActionPoints(200);
 
           // 소지금 획득량 계산 (등급별)
           final grade = player.grade;
@@ -591,7 +575,7 @@ class GameStateNotifier extends StateNotifier<GameState?> {
           final moneyEarned = minMoney + ((random + fanMeetingCount) % (maxMoney - minMoney + 1));
 
           playerUpdates[player.id] = updatedPlayer;
-          currentTeam = currentTeam.spendActionPoints(200).addMoney(moneyEarned);
+          currentTeam = currentTeam.addMoney(moneyEarned);
           fanMeetingCount++;
         }
       }
@@ -608,9 +592,9 @@ class GameStateNotifier extends StateNotifier<GameState?> {
           // 이미 컨디션 높은 선수는 제외
           if (player.condition >= 95) continue;
 
-          final basePlayer = playerUpdates[player.id] ?? player;
-          final updatedPlayer = basePlayer.copyWith(
-            condition: (basePlayer.condition + 3).clamp(0, 110),
+          final p = _getLatest(player);
+          final updatedPlayer = p.copyWith(
+            condition: (p.condition + 3).clamp(0, 110),
           );
           playerUpdates[player.id] = updatedPlayer;
           currentTeam = currentTeam.spendMoney(5);

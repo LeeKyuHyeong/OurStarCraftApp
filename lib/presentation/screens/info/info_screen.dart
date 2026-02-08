@@ -8,7 +8,10 @@ import '../../../domain/models/models.dart';
 import '../../widgets/reset_button.dart';
 
 class InfoScreen extends ConsumerStatefulWidget {
-  const InfoScreen({super.key});
+  final String? initialTeamId;
+  final int initialTab;
+
+  const InfoScreen({super.key, this.initialTeamId, this.initialTab = 0});
 
   @override
   ConsumerState<InfoScreen> createState() => _InfoScreenState();
@@ -23,7 +26,8 @@ class _InfoScreenState extends ConsumerState<InfoScreen> with SingleTickerProvid
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 2, vsync: this, initialIndex: widget.initialTab);
+    _selectedTeamId = widget.initialTeamId;
   }
 
   @override
@@ -271,7 +275,7 @@ class _InfoScreenState extends ConsumerState<InfoScreen> with SingleTickerProvid
           const SizedBox(height: 4),
           // 총합
           Text(
-            '총합 ${stats.total}  |  ${grade.display}  |  Lv.${player.level}',
+            '총합 ${stats.total}  |  ${grade.display}  |  Lv.${player.level.value}',
             style: const TextStyle(
               fontSize: 11,
               color: AppTheme.textSecondary,
@@ -566,7 +570,7 @@ class _InfoScreenState extends ConsumerState<InfoScreen> with SingleTickerProvid
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      '자금: ${team.money}만원 | 행동력: ${team.actionPoints}',
+                      '자금: ${team.money}만원',
                       style: const TextStyle(
                         color: AppTheme.textSecondary,
                       ),
@@ -820,19 +824,49 @@ class _InfoRadarChartPainter extends CustomPainter {
       );
     }
 
-    // 중앙에 등급 + 레벨 표시
-    if (gradeText != null && level != null) {
-      final gradeBgPaint = Paint()
-        ..color = (gradeColor ?? Colors.grey).withValues(alpha: 0.9)
-        ..style = PaintingStyle.fill;
+    // 능력치 숫자 표시 (각 꼭짓점 데이터 포인트 근처)
+    final statValues = [
+      stats.sense, stats.control, stats.attack, stats.harass,
+      stats.strategy, stats.macro, stats.defense, stats.scout,
+    ];
 
-      final bgRadius = radius * 0.28;
-      canvas.drawCircle(center, bgRadius, gradeBgPaint);
+    for (var i = 0; i < 8; i++) {
+      final angle = (i * math.pi / 4) - math.pi / 2;
+      final value = radarData[i];
+      final r = radius * value;
+      final dataPoint = Offset(
+        center.dx + r * math.cos(angle),
+        center.dy + r * math.sin(angle),
+      );
+
+      // 숫자 위치를 데이터 포인트에서 약간 바깥으로
+      final offsetDir = Offset(math.cos(angle), math.sin(angle));
+      final numPos = Offset(
+        dataPoint.dx + offsetDir.dx * 10,
+        dataPoint.dy + offsetDir.dy * 10,
+      );
 
       textPainter.text = TextSpan(
+        text: '${statValues[i]}',
+        style: TextStyle(
+          color: raceColor,
+          fontSize: 8,
+          fontWeight: FontWeight.bold,
+        ),
+      );
+      textPainter.layout();
+      textPainter.paint(
+        canvas,
+        Offset(numPos.dx - textPainter.width / 2, numPos.dy - textPainter.height / 2),
+      );
+    }
+
+    // 중앙에 등급 + 레벨 표시 (배경 없이 텍스트만)
+    if (gradeText != null && level != null) {
+      textPainter.text = TextSpan(
         text: gradeText,
-        style: const TextStyle(
-          color: Colors.black,
+        style: TextStyle(
+          color: gradeColor ?? Colors.grey,
           fontSize: 14,
           fontWeight: FontWeight.bold,
         ),
@@ -848,8 +882,8 @@ class _InfoRadarChartPainter extends CustomPainter {
 
       textPainter.text = TextSpan(
         text: 'Lv.$level',
-        style: const TextStyle(
-          color: Colors.black87,
+        style: TextStyle(
+          color: (gradeColor ?? Colors.grey).withValues(alpha: 0.8),
           fontSize: 9,
         ),
       );

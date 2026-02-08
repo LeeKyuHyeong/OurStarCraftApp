@@ -276,6 +276,7 @@ class SaveRepository {
       'teamId': player.teamId,
       'careerSeasons': player.careerSeasons,
       'experience': player.experience,
+      'actionPoints': player.actionPoints,
     };
   }
 
@@ -297,6 +298,7 @@ class SaveRepository {
       teamId: data['teamId'] as String?,
       careerSeasons: careerSeasons,
       experience: (data['experience'] as int?) ?? 0,
+      actionPoints: (data['actionPoints'] as int?) ?? 0,
     );
   }
 

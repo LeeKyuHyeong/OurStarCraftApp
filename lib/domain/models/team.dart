@@ -209,9 +209,10 @@ class Team {
     );
   }
 
-  /// 2매치 완료 보너스 (컨디션 +5는 선수별 적용, 행동력 +100)
-  Team applyTwoMatchBonus() {
-    return copyWith(actionPoints: actionPoints + 100);
+  /// 2매치 완료 보너스 (컨디션 +5는 선수별 적용, 행동력은 Player에서 관리)
+  @Deprecated('행동력은 Player.actionPoints로 이동. 컨디션만 적용.')
+  Team applyTwoMatchBonus({int playerCount = 1}) {
+    return this; // 행동력은 Player 모델에서 관리
   }
 
   Team copyWith({
