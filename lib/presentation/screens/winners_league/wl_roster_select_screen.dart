@@ -725,13 +725,13 @@ class _WLRosterSelectScreenState extends ConsumerState<WLRosterSelectScreen> {
     final player = teamPlayers[_selectedPlayerIndex!];
     final roll = random.nextDouble();
 
-    if (roll < 0.05) {
+    if (roll < 0.02) {
       // 최상: +20, 최대 120
       final newCondition = min(player.condition + 20, 120);
       gameNotifier.backupCondition(player.id, player.condition);
       gameNotifier.updatePlayer(player.copyWith(condition: newCondition));
       return (name: player.name, isBest: true, before: player.condition, after: newCondition);
-    } else if (roll < 0.10) {
+    } else if (roll < 0.04) {
       // 최악: -20, 최저 80
       final newCondition = max(player.condition - 20, 80);
       gameNotifier.backupCondition(player.id, player.condition);
