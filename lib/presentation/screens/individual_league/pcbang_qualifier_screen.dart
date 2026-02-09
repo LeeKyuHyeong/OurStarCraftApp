@@ -516,7 +516,16 @@ class _PcBangQualifierScreenState extends ConsumerState<PcBangQualifierScreen> {
               // 결승
               _buildMatchResultRow(groupResult.matches.last, playerMap),
               SizedBox(height: 12.sp),
-              // 4강 (4명 조: matches[0], matches[1])
+              // 3명 조: 1라운드 1경기 + 부전승
+              if (groupSize == 3)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    _buildMatchResultBox(groupResult.matches[0], playerMap),
+                    _buildByeBox(),
+                  ],
+                ),
+              // 4명 조: 4강 2경기
               if (groupSize == 4)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1038,7 +1047,7 @@ class _PcBangQualifierScreenState extends ConsumerState<PcBangQualifierScreen> {
     });
 
     // 1초 간격으로 조별 결과 순차 표시
-    _revealTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+    _revealTimer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
       setState(() {
         _currentRevealingGroup++;
       });

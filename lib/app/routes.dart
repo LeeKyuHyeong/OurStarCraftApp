@@ -16,9 +16,8 @@ import '../presentation/screens/individual_league/group_draw_screen.dart';
 import '../presentation/screens/individual_league/main_tournament_screen.dart';
 import '../presentation/screens/player_ranking/player_ranking_screen.dart';
 import '../presentation/screens/match_result/match_result_ranking_screen.dart';
-import '../presentation/screens/player_info/player_info_screen.dart';
 import '../presentation/screens/season_end/season_end_screen.dart';
-import '../presentation/screens/winners_league/winners_league_screen.dart';
+import '../presentation/screens/winners_league/wl_roster_select_screen.dart';
 import '../presentation/screens/director_name/director_name_screen.dart';
 import '../presentation/screens/season_map_draw/season_map_draw_screen.dart';
 import '../presentation/screens/shop/shop_screen.dart';
@@ -26,6 +25,7 @@ import '../presentation/screens/info/info_screen.dart';
 import '../presentation/screens/action/action_screen.dart';
 import '../presentation/screens/playoff/playoff_schedule_screen.dart';
 import '../presentation/screens/equipment/equipment_screen.dart';
+import '../presentation/screens/settings/settings_screen.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
@@ -122,19 +122,14 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const MatchResultRankingScreen(),
       ),
       GoRoute(
-        path: '/player-info',
-        name: 'playerInfo',
-        builder: (context, state) => const PlayerInfoScreen(),
-      ),
-      GoRoute(
         path: '/season-end',
         name: 'seasonEnd',
         builder: (context, state) => const SeasonEndScreen(),
       ),
       GoRoute(
-        path: '/winners-league',
-        name: 'winnersLeague',
-        builder: (context, state) => const WinnersLeagueScreen(),
+        path: '/wl-roster-select',
+        name: 'wlRosterSelect',
+        builder: (context, state) => const WLRosterSelectScreen(),
       ),
       // 새 게임 시작 플로우
       GoRoute(
@@ -183,6 +178,12 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/equipment',
         name: 'equipment',
         builder: (context, state) => const EquipmentScreen(),
+      ),
+      // 설정 화면
+      GoRoute(
+        path: '/settings',
+        name: 'settings',
+        builder: (context, state) => const SettingsScreen(),
       ),
     ],
     errorBuilder: (context, state) => Scaffold(

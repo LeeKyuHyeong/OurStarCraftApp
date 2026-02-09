@@ -88,16 +88,19 @@ class MatchSimulationService {
     final defenseScore = stats.defense + stats.macro + stats.strategy;
     final cheeseScore = stats.attack + stats.sense;
 
-    // 치즈 확률: 공격력에 비례 (공격력 800 이상이면 25%, 700이면 20%, 600이면 15%)
-    final cheeseProb = ((stats.attack - 400) / 2000).clamp(0.05, 0.30);
-    if (cheeseScore > 1400 && _random.nextDouble() < cheeseProb) {
+    // 치즈 확률: 공격+감각 기반 (B+ 선수도 ~8-12% 확률로 가능)
+    final cheeseProb = ((cheeseScore - 600) / 3000).clamp(0.05, 0.20);
+    if (cheeseScore > 900 && _random.nextDouble() < cheeseProb) {
       return BuildStyle.cheese;
     }
 
     final ratio = attackScore / (defenseScore + 1);
-    if (ratio > 1.15) {
+    // 랜덤 노이즈로 밸런스 독점 방지 (±0.15 범위)
+    final noise = (_random.nextDouble() - 0.5) * 0.30;
+    final adjustedRatio = ratio + noise;
+    if (adjustedRatio > 1.08) {
       return BuildStyle.aggressive;
-    } else if (ratio < 0.85) {
+    } else if (adjustedRatio < 0.92) {
       return BuildStyle.defensive;
     } else {
       return BuildStyle.balanced;
@@ -633,6 +636,7 @@ class MatchSimulationService {
               currentArmy: currentArmy,
               currentResource: currentResource,
               race: raceStr,
+              vsRace: isHomeTurn ? awayRace : homeRace,
               rushDistance: map.rushDistance,
               resources: map.resources,
               terrainComplexity: map.terrainComplexity,
@@ -1769,6 +1773,7 @@ class MatchSimulationService {
         currentArmy: currentArmy,
         currentResource: currentResource,
         race: raceStr,
+        vsRace: isHomeEvent ? awayRace : homeRace,
       );
 
       text = midLateStep.text.replaceAll('{player}', player.name);

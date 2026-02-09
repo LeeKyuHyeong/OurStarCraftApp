@@ -58,7 +58,31 @@ class GameState {
 class GameStateNotifier extends StateNotifier<GameState?> {
   final SaveRepository _repository;
 
+  /// 최상/최악 이벤트 전 원래 컨디션 백업 (playerId → originalCondition)
+  final Map<String, int> _conditionBackup = {};
+
   GameStateNotifier(this._repository) : super(null);
+
+  /// 컨디션 백업 등록 (최상/최악 적용 전 호출)
+  void backupCondition(String playerId, int originalCondition) {
+    _conditionBackup[playerId] = originalCondition;
+  }
+
+  /// 미출전 선수 컨디션 복구 (매치 종료 시 호출)
+  void revertUnplayedConditions(Set<String> playedPlayerIds) {
+    if (_conditionBackup.isEmpty) return;
+
+    for (final entry in _conditionBackup.entries) {
+      if (!playedPlayerIds.contains(entry.key)) {
+        // 미출전 → 원래 컨디션으로 복구
+        final player = state?.saveData.getPlayerById(entry.key);
+        if (player != null) {
+          updatePlayer(player.copyWith(condition: entry.value));
+        }
+      }
+    }
+    _conditionBackup.clear();
+  }
 
   /// 새 게임 시작
   Future<void> startNewGame({
@@ -397,10 +421,12 @@ class GameStateNotifier extends StateNotifier<GameState?> {
     for (final team in state!.saveData.allTeams) {
       final teamPlayers = state!.saveData.getTeamPlayers(team.id);
       for (final player in teamPlayers) {
-        // 행동력 +100, 컨디션 +5
+        // 행동력 +100, 컨디션 +5 (최상 상태 보호: 100 초과 시 유지)
         updatedPlayers.add(
           player.addActionPoints(100).copyWith(
-            condition: (player.condition + 5).clamp(0, 110),
+            condition: player.condition > 100
+                ? player.condition
+                : (player.condition + 5).clamp(0, 100),
           ),
         );
       }
@@ -594,7 +620,7 @@ class GameStateNotifier extends StateNotifier<GameState?> {
 
           final p = _getLatest(player);
           final updatedPlayer = p.copyWith(
-            condition: (p.condition + 3).clamp(0, 110),
+            condition: (p.condition + 3).clamp(0, 100),
           );
           playerUpdates[player.id] = updatedPlayer;
           currentTeam = currentTeam.spendMoney(5);
@@ -1008,9 +1034,11 @@ class GameStateNotifier extends StateNotifier<GameState?> {
   void _simulateOtherMatchesInRound(int roundNumber) {
     if (state == null) return;
 
-    final schedule = state!.saveData.currentSeason.proleagueSchedule;
+    final season = state!.saveData.currentSeason;
+    final schedule = season.proleagueSchedule;
     final playerTeamId = state!.saveData.playerTeamId;
     final rand = Random();
+    final isWinnersSeason = season.isWinnersLeagueSeason;
 
     // 같은 라운드의 미완료 경기 찾기 (플레이어 팀 제외)
     for (int i = 0; i < schedule.length; i++) {
@@ -1036,68 +1064,163 @@ class GameStateNotifier extends StateNotifier<GameState?> {
 
       if (homePlayers.isEmpty || awayPlayers.isEmpty) continue;
 
-      // 세트별 선수 배정 및 시뮬레이션 (7전 4선승)
-      final List<SetResult> sets = [];
-      final List<Player> updatedPlayersList = [];
-      int homeScore = 0;
-      int awayScore = 0;
-      int setIndex = 0;
+      if (isWinnersSeason) {
+        // 위너스리그 방식: 승자유지
+        _simulateWinnersLeagueMatch(i, match, homePlayers, awayPlayers, rand);
+      } else {
+        // 일반 프로리그 방식
+        _simulateNormalMatch(i, match, homePlayers, awayPlayers, rand);
+      }
+    }
+  }
 
-      while (homeScore < 4 && awayScore < 4) {
-        // 선수 배정 (순환, 최대 7세트이므로 상위 7명 사용)
-        final homePlayer = homePlayers[setIndex % homePlayers.length];
-        final awayPlayer = awayPlayers[setIndex % awayPlayers.length];
+  /// 일반 프로리그 AI 시뮬레이션
+  void _simulateNormalMatch(
+    int matchIndex,
+    ScheduleItem match,
+    List<Player> homePlayers,
+    List<Player> awayPlayers,
+    Random rand,
+  ) {
+    final List<SetResult> sets = [];
+    final List<Player> updatedPlayersList = [];
+    int homeScore = 0;
+    int awayScore = 0;
+    int setIndex = 0;
 
-        // 개별 선수 능력치 기반 승패 확률 계산
-        final homeStrength = homePlayer.stats.applyCondition(homePlayer.displayCondition).total.toDouble();
-        final awayStrength = awayPlayer.stats.applyCondition(awayPlayer.displayCondition).total.toDouble();
-        final totalStrength = homeStrength + awayStrength;
-        final homeWinProb = totalStrength > 0 ? homeStrength / totalStrength : 0.5;
+    while (homeScore < 4 && awayScore < 4) {
+      final homePlayer = homePlayers[setIndex % homePlayers.length];
+      final awayPlayer = awayPlayers[setIndex % awayPlayers.length];
 
-        final homeWin = rand.nextDouble() < homeWinProb;
+      final homeStrength = homePlayer.stats.applyCondition(homePlayer.displayCondition).total.toDouble();
+      final awayStrength = awayPlayer.stats.applyCondition(awayPlayer.displayCondition).total.toDouble();
+      final totalStrength = homeStrength + awayStrength;
+      final homeWinProb = totalStrength > 0 ? homeStrength / totalStrength : 0.5;
 
-        if (homeWin) {
-          homeScore++;
-        } else {
-          awayScore++;
-        }
+      final homeWin = rand.nextDouble() < homeWinProb;
 
-        sets.add(SetResult(
-          mapId: 'map_$setIndex',
-          homePlayerId: homePlayer.id,
-          awayPlayerId: awayPlayer.id,
-          homeWin: homeWin,
-        ));
-
-        // 개별 선수 전적 업데이트
-        final updatedHome = homePlayer.applyMatchResult(
-          isWin: homeWin,
-          opponentGrade: awayPlayer.grade,
-          opponentRace: awayPlayer.race,
-          opponentId: awayPlayer.id,
-        );
-        final updatedAway = awayPlayer.applyMatchResult(
-          isWin: !homeWin,
-          opponentGrade: homePlayer.grade,
-          opponentRace: homePlayer.race,
-          opponentId: homePlayer.id,
-        );
-
-        updatedPlayersList.add(updatedHome);
-        updatedPlayersList.add(updatedAway);
-
-        // 다음 세트에서 업데이트된 선수 반영
-        final homeIdx = homePlayers.indexWhere((p) => p.id == homePlayer.id);
-        if (homeIdx >= 0) homePlayers[homeIdx] = updatedHome;
-        final awayIdx = awayPlayers.indexWhere((p) => p.id == awayPlayer.id);
-        if (awayIdx >= 0) awayPlayers[awayIdx] = updatedAway;
-
-        setIndex++;
+      if (homeWin) {
+        homeScore++;
+      } else {
+        awayScore++;
       }
 
-      // 결과 기록 (팀 전적 + 시즌 업데이트)
-      _recordOtherMatchResult(i, match, homeScore, awayScore, sets, updatedPlayersList);
+      sets.add(SetResult(
+        mapId: 'map_$setIndex',
+        homePlayerId: homePlayer.id,
+        awayPlayerId: awayPlayer.id,
+        homeWin: homeWin,
+      ));
+
+      final updatedHome = homePlayer.applyMatchResult(
+        isWin: homeWin,
+        opponentGrade: awayPlayer.grade,
+        opponentRace: awayPlayer.race,
+        opponentId: awayPlayer.id,
+      );
+      final updatedAway = awayPlayer.applyMatchResult(
+        isWin: !homeWin,
+        opponentGrade: homePlayer.grade,
+        opponentRace: homePlayer.race,
+        opponentId: homePlayer.id,
+      );
+
+      updatedPlayersList.add(updatedHome);
+      updatedPlayersList.add(updatedAway);
+
+      final homeIdx = homePlayers.indexWhere((p) => p.id == homePlayer.id);
+      if (homeIdx >= 0) homePlayers[homeIdx] = updatedHome;
+      final awayIdx = awayPlayers.indexWhere((p) => p.id == awayPlayer.id);
+      if (awayIdx >= 0) awayPlayers[awayIdx] = updatedAway;
+
+      setIndex++;
     }
+
+    _recordOtherMatchResult(matchIndex, match, homeScore, awayScore, sets, updatedPlayersList);
+  }
+
+  /// 위너스리그 AI 시뮬레이션 (승자유지 방식)
+  void _simulateWinnersLeagueMatch(
+    int matchIndex,
+    ScheduleItem match,
+    List<Player> homePlayers,
+    List<Player> awayPlayers,
+    Random rand,
+  ) {
+    final List<SetResult> sets = [];
+    final List<Player> updatedPlayersList = [];
+    int homeScore = 0;
+    int awayScore = 0;
+
+    // 승자유지: 첫 선수부터 시작, 패자팀이 다음 선수로 교체
+    int homePlayerIndex = 0;
+    int awayPlayerIndex = 0;
+    final homeUsed = <int>{0}; // 사용된 선수 인덱스
+    final awayUsed = <int>{0};
+
+    while (homeScore < 4 && awayScore < 4) {
+      final homePlayer = homePlayers[homePlayerIndex % homePlayers.length];
+      final awayPlayer = awayPlayers[awayPlayerIndex % awayPlayers.length];
+
+      final homeStrength = homePlayer.stats.applyCondition(homePlayer.displayCondition).total.toDouble();
+      final awayStrength = awayPlayer.stats.applyCondition(awayPlayer.displayCondition).total.toDouble();
+      final totalStrength = homeStrength + awayStrength;
+      final homeWinProb = totalStrength > 0 ? homeStrength / totalStrength : 0.5;
+
+      final homeWin = rand.nextDouble() < homeWinProb;
+
+      if (homeWin) {
+        homeScore++;
+        // 패자(어웨이) 교체: 미출전 선수 중 다음
+        awayPlayerIndex = _nextUnusedIndex(awayUsed, awayPlayers.length, awayPlayerIndex);
+        awayUsed.add(awayPlayerIndex);
+      } else {
+        awayScore++;
+        // 패자(홈) 교체: 미출전 선수 중 다음
+        homePlayerIndex = _nextUnusedIndex(homeUsed, homePlayers.length, homePlayerIndex);
+        homeUsed.add(homePlayerIndex);
+      }
+
+      sets.add(SetResult(
+        mapId: 'map_${sets.length}',
+        homePlayerId: homePlayer.id,
+        awayPlayerId: awayPlayer.id,
+        homeWin: homeWin,
+      ));
+
+      final updatedHome = homePlayer.applyMatchResult(
+        isWin: homeWin,
+        opponentGrade: awayPlayer.grade,
+        opponentRace: awayPlayer.race,
+        opponentId: awayPlayer.id,
+      );
+      final updatedAway = awayPlayer.applyMatchResult(
+        isWin: !homeWin,
+        opponentGrade: homePlayer.grade,
+        opponentRace: homePlayer.race,
+        opponentId: homePlayer.id,
+      );
+
+      updatedPlayersList.add(updatedHome);
+      updatedPlayersList.add(updatedAway);
+
+      final homeIdx = homePlayers.indexWhere((p) => p.id == homePlayer.id);
+      if (homeIdx >= 0) homePlayers[homeIdx] = updatedHome;
+      final awayIdx = awayPlayers.indexWhere((p) => p.id == awayPlayer.id);
+      if (awayIdx >= 0) awayPlayers[awayIdx] = updatedAway;
+    }
+
+    _recordOtherMatchResult(matchIndex, match, homeScore, awayScore, sets, updatedPlayersList);
+  }
+
+  /// 미출전 선수 중 다음 인덱스 찾기
+  int _nextUnusedIndex(Set<int> used, int total, int current) {
+    for (int i = 1; i < total; i++) {
+      final candidate = (current + i) % total;
+      if (!used.contains(candidate)) return candidate;
+    }
+    // 모든 선수 출전 완료 → 순환
+    return (current + 1) % total;
   }
 
   /// 다른 팀 경기 결과 기록

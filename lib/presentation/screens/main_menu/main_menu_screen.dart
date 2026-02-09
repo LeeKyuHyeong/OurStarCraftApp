@@ -746,10 +746,12 @@ class _MainMenuScreenState extends ConsumerState<MainMenuScreen> {
       );
     } else if (playerMatch != null && !playerMatch.isCompleted) {
       // step 0/1: 매치 있음 → 로스터 선택
+      // 위너스리그 시즌이면 위너스리그 로스터로 이동
+      final isWinnersSeason = season.isWinnersLeagueSeason;
       return (
-        label: 'Next ▶▶',
-        onPressed: () => context.go('/roster-select'),
-        bgColor: Colors.amber,
+        label: isWinnersSeason ? 'Winners ▶▶' : 'Next ▶▶',
+        onPressed: () => context.go(isWinnersSeason ? '/wl-roster-select' : '/roster-select'),
+        bgColor: isWinnersSeason ? Colors.amber : Colors.amber,
       );
     } else {
       // step 0/1: no match → 건너뛰기 (다른 팀 경기도 시뮬레이션)

@@ -16,6 +16,17 @@ class SnipingAssignment {
   });
 }
 
+/// 위너스리그 세트별 선수 기록
+class WinnersSetRecord {
+  final String homePlayerId;
+  final String awayPlayerId;
+
+  const WinnersSetRecord({
+    required this.homePlayerId,
+    required this.awayPlayerId,
+  });
+}
+
 /// 현재 매치 상태
 class CurrentMatchState {
   final String homeTeamId;
@@ -31,6 +42,15 @@ class CurrentMatchState {
   final List<bool> setResults; // 각 세트 결과 (true = 홈 승리, false = 어웨이 승리)
   final List<SnipingAssignment> homeSnipingAssignments;
   final List<SnipingAssignment> awaySnipingAssignments;
+
+  // 위너스리그 전용 필드
+  final bool isWinnersLeague;
+  final List<String> homeUsedPlayerIds; // 홈 출전 완료 선수
+  final List<String> awayUsedPlayerIds; // 어웨이 출전 완료 선수
+  final String? wlHomeCurrentPlayerId; // 현재 출전 홈 선수
+  final String? wlAwayCurrentPlayerId; // 현재 출전 어웨이 선수
+  final List<WinnersSetRecord> winnersSetRecords; // 세트별 선수 기록
+
   const CurrentMatchState({
     required this.homeTeamId,
     required this.awayTeamId,
@@ -45,10 +65,17 @@ class CurrentMatchState {
     this.setResults = const [],
     this.homeSnipingAssignments = const [],
     this.awaySnipingAssignments = const [],
+    this.isWinnersLeague = false,
+    this.homeUsedPlayerIds = const [],
+    this.awayUsedPlayerIds = const [],
+    this.wlHomeCurrentPlayerId,
+    this.wlAwayCurrentPlayerId,
+    this.winnersSetRecords = const [],
   });
 
   /// 현재 세트의 홈 선수 ID
   String? get currentHomePlayerId {
+    if (isWinnersLeague) return wlHomeCurrentPlayerId;
     if (currentSet < 6) {
       return homeRoster[currentSet];
     } else {
@@ -58,6 +85,7 @@ class CurrentMatchState {
 
   /// 현재 세트의 어웨이 선수 ID
   String? get currentAwayPlayerId {
+    if (isWinnersLeague) return wlAwayCurrentPlayerId;
     if (currentSet < 6) {
       return awayRoster[currentSet];
     } else {
@@ -65,8 +93,8 @@ class CurrentMatchState {
     }
   }
 
-  /// 에이스 결정전 여부 (3:3)
-  bool get isAceMatch => homeScore == 3 && awayScore == 3;
+  /// 에이스 결정전 여부 (3:3) - 위너스리그는 에이스전 없음
+  bool get isAceMatch => !isWinnersLeague && homeScore == 3 && awayScore == 3;
 
   /// 매치 종료 여부
   bool get isMatchEnded => homeScore >= 4 || awayScore >= 4;
@@ -103,6 +131,12 @@ class CurrentMatchState {
     List<bool>? setResults,
     List<SnipingAssignment>? homeSnipingAssignments,
     List<SnipingAssignment>? awaySnipingAssignments,
+    bool? isWinnersLeague,
+    List<String>? homeUsedPlayerIds,
+    List<String>? awayUsedPlayerIds,
+    String? wlHomeCurrentPlayerId,
+    String? wlAwayCurrentPlayerId,
+    List<WinnersSetRecord>? winnersSetRecords,
   }) {
     return CurrentMatchState(
       homeTeamId: homeTeamId ?? this.homeTeamId,
@@ -118,6 +152,12 @@ class CurrentMatchState {
       setResults: setResults ?? this.setResults,
       homeSnipingAssignments: homeSnipingAssignments ?? this.homeSnipingAssignments,
       awaySnipingAssignments: awaySnipingAssignments ?? this.awaySnipingAssignments,
+      isWinnersLeague: isWinnersLeague ?? this.isWinnersLeague,
+      homeUsedPlayerIds: homeUsedPlayerIds ?? this.homeUsedPlayerIds,
+      awayUsedPlayerIds: awayUsedPlayerIds ?? this.awayUsedPlayerIds,
+      wlHomeCurrentPlayerId: wlHomeCurrentPlayerId ?? this.wlHomeCurrentPlayerId,
+      wlAwayCurrentPlayerId: wlAwayCurrentPlayerId ?? this.wlAwayCurrentPlayerId,
+      winnersSetRecords: winnersSetRecords ?? this.winnersSetRecords,
     );
   }
 }
@@ -367,6 +407,159 @@ class CurrentMatchNotifier extends StateNotifier<CurrentMatchState?> {
     final bestPlayer = opponentPlayers.reduce((a, b) =>
         a.grade.index > b.grade.index ? a : b);
     return bestPlayer.id;
+  }
+
+  /// 위너스리그 매치 시작 (1번 맵 선수만 받음)
+  void startWinnersLeagueMatch({
+    required String homeTeamId,
+    required String awayTeamId,
+    String? matchId,
+    required String firstPlayerId, // 플레이어가 선택한 1번 맵 선수
+    required bool isPlayerHome,
+    List<SnipingAssignment>? snipingAssignments,
+  }) {
+    final gameState = _ref.read(gameStateProvider);
+    if (gameState == null) return;
+
+    // AI 팀 첫 선수 자동 선택
+    final aiTeamId = isPlayerHome ? awayTeamId : homeTeamId;
+    final aiFirstPlayerId = _selectAIWinnersLeaguePlayer(aiTeamId, []);
+
+    final homePlayerId = isPlayerHome ? firstPlayerId : aiFirstPlayerId;
+    final awayPlayerId = isPlayerHome ? aiFirstPlayerId : firstPlayerId;
+
+    state = CurrentMatchState(
+      homeTeamId: homeTeamId,
+      awayTeamId: awayTeamId,
+      matchId: matchId,
+      isWinnersLeague: true,
+      wlHomeCurrentPlayerId: homePlayerId,
+      wlAwayCurrentPlayerId: awayPlayerId,
+      homeUsedPlayerIds: homePlayerId != null ? [homePlayerId] : [],
+      awayUsedPlayerIds: awayPlayerId != null ? [awayPlayerId] : [],
+      homeSnipingAssignments: isPlayerHome ? (snipingAssignments ?? []) : [],
+      awaySnipingAssignments: isPlayerHome ? [] : (snipingAssignments ?? []),
+      winnersSetRecords: homePlayerId != null && awayPlayerId != null
+          ? [WinnersSetRecord(homePlayerId: homePlayerId, awayPlayerId: awayPlayerId)]
+          : [],
+    );
+  }
+
+  /// 위너스리그: 패배 측 교체 선수 설정 (유저)
+  void winnersLeagueSelectReplacement(String playerId, {required bool isPlayerHome}) {
+    if (state == null || !state!.isWinnersLeague) return;
+
+    // 패배 측은 플레이어 팀 → 새 선수를 usedPlayerIds에 추가
+    final lastResult = state!.setResults.last;
+    // lastResult == true → 홈 승리 → 어웨이 패배 → 어웨이 교체
+    // lastResult == false → 어웨이 승리 → 홈 패배 → 홈 교체
+    final isHomeLoser = !lastResult;
+
+    String? newHomePlayerId = state!.wlHomeCurrentPlayerId;
+    String? newAwayPlayerId = state!.wlAwayCurrentPlayerId;
+    List<String> newHomeUsed = List.from(state!.homeUsedPlayerIds);
+    List<String> newAwayUsed = List.from(state!.awayUsedPlayerIds);
+
+    if (isHomeLoser) {
+      newHomePlayerId = playerId;
+      if (!newHomeUsed.contains(playerId)) newHomeUsed.add(playerId);
+    } else {
+      newAwayPlayerId = playerId;
+      if (!newAwayUsed.contains(playerId)) newAwayUsed.add(playerId);
+    }
+
+    // 세트별 기록 추가
+    final newRecords = List<WinnersSetRecord>.from(state!.winnersSetRecords);
+    newRecords.add(WinnersSetRecord(
+      homePlayerId: newHomePlayerId!,
+      awayPlayerId: newAwayPlayerId!,
+    ));
+
+    state = state!.copyWith(
+      wlHomeCurrentPlayerId: newHomePlayerId,
+      wlAwayCurrentPlayerId: newAwayPlayerId,
+      homeUsedPlayerIds: newHomeUsed,
+      awayUsedPlayerIds: newAwayUsed,
+      currentSet: state!.currentSet + 1,
+      winnersSetRecords: newRecords,
+    );
+  }
+
+  /// 위너스리그: AI 자동 교체 (승리 측 유지, 패배 측 AI 교체)
+  void winnersLeagueAIPickReplacement() {
+    if (state == null || !state!.isWinnersLeague) return;
+
+    final lastResult = state!.setResults.last;
+    final isHomeLoser = !lastResult;
+
+    String? newHomePlayerId = state!.wlHomeCurrentPlayerId;
+    String? newAwayPlayerId = state!.wlAwayCurrentPlayerId;
+    List<String> newHomeUsed = List.from(state!.homeUsedPlayerIds);
+    List<String> newAwayUsed = List.from(state!.awayUsedPlayerIds);
+
+    if (isHomeLoser) {
+      // 홈 패배 → 홈이 AI면 AI 교체
+      final aiPlayerId = _selectAIWinnersLeaguePlayer(
+        state!.homeTeamId,
+        newHomeUsed,
+      );
+      if (aiPlayerId != null) {
+        newHomePlayerId = aiPlayerId;
+        if (!newHomeUsed.contains(aiPlayerId)) newHomeUsed.add(aiPlayerId);
+      }
+    } else {
+      // 어웨이 패배 → 어웨이가 AI면 AI 교체
+      final aiPlayerId = _selectAIWinnersLeaguePlayer(
+        state!.awayTeamId,
+        newAwayUsed,
+      );
+      if (aiPlayerId != null) {
+        newAwayPlayerId = aiPlayerId;
+        if (!newAwayUsed.contains(aiPlayerId)) newAwayUsed.add(aiPlayerId);
+      }
+    }
+
+    // 세트별 기록 추가
+    final newRecords = List<WinnersSetRecord>.from(state!.winnersSetRecords);
+    newRecords.add(WinnersSetRecord(
+      homePlayerId: newHomePlayerId!,
+      awayPlayerId: newAwayPlayerId!,
+    ));
+
+    state = state!.copyWith(
+      wlHomeCurrentPlayerId: newHomePlayerId,
+      wlAwayCurrentPlayerId: newAwayPlayerId,
+      homeUsedPlayerIds: newHomeUsed,
+      awayUsedPlayerIds: newAwayUsed,
+      currentSet: state!.currentSet + 1,
+      winnersSetRecords: newRecords,
+    );
+  }
+
+  /// 위너스리그: AI가 미출전 선수 중 최적 선수 선택
+  String? _selectAIWinnersLeaguePlayer(String teamId, List<String> usedIds) {
+    final gameState = _ref.read(gameStateProvider);
+    if (gameState == null) return null;
+
+    final teamPlayers = gameState.saveData.getTeamPlayers(teamId);
+    if (teamPlayers.isEmpty) return null;
+
+    // 미출전 선수 필터링
+    final available = teamPlayers.where((p) => !usedIds.contains(p.id)).toList();
+    if (available.isEmpty) {
+      // 모든 선수 출전 완료 시 전체에서 선택
+      return teamPlayers.first.id;
+    }
+
+    // 등급 + 컨디션 기반 점수 + 약간의 랜덤
+    final random = Random();
+    available.sort((a, b) {
+      final scoreA = a.grade.index * 10 + a.condition + random.nextInt(10);
+      final scoreB = b.grade.index * 10 + b.condition + random.nextInt(10);
+      return scoreB - scoreA;
+    });
+
+    return available.first.id;
   }
 
   /// 매치 초기화

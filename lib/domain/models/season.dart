@@ -60,6 +60,9 @@ class Season {
 
   SeasonPhase get phase => SeasonPhase.values[phaseIndex];
 
+  /// 위너스리그 시즌 여부 (시즌 2, 5, 8)
+  bool get isWinnersLeagueSeason => number == 2 || number == 5 || number == 8;
+
   /// weekProgress 기반 헬퍼
   int get currentWeek => weekProgress ~/ 3; // 0~10
   int get currentStep => weekProgress % 3; // 0=경기1, 1=경기2, 2=개인리그

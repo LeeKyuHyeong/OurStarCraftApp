@@ -51,8 +51,21 @@ class _DualTournamentScreenState extends ConsumerState<DualTournamentScreen> {
 
     // 아마추어 선수 추가 (듀얼토너먼트에 진출한 경우)
     if (bracket != null) {
-      for (final playerId in bracket.dualTournamentPlayers) {
-        if (playerId.startsWith('amateur_') && !playerMap.containsKey(playerId)) {
+      final amateurIds = <String>{};
+      // dualTournamentPlayers에서 아마추어 수집
+      amateurIds.addAll(
+        bracket.dualTournamentPlayers.where((id) => id.startsWith('amateur_')),
+      );
+      // dualTournamentGroups에서도 아마추어 수집
+      for (final group in bracket.dualTournamentGroups) {
+        for (final playerId in group) {
+          if (playerId != null && playerId.startsWith('amateur_')) {
+            amateurIds.add(playerId);
+          }
+        }
+      }
+      for (final playerId in amateurIds) {
+        if (!playerMap.containsKey(playerId)) {
           playerMap[playerId] = Player(
             id: playerId,
             name: '아마추어',

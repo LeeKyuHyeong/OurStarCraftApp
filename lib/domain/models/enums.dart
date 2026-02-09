@@ -297,6 +297,8 @@ enum BuildType {
   tvt2Barracks('tvt_2rax', 'TvT', '투배럭', BuildStyle.defensive, ['defense', 'macro']),
   tvt2Factory('tvt_2fac', 'TvT', '투팩', BuildStyle.balanced, ['macro', 'strategy']),
   tvtWraithCloak('tvt_wraith_cloak', 'TvT', '클로킹 레이스', BuildStyle.aggressive, ['harass', 'strategy']),
+  tvtCCFirst('tvt_cc_first', 'TvT', '원배럭 확장', BuildStyle.defensive, ['macro', 'defense']),
+  tvtVultureHarass('tvt_vulture_harass', 'TvT', '벌처 견제', BuildStyle.balanced, ['harass', 'control']),
 
   // ==================== ZvT 빌드 ====================
   zvt3HatchMutal('zvt_3hatch_mutal', 'ZvT', '3해처리 뮤탈', BuildStyle.aggressive, ['harass', 'control']),
@@ -317,6 +319,8 @@ enum BuildType {
   zvz12Hatch('zvz_12hatch', 'ZvZ', '12해처리', BuildStyle.defensive, ['macro', 'defense']),
   zvzOverPool('zvz_overpool', 'ZvZ', '오버풀', BuildStyle.balanced, ['macro', 'control']),
   zvzExtractor('zvz_extractor', 'ZvZ', '익스트랙터 트릭', BuildStyle.cheese, ['attack', 'control']),
+  zvz3HatchHydra('zvz_3hatch_hydra', 'ZvZ', '3해처리 히드라', BuildStyle.defensive, ['defense', 'macro']),
+  zvzSpeedlingAllIn('zvz_speedling', 'ZvZ', '스피드링 올인', BuildStyle.balanced, ['attack', 'control']),
 
   // ==================== PvT 빌드 ====================
   pvt2GateZealot('pvt_2gate_zealot', 'PvT', '투게이트 질럿', BuildStyle.aggressive, ['attack', 'control']),
@@ -337,7 +341,9 @@ enum BuildType {
   pvpDarkAllIn('pvp_dark_allin', 'PvP', '다크 올인', BuildStyle.cheese, ['strategy', 'harass']),
   pvp1GateRobo('pvp_1gate_robo', 'PvP', '원게이트 로보', BuildStyle.defensive, ['defense', 'strategy']),
   pvpCannonRush('pvp_cannon_rush', 'PvP', '캐논 러시', BuildStyle.cheese, ['attack', 'sense']),
-  pvpReaverDrop('pvp_reaver_drop', 'PvP', '리버 드랍', BuildStyle.aggressive, ['harass', 'control']);
+  pvpReaverDrop('pvp_reaver_drop', 'PvP', '리버 드랍', BuildStyle.aggressive, ['harass', 'control']),
+  pvpZealotRush('pvp_zealot_rush', 'PvP', '질럿 러시', BuildStyle.aggressive, ['attack', 'control']),
+  pvpCorsairReaver('pvp_corsair_reaver', 'PvP', '코르세어 리버', BuildStyle.balanced, ['strategy', 'control']);
 
   final String id;
   final String matchup;

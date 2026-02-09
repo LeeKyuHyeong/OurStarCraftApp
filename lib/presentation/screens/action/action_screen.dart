@@ -193,7 +193,7 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
                                             Row(
                                               children: [
                                                 Text(
-                                                  '${player.condition.clamp(0, 100)}%',
+                                                  '${player.condition}%',
                                                   style: TextStyle(
                                                     fontSize: 9,
                                                     color: isSelected

@@ -77,22 +77,6 @@ class _EquipmentScreenState extends ConsumerState<EquipmentScreen> {
       color: AppTheme.cardBackground,
       child: Row(
         children: [
-          // 선수 아바타
-          if (selectedPlayer != null) ...[
-            CircleAvatar(
-              radius: 20,
-              backgroundColor: AppTheme.getRaceColor(selectedPlayer.race.code),
-              child: Text(
-                selectedPlayer.race.code,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
-              ),
-            ),
-            const SizedBox(width: 12),
-          ],
           // 선수 선택 드롭다운
           Expanded(
             child: DropdownButtonHideUnderline(

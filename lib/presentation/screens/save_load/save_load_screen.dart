@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import '../../../app/theme.dart';
 import '../../../core/utils/responsive.dart';
 import '../../../data/providers/game_provider.dart';
-import '../../widgets/reset_button.dart';
 
 class SaveLoadScreen extends ConsumerWidget {
   const SaveLoadScreen({super.key});
@@ -17,7 +16,16 @@ class SaveLoadScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('세이브 / 로드'),
-        leading: ResetButton.leading(),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            if (Navigator.of(context).canPop()) {
+              Navigator.of(context).pop();
+            } else {
+              context.go('/');
+            }
+          },
+        ),
       ),
       body: slotInfoAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),

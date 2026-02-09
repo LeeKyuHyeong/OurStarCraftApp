@@ -122,7 +122,7 @@ class IndividualLeagueService {
     // PC방 예선 조 편성 (24개 조 고정 - 듀얼토너먼트 12개 조 × 2명 = 24명 필요)
     // 24개 조 × 4명 = 96명 필요 (부족하면 아마추어로 채움)
     const totalGroups = 24;
-    const playersPerGroup = 4; // 각 조 4명
+    const playersPerGroup = 3; // 각 조 3명 (1vs1 vs 부전승)
 
     // 우리팀 선수 우선 배정
     final myTeamPcBangPlayers = pcBangPlayers
@@ -222,13 +222,16 @@ class IndividualLeagueService {
     required Map<String, Player> playerMap,
   }) {
     final playerCount = playerIds.length;
-    if (playerCount < 4 || playerCount > 8) {
-      throw ArgumentError('Group must have 4-8 players, got $playerCount');
+    if (playerCount < 3 || playerCount > 8) {
+      throw ArgumentError('Group must have 3-8 players, got $playerCount');
     }
 
     final maps = GameMaps.all;
 
-    if (playerCount == 4) {
+    if (playerCount == 3) {
+      // 3명: 1라운드(하위 2명) → 결승(부전승 vs 승자) (2경기)
+      return _simulate3PlayerGroup(groupIndex, playerIds, playerMap, maps);
+    } else if (playerCount == 4) {
       // 4명: 4강 → 결승 (3경기)
       return _simulate4PlayerGroup(groupIndex, playerIds, playerMap, maps);
     } else if (playerCount == 6) {
@@ -238,6 +241,43 @@ class IndividualLeagueService {
       // 8명: 8강 → 4강 → 결승 (7경기)
       return _simulate8PlayerGroup(groupIndex, playerIds, playerMap, maps);
     }
+  }
+
+  /// 3명 조 시뮬레이션: 하위 2명 대결 → 승자 vs 부전승(상위 시드)
+  PcBangGroupResult _simulate3PlayerGroup(
+    int groupIndex,
+    List<String> playerIds,
+    Map<String, Player> playerMap,
+    List<GameMap> maps,
+  ) {
+    final results = <IndividualMatchResult>[];
+
+    // 1라운드: 하위 시드 2명 대결 (1 vs 2)
+    final round1 = _simulateIndividualMatch(
+      player1Id: playerIds[1],
+      player2Id: playerIds[2],
+      playerMap: playerMap,
+      map: maps[_random.nextInt(maps.length)],
+      stage: IndividualLeagueStage.pcBangQualifier,
+    );
+    results.add(round1);
+
+    // 결승: 상위 시드(부전승) vs 1라운드 승자
+    final final_ = _simulateIndividualMatch(
+      player1Id: playerIds[0],
+      player2Id: round1.winnerId,
+      playerMap: playerMap,
+      map: maps[_random.nextInt(maps.length)],
+      stage: IndividualLeagueStage.pcBangQualifier,
+    );
+    results.add(final_);
+
+    return PcBangGroupResult(
+      groupIndex: groupIndex,
+      matches: results,
+      winnerId: final_.winnerId,
+      runnerUpId: final_.loserId,
+    );
   }
 
   /// 4명 조 시뮬레이션: 4강 → 결승
@@ -1019,6 +1059,8 @@ class IndividualLeagueService {
   /// 조 인원에 따른 경기 수 반환
   int _getMatchCountForGroupSize(int groupSize) {
     switch (groupSize) {
+      case 3:
+        return 2; // 1라운드 1 + 결승 1
       case 4:
         return 3; // 4강 2 + 결승 1
       case 6:
@@ -1026,7 +1068,7 @@ class IndividualLeagueService {
       case 8:
         return 7; // 8강 4 + 4강 2 + 결승 1
       default:
-        return 3;
+        return 2;
     }
   }
 }
@@ -1046,8 +1088,10 @@ class PcBangGroupResult {
   });
 
   int get groupSize {
-    // 경기 수로 조 인원 추정: 4명=3경기, 6명=5경기, 8명=7경기
+    // 경기 수로 조 인원 추정: 3명=2경기, 4명=3경기, 6명=5경기, 8명=7경기
     switch (matches.length) {
+      case 2:
+        return 3;
       case 3:
         return 4;
       case 5:
@@ -1055,7 +1099,7 @@ class PcBangGroupResult {
       case 7:
         return 8;
       default:
-        return 4;
+        return 3;
     }
   }
 }

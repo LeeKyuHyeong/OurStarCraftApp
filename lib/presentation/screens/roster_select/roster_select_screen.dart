@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -823,6 +825,135 @@ class _RosterSelectScreenState extends ConsumerState<RosterSelectScreen> {
       return null;
     }).toList();
 
+    // 컨디션 최상/최악 이벤트 (각 5% 확률)
+    final conditionEvents = _rollConditionEvents(teamPlayers);
+
+    if (conditionEvents.isNotEmpty) {
+      // 이벤트 발생 시 다이얼로그 표시 후 경기 시작
+      _showConditionEventDialog(conditionEvents, () {
+        _startMatch(isHome, playerTeam, opponentTeam, nextMatch, roster);
+      });
+    } else {
+      _startMatch(isHome, playerTeam, opponentTeam, nextMatch, roster);
+    }
+  }
+
+  /// 컨디션 최상/최악 이벤트 판정 (로스터 선수 대상, 각 5%)
+  List<({String name, bool isBest, int before, int after})> _rollConditionEvents(
+      List<Player> teamPlayers) {
+    final random = Random();
+    final gameNotifier = ref.read(gameStateProvider.notifier);
+    final events = <({String name, bool isBest, int before, int after})>[];
+
+    for (final index in selectedPlayers) {
+      if (index == null || index >= teamPlayers.length) continue;
+      final player = teamPlayers[index];
+      final roll = random.nextDouble();
+
+      if (roll < 0.05) {
+        // 최상: +20, 최대 120
+        final newCondition = min(player.condition + 20, 120);
+        gameNotifier.backupCondition(player.id, player.condition);
+        gameNotifier.updatePlayer(player.copyWith(condition: newCondition));
+        events.add((
+          name: player.name,
+          isBest: true,
+          before: player.condition,
+          after: newCondition,
+        ));
+      } else if (roll < 0.10) {
+        // 최악: -20, 최저 80
+        final newCondition = max(player.condition - 20, 80);
+        gameNotifier.backupCondition(player.id, player.condition);
+        gameNotifier.updatePlayer(player.copyWith(condition: newCondition));
+        events.add((
+          name: player.name,
+          isBest: false,
+          before: player.condition,
+          after: newCondition,
+        ));
+      }
+    }
+
+    return events;
+  }
+
+  /// 컨디션 이벤트 다이얼로그
+  void _showConditionEventDialog(
+    List<({String name, bool isBest, int before, int after})> events,
+    VoidCallback onDismiss,
+  ) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        backgroundColor: AppTheme.cardBackground,
+        title: const Row(
+          children: [
+            Icon(Icons.auto_awesome, color: Colors.amber),
+            SizedBox(width: 8),
+            Text('컨디션 변동!'),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: events.map((e) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Row(
+                children: [
+                  Icon(
+                    e.isBest ? Icons.arrow_upward : Icons.arrow_downward,
+                    color: e.isBest ? Colors.amber : Colors.redAccent,
+                    size: 20,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    e.name,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const Spacer(),
+                  Text(
+                    '${e.before}%',
+                    style: const TextStyle(color: AppTheme.textSecondary),
+                  ),
+                  const Text(' → '),
+                  Text(
+                    '${e.after}%',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: e.isBest ? Colors.amber : Colors.redAccent,
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    e.isBest ? '최상!' : '최악...',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                      color: e.isBest ? Colors.amber : Colors.redAccent,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }).toList(),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              onDismiss();
+            },
+            child: const Text('확인', style: TextStyle(color: AppTheme.accentGreen)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _startMatch(bool isHome, Team playerTeam, Team opponentTeam,
+      ScheduleItem nextMatch, List<String?> roster) {
     if (isHome) {
       ref.read(currentMatchProvider.notifier).startMatch(
         homeTeamId: playerTeam.id,

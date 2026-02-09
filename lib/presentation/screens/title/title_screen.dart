@@ -105,12 +105,6 @@ class _TitleScreenState extends ConsumerState<TitleScreen> {
               ],
             ),
 
-            // R 버튼 (왼쪽 상단)
-            Positioned(
-              left: 16.sp,
-              top: 16.sp,
-              child: _buildRButton(),
-            ),
           ],
         ),
       ),
@@ -627,86 +621,115 @@ class _TitleScreenState extends ConsumerState<TitleScreen> {
   Widget _buildBottomButtons() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.sp),
-      child: Row(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          // New Season Mode 버튼
-          Expanded(
-            flex: 5,
-            child: SizedBox(
-              height: 48.sp,
-              child: ElevatedButton(
-                onPressed: selectedTeamId == null
-                    ? null
-                    : () async {
-                        await ref.read(gameStateProvider.notifier).startNewGame(
-                          slotNumber: 1,
-                          selectedTeamId: selectedTeamId!,
-                        );
-                        if (mounted) {
-                          context.go('/director-name');
-                        }
-                      },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: selectedTeamId != null
-                      ? Colors.amber
-                      : Colors.grey[700],
-                  foregroundColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4.sp),
-                  ),
-                ),
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.play_arrow, size: 20.sp),
-                      SizedBox(width: 4.sp),
-                      Text(
-                        'New Season',
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
+          // 1행: New Season + Load
+          Row(
+            children: [
+              // New Season Mode 버튼
+              Expanded(
+                flex: 5,
+                child: SizedBox(
+                  height: 48.sp,
+                  child: ElevatedButton(
+                    onPressed: selectedTeamId == null
+                        ? null
+                        : () async {
+                            await ref.read(gameStateProvider.notifier).startNewGame(
+                              slotNumber: 1,
+                              selectedTeamId: selectedTeamId!,
+                            );
+                            if (mounted) {
+                              context.go('/director-name');
+                            }
+                          },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: selectedTeamId != null
+                          ? Colors.amber
+                          : Colors.grey[700],
+                      foregroundColor: Colors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4.sp),
                       ),
-                    ],
+                    ),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.play_arrow, size: 20.sp),
+                          SizedBox(width: 4.sp),
+                          Text(
+                            'New Season',
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
 
-          SizedBox(width: 12.sp),
+              SizedBox(width: 12.sp),
 
-          // Load 버튼
-          Expanded(
-            flex: 4,
-            child: SizedBox(
-              height: 48.sp,
-              child: ElevatedButton(
-                onPressed: () {
-                  context.go('/save-load');
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF2a2a3e),
-                  foregroundColor: Colors.white70,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4.sp),
+              // Load 버튼
+              Expanded(
+                flex: 4,
+                child: SizedBox(
+                  height: 48.sp,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      context.go('/save-load');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF2a2a3e),
+                      foregroundColor: Colors.white70,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4.sp),
+                      ),
+                    ),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.folder_open, size: 18.sp),
+                          SizedBox(width: 4.sp),
+                          Text(
+                            'Load',
+                            style: TextStyle(fontSize: 13.sp),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.folder_open, size: 18.sp),
-                      SizedBox(width: 4.sp),
-                      Text(
-                        'Load',
-                        style: TextStyle(fontSize: 13.sp),
-                      ),
-                    ],
-                  ),
+              ),
+            ],
+          ),
+
+          SizedBox(height: 8.sp),
+
+          // 2행: 설정 버튼
+          SizedBox(
+            width: double.infinity,
+            height: 36.sp,
+            child: ElevatedButton.icon(
+              onPressed: () => context.go('/settings'),
+              icon: Icon(Icons.settings, size: 16.sp),
+              label: Text(
+                '설정',
+                style: TextStyle(fontSize: 12.sp),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF2a2a3e),
+                foregroundColor: Colors.grey[400],
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4.sp),
                 ),
               ),
             ),

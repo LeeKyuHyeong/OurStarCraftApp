@@ -1,8 +1,11 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../../app/theme.dart';
 import '../../../data/providers/game_provider.dart';
+import '../../../data/repositories/player_image_repository.dart';
 import '../../../domain/models/models.dart';
 import '../../widgets/player_radar_chart.dart';
 import '../../widgets/reset_button.dart';
@@ -223,6 +226,85 @@ class _InfoScreenState extends ConsumerState<InfoScreen> with SingleTickerProvid
     );
   }
 
+  final _imageRepo = PlayerImageRepository.instance;
+
+  /// 갤러리에서 선수 사진 선택
+  Future<void> _pickPlayerImage(Player player) async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 512,
+      maxHeight: 512,
+      imageQuality: 85,
+    );
+
+    if (pickedFile == null) return;
+
+    await _imageRepo.setImagePath(player.id, pickedFile.path);
+
+    if (mounted) {
+      setState(() {});
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('${player.name} 사진이 등록되었습니다'),
+          duration: const Duration(seconds: 2),
+        ),
+      );
+    }
+  }
+
+  /// 이미지 옵션 메뉴 (탭)
+  void _showImageOptions(Player player) {
+    if (_imageRepo.getImagePath(player.id) == null) {
+      _pickPlayerImage(player);
+      return;
+    }
+
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: AppTheme.cardBackground,
+      builder: (context) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.photo_library, color: Colors.white),
+              title: const Text('사진 변경', style: TextStyle(color: Colors.white, fontSize: 14)),
+              onTap: () {
+                Navigator.pop(context);
+                _pickPlayerImage(player);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.delete, color: Colors.red),
+              title: const Text('사진 삭제', style: TextStyle(color: Colors.red, fontSize: 14)),
+              onTap: () async {
+                Navigator.pop(context);
+                await _deletePlayerImage(player);
+              },
+            ),
+            const SizedBox(height: 8),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// 선수 사진 삭제
+  Future<void> _deletePlayerImage(Player player) async {
+    await _imageRepo.removeImage(player.id);
+
+    if (mounted) {
+      setState(() {});
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('${player.name} 사진이 삭제되었습니다'),
+          duration: const Duration(seconds: 2),
+        ),
+      );
+    }
+  }
+
   Widget _buildPlayerDetail(Player player, GameState gameState) {
     final stats = player.stats;
     final grade = player.grade;
@@ -231,24 +313,56 @@ class _InfoScreenState extends ConsumerState<InfoScreen> with SingleTickerProvid
         : player.condition >= 50
             ? Colors.orange
             : Colors.red;
+    final imagePath = _imageRepo.getImagePath(player.id);
+    final hasImage = imagePath != null;
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // 선수 이름 + 종족 + 컨디션
+          // 선수 사진 + 이름 + 종족 + 컨디션
           Row(
             children: [
-              CircleAvatar(
-                radius: 16,
-                backgroundColor: AppTheme.getRaceColor(player.race.code),
-                child: Text(
-                  player.race.code,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
+              // 선수 사진 (모든 선수 탭하여 관리)
+              GestureDetector(
+                onTap: () => _showImageOptions(player),
+                child: Container(
+                  width: 48,
+                  height: 48,
+                  decoration: BoxDecoration(
+                    color: AppTheme.getRaceColor(player.race.code).withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: AppTheme.getRaceColor(player.race.code),
+                      width: 1.5,
+                    ),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(7),
+                    child: hasImage
+                        ? Image.file(
+                            File(imagePath),
+                            fit: BoxFit.cover,
+                          )
+                        : Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                player.race.code,
+                                style: TextStyle(
+                                  color: AppTheme.getRaceColor(player.race.code),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Icon(
+                                Icons.add_a_photo,
+                                size: 10,
+                                color: Colors.grey[500],
+                              ),
+                            ],
+                          ),
                   ),
                 ),
               ),
@@ -263,7 +377,7 @@ class _InfoScreenState extends ConsumerState<InfoScreen> with SingleTickerProvid
                 ),
               ),
               Text(
-                '컨디션 ${player.condition.clamp(0, 100)}%',
+                '컨디션 ${player.condition}%',
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
