@@ -704,7 +704,10 @@ class MatchSimulationService {
     if (!state.isFinished) {
       final homeScore = state.homeArmy + (state.homeResources / 50);
       final awayScore = state.awayArmy + (state.awayResources / 50);
-      final homeWin = homeScore >= awayScore;
+      // 동점이면 winRate 기반 확률 판정 (홈 편향 방지)
+      final homeWin = homeScore != awayScore
+          ? homeScore > awayScore
+          : _random.nextDouble() < winRate;
 
       yield* _emitEnding(
         state: state,
