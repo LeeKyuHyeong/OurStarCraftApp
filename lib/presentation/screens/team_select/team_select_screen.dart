@@ -110,7 +110,6 @@ class _TeamSelectScreenState extends ConsumerState<TeamSelectScreen> {
                     onPressed: selectedTeamId == null
                         ? null
                         : () {
-                            // TODO: 선택한 팀으로 게임 시작
                             context.go('/director-name');
                           },
                     style: ElevatedButton.styleFrom(

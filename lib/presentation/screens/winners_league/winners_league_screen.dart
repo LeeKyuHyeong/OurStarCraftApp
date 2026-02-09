@@ -1,8 +1,10 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../app/theme.dart';
 import '../../../core/utils/responsive.dart';
 import '../../../domain/models/models.dart';
+import '../../../domain/services/match_simulation_service.dart';
 import '../../../data/providers/game_provider.dart';
 import '../../widgets/reset_button.dart';
 
@@ -615,7 +617,86 @@ class _WinnersLeagueScreenState extends ConsumerState<WinnersLeagueScreen> {
       _isSimulating = true;
     });
 
-    // TODO: 실제 경기 시뮬레이션 로직
+    final gameState = ref.read(gameStateProvider);
+    if (gameState == null) {
+      setState(() { _isSimulating = false; });
+      return;
+    }
+
+    final simulationService = MatchSimulationService();
+    final random = Random();
+
+    // 각 팀 선수 목록 (등급순 정렬)
+    final homePlayers = List<Player>.from(
+      gameState.saveData.getTeamPlayers(match.homeTeam.id),
+    )..sort((a, b) => b.grade.index - a.grade.index);
+
+    final awayPlayers = List<Player>.from(
+      gameState.saveData.getTeamPlayers(match.awayTeam.id),
+    )..sort((a, b) => b.grade.index - a.grade.index);
+
+    if (homePlayers.isEmpty || awayPlayers.isEmpty) {
+      setState(() { _isSimulating = false; });
+      return;
+    }
+
+    // 시즌 맵 풀에서 랜덤 선택
+    final seasonMapIds = gameState.currentSeason.seasonMapIds;
+    final maps = seasonMapIds
+        .map((id) => GameMaps.getById(id))
+        .whereType<GameMap>()
+        .toList();
+    if (maps.isEmpty) {
+      // 시즌맵이 없으면 전체 맵에서 선택
+      maps.addAll(GameMaps.all);
+    }
+
+    // 승자유지 방식 시뮬레이션 (7전 4선승)
+    int homeScore = 0;
+    int awayScore = 0;
+    int homePlayerIndex = 0;
+    int awayPlayerIndex = 0;
+    final sets = <_WinnersSetResult>[];
+
+    while (homeScore < 4 && awayScore < 4) {
+      final homePlayer = homePlayers[homePlayerIndex % homePlayers.length];
+      final awayPlayer = awayPlayers[awayPlayerIndex % awayPlayers.length];
+      final map = maps[random.nextInt(maps.length)];
+
+      final result = simulationService.simulateMatch(
+        homePlayer: homePlayer,
+        awayPlayer: awayPlayer,
+        map: map,
+      );
+
+      sets.add(_WinnersSetResult(
+        homePlayer: homePlayer,
+        awayPlayer: awayPlayer,
+        homeWin: result.homeWin,
+      ));
+
+      if (result.homeWin) {
+        homeScore++;
+        // 패자 교체 (승자유지)
+        awayPlayerIndex++;
+      } else {
+        awayScore++;
+        homePlayerIndex++;
+      }
+
+      // 세트 간 딜레이 (배속 반영)
+      await Future.delayed(Duration(milliseconds: (300 / _simulationSpeed).round()));
+
+      // 중간 결과 업데이트
+      setState(() {
+        _matches[_selectedMatchIndex] = WinnersMatch(
+          homeTeam: match.homeTeam,
+          awayTeam: match.awayTeam,
+          sets: List.from(sets),
+          isCompleted: homeScore >= 4 || awayScore >= 4,
+        );
+      });
+    }
 
     setState(() {
       _isSimulating = false;

@@ -17,6 +17,9 @@ class SeasonEndScreen extends ConsumerStatefulWidget {
 
 class _SeasonEndScreenState extends ConsumerState<SeasonEndScreen> {
   int _currentPage = 0; // 0: 시즌 결과, 1: 레벨업, 2: 은퇴/신인, 3: 이적 시장 안내
+  List<Player> _retiredPlayers = [];
+  List<Player> _newRookies = [];
+  bool _seasonCompleted = false;
 
   @override
   Widget build(BuildContext context) {
@@ -523,7 +526,6 @@ class _SeasonEndScreenState extends ConsumerState<SeasonEndScreen> {
 
   /// 페이지 2: 은퇴 및 신인
   Widget _buildRetirementAndRookiePage(GameState gameState) {
-    // TODO: 실제 은퇴/신인 데이터
     return Container(
       padding: EdgeInsets.all(24.sp),
       child: Row(
@@ -566,16 +568,86 @@ class _SeasonEndScreenState extends ConsumerState<SeasonEndScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              const Spacer(),
+              Text(
+                '${_retiredPlayers.length}명',
+                style: TextStyle(color: Colors.grey, fontSize: 11.sp),
+              ),
             ],
           ),
           SizedBox(height: 16.sp),
           Expanded(
-            child: Center(
-              child: Text(
-                '이번 시즌 은퇴 선수가 없습니다.',
-                style: TextStyle(color: Colors.grey, fontSize: 12.sp),
-              ),
-            ),
+            child: _retiredPlayers.isEmpty
+                ? Center(
+                    child: Text(
+                      '이번 시즌 은퇴 선수가 없습니다.',
+                      style: TextStyle(color: Colors.grey, fontSize: 12.sp),
+                    ),
+                  )
+                : ListView.builder(
+                    itemCount: _retiredPlayers.length,
+                    itemBuilder: (context, index) {
+                      final player = _retiredPlayers[index];
+                      return Container(
+                        margin: EdgeInsets.only(bottom: 8.sp),
+                        padding: EdgeInsets.all(8.sp),
+                        decoration: BoxDecoration(
+                          color: Colors.red.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(4.sp),
+                          border: Border.all(color: Colors.red.withOpacity(0.3)),
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 24.sp,
+                              height: 24.sp,
+                              decoration: BoxDecoration(
+                                color: _getRaceColor(player.race).withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(4.sp),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  player.race.code,
+                                  style: TextStyle(
+                                    color: _getRaceColor(player.race),
+                                    fontSize: 10.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 8.sp),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    player.name,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12.sp,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  Text(
+                                    '${player.grade.display} / Lv.${player.level.value}',
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 10.sp,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Text(
+                              '${player.record.wins}W ${player.record.losses}L',
+                              style: TextStyle(color: Colors.grey, fontSize: 10.sp),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
           ),
         ],
       ),
@@ -604,17 +676,93 @@ class _SeasonEndScreenState extends ConsumerState<SeasonEndScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              const Spacer(),
+              Text(
+                '${_newRookies.length}명',
+                style: TextStyle(color: Colors.grey, fontSize: 11.sp),
+              ),
             ],
           ),
           SizedBox(height: 16.sp),
           Expanded(
-            child: Center(
-              child: Text(
-                '신인 드래프트에서 새로운 선수를\n영입할 수 있습니다.',
-                style: TextStyle(color: Colors.grey, fontSize: 12.sp),
-                textAlign: TextAlign.center,
-              ),
-            ),
+            child: _newRookies.isEmpty
+                ? Center(
+                    child: Text(
+                      '이번 시즌 신인 영입이 없습니다.',
+                      style: TextStyle(color: Colors.grey, fontSize: 12.sp),
+                    ),
+                  )
+                : ListView.builder(
+                    itemCount: _newRookies.length,
+                    itemBuilder: (context, index) {
+                      final player = _newRookies[index];
+                      final gameState = ref.read(gameStateProvider);
+                      final team = gameState?.saveData.getTeamById(player.teamId ?? '');
+                      return Container(
+                        margin: EdgeInsets.only(bottom: 8.sp),
+                        padding: EdgeInsets.all(8.sp),
+                        decoration: BoxDecoration(
+                          color: Colors.amber.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(4.sp),
+                          border: Border.all(color: Colors.amber.withOpacity(0.3)),
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 24.sp,
+                              height: 24.sp,
+                              decoration: BoxDecoration(
+                                color: _getRaceColor(player.race).withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(4.sp),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  player.race.code,
+                                  style: TextStyle(
+                                    color: _getRaceColor(player.race),
+                                    fontSize: 10.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 8.sp),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    player.name,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12.sp,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  Text(
+                                    '${player.grade.display} / ${player.race.name}',
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 10.sp,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            if (team != null)
+                              Text(
+                                team.shortName,
+                                style: TextStyle(
+                                  color: Color(team.colorValue),
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
           ),
         ],
       ),
@@ -719,6 +867,15 @@ class _SeasonEndScreenState extends ConsumerState<SeasonEndScreen> {
               if (isLastPage) {
                 context.go('/transfer');
               } else {
+                // 페이지 2(은퇴/신인)로 넘어갈 때 시즌 완료 처리
+                if (_currentPage == 1 && !_seasonCompleted) {
+                  final (retired, rookies, _) = ref
+                      .read(gameStateProvider.notifier)
+                      .completeSeasonAndPrepareNext();
+                  _retiredPlayers = retired;
+                  _newRookies = rookies;
+                  _seasonCompleted = true;
+                }
                 setState(() {
                   _currentPage++;
                 });

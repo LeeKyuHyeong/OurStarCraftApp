@@ -853,7 +853,7 @@ class _PlayerInfoScreenState extends ConsumerState<PlayerInfoScreen> {
             SizedBox(height: 8.sp),
 
             // 개인리그 우승/준우승 (팀 소속 선수 합계)
-            _buildRecordRow('개인리그', 0, 0), // TODO: 실제 데이터
+            _buildRecordRow('개인리그', team.record.individualChampionships, team.record.individualRunnerUps),
 
             Divider(color: Colors.grey.withOpacity(0.3), height: 32.sp),
 
@@ -994,7 +994,22 @@ class _PlayerInfoScreenState extends ConsumerState<PlayerInfoScreen> {
                 itemCount: allTeams.length,
                 itemBuilder: (context, index) {
                   final opponent = allTeams[index];
-                  // TODO: 실제 상대전적 데이터
+                  // 프로리그 일정에서 상대전적 계산
+                  final schedule = gameState.currentSeason.proleagueSchedule;
+                  int wins = 0;
+                  int losses = 0;
+                  for (final item in schedule) {
+                    if (!item.isCompleted || item.result == null) continue;
+                    final r = item.result!;
+                    if (r.homeTeamId == team.id && r.awayTeamId == opponent.id) {
+                      if (r.isHomeWin) { wins++; } else { losses++; }
+                    } else if (r.awayTeamId == team.id && r.homeTeamId == opponent.id) {
+                      if (r.isAwayWin) { wins++; } else { losses++; }
+                    }
+                  }
+                  // seasonHistories에는 세부 경기 정보가 없으므로 현재 시즌만 표시
+                  final total = wins + losses;
+                  final winRate = total > 0 ? (wins / total * 100).toStringAsFixed(0) : '0';
                   return Padding(
                     padding: EdgeInsets.only(bottom: 8.sp),
                     child: Row(
@@ -1007,8 +1022,15 @@ class _PlayerInfoScreenState extends ConsumerState<PlayerInfoScreen> {
                           ),
                         ),
                         Text(
-                          '0전 0승 0패 (0%)',
-                          style: TextStyle(color: Colors.grey, fontSize: 10.sp),
+                          '${total}전 ${wins}승 ${losses}패 ($winRate%)',
+                          style: TextStyle(
+                            color: wins > losses
+                                ? Colors.green
+                                : wins < losses
+                                    ? Colors.red
+                                    : Colors.grey,
+                            fontSize: 10.sp,
+                          ),
                         ),
                       ],
                     ),

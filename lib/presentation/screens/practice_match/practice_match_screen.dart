@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../../../app/theme.dart';
 import '../../../core/utils/responsive.dart';
 import '../../../domain/models/models.dart';
 import '../../../data/providers/game_provider.dart';
+import '../../../data/providers/match_provider.dart';
 import '../../widgets/reset_button.dart';
 
 /// 연습경기 화면
@@ -448,7 +450,7 @@ class _PracticeMatchScreenState extends ConsumerState<PracticeMatchScreen> {
           // 정보 관리 버튼
           ElevatedButton(
             onPressed: () {
-              // TODO: 정보 관리 화면으로 이동
+              context.pushNamed('info');
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.cardBackground,
@@ -508,11 +510,32 @@ class _PracticeMatchScreenState extends ConsumerState<PracticeMatchScreen> {
       return;
     }
 
-    // TODO: 경기 시뮬레이션 화면으로 이동
-    // 연습경기는 스탯에 영향 없음
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('연습경기를 시작합니다...')),
+    final gameState = ref.read(gameStateProvider);
+    if (gameState == null) return;
+
+    // 내 선수와 상대 선수 찾기
+    final myPlayer = gameState.saveData.getPlayerById(_selectedMyPlayerId!);
+    final opponentPlayer = gameState.saveData.getPlayerById(_selectedOpponentPlayerId!);
+    if (myPlayer == null || opponentPlayer == null) return;
+
+    // 내 선수의 팀을 홈팀, 상대 선수의 팀을 어웨이팀으로 설정
+    final homeTeamId = myPlayer.teamId ?? gameState.playerTeam.id;
+    final awayTeamId = opponentPlayer.teamId ?? gameState.saveData.allTeams.first.id;
+
+    // 연습경기용 로스터 설정 (1:1 매치)
+    final homeRoster = <String?>[_selectedMyPlayerId!, null, null, null, null, null];
+    final awayRoster = <String?>[_selectedOpponentPlayerId!, null, null, null, null, null];
+
+    // 매치 프로바이더 설정
+    ref.read(currentMatchProvider.notifier).startMatch(
+      homeTeamId: homeTeamId,
+      awayTeamId: awayTeamId,
+      homeRoster: homeRoster,
+      awayRoster: awayRoster,
     );
+
+    // 경기 시뮬레이션 화면으로 이동
+    context.pushNamed('match');
   }
 
   Color _getRaceColor(Race race) {

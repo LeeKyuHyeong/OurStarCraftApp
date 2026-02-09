@@ -63,8 +63,29 @@ class SaveData {
   String get displayTeamName => playerTeam.name;
   int get displaySeasonNumber => currentSeason.number;
   int get displayRank {
-    // TODO: 순위 계산 로직
-    return 1;
+    // 경기 결과 기반 순위 계산
+    final standings = <String, TeamStanding>{};
+    for (final team in allTeams) {
+      standings[team.id] = TeamStanding(teamId: team.id);
+    }
+    for (final item in currentSeason.proleagueSchedule) {
+      if (!item.isCompleted || item.result == null) continue;
+      final result = item.result!;
+      standings[result.homeTeamId] = standings[result.homeTeamId]!.addResult(
+        isWin: result.isHomeWin,
+        ourSets: result.homeScore,
+        opponentSets: result.awayScore,
+      );
+      standings[result.awayTeamId] = standings[result.awayTeamId]!.addResult(
+        isWin: result.isAwayWin,
+        ourSets: result.awayScore,
+        opponentSets: result.homeScore,
+      );
+    }
+    final sorted = standings.values.toList()
+      ..sort((a, b) => a.compareTo(b));
+    final rank = sorted.indexWhere((s) => s.teamId == playerTeamId);
+    return rank >= 0 ? rank + 1 : 1;
   }
 
   /// 선수 조회

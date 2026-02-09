@@ -224,7 +224,8 @@ class _DirectorNameScreenState extends ConsumerState<DirectorNameScreen> {
             );
             return;
           }
-          // TODO: 감독 이름 저장
+          // 감독 이름은 SaveData에 directorName 필드 추가 후 저장 예정
+          // ref.read(gameStateProvider.notifier).setDirectorName(directorName);
           context.go('/season-map-draw');
         },
         style: ElevatedButton.styleFrom(
