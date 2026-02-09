@@ -1,10 +1,10 @@
-import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../app/theme.dart';
 import '../../../data/providers/game_provider.dart';
 import '../../../domain/models/models.dart';
+import '../../widgets/player_radar_chart.dart';
 import '../../widgets/reset_button.dart';
 
 class InfoScreen extends ConsumerStatefulWidget {
@@ -285,15 +285,11 @@ class _InfoScreenState extends ConsumerState<InfoScreen> with SingleTickerProvid
           // 8각형 레이더 차트 (등급+레벨 중앙 표시)
           SizedBox(
             height: 180,
-            child: CustomPaint(
-              painter: _InfoRadarChartPainter(
-                stats: stats,
-                raceColor: AppTheme.getRaceColor(player.race.code),
-                gradeText: grade.display,
-                level: player.level.value,
-                gradeColor: AppTheme.getGradeColor(grade.display),
-              ),
-              size: Size.infinite,
+            child: PlayerRadarChart(
+              stats: stats,
+              color: AppTheme.getRaceColor(player.race.code),
+              grade: grade.display,
+              level: player.level.value,
             ),
           ),
           const SizedBox(height: 8),
@@ -724,198 +720,3 @@ class _InfoScreenState extends ConsumerState<InfoScreen> with SingleTickerProvid
   }
 }
 
-/// 8각형 레이더 차트 페인터 (info_screen용)
-class _InfoRadarChartPainter extends CustomPainter {
-  final PlayerStats stats;
-  final Color raceColor;
-  final String? gradeText;
-  final int? level;
-  final Color? gradeColor;
-
-  _InfoRadarChartPainter({
-    required this.stats,
-    required this.raceColor,
-    this.gradeText,
-    this.level,
-    this.gradeColor,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-    final radius = math.min(size.width, size.height) / 2 - 20;
-
-    final gridPaint = Paint()
-      ..color = Colors.grey.withValues(alpha: 0.3)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1;
-
-    // 외곽선 (3단계)
-    for (var i = 1; i <= 3; i++) {
-      final r = radius * i / 3;
-      _drawOctagon(canvas, center, r, gridPaint);
-    }
-
-    // 축선
-    for (var i = 0; i < 8; i++) {
-      final angle = (i * math.pi / 4) - math.pi / 2;
-      final end = Offset(
-        center.dx + radius * math.cos(angle),
-        center.dy + radius * math.sin(angle),
-      );
-      canvas.drawLine(center, end, gridPaint);
-    }
-
-    // 데이터 영역
-    final dataPaint = Paint()
-      ..color = raceColor.withValues(alpha: 0.3)
-      ..style = PaintingStyle.fill;
-
-    final dataStrokePaint = Paint()
-      ..color = raceColor
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2;
-
-    final radarData = stats.toRadarData();
-    final path = Path();
-
-    for (var i = 0; i < 8; i++) {
-      final angle = (i * math.pi / 4) - math.pi / 2;
-      final value = radarData[i];
-      final r = radius * value;
-      final point = Offset(
-        center.dx + r * math.cos(angle),
-        center.dy + r * math.sin(angle),
-      );
-      if (i == 0) {
-        path.moveTo(point.dx, point.dy);
-      } else {
-        path.lineTo(point.dx, point.dy);
-      }
-    }
-    path.close();
-
-    canvas.drawPath(path, dataPaint);
-    canvas.drawPath(path, dataStrokePaint);
-
-    // 라벨
-    final labels = ['센스', '컨트롤', '공격력', '견제', '전략', '물량', '수비력', '정찰'];
-    final textPainter = TextPainter(textDirection: TextDirection.ltr);
-
-    for (var i = 0; i < 8; i++) {
-      final angle = (i * math.pi / 4) - math.pi / 2;
-      final labelRadius = radius + 15;
-      final labelPoint = Offset(
-        center.dx + labelRadius * math.cos(angle),
-        center.dy + labelRadius * math.sin(angle),
-      );
-
-      textPainter.text = TextSpan(
-        text: labels[i],
-        style: const TextStyle(color: Colors.grey, fontSize: 9),
-      );
-      textPainter.layout();
-      textPainter.paint(
-        canvas,
-        Offset(
-          labelPoint.dx - textPainter.width / 2,
-          labelPoint.dy - textPainter.height / 2,
-        ),
-      );
-    }
-
-    // 능력치 숫자 표시 (각 꼭짓점 데이터 포인트 근처)
-    final statValues = [
-      stats.sense, stats.control, stats.attack, stats.harass,
-      stats.strategy, stats.macro, stats.defense, stats.scout,
-    ];
-
-    for (var i = 0; i < 8; i++) {
-      final angle = (i * math.pi / 4) - math.pi / 2;
-      final value = radarData[i];
-      final r = radius * value;
-      final dataPoint = Offset(
-        center.dx + r * math.cos(angle),
-        center.dy + r * math.sin(angle),
-      );
-
-      // 숫자 위치를 데이터 포인트에서 약간 바깥으로
-      final offsetDir = Offset(math.cos(angle), math.sin(angle));
-      final numPos = Offset(
-        dataPoint.dx + offsetDir.dx * 10,
-        dataPoint.dy + offsetDir.dy * 10,
-      );
-
-      textPainter.text = TextSpan(
-        text: '${statValues[i]}',
-        style: TextStyle(
-          color: raceColor,
-          fontSize: 8,
-          fontWeight: FontWeight.bold,
-        ),
-      );
-      textPainter.layout();
-      textPainter.paint(
-        canvas,
-        Offset(numPos.dx - textPainter.width / 2, numPos.dy - textPainter.height / 2),
-      );
-    }
-
-    // 중앙에 등급 + 레벨 표시 (배경 없이 텍스트만)
-    if (gradeText != null && level != null) {
-      textPainter.text = TextSpan(
-        text: gradeText,
-        style: TextStyle(
-          color: gradeColor ?? Colors.grey,
-          fontSize: 14,
-          fontWeight: FontWeight.bold,
-        ),
-      );
-      textPainter.layout();
-      textPainter.paint(
-        canvas,
-        Offset(
-          center.dx - textPainter.width / 2,
-          center.dy - textPainter.height / 2 - 5,
-        ),
-      );
-
-      textPainter.text = TextSpan(
-        text: 'Lv.$level',
-        style: TextStyle(
-          color: (gradeColor ?? Colors.grey).withValues(alpha: 0.8),
-          fontSize: 9,
-        ),
-      );
-      textPainter.layout();
-      textPainter.paint(
-        canvas,
-        Offset(
-          center.dx - textPainter.width / 2,
-          center.dy - textPainter.height / 2 + 8,
-        ),
-      );
-    }
-  }
-
-  void _drawOctagon(Canvas canvas, Offset center, double radius, Paint paint) {
-    final path = Path();
-    for (var i = 0; i < 8; i++) {
-      final angle = (i * math.pi / 4) - math.pi / 2;
-      final point = Offset(
-        center.dx + radius * math.cos(angle),
-        center.dy + radius * math.sin(angle),
-      );
-      if (i == 0) {
-        path.moveTo(point.dx, point.dy);
-      } else {
-        path.lineTo(point.dx, point.dy);
-      }
-    }
-    path.close();
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
-}

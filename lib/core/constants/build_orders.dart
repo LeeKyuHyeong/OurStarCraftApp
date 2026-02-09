@@ -5,7 +5,7 @@
 
 import 'dart:math';
 
-import '../../domain/models/enums.dart' show BuildStyle, BuildType;
+import '../../domain/models/enums.dart' show BuildStyle, BuildType, GamePhase;
 
 export '../../domain/models/enums.dart' show BuildStyle, BuildType;
 
@@ -2477,7 +2477,7 @@ class BuildOrderData {
       defenderResource: -20,
     ),
     ClashEvent(
-      text: '마린 스플릿! 스톰 피해 최소화!',
+      text: '시즈탱크 포진! 드라군 접근 차단!',
       favorsStat: 'control',
       attackerArmy: -8,
       defenderArmy: -5,
@@ -2490,7 +2490,7 @@ class BuildOrderData {
       defenderResource: -30,
     ),
     ClashEvent(
-      text: '스톰으로 테란 푸시 저지! 바이오닉 와해!',
+      text: '스톰으로 테란 푸시 저지! 메카닉 진격 와해!',
       favorsStat: 'defense',
       attackerArmy: -10,
       defenderArmy: -3,
@@ -2500,7 +2500,7 @@ class BuildOrderData {
   /// PvT 전용 이벤트
   static const clashEventsPvT = [
     ClashEvent(
-      text: '사이오닉 스톰! 바이오닉이 증발합니다!',
+      text: '사이오닉 스톰! 테란 병력이 증발합니다!',
       favorsStat: 'strategy',
       attackerArmy: -3,
       defenderArmy: -18,
@@ -2532,7 +2532,7 @@ class BuildOrderData {
       defenderArmy: -8,
     ),
     ClashEvent(
-      text: '아칸 돌진! 바이오닉 소탕!',
+      text: '아칸 돌진! 메카닉 병력 소탕!',
       favorsStat: 'attack',
       attackerArmy: -5,
       defenderArmy: -12,
@@ -2958,6 +2958,18 @@ class BuildOrderData {
     return true;
   }
 
+  static const _lateGameKeywords = [
+    '사이오닉 스톰',
+    '장기전',
+    '후반 물량',
+    '후반 대치',
+    '최대 서플라이 대회전',
+  ];
+
+  static bool _isLateGameText(String text) {
+    return _lateGameKeywords.any((keyword) => text.contains(keyword));
+  }
+
   /// 중후반 이벤트 가져오기 (빌드 스텝이 없을 때 사용)
   /// [race] 종족 (T, Z, P)에 따라 종족 특화 이벤트 추가
   /// [rushDistance] 러시 거리 (짧으면 교전 이벤트 증가)
@@ -3150,7 +3162,7 @@ class BuildOrderData {
     BuildType? attackerBuildType,
     BuildType? defenderBuildType,
     Set<String>? availableUnits,
-    bool isEarlyGame = false,
+    GamePhase gamePhase = GamePhase.early,
     int? attackerArmySize,
     int? defenderArmySize,
   }) {
@@ -3168,13 +3180,16 @@ class BuildOrderData {
     // 범용 이벤트 추가 (모든 경기에 적용)
     baseEvents.addAll(microEventsGeneral);
     baseEvents.addAll(mindGameEvents);
-    baseEvents.addAll(spellEventsGeneral);
+    if (gamePhase != GamePhase.early) {
+      baseEvents.addAll(spellEventsGeneral);
+    }
 
     // 맵 특성 기반 이벤트 추가
     if (rushDistance != null && rushDistance <= 4) {
       baseEvents.addAll(rushMapEvents);
     }
-    if (rushDistance != null && resources != null && rushDistance >= 7 && resources >= 6) {
+    if (rushDistance != null && resources != null && rushDistance >= 7 && resources >= 6 &&
+        gamePhase == GamePhase.late) {
       baseEvents.addAll(macroMapEvents);
     }
     if (terrainComplexity != null && terrainComplexity >= 7) {
@@ -3226,14 +3241,16 @@ class BuildOrderData {
       baseEvents.addAll(highDefenderSenseEvents);
     }
 
-    // 빌드 타입별 전용 이벤트 추가 (15% 확률로 발생 가중치 증가)
-    if (attackerBuildType != null) {
-      final buildEvents = getBuildTypeEvents(attackerBuildType);
-      baseEvents.addAll(buildEvents);
-    }
-    if (defenderBuildType != null) {
-      final buildEvents = getBuildTypeEvents(defenderBuildType);
-      baseEvents.addAll(buildEvents);
+    // 빌드 타입별 전용 이벤트 추가 (초반에만 - 장기전에서 러시 멘트 방지)
+    if (gamePhase == GamePhase.early) {
+      if (attackerBuildType != null) {
+        final buildEvents = getBuildTypeEvents(attackerBuildType);
+        baseEvents.addAll(buildEvents);
+      }
+      if (defenderBuildType != null) {
+        final buildEvents = getBuildTypeEvents(defenderBuildType);
+        baseEvents.addAll(buildEvents);
+      }
     }
 
     // 매치업별 종족 특화 이벤트 추가
@@ -3296,8 +3313,9 @@ class BuildOrderData {
       // 프로토스 공격자
       if (attackerRace == 'P') {
         baseEvents.addAll(microEventsProtoss);
-        // PvT, PvZ 전용 (스톰)
-        if (defenderRace == 'T' || defenderRace == 'Z') {
+        // PvT, PvZ 전용 (스톰) - 중반 이후만
+        if ((defenderRace == 'T' || defenderRace == 'Z') &&
+            gamePhase != GamePhase.early) {
           baseEvents.addAll(spellEventsPvTZ);
         }
       }
@@ -3326,7 +3344,9 @@ class BuildOrderData {
       // 프로토스 수비자
       if (defenderRace == 'P') {
         baseEvents.addAll(microEventsProtoss);
-        if (attackerRace == 'T' || attackerRace == 'Z') {
+        // PvT, PvZ 전용 (스톰) - 중반 이후만
+        if ((attackerRace == 'T' || attackerRace == 'Z') &&
+            gamePhase != GamePhase.early) {
           baseEvents.addAll(spellEventsPvTZ);
         }
       }
@@ -3350,7 +3370,7 @@ class BuildOrderData {
 
     // 프로리그 스타일 해설 이벤트 (상황 조건 분기)
     // 1. 명장면: 중반 이후에만 (초반 치즈러시에서 "역사에 남을!" 방지)
-    if (!isEarlyGame) {
+    if (gamePhase != GamePhase.early) {
       baseEvents.addAll(epicMomentEvents);
     }
 
@@ -3379,6 +3399,11 @@ class BuildOrderData {
     // 유닛 키워드 필터링: 빌드에 없는 유닛 관련 이벤트 제거
     if (availableUnits != null) {
       baseEvents.removeWhere((e) => !_eventTextMatchesUnits(e.text, availableUnits));
+    }
+
+    // 초반에는 후반 전용 텍스트 제거
+    if (gamePhase == GamePhase.early) {
+      baseEvents.removeWhere((e) => _isLateGameText(e.text));
     }
 
     return baseEvents;

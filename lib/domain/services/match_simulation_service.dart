@@ -252,7 +252,9 @@ class MatchSimulationService {
     final snipingBonus = homeSnipingBonus - awaySnipingBonus;
 
     // 최종 승률 계산
-    final baseWinRate = raceMatchupBonus.toDouble();
+    // 맵 종족상성 효과 2배 증폭 (±15 → ±30)
+    final raceDeviation = raceMatchupBonus.toDouble() - 50.0;
+    final baseWinRate = 50.0 + raceDeviation * 2.0;
     final finalWinRate = (baseWinRate + statBonus + buildBonus + mapBonus + levelBonus + snipingBonus).clamp(3.0, 97.0);
 
     return finalWinRate / 100;
@@ -1264,7 +1266,7 @@ class MatchSimulationService {
       attackerBuildType: isHomeAttacker ? homeBuildType : awayBuildType,
       defenderBuildType: isHomeAttacker ? awayBuildType : homeBuildType,
       availableUnits: combinedUnitTags,
-      isEarlyGame: gamePhase == GamePhase.early,
+      gamePhase: gamePhase,
       attackerArmySize: isHomeAttacker ? currentState.homeArmy : currentState.awayArmy,
       defenderArmySize: isHomeAttacker ? currentState.awayArmy : currentState.homeArmy,
     );

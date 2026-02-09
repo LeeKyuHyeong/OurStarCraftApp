@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -8,6 +7,7 @@ import '../../../core/utils/responsive.dart';
 import '../../../data/providers/game_provider.dart';
 import '../../../data/providers/match_provider.dart';
 import '../../../domain/models/models.dart';
+import '../../widgets/player_radar_chart.dart';
 import '../../widgets/reset_button.dart';
 
 class RosterSelectScreen extends ConsumerStatefulWidget {
@@ -308,12 +308,48 @@ class _RosterSelectScreenState extends ConsumerState<RosterSelectScreen> {
     );
   }
 
-  /// 맵 정보 패널 (상단 전체 가로, 썸네일 크게)
+  /// 맵 태그 위젯 생성 (종족맵, 특성)
+  List<Widget> _getMapTagWidgets(GameMap map, String description) {
+    final tags = <Widget>[];
+
+    void addTag(String label, Color color) {
+      tags.add(Container(
+        margin: const EdgeInsets.only(left: 4),
+        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+        decoration: BoxDecoration(
+          color: color.withOpacity(0.2),
+          borderRadius: BorderRadius.circular(3),
+          border: Border.all(color: color.withOpacity(0.5)),
+        ),
+        child: Text(label,
+            style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: color)),
+      ));
+    }
+
+    if (description.contains('테란맵')) {
+      addTag('T맵', Colors.blue);
+    }
+    if (description.contains('저그맵')) {
+      addTag('Z맵', Colors.purple);
+    }
+    if (description.contains('토스맵')) {
+      addTag('P맵', Colors.amber);
+    }
+    if (tags.isEmpty && description.contains('개념맵')) {
+      addTag('균형', Colors.teal);
+    }
+    if (map.hasIsland) addTag('섬', Colors.cyan);
+    if (description.contains('3인용')) addTag('3인', AppTheme.textSecondary);
+
+    return tags.take(2).toList();
+  }
+
+  /// 맵 정보 패널 (가시성 강화: 썸네일 + 상성 바차트 + 스탯 프로그레스바)
   Widget _buildMapInfoPanel(List<GameMap> matchMaps) {
     final currentMap = _focusedMapIndex < matchMaps.length ? matchMaps[_focusedMapIndex] : null;
     if (currentMap == null) {
       return Container(
-        height: 130,
+        height: 150,
         margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
         decoration: BoxDecoration(
           color: AppTheme.cardBackground,
@@ -325,9 +361,11 @@ class _RosterSelectScreenState extends ConsumerState<RosterSelectScreen> {
 
     final mapData = getMapByName(currentMap.name);
     final imageFile = mapData?.imageFile ?? '';
+    final description = mapData?.description ?? '';
+    final mapTags = _getMapTagWidgets(currentMap, description);
 
     return Container(
-      height: 130,
+      height: 150,
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
       margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
       decoration: BoxDecoration(
@@ -337,100 +375,87 @@ class _RosterSelectScreenState extends ConsumerState<RosterSelectScreen> {
       ),
       child: Column(
         children: [
-          // 맵 번호 + 이름
+          // 1행: 세트번호 + 맵이름 + 맵타입 태그
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: 16, height: 16,
+                width: 18, height: 18,
                 decoration: BoxDecoration(
                   color: AppTheme.accentGreen,
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(9),
                 ),
                 child: Center(
-                  child: Text('${_focusedMapIndex + 1}', style: const TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: Colors.black)),
+                  child: Text('${_focusedMapIndex + 1}',
+                      style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.black)),
                 ),
               ),
-              const SizedBox(width: 4),
-              Flexible(
+              const SizedBox(width: 6),
+              Expanded(
                 child: Text(
                   currentMap.name,
-                  style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
+              ...mapTags,
             ],
           ),
           const SizedBox(height: 4),
-          // 맵 썸네일 (크게)
+          // 2행: 썸네일(좌) + 종족 상성 바차트(우)
           Expanded(
-            child: Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                border: Border.all(color: AppTheme.primaryBlue.withOpacity(0.3)),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(4),
-                child: imageFile.isEmpty
-                    ? Container(
-                        color: AppTheme.cardBackground,
-                        child: const Icon(Icons.map, size: 30, color: AppTheme.textSecondary),
-                      )
-                    : Image.asset(
-                        'assets/maps/$imageFile',
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) => Container(
-                          color: AppTheme.cardBackground,
-                          child: const Icon(Icons.map, size: 30, color: AppTheme.textSecondary),
-                        ),
-                      ),
-              ),
+            child: Row(
+              children: [
+                // 좌: 맵 썸네일 (정사각형)
+                AspectRatio(
+                  aspectRatio: 1.0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      border: Border.all(color: AppTheme.primaryBlue.withOpacity(0.3)),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(4),
+                      child: imageFile.isEmpty
+                          ? Container(
+                              color: AppTheme.cardBackground,
+                              child: const Icon(Icons.map, size: 30, color: AppTheme.textSecondary))
+                          : Image.asset(
+                              'assets/maps/$imageFile',
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) => Container(
+                                color: AppTheme.cardBackground,
+                                child: const Icon(Icons.map, size: 30, color: AppTheme.textSecondary),
+                              ),
+                            ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                // 우: 종족 상성 가로 바차트 (50% 기준선)
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _MatchupBar(race1: 'T', race2: 'Z', rate: currentMap.matchup.tvzTerranWinRate),
+                      const SizedBox(height: 6),
+                      _MatchupBar(race1: 'Z', race2: 'P', rate: currentMap.matchup.zvpZergWinRate),
+                      const SizedBox(height: 6),
+                      _MatchupBar(race1: 'P', race2: 'T', rate: currentMap.matchup.pvtProtossWinRate),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 4),
-          // 하단: 맵 정보 + 상성 나란히
+          // 3행: 러시/자원/복잡 아이콘 프로그레스바
           Row(
             children: [
-              // 왼쪽: 러시/자원/복잡
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 3),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF252540),
-                    borderRadius: BorderRadius.circular(4),
-                    border: Border.all(color: Colors.grey.withOpacity(0.3)),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _StatBoxMini(label: '러시', value: currentMap.rushDistance),
-                      _StatBoxMini(label: '자원', value: currentMap.resources),
-                      _StatBoxMini(label: '복잡', value: currentMap.complexity),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(width: 4),
-              // 오른쪽: 종족 상성
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 3),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF252540),
-                    borderRadius: BorderRadius.circular(4),
-                    border: Border.all(color: Colors.grey.withOpacity(0.3)),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _MatchupRowMini('T', 'Z', currentMap.matchup.tvzTerranWinRate),
-                      _MatchupRowMini('Z', 'P', currentMap.matchup.zvpZergWinRate),
-                      _MatchupRowMini('P', 'T', currentMap.matchup.pvtProtossWinRate),
-                    ],
-                  ),
-                ),
-              ),
+              Expanded(child: _StatBar(icon: Icons.flash_on, label: '러시', value: currentMap.rushDistance, maxValue: 10)),
+              const SizedBox(width: 8),
+              Expanded(child: _StatBar(icon: Icons.diamond_outlined, label: '자원', value: currentMap.resources, maxValue: 10)),
+              const SizedBox(width: 8),
+              Expanded(child: _StatBar(icon: Icons.terrain, label: '복잡', value: currentMap.complexity, maxValue: 10)),
             ],
           ),
         ],
@@ -594,9 +619,13 @@ class _RosterSelectScreenState extends ConsumerState<RosterSelectScreen> {
           SizedBox(
             width: 130,
             height: 130,
-            child: CustomPaint(
-              size: const Size(130, 130),
-              painter: _RadarChartPainter(stats),
+            child: PlayerRadarChart(
+              stats: stats,
+              color: isMyTeam
+                  ? AppTheme.primaryBlue
+                  : Colors.red,
+              grade: player.grade.display,
+              level: player.level.value,
             ),
           ),
         ],
@@ -816,110 +845,6 @@ class _RosterSelectScreenState extends ConsumerState<RosterSelectScreen> {
   }
 }
 
-/// 8각형 레이더 차트 페인터 (라벨 + 수치 통합)
-class _RadarChartPainter extends CustomPainter {
-  final PlayerStats stats;
-
-  _RadarChartPainter(this.stats);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-    final radius = min(size.width, size.height) / 2 - 18;
-
-    // 8개 능력치
-    final rawValues = [
-      stats.sense, stats.control, stats.attack, stats.harass,
-      stats.strategy, stats.macro, stats.defense, stats.scout,
-    ];
-    final values = rawValues.map((v) => v / 1000).toList();
-
-    final labels = ['센스', '컨트롤', '공격', '견제', '전략', '물량', '수비', '정찰'];
-
-    // 배경 그리드
-    final gridPaint = Paint()
-      ..color = Colors.grey.withOpacity(0.3)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 0.5;
-
-    for (var i = 1; i <= 4; i++) {
-      final path = Path();
-      for (var j = 0; j < 8; j++) {
-        final angle = (j * 45 - 90) * pi / 180;
-        final r = radius * i / 4;
-        final x = center.dx + r * cos(angle);
-        final y = center.dy + r * sin(angle);
-        if (j == 0) {
-          path.moveTo(x, y);
-        } else {
-          path.lineTo(x, y);
-        }
-      }
-      path.close();
-      canvas.drawPath(path, gridPaint);
-    }
-
-    // 데이터 영역
-    final dataPath = Path();
-    final dataPaint = Paint()
-      ..color = AppTheme.primaryBlue.withOpacity(0.3)
-      ..style = PaintingStyle.fill;
-
-    final borderPaint = Paint()
-      ..color = AppTheme.primaryBlue
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.5;
-
-    for (var i = 0; i < 8; i++) {
-      final angle = (i * 45 - 90) * pi / 180;
-      final r = radius * values[i].clamp(0.0, 1.0);
-      final x = center.dx + r * cos(angle);
-      final y = center.dy + r * sin(angle);
-      if (i == 0) {
-        dataPath.moveTo(x, y);
-      } else {
-        dataPath.lineTo(x, y);
-      }
-    }
-    dataPath.close();
-
-    canvas.drawPath(dataPath, dataPaint);
-    canvas.drawPath(dataPath, borderPaint);
-
-    // 라벨 + 수치
-    final labelStyle = TextStyle(color: AppTheme.textSecondary, fontSize: 7);
-    final valueStyle = TextStyle(color: Colors.white, fontSize: 8, fontWeight: FontWeight.bold);
-    for (var i = 0; i < 8; i++) {
-      final angle = (i * 45 - 90) * pi / 180;
-      final labelR = radius + 14;
-      final x = center.dx + labelR * cos(angle);
-      final y = center.dy + labelR * sin(angle);
-
-      // 라벨 텍스트
-      final labelSpan = TextSpan(text: labels[i], style: labelStyle);
-      final labelPainter = TextPainter(text: labelSpan, textDirection: TextDirection.ltr);
-      labelPainter.layout();
-
-      // 수치 텍스트
-      final valueSpan = TextSpan(text: '${rawValues[i]}', style: valueStyle);
-      final valuePainter = TextPainter(text: valueSpan, textDirection: TextDirection.ltr);
-      valuePainter.layout();
-
-      // 라벨과 수치를 위아래로 배치
-      final totalHeight = labelPainter.height + valuePainter.height;
-      final labelX = x - labelPainter.width / 2;
-      final valueX = x - valuePainter.width / 2;
-      final baseY = y - totalHeight / 2;
-
-      labelPainter.paint(canvas, Offset(labelX, baseY));
-      valuePainter.paint(canvas, Offset(valueX, baseY + labelPainter.height));
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
-
 /// 내 팀 선수 그리드 아이템
 class _PlayerGridItem extends StatelessWidget {
   final Player player;
@@ -1096,68 +1021,59 @@ class _ItemChip extends StatelessWidget {
   }
 }
 
-/// 미니 스탯 박스 (세로 배치용)
-class _StatBoxMini extends StatelessWidget {
+/// 맵 스탯 프로그레스 바 (아이콘 + 라벨 + 바 + 수치)
+class _StatBar extends StatelessWidget {
+  final IconData icon;
   final String label;
   final int value;
+  final int maxValue;
 
-  const _StatBoxMini({required this.label, required this.value});
+  const _StatBar({required this.icon, required this.label, required this.value, required this.maxValue});
 
   @override
   Widget build(BuildContext context) {
+    final ratio = (value / maxValue).clamp(0.0, 1.0);
     final color = value >= 7 ? Colors.green : (value >= 4 ? Colors.orange : Colors.red);
-    return Container(
-      width: 36,
-      padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 1),
-      decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(2),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(label, style: TextStyle(fontSize: 7, color: color)),
-          Text('$value', style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: color)),
-        ],
-      ),
+
+    return Row(
+      children: [
+        Icon(icon, size: 10, color: color),
+        const SizedBox(width: 2),
+        Text(label, style: const TextStyle(fontSize: 7, color: AppTheme.textSecondary)),
+        const SizedBox(width: 3),
+        Expanded(
+          child: Container(
+            height: 6,
+            decoration: BoxDecoration(
+              color: Colors.grey.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(3),
+            ),
+            child: FractionallySizedBox(
+              widthFactor: ratio,
+              alignment: Alignment.centerLeft,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: color.withOpacity(0.7),
+                  borderRadius: BorderRadius.circular(3),
+                ),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(width: 3),
+        Text('$value', style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: color)),
+      ],
     );
   }
 }
 
-/// 컴팩트 상성 박스 (가로형)
-class _MatchupBoxCompact extends StatelessWidget {
-  final String label;
-  final int value;
-
-  const _MatchupBoxCompact({required this.label, required this.value});
-
-  @override
-  Widget build(BuildContext context) {
-    final color = value > 55 ? Colors.green : (value < 45 ? Colors.red : AppTheme.textSecondary);
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
-      decoration: BoxDecoration(
-        color: AppTheme.cardBackground,
-        borderRadius: BorderRadius.circular(3),
-        border: Border.all(color: color.withOpacity(0.3)),
-      ),
-      child: Column(
-        children: [
-          Text(label, style: const TextStyle(fontSize: 7, color: AppTheme.textSecondary)),
-          Text('$value', style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: color)),
-        ],
-      ),
-    );
-  }
-}
-
-/// 미니 상성 행 (세로 배치용, T 60 40 Z 형식)
-class _MatchupRowMini extends StatelessWidget {
+/// 종족 상성 바 (가로 바차트, 50% 기준선 표시)
+class _MatchupBar extends StatelessWidget {
   final String race1;
   final String race2;
-  final int percentage;
+  final int rate;
 
-  const _MatchupRowMini(this.race1, this.race2, this.percentage);
+  const _MatchupBar({required this.race1, required this.race2, required this.rate});
 
   Color _getRaceColor(String race) {
     switch (race) {
@@ -1170,17 +1086,65 @@ class _MatchupRowMini extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final race2Percentage = 100 - percentage;
+    final rate2 = 100 - rate;
+    final color1 = _getRaceColor(race1);
+    final color2 = _getRaceColor(race2);
+
     return Row(
-      mainAxisSize: MainAxisSize.min,
       children: [
-        Text(race1, style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: _getRaceColor(race1))),
-        const SizedBox(width: 2),
-        Text('$percentage', style: const TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: Colors.white)),
-        const SizedBox(width: 2),
-        Text('$race2Percentage', style: const TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: Colors.white)),
-        const SizedBox(width: 2),
-        Text(race2, style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: _getRaceColor(race2))),
+        SizedBox(
+          width: 14,
+          child: Text(race1, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: color1)),
+        ),
+        SizedBox(
+          width: 20,
+          child: Text('$rate', textAlign: TextAlign.right,
+              style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold,
+                  color: rate > 55 ? color1 : Colors.white)),
+        ),
+        const SizedBox(width: 4),
+        Expanded(
+          child: Container(
+            height: 14,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(3),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(3),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  return Stack(
+                    children: [
+                      Container(color: color2.withOpacity(0.15)),
+                      Container(
+                        width: constraints.maxWidth * rate / 100,
+                        color: color1.withOpacity(rate > 50 ? 0.5 : 0.3),
+                      ),
+                      Positioned(
+                        left: constraints.maxWidth / 2 - 0.5,
+                        top: 0,
+                        bottom: 0,
+                        child: Container(width: 1, color: Colors.white.withOpacity(0.3)),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(width: 4),
+        SizedBox(
+          width: 20,
+          child: Text('$rate2', textAlign: TextAlign.left,
+              style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold,
+                  color: rate2 > 55 ? color2 : Colors.white)),
+        ),
+        SizedBox(
+          width: 14,
+          child: Text(race2, textAlign: TextAlign.right,
+              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: color2)),
+        ),
       ],
     );
   }

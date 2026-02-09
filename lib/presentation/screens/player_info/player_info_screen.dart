@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -7,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import '../../../app/theme.dart';
 import '../../../core/utils/responsive.dart';
+import '../../widgets/player_radar_chart.dart';
 import '../../widgets/reset_button.dart';
 import '../../../domain/models/models.dart';
 import '../../../data/providers/game_provider.dart';
@@ -495,15 +495,11 @@ class _PlayerInfoScreenState extends ConsumerState<PlayerInfoScreen> {
   }
 
   Widget _buildRadarChart(Player player) {
-    return CustomPaint(
-      painter: _RadarChartPainter(
-        stats: player.stats,
-        raceColor: _getRaceColor(player.race),
-        gradeText: player.grade.display,
-        level: player.level.value,
-        gradeColor: _getGradeColor(player.grade),
-      ),
-      size: Size.infinite,
+    return PlayerRadarChart(
+      stats: player.stats,
+      color: _getRaceColor(player.race),
+      grade: player.grade.display,
+      level: player.level.value,
     );
   }
 
@@ -1506,172 +1502,3 @@ class _PlayerInfoScreenState extends ConsumerState<PlayerInfoScreen> {
   }
 }
 
-/// 8각형 레이더 차트 페인터
-class _RadarChartPainter extends CustomPainter {
-  final PlayerStats stats;
-  final Color raceColor;
-  final String? gradeText;
-  final int? level;
-  final Color? gradeColor;
-
-  _RadarChartPainter({
-    required this.stats,
-    required this.raceColor,
-    this.gradeText,
-    this.level,
-    this.gradeColor,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-    final radius = math.min(size.width, size.height) / 2 - 20;
-
-    // 8각형 그리드
-    final gridPaint = Paint()
-      ..color = Colors.grey.withOpacity(0.3)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1;
-
-    // 외곽선
-    for (var i = 1; i <= 3; i++) {
-      final r = radius * i / 3;
-      _drawOctagon(canvas, center, r, gridPaint);
-    }
-
-    // 축선
-    for (var i = 0; i < 8; i++) {
-      final angle = (i * math.pi / 4) - math.pi / 2;
-      final end = Offset(
-        center.dx + radius * math.cos(angle),
-        center.dy + radius * math.sin(angle),
-      );
-      canvas.drawLine(center, end, gridPaint);
-    }
-
-    // 데이터 영역
-    final dataPaint = Paint()
-      ..color = raceColor.withOpacity(0.3)
-      ..style = PaintingStyle.fill;
-
-    final dataStrokePaint = Paint()
-      ..color = raceColor
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2;
-
-    final radarData = stats.toRadarData();
-    final path = Path();
-
-    for (var i = 0; i < 8; i++) {
-      final angle = (i * math.pi / 4) - math.pi / 2;
-      final value = radarData[i];
-      final r = radius * value;
-      final point = Offset(
-        center.dx + r * math.cos(angle),
-        center.dy + r * math.sin(angle),
-      );
-      if (i == 0) {
-        path.moveTo(point.dx, point.dy);
-      } else {
-        path.lineTo(point.dx, point.dy);
-      }
-    }
-    path.close();
-
-    canvas.drawPath(path, dataPaint);
-    canvas.drawPath(path, dataStrokePaint);
-
-    // 라벨
-    final labels = ['센스', '컨트롤', '공격력', '견제', '전략', '물량', '수비력', '정찰'];
-    final textPainter = TextPainter(textDirection: TextDirection.ltr);
-
-    for (var i = 0; i < 8; i++) {
-      final angle = (i * math.pi / 4) - math.pi / 2;
-      final labelRadius = radius + 15;
-      final labelPoint = Offset(
-        center.dx + labelRadius * math.cos(angle),
-        center.dy + labelRadius * math.sin(angle),
-      );
-
-      textPainter.text = TextSpan(
-        text: labels[i],
-        style: const TextStyle(color: Colors.grey, fontSize: 9),
-      );
-      textPainter.layout();
-      textPainter.paint(
-        canvas,
-        Offset(
-          labelPoint.dx - textPainter.width / 2,
-          labelPoint.dy - textPainter.height / 2,
-        ),
-      );
-    }
-
-    // 중앙에 등급 + 레벨 표시
-    if (gradeText != null && level != null) {
-      // 등급 배경
-      final gradeBgPaint = Paint()
-        ..color = (gradeColor ?? Colors.grey).withOpacity(0.9)
-        ..style = PaintingStyle.fill;
-
-      final bgRadius = radius * 0.28;
-      canvas.drawCircle(center, bgRadius, gradeBgPaint);
-
-      // 등급 텍스트
-      textPainter.text = TextSpan(
-        text: gradeText,
-        style: const TextStyle(
-          color: Colors.black,
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-        ),
-      );
-      textPainter.layout();
-      textPainter.paint(
-        canvas,
-        Offset(
-          center.dx - textPainter.width / 2,
-          center.dy - textPainter.height / 2 - 6,
-        ),
-      );
-
-      // 레벨 텍스트
-      textPainter.text = TextSpan(
-        text: 'Lv.$level',
-        style: const TextStyle(
-          color: Colors.black87,
-          fontSize: 10,
-        ),
-      );
-      textPainter.layout();
-      textPainter.paint(
-        canvas,
-        Offset(
-          center.dx - textPainter.width / 2,
-          center.dy - textPainter.height / 2 + 10,
-        ),
-      );
-    }
-  }
-
-  void _drawOctagon(Canvas canvas, Offset center, double radius, Paint paint) {
-    final path = Path();
-    for (var i = 0; i < 8; i++) {
-      final angle = (i * math.pi / 4) - math.pi / 2;
-      final point = Offset(
-        center.dx + radius * math.cos(angle),
-        center.dy + radius * math.sin(angle),
-      );
-      if (i == 0) {
-        path.moveTo(point.dx, point.dy);
-      } else {
-        path.lineTo(point.dx, point.dy);
-      }
-    }
-    path.close();
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
-}

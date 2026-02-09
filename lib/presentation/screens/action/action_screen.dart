@@ -631,7 +631,7 @@ class _ActionScreenState extends ConsumerState<ActionScreen> {
                             ),
                             const SizedBox(width: 6),
                             Text(
-                              'Lv.${player.level}',
+                              'Lv.${player.level.value}',
                               style: const TextStyle(
                                 fontSize: 10,
                                 color: AppTheme.textSecondary,

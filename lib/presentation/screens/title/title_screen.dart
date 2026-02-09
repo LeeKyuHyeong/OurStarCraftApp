@@ -8,6 +8,7 @@ import '../../../core/constants/initial_data.dart';
 import '../../../core/utils/responsive.dart';
 import '../../../data/providers/game_provider.dart';
 import '../../../domain/models/models.dart';
+import '../../widgets/player_radar_chart.dart';
 
 /// 타이틀 화면 - 팀 선택 및 게임 시작
 class TitleScreen extends ConsumerStatefulWidget {
@@ -614,39 +615,12 @@ class _TitleScreenState extends ConsumerState<TitleScreen> {
 
   Widget _buildRadarChart(Color teamColor) {
     final player = _teamRoster[focusedPlayerIndex];
-    final stats = player.stats;
-    final statValues = [
-      stats.sense / 999.0,
-      stats.control / 999.0,
-      stats.attack / 999.0,
-      stats.harass / 999.0,
-      stats.strategy / 999.0,
-      stats.macro / 999.0,
-      stats.defense / 999.0,
-      stats.scout / 999.0,
-    ];
-    final statNumbers = [
-      stats.sense,
-      stats.control,
-      stats.attack,
-      stats.harass,
-      stats.strategy,
-      stats.macro,
-      stats.defense,
-      stats.scout,
-    ];
-    final labels = ['센스', '컨트롤', '공격력', '견제', '전략', '물량', '수비력', '정찰'];
 
-    return CustomPaint(
-      painter: CompactRadarChartPainter(
-        stats: statValues,
-        statNumbers: statNumbers,
-        labels: labels,
-        color: teamColor,
-        grade: player.grade.display,
-        level: player.levelValue,
-      ),
-      child: Container(),
+    return PlayerRadarChart(
+      stats: player.stats,
+      color: teamColor,
+      grade: player.grade.display,
+      level: player.levelValue,
     );
   }
 
@@ -764,147 +738,3 @@ class _TitleScreenState extends ConsumerState<TitleScreen> {
   }
 }
 
-/// 컴팩트 8각형 레이더 차트 페인터 (중앙에 등급/레벨, 꼭지점에 능력치 값)
-class CompactRadarChartPainter extends CustomPainter {
-  final List<double> stats;
-  final List<int> statNumbers;
-  final List<String> labels;
-  final Color color;
-  final String grade;
-  final int level;
-
-  CompactRadarChartPainter({
-    required this.stats,
-    required this.statNumbers,
-    required this.labels,
-    required this.color,
-    required this.grade,
-    required this.level,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-    final radius = min(size.width, size.height) / 2 - 28;
-    final sides = stats.length;
-
-    // 배경 그리드
-    final gridPaint = Paint()
-      ..color = Colors.grey[700]!
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1;
-
-    for (var lvl = 1; lvl <= 5; lvl++) {
-      final levelRadius = radius * lvl / 5;
-      final path = Path();
-      for (var i = 0; i < sides; i++) {
-        final angle = (i * 2 * pi / sides) - pi / 2;
-        final point = Offset(
-          center.dx + levelRadius * cos(angle),
-          center.dy + levelRadius * sin(angle),
-        );
-        if (i == 0) {
-          path.moveTo(point.dx, point.dy);
-        } else {
-          path.lineTo(point.dx, point.dy);
-        }
-      }
-      path.close();
-      canvas.drawPath(path, gridPaint);
-    }
-
-    // 축
-    for (var i = 0; i < sides; i++) {
-      final angle = (i * 2 * pi / sides) - pi / 2;
-      final endPoint = Offset(
-        center.dx + radius * cos(angle),
-        center.dy + radius * sin(angle),
-      );
-      canvas.drawLine(center, endPoint, gridPaint);
-    }
-
-    // 데이터 영역
-    final dataPath = Path();
-    final dataPaint = Paint()
-      ..color = color.withOpacity(0.3)
-      ..style = PaintingStyle.fill;
-
-    final dataStrokePaint = Paint()
-      ..color = color
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2;
-
-    for (var i = 0; i < sides; i++) {
-      final angle = (i * 2 * pi / sides) - pi / 2;
-      final value = stats[i].clamp(0.0, 1.0);
-      final point = Offset(
-        center.dx + radius * value * cos(angle),
-        center.dy + radius * value * sin(angle),
-      );
-      if (i == 0) {
-        dataPath.moveTo(point.dx, point.dy);
-      } else {
-        dataPath.lineTo(point.dx, point.dy);
-      }
-    }
-    dataPath.close();
-    canvas.drawPath(dataPath, dataPaint);
-    canvas.drawPath(dataPath, dataStrokePaint);
-
-    // 라벨 + 숫자
-    final textPainter = TextPainter(textDirection: TextDirection.ltr);
-    for (var i = 0; i < sides; i++) {
-      final angle = (i * 2 * pi / sides) - pi / 2;
-      final labelRadius = radius + 22;
-      var point = Offset(
-        center.dx + labelRadius * cos(angle),
-        center.dy + labelRadius * sin(angle),
-      );
-
-      textPainter.text = TextSpan(
-        children: [
-          TextSpan(
-            text: '${labels[i]}\n',
-            style: TextStyle(color: Colors.grey[400], fontSize: 9),
-          ),
-          TextSpan(
-            text: '${statNumbers[i]}',
-            style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
-          ),
-        ],
-      );
-      textPainter.textAlign = TextAlign.center;
-      textPainter.layout();
-
-      point = Offset(
-        point.dx - textPainter.width / 2,
-        point.dy - textPainter.height / 2,
-      );
-      textPainter.paint(canvas, point);
-    }
-
-    // 중앙에 등급과 레벨 표시
-    final gradePainter = TextPainter(textDirection: TextDirection.ltr);
-    gradePainter.text = TextSpan(
-      children: [
-        TextSpan(
-          text: '$grade\n',
-          style: TextStyle(color: color, fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-        TextSpan(
-          text: 'Lv.$level',
-          style: TextStyle(color: Colors.grey[400], fontSize: 11),
-        ),
-      ],
-    );
-    gradePainter.textAlign = TextAlign.center;
-    gradePainter.layout();
-    gradePainter.paint(
-      canvas,
-      Offset(center.dx - gradePainter.width / 2, center.dy - gradePainter.height / 2),
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
-}

@@ -242,8 +242,8 @@ class GameMap {
     awayBonus += getStatBonus('scout', awayScout, homeScout);
 
     return MapBonus(
-      homeBonus: homeBonus.clamp(-15, 15),
-      awayBonus: awayBonus.clamp(-15, 15),
+      homeBonus: homeBonus.clamp(-20, 20),
+      awayBonus: awayBonus.clamp(-20, 20),
     );
   }
 }

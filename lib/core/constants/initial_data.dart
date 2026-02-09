@@ -47,9 +47,9 @@ class InitialData {
         nickname: 'NaDa',
         raceIndex: Race.terran.index,
         stats: const PlayerStats(
-          sense: 460, control: 480, attack: 460, harass: 440,
-          strategy: 480, macro: 460, defense: 420, scout: 430,
-        ), // 합계: 3630 (A-)
+          sense: 470, control: 470, attack: 480, harass: 460,
+          strategy: 470, macro: 440, defense: 410, scout: 430,
+        ), // 합계: 3630 (A-) - 천재 테란, 균형잡힌 올라운더, 뛰어난 적응력
         levelValue: 10, // 은퇴
       ),
       Player(
@@ -58,9 +58,9 @@ class InitialData {
         nickname: 'BoxeR',
         raceIndex: Race.terran.index,
         stats: const PlayerStats(
-          sense: 420, control: 450, attack: 440, harass: 450,
-          strategy: 470, macro: 420, defense: 390, scout: 420,
-        ), // 합계: 3460 (B+)
+          sense: 460, control: 440, attack: 450, harass: 460,
+          strategy: 450, macro: 390, defense: 380, scout: 430,
+        ), // 합계: 3460 (B+) - 황제 테란, 혁신적 전략과 견제, 낮은 매크로
         levelValue: 10, // 은퇴
       ),
       Player(
@@ -69,9 +69,9 @@ class InitialData {
         nickname: 'iloveoov',
         raceIndex: Race.terran.index,
         stats: const PlayerStats(
-          sense: 420, control: 440, attack: 430, harass: 400,
-          strategy: 430, macro: 440, defense: 420, scout: 400,
-        ), // 합계: 3380 (B+)
+          sense: 400, control: 400, attack: 400, harass: 390,
+          strategy: 440, macro: 470, defense: 450, scout: 430,
+        ), // 합계: 3380 (B+) - 건설 테란, 역대 최고 매크로/수비, 전략적 운영
         levelValue: 10, // 은퇴
       ),
       Player(
@@ -80,9 +80,9 @@ class InitialData {
         nickname: 'YellOw',
         raceIndex: Race.zerg.index,
         stats: const PlayerStats(
-          sense: 420, control: 450, attack: 440, harass: 470,
-          strategy: 420, macro: 470, defense: 400, scout: 390,
-        ), // 합계: 3460 (B+)
+          sense: 430, control: 440, attack: 430, harass: 460,
+          strategy: 410, macro: 480, defense: 420, scout: 390,
+        ), // 합계: 3460 (B+) - 만년 2인자, 물량과 견제의 저그, 뛰어난 매크로
         levelValue: 10, // 은퇴
       ),
       Player(
@@ -91,9 +91,9 @@ class InitialData {
         nickname: 'Nal_rA',
         raceIndex: Race.protoss.index,
         stats: const PlayerStats(
-          sense: 390, control: 410, attack: 400, harass: 380,
-          strategy: 440, macro: 400, defense: 360, scout: 370,
-        ), // 합계: 3150 (B)
+          sense: 420, control: 400, attack: 380, harass: 370,
+          strategy: 440, macro: 390, defense: 380, scout: 370,
+        ), // 합계: 3150 (B) - 전략의 귀재, 뛰어난 센스와 전략적 사고
         levelValue: 10, // 은퇴
       ),
       Player(
@@ -102,9 +102,9 @@ class InitialData {
         nickname: 'Reach',
         raceIndex: Race.protoss.index,
         stats: const PlayerStats(
-          sense: 350, control: 370, attack: 360, harass: 340,
-          strategy: 380, macro: 360, defense: 340, scout: 340,
-        ), // 합계: 2840 (B)
+          sense: 370, control: 370, attack: 340, harass: 320,
+          strategy: 390, macro: 370, defense: 350, scout: 330,
+        ), // 합계: 2840 (B) - 운영형 프로토스, 전략과 매크로 중심
         levelValue: 10, // 은퇴
       ),
       // ===== 해체된 팀 출신 =====
@@ -212,9 +212,9 @@ class InitialData {
         nickname: 'Flash',
         raceIndex: Race.terran.index,
         stats: const PlayerStats(
-          sense: 580, control: 620, attack: 600, harass: 560,
-          strategy: 590, macro: 600, defense: 570, scout: 570,
-        ), // 합계: 4690 (A+)
+          sense: 560, control: 590, attack: 560, harass: 530,
+          strategy: 640, macro: 640, defense: 600, scout: 570,
+        ), // 합계: 4690 (A+) - 역대 최고 매크로+전략, 수비→공격 전환, 판단력/효율 중시
         levelValue: 9,
         teamId: 'kt_rolster',
       ),
@@ -225,9 +225,9 @@ class InitialData {
         nickname: 'Action',
         raceIndex: Race.zerg.index,
         stats: const PlayerStats(
-          sense: 380, control: 410, attack: 390, harass: 420,
-          strategy: 360, macro: 410, defense: 340, scout: 370,
-        ), // 합계: 3080 (B)
+          sense: 370, control: 400, attack: 340, harass: 380,
+          strategy: 380, macro: 420, defense: 400, scout: 390,
+        ), // 합계: 3080 (B) - 디파일러 마스터, 후반 운영 특화, 멀티 수비 뛰어남
         levelValue: 5,
         teamId: 'kt_rolster',
       ),
@@ -238,9 +238,9 @@ class InitialData {
         nickname: 'Stats',
         raceIndex: Race.protoss.index,
         stats: const PlayerStats(
-          sense: 410, control: 440, attack: 420, harass: 380,
-          strategy: 460, macro: 440, defense: 400, scout: 420,
-        ), // 합계: 3370 (B+)
+          sense: 440, control: 430, attack: 380, harass: 370,
+          strategy: 470, macro: 440, defense: 420, scout: 420,
+        ), // 합계: 3370 (B+) - 정찰 기반 수비적 운영, 대군 컨트롤 정밀, 올킬 다수
         levelValue: 6,
         teamId: 'kt_rolster',
       ),
@@ -251,9 +251,9 @@ class InitialData {
         nickname: 'TaeGyun',
         raceIndex: Race.protoss.index,
         stats: const PlayerStats(
-          sense: 340, control: 370, attack: 350, harass: 320,
-          strategy: 370, macro: 350, defense: 340, scout: 350,
-        ), // 합계: 2790 (B-)
+          sense: 360, control: 350, attack: 330, harass: 320,
+          strategy: 390, macro: 360, defense: 340, scout: 340,
+        ), // 합계: 2790 (B-) - 전략적 빌드 활용, 센스/전략 강점
         levelValue: 4,
         teamId: 'kt_rolster',
       ),
@@ -264,9 +264,9 @@ class InitialData {
         nickname: 'Free',
         raceIndex: Race.protoss.index,
         stats: const PlayerStats(
-          sense: 290, control: 320, attack: 300, harass: 270,
-          strategy: 340, macro: 320, defense: 300, scout: 320,
-        ), // 합계: 2460 (B-)
+          sense: 310, control: 300, attack: 290, harass: 270,
+          strategy: 340, macro: 320, defense: 310, scout: 320,
+        ), // 합계: 2460 (B-) - KT 프로토스 간판, 안정적 운영형
         levelValue: 6,
         teamId: 'kt_rolster',
       ),
@@ -277,9 +277,9 @@ class InitialData {
         nickname: 'July',
         raceIndex: Race.terran.index,
         stats: const PlayerStats(
-          sense: 380, control: 410, attack: 430, harass: 360,
-          strategy: 400, macro: 380, defense: 360, scout: 340,
-        ), // 합계: 3060 (B)
+          sense: 400, control: 390, attack: 430, harass: 370,
+          strategy: 400, macro: 370, defense: 360, scout: 340,
+        ), // 합계: 3060 (B) - 독사(Mind), 날카로운 타이밍 공격, TvP 특화
         levelValue: 8,
         teamId: 'kt_rolster',
       ),
@@ -301,9 +301,9 @@ class InitialData {
         name: '임정현',
         raceIndex: Race.zerg.index,
         stats: const PlayerStats(
-          sense: 340, control: 370, attack: 350, harass: 380,
-          strategy: 320, macro: 370, defense: 300, scout: 330,
-        ), // 합계: 2760 (B-)
+          sense: 340, control: 380, attack: 320, harass: 390,
+          strategy: 330, macro: 370, defense: 300, scout: 330,
+        ), // 합계: 2760 (B-) - 방향키 컨트롤, 견제/컨트롤 강점
         levelValue: 5,
         teamId: 'kt_rolster',
       ),
@@ -313,9 +313,9 @@ class InitialData {
         name: '고강민',
         raceIndex: Race.zerg.index,
         stats: const PlayerStats(
-          sense: 290, control: 320, attack: 300, harass: 340,
-          strategy: 270, macro: 320, defense: 270, scout: 290,
-        ), // 합계: 2400 (B-)
+          sense: 280, control: 310, attack: 280, harass: 350,
+          strategy: 280, macro: 320, defense: 280, scout: 300,
+        ), // 합계: 2400 (B-) - 저그 특성, 견제/매크로/정찰 강점
         levelValue: 5,
         teamId: 'kt_rolster',
       ),
@@ -325,9 +325,9 @@ class InitialData {
         name: '주성욱',
         raceIndex: Race.protoss.index,
         stats: const PlayerStats(
-          sense: 260, control: 290, attack: 270, harass: 240,
-          strategy: 310, macro: 280, defense: 260, scout: 280,
-        ), // 합계: 2190 (C+)
+          sense: 280, control: 270, attack: 250, harass: 240,
+          strategy: 320, macro: 280, defense: 270, scout: 280,
+        ), // 합계: 2190 (C+) - 프로토스 특성, 전략/센스 강점
         levelValue: 3,
         teamId: 'kt_rolster',
       ),
@@ -337,9 +337,9 @@ class InitialData {
         name: '원선재',
         raceIndex: Race.protoss.index,
         stats: const PlayerStats(
-          sense: 240, control: 270, attack: 250, harass: 220,
-          strategy: 290, macro: 260, defense: 240, scout: 260,
-        ), // 합계: 2030 (C+)
+          sense: 260, control: 250, attack: 230, harass: 220,
+          strategy: 290, macro: 260, defense: 250, scout: 270,
+        ), // 합계: 2030 (C+) - 프로토스 특성, 전략/정찰 강점
         levelValue: 2,
         teamId: 'kt_rolster',
       ),
@@ -372,9 +372,9 @@ class InitialData {
         nickname: 'JangBi',
         raceIndex: Race.protoss.index,
         stats: const PlayerStats(
-          sense: 560, control: 590, attack: 570, harass: 540,
-          strategy: 600, macro: 570, defense: 540, scout: 570,
-        ), // 합계: 4540 (A+)
+          sense: 550, control: 620, attack: 600, harass: 580,
+          strategy: 560, macro: 540, defense: 520, scout: 570,
+        ), // 합계: 4540 (A+) - 천지 스톰/리콜의 컨트롤러, 셔틀드랍 견제, 날빌+승부수
         levelValue: 8,
         teamId: 'samsung_khan',
       ),
@@ -385,9 +385,9 @@ class InitialData {
         nickname: 'Stork',
         raceIndex: Race.protoss.index,
         stats: const PlayerStats(
-          sense: 480, control: 510, attack: 490, harass: 470,
-          strategy: 530, macro: 510, defense: 470, scout: 490,
-        ), // 합계: 3950 (A-)
+          sense: 510, control: 500, attack: 440, harass: 480,
+          strategy: 540, macro: 530, defense: 490, scout: 460,
+        ), // 합계: 3950 (A-) - 무결점의 총사령관, 올라운더, 아비터 혁신/캐리어 마무리
         levelValue: 9,
         teamId: 'samsung_khan',
       ),
@@ -398,9 +398,9 @@ class InitialData {
         nickname: 'Shine',
         raceIndex: Race.zerg.index,
         stats: const PlayerStats(
-          sense: 420, control: 450, attack: 430, harass: 470,
-          strategy: 400, macro: 450, defense: 400, scout: 420,
-        ), // 합계: 3440 (B+)
+          sense: 430, control: 460, attack: 490, harass: 480,
+          strategy: 420, macro: 400, defense: 370, scout: 390,
+        ), // 합계: 3440 (B+) - 태풍저그, 뮤탈/히드라 러시, 빌드 주머니, 후반 약점
         levelValue: 7,
         teamId: 'samsung_khan',
       ),
@@ -411,9 +411,9 @@ class InitialData {
         nickname: 'RorO',
         raceIndex: Race.zerg.index,
         stats: const PlayerStats(
-          sense: 380, control: 410, attack: 390, harass: 430,
-          strategy: 360, macro: 410, defense: 360, scout: 380,
-        ), // 합계: 3120 (B)
+          sense: 390, control: 370, attack: 350, harass: 380,
+          strategy: 400, macro: 440, defense: 410, scout: 380,
+        ), // 합계: 3120 (B) - 후반 운영형 매크로 저그, 군락 체제 특화
         levelValue: 5,
         teamId: 'samsung_khan',
       ),
@@ -424,9 +424,9 @@ class InitialData {
         nickname: 'Reality',
         raceIndex: Race.terran.index,
         stats: const PlayerStats(
-          sense: 290, control: 320, attack: 340, harass: 270,
-          strategy: 300, macro: 290, defense: 300, scout: 270,
-        ), // 합계: 2380 (C+)
+          sense: 290, control: 310, attack: 300, harass: 280,
+          strategy: 310, macro: 300, defense: 310, scout: 280,
+        ), // 합계: 2380 (C+) - 기본기 탄탄한 균형형 테란
         levelValue: 3,
         teamId: 'samsung_khan',
       ),
@@ -437,9 +437,9 @@ class InitialData {
         nickname: 'Turn',
         raceIndex: Race.terran.index,
         stats: const PlayerStats(
-          sense: 290, control: 320, attack: 360, harass: 260,
-          strategy: 300, macro: 290, defense: 270, scout: 260,
-        ), // 합계: 2350 (C+)
+          sense: 280, control: 320, attack: 370, harass: 290,
+          strategy: 270, macro: 280, defense: 250, scout: 290,
+        ), // 합계: 2350 (C+) - 공격형 테란, 올인/날빌 성향, 수비 약점
         levelValue: 3,
         teamId: 'samsung_khan',
       ),
@@ -450,9 +450,9 @@ class InitialData {
         nickname: 'BravE',
         raceIndex: Race.protoss.index,
         stats: const PlayerStats(
-          sense: 320, control: 350, attack: 330, harass: 300,
-          strategy: 350, macro: 330, defense: 320, scout: 330,
-        ), // 합계: 2630 (B-)
+          sense: 320, control: 350, attack: 350, harass: 310,
+          strategy: 330, macro: 320, defense: 310, scout: 340,
+        ), // 합계: 2630 (B-) - 공격적 초반, 신인왕 후보급, 리드 유지 약점
         levelValue: 3,
         teamId: 'samsung_khan',
       ),
@@ -539,149 +539,161 @@ class InitialData {
   static List<Player> _createStxSoulPlayers() {
     return [
       // 이신형 (Bogus/INnoVation) - A, 5레벨
+      // SK테란 기반 압도적 매크로 + 뛰어난 피지컬/컨트롤 + 견제력
       Player(
         id: 'stx_bogus',
         name: '이신형',
         nickname: 'Bogus',
         raceIndex: Race.terran.index,
         stats: const PlayerStats(
-          sense: 500, control: 540, attack: 560, harass: 480,
-          strategy: 520, macro: 530, defense: 500, scout: 480,
+          sense: 490, control: 560, attack: 530, harass: 510,
+          strategy: 480, macro: 580, defense: 490, scout: 470,
         ), // 합계: 4110 (A)
         levelValue: 5,
         teamId: 'stx_soul',
       ),
       // 김윤환 (Calm) - A-, 8레벨
+      // "뇌저그" - 전략/심리전의 대가, 빌드 싸움과 견제 특화
       Player(
         id: 'stx_calm',
         name: '김윤환',
         nickname: 'Calm',
         raceIndex: Race.zerg.index,
         stats: const PlayerStats(
-          sense: 470, control: 500, attack: 480, harass: 520,
-          strategy: 450, macro: 520, defense: 450, scout: 470,
+          sense: 500, control: 460, attack: 440, harass: 530,
+          strategy: 560, macro: 490, defense: 430, scout: 450,
         ), // 합계: 3860 (A-)
         levelValue: 8,
         teamId: 'stx_soul',
       ),
       // 신대근 - B, 7레벨
+      // 저그 백업 라인, 균형잡힌 스타일, 견제와 매크로 중심
       Player(
         id: 'stx_shindaegeun',
         name: '신대근',
         raceIndex: Race.zerg.index,
         stats: const PlayerStats(
-          sense: 370, control: 400, attack: 380, harass: 420,
-          strategy: 350, macro: 400, defense: 350, scout: 370,
+          sense: 380, control: 380, attack: 370, harass: 410,
+          strategy: 370, macro: 410, defense: 370, scout: 350,
         ), // 합계: 3040 (B)
         levelValue: 7,
         teamId: 'stx_soul',
       ),
       // 김현우 (Kwanro) - B-, 3레벨
+      // 저그전(미러) 스페셜리스트, 매크로와 전략 중심
       Player(
         id: 'stx_kimhyunwoo',
         name: '김현우',
         nickname: 'Kwanro',
         raceIndex: Race.zerg.index,
         stats: const PlayerStats(
-          sense: 320, control: 350, attack: 330, harass: 370,
-          strategy: 300, macro: 350, defense: 300, scout: 320,
+          sense: 330, control: 340, attack: 310, harass: 350,
+          strategy: 330, macro: 360, defense: 290, scout: 330,
         ), // 합계: 2640 (B-)
         levelValue: 3,
         teamId: 'stx_soul',
       ),
       // 변현제 (Mini) - B-, 1레벨
+      // "사파 토스" - 최상위 컨트롤 + 질럿 러시 공격형 + 멀티태스킹
       Player(
         id: 'stx_mini',
         name: '변현제',
         nickname: 'Mini',
         raceIndex: Race.protoss.index,
         stats: const PlayerStats(
-          sense: 330, control: 360, attack: 340, harass: 310,
-          strategy: 380, macro: 350, defense: 330, scout: 340,
+          sense: 340, control: 400, attack: 370, harass: 350,
+          strategy: 330, macro: 300, defense: 310, scout: 340,
         ), // 합계: 2740 (B-)
         levelValue: 1,
         teamId: 'stx_soul',
       ),
       // 김윤중 - B-, 5레벨
+      // 프로토스 종족 특성 반영, 전략/매크로 중심
       Player(
         id: 'stx_kimyoonjung',
         name: '김윤중',
         raceIndex: Race.protoss.index,
         stats: const PlayerStats(
-          sense: 320, control: 350, attack: 330, harass: 300,
-          strategy: 350, macro: 330, defense: 320, scout: 320,
+          sense: 320, control: 340, attack: 310, harass: 310,
+          strategy: 360, macro: 340, defense: 320, scout: 320,
         ), // 합계: 2620 (B-)
         levelValue: 5,
         teamId: 'stx_soul',
       ),
       // 조성호 - C+, 2레벨
+      // 프로토스 종족 특성 반영, 전략 중심
       Player(
         id: 'stx_josungho',
         name: '조성호',
         raceIndex: Race.protoss.index,
         stats: const PlayerStats(
-          sense: 300, control: 330, attack: 310, harass: 280,
-          strategy: 330, macro: 310, defense: 300, scout: 300,
+          sense: 300, control: 320, attack: 290, harass: 290,
+          strategy: 340, macro: 320, defense: 300, scout: 300,
         ), // 합계: 2460 (B-)
         levelValue: 2,
         teamId: 'stx_soul',
       ),
-      // 김성현 - B-, 4레벨
+      // 김성현 (Last) - B, 4레벨
+      // 운영형 테란, 장기전 특화, TvT 스페셜리스트, 전략/매크로 중심
       Player(
         id: 'stx_kimsunghyun',
         name: '김성현',
         raceIndex: Race.terran.index,
         stats: const PlayerStats(
-          sense: 340, control: 370, attack: 390, harass: 320,
-          strategy: 360, macro: 360, defense: 340, scout: 320,
+          sense: 360, control: 350, attack: 340, harass: 310,
+          strategy: 400, macro: 390, defense: 360, scout: 290,
         ), // 합계: 2800 (B)
         levelValue: 4,
         teamId: 'stx_soul',
       ),
       // 김도우 - C+, 4레벨
+      // 센스 있는 판단력, 전략적 성향 (SC2에서 프로토스 전환)
       Player(
         id: 'stx_kimdowoo',
         name: '김도우',
         raceIndex: Race.terran.index,
         stats: const PlayerStats(
-          sense: 280, control: 310, attack: 330, harass: 260,
-          strategy: 300, macro: 300, defense: 280, scout: 260,
+          sense: 300, control: 290, attack: 290, harass: 270,
+          strategy: 320, macro: 300, defense: 280, scout: 270,
         ), // 합계: 2320 (C+)
         levelValue: 4,
         teamId: 'stx_soul',
       ),
-      // 서지수 - C, 2레벨
+      // 서지수 (TossGirL) - C, 2레벨
+      // 노력형 테란, "여제" - 전략/매크로 균형형
       Player(
         id: 'stx_seojisu',
         name: '서지수',
         raceIndex: Race.terran.index,
         stats: const PlayerStats(
-          sense: 220, control: 250, attack: 270, harass: 200,
-          strategy: 240, macro: 240, defense: 220, scout: 200,
+          sense: 230, control: 240, attack: 230, harass: 210,
+          strategy: 250, macro: 250, defense: 220, scout: 210,
         ), // 합계: 1840 (C)
         levelValue: 2,
         teamId: 'stx_soul',
       ),
-      // 백동준 - C, 2레벨
+      // 백동준 - C+, 2레벨
+      // 프로토스 종족 특성, 전략/정찰 중심
       Player(
         id: 'stx_baekdongjun',
         name: '백동준',
         raceIndex: Race.protoss.index,
         stats: const PlayerStats(
-          sense: 240, control: 270, attack: 250, harass: 220,
-          strategy: 290, macro: 260, defense: 240, scout: 260,
+          sense: 250, control: 260, attack: 230, harass: 230,
+          strategy: 290, macro: 270, defense: 240, scout: 260,
         ), // 합계: 2030 (C+)
         levelValue: 2,
         teamId: 'stx_soul',
       ),
       // 박종수 - C-, 1레벨
+      // 프로토스 종족 특성, 전략/매크로 중심
       Player(
         id: 'stx_parkjongsu',
         name: '박종수',
         raceIndex: Race.protoss.index,
         stats: const PlayerStats(
-          sense: 200, control: 230, attack: 210, harass: 180,
-          strategy: 250, macro: 220, defense: 200, scout: 220,
+          sense: 210, control: 220, attack: 190, harass: 190,
+          strategy: 260, macro: 230, defense: 200, scout: 210,
         ), // 합계: 1710 (C)
         levelValue: 1,
         teamId: 'stx_soul',
@@ -716,9 +728,9 @@ class InitialData {
         nickname: 'Fantasy',
         raceIndex: Race.terran.index,
         stats: const PlayerStats(
-          sense: 570, control: 600, attack: 580, harass: 550,
-          strategy: 580, macro: 580, defense: 560, scout: 560,
-        ), // 합계: 4580 (A+)
+          sense: 560, control: 580, attack: 610, harass: 620,
+          strategy: 570, macro: 530, defense: 540, scout: 570,
+        ), // 합계: 4580 (A+) - 벌쳐 드라이버, 견제 최강, 공격적 타이밍
         levelValue: 9,
         teamId: 'skt_t1',
       ),
@@ -729,9 +741,9 @@ class InitialData {
         nickname: 'Bisu',
         raceIndex: Race.protoss.index,
         stats: const PlayerStats(
-          sense: 510, control: 560, attack: 530, harass: 510,
-          strategy: 580, macro: 550, defense: 510, scout: 530,
-        ), // 합계: 4280 (A)
+          sense: 530, control: 600, attack: 530, harass: 570,
+          strategy: 560, macro: 510, defense: 470, scout: 510,
+        ), // 합계: 4280 (A) - 혁명의 프로토스, 드라군 컨트롤 최강, APM400 멀티태스킹
         levelValue: 9,
         teamId: 'skt_t1',
       ),
@@ -742,9 +754,9 @@ class InitialData {
         nickname: 'Best',
         raceIndex: Race.protoss.index,
         stats: const PlayerStats(
-          sense: 400, control: 430, attack: 410, harass: 380,
-          strategy: 450, macro: 420, defense: 400, scout: 410,
-        ), // 합계: 3300 (B+)
+          sense: 400, control: 400, attack: 370, harass: 370,
+          strategy: 430, macro: 470, defense: 430, scout: 430,
+        ), // 합계: 3300 (B+) - 물량 프로토스 끝판왕, 역대 최강 매크로/최적화
         levelValue: 8,
         teamId: 'skt_t1',
       ),
@@ -755,9 +767,9 @@ class InitialData {
         nickname: 'Mind',
         raceIndex: Race.zerg.index,
         stats: const PlayerStats(
-          sense: 360, control: 390, attack: 370, harass: 400,
-          strategy: 340, macro: 390, defense: 320, scout: 350,
-        ), // 합계: 2920 (B)
+          sense: 350, control: 400, attack: 390, harass: 380,
+          strategy: 330, macro: 370, defense: 310, scout: 390,
+        ), // 합계: 2920 (B) - 빠른 APM, 마이크로 컨트롤/기동력 우수
         levelValue: 6,
         teamId: 'skt_t1',
       ),
@@ -768,9 +780,9 @@ class InitialData {
         nickname: 'soO',
         raceIndex: Race.zerg.index,
         stats: const PlayerStats(
-          sense: 330, control: 360, attack: 340, harass: 380,
-          strategy: 310, macro: 360, defense: 310, scout: 330,
-        ), // 합계: 2720 (B-)
+          sense: 340, control: 350, attack: 330, harass: 350,
+          strategy: 320, macro: 380, defense: 320, scout: 330,
+        ), // 합계: 2720 (B-) - 올라운드 피지컬 저그, 매크로 강점
         levelValue: 5,
         teamId: 'skt_t1',
       ),
@@ -781,9 +793,9 @@ class InitialData {
         nickname: 'Iris',
         raceIndex: Race.zerg.index,
         stats: const PlayerStats(
-          sense: 300, control: 330, attack: 310, harass: 350,
-          strategy: 280, macro: 330, defense: 280, scout: 300,
-        ), // 합계: 2480 (B-)
+          sense: 300, control: 320, attack: 310, harass: 340,
+          strategy: 280, macro: 340, defense: 280, scout: 310,
+        ), // 합계: 2480 (B-) - 매크로 중심 저그
         levelValue: 4,
         teamId: 'skt_t1',
       ),
@@ -794,9 +806,9 @@ class InitialData {
         nickname: 'Rain',
         raceIndex: Race.protoss.index,
         stats: const PlayerStats(
-          sense: 320, control: 350, attack: 330, harass: 300,
-          strategy: 350, macro: 330, defense: 320, scout: 330,
-        ), // 합계: 2630 (B-)
+          sense: 340, control: 340, attack: 300, harass: 290,
+          strategy: 370, macro: 350, defense: 350, scout: 290,
+        ), // 합계: 2630 (B-) - 무결점 프로토스, 수비적 운영/득실계산 특화
         levelValue: 4,
         teamId: 'skt_t1',
       ),
@@ -925,9 +937,9 @@ class InitialData {
         nickname: 'Zero',
         raceIndex: Race.zerg.index,
         stats: const PlayerStats(
-          sense: 510, control: 540, attack: 520, harass: 560,
-          strategy: 490, macro: 540, defense: 470, scout: 510,
-        ), // 합계: 4140 (A)
+          sense: 520, control: 550, attack: 470, harass: 500,
+          strategy: 520, macro: 570, defense: 530, scout: 480,
+        ), // 합계: 4140 (A) - 방어적 운영의 달인, 뛰어난 컨트롤과 매크로/수비력
         levelValue: 8,
         teamId: 'woongjin_stars',
       ),
@@ -938,9 +950,9 @@ class InitialData {
         nickname: 'SoulKey',
         raceIndex: Race.zerg.index,
         stats: const PlayerStats(
-          sense: 470, control: 500, attack: 480, harass: 520,
-          strategy: 450, macro: 520, defense: 450, scout: 470,
-        ), // 합계: 3860 (A-)
+          sense: 500, control: 490, attack: 440, harass: 460,
+          strategy: 490, macro: 550, defense: 540, scout: 390,
+        ), // 합계: 3860 (A-) - 철벽수비 저그, 압도적 매크로와 수비력, 인내심의 후반 장악
         levelValue: 7,
         teamId: 'woongjin_stars',
       ),
@@ -951,9 +963,9 @@ class InitialData {
         nickname: 'Light',
         raceIndex: Race.terran.index,
         stats: const PlayerStats(
-          sense: 470, control: 500, attack: 520, harass: 450,
-          strategy: 490, macro: 490, defense: 470, scout: 450,
-        ), // 합계: 3840 (A-)
+          sense: 500, control: 470, attack: 510, harass: 560,
+          strategy: 440, macro: 520, defense: 420, scout: 420,
+        ), // 합계: 3840 (A-) - 슈퍼테란 멀티태스킹, 최강 견제와 매크로, 공격적 드랍
         levelValue: 8,
         teamId: 'woongjin_stars',
       ),
@@ -964,9 +976,9 @@ class InitialData {
         nickname: 'Killer',
         raceIndex: Race.protoss.index,
         stats: const PlayerStats(
-          sense: 400, control: 430, attack: 410, harass: 380,
-          strategy: 450, macro: 420, defense: 400, scout: 410,
-        ), // 합계: 3300 (B+)
+          sense: 400, control: 470, attack: 450, harass: 380,
+          strategy: 400, macro: 390, defense: 390, scout: 420,
+        ), // 합계: 3300 (B+) - 교전형 뇌룡 프로토스, 뛰어난 유닛 컨트롤과 공격력
         levelValue: 7,
         teamId: 'woongjin_stars',
       ),
@@ -1060,9 +1072,9 @@ class InitialData {
         nickname: 'Leta',
         raceIndex: Race.terran.index,
         stats: const PlayerStats(
-          sense: 470, control: 500, attack: 520, harass: 450,
-          strategy: 490, macro: 490, defense: 470, scout: 450,
-        ), // 합계: 3840 (A-)
+          sense: 490, control: 480, attack: 490, harass: 530,
+          strategy: 510, macro: 470, defense: 430, scout: 440,
+        ), // 합계: 3840 (A-) - 투스타 레이스 장인, 전략적 견제형, 멀티태스킹
         levelValue: 7,
         teamId: 'cj_entus',
       ),
@@ -1073,9 +1085,9 @@ class InitialData {
         nickname: 'Hydra',
         raceIndex: Race.zerg.index,
         stats: const PlayerStats(
-          sense: 470, control: 500, attack: 480, harass: 520,
-          strategy: 450, macro: 520, defense: 450, scout: 470,
-        ), // 합계: 3860 (A-)
+          sense: 470, control: 540, attack: 520, harass: 480,
+          strategy: 440, macro: 500, defense: 420, scout: 490,
+        ), // 합계: 3860 (A-) - 뮤탈 컨트롤의 달인, 공격적 저그, 탄탄한 매크로
         levelValue: 7,
         teamId: 'cj_entus',
       ),
@@ -1086,21 +1098,22 @@ class InitialData {
         nickname: 'SnOw',
         raceIndex: Race.protoss.index,
         stats: const PlayerStats(
-          sense: 410, control: 440, attack: 420, harass: 380,
-          strategy: 460, macro: 430, defense: 400, scout: 420,
-        ), // 합계: 3360 (B+)
+          sense: 430, control: 480, attack: 350, harass: 400,
+          strategy: 450, macro: 440, defense: 460, scout: 350,
+        ), // 합계: 3360 (B+) - 리버의 신, 수비적 운영형 프로토스, 속업셔틀 선구자
         levelValue: 5,
         teamId: 'cj_entus',
       ),
-      // 이경민 - B+, 6레벨
+      // 이경민 (Horang2) - B+, 6레벨
       Player(
         id: 'cj_leekyungmin',
         name: '이경민',
+        nickname: 'Horang2',
         raceIndex: Race.protoss.index,
         stats: const PlayerStats(
-          sense: 400, control: 430, attack: 410, harass: 380,
-          strategy: 440, macro: 420, defense: 400, scout: 400,
-        ), // 합계: 3280 (B+)
+          sense: 440, control: 400, attack: 440, harass: 390,
+          strategy: 470, macro: 380, defense: 380, scout: 380,
+        ), // 합계: 3280 (B+) - 4차원 토스, 기습 빌드와 예측불허 전략
         levelValue: 6,
         teamId: 'cj_entus',
       ),
@@ -1111,9 +1124,9 @@ class InitialData {
         nickname: 'Iris',
         raceIndex: Race.terran.index,
         stats: const PlayerStats(
-          sense: 370, control: 400, attack: 420, harass: 350,
-          strategy: 390, macro: 390, defense: 370, scout: 350,
-        ), // 합계: 3040 (B)
+          sense: 370, control: 420, attack: 440, harass: 360,
+          strategy: 360, macro: 380, defense: 350, scout: 360,
+        ), // 합계: 3040 (B) - 테테전 기계, 공격 특화, 빠른 템포
         levelValue: 5,
         teamId: 'cj_entus',
       ),
@@ -1124,8 +1137,8 @@ class InitialData {
         nickname: 'sKyHigh',
         raceIndex: Race.zerg.index,
         stats: const PlayerStats(
-          sense: 270, control: 300, attack: 280, harass: 320,
-          strategy: 250, macro: 320, defense: 250, scout: 270,
+          sense: 270, control: 280, attack: 260, harass: 310,
+          strategy: 260, macro: 330, defense: 260, scout: 290,
         ), // 합계: 2260 (C+)
         levelValue: 4,
         teamId: 'cj_entus',
@@ -1136,8 +1149,8 @@ class InitialData {
         name: '유영진',
         raceIndex: Race.terran.index,
         stats: const PlayerStats(
-          sense: 250, control: 280, attack: 300, harass: 230,
-          strategy: 270, macro: 260, defense: 240, scout: 220,
+          sense: 260, control: 290, attack: 280, harass: 230,
+          strategy: 260, macro: 270, defense: 250, scout: 210,
         ), // 합계: 2050 (C+)
         levelValue: 3,
         teamId: 'cj_entus',
@@ -1149,9 +1162,9 @@ class InitialData {
         nickname: 'Effort',
         raceIndex: Race.zerg.index,
         stats: const PlayerStats(
-          sense: 370, control: 400, attack: 380, harass: 420,
-          strategy: 350, macro: 400, defense: 350, scout: 370,
-        ), // 합계: 3040 (B)
+          sense: 380, control: 370, attack: 340, harass: 470,
+          strategy: 400, macro: 450, defense: 350, scout: 280,
+        ), // 합계: 3040 (B) - 멀티태스킹의 달인, 올멀티 운영, 매크로 장악형 저그
         levelValue: 5,
         teamId: 'cj_entus',
       ),
@@ -1161,8 +1174,8 @@ class InitialData {
         name: '김준호',
         raceIndex: Race.zerg.index,
         stats: const PlayerStats(
-          sense: 220, control: 250, attack: 230, harass: 270,
-          strategy: 200, macro: 270, defense: 200, scout: 220,
+          sense: 220, control: 230, attack: 220, harass: 260,
+          strategy: 210, macro: 280, defense: 210, scout: 230,
         ), // 합계: 1860 (C)
         levelValue: 3,
         teamId: 'cj_entus',
@@ -1173,8 +1186,8 @@ class InitialData {
         name: '송영진',
         raceIndex: Race.zerg.index,
         stats: const PlayerStats(
-          sense: 160, control: 190, attack: 170, harass: 210,
-          strategy: 140, macro: 210, defense: 140, scout: 160,
+          sense: 160, control: 170, attack: 160, harass: 200,
+          strategy: 150, macro: 220, defense: 150, scout: 170,
         ), // 합계: 1380 (D)
         levelValue: 1,
         teamId: 'cj_entus',
@@ -1185,8 +1198,8 @@ class InitialData {
         name: '한두열',
         raceIndex: Race.zerg.index,
         stats: const PlayerStats(
-          sense: 220, control: 250, attack: 230, harass: 270,
-          strategy: 200, macro: 270, defense: 200, scout: 220,
+          sense: 230, control: 240, attack: 220, harass: 260,
+          strategy: 210, macro: 280, defense: 210, scout: 210,
         ), // 합계: 1860 (C)
         levelValue: 3,
         teamId: 'cj_entus',
@@ -1220,9 +1233,9 @@ class InitialData {
         nickname: 'Modesty',
         raceIndex: Race.protoss.index,
         stats: const PlayerStats(
-          sense: 470, control: 500, attack: 480, harass: 450,
-          strategy: 500, macro: 490, defense: 470, scout: 480,
-        ), // 합계: 3840 (A-)
+          sense: 480, control: 520, attack: 440, harass: 510,
+          strategy: 500, macro: 470, defense: 440, scout: 480,
+        ), // 합계: 3840 (A-) - 붉은 셔틀의 곡예사, 셔틀리버 견제 특화, 육룡
         levelValue: 8,
         teamId: 'airforce_ace',
       ),
@@ -1232,9 +1245,9 @@ class InitialData {
         name: '차명환',
         raceIndex: Race.zerg.index,
         stats: const PlayerStats(
-          sense: 400, control: 430, attack: 410, harass: 450,
-          strategy: 380, macro: 430, defense: 380, scout: 400,
-        ), // 합계: 3280 (B+)
+          sense: 390, control: 410, attack: 380, harass: 460,
+          strategy: 430, macro: 450, defense: 370, scout: 390,
+        ), // 합계: 3280 (B+) - 하이브저그/몽환저그, 고도의 전략/매크로 운영
         levelValue: 7,
         teamId: 'airforce_ace',
       ),
@@ -1245,9 +1258,9 @@ class InitialData {
         nickname: 'Movie',
         raceIndex: Race.terran.index,
         stats: const PlayerStats(
-          sense: 350, control: 380, attack: 400, harass: 360,
-          strategy: 370, macro: 370, defense: 350, scout: 350,
-        ), // 합계: 2930 (B)
+          sense: 350, control: 390, attack: 440, harass: 400,
+          strategy: 340, macro: 350, defense: 310, scout: 350,
+        ), // 합계: 2930 (B) - 광전사/버서커 테란, 극공격형, 벌처 견제
         levelValue: 8,
         teamId: 'airforce_ace',
       ),
@@ -1258,9 +1271,9 @@ class InitialData {
         nickname: 'ZerO',
         raceIndex: Race.terran.index,
         stats: const PlayerStats(
-          sense: 360, control: 390, attack: 370, harass: 360,
-          strategy: 380, macro: 380, defense: 360, scout: 360,
-        ), // 합계: 2960 (B)
+          sense: 400, control: 380, attack: 330, harass: 350,
+          strategy: 400, macro: 390, defense: 390, scout: 320,
+        ), // 합계: 2960 (B) - 흑운장, 끈적한 수비형 운영, 시즈탱크 거리재기 달인
         levelValue: 8,
         teamId: 'airforce_ace',
       ),
@@ -1270,8 +1283,8 @@ class InitialData {
         name: '고인규',
         raceIndex: Race.terran.index,
         stats: const PlayerStats(
-          sense: 310, control: 340, attack: 360, harass: 290,
-          strategy: 330, macro: 330, defense: 310, scout: 290,
+          sense: 320, control: 330, attack: 340, harass: 300,
+          strategy: 330, macro: 340, defense: 320, scout: 280,
         ), // 합계: 2560 (B-)
         levelValue: 7,
         teamId: 'airforce_ace',
@@ -1282,21 +1295,22 @@ class InitialData {
         name: '임진묵',
         raceIndex: Race.terran.index,
         stats: const PlayerStats(
-          sense: 310, control: 340, attack: 360, harass: 290,
-          strategy: 330, macro: 330, defense: 310, scout: 290,
+          sense: 320, control: 330, attack: 340, harass: 300,
+          strategy: 320, macro: 340, defense: 320, scout: 290,
         ), // 합계: 2560 (B-)
         levelValue: 6,
         teamId: 'airforce_ace',
       ),
-      // 손석희 - B-, 4레벨
+      // 손석희 (StarDust) - B-, 4레벨
       Player(
         id: 'ace_sonseokhee',
         name: '손석희',
+        nickname: 'StarDust',
         raceIndex: Race.protoss.index,
         stats: const PlayerStats(
-          sense: 330, control: 360, attack: 340, harass: 310,
-          strategy: 360, macro: 350, defense: 330, scout: 340,
-        ), // 합계: 2720 (B-)
+          sense: 340, control: 350, attack: 320, harass: 330,
+          strategy: 380, macro: 350, defense: 320, scout: 330,
+        ), // 합계: 2720 (B-) - 전략적/창의적 프로토스
         levelValue: 4,
         teamId: 'airforce_ace',
       ),
@@ -1306,8 +1320,8 @@ class InitialData {
         name: '김승현',
         raceIndex: Race.protoss.index,
         stats: const PlayerStats(
-          sense: 270, control: 300, attack: 280, harass: 250,
-          strategy: 300, macro: 290, defense: 270, scout: 290,
+          sense: 280, control: 290, attack: 260, harass: 270,
+          strategy: 310, macro: 290, defense: 270, scout: 280,
         ), // 합계: 2250 (C+)
         levelValue: 6,
         teamId: 'airforce_ace',
@@ -1318,8 +1332,8 @@ class InitialData {
         name: '이정현',
         raceIndex: Race.zerg.index,
         stats: const PlayerStats(
-          sense: 190, control: 220, attack: 200, harass: 240,
-          strategy: 170, macro: 230, defense: 170, scout: 190,
+          sense: 190, control: 210, attack: 190, harass: 250,
+          strategy: 180, macro: 230, defense: 170, scout: 190,
         ), // 합계: 1610 (C)
         levelValue: 1,
         teamId: 'airforce_ace',
@@ -1330,7 +1344,7 @@ class InitialData {
         name: '안기효',
         raceIndex: Race.protoss.index,
         stats: const PlayerStats(
-          sense: 270, control: 300, attack: 280, harass: 250,
+          sense: 280, control: 290, attack: 260, harass: 270,
           strategy: 320, macro: 290, defense: 270, scout: 290,
         ), // 합계: 2270 (C+)
         levelValue: 4,
@@ -1365,9 +1379,9 @@ class InitialData {
         nickname: 'Jaedong',
         raceIndex: Race.zerg.index,
         stats: const PlayerStats(
-          sense: 560, control: 590, attack: 570, harass: 560,
-          strategy: 540, macro: 570, defense: 530, scout: 560,
-        ), // 합계: 4480 (A+)
+          sense: 560, control: 620, attack: 600, harass: 560,
+          strategy: 510, macro: 560, defense: 500, scout: 570,
+        ), // 합계: 4480 (A+) - 폭군, 역대급 뮤탈 컨트롤(control최고), 실행력>전략
         levelValue: 9,
         teamId: 'team8',
       ),
@@ -1378,9 +1392,9 @@ class InitialData {
         nickname: 'UpMaGiC',
         raceIndex: Race.terran.index,
         stats: const PlayerStats(
-          sense: 490, control: 520, attack: 540, harass: 470,
-          strategy: 510, macro: 510, defense: 490, scout: 470,
-        ), // 합계: 4000 (A)
+          sense: 530, control: 470, attack: 470, harass: 450,
+          strategy: 560, macro: 490, defense: 490, scout: 540,
+        ), // 합계: 4000 (A) - 마인드게임+독창적 전략의 달인, 와카닉 창시, 기본기 약함
         levelValue: 8,
         teamId: 'team8',
       ),
@@ -1391,9 +1405,9 @@ class InitialData {
         nickname: 'TaeYang',
         raceIndex: Race.terran.index,
         stats: const PlayerStats(
-          sense: 470, control: 500, attack: 520, harass: 450,
-          strategy: 490, macro: 490, defense: 470, scout: 450,
-        ), // 합계: 3840 (A-)
+          sense: 450, control: 520, attack: 510, harass: 540,
+          strategy: 440, macro: 470, defense: 420, scout: 490,
+        ), // 합계: 3840 (A-) - APM 1위 견제왕, 드랍십 동시다발 공격, 수비 약점
         levelValue: 6,
         teamId: 'team8',
       ),
@@ -1404,9 +1418,9 @@ class InitialData {
         nickname: 'Anytime',
         raceIndex: Race.protoss.index,
         stats: const PlayerStats(
-          sense: 410, control: 440, attack: 420, harass: 380,
-          strategy: 460, macro: 430, defense: 400, scout: 420,
-        ), // 합계: 3360 (B+)
+          sense: 420, control: 390, attack: 400, harass: 400,
+          strategy: 470, macro: 460, defense: 410, scout: 410,
+        ), // 합계: 3360 (B+) - 사신토스, DT오프닝 개척자, 질럿공장 매크로, 낮은APM
         levelValue: 7,
         teamId: 'team8',
       ),
@@ -1417,9 +1431,9 @@ class InitialData {
         nickname: 'Kwanro',
         raceIndex: Race.protoss.index,
         stats: const PlayerStats(
-          sense: 400, control: 430, attack: 410, harass: 380,
-          strategy: 440, macro: 420, defense: 380, scout: 400,
-        ), // 합계: 3260 (B+)
+          sense: 390, control: 430, attack: 440, harass: 390,
+          strategy: 400, macro: 400, defense: 380, scout: 430,
+        ), // 합계: 3260 (B+) - 공격적 유닛 컨트롤, 정찰 우수
         levelValue: 5,
         teamId: 'team8',
       ),
@@ -1430,9 +1444,9 @@ class InitialData {
         nickname: 'GoRush',
         raceIndex: Race.protoss.index,
         stats: const PlayerStats(
-          sense: 370, control: 400, attack: 380, harass: 350,
-          strategy: 400, macro: 390, defense: 370, scout: 370,
-        ), // 합계: 3030 (B)
+          sense: 400, control: 370, attack: 350, harass: 350,
+          strategy: 410, macro: 400, defense: 390, scout: 360,
+        ), // 합계: 3030 (B) - 게임운영의 달인, 포지셔닝 특화, 16연승 기록
         levelValue: 5,
         teamId: 'team8',
       ),
