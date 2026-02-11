@@ -1738,6 +1738,7 @@ class BuildOrderData {
     BuildType.tvzSKTerran: [
       ClashEvent(text: 'SK테란 스타일! 벌처로 맵 장악 후 점진적 확장!', favorsStat: 'macro', attackerArmy: -3, defenderArmy: -6, attackerResource: 15),
       ClashEvent(text: '탱크 벌처 조합! 안정적인 진형 구축!', favorsStat: 'strategy', attackerArmy: -5, defenderArmy: -8),
+      ClashEvent(text: '벌처 정찰로 상대 동선 완벽 파악! 전진 타이밍 포착!', favorsStat: 'scout', attackerArmy: -2, defenderArmy: -4, attackerResource: 10),
     ],
     BuildType.tvzWraithHarass: [
       ClashEvent(text: '레이스 오버로드 사냥! 서플라이 블락!', favorsStat: 'harass', attackerArmy: -2, defenderArmy: -6, defenderResource: -25),
@@ -1782,7 +1783,7 @@ class BuildOrderData {
     ],
     BuildType.pvzForgeCannon: [
       ClashEvent(text: '포지 캐논 수비! 저글링 러시 막습니다!', favorsStat: 'defense', attackerArmy: -2, defenderArmy: -12),
-      ClashEvent(text: '캐논으로 앞마당 보호! 안전한 확장!', favorsStat: 'defense', attackerArmy: 0, defenderArmy: -5, attackerResource: 15),
+      ClashEvent(text: '캐논으로 앞마당 보호! 안전한 확장!', favorsStat: 'macro', attackerArmy: 0, defenderArmy: -5, attackerResource: 15),
     ],
 
     // TvP 빌드들
@@ -1890,11 +1891,11 @@ class BuildOrderData {
     ],
     BuildType.pvzNexusFirst: [
       ClashEvent(text: '넥서스 퍼스트! 경제력으로 승부!', favorsStat: 'macro', attackerArmy: 3, defenderArmy: 0, attackerResource: 25),
-      ClashEvent(text: '빠른 확장 성공! 물량 생산 돌입!', favorsStat: 'macro', attackerArmy: 5, defenderArmy: -2, attackerResource: 15),
+      ClashEvent(text: '빠른 확장 성공! 물량 생산 돌입!', favorsStat: 'defense', attackerArmy: 5, defenderArmy: -2, attackerResource: 15),
     ],
     BuildType.pvz2GateZealot: [
       ClashEvent(text: '투게이트 질럿 앞마당 압박!', favorsStat: 'attack', attackerArmy: -8, defenderArmy: -10, defenderResource: -15),
-      ClashEvent(text: '질럿 러시! 성큰 전에 들어갑니다!', favorsStat: 'attack', attackerArmy: -6, defenderArmy: -12),
+      ClashEvent(text: '질럿 러시! 성큰 전에 들어갑니다!', favorsStat: 'control', attackerArmy: -6, defenderArmy: -12),
     ],
     BuildType.pvp1GateRobo: [
       ClashEvent(text: '원게이트 로보! 리버로 전환!', favorsStat: 'strategy', attackerArmy: 2, defenderArmy: 0, attackerResource: -15),
@@ -1902,7 +1903,7 @@ class BuildOrderData {
     ],
     BuildType.pvpCannonRush: [
       ClashEvent(text: '캐논 러시! 상대 미네랄 라인 차단!', favorsStat: 'attack', attackerArmy: -2, defenderArmy: -5, defenderResource: -25),
-      ClashEvent(text: '프록시 캐논 성공! 건물 올라갑니다!', favorsStat: 'attack', attackerArmy: 0, defenderArmy: -8, defenderResource: -20),
+      ClashEvent(text: '프록시 캐논 성공! 건물 올라갑니다!', favorsStat: 'sense', attackerArmy: 0, defenderArmy: -8, defenderResource: -20),
     ],
     // 새로 추가된 프로토스 빌드
     BuildType.pvt1GateExpansion: [
@@ -1928,6 +1929,31 @@ class BuildOrderData {
     BuildType.zvzExtractor: [
       ClashEvent(text: '익스트랙터 트릭! 서플라이 이득!', favorsStat: 'sense', attackerArmy: 2, defenderArmy: 0),
       ClashEvent(text: '빠른 가스! 스피드 저글링 준비!', favorsStat: 'sense', attackerArmy: -3, defenderArmy: -5, attackerResource: -5),
+    ],
+    // 누락 빌드 전용 이벤트 추가
+    BuildType.tvtCCFirst: [
+      ClashEvent(text: '원배럭 확장 성공! 경제력 우위 확보!', favorsStat: 'macro', attackerArmy: 3, defenderArmy: 0, attackerResource: 20),
+      ClashEvent(text: '빠른 확장 후 탱크 생산! 안정적 운영!', favorsStat: 'defense', attackerArmy: 5, defenderArmy: -3, attackerResource: 15),
+    ],
+    BuildType.tvtVultureHarass: [
+      ClashEvent(text: '벌처 SCV 라인 급습! 경제 타격!', favorsStat: 'harass', attackerArmy: -3, defenderArmy: -4, defenderResource: -30),
+      ClashEvent(text: '벌처 마인 매설! 이동 경로 차단!', favorsStat: 'control', attackerArmy: -2, defenderArmy: -8),
+    ],
+    BuildType.zvz3HatchHydra: [
+      ClashEvent(text: '3해처리 히드라 물량! 저글링으로는 상대가 안 됩니다!', favorsStat: 'defense', attackerArmy: 5, defenderArmy: -5, attackerResource: -20),
+      ClashEvent(text: '히드라 레인지 공격! 상대 근접 유닛 녹입니다!', favorsStat: 'macro', attackerArmy: -4, defenderArmy: -10),
+    ],
+    BuildType.zvzSpeedlingAllIn: [
+      ClashEvent(text: '스피드 업그레이드 완료! 저글링 돌격!', favorsStat: 'attack', attackerArmy: -8, defenderArmy: -12),
+      ClashEvent(text: '스피드링 올인! 상대 해처리 직행!', favorsStat: 'control', attackerArmy: -10, defenderArmy: -15, defenderResource: -20),
+    ],
+    BuildType.pvpZealotRush: [
+      ClashEvent(text: '질럿 러시! 프로브 라인 공격!', favorsStat: 'attack', attackerArmy: -8, defenderArmy: -10, defenderResource: -15),
+      ClashEvent(text: '초반 질럿 물량! 게이트웨이 전에 밀어붙입니다!', favorsStat: 'control', attackerArmy: -6, defenderArmy: -12),
+    ],
+    BuildType.pvpCorsairReaver: [
+      ClashEvent(text: '코르세어로 제공권 장악! 리버 드랍 준비!', favorsStat: 'strategy', attackerArmy: -3, defenderArmy: -6, defenderResource: -25),
+      ClashEvent(text: '리버 스캐럽! 드라군 편대에 직격!', favorsStat: 'scout', attackerArmy: -4, defenderArmy: -10, defenderResource: -20),
     ],
   };
 
@@ -2007,10 +2033,10 @@ class BuildOrderData {
     ),
     // 명장면 이벤트
     ClashEvent(
-      text: '{attacker}, 환상적인 마이크로! 이것이 컨트롤입니다!',
-      favorsStat: 'control',
-      attackerArmy: -3,
-      defenderArmy: -18,
+      text: '{attacker}, 환상적인 마이크로! 핵심 유닛 저격!',
+      favorsStat: 'attack',
+      attackerArmy: -5,
+      defenderArmy: -15,
     ),
     ClashEvent(
       text: '대단합니다! {defender} 선수 포커싱으로 핵심 유닛 제거!',
@@ -2194,7 +2220,7 @@ class BuildOrderData {
       text: '사이오닉 스톰! 상대 병력이 녹습니다!',
       favorsStat: 'strategy',
       attackerArmy: -5,
-      defenderArmy: -25,
+      defenderArmy: -18,
     ),
   ];
 
@@ -2420,9 +2446,21 @@ class BuildOrderData {
     ),
     ClashEvent(
       text: '저글링 서라운드! 병력을 감쌉니다!',
-      favorsStat: 'control',
+      favorsStat: 'attack',
       attackerArmy: -8,
       defenderArmy: -15,
+    ),
+    ClashEvent(
+      text: '럴커 매복! 상대 진형 순식간에 붕괴!',
+      favorsStat: 'defense',
+      attackerArmy: -10,
+      defenderArmy: -3,
+    ),
+    ClashEvent(
+      text: '히드라 집중 사격! 정밀 포커싱 성공!',
+      favorsStat: 'attack',
+      attackerArmy: -5,
+      defenderArmy: -12,
     ),
   ];
 
@@ -2440,10 +2478,22 @@ class BuildOrderData {
   static const microEventsTerran = [
     ClashEvent(
       text: '벌처 컨트롤! 마인을 피하며 일꾼 학살!',
-      favorsStat: 'control',
+      favorsStat: 'harass',
       attackerArmy: -1,
       defenderArmy: -3,
       defenderResource: -30,
+    ),
+    ClashEvent(
+      text: '마린 스플릿! 스톰 피해 최소화!',
+      favorsStat: 'control',
+      attackerArmy: -3,
+      defenderArmy: -10,
+    ),
+    ClashEvent(
+      text: '탱크 시즈모드 화력 집중! 핵심 유닛 저격!',
+      favorsStat: 'attack',
+      attackerArmy: -5,
+      defenderArmy: -12,
     ),
   ];
 
@@ -2454,6 +2504,18 @@ class BuildOrderData {
       favorsStat: 'control',
       attackerArmy: -5,
       defenderArmy: -12,
+    ),
+    ClashEvent(
+      text: '질럿 차지! 전열 돌파 성공!',
+      favorsStat: 'attack',
+      attackerArmy: -6,
+      defenderArmy: -10,
+    ),
+    ClashEvent(
+      text: '아칸 화력 집중! 밀집 병력 소각!',
+      favorsStat: 'attack',
+      attackerArmy: -5,
+      defenderArmy: -15,
     ),
   ];
 
@@ -2467,9 +2529,15 @@ class BuildOrderData {
     ),
     ClashEvent(
       text: '완벽한 포커싱으로 핵심 유닛 제거!',
-      favorsStat: 'control',
+      favorsStat: 'attack',
       attackerArmy: -5,
       defenderArmy: -12,
+    ),
+    ClashEvent(
+      text: '병력 분산! 상대 범위 공격 회피!',
+      favorsStat: 'defense',
+      attackerArmy: -5,
+      defenderArmy: -8,
     ),
   ];
 
@@ -2581,6 +2649,24 @@ class BuildOrderData {
       defenderArmy: -8,
       defenderResource: -15,
     ),
+    ClashEvent(
+      text: '스캔으로 저그 테크 확인! 레어 타이밍 간파!',
+      favorsStat: 'scout',
+      attackerArmy: -3,
+      defenderArmy: -5,
+    ),
+    ClashEvent(
+      text: '절묘한 타이밍! 히드라 합류 전 푸시 성공!',
+      favorsStat: 'sense',
+      attackerArmy: -5,
+      defenderArmy: -10,
+    ),
+    ClashEvent(
+      text: '5팩토리 풀가동! 탱크 물량으로 밀어붙입니다!',
+      favorsStat: 'macro',
+      attackerArmy: -8,
+      defenderArmy: -12,
+    ),
   ];
 
   /// ZvT 전용 이벤트
@@ -2593,7 +2679,7 @@ class BuildOrderData {
     ),
     ClashEvent(
       text: '뮤탈 매직! 터렛 사각지대 공략!',
-      favorsStat: 'control',
+      favorsStat: 'harass',
       attackerArmy: -3,
       defenderArmy: -8,
       defenderResource: -20,
@@ -2661,6 +2747,24 @@ class BuildOrderData {
       attackerArmy: -3,
       defenderArmy: -6,
     ),
+    ClashEvent(
+      text: '오버로드 정찰! 테란 빌드 완벽 간파!',
+      favorsStat: 'scout',
+      attackerArmy: -3,
+      defenderArmy: -5,
+    ),
+    ClashEvent(
+      text: '절묘한 타이밍! 탱크 언시즈 틈을 노린 돌진!',
+      favorsStat: 'sense',
+      attackerArmy: -5,
+      defenderArmy: -10,
+    ),
+    ClashEvent(
+      text: '해처리 3개 증설! 물량 차이로 압도!',
+      favorsStat: 'macro',
+      attackerArmy: -6,
+      defenderArmy: -12,
+    ),
   ];
 
   /// TvP 전용 이벤트
@@ -2686,7 +2790,7 @@ class BuildOrderData {
     ),
     ClashEvent(
       text: '시즈탱크 포진! 드라군 접근 차단!',
-      favorsStat: 'control',
+      favorsStat: 'defense',
       attackerArmy: -8,
       defenderArmy: -5,
     ),
@@ -2733,6 +2837,25 @@ class BuildOrderData {
       attackerArmy: -5,
       defenderArmy: -2,
       defenderResource: -25,
+    ),
+    ClashEvent(
+      text: '스캔 스위핑! 다크템플러 잠입 사전 차단!',
+      favorsStat: 'scout',
+      attackerArmy: -3,
+      defenderArmy: -6,
+    ),
+    ClashEvent(
+      text: '타이밍 완벽! 드라군 합류 전 푸시 성공!',
+      favorsStat: 'sense',
+      attackerArmy: -5,
+      defenderArmy: -10,
+    ),
+    ClashEvent(
+      text: '더블 커맨드! 경제력 우위로 물량전!',
+      favorsStat: 'macro',
+      attackerArmy: -3,
+      defenderArmy: -5,
+      attackerResource: 20,
     ),
   ];
 
@@ -2791,7 +2914,7 @@ class BuildOrderData {
     ),
     ClashEvent(
       text: '커세어로 제공권 장악! 드랍십 차단!',
-      favorsStat: 'control',
+      favorsStat: 'defense',
       attackerArmy: -5,
       defenderArmy: -8,
     ),
@@ -2803,10 +2926,17 @@ class BuildOrderData {
       defenderResource: -25,
     ),
     ClashEvent(
-      text: '드라군 사거리! 탱크 언시즈 전 포커싱!',
-      favorsStat: 'control',
-      attackerArmy: -5,
-      defenderArmy: -12,
+      text: '벌처 견제 루트 예측! 완벽한 방어 배치!',
+      favorsStat: 'sense',
+      attackerArmy: -3,
+      defenderArmy: -8,
+    ),
+    ClashEvent(
+      text: '더블 넥서스! 경제력으로 눌러버립니다!',
+      favorsStat: 'macro',
+      attackerArmy: -3,
+      defenderArmy: -5,
+      attackerResource: 20,
     ),
   ];
 
@@ -2820,7 +2950,7 @@ class BuildOrderData {
     ),
     ClashEvent(
       text: '뮤탈로 커세어 견제 후 프로브 공략!',
-      favorsStat: 'control',
+      favorsStat: 'harass',
       attackerArmy: -5,
       defenderArmy: -3,
       defenderResource: -20,
@@ -2839,7 +2969,7 @@ class BuildOrderData {
     ),
     ClashEvent(
       text: '저글링 서라운드! 드라군 포위 섬멸!',
-      favorsStat: 'control',
+      favorsStat: 'attack',
       attackerArmy: -8,
       defenderArmy: -12,
     ),
@@ -2888,6 +3018,18 @@ class BuildOrderData {
       defenderArmy: -5,
       defenderResource: -20,
     ),
+    ClashEvent(
+      text: '오버로드 정찰! 게이트웨이 수 확인!',
+      favorsStat: 'scout',
+      attackerArmy: -3,
+      defenderArmy: -5,
+    ),
+    ClashEvent(
+      text: '타이밍 절묘! 캐리어 완성 전 올인 성공!',
+      favorsStat: 'sense',
+      attackerArmy: -8,
+      defenderArmy: -12,
+    ),
   ];
 
   /// PvZ 전용 이벤트
@@ -2896,7 +3038,7 @@ class BuildOrderData {
       text: '사이오닉 스톰! 히드라 편대 초토화!',
       favorsStat: 'strategy',
       attackerArmy: -3,
-      defenderArmy: -25,
+      defenderArmy: -18,
     ),
     ClashEvent(
       text: '커세어로 오버로드 사냥! 서플라이 블락!',
@@ -2955,6 +3097,18 @@ class BuildOrderData {
       attackerArmy: -3,
       defenderArmy: -10,
     ),
+    ClashEvent(
+      text: '옵저버 정찰! 스파이어 건설 확인!',
+      favorsStat: 'scout',
+      attackerArmy: -3,
+      defenderArmy: -5,
+    ),
+    ClashEvent(
+      text: '럴커 매복 위치 직감적 회피! 놀라운 센스!',
+      favorsStat: 'sense',
+      attackerArmy: -5,
+      defenderArmy: -8,
+    ),
   ];
 
   /// TvT 전용 이벤트
@@ -2986,7 +3140,7 @@ class BuildOrderData {
     ),
     ClashEvent(
       text: '발키리로 레이스 편대 격추!',
-      favorsStat: 'control',
+      favorsStat: 'defense',
       attackerArmy: -5,
       defenderArmy: -8,
     ),
@@ -3033,13 +3187,31 @@ class BuildOrderData {
       attackerArmy: -3,
       defenderArmy: -5,
     ),
+    ClashEvent(
+      text: '마린 메딕 스팀팩 돌진! 탱크 라인 돌파!',
+      favorsStat: 'attack',
+      attackerArmy: -8,
+      defenderArmy: -12,
+    ),
+    ClashEvent(
+      text: '스캔으로 상대 탱크 배치 확인! 우회 성공!',
+      favorsStat: 'scout',
+      attackerArmy: -3,
+      defenderArmy: -8,
+    ),
+    ClashEvent(
+      text: '사이언스 베슬 EMP! 상대 베슬 에너지 전소!',
+      favorsStat: 'sense',
+      attackerArmy: -3,
+      defenderArmy: -6,
+    ),
   ];
 
   /// ZvZ 전용 이벤트
   static const clashEventsZvZ = [
     ClashEvent(
       text: '저글링 컨트롤 싸움! 서라운드 성공!',
-      favorsStat: 'control',
+      favorsStat: 'attack',
       attackerArmy: -8,
       defenderArmy: -12,
     ),
@@ -3081,7 +3253,7 @@ class BuildOrderData {
     ),
     ClashEvent(
       text: '저글링 속업! 스피드 차이로 포위 성공!',
-      favorsStat: 'control',
+      favorsStat: 'attack',
       attackerArmy: -6,
       defenderArmy: -10,
     ),
@@ -3093,7 +3265,7 @@ class BuildOrderData {
     ),
     ClashEvent(
       text: '뮤탈 선점! 제공권 장악으로 압도!',
-      favorsStat: 'control',
+      favorsStat: 'strategy',
       attackerArmy: -5,
       defenderArmy: -10,
     ),
@@ -3102,6 +3274,19 @@ class BuildOrderData {
       favorsStat: 'macro',
       attackerArmy: -8,
       defenderArmy: -12,
+    ),
+    ClashEvent(
+      text: '뮤탈 기습! 드론 라인 학살 후 이탈!',
+      favorsStat: 'harass',
+      attackerArmy: -3,
+      defenderArmy: -2,
+      defenderResource: -20,
+    ),
+    ClashEvent(
+      text: '12풀 타이밍 읽었다! 성큰 카운터 완벽!',
+      favorsStat: 'sense',
+      attackerArmy: -8,
+      defenderArmy: -5,
     ),
   ];
 
@@ -3115,7 +3300,7 @@ class BuildOrderData {
     ),
     ClashEvent(
       text: '리버 스캐럽 작렬! 드라군 떼 박살!',
-      favorsStat: 'control',
+      favorsStat: 'attack',
       attackerArmy: -5,
       defenderArmy: -12,
     ),
@@ -3134,7 +3319,7 @@ class BuildOrderData {
     ),
     ClashEvent(
       text: '셔틀 마이크로! 리버 생존 성공!',
-      favorsStat: 'control',
+      favorsStat: 'harass',
       attackerArmy: -5,
       defenderArmy: -8,
     ),
@@ -3176,8 +3361,14 @@ class BuildOrderData {
     ),
     ClashEvent(
       text: '셔틀 기동! 리버 생존시키며 스캐럽 투하!',
-      favorsStat: 'control',
+      favorsStat: 'harass',
       attackerArmy: -3,
+      defenderArmy: -10,
+    ),
+    ClashEvent(
+      text: '상대 테크 전환 간파! 완벽한 카운터 타이밍!',
+      favorsStat: 'sense',
+      attackerArmy: -5,
       defenderArmy: -10,
     ),
   ];
@@ -3770,7 +3961,7 @@ class BuildOrderData {
       baseEvents.addAll(rushMapEvents);
     }
     if (rushDistance != null && resources != null && rushDistance >= 7 && resources >= 6 &&
-        gamePhase == GamePhase.late) {
+        gamePhase != GamePhase.early) {
       baseEvents.addAll(macroMapEvents);
     }
     if (terrainComplexity != null && terrainComplexity >= 7) {
@@ -3903,7 +4094,10 @@ class BuildOrderData {
 
       // 저그 수비자
       if (defenderRace == 'Z') {
-        baseEvents.addAll(microEventsZerg);
+        // 동족전이면 공격자 쪽에서 이미 추가됨 (중복 방지)
+        if (attackerRace != 'Z') {
+          baseEvents.addAll(microEventsZerg);
+        }
         // TvZ에서 저그가 수비자일 때
         if (attackerRace == 'T') {
           baseEvents.addAll(microEventsZvT);
@@ -3913,7 +4107,10 @@ class BuildOrderData {
 
       // 테란 수비자
       if (defenderRace == 'T') {
-        baseEvents.addAll(microEventsTerran);
+        // 동족전이면 공격자 쪽에서 이미 추가됨 (중복 방지)
+        if (attackerRace != 'T') {
+          baseEvents.addAll(microEventsTerran);
+        }
         if (attackerRace == 'Z') {
           baseEvents.addAll(spellEventsTvZ);
         }
@@ -3924,7 +4121,10 @@ class BuildOrderData {
 
       // 프로토스 수비자
       if (defenderRace == 'P') {
-        baseEvents.addAll(microEventsProtoss);
+        // 동족전이면 공격자 쪽에서 이미 추가됨 (중복 방지)
+        if (attackerRace != 'P') {
+          baseEvents.addAll(microEventsProtoss);
+        }
         // PvT, PvZ 전용 (스톰) - 중반 이후만
         if ((attackerRace == 'T' || attackerRace == 'Z') &&
             gamePhase != GamePhase.early) {
