@@ -188,6 +188,22 @@ class _MainTournamentScreenState extends ConsumerState<MainTournamentScreen> {
     _roundResults = bracket.mainTournamentResults
         .where((r) => r.stage == stage)
         .toList();
+
+    // Slice to current half for grid display
+    final half = _getCurrentHalf(bracket);
+    final int perHalf;
+    switch (widget.stage) {
+      case '32': perHalf = 20; break;
+      case '16': perHalf = 4; break;
+      default: perHalf = 2;
+    }
+    final start = (half - 1) * perHalf;
+    final end = half * perHalf;
+    if (_roundResults.length >= end) {
+      _roundResults = _roundResults.sublist(start, end);
+    } else if (_roundResults.length > start) {
+      _roundResults = _roundResults.sublist(start);
+    }
   }
 
   Widget _buildHeader(BuildContext context, Team team, IndividualLeagueBracket? bracket) {
@@ -341,83 +357,151 @@ class _MainTournamentScreenState extends ConsumerState<MainTournamentScreen> {
               ),
             )
           : widget.stage == '32'
-              ? _buildRound32Results(bracket, playerMap)
-              : _buildSeriesResults(playerMap),
+              ? _buildRound32Grid(bracket, playerMap)
+              : widget.stage == '16'
+                  ? _buildSeriesGrid16(playerMap)
+                  : _buildSeriesGrid8(playerMap),
     );
   }
 
-  /// 32강 결과: 듀얼토너먼트 조별 결과
-  Widget _buildRound32Results(IndividualLeagueBracket? bracket, Map<String, Player> playerMap) {
-    // 5경기씩 그룹으로 묶어서 표시
-    final groupCount = (_roundResults.length / 5).ceil();
-
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          for (var gi = 0; gi < groupCount; gi++) ...[
-            _buildDualGroupResult(gi, playerMap, bracket),
-            if (gi < groupCount - 1) Divider(color: Colors.grey[800], height: 16.sp),
-          ],
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDualGroupResult(int groupIdx, Map<String, Player> playerMap, IndividualLeagueBracket? bracket) {
-    final start = groupIdx * 5;
-    if (start + 4 >= _roundResults.length) return const SizedBox.shrink();
-
-    final half = bracket != null ? _getCurrentHalf(bracket) : 1;
-    final actualGroupIdx = (half - 1) * 4 + groupIdx;
-    final groupLabel = String.fromCharCode('A'.codeUnitAt(0) + actualGroupIdx);
-
-    final match1 = _roundResults[start];
-    final match2 = _roundResults[start + 1];
-    final winnersMatch = _roundResults[start + 2];
-    final losersMatch = _roundResults[start + 3];
-    final finalMatch = _roundResults[start + 4];
+  /// 32강 결과: 2x2 그리드 레이아웃
+  Widget _buildRound32Grid(IndividualLeagueBracket? bracket, Map<String, Player> playerMap) {
+    if (_roundResults.length < 20) return const SizedBox.shrink();
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          '$groupLabel조',
-          style: TextStyle(color: AppColors.accent, fontSize: 14.sp, fontWeight: FontWeight.bold),
+        Expanded(
+          child: Row(
+            children: [
+              Expanded(child: _buildGroupCard32(0, playerMap, bracket)),
+              SizedBox(width: 8.sp),
+              Expanded(child: _buildGroupCard32(1, playerMap, bracket)),
+            ],
+          ),
         ),
-        SizedBox(height: 4.sp),
-        _buildMatchRow('1경기', match1, playerMap),
-        _buildMatchRow('2경기', match2, playerMap),
-        _buildMatchRow('승자전', winnersMatch, playerMap, highlight: true),
-        _buildMatchRow('패자전', losersMatch, playerMap),
-        _buildMatchRow('최종전', finalMatch, playerMap, highlight: true),
-        SizedBox(height: 4.sp),
-        Row(
-          children: [
-            Icon(Icons.arrow_forward, color: Colors.green, size: 14.sp),
-            SizedBox(width: 4.sp),
-            Text(
-              '진출: ${_getPlayerName(winnersMatch.winnerId, playerMap)}, ${_getPlayerName(finalMatch.winnerId, playerMap)}',
-              style: TextStyle(color: Colors.green, fontSize: 11.sp, fontWeight: FontWeight.bold),
-            ),
-          ],
+        SizedBox(height: 8.sp),
+        Expanded(
+          child: Row(
+            children: [
+              Expanded(child: _buildGroupCard32(2, playerMap, bracket)),
+              SizedBox(width: 8.sp),
+              Expanded(child: _buildGroupCard32(3, playerMap, bracket)),
+            ],
+          ),
         ),
       ],
     );
   }
 
-  /// 16강/8강 시리즈 결과
-  Widget _buildSeriesResults(Map<String, Player> playerMap) {
-    return SingleChildScrollView(
+  Widget _buildGroupCard32(int localGroupIdx, Map<String, Player> playerMap, IndividualLeagueBracket? bracket) {
+    final start = localGroupIdx * 5;
+    if (start + 5 > _roundResults.length) return const SizedBox.shrink();
+
+    final half = bracket != null ? _getCurrentHalf(bracket) : 1;
+    final actualGroupIdx = (half - 1) * 4 + localGroupIdx;
+    final groupLabel = String.fromCharCode('A'.codeUnitAt(0) + actualGroupIdx);
+
+    final winnersMatch = _roundResults[start + 2];
+    final finalMatch = _roundResults[start + 4];
+
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey[850],
+        borderRadius: BorderRadius.circular(6.sp),
+        border: Border.all(color: Colors.grey.withOpacity(0.3)),
+      ),
+      padding: EdgeInsets.all(6.sp),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          for (var i = 0; i < _roundResults.length; i++) ...[
-            _buildSeriesResultCard(_roundResults[i], playerMap, i + 1),
-            if (i < _roundResults.length - 1) SizedBox(height: 8.sp),
-          ],
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 6.sp, vertical: 2.sp),
+            decoration: BoxDecoration(
+              color: AppColors.primary.withOpacity(0.3),
+              borderRadius: BorderRadius.circular(4.sp),
+            ),
+            child: Text(
+              '$groupLabel조',
+              style: TextStyle(
+                color: AppColors.primary,
+                fontSize: 11.sp,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          SizedBox(height: 4.sp),
+          Expanded(
+            child: Column(
+              children: [
+                Expanded(child: _buildGridMatchRow('1경기', _roundResults[start], playerMap)),
+                Expanded(child: _buildGridMatchRow('2경기', _roundResults[start + 1], playerMap)),
+                Expanded(child: _buildGridMatchRow('승자전', winnersMatch, playerMap, highlight: true)),
+                Expanded(child: _buildGridMatchRow('패자전', _roundResults[start + 3], playerMap)),
+                Expanded(child: _buildGridMatchRow('최종전', finalMatch, playerMap, highlight: true)),
+              ],
+            ),
+          ),
+          SizedBox(height: 2.sp),
+          Row(
+            children: [
+              Icon(Icons.arrow_forward, color: Colors.green, size: 12.sp),
+              SizedBox(width: 2.sp),
+              Expanded(
+                child: Text(
+                  '진출: ${_getPlayerName(winnersMatch.winnerId, playerMap)}, ${_getPlayerName(finalMatch.winnerId, playerMap)}',
+                  style: TextStyle(color: Colors.green, fontSize: 9.sp, fontWeight: FontWeight.bold),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
         ],
       ),
+    );
+  }
+
+  /// 16강 결과: 2x2 그리드 레이아웃
+  Widget _buildSeriesGrid16(Map<String, Player> playerMap) {
+    if (_roundResults.length < 4) return const SizedBox.shrink();
+
+    return Column(
+      children: [
+        Expanded(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(child: _buildSeriesResultCard(_roundResults[0], playerMap, 1)),
+              SizedBox(width: 8.sp),
+              Expanded(child: _buildSeriesResultCard(_roundResults[1], playerMap, 2)),
+            ],
+          ),
+        ),
+        SizedBox(height: 8.sp),
+        Expanded(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(child: _buildSeriesResultCard(_roundResults[2], playerMap, 3)),
+              SizedBox(width: 8.sp),
+              Expanded(child: _buildSeriesResultCard(_roundResults[3], playerMap, 4)),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// 8강 결과: 가로 배치 (1x2)
+  Widget _buildSeriesGrid8(Map<String, Player> playerMap) {
+    if (_roundResults.length < 2) return const SizedBox.shrink();
+
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(child: _buildSeriesResultCard(_roundResults[0], playerMap, 1)),
+        SizedBox(width: 8.sp),
+        Expanded(child: _buildSeriesResultCard(_roundResults[1], playerMap, 2)),
+      ],
     );
   }
 
@@ -498,41 +582,41 @@ class _MainTournamentScreenState extends ConsumerState<MainTournamentScreen> {
     );
   }
 
-  Widget _buildMatchRow(String label, IndividualMatchResult result, Map<String, Player> playerMap, {bool highlight = false}) {
+  Widget _buildGridMatchRow(String label, IndividualMatchResult result, Map<String, Player> playerMap, {bool highlight = false}) {
     final isMyP1 = _myTeamPlayerIds.contains(result.player1Id);
     final isMyP2 = _myTeamPlayerIds.contains(result.player2Id);
 
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 2.sp, horizontal: 4.sp),
-      margin: EdgeInsets.only(bottom: 2.sp),
-      decoration: BoxDecoration(
-        color: highlight ? AppColors.accent.withOpacity(0.1) : null,
+      alignment: Alignment.center,
+      padding: EdgeInsets.symmetric(horizontal: 2.sp),
+      decoration: highlight ? BoxDecoration(
+        color: AppColors.accent.withOpacity(0.1),
         borderRadius: BorderRadius.circular(2.sp),
-      ),
+      ) : null,
       child: Row(
         children: [
           SizedBox(
-            width: 50.sp,
-            child: Text(label, style: TextStyle(color: Colors.grey, fontSize: 10.sp)),
+            width: 36.sp,
+            child: Text(label, style: TextStyle(color: Colors.grey, fontSize: 8.sp)),
           ),
           Expanded(
             child: Text(
               _getPlayerName(result.player1Id, playerMap),
               style: TextStyle(
                 color: result.winnerId == result.player1Id ? Colors.white : Colors.grey,
-                fontSize: 11.sp,
+                fontSize: 9.sp,
                 fontWeight: result.winnerId == result.player1Id || isMyP1 ? FontWeight.bold : FontWeight.normal,
               ),
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          Text(' vs ', style: TextStyle(color: Colors.grey, fontSize: 10.sp)),
+          Text(' v ', style: TextStyle(color: Colors.grey, fontSize: 8.sp)),
           Expanded(
             child: Text(
               _getPlayerName(result.player2Id, playerMap),
               style: TextStyle(
                 color: result.winnerId == result.player2Id ? Colors.white : Colors.grey,
-                fontSize: 11.sp,
+                fontSize: 9.sp,
                 fontWeight: result.winnerId == result.player2Id || isMyP2 ? FontWeight.bold : FontWeight.normal,
               ),
               overflow: TextOverflow.ellipsis,

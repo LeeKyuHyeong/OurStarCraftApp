@@ -22,9 +22,10 @@ class _GroupDrawScreenState extends ConsumerState<GroupDrawScreen> {
   bool _isDrawing = false;
   bool _isCompleted = false;
   bool _isWaitingForPick = false;
-  int _currentDrawIndex = -1;
   int _currentGroupIdx = -1;
   int _currentSlotIdx = -1;
+  int _currentRound = 0;
+  String _currentPickerName = '';
   List<List<String?>> _groups = [];
   List<String> _availableQualifiers = [];
   Completer<String>? _pickCompleter;
@@ -214,7 +215,9 @@ class _GroupDrawScreenState extends ConsumerState<GroupDrawScreen> {
             final isMyTeam = player != null && player.teamId == _playerTeamId;
             // 현재 선택 대기 슬롯인지
             final isWaitingSlot = isActiveGroup && i == _currentSlotIdx;
-            return _buildPlayerSlot(player, isSeed, isMyTeam: isMyTeam, isWaitingSlot: isWaitingSlot);
+            // 현재 지명자 슬롯인지
+            final isPickerSlot = isActiveGroup && _currentRound > 0 && i == (_currentRound - 1);
+            return _buildPlayerSlot(player, isSeed, isMyTeam: isMyTeam, isWaitingSlot: isWaitingSlot, isPickerSlot: isPickerSlot);
           }),
         ],
       ),
@@ -224,6 +227,7 @@ class _GroupDrawScreenState extends ConsumerState<GroupDrawScreen> {
   Widget _buildPlayerSlot(Player? player, bool isSeed, {
     bool isMyTeam = false,
     bool isWaitingSlot = false,
+    bool isPickerSlot = false,
   }) {
     return Container(
       width: double.infinity,
@@ -232,17 +236,21 @@ class _GroupDrawScreenState extends ConsumerState<GroupDrawScreen> {
       decoration: BoxDecoration(
         color: isWaitingSlot
             ? AppColors.accent.withOpacity(0.2)
-            : isSeed
-                ? AppColors.primary.withOpacity(0.15)
-                : Colors.grey.withOpacity(0.1),
+            : isPickerSlot
+                ? Colors.amber.withOpacity(0.15)
+                : isSeed
+                    ? AppColors.primary.withOpacity(0.15)
+                    : Colors.grey.withOpacity(0.1),
         borderRadius: BorderRadius.circular(2.sp),
         border: Border.all(
           color: isWaitingSlot
               ? AppColors.accent
-              : isSeed
-                  ? AppColors.primary.withOpacity(0.4)
-                  : Colors.grey.withOpacity(0.2),
-          width: isWaitingSlot ? 1.5 : isSeed ? 1 : 0.5,
+              : isPickerSlot
+                  ? Colors.amber
+                  : isSeed
+                      ? AppColors.primary.withOpacity(0.4)
+                      : Colors.grey.withOpacity(0.2),
+          width: isWaitingSlot ? 1.5 : isPickerSlot ? 1.5 : isSeed ? 1 : 0.5,
         ),
       ),
       child: player != null
@@ -334,11 +342,10 @@ class _GroupDrawScreenState extends ConsumerState<GroupDrawScreen> {
     final String statusText;
     final Color statusColor;
     if (_isWaitingForPick) {
-      final groupName = String.fromCharCode(65 + _currentGroupIdx);
-      statusText = '$groupName조 ${_currentSlotIdx + 1}시드 선택';
+      statusText = '${_currentRound}라운드 - $_currentPickerName의 선택';
       statusColor = AppColors.accent;
     } else if (_isDrawing) {
-      statusText = '추첨 중... ${_currentDrawIndex + 1}/24';
+      statusText = '${_currentRound}라운드 - $_currentPickerName 지명중...';
       statusColor = AppColors.accent;
     } else if (completedRounds < 3) {
       statusText = '#$completedRounds/3 완료 (${advancingPlayers.length}/24명)';
@@ -592,39 +599,40 @@ class _GroupDrawScreenState extends ConsumerState<GroupDrawScreen> {
 
     setState(() {
       _isDrawing = true;
-      _currentDrawIndex = -1;
+      _currentRound = 0;
+      _currentPickerName = '';
       _groups = existingGroups.map((g) => List<String?>.from(g)).toList();
     });
 
-    var drawIndex = 0;
+    // 3라운드 스네이크 드래프트
+    for (var round = 1; round <= 3; round++) {
+      // 스네이크 순서: 홀수 라운드 A→H, 짝수 라운드 H→A
+      final groupOrder = (round % 2 == 1)
+          ? List.generate(8, (i) => i)
+          : List.generate(8, (i) => 7 - i);
 
-    for (var groupIdx = 0; groupIdx < 8; groupIdx++) {
-      for (var slotIdx = 1; slotIdx < 4; slotIdx++) {
+      final pickerSlot = round - 1; // 지명자 슬롯 (0=1시드, 1=2시드, 2=3시드)
+      final targetSlot = round;     // 배정 슬롯 (1=2시드, 2=3시드, 3=4시드)
+
+      for (var groupIdx in groupOrder) {
         if (!mounted) return;
 
-        // 이 조에 내 팀 선수가 이미 있는지 확인
-        bool hasMyTeamPlayer = false;
-        for (var i = 0; i < slotIdx; i++) {
-          final pid = _groups[groupIdx][i];
-          if (pid != null) {
-            final player = playerMap[pid];
-            if (player != null && player.teamId == _playerTeamId) {
-              hasMyTeamPlayer = true;
-              break;
-            }
-          }
-        }
+        // 현재 지명자 확인
+        final pickerId = _groups[groupIdx][pickerSlot];
+        final picker = pickerId != null ? playerMap[pickerId] : null;
+        final isPickerMyTeam = picker != null && picker.teamId == _playerTeamId;
 
         String? pickedId;
 
-        if (hasMyTeamPlayer && _availableQualifiers.isNotEmpty) {
-          // 내 팀 선수가 있는 조: 유저가 선택
+        if (isPickerMyTeam && _availableQualifiers.isNotEmpty) {
+          // 우리팀 선수가 지명자 → 유저가 선택
           _pickCompleter = Completer<String>();
           setState(() {
             _isWaitingForPick = true;
             _currentGroupIdx = groupIdx;
-            _currentSlotIdx = slotIdx;
-            _currentDrawIndex = drawIndex;
+            _currentSlotIdx = targetSlot;
+            _currentRound = round;
+            _currentPickerName = picker.name;
           });
 
           pickedId = await _pickCompleter!.future;
@@ -633,7 +641,13 @@ class _GroupDrawScreenState extends ConsumerState<GroupDrawScreen> {
             _isWaitingForPick = false;
           });
         } else if (_availableQualifiers.isNotEmpty) {
-          // AI 랜덤 선택
+          // AI 선수가 지명자 → 랜덤 선택
+          setState(() {
+            _currentGroupIdx = groupIdx;
+            _currentSlotIdx = targetSlot;
+            _currentRound = round;
+            _currentPickerName = picker?.name ?? '';
+          });
           await Future.delayed(const Duration(milliseconds: 200));
           pickedId = _availableQualifiers[0];
         }
@@ -641,12 +655,10 @@ class _GroupDrawScreenState extends ConsumerState<GroupDrawScreen> {
         if (pickedId != null && mounted) {
           _availableQualifiers.remove(pickedId);
           setState(() {
-            _groups[groupIdx][slotIdx] = pickedId;
-            _currentDrawIndex = drawIndex;
+            _groups[groupIdx][targetSlot] = pickedId;
           });
         }
 
-        drawIndex++;
       }
     }
 
@@ -663,6 +675,8 @@ class _GroupDrawScreenState extends ConsumerState<GroupDrawScreen> {
     setState(() {
       _isDrawing = false;
       _isCompleted = true;
+      _currentRound = 0;
+      _currentPickerName = '';
     });
   }
 

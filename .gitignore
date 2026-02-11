@@ -30,6 +30,9 @@ ios/Runner.xcworkspace/
 # Claude Code
 .claude/
 
+# Test output
+test/output/
+
 # Misc
 .DS_Store
 *.log
