@@ -108,7 +108,7 @@ class MatchSimulationService {
   }
 
   /// 세부 빌드 타입 결정 (매치업 + 능력치 기반)
-  BuildType? _determineBuildType(PlayerStats stats, String matchup, BuildStyle preferredStyle) {
+  BuildType? _determineBuildType(PlayerStats stats, String matchup, BuildStyle preferredStyle, {int rushDistance = 5}) {
     final candidates = BuildType.getByMatchupAndStyle(matchup, preferredStyle);
     if (candidates.isEmpty) {
       // 해당 스타일 빌드가 없으면 매치업 전체에서 선택
@@ -124,6 +124,12 @@ class MatchSimulationService {
       double score = 0;
       for (final stat in build.keyStats) {
         score += _getStatValueByName(stats, stat);
+      }
+      // 맵 rushDistance 기반 빌드 점수 보정
+      if (rushDistance <= 4 && (build.parentStyle == BuildStyle.cheese || build.parentStyle == BuildStyle.aggressive)) {
+        score += 200;
+      } else if (rushDistance >= 7 && (build.parentStyle == BuildStyle.defensive || build.parentStyle == BuildStyle.balanced)) {
+        score += 200;
       }
       scoredBuilds.add(MapEntry(build, score));
     }
@@ -187,8 +193,8 @@ class MatchSimulationService {
     // 4. 빌드 스타일 및 세부 빌드 상성
     final homeStyle = _determineBuildStyle(homeStats);
     final awayStyle = _determineBuildStyle(awayStats);
-    final homeBuildType = _determineBuildType(homeStats, matchup, homeStyle);
-    final awayBuildType = _determineBuildType(awayStats, '${awayRace}v$homeRace', awayStyle);
+    final homeBuildType = _determineBuildType(homeStats, matchup, homeStyle, rushDistance: map.rushDistance);
+    final awayBuildType = _determineBuildType(awayStats, '${awayRace}v$homeRace', awayStyle, rushDistance: map.rushDistance);
 
     double buildBonus = 0;
 
@@ -247,6 +253,13 @@ class MatchSimulationService {
 
     final mapBonus = mapBonusResult.netHomeAdvantage;
 
+    // 5-1. 넓은 맵 정찰 보너스 (rushDistance >= 7: 정찰 중요도 증가)
+    double scoutMapBonus = 0;
+    if (map.rushDistance >= 7) {
+      final scoutDiff = homeStats.scout - awayStats.scout;
+      scoutMapBonus = (scoutDiff / 100).clamp(-5.0, 5.0);
+    }
+
     // 6. 레벨 차이에 따른 경험 보정 (레벨당 +2%, 최대 ±20%)
     final levelDiff = homePlayer.level.value - awayPlayer.level.value;
     final levelBonus = (levelDiff * 2).clamp(-20, 20);
@@ -255,10 +268,10 @@ class MatchSimulationService {
     final snipingBonus = homeSnipingBonus - awaySnipingBonus;
 
     // 최종 승률 계산
-    // 맵 종족상성 효과 2배 증폭 (±15 → ±30)
+    // 맵 종족상성 효과 (±15)
     final raceDeviation = raceMatchupBonus.toDouble() - 50.0;
-    final baseWinRate = 50.0 + raceDeviation * 2.0;
-    final finalWinRate = (baseWinRate + statBonus + buildBonus + mapBonus + levelBonus + snipingBonus).clamp(3.0, 97.0);
+    final baseWinRate = 50.0 + raceDeviation * 1.0;
+    final finalWinRate = (baseWinRate + statBonus + buildBonus + mapBonus + scoutMapBonus + levelBonus + snipingBonus).clamp(3.0, 97.0);
 
     return finalWinRate / 100;
   }
@@ -347,8 +360,8 @@ class MatchSimulationService {
 
     // 세부 빌드 타입 결정
     final matchup = '${homeRace}v$awayRace';
-    final homeBuildType = _determineBuildType(homeStats, matchup, homeStyle);
-    final awayBuildType = _determineBuildType(awayStats, '${awayRace}v$homeRace', awayStyle);
+    final homeBuildType = _determineBuildType(homeStats, matchup, homeStyle, rushDistance: map.rushDistance);
+    final awayBuildType = _determineBuildType(awayStats, '${awayRace}v$homeRace', awayStyle, rushDistance: map.rushDistance);
 
     // 빌드가 없으면 기본 시뮬레이션
     if (homeBuild == null || awayBuild == null) {
@@ -1877,6 +1890,15 @@ class MatchSimulationService {
       }
 
       weightedEvents.add(MapEntry(event, weight.clamp(0.3, 2.0)));
+    }
+
+    // 과다선택 방지: 개별 이벤트가 전체의 4.5%를 넘지 않도록 캡핑
+    final totalWeight = weightedEvents.fold<double>(0, (sum, e) => sum + e.value);
+    final maxWeight = totalWeight * 0.045;
+    for (int i = 0; i < weightedEvents.length; i++) {
+      if (weightedEvents[i].value > maxWeight) {
+        weightedEvents[i] = MapEntry(weightedEvents[i].key, maxWeight);
+      }
     }
 
     // 가중치 기반 랜덤 선택

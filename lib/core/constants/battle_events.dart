@@ -116,6 +116,7 @@ class BattleEventsData {
     BattleEvent(text: '자원이 고갈되어가고 있습니다! 양측 소모전!', myResource: -5, enemyResource: -5),
     BattleEvent(text: '{player}, 탱크 라인으로 최종 진격!', stat: 'macro', myArmy: -10, enemyArmy: -30),
     BattleEvent(text: '{player} 선수 저그 본진 함락!', decisive: true),
+    BattleEvent(text: '{player}, 스캔으로 하이브 기술 확인! 울트라 대비!', stat: 'scout', myResource: -5),
   ];
 
   // ===== ZvT (저그 vs 테란, 저그 시점) =====
@@ -163,6 +164,7 @@ class BattleEventsData {
     BattleEvent(text: '{player}, 다크스웜 전개!', stat: 'strategy'),
     BattleEvent(text: '{player} 선수 플레이그 적중!', stat: 'strategy', enemyArmy: -15),
     BattleEvent(text: '{player}, 상대 탱크 라인 무력화!', stat: 'strategy', enemyArmy: -10),
+    BattleEvent(text: '{player}, 오버로드로 테란 전진 기지 정찰!', stat: 'scout'),
   ];
 
   static const zvtLate = [
@@ -185,6 +187,7 @@ class BattleEventsData {
     BattleEvent(text: '양측 멀티가 바닥나고 있습니다!', myResource: -5, enemyResource: -5),
     BattleEvent(text: '{player}, 울트라 물량으로 최종 돌파!', stat: 'macro', myArmy: -10, enemyArmy: -30),
     BattleEvent(text: '{player} 선수 테란 본진 함락!', decisive: true),
+    BattleEvent(text: '{player}, 오버시어로 테란 본진 정찰! 뉴클리어 사일로 확인!', stat: 'scout', myArmy: -1),
   ];
 
   // ===== TvP (테란 vs 프로토스, 테란 시점) =====
@@ -250,6 +253,7 @@ class BattleEventsData {
     BattleEvent(text: '양측 가스가 부족해지고 있습니다!', myResource: -5, enemyResource: -5),
     BattleEvent(text: '{player}, 골리앗 탱크로 최종 밀어붙입니다!', stat: 'macro', myArmy: -10, enemyArmy: -30),
     BattleEvent(text: '{player} 선수 프로토스 본진 함락!', decisive: true),
+    BattleEvent(text: '{player}, 스캔으로 아비터 트리뷸날 확인!', stat: 'scout', myResource: -5),
   ];
 
   // ===== PvT (프로토스 vs 테란, 프로토스 시점) =====
@@ -291,6 +295,7 @@ class BattleEventsData {
     BattleEvent(text: '{player}, 상대 앞마당 압박!', stat: 'attack', myArmy: -8, enemyArmy: -10, enemyResource: -20),
     BattleEvent(text: '{player} 선수 상대 앞마당 파괴!', stat: 'attack', myArmy: -5, enemyArmy: -10, enemyResource: -40),
     BattleEvent(text: '{player}, 아칸 합체!', stat: 'strategy', myArmy: 8),
+    BattleEvent(text: '{player}, 옵저버로 테란 빌드 완전 파악!', stat: 'scout'),
   ];
 
   static const pvtLate = [
@@ -316,6 +321,7 @@ class BattleEventsData {
     BattleEvent(text: '양측 고급 유닛 소모가 심합니다!', myResource: -5, enemyResource: -5),
     BattleEvent(text: '{player}, 캐리어 함대로 최종 진격!', stat: 'macro', myArmy: -10, enemyArmy: -30),
     BattleEvent(text: '{player} 선수 테란 멀티 전부 파괴!', decisive: true),
+    BattleEvent(text: '{player}, 옵저버로 테란 전진 기지 탐지!', stat: 'scout'),
   ];
 
   // ===== ZvP (저그 vs 프로토스, 저그 시점) =====
@@ -358,6 +364,7 @@ class BattleEventsData {
     BattleEvent(text: '{player} 선수 스톰 범위 벗어남!', stat: 'control', myArmy: -5),
     BattleEvent(text: '{player}, 하이브 건설!', stat: 'strategy', myResource: -25),
     BattleEvent(text: '{player} 선수 디파일러 생산!', myArmy: 3, myResource: -15),
+    BattleEvent(text: '{player}, 오버로드로 프로토스 테크 트리 확인!', stat: 'scout'),
   ];
 
   static const zvpLate = [
@@ -379,6 +386,7 @@ class BattleEventsData {
     BattleEvent(text: '양측 멀티가 바닥나고 있습니다!', myResource: -5, enemyResource: -5),
     BattleEvent(text: '{player}, 저글링 물량으로 프로토스 멀티 초토화!', stat: 'macro', myArmy: -10, enemyArmy: -30),
     BattleEvent(text: '{player} 선수 프로토스 본진 함락!', decisive: true),
+    BattleEvent(text: '{player}, 오버시어로 프로토스 본진 정찰! 캐리어 생산 확인!', stat: 'scout', myArmy: -1),
   ];
 
   // ===== PvZ (프로토스 vs 저그, 프로토스 시점) =====
@@ -420,6 +428,7 @@ class BattleEventsData {
     BattleEvent(text: '{player}, 상대 해처리 압박!', stat: 'attack', myArmy: -8, enemyArmy: -10, enemyResource: -20),
     BattleEvent(text: '{player} 선수 상대 앞마당 파괴!', stat: 'attack', myArmy: -5, enemyArmy: -10, enemyResource: -40),
     BattleEvent(text: '{player}, 아칸 합체!', stat: 'strategy', myArmy: 8),
+    BattleEvent(text: '{player}, 옵저버로 저그 럴커 포진 탐지!', stat: 'scout', enemyArmy: -3),
   ];
 
   static const pvzLate = [
@@ -444,6 +453,7 @@ class BattleEventsData {
     BattleEvent(text: '후반 가스 부족! 양측 인터셉터도 줄어듭니다!', myResource: -5, enemyResource: -5),
     BattleEvent(text: '{player}, 아칸 드라군으로 저그 멀티 전부 파괴!', stat: 'macro', myArmy: -10, enemyArmy: -30),
     BattleEvent(text: '{player} 선수 저그 본진 함락!', decisive: true),
+    BattleEvent(text: '{player}, 옵저버로 하이브 기술 확인! 디파일러 대비!', stat: 'scout'),
   ];
 
   // ===== TvT (테란 동족전) =====
@@ -491,6 +501,7 @@ class BattleEventsData {
     BattleEvent(text: '{player} 선수 벌처 마인 매설! 상대 진격로 차단!', stat: 'strategy', myResource: -5),
     BattleEvent(text: '{player}, 클로킹 레이스로 커맨드 센터 견제!', stat: 'harass', enemyResource: -25),
     BattleEvent(text: '{player} 선수 메딕 마린 기동! 벌처 처리!', stat: 'control', myArmy: -3, enemyArmy: -6),
+    BattleEvent(text: '{player}, 스캔으로 상대 팩토리 수 확인!', stat: 'scout', myResource: -5),
   ];
 
   static const tvtLate = [
@@ -513,6 +524,7 @@ class BattleEventsData {
     BattleEvent(text: '{player}, 고스트 뉴클리어 유도!', stat: 'strategy', myResource: -15, enemyArmy: -20),
     BattleEvent(text: '{player} 선수 발키리 편대로 레이스 소탕!', stat: 'control', myArmy: -3, enemyArmy: -10),
     BattleEvent(text: '{player}, 드랍십 멀티 기습! 자원 약탈!', stat: 'harass', myArmy: -3, enemyResource: -35),
+    BattleEvent(text: '{player}, 스캔으로 상대 뉴클리어 사일로 탐지!', stat: 'scout', myResource: -5),
   ];
 
   // ===== ZvZ (저그 동족전) =====
@@ -557,6 +569,7 @@ class BattleEventsData {
     BattleEvent(text: '{player}, 저글링으로 멀티 해처리 급습!', stat: 'attack', myArmy: -4, enemyResource: -30),
     BattleEvent(text: '{player} 선수 성큰 라인 구축! 철벽 수비!', stat: 'defense', myResource: -15),
     BattleEvent(text: '{player}, 가디언으로 성큰 제거!', stat: 'strategy', myArmy: -2, enemyArmy: -5),
+    BattleEvent(text: '{player}, 오버로드로 상대 스파이어 확인!', stat: 'scout'),
   ];
 
   static const zvzLate = [
@@ -578,6 +591,7 @@ class BattleEventsData {
     BattleEvent(text: '{player}, 디파일러 다크스웜으로 저글링 돌격!', stat: 'strategy', myArmy: -8, enemyArmy: -12),
     BattleEvent(text: '{player} 선수 가디언 편대로 성큰 라인 파괴!', stat: 'attack', myArmy: -3, enemyArmy: -10),
     BattleEvent(text: '{player}, 디바우러로 뮤탈 제공권 장악!', stat: 'control', myArmy: 5, myResource: -20, enemyArmy: -8),
+    BattleEvent(text: '{player}, 오버로드 희생 정찰! 상대 하이브 기술 파악!', stat: 'scout', myArmy: -2),
   ];
 
   // ===== PvP (프로토스 동족전) =====
@@ -646,6 +660,7 @@ class BattleEventsData {
     BattleEvent(text: '{player} 선수 상대 넥서스 전부 파괴!', decisive: true),
     BattleEvent(text: '{player}, 아비터 리콜로 기습! 상대 본진 초토화!', stat: 'strategy', myArmy: -5, enemyArmy: -15, enemyResource: -25),
     BattleEvent(text: '{player} 선수 캐리어 인터셉터 난무! 상대 항공 방어 무력화!', stat: 'macro', myArmy: -5, enemyArmy: -12),
+    BattleEvent(text: '{player}, 옵저버로 상대 아비터 트리뷸날 탐지!', stat: 'scout'),
   ];
 
   /// 매치업별 이벤트 가져오기

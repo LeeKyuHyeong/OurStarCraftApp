@@ -279,7 +279,7 @@ enum BuildType {
   // ==================== TvZ 빌드 ====================
   tvzBunkerDefense('tvz_bunker', 'TvZ', '벙커링', BuildStyle.defensive, ['defense', 'macro']),
   tvz2FactoryVulture('tvz_2fac_vulture', 'TvZ', '2팩 벌처', BuildStyle.aggressive, ['harass', 'control']),
-  tvzSKTerran('tvz_sk', 'TvZ', 'SK테란', BuildStyle.balanced, ['harass', 'macro']),
+  tvzSKTerran('tvz_sk', 'TvZ', 'SK테란', BuildStyle.balanced, ['scout', 'macro']),
   tvz3FactoryGoliath('tvz_3fac_goliath', 'TvZ', '3팩 골리앗', BuildStyle.defensive, ['defense', 'macro']),
   tvzWraithHarass('tvz_wraith', 'TvZ', '레이스 견제', BuildStyle.aggressive, ['harass', 'strategy']),
   tvzMechDrop('tvz_mech_drop', 'TvZ', '메카닉 드랍', BuildStyle.balanced, ['harass', 'control']),
@@ -301,10 +301,10 @@ enum BuildType {
   tvtVultureHarass('tvt_vulture_harass', 'TvT', '벌처 견제', BuildStyle.balanced, ['harass', 'control']),
 
   // ==================== ZvT 빌드 ====================
-  zvt3HatchMutal('zvt_3hatch_mutal', 'ZvT', '3해처리 뮤탈', BuildStyle.aggressive, ['harass', 'control']),
+  zvt3HatchMutal('zvt_3hatch_mutal', 'ZvT', '3해처리 뮤탈', BuildStyle.balanced, ['harass', 'control']),
   zvt2HatchMutal('zvt_2hatch_mutal', 'ZvT', '투해처리 뮤탈', BuildStyle.balanced, ['harass', 'macro']),
   zvt2HatchLurker('zvt_2hatch_lurker', 'ZvT', '투해처리 럴커', BuildStyle.defensive, ['defense', 'strategy']),
-  zvtHatchSpore('zvt_hatch_spore', 'ZvT', '해처리 스포', BuildStyle.defensive, ['defense', 'macro']),
+  zvtHatchSpore('zvt_hatch_spore', 'ZvT', '해처리 스포', BuildStyle.defensive, ['defense', 'scout']),
   zvt1HatchAllIn('zvt_1hatch_allin', 'ZvT', '원해처리 올인', BuildStyle.cheese, ['attack', 'control']),
 
   // ==================== ZvP 빌드 ====================
@@ -320,12 +320,12 @@ enum BuildType {
   zvzOverPool('zvz_overpool', 'ZvZ', '오버풀', BuildStyle.balanced, ['macro', 'control']),
   zvzExtractor('zvz_extractor', 'ZvZ', '익스트랙터 트릭', BuildStyle.cheese, ['attack', 'control']),
   zvz3HatchHydra('zvz_3hatch_hydra', 'ZvZ', '3해처리 히드라', BuildStyle.defensive, ['defense', 'macro']),
-  zvzSpeedlingAllIn('zvz_speedling', 'ZvZ', '스피드링 올인', BuildStyle.balanced, ['attack', 'control']),
+  zvzSpeedlingAllIn('zvz_speedling', 'ZvZ', '스피드링 올인', BuildStyle.aggressive, ['attack', 'control']),
 
   // ==================== PvT 빌드 ====================
   pvt2GateZealot('pvt_2gate_zealot', 'PvT', '투게이트 질럿', BuildStyle.aggressive, ['attack', 'control']),
   pvtDarkSwing('pvt_dark_swing', 'PvT', '다크 스윙', BuildStyle.cheese, ['strategy', 'harass']),
-  pvt1GateObserver('pvt_1gate_obs', 'PvT', '원게이트 옵저버', BuildStyle.defensive, ['defense', 'strategy']),
+  pvt1GateObserver('pvt_1gate_obs', 'PvT', '원게이트 옵저버', BuildStyle.defensive, ['defense', 'scout']),
   pvtProxyDark('pvt_proxy_dark', 'PvT', '프록시 다크', BuildStyle.cheese, ['strategy', 'sense']),
   pvt1GateExpansion('pvt_1gate_expand', 'PvT', '원게이트 확장', BuildStyle.balanced, ['macro', 'defense']),
 
@@ -333,7 +333,7 @@ enum BuildType {
   pvz2GateZealot('pvz_2gate_zealot', 'PvZ', '투게이트 질럿', BuildStyle.aggressive, ['attack', 'control']),
   pvzForgeCannon('pvz_forge_cannon', 'PvZ', '포지 캐논', BuildStyle.defensive, ['defense', 'macro']),
   pvzNexusFirst('pvz_nexus_first', 'PvZ', '넥서스 퍼스트', BuildStyle.defensive, ['macro', 'defense']),
-  pvzCorsairReaver('pvz_corsair_reaver', 'PvZ', '커세어 리버', BuildStyle.aggressive, ['harass', 'control']),
+  pvzCorsairReaver('pvz_corsair_reaver', 'PvZ', '커세어 리버', BuildStyle.balanced, ['harass', 'scout']),
   pvzProxyGateway('pvz_proxy_gate', 'PvZ', '프록시 게이트', BuildStyle.cheese, ['attack', 'sense']),
 
   // ==================== PvP 빌드 ====================
@@ -343,7 +343,7 @@ enum BuildType {
   pvpCannonRush('pvp_cannon_rush', 'PvP', '캐논 러시', BuildStyle.cheese, ['attack', 'sense']),
   pvpReaverDrop('pvp_reaver_drop', 'PvP', '리버 드랍', BuildStyle.aggressive, ['harass', 'control']),
   pvpZealotRush('pvp_zealot_rush', 'PvP', '질럿 러시', BuildStyle.aggressive, ['attack', 'control']),
-  pvpCorsairReaver('pvp_corsair_reaver', 'PvP', '코르세어 리버', BuildStyle.balanced, ['strategy', 'control']);
+  pvpCorsairReaver('pvp_corsair_reaver', 'PvP', '코르세어 리버', BuildStyle.balanced, ['strategy', 'scout']);
 
   final String id;
   final String matchup;
@@ -393,12 +393,12 @@ class BuildMatchup {
     // aggressive > balanced (템포 선점)
     if (attacker == BuildStyle.aggressive && defender == BuildStyle.balanced) return 10;
     // balanced > aggressive (카운터)
-    if (attacker == BuildStyle.balanced && defender == BuildStyle.aggressive) return 5;
+    if (attacker == BuildStyle.balanced && defender == BuildStyle.aggressive) return 8;
 
     // defensive > aggressive (수비 성공 시 경제 유리)
-    if (attacker == BuildStyle.defensive && defender == BuildStyle.aggressive) return 8;
+    if (attacker == BuildStyle.defensive && defender == BuildStyle.aggressive) return 12;
     // aggressive > defensive (수비 뚫으면 끝)
-    if (attacker == BuildStyle.aggressive && defender == BuildStyle.defensive) return 15;
+    if (attacker == BuildStyle.aggressive && defender == BuildStyle.defensive) return 10;
 
     // cheese는 리스크 높음
     if (attacker == BuildStyle.cheese && defender == BuildStyle.aggressive) return -5;
@@ -419,13 +419,33 @@ class BuildMatchup {
     if (attacker == BuildType.tvzBunkerDefense && defender == BuildType.zvt1HatchAllIn) return 25;
     if (attacker == BuildType.zvt3HatchMutal && defender == BuildType.tvz2FactoryVulture) return -10;
 
+    // TvT 특수 상성
+    if (attacker == BuildType.tvtProxy && defender == BuildType.tvtCCFirst) return 20;
+    if (attacker == BuildType.tvtCCFirst && defender == BuildType.tvtProxy) return -25;
+    if (attacker == BuildType.tvt1FactPush && defender == BuildType.tvtCCFirst) return 15;
+    if (attacker == BuildType.tvtWraithCloak && defender == BuildType.tvt2Barracks) return -10;
+    if (attacker == BuildType.tvt2Factory && defender == BuildType.tvt1FactPush) return 10;
+
     // TvP 특수 상성
-    if (attacker == BuildType.tvpFakeDouble && defender == BuildType.pvt1GateObserver) return -10; // -15→-10: 테란 페이크 불이익 완화
-    if (attacker == BuildType.pvtDarkSwing && defender == BuildType.tvpDouble) return 12; // 20→12: 다크 스윙 이점 축소
+    if (attacker == BuildType.tvpFakeDouble && defender == BuildType.pvt1GateObserver) return -10;
+    if (attacker == BuildType.pvtDarkSwing && defender == BuildType.tvpDouble) return 12;
+
+    // PvT 특수 상성 (역방향)
+    if (attacker == BuildType.pvt2GateZealot && defender == BuildType.tvpDouble) return 15;
+    if (attacker == BuildType.pvt1GateObserver && defender == BuildType.tvpWraithRush) return 10;
 
     // PvZ 특수 상성
     if (attacker == BuildType.pvzForgeCannon && defender == BuildType.zvp5DroneZergling) return 30;
     if (attacker == BuildType.zvp5DroneZergling && defender == BuildType.pvzNexusFirst) return 25;
+
+    // ZvP 특수 상성 (역방향)
+    if (attacker == BuildType.zvp3HatchHydra && defender == BuildType.pvzForgeCannon) return 12;
+    if (attacker == BuildType.zvp2HatchMutal && defender == BuildType.pvzNexusFirst) return 15;
+
+    // PvP 특수 상성
+    if (attacker == BuildType.pvpDarkAllIn && defender == BuildType.pvp2GateDragoon) return 15;
+    if (attacker == BuildType.pvpCannonRush && defender == BuildType.pvp1GateRobo) return -20;
+    if (attacker == BuildType.pvpReaverDrop && defender == BuildType.pvpZealotRush) return 10;
 
     return 0;
   }
