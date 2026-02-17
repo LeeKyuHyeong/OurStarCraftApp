@@ -107,54 +107,18 @@ class MatchSimulationService {
     }
   }
 
-  /// 세부 빌드 타입 결정 (매치업 + 능력치 기반)
-  BuildType? _determineBuildType(PlayerStats stats, String matchup, BuildStyle preferredStyle, {int rushDistance = 5}) {
-    final candidates = BuildType.getByMatchupAndStyle(matchup, preferredStyle);
-    if (candidates.isEmpty) {
-      // 해당 스타일 빌드가 없으면 매치업 전체에서 선택
-      final allBuilds = BuildType.getByMatchup(matchup);
-      if (allBuilds.isEmpty) return null;
-      return allBuilds[_random.nextInt(allBuilds.length)];
-    }
-
-    // 핵심 능력치에 맞는 빌드 우선 선택
-    final scoredBuilds = <MapEntry<BuildType, double>>[];
-
-    for (final build in candidates) {
-      double score = 0;
-      for (final stat in build.keyStats) {
-        score += _getStatValueByName(stats, stat);
-      }
-      // 맵 rushDistance 기반 빌드 점수 보정
-      if (rushDistance <= 4 && (build.parentStyle == BuildStyle.cheese || build.parentStyle == BuildStyle.aggressive)) {
-        score += 200;
-      } else if (rushDistance >= 7 && (build.parentStyle == BuildStyle.defensive || build.parentStyle == BuildStyle.balanced)) {
-        score += 200;
-      }
-      scoredBuilds.add(MapEntry(build, score));
-    }
-
-    // 점수순 정렬 후 상위 빌드 중 랜덤 선택 (약간의 변동성)
-    scoredBuilds.sort((a, b) => b.value.compareTo(a.value));
-
-    // 상위 50% 중 랜덤 선택
-    final topCount = (scoredBuilds.length / 2).ceil().clamp(1, scoredBuilds.length);
-    return scoredBuilds[_random.nextInt(topCount)].key;
-  }
-
-  /// 능력치 이름으로 값 가져오기
-  int _getStatValueByName(PlayerStats stats, String statName) {
-    switch (statName) {
-      case 'sense': return stats.sense;
-      case 'control': return stats.control;
-      case 'attack': return stats.attack;
-      case 'harass': return stats.harass;
-      case 'strategy': return stats.strategy;
-      case 'macro': return stats.macro;
-      case 'defense': return stats.defense;
-      case 'scout': return stats.scout;
-      default: return 500;
-    }
+  /// PlayerStats → Map<String, int> 변환
+  Map<String, int> _statsToMap(PlayerStats stats) {
+    return {
+      'sense': stats.sense,
+      'control': stats.control,
+      'attack': stats.attack,
+      'harass': stats.harass,
+      'strategy': stats.strategy,
+      'macro': stats.macro,
+      'defense': stats.defense,
+      'scout': stats.scout,
+    };
   }
 
   /// 두 선수 간 승률 계산 (homePlayer 기준)
@@ -177,10 +141,9 @@ class MatchSimulationService {
     final homeStats = homePlayer.effectiveStats;
     final awayStats = awayPlayer.effectiveStats;
 
-    // 매치업 문자열 생성
+    // 종족 문자열
     final homeRace = _getRaceString(homePlayer.race);
     final awayRace = _getRaceString(awayPlayer.race);
-    final matchup = '$homeRace' 'v$awayRace';
 
     // 3. 기본 능력치 비교 (경기 초반 기준으로 전체 평가)
     final homeTotal = homeStats.total + homeCheerfulBonus;
@@ -190,11 +153,19 @@ class MatchSimulationService {
     final statDiff = homeTotal - awayTotal;
     final statBonus = (statDiff / 35).clamp(-50.0, 50.0);
 
-    // 4. 빌드 스타일 및 세부 빌드 상성
-    final homeStyle = _determineBuildStyle(homeStats);
-    final awayStyle = _determineBuildStyle(awayStats);
-    final homeBuildType = _determineBuildType(homeStats, matchup, homeStyle, rushDistance: map.rushDistance);
-    final awayBuildType = _determineBuildType(awayStats, '${awayRace}v$homeRace', awayStyle, rushDistance: map.rushDistance);
+    // 4. 빌드 스타일 및 세부 빌드 상성 (통합 스코어링)
+    final homeBuildOrder = BuildOrderData.getBuildOrder(
+      race: homeRace, vsRace: awayRace,
+      statValues: _statsToMap(homeStats), map: map,
+    );
+    final awayBuildOrder = BuildOrderData.getBuildOrder(
+      race: awayRace, vsRace: homeRace,
+      statValues: _statsToMap(awayStats), map: map,
+    );
+    final homeBuildType = homeBuildOrder != null ? BuildType.getById(homeBuildOrder.id) : null;
+    final awayBuildType = awayBuildOrder != null ? BuildType.getById(awayBuildOrder.id) : null;
+    final homeStyle = homeBuildType?.parentStyle ?? _determineBuildStyle(homeStats);
+    final awayStyle = awayBuildType?.parentStyle ?? _determineBuildStyle(awayStats);
 
     double buildBonus = 0;
 
@@ -208,13 +179,13 @@ class MatchSimulationService {
     } else {
       // 세부 빌드가 없으면 상위 스타일로 계산
       if (homeStyle == BuildStyle.aggressive && awayStyle == BuildStyle.defensive) {
-        buildBonus = 15;
+        buildBonus = 22;
       } else if (homeStyle == BuildStyle.defensive && awayStyle == BuildStyle.aggressive) {
-        buildBonus = -15;
+        buildBonus = -22;
       } else if (homeStyle == BuildStyle.cheese && awayStyle == BuildStyle.defensive) {
-        buildBonus = 25;
+        buildBonus = 8;
       } else if (homeStyle == BuildStyle.defensive && awayStyle == BuildStyle.cheese) {
-        buildBonus = -15;
+        buildBonus = -5;
       }
     }
 
@@ -268,9 +239,14 @@ class MatchSimulationService {
     final snipingBonus = homeSnipingBonus - awaySnipingBonus;
 
     // 최종 승률 계산
-    // 맵 종족상성 효과 (±15)
+    // TvZ 기본 보정 (+3%) + 맵 종족상성 효과 (증폭률 0.5)
     final raceDeviation = raceMatchupBonus.toDouble() - 50.0;
-    final baseWinRate = 50.0 + raceDeviation * 1.0;
+    final isTvZ = (homePlayer.race == Race.terran && awayPlayer.race == Race.zerg) ||
+                  (homePlayer.race == Race.zerg && awayPlayer.race == Race.terran);
+    final tvzBase = isTvZ
+        ? (homePlayer.race == Race.terran ? 2.5 : -2.5)
+        : 0.0;
+    final baseWinRate = 50.0 + tvzBase + raceDeviation * 0.35;
     final finalWinRate = (baseWinRate + statBonus + buildBonus + mapBonus + scoutMapBonus + levelBonus + snipingBonus).clamp(3.0, 97.0);
 
     return finalWinRate / 100;
@@ -319,6 +295,8 @@ class MatchSimulationService {
     double awaySnipingBonus = 0,
     String? homeSnipingPlayerName,
     String? awaySnipingPlayerName,
+    String? forcedHomeBuildId,
+    String? forcedAwayBuildId,
   }) async* {
     final winRate = calculateWinRate(
       homePlayer: homePlayer,
@@ -334,37 +312,46 @@ class MatchSimulationService {
     final homeStats = homePlayer.effectiveStats;
     final awayStats = awayPlayer.effectiveStats;
 
-    // 각 선수의 빌드 스타일 결정
-    final homeStyle = _determineBuildStyle(homeStats);
-    final awayStyle = _determineBuildStyle(awayStats);
-
     // 각 선수의 빌드오더 가져오기
     final homeRace = _getRaceString(homePlayer.race);
     final awayRace = _getRaceString(awayPlayer.race);
 
-    final homeBuild = BuildOrderData.getBuildOrder(
-      race: homeRace,
-      vsRace: awayRace,
-      preferredStyle: homeStyle,
+    // 강제 빌드가 있으면 빌드 스타일도 빌드에서 결정
+    final homeBuild = forcedHomeBuildId != null
+        ? BuildOrderData.getBuildOrderById(forcedHomeBuildId)
+        : null;
+    final awayBuild0 = forcedAwayBuildId != null
+        ? BuildOrderData.getBuildOrderById(forcedAwayBuildId)
+        : null;
+
+    // 통합 빌드 선택: BuildOrder → BuildType.getById → BuildStyle
+    final homeBuildFinal = homeBuild ?? BuildOrderData.getBuildOrder(
+      race: homeRace, vsRace: awayRace,
+      statValues: _statsToMap(homeStats), map: map,
     );
-    final awayBuild = BuildOrderData.getBuildOrder(
-      race: awayRace,
-      vsRace: homeRace,
-      preferredStyle: awayStyle,
+    final awayBuildFinal = awayBuild0 ?? BuildOrderData.getBuildOrder(
+      race: awayRace, vsRace: homeRace,
+      statValues: _statsToMap(awayStats), map: map,
     );
+
+    // BuildType은 BuildOrder.id로 조회 (1:1 매핑)
+    final homeBuildType = homeBuildFinal != null
+        ? BuildType.getById(homeBuildFinal.id)
+        : null;
+    final awayBuildType = awayBuildFinal != null
+        ? BuildType.getById(awayBuildFinal.id)
+        : null;
+
+    final homeStyle = homeBuildType?.parentStyle ?? _determineBuildStyle(homeStats);
+    final awayStyle = awayBuildType?.parentStyle ?? _determineBuildStyle(awayStats);
 
     // 빌드 스텝에서 유닛 키워드 추출 (이벤트 필터링용)
-    final homeUnitTags = homeBuild != null ? BuildOrderData.extractUnitTags(homeBuild) : <String>{};
-    final awayUnitTags = awayBuild != null ? BuildOrderData.extractUnitTags(awayBuild) : <String>{};
+    final homeUnitTags = homeBuildFinal != null ? BuildOrderData.extractUnitTags(homeBuildFinal) : <String>{};
+    final awayUnitTags = awayBuildFinal != null ? BuildOrderData.extractUnitTags(awayBuildFinal) : <String>{};
     final combinedUnitTags = homeUnitTags.union(awayUnitTags);
 
-    // 세부 빌드 타입 결정
-    final matchup = '${homeRace}v$awayRace';
-    final homeBuildType = _determineBuildType(homeStats, matchup, homeStyle, rushDistance: map.rushDistance);
-    final awayBuildType = _determineBuildType(awayStats, '${awayRace}v$homeRace', awayStyle, rushDistance: map.rushDistance);
-
     // 빌드가 없으면 기본 시뮬레이션
-    if (homeBuild == null || awayBuild == null) {
+    if (homeBuildFinal == null || awayBuildFinal == null) {
       yield* _fallbackSimulation(
         homePlayer: homePlayer,
         awayPlayer: awayPlayer,
@@ -411,6 +398,16 @@ class MatchSimulationService {
     bool clashOccurred = false;
     int clashStartLine = -1;
     LogOwner lastClashOwner = LogOwner.home; // 클래시 교차 표시용
+    int lastClashLine = -10; // 마지막 클래시 이벤트 라인 (빈도 조절용)
+
+    // 빌드 매치업 해설 (초반에 1회 삽입)
+    final buildMatchupCommentary = _getBuildMatchupCommentary(
+      homeBuildType: homeBuildType,
+      awayBuildType: awayBuildType,
+      homePlayer: homePlayer,
+      awayPlayer: awayPlayer,
+    );
+    bool buildMatchupCommentaryShown = false;
 
     // ZvZ 상수 (루프 밖에서 한번만 계산)
     final isZvZ = homePlayer.race == Race.zerg && awayPlayer.race == Race.zerg;
@@ -423,8 +420,8 @@ class MatchSimulationService {
       lineCount++;
 
       // 현재 라인에 해당하는 이벤트 결정 (양측 독립)
-      final homeStep = _getNextStep(homeBuild, homeIndex, lineCount);
-      final awayStep = _getNextStep(awayBuild, awayIndex, lineCount);
+      final homeStep = _getNextStep(homeBuildFinal, homeIndex, lineCount);
+      final awayStep = _getNextStep(awayBuildFinal, awayIndex, lineCount);
 
       // 충돌 체크
       if (!clashOccurred && (
@@ -445,6 +442,53 @@ class MatchSimulationService {
 
       // ========== 클래시 구간 ==========
       if (clashOccurred && lineCount >= clashStartLine) {
+        final clashDuration = lineCount - clashStartLine;
+        final linesSinceLastClash = lineCount - lastClashLine;
+
+        // 클래시 간격: 초반 2라인, duration 60+ 이후 1라인 (가속)
+        // ZvZ는 전용 로직이므로 간격 제한 없음
+        final clashInterval = isZvZ ? 1 : (clashDuration >= 60 ? 1 : 2);
+
+        // ===== 회복/포지셔닝 구간 (클래시 사이) =====
+        if (linesSinceLastClash < clashInterval) {
+          // 매크로 능력치에 따라 회복량 차등
+          final homeMacro = homeStats.macro;
+          final awayMacro = awayStats.macro;
+          final homeRecoveryResource = 10 + (homeMacro / 200).round(); // 12~15
+          final awayRecoveryResource = 10 + (awayMacro / 200).round();
+          // 소량 병력 보충 (매크로 700+ 시 +2, 아니면 +1)
+          final homeRecoveryArmy = homeMacro >= 700 ? 2 : 1;
+          final awayRecoveryArmy = awayMacro >= 700 ? 2 : 1;
+
+          // 수치만 적용, 텍스트 출력 없음 (로그에 회복 멘트 미표시)
+          state = state.copyWith(
+            homeArmy: (state.homeArmy + homeRecoveryArmy).clamp(0, 200),
+            awayArmy: (state.awayArmy + awayRecoveryArmy).clamp(0, 200),
+            homeResources: (state.homeResources + homeRecoveryResource).clamp(0, 10000),
+            awayResources: (state.awayResources + awayRecoveryResource).clamp(0, 10000),
+          );
+
+          // 회복 구간에서도 승패 체크 (army 0 등)
+          final recoveryResult = _checkWinCondition(state, lineCount);
+          if (recoveryResult != null) {
+            yield* _emitEnding(
+              state: state,
+              homeWinOverride: recoveryResult,
+              winRate: winRate,
+              homePlayer: homePlayer,
+              awayPlayer: awayPlayer,
+              lineCount: lineCount,
+              getIntervalMs: getIntervalMs,
+            );
+            return;
+          }
+
+          continue; // 회복 구간 → 다음 라인으로
+        }
+
+        // ===== 클래시 이벤트 발동 =====
+        lastClashLine = lineCount;
+
         String text = '';
         int homeArmyChange = 0;
         int awayArmyChange = 0;
@@ -668,6 +712,16 @@ class MatchSimulationService {
         }
       }
 
+      // 빌드 매치업 해설 삽입 (초반 1회, 빌드가 드러나는 시점)
+      if (!buildMatchupCommentaryShown && buildMatchupCommentary != null &&
+          lineCount >= 8 && lineCount <= 20 &&
+          lineCount - lastCommentaryLine >= 3) {
+        newEntries.add(BattleLogEntry(text: buildMatchupCommentary, owner: LogOwner.system));
+        lastCommentaryLine = lineCount;
+        usedTexts[buildMatchupCommentary] = (usedTexts[buildMatchupCommentary] ?? 0) + 1;
+        buildMatchupCommentaryShown = true;
+      }
+
       // 양측 빌드 스텝 없음 → 코멘터리 또는 중후반 이벤트
       if (homeStep == null && awayStep == null) {
         // 코멘터리 기회 (최소 5라인 간격)
@@ -677,6 +731,8 @@ class MatchSimulationService {
             lineCount: lineCount,
             homePlayer: homePlayer,
             awayPlayer: awayPlayer,
+            homeStyle: homeStyle,
+            awayStyle: awayStyle,
             usedTexts: usedTexts,
           );
           if (commentary != null) {
@@ -1029,6 +1085,8 @@ class MatchSimulationService {
     required int lineCount,
     required Player homePlayer,
     required Player awayPlayer,
+    BuildStyle? homeStyle,
+    BuildStyle? awayStyle,
     Map<String, int>? usedTexts,
   }) {
     // 50% 확률로 코멘터리 스킵 (너무 자주 나오지 않게)
@@ -1047,6 +1105,57 @@ class MatchSimulationService {
       // 모두 사용됨 → 가장 적게 사용된 것 선택
       texts.sort((a, b) => (usedTexts[a] ?? 0).compareTo(usedTexts[b] ?? 0));
       return texts.first;
+    }
+
+    // 치즈/올인 상황 코멘터리 (초반)
+    final hasCheese = homeStyle == BuildStyle.cheese || awayStyle == BuildStyle.cheese;
+    if (hasCheese && lineCount <= 20) {
+      final cheesePlayer = homeStyle == BuildStyle.cheese ? homePlayer : awayPlayer;
+      final defender = homeStyle == BuildStyle.cheese ? awayPlayer : homePlayer;
+      final texts = [
+        '올인 공격입니다! ${defender.name} 선수가 버틸 수 있을까요!',
+        '${cheesePlayer.name} 선수, 승부수를 던졌습니다!',
+        '초반 올인! 이 공격이 실패하면 돌아올 수 없습니다!',
+        '숨막히는 긴장감! 양 선수 한 치의 실수도 허용되지 않습니다!',
+        '${defender.name} 선수의 초반 수비가 관건입니다!',
+        '이 러쉬를 막아내면 ${defender.name} 선수가 유리해집니다.',
+      ];
+      return pickUnused(texts);
+    }
+
+    // 치즈 실패 후 코멘터리 (line > 20, 치즈 빌드)
+    if (hasCheese && lineCount > 20) {
+      final cheesePlayer = homeStyle == BuildStyle.cheese ? homePlayer : awayPlayer;
+      final defender = homeStyle == BuildStyle.cheese ? awayPlayer : homePlayer;
+      final texts = [
+        '올인이 막혔습니다! ${cheesePlayer.name} 선수 이대로면 힘들어요.',
+        '초반 공격이 실패했고, ${defender.name} 선수가 유리한 상황입니다.',
+        '${cheesePlayer.name} 선수, 경제적으로 뒤처지고 있습니다.',
+        '올인 실패 후 갈 곳이 없는 ${cheesePlayer.name} 선수입니다.',
+      ];
+      return pickUnused(texts);
+    }
+
+    // 공격형 vs 수비형 매치업 코멘터리
+    if (lineCount > 15 && lineCount <= 40) {
+      final homeIsAgg = homeStyle == BuildStyle.aggressive;
+      final awayIsAgg = awayStyle == BuildStyle.aggressive;
+      final homeIsDef = homeStyle == BuildStyle.defensive;
+      final awayIsDef = awayStyle == BuildStyle.defensive;
+
+      if ((homeIsAgg && awayIsDef) || (awayIsAgg && homeIsDef)) {
+        final aggPlayer = homeIsAgg ? homePlayer : awayPlayer;
+        final defPlayer = homeIsAgg ? awayPlayer : homePlayer;
+        if (_random.nextDouble() < 0.3) {
+          final texts = [
+            '${aggPlayer.name} 선수의 공격 타이밍이 다가오고 있습니다!',
+            '${defPlayer.name} 선수, 수비 태세를 잘 갖추고 있는데요.',
+            '공격과 수비의 대결! 이 타이밍이 중요합니다!',
+            '${aggPlayer.name} 선수가 먼저 움직이느냐가 관건이겠네요.',
+          ];
+          return pickUnused(texts);
+        }
+      }
     }
 
     // 병력 차이 크면
@@ -1078,21 +1187,21 @@ class MatchSimulationService {
       return pickUnused(texts);
     }
 
-    // 접전
+    // 비슷한 병력 (빌드 구간 - 전투 아닌 운영 상황)
     if (armyDiff < 10 && lineCount > 30) {
       final texts = [
-        '병력들이 돌고 도는 눈치싸움이 치열합니다.',
-        '양쪽 다 팽팽한 접전을 이어가고 있네요.',
-        '어느 쪽도 쉽게 물러서지 않습니다!',
-        '긴장감 넘치는 접전이 계속됩니다.',
-        '양 선수 한치의 양보도 없는 접전입니다!',
-        '미세한 차이가 승부를 가를 수 있는 상황이네요.',
-        '막상막하의 대결! 한 끗 차이 싸움입니다.',
+        '양 선수 비슷한 운영력을 보여주고 있습니다.',
+        '양측 모두 안정적으로 물량을 쌓아가고 있네요.',
         '서로 빈틈을 노리고 있는 모습이에요.',
         '누가 먼저 움직이느냐... 이 눈치싸움이 관건입니다.',
-        '정말 팽팽합니다. 양측 다 실수를 허용할 수 없어요.',
-        '한 번의 실수가 경기를 결정지을 수 있는 상황!',
         '운영력 대결이 계속되고 있습니다.',
+        '양 선수 서로를 견제하며 운영 중입니다.',
+        '조심스러운 움직임... 언제 터질지 모릅니다.',
+        '양측 최대한 손실을 줄이며 운영합니다.',
+        '맵 전체에 정적이 흐릅니다.',
+        '양 선수 물량 축적 중입니다.',
+        '누가 먼저 움직일 것인가... 눈치 싸움입니다.',
+        '양 선수 신중하게 운영 중입니다.',
       ];
       return pickUnused(texts);
     }
@@ -1144,6 +1253,438 @@ class MatchSimulationService {
 
     return null;
   }
+
+  // ==================== 빌드 매치업 해설 시스템 ====================
+
+  /// 양측 빌드 조합에 따른 해설 (초반 1회)
+  /// 빌드가 크게 갈렸을 때, 구체적 빌드명을 언급하는 해설
+  String? _getBuildMatchupCommentary({
+    required BuildType? homeBuildType,
+    required BuildType? awayBuildType,
+    required Player homePlayer,
+    required Player awayPlayer,
+  }) {
+    if (homeBuildType == null || awayBuildType == null) return null;
+
+    // ── 1. 특정 빌드쌍 해설 (양방향 검색) ──
+    final specific = _findSpecificMatchupTexts(
+      homeBuildType, awayBuildType,
+      homePlayer.name, awayPlayer.name,
+    );
+    if (specific != null && specific.isNotEmpty) {
+      return specific[_random.nextInt(specific.length)];
+    }
+
+    // ── 2. 스타일 기반 범용 해설 (빌드가 갈렸을 때) ──
+    final generic = _getGenericMatchupTexts(
+      homeBuildType, awayBuildType,
+      homePlayer, awayPlayer,
+    );
+    if (generic != null && generic.isNotEmpty) {
+      return generic[_random.nextInt(generic.length)];
+    }
+
+    return null;
+  }
+
+  /// 특정 빌드쌍 해설 검색
+  /// 공격자/수비자 관점 템플릿: {atk}=공격측 선수, {def}=수비측 선수,
+  /// {atkBuild}=공격측 빌드명, {defBuild}=수비측 빌드명
+  List<String>? _findSpecificMatchupTexts(
+    BuildType home, BuildType away,
+    String homeName, String awayName,
+  ) {
+    for (final rule in _buildMatchupRules) {
+      // 정방향: home=attacker, away=defender
+      if (rule.attackerIds.contains(home.id) && rule.defenderIds.contains(away.id)) {
+        return rule.texts.map((t) => t
+          .replaceAll('{atk}', homeName)
+          .replaceAll('{def}', awayName)
+          .replaceAll('{atkBuild}', home.koreanName)
+          .replaceAll('{defBuild}', away.koreanName)
+        ).toList();
+      }
+      // 역방향: away=attacker, home=defender
+      if (rule.attackerIds.contains(away.id) && rule.defenderIds.contains(home.id)) {
+        return rule.texts.map((t) => t
+          .replaceAll('{atk}', awayName)
+          .replaceAll('{def}', homeName)
+          .replaceAll('{atkBuild}', away.koreanName)
+          .replaceAll('{defBuild}', home.koreanName)
+        ).toList();
+      }
+    }
+    return null;
+  }
+
+  /// 스타일 기반 범용 해설
+  List<String>? _getGenericMatchupTexts(
+    BuildType home, BuildType away,
+    Player homePlayer, Player awayPlayer,
+  ) {
+    final homeStyle = home.parentStyle;
+    final awayStyle = away.parentStyle;
+    final homeName = home.koreanName;
+    final awayName = away.koreanName;
+    final hp = homePlayer.name;
+    final ap = awayPlayer.name;
+
+    // 치즈 vs 수비형
+    if (homeStyle == BuildStyle.cheese && awayStyle == BuildStyle.defensive) {
+      return [
+        '빌드가 갈렸습니다! $hp 선수 $homeName인데 $ap 선수가 피해없이 막을 수 있을까요?',
+        '$hp 선수 $homeName! $ap 선수 $awayName으로 가고 있는데 막아낼 수 있을지!',
+      ];
+    }
+    if (awayStyle == BuildStyle.cheese && homeStyle == BuildStyle.defensive) {
+      return [
+        '빌드가 갈렸습니다! $ap 선수 $awayName인데 $hp 선수가 피해없이 막을 수 있을까요?',
+        '$ap 선수 $awayName! $hp 선수 $homeName으로 가고 있는데 막아낼 수 있을지!',
+      ];
+    }
+
+    // 공격형 vs 수비형
+    if (homeStyle == BuildStyle.aggressive && awayStyle == BuildStyle.defensive) {
+      return [
+        '빌드가 갈렸는데요! $hp 선수 $homeName, $ap 선수는 $awayName! 이 공격을 버텨낼 수 있을까요!',
+        '$homeName vs $awayName! 공격과 수비의 대결, 타이밍이 관건입니다!',
+      ];
+    }
+    if (awayStyle == BuildStyle.aggressive && homeStyle == BuildStyle.defensive) {
+      return [
+        '빌드가 갈렸는데요! $ap 선수 $awayName, $hp 선수는 $homeName! 이 공격을 버텨낼 수 있을까요!',
+        '$awayName vs $homeName! 공격과 수비의 대결, 타이밍이 관건입니다!',
+      ];
+    }
+
+    // 치즈 vs 공격형 (양쪽 다 공격적)
+    if ((homeStyle == BuildStyle.cheese && awayStyle == BuildStyle.aggressive) ||
+        (awayStyle == BuildStyle.cheese && homeStyle == BuildStyle.aggressive)) {
+      return [
+        '양 선수 모두 공격적인 선택! $homeName vs $awayName, 불꽃 튀는 경기가 예상됩니다!',
+        '$hp 선수 $homeName! $ap 선수도 $awayName으로 맞불을 놓습니다!',
+      ];
+    }
+
+    // 공격 vs 공격
+    if (homeStyle == BuildStyle.aggressive && awayStyle == BuildStyle.aggressive) {
+      return [
+        '양 선수 모두 공격적입니다! $homeName vs $awayName, 초반부터 피 튀기는 싸움!',
+        '공격 빌드 맞대결! $hp 선수 $homeName, $ap 선수 $awayName!',
+      ];
+    }
+
+    // 상성 차이가 큰 경우 (±15 이상)
+    final adv = BuildMatchup.getBuildAdvantage(home, away);
+    if (adv.abs() >= 15) {
+      final favored = adv > 0 ? hp : ap;
+      final favoredBuild = adv > 0 ? homeName : awayName;
+      final underdogBuild = adv > 0 ? awayName : homeName;
+      return [
+        '빌드가 많이 갈렸는데요! $favoredBuild이 $underdogBuild 상대로 유리한 상황!',
+        '$favoredBuild vs $underdogBuild! $favored 선수에게 유리한 빌드 매치업인데요!',
+      ];
+    }
+
+    return null;
+  }
+
+  /// 특정 빌드쌍 해설 규칙 테이블
+  /// attackerIds: 공격/올인/주도권 측 빌드 ID 목록
+  /// defenderIds: 수비/확장/당하는 측 빌드 ID 목록
+  static final List<_BuildMatchupRule> _buildMatchupRules = [
+    // ==================== TvZ / ZvT ====================
+
+    // 저그 올인 vs 테란 확장 (원해처리올인 vs 벙커링/5팩골리앗/투배럭아카)
+    const _BuildMatchupRule(
+      attackerIds: {'zvt_1hatch_allin'},
+      defenderIds: {'tvz_bunker', 'tvz_3fac_goliath', 'tvz_sk', 'tvz_mech_drop'},
+      texts: [
+        '빌드가 갈렸습니다! {atk} 선수 {atkBuild}인데, {def} 선수가 피해없이 막을 수 있을까요?',
+        '{atk} 선수 올인입니다! {def} 선수 {defBuild}로 가고 있는데 큰 피해 없이 넘길 수 있을지!',
+        '{atkBuild}! {atk} 선수 승부수를 던졌는데요, {def} 선수가 큰 피해를 줄 수 있을까요?',
+        '{atk} 선수 초반부터 몰아붙입니다! {def} 선수 {defBuild}인데 수비가 관건이겠네요!',
+      ],
+    ),
+
+    // 테란 공격 vs 저그 확장 (2팩벌처/레이스견제 vs 미친저그/투해처리뮤탈/투해처리럴커)
+    const _BuildMatchupRule(
+      attackerIds: {'tvz_2fac_vulture', 'tvz_wraith'},
+      defenderIds: {'zvt_3hatch_mutal', 'zvt_2hatch_mutal', 'zvt_2hatch_lurker'},
+      texts: [
+        '빌드가 갈렸는데요! {atk} 선수 {atkBuild}, {def} 선수는 {defBuild}! 이 공격을 버텨낼 수 있을까요!',
+        '{atk} 선수가 {atkBuild}으로 왔습니다! {def} 선수 {defBuild}인데 초반 견제가 관건이겠네요!',
+        '{atkBuild} vs {defBuild}! {def} 선수 확장을 지킬 수 있을까요?',
+        '{atk} 선수 공격적인 선택! {def} 선수 {defBuild}로 배를 불리고 있는데 이 견제를 막아야 합니다!',
+      ],
+    ),
+
+    // 저그 확장 vs 테란 확장 (양쪽 운영, 긴 경기 예고)
+    const _BuildMatchupRule(
+      attackerIds: {'zvt_3hatch_mutal', 'zvt_2hatch_mutal', 'zvt_2hatch_lurker', 'zvt_hatch_spore'},
+      defenderIds: {'tvz_bunker', 'tvz_3fac_goliath', 'tvz_sk', 'tvz_mech_drop'},
+      // 미친저그도 운영 빌드 카테고리에 포함 (럴커 스킵하지만 멀티 운영은 함)
+      texts: [
+        '양 선수 모두 운영 체제! {atkBuild} vs {defBuild}, 긴 싸움이 예상됩니다!',
+        '양측 다 확장하며 배를 불리고 있습니다! 중후반 싸움이 관건이겠네요.',
+      ],
+    ),
+
+    // ==================== TvP / PvT ====================
+
+    // 프로토스 치즈 vs 테란 확장 (다크스윙/프록시다크 vs 팩더블/업테란) 극단적
+    const _BuildMatchupRule(
+      attackerIds: {'pvt_proxy_dark', 'pvt_dark_swing'},
+      defenderIds: {'tvp_double', 'tvp_1fac_gosu'},
+      texts: [
+        '빌드가 크게 갈렸습니다! {atk} 선수 {atkBuild}! {def} 선수가 읽고 대비할 수 있을까요?',
+        '{atkBuild}입니다! {def} 선수 {defBuild}로 가고 있는데, 디텍터 준비가 됐을지!',
+        '{atk} 선수 기습적인 선택! {def} 선수 확장 가는 상황에서 막아낼 수 있을까요!',
+      ],
+    ),
+
+    // 테란 레이스 올인 vs 프로토스 확장 극단적
+    const _BuildMatchupRule(
+      attackerIds: {'tvp_wraith_rush'},
+      defenderIds: {'pvt_1gate_obs', 'pvt_1gate_expand'},
+      texts: [
+        '{atk} 선수 {atkBuild}! {def} 선수가 대공 준비 되어 있을지가 관건입니다!',
+        '레이스가 날아갑니다! {def} 선수 {defBuild}인데, 드라군 수가 충분할까요?',
+        '{atkBuild} vs {defBuild}! {def} 선수에겐 매우 위험한 상황!',
+      ],
+    ),
+
+    // 투게이트 질럿 압박 vs 테란 확장 극단적
+    const _BuildMatchupRule(
+      attackerIds: {'pvt_2gate_zealot'},
+      defenderIds: {'tvp_double', 'tvp_1fac_gosu'},
+      texts: [
+        '빌드가 갈렸는데요! {atk} 선수 {atkBuild}, {def} 선수는 {defBuild}! 이 압박을 버텨야 합니다!',
+        '{atkBuild} 타이밍! {def} 선수 확장 갔는데, 벙커가 제때 올라올 수 있을까요!',
+        '{atk} 선수 초반부터 밀어붙입니다! {def} 선수 {defBuild}인데 수비가 급하겠네요!',
+      ],
+    ),
+
+    // 페이크더블 vs 프로토스 확장 극단적
+    const _BuildMatchupRule(
+      attackerIds: {'tvp_fake_double'},
+      defenderIds: {'pvt_1gate_obs', 'pvt_1gate_expand'},
+      texts: [
+        '{atk} 선수 {atkBuild}입니다! {def} 선수가 속을 수 있을까요?',
+        '더블인 줄 알았는데 {atkBuild}! {def} 선수 {defBuild}인데 이걸 읽었느냐가 관건!',
+        '{atk} 선수 교묘한 선택! {def} 선수 안심하고 확장 갔다가 큰일 날 수 있습니다!',
+      ],
+    ),
+
+    // 양쪽 확장 (팩더블/업테란/원팩드랍 vs 23넥서스/19넥서스) 장기전
+    const _BuildMatchupRule(
+      attackerIds: {'tvp_double', 'tvp_1fac_gosu', 'tvp_1fac_drop'},
+      defenderIds: {'pvt_1gate_obs', 'pvt_1gate_expand'},
+      texts: [
+        '양 선수 모두 안정적인 운영! {atkBuild} vs {defBuild}, 중후반 싸움이 될 것 같습니다.',
+        '양쪽 다 확장하며 경기를 풀어갑니다. 긴 호흡의 경기가 예상됩니다!',
+        '{atkBuild} vs {defBuild}! 양 선수 운영으로 가면서 후반 한타가 관건이겠네요.',
+      ],
+    ),
+
+    // ==================== TvT ====================
+
+    // 프록시배럭 vs 확장/밸런스 극단적
+    const _BuildMatchupRule(
+      attackerIds: {'tvt_proxy'},
+      defenderIds: {'tvt_cc_first', 'tvt_2rax', 'tvt_vulture_harass'},
+      texts: [
+        '{atk} 선수 {atkBuild}! {def} 선수가 스카웃할 수 있을까요?',
+        '프록시입니다! {def} 선수 {defBuild}로 가는데, 이 기습을 막지 못하면 큰일입니다!',
+        '{atkBuild} vs {defBuild}! {def} 선수 스카우팅이 관건입니다!',
+      ],
+    ),
+
+    // 공격형 vs 원배럭확장 극단적
+    const _BuildMatchupRule(
+      attackerIds: {'tvt_1fac_push', 'tvt_2fac', 'tvt_wraith_cloak'},
+      defenderIds: {'tvt_cc_first'},
+      texts: [
+        '빌드가 갈렸습니다! {atk} 선수 {atkBuild}, {def} 선수는 {defBuild}! 이 공격을 넘겨야 합니다!',
+        '{atkBuild} vs {defBuild}! {def} 선수 확장 갔는데 이 타이밍을 버텨낼 수 있을지!',
+        '{atk} 선수 공격적입니다! {def} 선수 원배럭 확장인데, 수비가 급하겠네요!',
+      ],
+    ),
+
+    // 양쪽 공격 (원팩선공/투팩/클로킹레이스) 극단적
+    const _BuildMatchupRule(
+      attackerIds: {'tvt_1fac_push', 'tvt_2fac', 'tvt_wraith_cloak'},
+      defenderIds: {'tvt_1fac_push', 'tvt_2fac', 'tvt_wraith_cloak'},
+      texts: [
+        '양 선수 모두 공격적! {atkBuild} vs {defBuild}, 초반부터 불꽃 튀는 싸움!',
+        '양쪽 다 공격 빌드입니다! 누가 먼저 유리한 포지션을 잡느냐가 관건!',
+        '{atkBuild} vs {defBuild}! 치열한 메카닉 전쟁이 예상됩니다!',
+      ],
+    ),
+
+    // 양쪽 안정 (투배럭/벌처견제/원배럭확장) 장기전
+    const _BuildMatchupRule(
+      attackerIds: {'tvt_2rax', 'tvt_vulture_harass', 'tvt_cc_first'},
+      defenderIds: {'tvt_2rax', 'tvt_vulture_harass', 'tvt_cc_first'},
+      texts: [
+        '양 선수 모두 안정적인 운영! 탱크라인 싸움이 관건인 장기전이 될 것 같습니다.',
+        '{atkBuild} vs {defBuild}! 양쪽 다 안정적으로 가면서 후반을 노립니다.',
+        '양 선수 운영 체제! 시즈탱크 포지션 싸움이 승부를 가를 것 같습니다.',
+      ],
+    ),
+
+    // ==================== ZvP / PvZ ====================
+
+    // 5드론 저글링 vs 프로토스 극단적
+    const _BuildMatchupRule(
+      attackerIds: {'zvp_5drone'},
+      defenderIds: {'pvz_forge_cannon', 'pvz_nexus_first', 'pvz_corsair_reaver', 'pvz_2gate_zealot'},
+      texts: [
+        '{atk} 선수 {atkBuild}! {def} 선수가 피해없이 막을 수 있을까요?',
+        '올인입니다! {atk} 선수 {atkBuild}! {def} 선수 {defBuild}인데 큰 피해 없이 넘겨야 합니다!',
+        '{atkBuild}! 초반 승부수인데, {def} 선수가 읽고 대비했을지!',
+      ],
+    ),
+
+    // 프록시게이트 vs 저그 확장 극단적
+    const _BuildMatchupRule(
+      attackerIds: {'pvz_proxy_gate'},
+      defenderIds: {'zvp_3hatch_hydra', 'zvp_2hatch_mutal', 'zvp_scourge_defiler', 'zvp_973_hydra'},
+      texts: [
+        '{atk} 선수 {atkBuild}! {def} 선수가 스카우팅할 수 있을까요!',
+        '프록시입니다! {def} 선수 {defBuild}로 가고 있는데, 이걸 막지 못하면!',
+        '{atkBuild}! {atk} 선수 승부수를 던졌는데, {def} 선수 저글링 타이밍이 관건!',
+      ],
+    ),
+
+    // 저그 타이밍 vs 프로토스 확장 (5해처리히드라/973히드라 vs 포지더블/넥서스퍼스트) 극단적
+    const _BuildMatchupRule(
+      attackerIds: {'zvp_3hatch_hydra', 'zvp_973_hydra'},
+      defenderIds: {'pvz_forge_cannon', 'pvz_nexus_first'},
+      texts: [
+        '빌드가 갈렸는데요! {atk} 선수 {atkBuild}, {def} 선수는 {defBuild}! 이 타이밍을 버텨야 합니다!',
+        '{atkBuild} 타이밍! {def} 선수 확장 갔는데, 캐논과 질럿으로 막을 수 있을까요!',
+        '{atk} 선수 물량으로 밀어붙입니다! {def} 선수 {defBuild}인데 방어선 구축이 관건!',
+      ],
+    ),
+
+    // 프로토스 공격 vs 저그 확장 (투게이트질럿/커세어리버 vs 확장형 저그) 극단적
+    const _BuildMatchupRule(
+      attackerIds: {'pvz_2gate_zealot', 'pvz_corsair_reaver'},
+      defenderIds: {'zvp_3hatch_hydra', 'zvp_scourge_defiler', 'zvp_2hatch_mutal'},
+      texts: [
+        '빌드가 갈렸습니다! {atk} 선수 {atkBuild}인데, {def} 선수 확장 가는 상황!',
+        '{atkBuild} vs {defBuild}! {atk} 선수가 초반에 유리한 포지션을 잡을 수 있을지!',
+        '{atk} 선수 공격적인 선택! {def} 선수 {defBuild}인데, 이 압박을 견뎌야 합니다!',
+      ],
+    ),
+
+    // 양쪽 운영 (스커지디파일러/투해처리뮤탈 vs 포지더블/넥서스퍼스트) 장기전
+    const _BuildMatchupRule(
+      attackerIds: {'zvp_scourge_defiler', 'zvp_2hatch_mutal'},
+      defenderIds: {'pvz_forge_cannon', 'pvz_nexus_first'},
+      texts: [
+        '양 선수 모두 운영 체제! {atkBuild} vs {defBuild}, 긴 싸움이 예상됩니다!',
+        '양쪽 다 안정적으로 경기를 풀어갑니다. 중후반 대군 싸움이 관건이겠네요.',
+        '{atkBuild} vs {defBuild}! 서로 배를 불리면서 후반을 노립니다.',
+      ],
+    ),
+
+    // ==================== ZvZ ====================
+
+    // 올인/치즈 vs 확장 (익스트랙터트릭/스피드링올인 vs 12해처리/3해처리히드라/오버풀) 극단적
+    const _BuildMatchupRule(
+      attackerIds: {'zvz_extractor', 'zvz_speedling'},
+      defenderIds: {'zvz_12hatch', 'zvz_3hatch_hydra', 'zvz_overpool'},
+      texts: [
+        '빌드가 크게 갈렸습니다! {atk} 선수 {atkBuild}! {def} 선수가 막을 수 있을까요?',
+        '{atkBuild}입니다! {def} 선수 {defBuild}인데, 이 러쉬를 버텨내야 합니다!',
+        '{atk} 선수 초반 승부수! {def} 선수 확장인데, 저글링 싸움이 관건!',
+      ],
+    ),
+
+    // 선풀/9풀 vs 12해처리 극단적
+    const _BuildMatchupRule(
+      attackerIds: {'zvz_pool_first', 'zvz_9pool'},
+      defenderIds: {'zvz_12hatch'},
+      texts: [
+        '빌드가 갈렸는데요! {atk} 선수 {atkBuild}, {def} 선수 {defBuild}! 초반 러쉬를 막아야 합니다!',
+        '{atkBuild} vs {defBuild}! {def} 선수에게 불리한 빌드 매치업인데 버텨낼 수 있을지!',
+        '{atk} 선수 빠른 풀! {def} 선수 해처리 퍼스트인데, 저글링 타이밍이 관건입니다!',
+      ],
+    ),
+
+    // 양쪽 러시 (선풀/9풀/스피드링올인) 극단적
+    const _BuildMatchupRule(
+      attackerIds: {'zvz_pool_first', 'zvz_9pool', 'zvz_speedling'},
+      defenderIds: {'zvz_pool_first', 'zvz_9pool', 'zvz_speedling'},
+      texts: [
+        '양 선수 모두 빠른 풀! 초반부터 저글링 싸움이 벌어집니다!',
+        '양쪽 다 공격적! {atkBuild} vs {defBuild}, 컨트롤 싸움이 승부를 가릅니다!',
+        '양 선수 풀 빌드 대결! 한 마리 차이로 승부가 갈릴 수 있습니다!',
+      ],
+    ),
+
+    // 양쪽 운영 (12해처리/오버풀/3해처리히드라) 장기전
+    const _BuildMatchupRule(
+      attackerIds: {'zvz_12hatch', 'zvz_overpool', 'zvz_3hatch_hydra'},
+      defenderIds: {'zvz_12hatch', 'zvz_overpool', 'zvz_3hatch_hydra'},
+      texts: [
+        '양 선수 모두 안정적인 운영! 뮤탈 싸움이 관건인 중후반전이 예상됩니다.',
+        '{atkBuild} vs {defBuild}! 양쪽 다 확장하며 긴 경기를 준비합니다.',
+        '양 선수 운영 체제! 공중 장악전이 승부를 가를 것 같습니다.',
+      ],
+    ),
+
+    // ==================== PvP ====================
+
+    // 치즈 vs 수비/밸런스 (다크올인/캐논러시/4게이트 vs 기어리버/투게이트드라군) 극단적
+    const _BuildMatchupRule(
+      attackerIds: {'pvp_dark_allin', 'pvp_cannon_rush', 'pvp_4gate_dragoon'},
+      defenderIds: {'pvp_1gate_robo', 'pvp_2gate_dragoon'},
+      texts: [
+        '빌드가 크게 갈렸습니다! {atk} 선수 {atkBuild}! {def} 선수가 막아낼 수 있을까요?',
+        '{atkBuild}입니다! {def} 선수 {defBuild}인데, 이 공격을 넘겨야 합니다!',
+        '{atk} 선수 승부수! {def} 선수 {defBuild}로 가고 있는데 대비가 됐을지!',
+      ],
+    ),
+
+    // 공격 vs 수비 (리버드랍/질럿러시 vs 기어리버) 극단적
+    const _BuildMatchupRule(
+      attackerIds: {'pvp_reaver_drop', 'pvp_zealot_rush'},
+      defenderIds: {'pvp_1gate_robo'},
+      texts: [
+        '빌드가 갈렸는데요! {atk} 선수 {atkBuild}, {def} 선수는 {defBuild}! 이 공격을 막아야 합니다!',
+        '{atkBuild} vs {defBuild}! {def} 선수가 리버로 방어에 성공할 수 있을지!',
+        '{atk} 선수 공격적인 선택! {def} 선수 기어리버인데, 수비가 관건이겠네요!',
+      ],
+    ),
+
+    // 양쪽 공격 (리버드랍/질럿러시/다크올인/4게이트/캐논러시) 극단적
+    const _BuildMatchupRule(
+      attackerIds: {'pvp_reaver_drop', 'pvp_zealot_rush', 'pvp_dark_allin', 'pvp_4gate_dragoon', 'pvp_cannon_rush'},
+      defenderIds: {'pvp_reaver_drop', 'pvp_zealot_rush', 'pvp_dark_allin', 'pvp_4gate_dragoon', 'pvp_cannon_rush'},
+      texts: [
+        '양 선수 모두 공격적! {atkBuild} vs {defBuild}, 초반부터 폭풍 같은 경기!',
+        '양쪽 다 올인에 가까운 선택! 누가 먼저 상대를 무너뜨리느냐의 싸움!',
+        '{atkBuild} vs {defBuild}! PvP다운 불꽃 튀는 경기가 예상됩니다!',
+      ],
+    ),
+
+    // 양쪽 안정 (투게이트드라군/기어리버) 장기전
+    const _BuildMatchupRule(
+      attackerIds: {'pvp_2gate_dragoon', 'pvp_1gate_robo'},
+      defenderIds: {'pvp_2gate_dragoon', 'pvp_1gate_robo'},
+      texts: [
+        '양 선수 모두 안정적인 운영! 드라군 라인전이 관건인 장기전이 예상됩니다.',
+        '{atkBuild} vs {defBuild}! 양쪽 다 안정적으로 가면서 리버 테크를 노립니다.',
+        '양 선수 운영 체제! 확장과 테크 경쟁이 승부를 가를 것 같습니다.',
+      ],
+    ),
+  ];
+
+  /// 빌드 매치업 해설 규칙 데이터 클래스
+  // (클래스 정의는 파일 하단에)
 
   // ==================== 빌드 반응 해설 시스템 ====================
 
@@ -1487,9 +2028,11 @@ class MatchSimulationService {
     // 충돌 이벤트 풀 (매치업별 종족 정보 + 맵 특성 + 능력치 전달)
     final attackerStats = isHomeAttacker ? homeStats : awayStats;
     final defenderStats = isHomeAttacker ? awayStats : homeStats;
+    final attackerStyle = isHomeAttacker ? homeStyle : awayStyle;
+    final defenderStyle = isHomeAttacker ? awayStyle : homeStyle;
     final events = BuildOrderData.getClashEvents(
-      homeStyle,
-      awayStyle,
+      attackerStyle,
+      defenderStyle,
       attackerRace: isHomeAttacker ? homeRaceStr : awayRaceStr,
       defenderRace: isHomeAttacker ? awayRaceStr : homeRaceStr,
       rushDistance: map?.rushDistance,
@@ -1570,6 +2113,51 @@ class MatchSimulationService {
       awayArmyChange = (awayArmyChange * (1.0 + phaseBonus / 25)).round();
     }
 
+    // 종족 상성 보정 (클래시 데미지)
+    // 1) TvZ 구조적 보정: 테란의 시즈모드/벙커 전투 이점 (+6%)
+    // 2) 맵별 종족 상성: tvz 설정값 기반 (증폭률 0.5)
+    if (!isZvZ) {
+      final raceBonus = map?.matchup.getWinRate(homePlayer.race, awayPlayer.race) ?? 50;
+
+      // TvZ 기본 보정 (53% 기준: 시뮬 엔진의 구조적 Z우위 상쇄)
+      double baseRaceFactor = 0;
+      final isTvZ = (homePlayer.race == Race.terran && awayPlayer.race == Race.zerg) ||
+                    (homePlayer.race == Race.zerg && awayPlayer.race == Race.terran);
+      if (isTvZ) {
+        baseRaceFactor = homePlayer.race == Race.terran ? 0.025 : -0.025;
+      }
+
+      // 맵별 종족 상성 (증폭률 0.35, 극단값 clamp ±0.10)
+      final mapRaceFactor = (raceBonus - 50) / 100 * 0.35;
+      final totalFactor = (baseRaceFactor + mapRaceFactor).clamp(-0.10, 0.10);
+
+      if (totalFactor != 0) {
+        homeArmyChange = (homeArmyChange * (1.0 - totalFactor)).round();
+        awayArmyChange = (awayArmyChange * (1.0 + totalFactor)).round();
+      }
+    }
+
+    // 공격형 타이밍 보너스: 클래시 초반(15줄 이내)에서 공격형이 공격자일 때 데미지 강화
+    // 수비형의 경제력이 발동하기 전 타이밍 공격의 위력을 반영
+    if (clashDuration <= 15) {
+      final attackerIsAggressive = isHomeAttacker
+          ? (homeStyle == BuildStyle.aggressive || homeStyle == BuildStyle.cheese)
+          : (awayStyle == BuildStyle.aggressive || awayStyle == BuildStyle.cheese);
+      final defenderIsDefensive = isHomeAttacker
+          ? (awayStyle == BuildStyle.defensive)
+          : (homeStyle == BuildStyle.defensive);
+      if (attackerIsAggressive && defenderIsDefensive) {
+        // 공격형 공격자의 피해 20% 감소, 수비형 수비자의 피해 15% 증가
+        if (isHomeAttacker) {
+          homeArmyChange = (homeArmyChange * 0.80).round();
+          awayArmyChange = (awayArmyChange * 1.15).round();
+        } else {
+          awayArmyChange = (awayArmyChange * 0.80).round();
+          homeArmyChange = (homeArmyChange * 1.15).round();
+        }
+      }
+    }
+
     // ========== 저그전 특별 규칙 (ZvZ) ==========
     // ZvZ에서는 이벤트 기반 데미지를 완전히 대체하여 ZvZ 전용 데미지만 적용
     if (isZvZ) {
@@ -1589,31 +2177,33 @@ class MatchSimulationService {
         // 컨트롤 차이 (저글링 컨트롤)
         final controlDiff = (homeControl - awayControl).toDouble();
 
+        // 공격력 차이 (저글링 물량/공격 타이밍)
+        final attackDiff = (homeStats.attack - awayStats.attack) * 0.2;
+
         // 수비력이 높으면 저글링 방어 성공 (선링 막기)
         final homeDefAdv = (homeStats.defense - awayStats.defense) / 300;
         final awayDefAdv = (awayStats.defense - homeStats.defense) / 300;
 
-        // 빌드 스타일에 따른 초반 우위 (수비형 반격력 고려)
+        // 빌드 스타일에 따른 초반 우위
         double buildAdvantage = 0;
         if (homeStyle == BuildStyle.aggressive && awayStyle == BuildStyle.defensive) {
-          buildAdvantage = 40; // 80→40: 수비형 성큰/스파인 방어 고려
+          buildAdvantage = 50;
         } else if (homeStyle == BuildStyle.defensive && awayStyle == BuildStyle.aggressive) {
-          buildAdvantage = -40;
+          buildAdvantage = -50;
         } else if (homeStyle == BuildStyle.cheese && awayStyle == BuildStyle.defensive) {
-          buildAdvantage = 60; // 치즈는 여전히 높은 이점
+          buildAdvantage = 25;
         } else if (homeStyle == BuildStyle.defensive && awayStyle == BuildStyle.cheese) {
-          buildAdvantage = -60;
+          buildAdvantage = -25;
         }
 
-        // 총합: 컨트롤 + 빌드상성 - 상대 수비력 보정
-        // 수비력이 높으면 공격형의 저글링 러시를 효과적으로 방어
+        // 총합: 컨트롤 + 공격력 + 빌드상성 - 수비력 보정
         // 양수 = 홈 유리, 음수 = 어웨이 유리
-        final defenseCounter = (awayStats.defense - homeStats.defense) * 0.5; // 0.3→0.5: 수비력 보정 강화
-        final totalDiff = controlDiff + buildAdvantage - defenseCounter;
+        final defenseCounter = (awayStats.defense - homeStats.defense) * 0.3;
+        final totalDiff = controlDiff + attackDiff + buildAdvantage - defenseCounter;
 
         // 60% 확률로 전투, 40% 포지셔닝
         if (_random.nextDouble() < 0.6) {
-          if (totalDiff > 150) {
+          if (totalDiff > 120) {
             final winTexts = [
               '${homePlayer.name} 선수, 저글링 컨트롤 압도!',
               '${homePlayer.name}, 저글링 서라운드 성공! 상대 병력 녹습니다!',
@@ -1623,7 +2213,7 @@ class MatchSimulationService {
             final damage = (2 + (homeTotal - awayTotal) / 3000).clamp(1, 3).round();
             awayArmyChange -= damage;
             homeArmyChange -= 1;
-          } else if (totalDiff < -150) {
+          } else if (totalDiff < -120) {
             final winTexts = [
               '${awayPlayer.name} 선수, 저글링 컨트롤 압도!',
               '${awayPlayer.name}, 저글링 서라운드 성공! 상대 병력 녹습니다!',
@@ -1644,8 +2234,8 @@ class MatchSimulationService {
             ];
             text = evenTexts[_random.nextInt(evenTexts.length)];
             const baseDamage = 2;
-            homeArmyChange -= (baseDamage - homeDefAdv * 0.5).clamp(1, 3).round();
-            awayArmyChange -= (baseDamage - awayDefAdv * 0.5).clamp(1, 3).round();
+            homeArmyChange -= (baseDamage - homeDefAdv * 0.3).clamp(1, 3).round();
+            awayArmyChange -= (baseDamage - awayDefAdv * 0.3).clamp(1, 3).round();
           }
         } else {
           // 비전투 이벤트 - 소규모 교전으로 양쪽 동일 피해
@@ -1692,20 +2282,20 @@ class MatchSimulationService {
         // 수비형은 멀티 운영으로 경제적 보상
         final homeIsDef = homeStyle == BuildStyle.defensive || homeStyle == BuildStyle.balanced;
         final awayIsDef = awayStyle == BuildStyle.defensive || awayStyle == BuildStyle.balanced;
-        homeResourceChange += _random.nextInt(30) + 10 + (homeIsDef ? 15 : 0);
-        awayResourceChange += _random.nextInt(30) + 10 + (awayIsDef ? 15 : 0);
-        // 수비형은 병력 보충도 유리 (해처리 추가 효과)
-        homeArmyChange -= _random.nextInt(2) - (homeIsDef ? 2 : 0);
-        awayArmyChange -= _random.nextInt(2) - (awayIsDef ? 2 : 0);
+        homeResourceChange += _random.nextInt(30) + 10 + (homeIsDef ? 8 : 0);
+        awayResourceChange += _random.nextInt(30) + 10 + (awayIsDef ? 8 : 0);
+        // 수비형은 병력 보충도 소폭 유리 (해처리 추가 효과)
+        homeArmyChange -= _random.nextInt(2) - (homeIsDef ? 1 : 0);
+        awayArmyChange -= _random.nextInt(2) - (awayIsDef ? 1 : 0);
       }
 
       // 뮤탈전 (clashDuration 30 이후)
       if (clashDuration >= 30) {
         // 매크로 능력치 차이 반영: 수비/운영형이 뮤탈 물량에서 유리
         final homeMacroAdv = homeStyle == BuildStyle.defensive || homeStyle == BuildStyle.balanced
-            ? homeStats.macro * 0.15 : 0.0;
+            ? homeStats.macro * 0.10 : 0.0;
         final awayMacroAdv = awayStyle == BuildStyle.defensive || awayStyle == BuildStyle.balanced
-            ? awayStats.macro * 0.15 : 0.0;
+            ? awayStats.macro * 0.10 : 0.0;
         final effectiveControlDiff = (homeControl - awayControl) +
                                      (homeTotal - awayTotal) / 7 +
                                      homeMacroAdv - awayMacroAdv;
@@ -1775,23 +2365,47 @@ class MatchSimulationService {
 
     // ZvZ 빌드 상성 이변은 메인 루프에서 우선 처리 (여기서는 생략)
 
-    // 치즈 빌드 + 초반 (25줄 이내) = 빠른 결정 확률
-    if (!decisive && (homeStyle == BuildStyle.cheese || awayStyle == BuildStyle.cheese) && lineCount <= 25) {
+    // 치즈 빌드 + 초반 (20줄 이내) = 빠른 결정 확률
+    if (!decisive && (homeStyle == BuildStyle.cheese || awayStyle == BuildStyle.cheese) && lineCount <= 20) {
       final cheesePlayer = homeStyle == BuildStyle.cheese ? homePlayer : awayPlayer;
       final cheeseStats = homeStyle == BuildStyle.cheese ? homeStats : awayStats;
-      final defenderStats = homeStyle == BuildStyle.cheese ? awayStats : homeStats;
+      final cheeseDefenderStats = homeStyle == BuildStyle.cheese ? awayStats : homeStats;
+      final cheeseDefenderStyle = homeStyle == BuildStyle.cheese ? awayStyle : homeStyle;
 
       // 공격력 vs 수비력 비교
       final attackPower = cheeseStats.attack + cheeseStats.sense;
-      final defensePower = defenderStats.defense + defenderStats.scout;
+      final defensePower = cheeseDefenderStats.defense + cheeseDefenderStats.scout;
 
-      // 공격력이 수비력보다 높으면 빠른 GG 확률 증가
-      final cheeseSuccessRate = ((attackPower - defensePower) / 1000 + 0.15).clamp(0.05, 0.35);
+      // 기본 성공률 4% per tick (이전: 15%)
+      double baseRate = 0.04;
+
+      // 수비 스타일에 따른 방어 보정
+      if (cheeseDefenderStyle == BuildStyle.defensive) {
+        baseRate *= 0.3; // DEF: 치즈 70% 감소 (하드카운터)
+      } else if (cheeseDefenderStyle == BuildStyle.balanced) {
+        baseRate *= 0.6; // BAL: 치즈 40% 감소
+      }
+      // AGG/CHE: 보정 없음 (취약)
+
+      final statModifier = (attackPower - defensePower) / 1500;
+      final cheeseSuccessRate = (baseRate + statModifier).clamp(0.01, 0.12);
 
       if (_random.nextDouble() < cheeseSuccessRate) {
         decisive = true;
         homeWinOverride = homeStyle == BuildStyle.cheese; // 치즈 성공한 쪽 승리
         text = '${cheesePlayer.name} 선수, 기습 성공! 상대 본진 초토화!';
+      }
+    }
+
+    // 치즈 실패 페널티 - 올인 후 경제 열세로 병력 감소 가속
+    if (!decisive && (homeStyle == BuildStyle.cheese || awayStyle == BuildStyle.cheese) && lineCount > 20) {
+      final isHomeCheese = homeStyle == BuildStyle.cheese;
+      // 치즈 플레이어는 line 20 이후 매 틱마다 병력 감소 (경제 없음)
+      final penalty = _random.nextInt(3) + 2; // 2~4 감소
+      if (isHomeCheese) {
+        homeArmyChange -= penalty;
+      } else {
+        awayArmyChange -= penalty;
       }
     }
 
@@ -2194,5 +2808,18 @@ class _BuildReactionRule {
   const _BuildReactionRule({
     required this.pattern,
     required this.reactions,
+  });
+}
+
+/// 빌드 매치업 해설 규칙 (특정 빌드쌍 → 해설)
+class _BuildMatchupRule {
+  final Set<String> attackerIds; // 공격/주도권 측 빌드 ID 집합
+  final Set<String> defenderIds; // 수비/확장 측 빌드 ID 집합
+  final List<String> texts; // {atk}, {def}, {atkBuild}, {defBuild} 플레이스홀더
+
+  const _BuildMatchupRule({
+    required this.attackerIds,
+    required this.defenderIds,
+    required this.texts,
   });
 }

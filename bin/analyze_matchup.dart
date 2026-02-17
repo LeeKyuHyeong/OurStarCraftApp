@@ -5,6 +5,7 @@
 import 'dart:math';
 import 'package:mystar/core/constants/build_orders.dart';
 import 'package:mystar/domain/models/enums.dart';
+import 'package:mystar/domain/models/game_map.dart';
 
 final _rng = Random(42);
 
@@ -121,19 +122,27 @@ void main(List<String> args) {
     final homeStats = generateRandomStats();
     final awayStats = generateRandomStats();
 
-    final homeStyle = determineBuildStyle(homeStats);
-    final awayStyle = determineBuildStyle(awayStats);
+    // 기본 맵 (분석용)
+    const analysisMap = GameMap(id: 'analysis', name: '분석맵');
+
+    // 통합 빌드 선택 (스코어링)
+    final homeBuild = BuildOrderData.getBuildOrder(
+        race: homeRace, vsRace: awayRace,
+        statValues: homeStats, map: analysisMap);
+    final awayBuild = BuildOrderData.getBuildOrder(
+        race: awayRace, vsRace: homeRace,
+        statValues: awayStats, map: analysisMap);
+
+    // BuildType에서 스타일 결정
+    final homeBuildType = homeBuild != null ? BuildType.getById(homeBuild.id) : null;
+    final awayBuildType = awayBuild != null ? BuildType.getById(awayBuild.id) : null;
+    final homeStyle = homeBuildType?.parentStyle ?? determineBuildStyle(homeStats);
+    final awayStyle = awayBuildType?.parentStyle ?? determineBuildStyle(awayStats);
 
     homeStyleCounts[homeStyle.koreanName] =
         (homeStyleCounts[homeStyle.koreanName] ?? 0) + 1;
     awayStyleCounts[awayStyle.koreanName] =
         (awayStyleCounts[awayStyle.koreanName] ?? 0) + 1;
-
-    // 빌드오더 선택
-    final homeBuild = BuildOrderData.getBuildOrder(
-        race: homeRace, vsRace: awayRace, preferredStyle: homeStyle);
-    final awayBuild = BuildOrderData.getBuildOrder(
-        race: awayRace, vsRace: homeRace, preferredStyle: awayStyle);
 
     if (homeBuild != null) {
       homeBuildCounts[homeBuild.name] =
@@ -160,10 +169,7 @@ void main(List<String> args) {
     if (awayBuild != null) matchTexts.addAll(awayBuild.steps.map((s) => s.text));
     perMatchBuildStepTexts.add(matchTexts.length);
 
-    // 빌드 타입 선택
-    final homeBuildType = determineBuildType(homeStats, matchup, homeStyle);
-    final awayBuildType =
-        determineBuildType(awayStats, reverseMatchup, awayStyle);
+    // 빌드 타입은 위에서 이미 결정됨 (homeBuildType, awayBuildType)
 
     if (homeBuildType != null) {
       homeBuildTypeCounts[homeBuildType.koreanName] =

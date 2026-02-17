@@ -277,41 +277,42 @@ enum BuildStyle {
 /// 세부 빌드 타입 (매치업별 구체적 빌드)
 enum BuildType {
   // ==================== TvZ 빌드 ====================
-  tvzBunkerDefense('tvz_bunker', 'TvZ', '벙커링', BuildStyle.defensive, ['defense', 'macro']),
+  tvzBunkerRush('tvz_bunker', 'TvZ', '벙커링', BuildStyle.aggressive, ['attack', 'control']),
   tvz2FactoryVulture('tvz_2fac_vulture', 'TvZ', '2팩 벌처', BuildStyle.aggressive, ['harass', 'control']),
-  tvzSKTerran('tvz_sk', 'TvZ', 'SK테란', BuildStyle.balanced, ['scout', 'macro']),
-  tvz3FactoryGoliath('tvz_3fac_goliath', 'TvZ', '3팩 골리앗', BuildStyle.defensive, ['defense', 'macro']),
-  tvzWraithHarass('tvz_wraith', 'TvZ', '레이스 견제', BuildStyle.aggressive, ['harass', 'strategy']),
+  tvzSKTerran('tvz_sk', 'TvZ', '투배럭 아카', BuildStyle.aggressive, ['control', 'macro']),
+  tvz3FactoryGoliath('tvz_3fac_goliath', 'TvZ', '5팩 골리앗', BuildStyle.defensive, ['defense', 'macro']),
+  tvzWraithHarass('tvz_wraith', 'TvZ', '레이스 견제', BuildStyle.aggressive, ['harass', 'control']),
   tvzMechDrop('tvz_mech_drop', 'TvZ', '메카닉 드랍', BuildStyle.balanced, ['harass', 'control']),
 
   // ==================== TvP 빌드 ====================
-  tvpDouble('tvp_double', 'TvP', '더블 커맨드', BuildStyle.defensive, ['macro', 'defense']),
+  tvpDouble('tvp_double', 'TvP', '팩더블', BuildStyle.defensive, ['macro', 'defense']),
   tvpFakeDouble('tvp_fake_double', 'TvP', '페이크 더블', BuildStyle.aggressive, ['attack', 'strategy']),
   tvp1FactDrop('tvp_1fac_drop', 'TvP', '원팩 드랍', BuildStyle.balanced, ['harass', 'control']),
-  tvp1FactGosu('tvp_1fac_gosu', 'TvP', '원팩 고수', BuildStyle.defensive, ['defense', 'strategy']),
+  tvp1FactGosu('tvp_1fac_gosu', 'TvP', '업테란', BuildStyle.defensive, ['defense', 'strategy']),
   tvpWraithRush('tvp_wraith_rush', 'TvP', '레이스 난사', BuildStyle.cheese, ['attack', 'harass']),
 
   // ==================== TvT 빌드 ====================
   tvt1FactPush('tvt_1fac_push', 'TvT', '원팩 선공', BuildStyle.aggressive, ['attack', 'control']),
   tvtProxy('tvt_proxy', 'TvT', '프록시 배럭', BuildStyle.cheese, ['attack', 'sense']),
-  tvt2Barracks('tvt_2rax', 'TvT', '투배럭', BuildStyle.defensive, ['defense', 'macro']),
-  tvt2Factory('tvt_2fac', 'TvT', '투팩', BuildStyle.balanced, ['macro', 'strategy']),
+  tvt2Barracks('tvt_2rax', 'TvT', '투배럭', BuildStyle.balanced, ['defense', 'macro']),
+  tvt2Factory('tvt_2fac', 'TvT', '투팩', BuildStyle.aggressive, ['attack', 'control']),
   tvtWraithCloak('tvt_wraith_cloak', 'TvT', '클로킹 레이스', BuildStyle.aggressive, ['harass', 'strategy']),
   tvtCCFirst('tvt_cc_first', 'TvT', '원배럭 확장', BuildStyle.defensive, ['macro', 'defense']),
   tvtVultureHarass('tvt_vulture_harass', 'TvT', '벌처 견제', BuildStyle.balanced, ['harass', 'control']),
 
   // ==================== ZvT 빌드 ====================
-  zvt3HatchMutal('zvt_3hatch_mutal', 'ZvT', '3해처리 뮤탈', BuildStyle.balanced, ['harass', 'control']),
-  zvt2HatchMutal('zvt_2hatch_mutal', 'ZvT', '투해처리 뮤탈', BuildStyle.balanced, ['harass', 'macro']),
+  zvt3HatchMutal('zvt_3hatch_mutal', 'ZvT', '미친 저그', BuildStyle.aggressive, ['attack', 'macro']),
+  zvt2HatchMutal('zvt_2hatch_mutal', 'ZvT', '투해처리 뮤탈', BuildStyle.aggressive, ['harass', 'control']),
   zvt2HatchLurker('zvt_2hatch_lurker', 'ZvT', '투해처리 럴커', BuildStyle.defensive, ['defense', 'strategy']),
-  zvtHatchSpore('zvt_hatch_spore', 'ZvT', '해처리 스포', BuildStyle.defensive, ['defense', 'scout']),
+  zvtHatchSpore('zvt_hatch_spore', 'ZvT', '해처리 스포', BuildStyle.defensive, ['defense', 'macro']),
   zvt1HatchAllIn('zvt_1hatch_allin', 'ZvT', '원해처리 올인', BuildStyle.cheese, ['attack', 'control']),
 
   // ==================== ZvP 빌드 ====================
-  zvp3HatchHydra('zvp_3hatch_hydra', 'ZvP', '3해처리 히드라', BuildStyle.balanced, ['macro', 'defense']),
+  zvp3HatchHydra('zvp_3hatch_hydra', 'ZvP', '5해처리 히드라', BuildStyle.aggressive, ['macro', 'attack']),
   zvp2HatchMutal('zvp_2hatch_mutal', 'ZvP', '투해처리 뮤탈', BuildStyle.aggressive, ['harass', 'control']),
   zvpScourgeDefiler('zvp_scourge_defiler', 'ZvP', '스커지 디파일러', BuildStyle.defensive, ['strategy', 'defense']),
   zvp5DroneZergling('zvp_5drone', 'ZvP', '5드론 저글링', BuildStyle.cheese, ['attack', 'sense']),
+  zvp973Hydra('zvp_973_hydra', 'ZvP', '973 히드라', BuildStyle.aggressive, ['attack', 'control']),
 
   // ==================== ZvZ 빌드 ====================
   zvzPoolFirst('zvz_pool_first', 'ZvZ', '선풀', BuildStyle.aggressive, ['attack', 'control']),
@@ -325,25 +326,25 @@ enum BuildType {
   // ==================== PvT 빌드 ====================
   pvt2GateZealot('pvt_2gate_zealot', 'PvT', '투게이트 질럿', BuildStyle.aggressive, ['attack', 'control']),
   pvtDarkSwing('pvt_dark_swing', 'PvT', '다크 스윙', BuildStyle.cheese, ['strategy', 'harass']),
-  pvt1GateObserver('pvt_1gate_obs', 'PvT', '원게이트 옵저버', BuildStyle.defensive, ['defense', 'scout']),
+  pvt1GateObserver('pvt_1gate_obs', 'PvT', '23넥서스', BuildStyle.defensive, ['defense', 'macro']),
   pvtProxyDark('pvt_proxy_dark', 'PvT', '프록시 다크', BuildStyle.cheese, ['strategy', 'sense']),
-  pvt1GateExpansion('pvt_1gate_expand', 'PvT', '원게이트 확장', BuildStyle.balanced, ['macro', 'defense']),
+  pvt1GateExpansion('pvt_1gate_expand', 'PvT', '19넥서스', BuildStyle.balanced, ['macro', 'defense']),
 
   // ==================== PvZ 빌드 ====================
   pvz2GateZealot('pvz_2gate_zealot', 'PvZ', '투게이트 질럿', BuildStyle.aggressive, ['attack', 'control']),
-  pvzForgeCannon('pvz_forge_cannon', 'PvZ', '포지 캐논', BuildStyle.defensive, ['defense', 'macro']),
+  pvzForgeCannon('pvz_forge_cannon', 'PvZ', '포지더블', BuildStyle.defensive, ['defense', 'macro']),
   pvzNexusFirst('pvz_nexus_first', 'PvZ', '넥서스 퍼스트', BuildStyle.defensive, ['macro', 'defense']),
-  pvzCorsairReaver('pvz_corsair_reaver', 'PvZ', '커세어 리버', BuildStyle.balanced, ['harass', 'scout']),
+  pvzCorsairReaver('pvz_corsair_reaver', 'PvZ', '커세어 리버', BuildStyle.aggressive, ['harass', 'control']),
   pvzProxyGateway('pvz_proxy_gate', 'PvZ', '프록시 게이트', BuildStyle.cheese, ['attack', 'sense']),
 
   // ==================== PvP 빌드 ====================
   pvp2GateDragoon('pvp_2gate_dragoon', 'PvP', '투게이트 드라군', BuildStyle.balanced, ['control', 'attack']),
   pvpDarkAllIn('pvp_dark_allin', 'PvP', '다크 올인', BuildStyle.cheese, ['strategy', 'harass']),
-  pvp1GateRobo('pvp_1gate_robo', 'PvP', '원게이트 로보', BuildStyle.defensive, ['defense', 'strategy']),
+  pvp1GateRobo('pvp_1gate_robo', 'PvP', '기어리버', BuildStyle.defensive, ['defense', 'strategy']),
   pvpCannonRush('pvp_cannon_rush', 'PvP', '캐논 러시', BuildStyle.cheese, ['attack', 'sense']),
   pvpReaverDrop('pvp_reaver_drop', 'PvP', '리버 드랍', BuildStyle.aggressive, ['harass', 'control']),
   pvpZealotRush('pvp_zealot_rush', 'PvP', '질럿 러시', BuildStyle.aggressive, ['attack', 'control']),
-  pvpCorsairReaver('pvp_corsair_reaver', 'PvP', '코르세어 리버', BuildStyle.balanced, ['strategy', 'scout']);
+  pvp4GateDragoon('pvp_4gate_dragoon', 'PvP', '4게이트 드라군', BuildStyle.cheese, ['attack', 'control']);
 
   final String id;
   final String matchup;
@@ -352,6 +353,14 @@ enum BuildType {
   final List<String> keyStats; // 핵심 능력치 2개
 
   const BuildType(this.id, this.matchup, this.koreanName, this.parentStyle, this.keyStats);
+
+  /// ID로 BuildType 검색
+  static BuildType? getById(String id) {
+    for (final b in BuildType.values) {
+      if (b.id == id) return b;
+    }
+    return null;
+  }
 
   /// 매치업에 맞는 빌드 목록 반환
   static List<BuildType> getByMatchup(String matchup) {
@@ -416,7 +425,7 @@ class BuildMatchup {
     if (attacker == BuildType.zvzOverPool && defender == BuildType.zvzPoolFirst) return 10;
 
     // TvZ 특수 상성
-    if (attacker == BuildType.tvzBunkerDefense && defender == BuildType.zvt1HatchAllIn) return 25;
+    if (attacker == BuildType.tvzBunkerRush && defender == BuildType.zvt1HatchAllIn) return 25;
     if (attacker == BuildType.zvt3HatchMutal && defender == BuildType.tvz2FactoryVulture) return -10;
 
     // TvT 특수 상성
@@ -441,6 +450,8 @@ class BuildMatchup {
     // ZvP 특수 상성 (역방향)
     if (attacker == BuildType.zvp3HatchHydra && defender == BuildType.pvzForgeCannon) return 12;
     if (attacker == BuildType.zvp2HatchMutal && defender == BuildType.pvzNexusFirst) return 15;
+    if (attacker == BuildType.zvp973Hydra && defender == BuildType.pvzNexusFirst) return 20; // 타이밍 공격 vs 그리디
+    if (attacker == BuildType.zvp973Hydra && defender == BuildType.pvzForgeCannon) return -5; // 캐논 대비 시 불리
 
     // PvP 특수 상성
     if (attacker == BuildType.pvpDarkAllIn && defender == BuildType.pvp2GateDragoon) return 15;

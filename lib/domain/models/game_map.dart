@@ -17,7 +17,7 @@ class RaceMatchup {
   final int pvtProtossWinRate; // PvT에서 프로토스 승률 (0-100)
 
   const RaceMatchup({
-    this.tvzTerranWinRate = 50,
+    this.tvzTerranWinRate = 55,
     this.zvpZergWinRate = 50,
     this.pvtProtossWinRate = 50,
   });
