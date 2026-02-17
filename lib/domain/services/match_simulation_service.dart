@@ -1398,7 +1398,7 @@ class MatchSimulationService {
     // 저그 올인 vs 테란 확장 (원해처리올인 vs BBS/5팩골리앗/투배럭아카)
     const _BuildMatchupRule(
       attackerIds: {'zvt_1hatch_allin'},
-      defenderIds: {'tvz_bunker', 'tvz_3fac_goliath', 'tvz_sk', 'tvz_mech_drop'},
+      defenderIds: {'tvz_bunker', 'tvz_3fac_goliath', 'tvz_sk'},
       texts: [
         '빌드가 갈렸습니다! {atk} 선수 {atkBuild}인데, {def} 선수가 피해없이 막을 수 있을까요?',
         '{atk} 선수 올인입니다! {def} 선수 {defBuild}로 가고 있는데 큰 피해 없이 넘길 수 있을지!',
@@ -1407,9 +1407,9 @@ class MatchSimulationService {
       ],
     ),
 
-    // 테란 공격 vs 저그 확장 (2팩벌처/레이스견제 vs 미친저그/투해처리뮤탈/투해처리럴커)
+    // 테란 공격 vs 저그 확장 (2팩벌처 vs 미친저그/투해처리뮤탈/투해처리럴커)
     const _BuildMatchupRule(
-      attackerIds: {'tvz_2fac_vulture', 'tvz_wraith'},
+      attackerIds: {'tvz_2fac_vulture'},
       defenderIds: {'zvt_3hatch_mutal', 'zvt_2hatch_mutal', 'zvt_2hatch_lurker'},
       texts: [
         '빌드가 갈렸는데요! {atk} 선수 {atkBuild}, {def} 선수는 {defBuild}! 이 공격을 버텨낼 수 있을까요!',
@@ -1421,8 +1421,8 @@ class MatchSimulationService {
 
     // 저그 확장 vs 테란 확장 (양쪽 운영, 긴 경기 예고)
     const _BuildMatchupRule(
-      attackerIds: {'zvt_3hatch_mutal', 'zvt_2hatch_mutal', 'zvt_2hatch_lurker', 'zvt_hatch_spore'},
-      defenderIds: {'tvz_bunker', 'tvz_3fac_goliath', 'tvz_sk', 'tvz_mech_drop'},
+      attackerIds: {'zvt_3hatch_mutal', 'zvt_2hatch_mutal', 'zvt_2hatch_lurker'},
+      defenderIds: {'tvz_bunker', 'tvz_3fac_goliath', 'tvz_sk'},
       // 미친저그도 운영 빌드 카테고리에 포함 (럴커 스킵하지만 멀티 운영은 함)
       texts: [
         '양 선수 모두 운영 체제! {atkBuild} vs {defBuild}, 긴 싸움이 예상됩니다!',
@@ -1581,9 +1581,9 @@ class MatchSimulationService {
 
     // ==================== ZvZ ====================
 
-    // 올인/치즈 vs 확장 (익스트랙터트릭/스피드링올인 vs 12해처리/3해처리히드라/오버풀) 극단적
+    // 스피드링올인 vs 확장 (스피드링올인 vs 12해처리/3해처리히드라/오버풀) 극단적
     const _BuildMatchupRule(
-      attackerIds: {'zvz_extractor', 'zvz_speedling'},
+      attackerIds: {'zvz_speedling'},
       defenderIds: {'zvz_12hatch', 'zvz_3hatch_hydra', 'zvz_overpool'},
       texts: [
         '빌드가 크게 갈렸습니다! {atk} 선수 {atkBuild}! {def} 선수가 막을 수 있을까요?',

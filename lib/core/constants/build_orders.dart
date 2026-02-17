@@ -80,7 +80,7 @@ class BuildOrderData {
   static final Random _random = Random();
   // ==================== 테란 빌드 ====================
 
-  // TvZ 빌드들 (BuildType: tvzBunkerRush, tvz2FactoryVulture, tvzSKTerran, tvz3FactoryGoliath, tvzWraithHarass, tvzMechDrop)
+  // TvZ 빌드들 (BuildType: tvzBunkerRush, tvz2FactoryVulture, tvzSKTerran, tvz3FactoryGoliath)
   // BBS = 공격형, 투배럭 아카 = 공격형 (마린메딕 멀티 어택), 5팩 골리앗 = 수비형
   static const terranVsZergBuilds = [
     // 1. BBS (tvzBunkerRush - Aggressive, 초반 올인)
@@ -182,55 +182,6 @@ class BuildOrderData {
       ],
     ),
 
-    // 5. 레이스 견제 (tvzWraithHarass - Aggressive)
-    BuildOrder(
-      id: 'tvz_wraith',
-      name: '레이스 견제',
-      race: 'T',
-      vsRace: 'Z',
-      style: BuildStyle.aggressive,
-      steps: [
-        BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
-        BuildStep(line: 3, text: '{player} 선수 마린 생산!', myArmy: 2, myResource: -5),
-        BuildStep(line: 6, text: '{player} 선수 팩토리 건설!', myResource: -20),
-        BuildStep(line: 10, text: '{player} 선수 벌처 생산!', myArmy: 3, myResource: -8),
-        BuildStep(line: 14, text: '{player} 선수 스타포트 건설!', myResource: -25),
-        BuildStep(line: 18, text: '{player} 선수 레이스 생산!', stat: 'harass', myArmy: 4, myResource: -15),
-        BuildStep(line: 22, text: '{player}, 레이스로 오버로드 사냥!', stat: 'harass', enemyArmy: -4),
-        BuildStep(line: 26, text: '{player}, 서플라이 블락!', stat: 'strategy', enemyResource: -20),
-        BuildStep(line: 30, text: '{player} 선수 앞마당 확장!', stat: 'macro', myResource: -30),
-        BuildStep(line: 38, text: '{player}, 레이스 추가 생산!', myArmy: 4, myResource: -15),
-        BuildStep(line: 45, text: '{player}, 일꾼 라인 견제!', stat: 'harass', enemyResource: -25),
-        BuildStep(line: 55, text: '{player} 선수 클로킹 연구!', stat: 'strategy', myResource: -20),
-        BuildStep(line: 65, text: '{player}, 클로킹 레이스 투입!', stat: 'harass', enemyResource: -30, isClash: true),
-      ],
-    ),
-
-    // 6. 메카닉 드랍 (tvzMechDrop - Balanced)
-    BuildOrder(
-      id: 'tvz_mech_drop',
-      name: '메카닉 드랍',
-      race: 'T',
-      vsRace: 'Z',
-      style: BuildStyle.balanced,
-      steps: [
-        BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
-        BuildStep(line: 3, text: '{player} 선수 마린 생산!', myArmy: 2, myResource: -5),
-        BuildStep(line: 6, text: '{player} 선수 팩토리 건설!', myResource: -20),
-        BuildStep(line: 10, text: '{player} 선수 벌처 생산!', myArmy: 4, myResource: -10),
-        BuildStep(line: 14, text: '{player}, 벌처로 맵 장악!', stat: 'harass'),
-        BuildStep(line: 18, text: '{player} 선수 앞마당 확장!', stat: 'macro', myResource: -30),
-        BuildStep(line: 22, text: '{player} 선수 스타포트 건설!', myResource: -25),
-        BuildStep(line: 28, text: '{player} 선수 시즈탱크 생산!', myArmy: 5, myResource: -15),
-        BuildStep(line: 32, text: '{player}, 드랍십 생산!', myArmy: 2, myResource: -15),
-        BuildStep(line: 38, text: '{player}, 탱크 드랍 준비!', stat: 'control'),
-        BuildStep(line: 42, text: '{player}, 탱크 드랍 출발!', stat: 'harass'),
-        BuildStep(line: 46, text: '{player} 선수 탱크 드랍 성공!', stat: 'control', enemyArmy: -8, enemyResource: -25),
-        BuildStep(line: 55, text: '{player} 선수 추가 드랍!', stat: 'harass', enemyResource: -20),
-        BuildStep(line: 65, text: '{player}, 드랍십 2대 운용!', myArmy: 3, myResource: -15),
-        BuildStep(line: 80, text: '{player} 선수 멀티 드랍으로 압박!', stat: 'harass', isClash: true),
-      ],
-    ),
   ];
 
   // TvP 빌드들 (BuildType: tvpDouble, tvpFakeDouble, tvp1FactDrop, tvp1FactGosu)
@@ -504,7 +455,7 @@ class BuildOrderData {
 
   // ==================== 저그 빌드 ====================
 
-  // ZvT 빌드들 (BuildType: zvt3HatchMutal(미친저그), zvt2HatchMutal, zvt2HatchLurker, zvtHatchSpore, zvt1HatchAllIn)
+  // ZvT 빌드들 (BuildType: zvt3HatchMutal(미친저그), zvt2HatchMutal, zvt2HatchLurker, zvt1HatchAllIn)
   static const zergVsTerranBuilds = [
     // 1. 미친 저그 (zvt3HatchMutal - Aggressive)
     // 럴커/디파일러 스킵 → 뮤탈 견제 후 울트라리스크 직행. 현 메타 공격형
@@ -583,31 +534,7 @@ class BuildOrderData {
       ],
     ),
 
-    // 4. 해처리 스포어 (zvtHatchSpore - Defensive)
-    BuildOrder(
-      id: 'zvt_hatch_spore',
-      name: '해처리 스포',
-      race: 'Z',
-      vsRace: 'T',
-      style: BuildStyle.defensive,
-      steps: [
-        BuildStep(line: 1, text: '{player} 선수 해처리 건설합니다.', myResource: -10),
-        BuildStep(line: 4, text: '{player} 선수 스포닝풀 건설!', myResource: -15),
-        BuildStep(line: 8, text: '{player} 선수 앞마당 해처리 건설!', stat: 'macro', myResource: -30),
-        BuildStep(line: 12, text: '{player} 선수 저글링 생산!', myArmy: 4, myResource: -5),
-        BuildStep(line: 16, text: '{player}, 스포어 콜로니 건설!', stat: 'defense', myResource: -10),
-        BuildStep(line: 20, text: '{player}, 3해처리 운영!', stat: 'macro', myResource: -30),
-        BuildStep(line: 26, text: '{player} 선수 히드라덴 건설!', myResource: -15),
-        BuildStep(line: 32, text: '{player} 선수 히드라리스크 생산!', myArmy: 8, myResource: -20),
-        BuildStep(line: 40, text: '{player} 선수 레어 건설!', myResource: -20),
-        BuildStep(line: 50, text: '{player}, 럴커 변태!', stat: 'strategy', myArmy: 5, myResource: -15),
-        BuildStep(line: 60, text: '{player} 선수 4번째 확장!', stat: 'macro', myResource: -30),
-        BuildStep(line: 75, text: '{player} 선수 하이브 건설!', myResource: -25),
-        BuildStep(line: 90, text: '{player}, 디파일러 생산!', stat: 'strategy', myArmy: 3, myResource: -15),
-      ],
-    ),
-
-    // 5. 원해처리 올인 (zvt1HatchAllIn - Cheese)
+    // 4. 원해처리 올인 (zvt1HatchAllIn - Cheese)
     BuildOrder(
       id: 'zvt_1hatch_allin',
       name: '원해처리 올인',
@@ -745,7 +672,7 @@ class BuildOrderData {
     ),
   ];
 
-  // ZvZ 빌드들 (BuildType: zvzPoolFirst, zvz9Pool, zvz12Hatch, zvzOverPool, zvzExtractor)
+  // ZvZ 빌드들 (BuildType: zvzPoolFirst, zvz9Pool, zvz12Hatch, zvzOverPool)
   static const zergVsZergBuilds = [
     // 1. 선풀 (zvzPoolFirst - Aggressive)
     BuildOrder(
@@ -832,26 +759,7 @@ class BuildOrderData {
       ],
     ),
 
-    // 5. 익스트랙터 트릭 (zvzExtractor - Cheese)
-    BuildOrder(
-      id: 'zvz_extractor',
-      name: '익스트랙터 트릭',
-      race: 'Z',
-      vsRace: 'Z',
-      style: BuildStyle.cheese,
-      steps: [
-        BuildStep(line: 1, text: '{player} 선수 익스트랙터 건설!', stat: 'sense', myResource: -5),
-        BuildStep(line: 2, text: '{player}, 드론 생산 후 취소!', myResource: 3),
-        BuildStep(line: 4, text: '{player} 선수 4풀!', stat: 'attack', myResource: -15),
-        BuildStep(line: 7, text: '{player} 선수 저글링 생산!', myArmy: 6, myResource: -8),
-        BuildStep(line: 10, text: '{player}, 초반 올인!', stat: 'attack'),
-        BuildStep(line: 13, text: '{player}, 상대 드론 공격!', stat: 'attack', enemyResource: -20, isClash: true),
-        BuildStep(line: 17, text: '{player}, 저글링 추가!', myArmy: 6, myResource: -8),
-        BuildStep(line: 22, text: '{player} 선수 올인!', stat: 'attack', isClash: true, decisive: true),
-      ],
-    ),
-
-    // 6. 3해처리 히드라 (zvz3HatchHydra - Defensive)
+    // 5. 3해처리 히드라 (zvz3HatchHydra - Defensive)
     BuildOrder(
       id: 'zvz_3hatch_hydra',
       name: '3해처리 히드라',
@@ -1756,10 +1664,6 @@ class BuildOrderData {
       ClashEvent(text: '스팀팩 마린 메딕! 저글링 떼를 녹입니다!', favorsStat: 'attack', attackerArmy: -3, defenderArmy: -8),
       ClashEvent(text: '벌처 견제와 마린 메딕 푸시! 멀티 포인트 공격!', favorsStat: 'control', attackerArmy: -5, defenderArmy: -6, defenderResource: -20),
     ],
-    BuildType.tvzWraithHarass: [
-      ClashEvent(text: '레이스 오버로드 사냥! 서플라이 블락!', favorsStat: 'harass', attackerArmy: -2, defenderArmy: -6, defenderResource: -25),
-      ClashEvent(text: '클로킹 레이스 투입! 드론 학살 시작!', favorsStat: 'harass', attackerArmy: -3, defenderArmy: -4, defenderResource: -40),
-    ],
 
     // ZvT 빌드들
     BuildType.zvt3HatchMutal: [
@@ -1841,10 +1745,6 @@ class BuildOrderData {
       ClashEvent(text: '5팩 골리앗! 대공 진형 완성!', favorsStat: 'defense', attackerArmy: -4, defenderArmy: -12),
       ClashEvent(text: '골리앗 물량! 뮤탈 접근 불가!', favorsStat: 'defense', attackerArmy: -3, defenderArmy: -10, defenderResource: -15),
     ],
-    BuildType.tvzMechDrop: [
-      ClashEvent(text: '메카닉 드랍! 본진 후방 교란!', favorsStat: 'harass', attackerArmy: -5, defenderArmy: -8, defenderResource: -30),
-      ClashEvent(text: '탱크 드랍! 해처리 직접 타격!', favorsStat: 'harass', attackerArmy: -4, defenderArmy: -6, defenderResource: -25),
-    ],
     BuildType.tvpDouble: [
       ClashEvent(text: '팩더블! 팩토리 후 안정적 확장!', favorsStat: 'macro', attackerArmy: 3, defenderArmy: 0, attackerResource: 20),
       ClashEvent(text: '팩더블 운영! 탱크 라인으로 앞마당 보호!', favorsStat: 'defense', attackerArmy: 5, defenderArmy: -2, attackerResource: 10),
@@ -1868,10 +1768,6 @@ class BuildOrderData {
     BuildType.zvt2HatchMutal: [
       ClashEvent(text: '투해처리 뮤탈! 빠른 견제!', favorsStat: 'harass', attackerArmy: -3, defenderArmy: -5, defenderResource: -25),
       ClashEvent(text: '뮤탈 히트앤런! 터렛 전에 피해 줍니다!', favorsStat: 'harass', attackerArmy: -2, defenderArmy: -4, defenderResource: -30),
-    ],
-    BuildType.zvtHatchSpore: [
-      ClashEvent(text: '해처리 스포어! 안정적 수비 확보!', favorsStat: 'defense', attackerArmy: -2, defenderArmy: -8),
-      ClashEvent(text: '스포어로 공중 방어! 경제 확보!', favorsStat: 'macro', attackerArmy: 2, defenderArmy: 0, attackerResource: 15),
     ],
     BuildType.zvt1HatchAllIn: [
       ClashEvent(text: '원해처리 올인! 저글링 물량 돌격!', favorsStat: 'attack', attackerArmy: -10, defenderArmy: -15),
@@ -1941,10 +1837,6 @@ class BuildOrderData {
     BuildType.zvzOverPool: [
       ClashEvent(text: '오버풀! 경제와 병력의 균형!', favorsStat: 'macro', attackerArmy: 3, defenderArmy: -2, attackerResource: 10),
       ClashEvent(text: '오버풀 타이밍! 적절한 저글링 수!', favorsStat: 'control', attackerArmy: -4, defenderArmy: -6),
-    ],
-    BuildType.zvzExtractor: [
-      ClashEvent(text: '익스트랙터 트릭! 서플라이 이득!', favorsStat: 'sense', attackerArmy: 2, defenderArmy: 0),
-      ClashEvent(text: '빠른 가스! 스피드 저글링 준비!', favorsStat: 'sense', attackerArmy: -3, defenderArmy: -5, attackerResource: -5),
     ],
     // 누락 빌드 전용 이벤트 추가
     BuildType.tvtCCFirst: [

@@ -281,8 +281,6 @@ enum BuildType {
   tvz2FactoryVulture('tvz_2fac_vulture', 'TvZ', '2팩 벌처', BuildStyle.aggressive, ['harass', 'control']),
   tvzSKTerran('tvz_sk', 'TvZ', '투배럭 아카', BuildStyle.aggressive, ['control', 'macro']),
   tvz3FactoryGoliath('tvz_3fac_goliath', 'TvZ', '5팩 골리앗', BuildStyle.defensive, ['defense', 'macro']),
-  tvzWraithHarass('tvz_wraith', 'TvZ', '레이스 견제', BuildStyle.aggressive, ['harass', 'control']),
-  tvzMechDrop('tvz_mech_drop', 'TvZ', '메카닉 드랍', BuildStyle.balanced, ['harass', 'control']),
 
   // ==================== TvP 빌드 ====================
   tvpDouble('tvp_double', 'TvP', '팩더블', BuildStyle.defensive, ['macro', 'defense']),
@@ -303,7 +301,6 @@ enum BuildType {
   zvt3HatchMutal('zvt_3hatch_mutal', 'ZvT', '미친 저그', BuildStyle.aggressive, ['attack', 'macro']),
   zvt2HatchMutal('zvt_2hatch_mutal', 'ZvT', '투해처리 뮤탈', BuildStyle.aggressive, ['harass', 'control']),
   zvt2HatchLurker('zvt_2hatch_lurker', 'ZvT', '투해처리 럴커', BuildStyle.defensive, ['defense', 'strategy']),
-  zvtHatchSpore('zvt_hatch_spore', 'ZvT', '해처리 스포', BuildStyle.defensive, ['defense', 'macro']),
   zvt1HatchAllIn('zvt_1hatch_allin', 'ZvT', '원해처리 올인', BuildStyle.cheese, ['attack', 'control']),
 
   // ==================== ZvP 빌드 ====================
@@ -318,7 +315,6 @@ enum BuildType {
   zvz9Pool('zvz_9pool', 'ZvZ', '9풀', BuildStyle.aggressive, ['attack', 'control']),
   zvz12Hatch('zvz_12hatch', 'ZvZ', '12해처리', BuildStyle.defensive, ['macro', 'defense']),
   zvzOverPool('zvz_overpool', 'ZvZ', '오버풀', BuildStyle.balanced, ['macro', 'control']),
-  zvzExtractor('zvz_extractor', 'ZvZ', '익스트랙터 트릭', BuildStyle.cheese, ['attack', 'control']),
   zvz3HatchHydra('zvz_3hatch_hydra', 'ZvZ', '3해처리 히드라', BuildStyle.defensive, ['defense', 'macro']),
   zvzSpeedlingAllIn('zvz_speedling', 'ZvZ', '스피드링 올인', BuildStyle.aggressive, ['attack', 'control']),
 
