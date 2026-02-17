@@ -1395,7 +1395,7 @@ class MatchSimulationService {
   static final List<_BuildMatchupRule> _buildMatchupRules = [
     // ==================== TvZ / ZvT ====================
 
-    // 저그 올인 vs 테란 확장 (원해처리올인 vs 벙커링/5팩골리앗/투배럭아카)
+    // 저그 올인 vs 테란 확장 (원해처리올인 vs BBS/5팩골리앗/투배럭아카)
     const _BuildMatchupRule(
       attackerIds: {'zvt_1hatch_allin'},
       defenderIds: {'tvz_bunker', 'tvz_3fac_goliath', 'tvz_sk', 'tvz_mech_drop'},
@@ -1440,17 +1440,6 @@ class MatchSimulationService {
         '빌드가 크게 갈렸습니다! {atk} 선수 {atkBuild}! {def} 선수가 읽고 대비할 수 있을까요?',
         '{atkBuild}입니다! {def} 선수 {defBuild}로 가고 있는데, 디텍터 준비가 됐을지!',
         '{atk} 선수 기습적인 선택! {def} 선수 확장 가는 상황에서 막아낼 수 있을까요!',
-      ],
-    ),
-
-    // 테란 레이스 올인 vs 프로토스 확장 극단적
-    const _BuildMatchupRule(
-      attackerIds: {'tvp_wraith_rush'},
-      defenderIds: {'pvt_1gate_obs', 'pvt_1gate_expand'},
-      texts: [
-        '{atk} 선수 {atkBuild}! {def} 선수가 대공 준비 되어 있을지가 관건입니다!',
-        '레이스가 날아갑니다! {def} 선수 {defBuild}인데, 드라군 수가 충분할까요?',
-        '{atkBuild} vs {defBuild}! {def} 선수에겐 매우 위험한 상황!',
       ],
     ),
 

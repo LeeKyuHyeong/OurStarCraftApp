@@ -81,31 +81,28 @@ class BuildOrderData {
   // ==================== 테란 빌드 ====================
 
   // TvZ 빌드들 (BuildType: tvzBunkerRush, tvz2FactoryVulture, tvzSKTerran, tvz3FactoryGoliath, tvzWraithHarass, tvzMechDrop)
-  // 벙커링 = 공격형, 투배럭 아카 = 공격형 (마린메딕 멀티 어택), 5팩 골리앗 = 수비형
+  // BBS = 공격형, 투배럭 아카 = 공격형 (마린메딕 멀티 어택), 5팩 골리앗 = 수비형
   static const terranVsZergBuilds = [
-    // 1. 벙커링 (tvzBunkerRush - Aggressive)
+    // 1. BBS (tvzBunkerRush - Aggressive, 초반 올인)
     BuildOrder(
       id: 'tvz_bunker',
-      name: '벙커링',
+      name: 'BBS',
       race: 'T',
       vsRace: 'Z',
       style: BuildStyle.aggressive,
       steps: [
         BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
-        BuildStep(line: 3, text: '{player} 선수 마린 생산 시작!', myArmy: 2, myResource: -5),
-        BuildStep(line: 5, text: '{player} 선수 서플라이 건설!', myResource: -8),
-        BuildStep(line: 7, text: '{player} 선수 정찰 SCV 출발!', stat: 'scout'),
-        BuildStep(line: 10, text: '{player} 선수 벙커 건설!', stat: 'defense', myArmy: 3, myResource: -15),
-        BuildStep(line: 15, text: '{player} 선수 팩토리 건설!', myResource: -20),
-        BuildStep(line: 20, text: '{player} 선수 앞마당 확장!', stat: 'macro', myResource: -30),
-        BuildStep(line: 25, text: '{player} 선수 벌처 생산!', myArmy: 4, myResource: -10),
-        BuildStep(line: 30, text: '{player}, 마인 설치 완료!', stat: 'strategy', myResource: -5, enemyArmy: -4),
-        BuildStep(line: 35, text: '{player} 선수 시즈탱크 생산!', myArmy: 5, myResource: -15),
-        BuildStep(line: 40, text: '{player} 선수 스타포트 건설!', myResource: -25),
-        BuildStep(line: 50, text: '{player}, 사이언스 베슬 생산!', myArmy: 2, myResource: -20),
-        BuildStep(line: 60, text: '{player} 선수 3번째 멀티 확장!', stat: 'macro', myResource: -30),
-        BuildStep(line: 80, text: '{player}, 탱크 골리앗 조합 완성!', stat: 'macro', myArmy: 15, myResource: -40),
-        BuildStep(line: 100, text: '{player} 선수 최대 서플라이 도달!', stat: 'macro', myArmy: 20, myResource: -50),
+        BuildStep(line: 3, text: '{player} 선수 두 번째 배럭 올립니다!', myResource: -10),
+        BuildStep(line: 5, text: '{player} 선수 서플라이 디팟!', myResource: -8),
+        BuildStep(line: 7, text: '{player} 선수 마린 쏟아냅니다!', myArmy: 4, myResource: -8),
+        BuildStep(line: 10, text: '{player}, SCV와 마린 이동!', stat: 'attack'),
+        BuildStep(line: 13, text: '{player} 선수 상대 앞마당 벙커!', stat: 'control', myResource: -15),
+        BuildStep(line: 16, text: '{player}, 마린 벙커 투입!', stat: 'attack', myArmy: 3, myResource: -5),
+        BuildStep(line: 19, text: '{player} 선수 SCV 수리!', stat: 'control'),
+        BuildStep(line: 22, text: '{player}, 추가 마린 도착!', stat: 'attack', myArmy: 4, myResource: -5),
+        BuildStep(line: 26, text: '{player} 선수 벙커 압박 계속!', stat: 'control', isClash: true),
+        BuildStep(line: 30, text: '{player}, 마린 SCV 총공격!', stat: 'attack', myArmy: 3, isClash: true),
+        BuildStep(line: 35, text: '{player} 선수 끝장을 보려 합니다!', stat: 'attack', isClash: true, decisive: true),
       ],
     ),
 
@@ -236,7 +233,7 @@ class BuildOrderData {
     ),
   ];
 
-  // TvP 빌드들 (BuildType: tvpDouble, tvpFakeDouble, tvp1FactDrop, tvp1FactGosu, tvpWraithRush)
+  // TvP 빌드들 (BuildType: tvpDouble, tvpFakeDouble, tvp1FactDrop, tvp1FactGosu)
   static const terranVsProtossBuilds = [
     // 1. 팩더블 (tvpDouble - Defensive)
     // 현 메타 안전 정석. 팩토리 건설 후 앞마당 더블 확장
@@ -337,28 +334,6 @@ class BuildOrderData {
       ],
     ),
 
-    // 5. 레이스 난사 (tvpWraithRush - Cheese)
-    BuildOrder(
-      id: 'tvp_wraith_rush',
-      name: '레이스 난사',
-      race: 'T',
-      vsRace: 'P',
-      style: BuildStyle.cheese,
-      steps: [
-        BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
-        BuildStep(line: 3, text: '{player} 선수 마린 생산!', myArmy: 1, myResource: -3),
-        BuildStep(line: 5, text: '{player} 선수 팩토리 건설!', myResource: -20),
-        BuildStep(line: 8, text: '{player} 선수 스타포트 건설!', stat: 'attack', myResource: -25),
-        BuildStep(line: 12, text: '{player} 선수 레이스 생산!', stat: 'harass', myArmy: 4, myResource: -15),
-        BuildStep(line: 15, text: '{player}, 레이스 난사 시작!', stat: 'attack'),
-        BuildStep(line: 18, text: '{player}, 프로브 학살!', stat: 'harass', enemyResource: -30),
-        BuildStep(line: 22, text: '{player}, 레이스 추가 생산!', myArmy: 4, myResource: -15),
-        BuildStep(line: 24, text: '{player}, 컨트롤타워 부착!', myResource: -10),
-        BuildStep(line: 26, text: '{player} 선수 클로킹 연구!', stat: 'strategy', myResource: -20),
-        BuildStep(line: 30, text: '{player}, 클로킹 레이스 투입!', stat: 'harass', enemyResource: -25, enemyArmy: -3),
-        BuildStep(line: 35, text: '{player}, 상대 경제 초토화!', stat: 'attack', enemyResource: -35, isClash: true, decisive: true),
-      ],
-    ),
   ];
 
   // TvT 빌드들 (BuildType: tvt1FactPush, tvtProxy, tvt2Barracks, tvt2Factory, tvtWraithCloak)
@@ -1877,10 +1852,6 @@ class BuildOrderData {
     BuildType.tvp1FactGosu: [
       ClashEvent(text: '업테란! 업그레이드 차이로 전투 우위!', favorsStat: 'strategy', attackerArmy: -4, defenderArmy: -12),
       ClashEvent(text: '업그레이드 완료! 같은 병력이 다른 화력!', favorsStat: 'strategy', attackerArmy: -3, defenderArmy: -10, attackerResource: 10),
-    ],
-    BuildType.tvpWraithRush: [
-      ClashEvent(text: '레이스 난사! 프로브 라인 습격!', favorsStat: 'harass', attackerArmy: -3, defenderArmy: -4, defenderResource: -35),
-      ClashEvent(text: '클로킹 레이스! 감지기 없으면 끝!', favorsStat: 'harass', attackerArmy: -2, defenderArmy: -6, defenderResource: -30),
     ],
     BuildType.tvtProxy: [
       ClashEvent(text: '프록시 배럭 들켜버렸습니다!', favorsStat: 'sense', attackerArmy: -8, defenderArmy: -3),
@@ -3707,7 +3678,7 @@ class BuildOrderData {
   /// 빌드 이름이 포함된 이벤트 텍스트 필터링 (해당 빌드가 아니면 제외)
   static const _buildNameKeywords = [
     'SK테란', '원해처리', '3해처리', '투해처리', '2팩벌처', '3팩골리앗',
-    '레이스 난사', '프록시 배럭',
+    'BBS', '프록시 배럭',
   ];
 
   /// 빌드의 스텝 텍스트에서 유닛 키워드를 추출

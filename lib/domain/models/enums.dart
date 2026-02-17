@@ -277,7 +277,7 @@ enum BuildStyle {
 /// 세부 빌드 타입 (매치업별 구체적 빌드)
 enum BuildType {
   // ==================== TvZ 빌드 ====================
-  tvzBunkerRush('tvz_bunker', 'TvZ', '벙커링', BuildStyle.aggressive, ['attack', 'control']),
+  tvzBunkerRush('tvz_bunker', 'TvZ', 'BBS', BuildStyle.aggressive, ['attack', 'control']),
   tvz2FactoryVulture('tvz_2fac_vulture', 'TvZ', '2팩 벌처', BuildStyle.aggressive, ['harass', 'control']),
   tvzSKTerran('tvz_sk', 'TvZ', '투배럭 아카', BuildStyle.aggressive, ['control', 'macro']),
   tvz3FactoryGoliath('tvz_3fac_goliath', 'TvZ', '5팩 골리앗', BuildStyle.defensive, ['defense', 'macro']),
@@ -289,7 +289,6 @@ enum BuildType {
   tvpFakeDouble('tvp_fake_double', 'TvP', '페이크 더블', BuildStyle.aggressive, ['attack', 'strategy']),
   tvp1FactDrop('tvp_1fac_drop', 'TvP', '원팩 드랍', BuildStyle.balanced, ['harass', 'control']),
   tvp1FactGosu('tvp_1fac_gosu', 'TvP', '업테란', BuildStyle.defensive, ['defense', 'strategy']),
-  tvpWraithRush('tvp_wraith_rush', 'TvP', '레이스 난사', BuildStyle.cheese, ['attack', 'harass']),
 
   // ==================== TvT 빌드 ====================
   tvt1FactPush('tvt_1fac_push', 'TvT', '원팩 선공', BuildStyle.aggressive, ['attack', 'control']),
@@ -441,7 +440,6 @@ class BuildMatchup {
 
     // PvT 특수 상성 (역방향)
     if (attacker == BuildType.pvt2GateZealot && defender == BuildType.tvpDouble) return 15;
-    if (attacker == BuildType.pvt1GateObserver && defender == BuildType.tvpWraithRush) return 10;
 
     // PvZ 특수 상성
     if (attacker == BuildType.pvzForgeCannon && defender == BuildType.zvp5DroneZergling) return 30;
