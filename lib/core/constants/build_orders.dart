@@ -182,7 +182,7 @@ class BuildOrderData {
     ),
 
     // 5. 111 (tvz_111 - Balanced)
-    // 1배럭 1팩토리 1스타포트. 밸런스 운영
+    // 1배럭 1팩토리 1스타포트. 밸런스 운영. 탱크+벌처+레이스 유연 조합
     BuildOrder(
       id: 'tvz_111',
       name: '111',
@@ -194,15 +194,16 @@ class BuildOrderData {
         BuildStep(line: 3, text: '{player} 선수 마린 생산!', myArmy: 2, myResource: -5),
         BuildStep(line: 6, text: '{player} 선수 팩토리 건설!', myResource: -20),
         BuildStep(line: 10, text: '{player} 선수 스타포트 건설!', myResource: -25),
-        BuildStep(line: 14, text: '{player}, 시즈탱크 생산!', stat: 'defense', myArmy: 5, myResource: -15),
+        BuildStep(line: 14, text: '{player}, 시즈탱크 생산!', stat: 'defense', myArmy: 6, myResource: -15),
         BuildStep(line: 18, text: '{player} 선수 앞마당 확장!', stat: 'macro', myResource: -30),
-        BuildStep(line: 22, text: '{player}, 레이스 생산!', stat: 'harass', myArmy: 3, myResource: -15),
-        BuildStep(line: 28, text: '{player} 선수 레이스로 정찰!', stat: 'scout'),
+        BuildStep(line: 22, text: '{player}, 레이스 생산!', stat: 'harass', myArmy: 4, myResource: -15),
+        BuildStep(line: 28, text: '{player} 선수 레이스로 정찰! 상대 빌드 파악!', stat: 'scout', enemyArmy: -3),
         BuildStep(line: 34, text: '{player}, 벙커 건설로 앞마당 방어!', stat: 'defense', myResource: -15),
-        BuildStep(line: 42, text: '{player} 선수 팩토리 추가!', myResource: -20),
-        BuildStep(line: 50, text: '{player}, 탱크 추가 생산!', stat: 'defense', myArmy: 5, myResource: -15),
-        BuildStep(line: 60, text: '{player} 선수 3번째 멀티 확장!', stat: 'macro', myResource: -30),
-        BuildStep(line: 75, text: '{player}, 탱크 바이오닉 조합 완성!', stat: 'macro', myArmy: 12, myResource: -35),
+        BuildStep(line: 42, text: '{player}, 벌처 마인으로 상대 견제!', stat: 'harass', enemyArmy: -5, enemyResource: -10),
+        BuildStep(line: 50, text: '{player} 선수 탱크 벌처 전진!', stat: 'control', myArmy: 5, isClash: true),
+        BuildStep(line: 58, text: '{player}, 탱크 추가 생산!', stat: 'defense', myArmy: 8, myResource: -20),
+        BuildStep(line: 68, text: '{player} 선수 3번째 멀티 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 78, text: '{player}, 탱크 바이오닉 조합 완성! 전진!', stat: 'macro', myArmy: 15, myResource: -35, isClash: true),
       ],
     ),
 

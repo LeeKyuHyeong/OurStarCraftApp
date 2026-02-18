@@ -438,8 +438,14 @@ class BuildMatchup {
     if (a == BuildType.zvt1HatchAllIn && b == BuildType.tvzBunkerRush) return -15;
     if (a == BuildType.tvz4RaxEnbe && b == BuildType.zvt3HatchMutal) return 12;    // 선엔베 > 미친저그
     if (a == BuildType.zvt3HatchMutal && b == BuildType.tvz4RaxEnbe) return -12;
-    if (a == BuildType.tvz111 && b == BuildType.zvt2HatchLurker) return 10;        // 111 > 가드라
-    if (a == BuildType.zvt2HatchLurker && b == BuildType.tvz111) return -10;
+    if (a == BuildType.tvz111 && b == BuildType.zvt3HatchMutal) return 12;         // 111 탱크가 3해처리 느린 방어 타이밍 노림
+    if (a == BuildType.zvt3HatchMutal && b == BuildType.tvz111) return -12;
+    if (a == BuildType.tvz111 && b == BuildType.zvt2HatchMutal) return 8;          // 레이스 정찰로 뮤탈 타이밍 파악
+    if (a == BuildType.zvt2HatchMutal && b == BuildType.tvz111) return -8;
+    if (a == BuildType.tvz111 && b == BuildType.zvt2HatchLurker) return 12;        // 111 > 가드라
+    if (a == BuildType.zvt2HatchLurker && b == BuildType.tvz111) return -12;
+    if (a == BuildType.tvz111 && b == BuildType.zvt1HatchAllIn) return 8;          // 빠른 탱크로 530 타이밍 버팀
+    if (a == BuildType.zvt1HatchAllIn && b == BuildType.tvz111) return -8;
     if (a == BuildType.tvzValkyrie && b == BuildType.zvt2HatchMutal) return 15;    // 발리오닉 > 뮤탈
     if (a == BuildType.zvt2HatchMutal && b == BuildType.tvzValkyrie) return -15;
     if (a == BuildType.tvz2StarWraith && b == BuildType.zvt2HatchLurker) return 12; // 레이스 > 지상저그
