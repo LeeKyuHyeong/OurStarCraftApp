@@ -432,6 +432,8 @@ class BuildMatchup {
     if (a == BuildType.zvz12Hatch && b == BuildType.zvz9Pool) return -15;
     if (a == BuildType.zvzOverPool && b == BuildType.zvzPoolFirst) return 10;   // 오버풀 > 날먹
     if (a == BuildType.zvzPoolFirst && b == BuildType.zvzOverPool) return -10;
+    if (a == BuildType.zvz9Pool && b == BuildType.zvzOverPool) return 15;      // 9레어 > 오버풀
+    if (a == BuildType.zvzOverPool && b == BuildType.zvz9Pool) return -15;
 
     // TvZ/ZvT 특수 상성
     if (a == BuildType.tvzBunkerRush && b == BuildType.zvt1HatchAllIn) return 15;  // 벙커링 > 530뮤탈

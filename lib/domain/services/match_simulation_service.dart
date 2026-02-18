@@ -511,6 +511,13 @@ class MatchSimulationService {
         if (isZvZ) {
           final avgArmy = ((state.homeArmy + state.awayArmy) / 2).round();
           state = state.copyWith(homeArmy: avgArmy, awayArmy: avgArmy);
+          // AGG 초반 병력 보너스: 빠른 풀 투자 보상 (base 80 대비 의미있는 보너스)
+          if (homeStyle == BuildStyle.aggressive) {
+            state = state.copyWith(homeArmy: state.homeArmy + 8);
+          }
+          if (awayStyle == BuildStyle.aggressive) {
+            state = state.copyWith(awayArmy: state.awayArmy + 8);
+          }
         }
       }
 
@@ -2361,10 +2368,18 @@ class MatchSimulationService {
           buildAdvantage = 50;
         } else if (homeStyle == BuildStyle.defensive && awayStyle == BuildStyle.aggressive) {
           buildAdvantage = -50;
+        } else if (homeStyle == BuildStyle.aggressive && awayStyle == BuildStyle.balanced) {
+          buildAdvantage = 30; // 9레어 빠른 풀 타이밍 우위
+        } else if (homeStyle == BuildStyle.balanced && awayStyle == BuildStyle.aggressive) {
+          buildAdvantage = -30;
         } else if (homeStyle == BuildStyle.cheese && awayStyle == BuildStyle.defensive) {
           buildAdvantage = 25;
         } else if (homeStyle == BuildStyle.defensive && awayStyle == BuildStyle.cheese) {
           buildAdvantage = -25;
+        } else if (homeStyle == BuildStyle.cheese && awayStyle == BuildStyle.balanced) {
+          buildAdvantage = 15;
+        } else if (homeStyle == BuildStyle.balanced && awayStyle == BuildStyle.cheese) {
+          buildAdvantage = -15;
         }
 
         // 총합: 컨트롤 + 공격력 + 빌드상성 - 수비력 보정
@@ -2467,9 +2482,15 @@ class MatchSimulationService {
             ? homeStats.macro * 0.10 : 0.0;
         final awayMacroAdv = awayStyle == BuildStyle.defensive || awayStyle == BuildStyle.balanced
             ? awayStats.macro * 0.10 : 0.0;
+        // AGG 보정: 공격형은 뮤탈 컨트롤로 보상
+        final homeAggAdv = homeStyle == BuildStyle.aggressive
+            ? homeStats.control * 0.05 : 0.0;
+        final awayAggAdv = awayStyle == BuildStyle.aggressive
+            ? awayStats.control * 0.05 : 0.0;
         final effectiveControlDiff = (homeControl - awayControl) +
                                      (homeTotal - awayTotal) / 7 +
-                                     homeMacroAdv - awayMacroAdv;
+                                     homeMacroAdv - awayMacroAdv +
+                                     homeAggAdv - awayAggAdv;
         if (_random.nextDouble() < 0.35) { // 35% 확률로 뮤탈 매직
           if (effectiveControlDiff > 100) {
             final winTexts = [
@@ -2536,8 +2557,14 @@ class MatchSimulationService {
 
     // ZvZ 빌드 상성 이변은 메인 루프에서 우선 처리 (여기서는 생략)
 
-    // 치즈 빌드 + 초반 (20줄 이내) = 빠른 결정 확률
-    if (!decisive && (homeStyle == BuildStyle.cheese || awayStyle == BuildStyle.cheese) && lineCount <= 20) {
+    // 치즈 빌드 성공 윈도우 (다크 계열은 확장)
+    final cheeseBuildType = homeStyle == BuildStyle.cheese ? homeBuildType : awayBuildType;
+    final isDarkCheese = cheeseBuildType == BuildType.pvtDarkSwing ||
+                         cheeseBuildType == BuildType.pvpDarkAllIn;
+    final cheeseWindowMax = isDarkCheese ? 45 : 30;
+
+    // 치즈 빌드 + 윈도우 이내 = 빠른 결정 확률
+    if (!decisive && (homeStyle == BuildStyle.cheese || awayStyle == BuildStyle.cheese) && lineCount <= cheeseWindowMax) {
       final cheesePlayer = homeStyle == BuildStyle.cheese ? homePlayer : awayPlayer;
       final cheeseStats = homeStyle == BuildStyle.cheese ? homeStats : awayStats;
       final cheeseDefenderStats = homeStyle == BuildStyle.cheese ? awayStats : homeStats;
@@ -2559,7 +2586,10 @@ class MatchSimulationService {
       // AGG/CHE: 보정 없음 (취약)
 
       final statModifier = (attackPower - defensePower) / 1500;
-      final cheeseSuccessRate = (baseRate + statModifier).clamp(0.01, 0.12);
+      // line 20 이후 성공률 선형 감쇠
+      final windowDecay = lineCount <= 20 ? 1.0 :
+          ((cheeseWindowMax - lineCount) / (cheeseWindowMax - 20.0)).clamp(0.1, 1.0);
+      final cheeseSuccessRate = ((baseRate + statModifier) * windowDecay).clamp(0.01, 0.12);
 
       if (_random.nextDouble() < cheeseSuccessRate) {
         decisive = true;
@@ -2569,9 +2599,10 @@ class MatchSimulationService {
     }
 
     // 치즈 실패 페널티 - 올인 후 경제 열세로 병력 감소 가속
-    if (!decisive && (homeStyle == BuildStyle.cheese || awayStyle == BuildStyle.cheese) && lineCount > 20) {
+    // 페널티 시작점을 윈도우 종료 후로 이동 (기본 31, 다크 46)
+    if (!decisive && (homeStyle == BuildStyle.cheese || awayStyle == BuildStyle.cheese) && lineCount > cheeseWindowMax) {
       final isHomeCheese = homeStyle == BuildStyle.cheese;
-      // 치즈 플레이어는 line 20 이후 매 틱마다 병력 감소 (경제 없음)
+      // 치즈 플레이어는 윈도우 종료 후 매 틱마다 병력 감소 (경제 없음)
       final penalty = _random.nextInt(3) + 2; // 2~4 감소
       if (isHomeCheese) {
         homeArmyChange -= penalty;
