@@ -187,7 +187,7 @@ class BattleEventsData {
     BattleEvent(text: '양측 멀티가 바닥나고 있습니다!', myResource: -5, enemyResource: -5),
     BattleEvent(text: '{player}, 울트라 물량으로 최종 돌파!', stat: 'macro', myArmy: -10, enemyArmy: -30),
     BattleEvent(text: '{player} 선수 테란 본진 함락!', decisive: true),
-    BattleEvent(text: '{player}, 오버시어로 테란 본진 정찰! 뉴클리어 사일로 확인!', stat: 'scout', myArmy: -1),
+    BattleEvent(text: '{player}, 오버로드로 테란 본진 정찰! 뉴클리어 사일로 확인!', stat: 'scout', myArmy: -1),
   ];
 
   // ===== TvP (테란 vs 프로토스, 테란 시점) =====
@@ -386,7 +386,7 @@ class BattleEventsData {
     BattleEvent(text: '양측 멀티가 바닥나고 있습니다!', myResource: -5, enemyResource: -5),
     BattleEvent(text: '{player}, 저글링 물량으로 프로토스 멀티 초토화!', stat: 'macro', myArmy: -10, enemyArmy: -30),
     BattleEvent(text: '{player} 선수 프로토스 본진 함락!', decisive: true),
-    BattleEvent(text: '{player}, 오버시어로 프로토스 본진 정찰! 캐리어 생산 확인!', stat: 'scout', myArmy: -1),
+    BattleEvent(text: '{player}, 오버로드로 프로토스 본진 정찰! 캐리어 생산 확인!', stat: 'scout', myArmy: -1),
   ];
 
   // ===== PvZ (프로토스 vs 저그, 프로토스 시점) =====

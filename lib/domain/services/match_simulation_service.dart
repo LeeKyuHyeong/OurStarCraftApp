@@ -121,6 +121,41 @@ class MatchSimulationService {
     };
   }
 
+  /// 기존 빌드 선택 (능력치+맵 기반 가중 랜덤)
+  BuildType? _normalBuildType(String race, String vsRace, PlayerStats stats, GameMap map) {
+    final bo = BuildOrderData.getBuildOrder(
+      race: race, vsRace: vsRace,
+      statValues: _statsToMap(stats), map: map,
+    );
+    return bo != null ? BuildType.getById(bo.id) : null;
+  }
+
+  /// 스나이핑: 상대 빌드에 대한 최적 카운터 빌드 선택
+  /// 치즈 빌드는 제외 (준비된 빌드 = 안정적 선택)
+  BuildType? _findBestCounter(
+    String matchup,
+    BuildType opponentBuild,
+    int myScout,
+    int opponentScout,
+  ) {
+    final candidates = BuildType.getByMatchup(matchup);
+    if (candidates.isEmpty) return null;
+
+    BuildType? best;
+    double bestAdv = -100;
+    for (final c in candidates) {
+      if (c.parentStyle == BuildStyle.cheese) continue;
+      final adv = BuildMatchup.getBuildAdvantage(c, opponentBuild)
+                + BuildMatchup.getScoutBonus(myScout, opponentBuild)
+                - BuildMatchup.getScoutBonus(opponentScout, c);
+      if (adv > bestAdv) {
+        bestAdv = adv;
+        best = c;
+      }
+    }
+    return best;
+  }
+
   /// 두 선수 간 승률 계산 (homePlayer 기준)
   double calculateWinRate({
     required Player homePlayer,
@@ -154,16 +189,44 @@ class MatchSimulationService {
     final statBonus = (statDiff / 35).clamp(-50.0, 50.0);
 
     // 4. 빌드 스타일 및 세부 빌드 상성 (통합 스코어링)
-    final homeBuildOrder = BuildOrderData.getBuildOrder(
-      race: homeRace, vsRace: awayRace,
-      statValues: _statsToMap(homeStats), map: map,
-    );
-    final awayBuildOrder = BuildOrderData.getBuildOrder(
-      race: awayRace, vsRace: homeRace,
-      statValues: _statsToMap(awayStats), map: map,
-    );
-    final homeBuildType = homeBuildOrder != null ? BuildType.getById(homeBuildOrder.id) : null;
-    final awayBuildType = awayBuildOrder != null ? BuildType.getById(awayBuildOrder.id) : null;
+    // 스나이핑 시: 상대 빌드를 먼저 확정 → 최적 카운터 빌드 선택
+    BuildType? homeBuildType;
+    BuildType? awayBuildType;
+
+    if (homeSnipingBonus > 0 && awaySnipingBonus <= 0) {
+      // 홈 스나이핑: 어웨이 빌드 먼저 → 홈이 카운터 선택
+      final awayBO = BuildOrderData.getBuildOrder(
+        race: awayRace, vsRace: homeRace,
+        statValues: _statsToMap(awayStats), map: map,
+      );
+      awayBuildType = awayBO != null ? BuildType.getById(awayBO.id) : null;
+      if (awayBuildType != null) {
+        homeBuildType = _findBestCounter(
+          '${homeRace}v$awayRace', awayBuildType,
+          homeStats.scout, awayStats.scout,
+        );
+      }
+      homeBuildType ??= _normalBuildType(homeRace, awayRace, homeStats, map);
+    } else if (awaySnipingBonus > 0 && homeSnipingBonus <= 0) {
+      // 어웨이 스나이핑: 홈 빌드 먼저 → 어웨이가 카운터 선택
+      final homeBO = BuildOrderData.getBuildOrder(
+        race: homeRace, vsRace: awayRace,
+        statValues: _statsToMap(homeStats), map: map,
+      );
+      homeBuildType = homeBO != null ? BuildType.getById(homeBO.id) : null;
+      if (homeBuildType != null) {
+        awayBuildType = _findBestCounter(
+          '${awayRace}v$homeRace', homeBuildType,
+          awayStats.scout, homeStats.scout,
+        );
+      }
+      awayBuildType ??= _normalBuildType(awayRace, homeRace, awayStats, map);
+    } else {
+      // 스나이핑 없음 (또는 양쪽 다): 기존 랜덤 선택
+      homeBuildType = _normalBuildType(homeRace, awayRace, homeStats, map);
+      awayBuildType = _normalBuildType(awayRace, homeRace, awayStats, map);
+    }
+
     final homeStyle = homeBuildType?.parentStyle ?? _determineBuildStyle(homeStats);
     final awayStyle = awayBuildType?.parentStyle ?? _determineBuildStyle(awayStats);
 
@@ -235,8 +298,19 @@ class MatchSimulationService {
     final levelDiff = homePlayer.level.value - awayPlayer.level.value;
     final levelBonus = (levelDiff * 2).clamp(-20, 20);
 
-    // 7. 스나이핑 보정 (성공 시 +20%)
-    final snipingBonus = homeSnipingBonus - awaySnipingBonus;
+    // 7. 스나이핑 보정
+    // - 카운터 빌드 선택: 위 빌드 상성에서 이미 반영됨
+    // - 기본 준비 보너스: +10% (맵/타이밍 준비 효과)
+    // - 열세 시 능력치 불이익의 60% 회복 (맞춤 준비로 실력차 무력화)
+    double snipingBonus = 0;
+    if (homeSnipingBonus > 0) {
+      snipingBonus += 10;
+      if (statBonus < 0) snipingBonus += (-statBonus) * 0.6;
+    }
+    if (awaySnipingBonus > 0) {
+      snipingBonus -= 10;
+      if (statBonus > 0) snipingBonus -= statBonus * 0.6;
+    }
 
     // 최종 승률 계산
     // TvZ 기본 보정 (+3%) + 맵 종족상성 효과 (증폭률 0.5)
@@ -1393,82 +1467,124 @@ class MatchSimulationService {
   /// attackerIds: 공격/올인/주도권 측 빌드 ID 목록
   /// defenderIds: 수비/확장/당하는 측 빌드 ID 목록
   static final List<_BuildMatchupRule> _buildMatchupRules = [
-    // ==================== TvZ / ZvT ====================
+    // ==================== TvZ / ZvT (7개) ====================
 
-    // 저그 올인 vs 테란 확장 (원해처리올인 vs BBS/5팩골리앗/투배럭아카)
+    // 1. 벙커링 vs 저그 확장
     const _BuildMatchupRule(
-      attackerIds: {'zvt_1hatch_allin'},
-      defenderIds: {'tvz_bunker', 'tvz_3fac_goliath', 'tvz_sk'},
+      attackerIds: {'tvz_bunker'},
+      defenderIds: {'zvt_3hatch_mutal', 'zvt_2hatch_mutal', 'zvt_2hatch_lurker'},
       texts: [
         '빌드가 갈렸습니다! {atk} 선수 {atkBuild}인데, {def} 선수가 피해없이 막을 수 있을까요?',
-        '{atk} 선수 올인입니다! {def} 선수 {defBuild}로 가고 있는데 큰 피해 없이 넘길 수 있을지!',
-        '{atkBuild}! {atk} 선수 승부수를 던졌는데요, {def} 선수가 큰 피해를 줄 수 있을까요?',
-        '{atk} 선수 초반부터 몰아붙입니다! {def} 선수 {defBuild}인데 수비가 관건이겠네요!',
+        '{atkBuild}! {atk} 선수 초반 승부수를 던졌는데요, {def} 선수가 막아낼 수 있을지!',
+        '{atk} 선수 초반부터 벙커를 올리며 몰아붙입니다! {def} 선수 {defBuild}인데 수비가 관건이겠네요!',
       ],
     ),
 
-    // 테란 공격 vs 저그 확장 (2팩벌처 vs 미친저그/투해처리뮤탈/투해처리럴커)
+    // 2. 테란 공격(아카/엔베/레이스) vs 저그 확장
     const _BuildMatchupRule(
-      attackerIds: {'tvz_2fac_vulture'},
+      attackerIds: {'tvz_sk', 'tvz_4rax_enbe', 'tvz_2star_wraith'},
       defenderIds: {'zvt_3hatch_mutal', 'zvt_2hatch_mutal', 'zvt_2hatch_lurker'},
       texts: [
         '빌드가 갈렸는데요! {atk} 선수 {atkBuild}, {def} 선수는 {defBuild}! 이 공격을 버텨낼 수 있을까요!',
         '{atk} 선수가 {atkBuild}으로 왔습니다! {def} 선수 {defBuild}인데 초반 견제가 관건이겠네요!',
         '{atkBuild} vs {defBuild}! {def} 선수 확장을 지킬 수 있을까요?',
-        '{atk} 선수 공격적인 선택! {def} 선수 {defBuild}로 배를 불리고 있는데 이 견제를 막아야 합니다!',
       ],
     ),
 
-    // 저그 확장 vs 테란 확장 (양쪽 운영, 긴 경기 예고)
+    // 3. 530뮤탈 vs 테란 수비
+    const _BuildMatchupRule(
+      attackerIds: {'zvt_1hatch_allin'},
+      defenderIds: {'tvz_3fac_goliath', 'tvz_valkyrie'},
+      texts: [
+        '{atk} 선수 {atkBuild}! 빠른 뮤탈로 견제를 노리는데요, {def} 선수 대공이 관건!',
+        '{atkBuild}입니다! {def} 선수 {defBuild}인데, 뮤탈 대비가 됐을지!',
+        '{atk} 선수 빠른 뮤탈 전환! {def} 선수 {defBuild}로 대공을 준비하고 있습니다!',
+      ],
+    ),
+
+    // 4. 양쪽 운영 (저그 확장 vs 테란 수비/밸런스)
     const _BuildMatchupRule(
       attackerIds: {'zvt_3hatch_mutal', 'zvt_2hatch_mutal', 'zvt_2hatch_lurker'},
-      defenderIds: {'tvz_bunker', 'tvz_3fac_goliath', 'tvz_sk'},
-      // 미친저그도 운영 빌드 카테고리에 포함 (럴커 스킵하지만 멀티 운영은 함)
+      defenderIds: {'tvz_3fac_goliath', 'tvz_valkyrie', 'tvz_111', 'tvz_sk'},
       texts: [
         '양 선수 모두 운영 체제! {atkBuild} vs {defBuild}, 긴 싸움이 예상됩니다!',
         '양측 다 확장하며 배를 불리고 있습니다! 중후반 싸움이 관건이겠네요.',
+        '{atkBuild} vs {defBuild}! 양 선수 안정적으로 가면서 중후반을 준비하고 있습니다.',
       ],
     ),
 
-    // ==================== TvP / PvT ====================
-
-    // 프로토스 치즈 vs 테란 확장 (다크스윙/프록시다크 vs 팩더블/업테란) 극단적
+    // 5. 벙커링 vs 530뮤탈 (양쪽 초반)
     const _BuildMatchupRule(
-      attackerIds: {'pvt_proxy_dark', 'pvt_dark_swing'},
-      defenderIds: {'tvp_double', 'tvp_1fac_gosu'},
+      attackerIds: {'tvz_bunker'},
+      defenderIds: {'zvt_1hatch_allin'},
+      texts: [
+        '양쪽 다 초반 승부수입니다! {atkBuild} vs {defBuild}, 누가 먼저 치명타를 입히느냐!',
+        '{atk} 선수 벙커링, {def} 선수 빠른 뮤탈! 양쪽 다 올인에 가까운 선택이네요!',
+        '초반부터 살벌합니다! 벙커가 먼저냐 뮤탈이 먼저냐, 타이밍 싸움이 되겠네요!',
+      ],
+    ),
+
+    // 6. 투스타레이스 vs 뮤탈 (공중전)
+    const _BuildMatchupRule(
+      attackerIds: {'tvz_2star_wraith'},
+      defenderIds: {'zvt_2hatch_mutal', 'zvt_1hatch_allin'},
+      texts: [
+        '레이스 vs 뮤탈! 공중에서 격돌이 벌어집니다! 누가 하늘을 장악할까요!',
+        '{atk} 선수 {atkBuild}인데 {def} 선수도 뮤탈! 공중 컨트롤 싸움이 관건이겠네요!',
+        '양쪽 다 공중 유닛을 밀고 있습니다! 레이스와 뮤탈, 컨트롤 차이가 승부를 가릅니다!',
+      ],
+    ),
+
+    // 7. 111 밸런스 vs 미친저그 (밸런스 vs 물량)
+    const _BuildMatchupRule(
+      attackerIds: {'tvz_111'},
+      defenderIds: {'zvt_3hatch_mutal'},
+      texts: [
+        '{atk} 선수 {atkBuild}! 밸런스 체제로 {def} 선수의 물량을 상대합니다!',
+        '{atkBuild} vs {defBuild}! 테란의 밸런스 운영이 저그 물량을 감당할 수 있을지!',
+        '{def} 선수 3해처리 물량! {atk} 선수 111로 대응하는데, 타이밍 싸움이 관건입니다!',
+      ],
+    ),
+
+    // ==================== TvP / PvT (8개) ====================
+
+    // 1. P 치즈(다크드랍/전진로보) vs T 확장
+    const _BuildMatchupRule(
+      attackerIds: {'pvt_dark_swing', 'pvt_proxy_dark'},
+      defenderIds: {'tvp_double', 'tvp_1fac_gosu', 'tvp_rax_double', 'tvp_fd'},
       texts: [
         '빌드가 크게 갈렸습니다! {atk} 선수 {atkBuild}! {def} 선수가 읽고 대비할 수 있을까요?',
-        '{atkBuild}입니다! {def} 선수 {defBuild}로 가고 있는데, 디텍터 준비가 됐을지!',
-        '{atk} 선수 기습적인 선택! {def} 선수 확장 가는 상황에서 막아낼 수 있을까요!',
+        '{atkBuild}입니다! {def} 선수 {defBuild}로 가고 있는데, 대비가 됐을지!',
+        '{atk} 선수 기습적인 다크 투입! {def} 선수 확장 가는 상황에서 디텍팅이 관건이겠네요!',
       ],
     ),
 
-    // 투게이트 질럿 압박 vs 테란 확장 극단적
+    // 2. 선질럿찌르기 vs T 확장
     const _BuildMatchupRule(
       attackerIds: {'pvt_2gate_zealot'},
-      defenderIds: {'tvp_double', 'tvp_1fac_gosu'},
+      defenderIds: {'tvp_double', 'tvp_1fac_gosu', 'tvp_rax_double'},
       texts: [
         '빌드가 갈렸는데요! {atk} 선수 {atkBuild}, {def} 선수는 {defBuild}! 이 압박을 버텨야 합니다!',
         '{atkBuild} 타이밍! {def} 선수 확장 갔는데, 벙커가 제때 올라올 수 있을까요!',
-        '{atk} 선수 초반부터 밀어붙입니다! {def} 선수 {defBuild}인데 수비가 급하겠네요!',
+        '{atk} 선수 초반부터 질럿으로 밀어붙입니다! {def} 선수 {defBuild}인데 수비가 급하겠네요!',
       ],
     ),
 
-    // 페이크더블 vs 프로토스 확장 극단적
+    // 3. T 타이밍(타이밍러쉬/5팩/11업8팩) vs P 확장
     const _BuildMatchupRule(
-      attackerIds: {'tvp_fake_double'},
-      defenderIds: {'pvt_1gate_obs', 'pvt_1gate_expand'},
+      attackerIds: {'tvp_fake_double', 'tvp_5fac_timing', 'tvp_11up_8fac'},
+      defenderIds: {'pvt_1gate_obs', 'pvt_1gate_expand', 'pvt_carrier'},
       texts: [
-        '{atk} 선수 {atkBuild}입니다! {def} 선수가 속을 수 있을까요?',
-        '더블인 줄 알았는데 {atkBuild}! {def} 선수 {defBuild}인데 이걸 읽었느냐가 관건!',
-        '{atk} 선수 교묘한 선택! {def} 선수 안심하고 확장 갔다가 큰일 날 수 있습니다!',
+        '{atk} 선수 {atkBuild}입니다! {def} 선수가 버텨낼 수 있을까요?',
+        '{atkBuild} 타이밍! {def} 선수 {defBuild}인데 이 공격을 넘겨야 합니다!',
+        '{atk} 선수 메카닉 물량으로 밀어붙입니다! {def} 선수 확장 갔는데 큰일 날 수 있습니다!',
       ],
     ),
 
-    // 양쪽 확장 (팩더블/업테란/원팩드랍 vs 23넥서스/19넥서스) 장기전
+    // 4. 양쪽 확장 (장기전)
     const _BuildMatchupRule(
-      attackerIds: {'tvp_double', 'tvp_1fac_gosu', 'tvp_1fac_drop'},
-      defenderIds: {'pvt_1gate_obs', 'pvt_1gate_expand'},
+      attackerIds: {'tvp_double', 'tvp_1fac_gosu', 'tvp_rax_double', 'tvp_fd', 'tvp_mine_triple'},
+      defenderIds: {'pvt_1gate_obs', 'pvt_1gate_expand', 'pvt_carrier', 'pvt_reaver_shuttle'},
       texts: [
         '양 선수 모두 안정적인 운영! {atkBuild} vs {defBuild}, 중후반 싸움이 될 것 같습니다.',
         '양쪽 다 확장하며 경기를 풀어갑니다. 긴 호흡의 경기가 예상됩니다!',
@@ -1476,34 +1592,56 @@ class MatchSimulationService {
       ],
     ),
 
-    // ==================== TvT ====================
-
-    // 프록시배럭 vs 확장/밸런스 극단적
+    // 6. 안티캐리어 vs 캐리어
     const _BuildMatchupRule(
-      attackerIds: {'tvt_proxy'},
-      defenderIds: {'tvt_cc_first', 'tvt_2rax', 'tvt_vulture_harass'},
+      attackerIds: {'tvp_anti_carrier'},
+      defenderIds: {'pvt_carrier'},
       texts: [
-        '{atk} 선수 {atkBuild}! {def} 선수가 스카웃할 수 있을까요?',
-        '프록시입니다! {def} 선수 {defBuild}로 가는데, 이 기습을 막지 못하면 큰일입니다!',
-        '{atkBuild} vs {defBuild}! {def} 선수 스카우팅이 관건입니다!',
+        '{atk} 선수 {atkBuild}! 캐리어 대비 골리앗 체제로 전환했습니다!',
+        '안티 캐리어 빌드! {def} 선수 캐리어를 꺼냈는데, 골리앗이 잡아낼 수 있을까요?',
+        '{atkBuild} vs {defBuild}! 캐리어를 읽고 대비한 {atk} 선수, 과연 통할지!',
       ],
     ),
 
-    // 공격형 vs 원배럭확장 극단적
+    // 7. 투팩찌르기 vs 리버후속셔템 (양쪽 공격)
     const _BuildMatchupRule(
-      attackerIds: {'tvt_1fac_push', 'tvt_2fac', 'tvt_wraith_cloak'},
+      attackerIds: {'tvp_1fac_drop'},
+      defenderIds: {'pvt_reaver_shuttle'},
+      texts: [
+        '양쪽 다 공격적입니다! {atkBuild} vs {defBuild}, 드랍과 리버 셔틀 경쟁이 벌어집니다!',
+        '{atk} 선수 찌르기 들어가는데 {def} 선수도 리버 셔틀! 서로 뒷마당이 위험하네요!',
+        '양 선수 모두 견제전! 누가 더 효율적으로 피해를 입히느냐가 승부를 가릅니다!',
+      ],
+    ),
+
+    // 8. FD/밸런스 vs 19넥/밸런스 (중도전)
+    const _BuildMatchupRule(
+      attackerIds: {'tvp_fd', 'tvp_anti_carrier'},
+      defenderIds: {'pvt_1gate_expand', 'pvt_reaver_shuttle'},
+      texts: [
+        '{atkBuild} vs {defBuild}! 양 선수 균형 잡힌 빌드로 중반 싸움을 준비합니다.',
+        '밸런스 대결이네요! {atk} 선수와 {def} 선수 모두 안정적인 전개를 하고 있습니다.',
+        '양쪽 다 무리하지 않는 전개! 중반 전투에서 누가 유리한 교환을 하느냐가 관건!',
+      ],
+    ),
+
+    // ==================== TvT (3개) ====================
+
+    // 1. 공격 vs 배럭더블
+    const _BuildMatchupRule(
+      attackerIds: {'tvt_1fac_push', 'tvt_wraith_cloak'},
       defenderIds: {'tvt_cc_first'},
       texts: [
         '빌드가 갈렸습니다! {atk} 선수 {atkBuild}, {def} 선수는 {defBuild}! 이 공격을 넘겨야 합니다!',
         '{atkBuild} vs {defBuild}! {def} 선수 확장 갔는데 이 타이밍을 버텨낼 수 있을지!',
-        '{atk} 선수 공격적입니다! {def} 선수 원배럭 확장인데, 수비가 급하겠네요!',
+        '{atk} 선수 공격적입니다! {def} 선수 배럭더블인데, 시즈탱크 배치가 관건이겠네요!',
       ],
     ),
 
-    // 양쪽 공격 (원팩선공/투팩/클로킹레이스) 극단적
+    // 2. 양쪽 공격
     const _BuildMatchupRule(
-      attackerIds: {'tvt_1fac_push', 'tvt_2fac', 'tvt_wraith_cloak'},
-      defenderIds: {'tvt_1fac_push', 'tvt_2fac', 'tvt_wraith_cloak'},
+      attackerIds: {'tvt_1fac_push', 'tvt_wraith_cloak'},
+      defenderIds: {'tvt_1fac_push', 'tvt_wraith_cloak'},
       texts: [
         '양 선수 모두 공격적! {atkBuild} vs {defBuild}, 초반부터 불꽃 튀는 싸움!',
         '양쪽 다 공격 빌드입니다! 누가 먼저 유리한 포지션을 잡느냐가 관건!',
@@ -1511,23 +1649,23 @@ class MatchSimulationService {
       ],
     ),
 
-    // 양쪽 안정 (투배럭/벌처견제/원배럭확장) 장기전
+    // 3. 원팩원스타 vs 투스타레이스 (메카닉 vs 공중)
     const _BuildMatchupRule(
-      attackerIds: {'tvt_2rax', 'tvt_vulture_harass', 'tvt_cc_first'},
-      defenderIds: {'tvt_2rax', 'tvt_vulture_harass', 'tvt_cc_first'},
+      attackerIds: {'tvt_1fac_push'},
+      defenderIds: {'tvt_wraith_cloak'},
       texts: [
-        '양 선수 모두 안정적인 운영! 탱크라인 싸움이 관건인 장기전이 될 것 같습니다.',
-        '{atkBuild} vs {defBuild}! 양쪽 다 안정적으로 가면서 후반을 노립니다.',
-        '양 선수 운영 체제! 시즈탱크 포지션 싸움이 승부를 가를 것 같습니다.',
+        '메카닉 vs 레이스! {atk} 선수 지상으로 밀고 {def} 선수는 공중을 노립니다!',
+        '{atkBuild} vs {defBuild}! 탱크 라인을 먼저 잡느냐, 레이스 견제가 먼저 들어가느냐!',
+        '{atk} 선수 지상 밀어붙이기, {def} 선수 클로킹 레이스! 서로 다른 방향의 대결이네요!',
       ],
     ),
 
-    // ==================== ZvP / PvZ ====================
+    // ==================== ZvP / PvZ (7개) ====================
 
-    // 5드론 저글링 vs 프로토스 극단적
+    // 1. 9투올인 vs P 운영
     const _BuildMatchupRule(
       attackerIds: {'zvp_5drone'},
-      defenderIds: {'pvz_forge_cannon', 'pvz_nexus_first', 'pvz_corsair_reaver', 'pvz_2gate_zealot'},
+      defenderIds: {'pvz_forge_cannon', 'pvz_corsair_reaver', 'pvz_2gate_zealot', 'pvz_2star_corsair'},
       texts: [
         '{atk} 선수 {atkBuild}! {def} 선수가 피해없이 막을 수 있을까요?',
         '올인입니다! {atk} 선수 {atkBuild}! {def} 선수 {defBuild}인데 큰 피해 없이 넘겨야 합니다!',
@@ -1535,43 +1673,54 @@ class MatchSimulationService {
       ],
     ),
 
-    // 프록시게이트 vs 저그 확장 극단적
+    // 2. P 치즈(99게이트/캐논/8겟뽕) vs Z 확장
     const _BuildMatchupRule(
-      attackerIds: {'pvz_proxy_gate'},
-      defenderIds: {'zvp_3hatch_hydra', 'zvp_2hatch_mutal', 'zvp_scourge_defiler', 'zvp_973_hydra'},
+      attackerIds: {'pvz_proxy_gate', 'pvz_cannon_rush', 'pvz_8gat'},
+      defenderIds: {'zvp_3hatch_hydra', 'zvp_2hatch_mutal', 'zvp_scourge_defiler', 'zvp_973_hydra', 'zvp_mukerji'},
       texts: [
         '{atk} 선수 {atkBuild}! {def} 선수가 스카우팅할 수 있을까요!',
-        '프록시입니다! {def} 선수 {defBuild}로 가고 있는데, 이걸 막지 못하면!',
+        '올인입니다! {def} 선수 {defBuild}로 가고 있는데, 이걸 막지 못하면 경기가 끝납니다!',
         '{atkBuild}! {atk} 선수 승부수를 던졌는데, {def} 선수 저글링 타이밍이 관건!',
       ],
     ),
 
-    // 저그 타이밍 vs 프로토스 확장 (5해처리히드라/973히드라 vs 포지더블/넥서스퍼스트) 극단적
+    // 3. 히드라 타이밍(5히/973/야바위) vs P 확장
     const _BuildMatchupRule(
-      attackerIds: {'zvp_3hatch_hydra', 'zvp_973_hydra'},
-      defenderIds: {'pvz_forge_cannon', 'pvz_nexus_first'},
+      attackerIds: {'zvp_3hatch_hydra', 'zvp_973_hydra', 'zvp_yabarwi'},
+      defenderIds: {'pvz_forge_cannon', 'pvz_corsair_reaver'},
       texts: [
-        '빌드가 갈렸는데요! {atk} 선수 {atkBuild}, {def} 선수는 {defBuild}! 이 타이밍을 버텨야 합니다!',
+        '빌드가 갈렸는데요! {atk} 선수 {atkBuild}, {def} 선수는 {defBuild}! 히드라 타이밍을 버텨야 합니다!',
         '{atkBuild} 타이밍! {def} 선수 확장 갔는데, 캐논과 질럿으로 막을 수 있을까요!',
-        '{atk} 선수 물량으로 밀어붙입니다! {def} 선수 {defBuild}인데 방어선 구축이 관건!',
+        '{atk} 선수 히드라 물량으로 밀어붙입니다! {def} 선수 {defBuild}인데 방어선 구축이 관건!',
       ],
     ),
 
-    // 프로토스 공격 vs 저그 확장 (투게이트질럿/커세어리버 vs 확장형 저그) 극단적
+    // 4. 투스타커세어 vs 저그
     const _BuildMatchupRule(
-      attackerIds: {'pvz_2gate_zealot', 'pvz_corsair_reaver'},
-      defenderIds: {'zvp_3hatch_hydra', 'zvp_scourge_defiler', 'zvp_2hatch_mutal'},
+      attackerIds: {'pvz_2star_corsair'},
+      defenderIds: {'zvp_3hatch_hydra', 'zvp_973_hydra', 'zvp_scourge_defiler', 'zvp_mukerji'},
+      texts: [
+        '{atk} 선수 {atkBuild}! 커세어로 공중 장악을 노리는데, {def} 선수 오버로드가 위험합니다!',
+        '커세어가 날아갑니다! {def} 선수 {defBuild}인데, 오버로드 관리가 관건이겠네요!',
+        '{atkBuild} vs {defBuild}! 커세어 견제에 {def} 선수가 흔들리지 않을 수 있을지!',
+      ],
+    ),
+
+    // 5. 파워드라군 vs Z 확장
+    const _BuildMatchupRule(
+      attackerIds: {'pvz_2gate_zealot'},
+      defenderIds: {'zvp_3hatch_hydra', 'zvp_scourge_defiler', 'zvp_2hatch_mutal', 'zvp_mukerji'},
       texts: [
         '빌드가 갈렸습니다! {atk} 선수 {atkBuild}인데, {def} 선수 확장 가는 상황!',
-        '{atkBuild} vs {defBuild}! {atk} 선수가 초반에 유리한 포지션을 잡을 수 있을지!',
+        '{atkBuild} vs {defBuild}! {atk} 선수가 드라군으로 초반 압박을 넣습니다!',
         '{atk} 선수 공격적인 선택! {def} 선수 {defBuild}인데, 이 압박을 견뎌야 합니다!',
       ],
     ),
 
-    // 양쪽 운영 (스커지디파일러/투해처리뮤탈 vs 포지더블/넥서스퍼스트) 장기전
+    // 6. 양쪽 운영 (장기전)
     const _BuildMatchupRule(
-      attackerIds: {'zvp_scourge_defiler', 'zvp_2hatch_mutal'},
-      defenderIds: {'pvz_forge_cannon', 'pvz_nexus_first'},
+      attackerIds: {'zvp_scourge_defiler', 'zvp_2hatch_mutal', 'zvp_mukerji'},
+      defenderIds: {'pvz_forge_cannon', 'pvz_corsair_reaver'},
       texts: [
         '양 선수 모두 운영 체제! {atkBuild} vs {defBuild}, 긴 싸움이 예상됩니다!',
         '양쪽 다 안정적으로 경기를 풀어갑니다. 중후반 대군 싸움이 관건이겠네요.',
@@ -1579,34 +1728,34 @@ class MatchSimulationService {
       ],
     ),
 
-    // ==================== ZvZ ====================
-
-    // 스피드링올인 vs 확장 (스피드링올인 vs 12해처리/3해처리히드라/오버풀) 극단적
+    // 7. 야바위 특수 (기만 빌드)
     const _BuildMatchupRule(
-      attackerIds: {'zvz_speedling'},
-      defenderIds: {'zvz_12hatch', 'zvz_3hatch_hydra', 'zvz_overpool'},
+      attackerIds: {'zvp_yabarwi'},
+      defenderIds: {'pvz_forge_cannon', 'pvz_corsair_reaver'},
       texts: [
-        '빌드가 크게 갈렸습니다! {atk} 선수 {atkBuild}! {def} 선수가 막을 수 있을까요?',
-        '{atkBuild}입니다! {def} 선수 {defBuild}인데, 이 러쉬를 버텨내야 합니다!',
-        '{atk} 선수 초반 승부수! {def} 선수 확장인데, 저글링 싸움이 관건!',
+        '{atk} 선수 야바위입니다! 가스 타이밍으로 상대를 속이는 빌드인데요!',
+        '{atkBuild}! {def} 선수가 이 기만적인 빌드를 읽어낼 수 있을까요!',
+        '야바위! 겉으로는 운영처럼 보이지만 실제로는... {def} 선수 스카우팅이 관건입니다!',
       ],
     ),
 
-    // 선풀/9풀 vs 12해처리 극단적
+    // ==================== ZvZ (4개) ====================
+
+    // 1. 날먹/9레어 vs 12앞마당
     const _BuildMatchupRule(
       attackerIds: {'zvz_pool_first', 'zvz_9pool'},
       defenderIds: {'zvz_12hatch'},
       texts: [
         '빌드가 갈렸는데요! {atk} 선수 {atkBuild}, {def} 선수 {defBuild}! 초반 러쉬를 막아야 합니다!',
         '{atkBuild} vs {defBuild}! {def} 선수에게 불리한 빌드 매치업인데 버텨낼 수 있을지!',
-        '{atk} 선수 빠른 풀! {def} 선수 해처리 퍼스트인데, 저글링 타이밍이 관건입니다!',
+        '{atk} 선수 빠른 풀! {def} 선수 12앞마당인데, 저글링 타이밍이 관건입니다!',
       ],
     ),
 
-    // 양쪽 러시 (선풀/9풀/스피드링올인) 극단적
+    // 2. 양쪽 러쉬
     const _BuildMatchupRule(
-      attackerIds: {'zvz_pool_first', 'zvz_9pool', 'zvz_speedling'},
-      defenderIds: {'zvz_pool_first', 'zvz_9pool', 'zvz_speedling'},
+      attackerIds: {'zvz_pool_first', 'zvz_9pool'},
+      defenderIds: {'zvz_pool_first', 'zvz_9pool'},
       texts: [
         '양 선수 모두 빠른 풀! 초반부터 저글링 싸움이 벌어집니다!',
         '양쪽 다 공격적! {atkBuild} vs {defBuild}, 컨트롤 싸움이 승부를 가릅니다!',
@@ -1614,10 +1763,10 @@ class MatchSimulationService {
       ],
     ),
 
-    // 양쪽 운영 (12해처리/오버풀/3해처리히드라) 장기전
+    // 3. 양쪽 운영
     const _BuildMatchupRule(
-      attackerIds: {'zvz_12hatch', 'zvz_overpool', 'zvz_3hatch_hydra'},
-      defenderIds: {'zvz_12hatch', 'zvz_overpool', 'zvz_3hatch_hydra'},
+      attackerIds: {'zvz_12hatch', 'zvz_overpool'},
+      defenderIds: {'zvz_12hatch', 'zvz_overpool'},
       texts: [
         '양 선수 모두 안정적인 운영! 뮤탈 싸움이 관건인 중후반전이 예상됩니다.',
         '{atkBuild} vs {defBuild}! 양쪽 다 확장하며 긴 경기를 준비합니다.',
@@ -1625,12 +1774,23 @@ class MatchSimulationService {
       ],
     ),
 
-    // ==================== PvP ====================
-
-    // 치즈 vs 수비/밸런스 (다크올인/캐논러시/4게이트 vs 기어리버/투게이트드라군) 극단적
+    // 4. 날먹 vs 오버풀 (치즈 vs 밸런스)
     const _BuildMatchupRule(
-      attackerIds: {'pvp_dark_allin', 'pvp_cannon_rush', 'pvp_4gate_dragoon'},
-      defenderIds: {'pvp_1gate_robo', 'pvp_2gate_dragoon'},
+      attackerIds: {'zvz_pool_first'},
+      defenderIds: {'zvz_overpool'},
+      texts: [
+        '{atk} 선수 날먹! {def} 선수 오버풀인데, 저글링 수 차이를 극복할 수 있을까요?',
+        '{atkBuild} vs {defBuild}! 빠른 저글링이 들어가는데, 오버로드 타이밍에 따라 갈립니다!',
+        '날먹 vs 오버풀! {def} 선수가 서플라이 관리만 잘하면 버틸 수 있는 매치업입니다!',
+      ],
+    ),
+
+    // ==================== PvP (6개) ====================
+
+    // 1. 치즈(다크더블/99겟/21 3겟) vs 수비(기어리버/옵3겟/원겟멀티)
+    const _BuildMatchupRule(
+      attackerIds: {'pvp_dark_allin', 'pvp_zealot_rush', 'pvp_4gate_dragoon'},
+      defenderIds: {'pvp_1gate_robo', 'pvp_2gate_dragoon', 'pvp_1gate_multi'},
       texts: [
         '빌드가 크게 갈렸습니다! {atk} 선수 {atkBuild}! {def} 선수가 막아낼 수 있을까요?',
         '{atkBuild}입니다! {def} 선수 {defBuild}인데, 이 공격을 넘겨야 합니다!',
@@ -1638,21 +1798,10 @@ class MatchSimulationService {
       ],
     ),
 
-    // 공격 vs 수비 (리버드랍/질럿러시 vs 기어리버) 극단적
+    // 2. 양쪽 치즈
     const _BuildMatchupRule(
-      attackerIds: {'pvp_reaver_drop', 'pvp_zealot_rush'},
-      defenderIds: {'pvp_1gate_robo'},
-      texts: [
-        '빌드가 갈렸는데요! {atk} 선수 {atkBuild}, {def} 선수는 {defBuild}! 이 공격을 막아야 합니다!',
-        '{atkBuild} vs {defBuild}! {def} 선수가 리버로 방어에 성공할 수 있을지!',
-        '{atk} 선수 공격적인 선택! {def} 선수 기어리버인데, 수비가 관건이겠네요!',
-      ],
-    ),
-
-    // 양쪽 공격 (리버드랍/질럿러시/다크올인/4게이트/캐논러시) 극단적
-    const _BuildMatchupRule(
-      attackerIds: {'pvp_reaver_drop', 'pvp_zealot_rush', 'pvp_dark_allin', 'pvp_4gate_dragoon', 'pvp_cannon_rush'},
-      defenderIds: {'pvp_reaver_drop', 'pvp_zealot_rush', 'pvp_dark_allin', 'pvp_4gate_dragoon', 'pvp_cannon_rush'},
+      attackerIds: {'pvp_dark_allin', 'pvp_zealot_rush', 'pvp_4gate_dragoon'},
+      defenderIds: {'pvp_dark_allin', 'pvp_zealot_rush', 'pvp_4gate_dragoon'},
       texts: [
         '양 선수 모두 공격적! {atkBuild} vs {defBuild}, 초반부터 폭풍 같은 경기!',
         '양쪽 다 올인에 가까운 선택! 누가 먼저 상대를 무너뜨리느냐의 싸움!',
@@ -1660,14 +1809,47 @@ class MatchSimulationService {
       ],
     ),
 
-    // 양쪽 안정 (투게이트드라군/기어리버) 장기전
+    // 3. 양쪽 안정
     const _BuildMatchupRule(
-      attackerIds: {'pvp_2gate_dragoon', 'pvp_1gate_robo'},
-      defenderIds: {'pvp_2gate_dragoon', 'pvp_1gate_robo'},
+      attackerIds: {'pvp_2gate_dragoon', 'pvp_1gate_robo', 'pvp_1gate_multi'},
+      defenderIds: {'pvp_2gate_dragoon', 'pvp_1gate_robo', 'pvp_1gate_multi'},
       texts: [
         '양 선수 모두 안정적인 운영! 드라군 라인전이 관건인 장기전이 예상됩니다.',
         '{atkBuild} vs {defBuild}! 양쪽 다 안정적으로 가면서 리버 테크를 노립니다.',
         '양 선수 운영 체제! 확장과 테크 경쟁이 승부를 가를 것 같습니다.',
+      ],
+    ),
+
+    // 4. 다크더블 vs 기어리버 (다크 vs 탐지)
+    const _BuildMatchupRule(
+      attackerIds: {'pvp_dark_allin'},
+      defenderIds: {'pvp_1gate_robo'},
+      texts: [
+        '다크 vs 옵저버! {atk} 선수 다크를 꺼내는데, {def} 선수 기어리버에서 옵저버가 나옵니다!',
+        '{atkBuild} vs {defBuild}! 다크템플러가 들어가기 전에 옵저버가 나올 수 있을지!',
+        '{atk} 선수 다크 올인! 하지만 {def} 선수 로보틱스 갔기 때문에 탐지가 가능합니다!',
+      ],
+    ),
+
+    // 5. 센터99겟/21 3겟 vs 원겟멀티 (러쉬 vs 확장)
+    const _BuildMatchupRule(
+      attackerIds: {'pvp_zealot_rush', 'pvp_4gate_dragoon'},
+      defenderIds: {'pvp_1gate_multi'},
+      texts: [
+        '빌드가 갈렸습니다! {atk} 선수 러쉬, {def} 선수는 확장! 이 타이밍을 넘겨야 합니다!',
+        '{atkBuild} vs {defBuild}! {def} 선수 멀티 갔는데 이 공격을 막아낼 수 있을까요!',
+        '{atk} 선수 물량으로 밀어붙이는데, {def} 선수 넥서스가 살아남을 수 있을지!',
+      ],
+    ),
+
+    // 6. 옵3겟 vs 치즈 (스카우팅 대결)
+    const _BuildMatchupRule(
+      attackerIds: {'pvp_2gate_dragoon'},
+      defenderIds: {'pvp_dark_allin', 'pvp_zealot_rush', 'pvp_4gate_dragoon'},
+      texts: [
+        '{atk} 선수 {atkBuild}로 안정적으로 갑니다! {def} 선수 {defBuild}인데, 스카우팅이 관건!',
+        '{atkBuild}! 옵저버로 상대 빌드를 읽고 있는데, {def} 선수의 공격을 대비할 수 있을지!',
+        '{atk} 선수 드라군 체제로 {def} 선수의 공격을 받아치려 합니다! 수비 라인이 관건이네요!',
       ],
     ),
   ];
