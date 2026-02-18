@@ -31,28 +31,28 @@ const _standardMap = GameMap(
   centerImportance: 5,
 );
 
-// 테란 TvZ 빌드 목록
+// 테란 TvZ 빌드 목록 (7개, sc1hub.com 기준)
 const _terranBuilds = [
-  ('tvz_bunker', '벙커링', 'DEF'),
-  ('tvz_2fac_vulture', '2팩벌처', 'AGG'),
-  ('tvz_sk', 'SK테란', 'BAL'),
-  ('tvz_3fac_goliath', '3팩골리앗', 'DEF'),
-  ('tvz_wraith', '레이스견제', 'AGG'),
-  ('tvz_mech_drop', '메카닉드랍', 'BAL'),
+  ('tvz_bunker', '8배럭벙커링', 'CHE'),
+  ('tvz_sk', '투배럭아카', 'AGG'),
+  ('tvz_3fac_goliath', '5팩골리앗', 'DEF'),
+  ('tvz_4rax_enbe', '선엔베4배럭', 'AGG'),
+  ('tvz_111', '111', 'BAL'),
+  ('tvz_valkyrie', '발리오닉', 'DEF'),
+  ('tvz_2star_wraith', '투스타레이스', 'AGG'),
 ];
 
-// 저그 ZvT 빌드 목록
+// 저그 ZvT 빌드 목록 (4개, sc1hub.com 기준)
 const _zergBuilds = [
-  ('zvt_3hatch_mutal', '3해처리뮤탈', 'AGG'),
-  ('zvt_2hatch_mutal', '투해처리뮤탈', 'BAL'),
-  ('zvt_2hatch_lurker', '투해처리럴커', 'DEF'),
-  ('zvt_hatch_spore', '해처리스포', 'DEF'),
-  ('zvt_1hatch_allin', '원해처리올인', 'CHE'),
+  ('zvt_3hatch_mutal', '미친저그', 'AGG'),
+  ('zvt_2hatch_mutal', '투해처리뮤탈', 'AGG'),
+  ('zvt_2hatch_lurker', '가드라', 'DEF'),
+  ('zvt_1hatch_allin', '530뮤탈', 'AGG'),
 ];
 
 void main() {
   // 1. 빌드 매치업별 승률 (각 200회)
-  test('TvZ 빌드 매치업별 승률 (30 매치업 × 200회)', () async {
+  test('TvZ 빌드 매치업별 승률 (28 매치업 × 200회)', () async {
     final service = MatchSimulationService();
     final buf = StringBuffer();
     buf.writeln('=== TvZ 빌드 매치업별 승률 (200회) ===\n');
@@ -126,9 +126,10 @@ void main() {
 
     // 스타일 매치업 요약
     buf.writeln('=== 스타일 매치업 요약 ===');
-    final styleOrder = ['AGG vs AGG', 'AGG vs BAL', 'AGG vs DEF', 'AGG vs CHE',
-                        'BAL vs AGG', 'BAL vs BAL', 'BAL vs DEF', 'BAL vs CHE',
-                        'DEF vs AGG', 'DEF vs BAL', 'DEF vs DEF', 'DEF vs CHE'];
+    final styleOrder = ['CHE vs AGG', 'CHE vs DEF',
+                        'AGG vs AGG', 'AGG vs DEF',
+                        'BAL vs AGG', 'BAL vs DEF',
+                        'DEF vs AGG', 'DEF vs DEF'];
     for (final key in styleOrder) {
       if (styleGames.containsKey(key)) {
         final wr = (styleWins[key]! / styleGames[key]! * 100).toStringAsFixed(1);
@@ -148,9 +149,9 @@ void main() {
 
     // 대표 매치업 3개 선택
     final matchups = [
-      ('tvz_bunker', 'zvt_3hatch_mutal', '벙커링(DEF) vs 3뮤탈(AGG)'),
-      ('tvz_sk', 'zvt_2hatch_mutal', 'SK테란(BAL) vs 2뮤탈(BAL)'),
-      ('tvz_2fac_vulture', 'zvt_1hatch_allin', '2팩벌처(AGG) vs 올인(CHE)'),
+      ('tvz_bunker', 'zvt_3hatch_mutal', '8배럭벙커링(CHE) vs 미친저그(AGG)'),
+      ('tvz_sk', 'zvt_2hatch_mutal', '투배럭아카(AGG) vs 투해처리뮤탈(AGG)'),
+      ('tvz_111', 'zvt_2hatch_lurker', '111(BAL) vs 가드라(DEF)'),
     ];
 
     for (final (tId, zId, label) in matchups) {
