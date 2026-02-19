@@ -372,7 +372,7 @@ class MatchSimulationService {
     String? forcedHomeBuildId,
     String? forcedAwayBuildId,
   }) async* {
-    final winRate = calculateWinRate(
+    var winRate = calculateWinRate(
       homePlayer: homePlayer,
       awayPlayer: awayPlayer,
       map: map,
@@ -418,6 +418,28 @@ class MatchSimulationService {
 
     final homeStyle = homeBuildType?.parentStyle ?? _determineBuildStyle(homeStats);
     final awayStyle = awayBuildType?.parentStyle ?? _determineBuildStyle(awayStats);
+
+    // 강제 빌드 사용 시 winRate 재계산 (calculateWinRate는 랜덤 빌드 사용)
+    if ((forcedHomeBuildId != null || forcedAwayBuildId != null) &&
+        homeBuildType != null && awayBuildType != null) {
+      final actualBuildBonus = BuildMatchup.getBuildAdvantage(homeBuildType, awayBuildType);
+      // 기존 winRate에서 빌드 보너스를 실제 강제 빌드로 교체
+      // calculateWinRate = 50 + statBonus + randomBuildBonus + mapBonus + ...
+      // 새 winRate = 50 + statBonus + actualBuildBonus + mapBonus + ...
+      // statBonus + mapBonus + ... ≈ (winRate×100 - 50 - randomBuildBonus)
+      // randomBuildBonus를 알 수 없으므로, 스탯/맵 보정을 직접 재계산
+      final homeTotal = homeStats.total + homeCheerfulBonus;
+      final awayTotal = awayStats.total + awayCheerfulBonus;
+      final statBonus = ((homeTotal - awayTotal) / 35).clamp(-50.0, 50.0);
+      final levelBonus = ((homePlayer.level.value - awayPlayer.level.value) * 2).clamp(-20, 20);
+      final raceBonus = map.matchup.getWinRate(homePlayer.race, awayPlayer.race);
+      final raceDeviation = raceBonus.toDouble() - 50.0;
+      final isTvZ = (homePlayer.race == Race.terran && awayPlayer.race == Race.zerg) ||
+                    (homePlayer.race == Race.zerg && awayPlayer.race == Race.terran);
+      final tvzBase = isTvZ ? (homePlayer.race == Race.terran ? 2.5 : -2.5) : 0.0;
+      final baseWinRate = 50.0 + tvzBase + raceDeviation * 0.35;
+      winRate = ((baseWinRate + statBonus + actualBuildBonus + levelBonus) / 100).clamp(0.03, 0.97);
+    }
 
     // 빌드 스텝에서 유닛 키워드 추출 (이벤트 필터링용)
     final homeUnitTags = homeBuildFinal != null ? BuildOrderData.extractUnitTags(homeBuildFinal) : <String>{};
@@ -509,15 +531,10 @@ class MatchSimulationService {
         clashStartLine = lineCount;
 
         if (isZvZ) {
+          // ZvZ 클래시 시작: 양쪽 병력 균등화 (빌드 스텝 차이 제거)
+          // 승패는 winRate (빌드 상성 + 능력치)로 결정
           final avgArmy = ((state.homeArmy + state.awayArmy) / 2).round();
           state = state.copyWith(homeArmy: avgArmy, awayArmy: avgArmy);
-          // AGG 초반 병력 보너스: 빠른 풀 투자 보상 (base 80 대비 의미있는 보너스)
-          if (homeStyle == BuildStyle.aggressive) {
-            state = state.copyWith(homeArmy: state.homeArmy + 8);
-          }
-          if (awayStyle == BuildStyle.aggressive) {
-            state = state.copyWith(awayArmy: state.awayArmy + 8);
-          }
         }
       }
 
@@ -1632,23 +1649,23 @@ class MatchSimulationService {
       ],
     ),
 
-    // ==================== TvT (3개) ====================
+    // ==================== TvT (8개) ====================
 
-    // 1. 공격 vs 배럭더블
+    // 1. 공격 vs 확장/수비
     const _BuildMatchupRule(
-      attackerIds: {'tvt_1fac_push', 'tvt_wraith_cloak'},
-      defenderIds: {'tvt_cc_first'},
+      attackerIds: {'tvt_1fac_push', 'tvt_wraith_cloak', 'tvt_2fac_vulture', 'tvt_5fac'},
+      defenderIds: {'tvt_cc_first', 'tvt_1fac_expand'},
       texts: [
         '빌드가 갈렸습니다! {atk} 선수 {atkBuild}, {def} 선수는 {defBuild}! 이 공격을 넘겨야 합니다!',
         '{atkBuild} vs {defBuild}! {def} 선수 확장 갔는데 이 타이밍을 버텨낼 수 있을지!',
-        '{atk} 선수 공격적입니다! {def} 선수 배럭더블인데, 시즈탱크 배치가 관건이겠네요!',
+        '{atk} 선수 공격적입니다! {def} 선수 {defBuild}인데, 시즈탱크 배치가 관건이겠네요!',
       ],
     ),
 
     // 2. 양쪽 공격
     const _BuildMatchupRule(
-      attackerIds: {'tvt_1fac_push', 'tvt_wraith_cloak'},
-      defenderIds: {'tvt_1fac_push', 'tvt_wraith_cloak'},
+      attackerIds: {'tvt_1fac_push', 'tvt_wraith_cloak', 'tvt_2fac_vulture', 'tvt_5fac'},
+      defenderIds: {'tvt_1fac_push', 'tvt_wraith_cloak', 'tvt_2fac_vulture', 'tvt_5fac'},
       texts: [
         '양 선수 모두 공격적! {atkBuild} vs {defBuild}, 초반부터 불꽃 튀는 싸움!',
         '양쪽 다 공격 빌드입니다! 누가 먼저 유리한 포지션을 잡느냐가 관건!',
@@ -1664,6 +1681,61 @@ class MatchSimulationService {
         '메카닉 vs 레이스! {atk} 선수 지상으로 밀고 {def} 선수는 공중을 노립니다!',
         '{atkBuild} vs {defBuild}! 탱크 라인을 먼저 잡느냐, 레이스 견제가 먼저 들어가느냐!',
         '{atk} 선수 지상 밀어붙이기, {def} 선수 클로킹 레이스! 서로 다른 방향의 대결이네요!',
+      ],
+    ),
+
+    // 4. 투팩벌처 vs 투스타레이스 (지상 물량 vs 공중 견제)
+    const _BuildMatchupRule(
+      attackerIds: {'tvt_2fac_vulture'},
+      defenderIds: {'tvt_wraith_cloak'},
+      texts: [
+        '{atk} 선수 벌처 물량! {def} 선수는 레이스로 견제! 지상 vs 공중 대결!',
+        '투팩 벌처 vs 투스타 레이스! 벌처가 먼저 치느냐 레이스가 경제를 깎느냐!',
+        '{atk} 선수 벌처로 맵 장악, {def} 선수 레이스로 후방 교란! 다른 방향의 싸움입니다!',
+      ],
+    ),
+
+    // 5. 5팩토리 vs 원팩확장 (물량 vs 경제)
+    const _BuildMatchupRule(
+      attackerIds: {'tvt_5fac'},
+      defenderIds: {'tvt_1fac_expand', 'tvt_cc_first'},
+      texts: [
+        '{atk} 선수 5팩토리 가동! {def} 선수 {defBuild}인데 이 물량을 버텨야 합니다!',
+        '5팩 타이밍 푸시! {def} 선수 확장 경제가 살아남을 수 있을지!',
+        '{atk} 선수 메카닉 물량으로 밀어붙이는데, {def} 선수 탱크 라인 방어가 관건!',
+      ],
+    ),
+
+    // 6. 투팩벌처 vs 원팩확장 (벌처 러쉬 vs 탱크 방어)
+    const _BuildMatchupRule(
+      attackerIds: {'tvt_2fac_vulture'},
+      defenderIds: {'tvt_1fac_expand'},
+      texts: [
+        '벌처 vs 탱크! {atk} 선수 벌처 러쉬, {def} 선수 시즈 탱크로 막아야 합니다!',
+        '투팩 벌처 vs 원팩 확장! 벌처가 확장 전에 도착하느냐가 관건!',
+        '{atk} 선수 벌처 물량! {def} 선수 탱크 시즈모드가 제때 나와야 버팁니다!',
+      ],
+    ),
+
+    // 7. 양쪽 운영 (배럭더블/원팩확장)
+    const _BuildMatchupRule(
+      attackerIds: {'tvt_cc_first', 'tvt_1fac_expand'},
+      defenderIds: {'tvt_cc_first', 'tvt_1fac_expand'},
+      texts: [
+        '양 선수 모두 안정적 운영! 탱크 자리잡기 경쟁이 승부를 가릅니다.',
+        '{atkBuild} vs {defBuild}! 경제력과 포지셔닝 싸움이 예상되네요.',
+        '양쪽 다 확장 체제! 중반 이후 탱크 라인 대결이 관건입니다.',
+      ],
+    ),
+
+    // 8. 투팩벌처 vs 5팩토리 (초반 견제 vs 중반 물량)
+    const _BuildMatchupRule(
+      attackerIds: {'tvt_2fac_vulture'},
+      defenderIds: {'tvt_5fac'},
+      texts: [
+        '{atk} 선수 벌처 견제! {def} 선수 5팩 완성 전에 흔들어야 합니다!',
+        '투팩 벌처 vs 5팩토리! 초반 벌처 피해가 관건, 5팩이 돌면 물량에서 밀립니다!',
+        '{atk} 선수 마인으로 시간 벌기, {def} 선수 팩토리 추가 중! 타이밍 싸움이네요!',
       ],
     ),
 
@@ -1746,16 +1818,16 @@ class MatchSimulationService {
       ],
     ),
 
-    // ==================== ZvZ (4개) ====================
+    // ==================== ZvZ (6개) ====================
 
-    // 1. 날먹/9레어 vs 12앞마당
+    // 1. 4풀/9레어 vs 12앞마당/12풀 (러쉬 vs 확장형)
     const _BuildMatchupRule(
       attackerIds: {'zvz_pool_first', 'zvz_9pool'},
-      defenderIds: {'zvz_12hatch'},
+      defenderIds: {'zvz_12hatch', 'zvz_12pool'},
       texts: [
         '빌드가 갈렸는데요! {atk} 선수 {atkBuild}, {def} 선수 {defBuild}! 초반 러쉬를 막아야 합니다!',
         '{atkBuild} vs {defBuild}! {def} 선수에게 불리한 빌드 매치업인데 버텨낼 수 있을지!',
-        '{atk} 선수 빠른 풀! {def} 선수 12앞마당인데, 저글링 타이밍이 관건입니다!',
+        '{atk} 선수 빠른 풀! {def} 선수 {defBuild}인데, 저글링 타이밍이 관건입니다!',
       ],
     ),
 
@@ -1772,8 +1844,8 @@ class MatchSimulationService {
 
     // 3. 양쪽 운영
     const _BuildMatchupRule(
-      attackerIds: {'zvz_12hatch', 'zvz_overpool'},
-      defenderIds: {'zvz_12hatch', 'zvz_overpool'},
+      attackerIds: {'zvz_12hatch', 'zvz_overpool', 'zvz_12pool'},
+      defenderIds: {'zvz_12hatch', 'zvz_overpool', 'zvz_12pool'},
       texts: [
         '양 선수 모두 안정적인 운영! 뮤탈 싸움이 관건인 중후반전이 예상됩니다.',
         '{atkBuild} vs {defBuild}! 양쪽 다 확장하며 긴 경기를 준비합니다.',
@@ -1781,14 +1853,36 @@ class MatchSimulationService {
       ],
     ),
 
-    // 4. 날먹 vs 오버풀 (치즈 vs 밸런스)
+    // 4. 4풀 vs 오버풀 (치즈 vs 밸런스)
     const _BuildMatchupRule(
       attackerIds: {'zvz_pool_first'},
       defenderIds: {'zvz_overpool'},
       texts: [
-        '{atk} 선수 날먹! {def} 선수 오버풀인데, 저글링 수 차이를 극복할 수 있을까요?',
+        '{atk} 선수 4풀! {def} 선수 오버풀인데, 저글링 수 차이를 극복할 수 있을까요?',
         '{atkBuild} vs {defBuild}! 빠른 저글링이 들어가는데, 오버로드 타이밍에 따라 갈립니다!',
-        '날먹 vs 오버풀! {def} 선수가 서플라이 관리만 잘하면 버틸 수 있는 매치업입니다!',
+        '4풀 vs 오버풀! {def} 선수가 서플라이 관리만 잘하면 버틸 수 있는 매치업입니다!',
+      ],
+    ),
+
+    // 5. 12풀 vs 오버풀 (12풀의 저글링 타이밍)
+    const _BuildMatchupRule(
+      attackerIds: {'zvz_12pool'},
+      defenderIds: {'zvz_overpool'},
+      texts: [
+        '{atk} 선수 12풀! 오버풀보다 빠른 저글링으로 압박합니다!',
+        '{atkBuild} vs {defBuild}! 풀 타이밍 차이가 초반 싸움을 결정합니다!',
+        '12풀 vs 오버풀! {atk} 선수의 저글링이 먼저 도착하는 매치업입니다!',
+      ],
+    ),
+
+    // 6. 9레어 vs 12풀 (공격형 vs 밸런스)
+    const _BuildMatchupRule(
+      attackerIds: {'zvz_9pool'},
+      defenderIds: {'zvz_12pool'},
+      texts: [
+        '{atk} 선수 9레어! {def} 선수 12풀인데, 레어 타이밍이 앞서갑니다!',
+        '{atkBuild} vs {defBuild}! 뮤탈 타이밍에서 {atk} 선수가 유리한 매치업!',
+        '9레어 vs 12풀! {atk} 선수의 빠른 뮤탈이 경기를 주도할 수 있습니다!',
       ],
     ),
 
@@ -1857,6 +1951,61 @@ class MatchSimulationService {
         '{atk} 선수 {atkBuild}로 안정적으로 갑니다! {def} 선수 {defBuild}인데, 스카우팅이 관건!',
         '{atkBuild}! 옵저버로 상대 빌드를 읽고 있는데, {def} 선수의 공격을 대비할 수 있을지!',
         '{atk} 선수 드라군 체제로 {def} 선수의 공격을 받아치려 합니다! 수비 라인이 관건이네요!',
+      ],
+    ),
+
+    // 7. 치즈 vs 공격형 (다크/99겟/3겟드라 vs 투겟리버/스피드질)
+    const _BuildMatchupRule(
+      attackerIds: {'pvp_dark_allin', 'pvp_zealot_rush', 'pvp_4gate_dragoon'},
+      defenderIds: {'pvp_2gate_reaver', 'pvp_3gate_speedzealot'},
+      texts: [
+        '{atk} 선수 {atkBuild}! {def} 선수도 {defBuild}로 공격적인데, 타이밍 싸움입니다!',
+        '양쪽 다 공격적! {atkBuild} vs {defBuild}, 누가 먼저 치느냐의 싸움!',
+        '{atk} 선수 올인에 가까운 빌드! {def} 선수 {defBuild}로 받아칠 수 있을까요!',
+      ],
+    ),
+
+    // 8. 공격형 vs 수비형 (투겟리버/스피드질 vs 기어리버/원겟멀티)
+    const _BuildMatchupRule(
+      attackerIds: {'pvp_2gate_reaver', 'pvp_3gate_speedzealot'},
+      defenderIds: {'pvp_1gate_robo', 'pvp_1gate_multi'},
+      texts: [
+        '{atk} 선수 {atkBuild}! {def} 선수 {defBuild}로 안정적인데, 이 공격을 넘겨야 합니다!',
+        '{atkBuild} vs {defBuild}! 공격 타이밍을 막아내면 {def} 선수가 유리해집니다!',
+        '{atk} 선수 공격적으로 나오는데, {def} 선수 수비 라인이 관건이네요!',
+      ],
+    ),
+
+    // 9. 공격형 vs 밸런스 (투겟리버/스피드질 vs 옵3겟)
+    const _BuildMatchupRule(
+      attackerIds: {'pvp_2gate_reaver', 'pvp_3gate_speedzealot'},
+      defenderIds: {'pvp_2gate_dragoon'},
+      texts: [
+        '{atk} 선수 {atkBuild}! {def} 선수 {defBuild}로 읽고 대응할 수 있을지!',
+        '{atkBuild} 공세! {def} 선수 옵저버로 빌드를 읽었다면 대비가 가능합니다!',
+        '{atk} 선수 공격적 운영! {def} 선수 스카우팅으로 대응 전략을 세울 수 있을까요!',
+      ],
+    ),
+
+    // 10. 양쪽 공격형 (투겟리버/스피드질 vs 투겟리버/스피드질)
+    const _BuildMatchupRule(
+      attackerIds: {'pvp_2gate_reaver', 'pvp_3gate_speedzealot'},
+      defenderIds: {'pvp_2gate_reaver', 'pvp_3gate_speedzealot'},
+      texts: [
+        '양쪽 다 공격적! {atkBuild} vs {defBuild}, 한 치 양보 없는 PvP!',
+        '공격형 대결! 누가 먼저 상대의 약점을 찌르느냐가 관건입니다!',
+        '{atkBuild} vs {defBuild}! 양 선수 모두 물러서지 않습니다!',
+      ],
+    ),
+
+    // 11. 투겟리버 vs 다크더블 (로보 탐지)
+    const _BuildMatchupRule(
+      attackerIds: {'pvp_2gate_reaver'},
+      defenderIds: {'pvp_dark_allin'},
+      texts: [
+        '{atk} 선수 투겟리버! 로보에서 옵저버가 나오면 {def} 선수 다크가 막힙니다!',
+        '투겟리버 vs 다크더블! {atk} 선수 로보틱스에서 탐지가 가능한 상황!',
+        '{def} 선수 다크 올인인데, {atk} 선수 로보 테크라 옵저버로 대응할 수 있습니다!',
       ],
     ),
   ];
@@ -2362,34 +2511,15 @@ class MatchSimulationService {
         final homeDefAdv = (homeStats.defense - awayStats.defense) / 300;
         final awayDefAdv = (awayStats.defense - homeStats.defense) / 300;
 
-        // 빌드 스타일에 따른 초반 우위
-        double buildAdvantage = 0;
-        if (homeStyle == BuildStyle.aggressive && awayStyle == BuildStyle.defensive) {
-          buildAdvantage = 50;
-        } else if (homeStyle == BuildStyle.defensive && awayStyle == BuildStyle.aggressive) {
-          buildAdvantage = -50;
-        } else if (homeStyle == BuildStyle.aggressive && awayStyle == BuildStyle.balanced) {
-          buildAdvantage = 30; // 9레어 빠른 풀 타이밍 우위
-        } else if (homeStyle == BuildStyle.balanced && awayStyle == BuildStyle.aggressive) {
-          buildAdvantage = -30;
-        } else if (homeStyle == BuildStyle.cheese && awayStyle == BuildStyle.defensive) {
-          buildAdvantage = 25;
-        } else if (homeStyle == BuildStyle.defensive && awayStyle == BuildStyle.cheese) {
-          buildAdvantage = -25;
-        } else if (homeStyle == BuildStyle.cheese && awayStyle == BuildStyle.balanced) {
-          buildAdvantage = 15;
-        } else if (homeStyle == BuildStyle.balanced && awayStyle == BuildStyle.cheese) {
-          buildAdvantage = -15;
-        }
-
-        // 총합: 컨트롤 + 공격력 + 빌드상성 - 수비력 보정
-        // 양수 = 홈 유리, 음수 = 어웨이 유리
+        // ZvZ 초반: 능력치 차이만으로 전투 결정 (빌드 상성은 winRate에서 반영)
+        // 동급 선수 간에는 대등한 전투 → 경기 연출 중심
+        // 총합: 컨트롤 + 공격력 - 수비력 보정 (buildAdvantage 없음)
         final defenseCounter = (awayStats.defense - homeStats.defense) * 0.3;
-        final totalDiff = controlDiff + attackDiff + buildAdvantage - defenseCounter;
+        final totalDiff = controlDiff + attackDiff - defenseCounter;
 
         // 60% 확률로 전투, 40% 포지셔닝
         if (_random.nextDouble() < 0.6) {
-          if (totalDiff > 120) {
+          if (totalDiff > 80) {
             final winTexts = [
               '${homePlayer.name} 선수, 저글링 컨트롤 압도!',
               '${homePlayer.name}, 저글링 서라운드 성공! 상대 병력 녹습니다!',
@@ -2399,7 +2529,7 @@ class MatchSimulationService {
             final damage = (2 + (homeTotal - awayTotal) / 3000).clamp(1, 3).round();
             awayArmyChange -= damage;
             homeArmyChange -= 1;
-          } else if (totalDiff < -120) {
+          } else if (totalDiff < -80) {
             final winTexts = [
               '${awayPlayer.name} 선수, 저글링 컨트롤 압도!',
               '${awayPlayer.name}, 저글링 서라운드 성공! 상대 병력 녹습니다!',
@@ -2464,33 +2594,19 @@ class MatchSimulationService {
           '${awayPlayer.name} 선수, 해처리 추가하며 물량 준비!',
         ];
         text = transitionTexts[_random.nextInt(transitionTexts.length)];
-        // 전환기: 경제 성장, 소량 피해
-        // 수비형은 멀티 운영으로 경제적 보상
-        final homeIsDef = homeStyle == BuildStyle.defensive || homeStyle == BuildStyle.balanced;
-        final awayIsDef = awayStyle == BuildStyle.defensive || awayStyle == BuildStyle.balanced;
-        homeResourceChange += _random.nextInt(30) + 10 + (homeIsDef ? 8 : 0);
-        awayResourceChange += _random.nextInt(30) + 10 + (awayIsDef ? 8 : 0);
-        // 수비형은 병력 보충도 소폭 유리 (해처리 추가 효과)
-        homeArmyChange -= _random.nextInt(2) - (homeIsDef ? 1 : 0);
-        awayArmyChange -= _random.nextInt(2) - (awayIsDef ? 1 : 0);
+        // 전환기: 경제 성장, 소량 피해 (양쪽 대등)
+        homeResourceChange += _random.nextInt(30) + 15;
+        awayResourceChange += _random.nextInt(30) + 15;
+        // 소량 병력 보충
+        homeArmyChange -= _random.nextInt(2);
+        awayArmyChange -= _random.nextInt(2);
       }
 
       // 뮤탈전 (clashDuration 30 이후)
       if (clashDuration >= 30) {
-        // 매크로 능력치 차이 반영: 수비/운영형이 뮤탈 물량에서 유리
-        final homeMacroAdv = homeStyle == BuildStyle.defensive || homeStyle == BuildStyle.balanced
-            ? homeStats.macro * 0.10 : 0.0;
-        final awayMacroAdv = awayStyle == BuildStyle.defensive || awayStyle == BuildStyle.balanced
-            ? awayStats.macro * 0.10 : 0.0;
-        // AGG 보정: 공격형은 뮤탈 컨트롤로 보상
-        final homeAggAdv = homeStyle == BuildStyle.aggressive
-            ? homeStats.control * 0.05 : 0.0;
-        final awayAggAdv = awayStyle == BuildStyle.aggressive
-            ? awayStats.control * 0.05 : 0.0;
+        // 뮤탈전: 순수 능력치 대결 (빌드 상성은 winRate에서 반영)
         final effectiveControlDiff = (homeControl - awayControl) +
-                                     (homeTotal - awayTotal) / 7 +
-                                     homeMacroAdv - awayMacroAdv +
-                                     homeAggAdv - awayAggAdv;
+                                     (homeTotal - awayTotal) / 7;
         if (_random.nextDouble() < 0.35) { // 35% 확률로 뮤탈 매직
           if (effectiveControlDiff > 100) {
             final winTexts = [
@@ -2549,6 +2665,22 @@ class MatchSimulationService {
           awayArmyChange -= _random.nextInt(2) + 1;
         }
       }
+
+      // ZvZ 빌드 상성 반영: winRate 기반 데미지 bias
+      // 유리한 쪽이 매 라운드 확률적으로 1 추가 피해를 줌 (누적 효과)
+      // clashInterval=1 + 회복 없음으로 소량 bias도 크게 작용 → 매우 낮은 확률
+      // winRate 55% → 1.3%, 60% → 1.9%, 75% → 3.0%
+      final winBias = winRate - 0.5;
+      if (winBias.abs() > 0.03) {
+        final biasChance = (sqrt(winBias.abs()) * 0.06).clamp(0.0, 0.06);
+        if (_random.nextDouble() < biasChance) {
+          if (winBias > 0) {
+            awayArmyChange -= 1; // 홈 유리 → 어웨이 추가 피해
+          } else {
+            homeArmyChange -= 1; // 어웨이 유리 → 홈 추가 피해
+          }
+        }
+      }
     }
 
     // ========== 빠른 승리 (치즈/러쉬) ==========
@@ -2582,8 +2714,10 @@ class MatchSimulationService {
         baseRate *= 0.3; // DEF: 치즈 70% 감소 (하드카운터)
       } else if (cheeseDefenderStyle == BuildStyle.balanced) {
         baseRate *= 0.6; // BAL: 치즈 40% 감소
+      } else if (cheeseDefenderStyle == BuildStyle.aggressive) {
+        baseRate *= 0.5; // AGG: 치즈 50% 감소 (빠른 풀로 저글링 대응)
       }
-      // AGG/CHE: 보정 없음 (취약)
+      // CHE: 보정 없음 (취약)
 
       final statModifier = (attackPower - defensePower) / 1500;
       // line 20 이후 성공률 선형 감쇠
@@ -2601,13 +2735,27 @@ class MatchSimulationService {
     // 치즈 실패 페널티 - 올인 후 경제 열세로 병력 감소 가속
     // 페널티 시작점을 윈도우 종료 후로 이동 (기본 31, 다크 46)
     if (!decisive && (homeStyle == BuildStyle.cheese || awayStyle == BuildStyle.cheese) && lineCount > cheeseWindowMax) {
-      final isHomeCheese = homeStyle == BuildStyle.cheese;
-      // 치즈 플레이어는 윈도우 종료 후 매 틱마다 병력 감소 (경제 없음)
-      final penalty = _random.nextInt(3) + 2; // 2~4 감소
-      if (isHomeCheese) {
-        homeArmyChange -= penalty;
-      } else {
-        awayArmyChange -= penalty;
+      // ZvZ: clashInterval=1이라 매 라인마다 페널티 적용됨 → 3라인마다 1회 + 25라인 윈도우
+      // 비-ZvZ: clashInterval=2이므로 자연스럽게 2라인마다 1회 (윈도우 제한 없음)
+      final shouldApplyPenalty = !isZvZ ||
+          ((lineCount - cheeseWindowMax) % 3 == 0 && lineCount <= cheeseWindowMax + 25);
+      if (shouldApplyPenalty) {
+        final isHomeCheese = homeStyle == BuildStyle.cheese;
+        // ZvZ: 치즈가 유리한 매치업(vs DEF)에서는 페널티 완화
+        // 치즈가 불리한 매치업(vs AGG)에서는 페널티 강화
+        final int penalty;
+        if (isZvZ) {
+          final cheeseWinRate = isHomeCheese ? winRate : (1.0 - winRate);
+          final penaltyMult = (1.0 - cheeseWinRate).clamp(0.2, 1.0);
+          penalty = ((_random.nextInt(3) + 2) * penaltyMult).round().clamp(1, 4);
+        } else {
+          penalty = _random.nextInt(3) + 2; // 2~4 감소
+        }
+        if (isHomeCheese) {
+          homeArmyChange -= penalty;
+        } else {
+          awayArmyChange -= penalty;
+        }
       }
     }
 
