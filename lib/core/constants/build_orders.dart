@@ -43,6 +43,7 @@ class BuildOrder {
   final String vsRace;    // 상대 종족
   final BuildStyle style;
   final List<BuildStep> steps;
+  final int? aggressionTier; // 오프닝 공격성 등급 (조합 빌드 시 오프닝에서 상속)
 
   const BuildOrder({
     required this.id,
@@ -50,6 +51,49 @@ class BuildOrder {
     required this.race,
     required this.vsRace,
     required this.style,
+    required this.steps,
+    this.aggressionTier,
+  });
+}
+
+/// 오프닝 (초반 빌드, line 1~16) - 전 종족 공용
+class RaceOpening {
+  final String id;
+  final String name;
+  final String race;       // 'T', 'Z', 'P'
+  final String vsRace;     // 'T', 'Z', 'P' (미러는 미사용)
+  final BuildStyle style;
+  final int aggressionTier; // 0~3
+  final List<BuildStep> steps; // line 1~16
+
+  const RaceOpening({
+    required this.id,
+    required this.name,
+    required this.race,
+    required this.vsRace,
+    required this.style,
+    required this.aggressionTier,
+    required this.steps,
+  });
+}
+
+/// 트랜지션 (중후반 빌드, line 20~) - 전 종족 공용
+class RaceTransition {
+  final String id;
+  final String name;
+  final String race;       // 'T', 'Z', 'P'
+  final String vsRace;
+  final BuildStyle style;
+  final List<String> keyStats;
+  final List<BuildStep> steps; // line 20~
+
+  const RaceTransition({
+    required this.id,
+    required this.name,
+    required this.race,
+    required this.vsRace,
+    required this.style,
+    required this.keyStats,
     required this.steps,
   });
 }
@@ -81,13 +125,13 @@ class BuildOrderData {
   // ==================== 테란 빌드 ====================
 
   // TvZ 빌드들
-  // 8배럭 벙커링 = 치즈, 투배럭 아카 = 공격형, 5팩 골리앗 = 수비형, 선엔베 4배럭 = 공격형, 111 = 밸런스, 발리오닉 = 수비형, 투스타 레이스 = 공격형
+  // 센터 8배럭 = 치즈, 투배럭 아카 = 공격형, 5팩 골리앗 = 수비형, 선엔베 4배럭 = 공격형, 111 = 밸런스, 발리오닉 = 수비형, 투스타 레이스 = 공격형
   static const terranVsZergBuilds = [
-    // 1. 8배럭 벙커링 (tvz_bunker - Cheese)
+    // 1. 센터 8배럭 (tvz_bunker - Cheese)
     // 8서플 배럭 후 즉시 벙커링. 초반 올인
     BuildOrder(
       id: 'tvz_bunker',
-      name: '8배럭 벙커링',
+      name: '센터 8배럭',
       race: 'T',
       vsRace: 'Z',
       style: BuildStyle.cheese,
@@ -141,7 +185,7 @@ class BuildOrderData {
         BuildStep(line: 4, text: '{player} 선수 서플라이 건설!', myResource: -8),
         BuildStep(line: 6, text: '{player} 선수 앞마당 확장!', stat: 'macro', myResource: -30),
         BuildStep(line: 10, text: '{player} 선수 팩토리 건설!', myResource: -20),
-        BuildStep(line: 14, text: '{player} 선수 팩토리 애드온!', myResource: -10),
+        BuildStep(line: 14, text: '{player} 선수 머신샵 부착!', myResource: -10),
         BuildStep(line: 16, text: '{player} 선수 아머리 건설!', myResource: -15),
         BuildStep(line: 18, text: '{player} 선수 벙커 건설!', stat: 'defense', myArmy: 2, myResource: -15),
         BuildStep(line: 20, text: '{player} 선수 팩토리 추가!', myResource: -20),
@@ -150,9 +194,10 @@ class BuildOrderData {
         BuildStep(line: 32, text: '{player}, 4번째 팩토리!', myResource: -20),
         BuildStep(line: 36, text: '{player} 선수 5번째 팩토리 건설!', myResource: -20),
         BuildStep(line: 40, text: '{player}, 골리앗 대량 생산!', stat: 'defense', myArmy: 10, myResource: -30),
-        BuildStep(line: 52, text: '{player}, 대공 진형 완성!', stat: 'defense', myArmy: 12, myResource: -35),
-        BuildStep(line: 60, text: '{player} 선수 뮤탈 완벽 대비!', stat: 'defense'),
-        BuildStep(line: 66, text: '{player}, 골리앗 탱크 조합 완성!', stat: 'macro', myArmy: 18, myResource: -45),
+        BuildStep(line: 48, text: '{player}, 골리앗 추가 생산!', stat: 'defense', myArmy: 8, myResource: -25),
+        BuildStep(line: 54, text: '{player} 선수 시즈 탱크 생산 시작!', stat: 'strategy', myArmy: 4, myResource: -20),
+        BuildStep(line: 60, text: '{player}, 3번째 멀티 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 66, text: '{player}, 시즈 탱크 골리앗 조합 완성!', stat: 'macro', myArmy: 18, myResource: -45),
       ],
     ),
 
@@ -262,9 +307,353 @@ class BuildOrderData {
 
   ];
 
+  // ==================== 테란 오프닝 데이터 (TvZ 6종 + TvP 4종) ====================
+
+  static const terranOpeningsTvZ = [
+    // 1. 센터 8배럭 (치즈 - 자체 완결)
+    RaceOpening(race: 'T', id: 'tvz_bunker', name: '센터 8배럭', vsRace: 'Z',
+      style: BuildStyle.cheese, aggressionTier: 0,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 8서플 배럭 건설합니다.', myResource: -10),
+        BuildStep(line: 4, text: '{player} 선수 마린 생산 시작!', myArmy: 2, myResource: -5),
+        BuildStep(line: 7, text: '{player}, SCV 이동! 상대 앞마당으로!', stat: 'attack'),
+        BuildStep(line: 10, text: '{player} 선수 벙커 건설합니다!', stat: 'control', myResource: -15),
+        BuildStep(line: 14, text: '{player}, 마린 벙커 투입!', stat: 'attack', myArmy: 3, myResource: -5),
+        BuildStep(line: 18, text: '{player} 선수 SCV 수리하면서 버팁니다!', stat: 'control', isClash: true),
+        BuildStep(line: 22, text: '{player}, 추가 마린 도착!', stat: 'attack', myArmy: 3, myResource: -5, isClash: true),
+        BuildStep(line: 25, text: '{player} 선수 끝장을 보려 합니다!', stat: 'attack', isClash: true, decisive: true),
+      ],
+    ),
+    // 2. 투배럭 (공격적)
+    RaceOpening(race: 'T', id: 'tvz_sk_opening', name: '투배럭', vsRace: 'Z',
+      style: BuildStyle.aggressive, aggressionTier: 1,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
+        BuildStep(line: 3, text: '{player} 선수 마린 생산!', myArmy: 2, myResource: -5),
+        BuildStep(line: 5, text: '{player} 선수 2번째 배럭!', myResource: -10),
+        BuildStep(line: 8, text: '{player} 선수 아카데미 건설!', myResource: -15),
+        BuildStep(line: 12, text: '{player} 선수 메딕 생산 시작!', stat: 'control', myArmy: 3, myResource: -10),
+        BuildStep(line: 14, text: '{player} 선수 스팀팩 연구!', stat: 'attack', myResource: -15),
+        BuildStep(line: 16, text: '{player} 선수 앞마당 확장!', stat: 'macro', myResource: -30),
+      ],
+    ),
+    // 3. 선엔베 (공격적 - 자체 완결)
+    RaceOpening(race: 'T', id: 'tvz_4rax_enbe', name: '선엔베', vsRace: 'Z',
+      style: BuildStyle.aggressive, aggressionTier: 1,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
+        BuildStep(line: 3, text: '{player} 선수 엔지니어링 베이 건설!', myResource: -12),
+        BuildStep(line: 6, text: '{player} 선수 2번째 배럭!', myResource: -10),
+        BuildStep(line: 9, text: '{player} 선수 3번째 배럭!', myResource: -10),
+        BuildStep(line: 12, text: '{player}, 4번째 배럭까지 올립니다!', myResource: -10),
+        BuildStep(line: 15, text: '{player} 선수 아카데미 건설!', myResource: -15),
+        BuildStep(line: 18, text: '{player}, 마린 쏟아냅니다!', stat: 'attack', myArmy: 6, myResource: -15),
+        BuildStep(line: 22, text: '{player} 선수 메딕 생산 시작!', stat: 'control', myArmy: 3, myResource: -10),
+        BuildStep(line: 26, text: '{player}, 스팀팩 연구 시작!', stat: 'attack', myResource: -15),
+        BuildStep(line: 30, text: '{player} 선수 앞마당 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 35, text: '{player}, 마린 메딕 대규모 푸시!', stat: 'attack', myArmy: 8, myResource: -20, isClash: true),
+        BuildStep(line: 40, text: '{player} 선수 상대 앞마당 압박!', stat: 'control', enemyArmy: -4, isClash: true),
+        BuildStep(line: 45, text: '{player}, 추가 병력 합류! 밀어붙입니다!', stat: 'attack', myArmy: 5, isClash: true, decisive: true),
+      ],
+    ),
+    // 4. 원배럭 더블 (밸런스)
+    RaceOpening(race: 'T', id: 'tvz_1rax_double', name: '원배럭 더블', vsRace: 'Z',
+      style: BuildStyle.balanced, aggressionTier: 2,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
+        BuildStep(line: 3, text: '{player} 선수 마린 생산!', myArmy: 2, myResource: -5),
+        BuildStep(line: 5, text: '{player} 선수 앞마당 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 9, text: '{player} 선수 벙커 건설!', stat: 'defense', myResource: -15),
+        BuildStep(line: 13, text: '{player} 선수 팩토리 건설!', myResource: -20),
+      ],
+    ),
+    // 5. 원팩토리 더블 (밸런스)
+    RaceOpening(race: 'T', id: 'tvz_1fac_double', name: '원팩토리 더블', vsRace: 'Z',
+      style: BuildStyle.balanced, aggressionTier: 2,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
+        BuildStep(line: 3, text: '{player} 선수 마린 생산!', myArmy: 2, myResource: -5),
+        BuildStep(line: 6, text: '{player} 선수 팩토리 건설!', myResource: -20),
+        BuildStep(line: 10, text: '{player} 선수 앞마당 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 14, text: '{player} 선수 벙커 건설!', stat: 'defense', myResource: -15),
+      ],
+    ),
+    // 6. 노배럭 더블 (수비적)
+    RaceOpening(race: 'T', id: 'tvz_norax_double', name: '노배럭 더블', vsRace: 'Z',
+      style: BuildStyle.defensive, aggressionTier: 3,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 커맨드센터 건설합니다!', stat: 'macro', myResource: -40),
+        BuildStep(line: 5, text: '{player} 선수 배럭 건설!', myResource: -10),
+        BuildStep(line: 9, text: '{player} 선수 마린 생산!', myArmy: 2, myResource: -5),
+        BuildStep(line: 13, text: '{player} 선수 팩토리 건설!', myResource: -20),
+      ],
+    ),
+  ];
+
+  static const terranOpeningsTvP = [
+    // 1. 센터 8배럭 (치즈 - 자체 완결)
+    RaceOpening(race: 'T', id: 'tvp_bbs', name: '센터 8배럭', vsRace: 'P',
+      style: BuildStyle.cheese, aggressionTier: 0,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 8서플 배럭 건설합니다.', myResource: -10),
+        BuildStep(line: 4, text: '{player} 선수 2번째 배럭!', myResource: -10),
+        BuildStep(line: 7, text: '{player}, 마린 더블 생산!', stat: 'attack', myArmy: 4, myResource: -10),
+        BuildStep(line: 10, text: '{player} 선수 마린 푸시!', stat: 'attack'),
+        BuildStep(line: 14, text: '{player}, 상대 본진 공격!', stat: 'control', isClash: true),
+        BuildStep(line: 18, text: '{player} 선수 마린 추가 합류!', myArmy: 3, myResource: -5),
+        BuildStep(line: 22, text: '{player}, 끝장 승부!', stat: 'attack', isClash: true, decisive: true),
+      ],
+    ),
+    // 2. 원배럭 빠른팩 (공격적)
+    RaceOpening(race: 'T', id: 'tvp_fast_fac', name: '원배럭 빠른팩', vsRace: 'P',
+      style: BuildStyle.aggressive, aggressionTier: 1,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
+        BuildStep(line: 3, text: '{player} 선수 마린 생산!', myArmy: 2, myResource: -5),
+        BuildStep(line: 6, text: '{player} 선수 팩토리 건설!', myResource: -20),
+        BuildStep(line: 9, text: '{player}, 머신샵 부착!', myResource: -10),
+        BuildStep(line: 12, text: '{player} 선수 시즈 탱크 생산!', stat: 'attack', myArmy: 5, myResource: -15),
+        BuildStep(line: 16, text: '{player}, 시즈모드 연구!', myResource: -15),
+      ],
+    ),
+    // 3. 빠른 멀티팩 (공격적)
+    RaceOpening(race: 'T', id: 'tvp_multi_fac', name: '빠른 멀티팩', vsRace: 'P',
+      style: BuildStyle.aggressive, aggressionTier: 1,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
+        BuildStep(line: 3, text: '{player} 선수 팩토리 건설!', myResource: -20),
+        BuildStep(line: 6, text: '{player} 선수 앞마당 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 10, text: '{player}, 아머리 건설!', myResource: -15),
+        BuildStep(line: 14, text: '{player} 선수 1-1 업그레이드 시작!', stat: 'strategy', myResource: -30),
+      ],
+    ),
+    // 4. 원배럭 더블 (밸런스)
+    RaceOpening(race: 'T', id: 'tvp_1rax_double', name: '원배럭 더블', vsRace: 'P',
+      style: BuildStyle.balanced, aggressionTier: 2,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
+        BuildStep(line: 3, text: '{player} 선수 마린 생산!', myArmy: 2, myResource: -5),
+        BuildStep(line: 5, text: '{player} 선수 앞마당 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 9, text: '{player} 선수 벙커 건설!', stat: 'defense', myResource: -15),
+        BuildStep(line: 13, text: '{player} 선수 팩토리 건설!', myResource: -20),
+      ],
+    ),
+    // 5. 원팩토리 더블 (밸런스)
+    RaceOpening(race: 'T', id: 'tvp_1fac_double', name: '원팩토리 더블', vsRace: 'P',
+      style: BuildStyle.balanced, aggressionTier: 2,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
+        BuildStep(line: 3, text: '{player} 선수 마린 생산!', myArmy: 2, myResource: -5),
+        BuildStep(line: 6, text: '{player} 선수 팩토리 건설!', myResource: -20),
+        BuildStep(line: 10, text: '{player} 선수 앞마당 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 14, text: '{player} 선수 벙커 건설!', stat: 'defense', myResource: -15),
+      ],
+    ),
+    // 6. 노배럭 더블 (수비적)
+    RaceOpening(race: 'T', id: 'tvp_norax_double', name: '노배럭 더블', vsRace: 'P',
+      style: BuildStyle.defensive, aggressionTier: 3,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 커맨드센터 건설합니다!', stat: 'macro', myResource: -40),
+        BuildStep(line: 5, text: '{player} 선수 배럭 건설!', myResource: -10),
+        BuildStep(line: 9, text: '{player} 선수 마린 생산!', myArmy: 2, myResource: -5),
+        BuildStep(line: 13, text: '{player} 선수 팩토리 건설!', myResource: -20),
+      ],
+    ),
+  ];
+
+  // ==================== 테란 트랜지션 데이터 (TvZ 6종 + TvP 6종) ====================
+
+  static const terranTransitionsTvZ = [
+    // 1. 바이오닉 푸시 (from tvz_sk)
+    RaceTransition(race: 'T', id: 'tvz_trans_bionic_push', name: '바이오닉 푸시', vsRace: 'Z',
+      style: BuildStyle.aggressive, keyStats: ['attack', 'control'],
+      steps: [
+        BuildStep(line: 20, text: '{player} 선수 팩토리 건설!', myResource: -20),
+        BuildStep(line: 24, text: '{player}, 탱크 생산! 맵 장악!', stat: 'harass', myArmy: 3, myResource: -30),
+        BuildStep(line: 36, text: '{player}, 마린 메딕 푸시!', stat: 'attack', myArmy: 6, myResource: -15),
+        BuildStep(line: 50, text: '{player} 선수 멀티 포인트 공격!', stat: 'control', enemyArmy: -5),
+        BuildStep(line: 60, text: '{player} 선수 3번째 멀티 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 75, text: '{player}, 마린 메딕 탱크 조합 완성!', stat: 'macro', myArmy: 15, myResource: -40),
+      ],
+    ),
+    // 2. 메카닉 골리앗 (from tvz_3fac_goliath)
+    RaceTransition(race: 'T', id: 'tvz_trans_mech_goliath', name: '메카닉 골리앗', vsRace: 'Z',
+      style: BuildStyle.defensive, keyStats: ['defense', 'macro'],
+      steps: [
+        BuildStep(line: 18, text: '{player} 선수 벙커 건설!', stat: 'defense', myArmy: 2, myResource: -15),
+        BuildStep(line: 20, text: '{player} 선수 팩토리 추가!', myResource: -20),
+        BuildStep(line: 24, text: '{player} 선수 골리앗 레인지 업!', stat: 'strategy', myResource: -15),
+        BuildStep(line: 28, text: '{player} 선수 3번째 팩토리!', myResource: -20),
+        BuildStep(line: 36, text: '{player} 선수 5번째 팩토리 건설!', myResource: -20),
+        BuildStep(line: 40, text: '{player}, 골리앗 대량 생산!', stat: 'defense', myArmy: 10, myResource: -30),
+        BuildStep(line: 48, text: '{player}, 골리앗 추가 생산!', stat: 'defense', myArmy: 8, myResource: -25),
+        BuildStep(line: 54, text: '{player} 선수 시즈 탱크 생산 시작!', stat: 'strategy', myArmy: 4, myResource: -20),
+        BuildStep(line: 66, text: '{player}, 시즈 탱크 골리앗 조합 완성!', stat: 'macro', myArmy: 18, myResource: -45),
+      ],
+    ),
+    // 3. 111 밸런스 (from tvz_111)
+    RaceTransition(race: 'T', id: 'tvz_trans_111_balance', name: '111 밸런스', vsRace: 'Z',
+      style: BuildStyle.balanced, keyStats: ['strategy', 'defense'],
+      steps: [
+        BuildStep(line: 18, text: '{player} 선수 앞마당 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 22, text: '{player}, 레이스 생산!', stat: 'harass', myArmy: 4, myResource: -15),
+        BuildStep(line: 28, text: '{player} 선수 레이스로 정찰! 상대 빌드 파악!', stat: 'scout', enemyArmy: -3),
+        BuildStep(line: 34, text: '{player}, 벙커 건설로 앞마당 방어!', stat: 'defense', myResource: -15),
+        BuildStep(line: 42, text: '{player}, 벌처 마인으로 상대 견제!', stat: 'harass', enemyArmy: -5, enemyResource: -10),
+        BuildStep(line: 50, text: '{player} 선수 탱크 벌처 전진!', stat: 'control', myArmy: 5, isClash: true),
+        BuildStep(line: 58, text: '{player}, 탱크 추가 생산!', stat: 'defense', myArmy: 8, myResource: -20),
+        BuildStep(line: 78, text: '{player}, 탱크 바이오닉 조합 완성! 전진!', stat: 'macro', myArmy: 15, myResource: -35, isClash: true),
+      ],
+    ),
+    // 4. 발키리 대공 (from tvz_valkyrie)
+    RaceTransition(race: 'T', id: 'tvz_trans_valkyrie', name: '발키리 대공', vsRace: 'Z',
+      style: BuildStyle.defensive, keyStats: ['defense', 'control'],
+      steps: [
+        BuildStep(line: 18, text: '{player}, 스타포트 건설!', myResource: -25),
+        BuildStep(line: 20, text: '{player}, 컨트롤타워 부착!', myResource: -10),
+        BuildStep(line: 22, text: '{player} 선수 발키리 생산!', stat: 'defense', myArmy: 4, myResource: -20),
+        BuildStep(line: 28, text: '{player}, 메딕 생산 시작!', stat: 'control', myArmy: 3, myResource: -10),
+        BuildStep(line: 40, text: '{player}, 발키리로 뮤탈 요격!', stat: 'defense', enemyArmy: -4),
+        BuildStep(line: 56, text: '{player}, 발키리 추가 생산!', stat: 'defense', myArmy: 4, myResource: -20),
+        BuildStep(line: 75, text: '{player}, 대공 완벽 장악!', stat: 'defense', enemyArmy: -5),
+        BuildStep(line: 85, text: '{player} 선수 마린 메딕 발키리 조합 완성!', stat: 'macro', myArmy: 16, myResource: -40),
+      ],
+    ),
+    // 5. 레이스 공중 (from tvz_2star_wraith)
+    RaceTransition(race: 'T', id: 'tvz_trans_wraith', name: '레이스 공중', vsRace: 'Z',
+      style: BuildStyle.aggressive, keyStats: ['harass', 'control'],
+      steps: [
+        BuildStep(line: 18, text: '{player} 선수 스타포트 건설!', myResource: -25),
+        BuildStep(line: 20, text: '{player}, 2번째 스타포트!', stat: 'harass', myResource: -25),
+        BuildStep(line: 24, text: '{player} 선수 레이스 더블 생산!', stat: 'harass', myArmy: 4, myResource: -15),
+        BuildStep(line: 28, text: '{player}, 레이스로 오버로드 사냥!', stat: 'harass', enemyArmy: -3),
+        BuildStep(line: 34, text: '{player}, 드론 라인 견제!', stat: 'harass', enemyResource: -25),
+        BuildStep(line: 42, text: '{player}, 레이스 편대 완성!', stat: 'control', myArmy: 4, myResource: -15, isClash: true),
+        BuildStep(line: 50, text: '{player} 선수 공중 장악 완료!', stat: 'harass', enemyArmy: -5, isClash: true, decisive: true),
+      ],
+    ),
+    // 6. 선엔베 푸시 (from tvz_4rax_enbe)
+    RaceTransition(race: 'T', id: 'tvz_trans_enbe_push', name: '선엔베 푸시', vsRace: 'Z',
+      style: BuildStyle.aggressive, keyStats: ['attack', 'macro'],
+      steps: [
+        BuildStep(line: 18, text: '{player}, 마린 쏟아냅니다!', stat: 'attack', myArmy: 6, myResource: -15),
+        BuildStep(line: 22, text: '{player} 선수 메딕 생산 시작!', stat: 'control', myArmy: 3, myResource: -10),
+        BuildStep(line: 26, text: '{player}, 스팀팩 연구 시작!', stat: 'attack', myResource: -15),
+        BuildStep(line: 30, text: '{player} 선수 앞마당 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 35, text: '{player}, 마린 메딕 대규모 푸시!', stat: 'attack', myArmy: 8, myResource: -20, isClash: true),
+        BuildStep(line: 40, text: '{player} 선수 상대 앞마당 압박!', stat: 'control', enemyArmy: -4, isClash: true),
+        BuildStep(line: 45, text: '{player}, 추가 병력 합류! 밀어붙입니다!', stat: 'attack', myArmy: 5, isClash: true, decisive: true),
+      ],
+    ),
+  ];
+
+  static const terranTransitionsTvP = [
+    // 1. 탱크 수비 (from tvp_double)
+    RaceTransition(race: 'T', id: 'tvp_trans_tank_defense', name: '탱크 수비', vsRace: 'P',
+      style: BuildStyle.defensive, keyStats: ['defense', 'macro'],
+      steps: [
+        BuildStep(line: 18, text: '{player} 선수 시즈 탱크 생산!', myArmy: 5, myResource: -15),
+        BuildStep(line: 22, text: '{player}, 시즈모드 연구!', stat: 'defense', myResource: -15),
+        BuildStep(line: 28, text: '{player}, 탱크 라인 전개!', stat: 'defense'),
+        BuildStep(line: 34, text: '{player} 선수 팩토리 추가!', myResource: -20),
+        BuildStep(line: 42, text: '{player} 선수 벌처 생산!', stat: 'harass', myArmy: 3, myResource: -10),
+        BuildStep(line: 50, text: '{player}, 3번째 멀티 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 62, text: '{player} 선수 골리앗 대량 생산!', myArmy: 10, myResource: -30),
+        BuildStep(line: 80, text: '{player}, 탱크 골리앗 조합 완성!', stat: 'macro', myArmy: 15, myResource: -40),
+      ],
+    ),
+    // 2. 타이밍 푸시 (from tvp_fake_double)
+    RaceTransition(race: 'T', id: 'tvp_trans_timing_push', name: '타이밍 푸시', vsRace: 'P',
+      style: BuildStyle.aggressive, keyStats: ['attack', 'control'],
+      steps: [
+        BuildStep(line: 20, text: '{player} 선수 벌처 생산!', myArmy: 3, myResource: -8),
+        BuildStep(line: 24, text: '{player}, 빠른 타이밍 푸시 준비!', stat: 'attack'),
+        BuildStep(line: 28, text: '{player} 선수 탱크 벌처 전진!', stat: 'attack'),
+        BuildStep(line: 32, text: '{player}, 상대 앞마당 압박!', stat: 'control', isClash: true),
+        BuildStep(line: 38, text: '{player} 선수 탱크 추가 생산!', myArmy: 5, myResource: -15),
+        BuildStep(line: 45, text: '{player}, 결정적인 타이밍 푸시!', stat: 'attack', isClash: true, decisive: true),
+      ],
+    ),
+    // 3. 업그레이드 운영 (from tvp_1fac_gosu)
+    RaceTransition(race: 'T', id: 'tvp_trans_upgrade', name: '업그레이드 운영', vsRace: 'P',
+      style: BuildStyle.defensive, keyStats: ['strategy', 'macro'],
+      steps: [
+        BuildStep(line: 18, text: '{player} 선수 아머리 건설!', myResource: -15),
+        BuildStep(line: 22, text: '{player}, 지상 공격력 업그레이드!', stat: 'strategy', myResource: -15),
+        BuildStep(line: 28, text: '{player}, 탱크 라인 전개!', stat: 'defense'),
+        BuildStep(line: 34, text: '{player} 선수 지상 방어력 업그레이드!', stat: 'strategy', myResource: -15),
+        BuildStep(line: 40, text: '{player} 선수 스타포트 건설!', myResource: -25),
+        BuildStep(line: 52, text: '{player}, 사이언스 베슬 생산!', myArmy: 2, myResource: -20),
+        BuildStep(line: 60, text: '{player} 선수 EMP 연구!', stat: 'strategy', myResource: -20),
+        BuildStep(line: 72, text: '{player}, EMP로 하이템플러 무력화!', stat: 'strategy', enemyArmy: -5),
+        BuildStep(line: 85, text: '{player} 선수 업그레이드 완료! 최종 푸시!', stat: 'attack', isClash: true),
+      ],
+    ),
+    // 4. 바이오 메카닉 (from tvp_rax_double)
+    RaceTransition(race: 'T', id: 'tvp_trans_bio_mech', name: '바이오 메카닉', vsRace: 'P',
+      style: BuildStyle.defensive, keyStats: ['defense', 'macro'],
+      steps: [
+        BuildStep(line: 17, text: '{player}, 메딕 생산 시작!', stat: 'control', myArmy: 3, myResource: -10),
+        BuildStep(line: 22, text: '{player} 선수 스팀팩 연구!', stat: 'attack', myResource: -15),
+        BuildStep(line: 28, text: '{player}, 팩토리 건설!', myResource: -20),
+        BuildStep(line: 34, text: '{player} 선수 시즈 탱크 생산!', stat: 'defense', myArmy: 5, myResource: -15),
+        BuildStep(line: 42, text: '{player}, 마린 메딕 탱크 라인 방어!', stat: 'defense'),
+        BuildStep(line: 60, text: '{player}, 3번째 멀티 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 72, text: '{player} 선수 골리앗 생산 시작!', myArmy: 8, myResource: -25),
+        BuildStep(line: 85, text: '{player}, 마린 메딕 메카닉 조합 완성!', stat: 'macro', myArmy: 14, myResource: -40),
+      ],
+    ),
+    // 5. 5팩 물량 (from tvp_5fac_timing / tvp_11up_8fac)
+    RaceTransition(race: 'T', id: 'tvp_trans_5fac_mass', name: '5팩 물량', vsRace: 'P',
+      style: BuildStyle.aggressive, keyStats: ['attack', 'macro'],
+      steps: [
+        BuildStep(line: 18, text: '{player}, 팩토리 추가! 3번째!', myResource: -20),
+        BuildStep(line: 22, text: '{player} 선수 5번째 팩토리까지!', myResource: -40),
+        BuildStep(line: 26, text: '{player}, 팩토리 풀가동!', stat: 'macro', myResource: -20),
+        BuildStep(line: 32, text: '{player} 선수 탱크 벌처 대량 생산!', stat: 'attack', myArmy: 12, myResource: -35),
+        BuildStep(line: 38, text: '{player}, 메카닉 물량 타이밍!', stat: 'attack', myArmy: 8, myResource: -20, isClash: true),
+        BuildStep(line: 42, text: '{player} 선수 메카닉 대군 전진!', stat: 'control', enemyArmy: -5, isClash: true),
+        BuildStep(line: 45, text: '{player}, 물량으로 밀어붙입니다!', stat: 'attack', myArmy: 6, isClash: true, decisive: true),
+      ],
+    ),
+    // 6. 안티 캐리어 (from tvp_anti_carrier)
+    RaceTransition(race: 'T', id: 'tvp_trans_anti_carrier', name: '안티 캐리어', vsRace: 'P',
+      style: BuildStyle.balanced, keyStats: ['strategy', 'defense'],
+      steps: [
+        BuildStep(line: 18, text: '{player} 선수 골리앗 대량 생산!', stat: 'defense', myArmy: 8, myResource: -25),
+        BuildStep(line: 24, text: '{player}, 아머리 건설!', myResource: -15),
+        BuildStep(line: 30, text: '{player} 선수 골리앗 레인지 업!', stat: 'strategy', myResource: -15),
+        BuildStep(line: 36, text: '{player}, 스타포트 건설!', myResource: -25),
+        BuildStep(line: 48, text: '{player}, 베슬 생산! EMP 연구!', stat: 'strategy', myArmy: 2, myResource: -40),
+        BuildStep(line: 56, text: '{player} 선수 골리앗 추가 생산!', stat: 'defense', myArmy: 8, myResource: -25),
+        BuildStep(line: 64, text: '{player}, EMP로 캐리어 실드 제거!', stat: 'strategy', enemyArmy: -5),
+        BuildStep(line: 75, text: '{player} 선수 골리앗 대공 진형 완성!', stat: 'defense', myArmy: 10, myResource: -30, isClash: true),
+      ],
+    ),
+  ];
+
   // TvP 빌드들
   // 팩더블 = 수비형, 타이밍 러쉬 = 공격형, 투팩 찌르기 = 공격형, 업테란 = 수비형, 배럭 더블 = 수비형, 5팩 타이밍 = 공격형, 마인 트리플 = 수비형, 노노사 = 치즈, FD테란 = 밸런스, 11업 8팩 = 공격형, 안티 캐리어 = 밸런스
   static const terranVsProtossBuilds = [
+    // 0. 센터 8배럭 (tvp_bbs - Cheese, 자체완결)
+    // BBS 2배럭 마린 러쉬. 센터 맵에서 높은 성공률
+    BuildOrder(
+      id: 'tvp_bbs',
+      name: '센터 8배럭',
+      race: 'T',
+      vsRace: 'P',
+      style: BuildStyle.cheese,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 8서플 배럭 건설합니다.', myResource: -10),
+        BuildStep(line: 4, text: '{player} 선수 2번째 배럭!', myResource: -10),
+        BuildStep(line: 7, text: '{player}, 마린 더블 생산!', stat: 'attack', myArmy: 4, myResource: -10),
+        BuildStep(line: 10, text: '{player} 선수 마린 푸시!', stat: 'attack'),
+        BuildStep(line: 14, text: '{player}, 상대 본진 공격!', stat: 'control', isClash: true),
+        BuildStep(line: 18, text: '{player} 선수 마린 추가 합류!', myArmy: 3, myResource: -5),
+        BuildStep(line: 22, text: '{player}, 끝장 승부!', stat: 'attack', isClash: true, decisive: true),
+      ],
+    ),
+
     // 1. 팩더블 (tvpDouble - Defensive)
     // 현 메타 안전 정석. 팩토리 건설 후 앞마당 더블 확장
     BuildOrder(
@@ -676,6 +1065,151 @@ class BuildOrderData {
 
   // ZvT 빌드들 (BuildType: zvt3HatchMutal(미친저그), zvt2HatchMutal, zvt2HatchLurker, zvt1HatchAllIn)
   static const zergVsTerranBuilds = [
+    // ===== 기본 빌드 (5개) =====
+
+    // 1. 4풀 (zvt_4pool - Cheese)
+    // 4드론에 스포닝풀. 극 초반 저글링 러쉬로 SCV 학살
+    BuildOrder(
+      id: 'zvt_4pool',
+      name: '4풀',
+      race: 'Z',
+      vsRace: 'T',
+      style: BuildStyle.cheese,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 4드론에 스포닝풀!', stat: 'attack', myResource: -15),
+        BuildStep(line: 5, text: '{player}, 저글링 6기 생산!', stat: 'attack', myArmy: 6, myResource: -8),
+        BuildStep(line: 9, text: '{player} 선수 저글링 돌진!', stat: 'attack', isClash: true),
+        BuildStep(line: 13, text: '{player}, SCV 학살!', stat: 'attack', enemyResource: -25),
+        BuildStep(line: 17, text: '{player} 선수 저글링 추가 생산!', stat: 'control', myArmy: 6, myResource: -8),
+        BuildStep(line: 21, text: '{player}, 올인! 멈추지 않습니다!', stat: 'attack', isClash: true, decisive: true),
+      ],
+    ),
+
+    // 2. 9풀 (zvt_9pool - Aggressive)
+    // 9드론에 스포닝풀. 저글링 견제 후 확장 → 뮤탈 전환
+    BuildOrder(
+      id: 'zvt_9pool',
+      name: '9풀',
+      race: 'Z',
+      vsRace: 'T',
+      style: BuildStyle.aggressive,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 드론 생산!', myResource: 5),
+        BuildStep(line: 4, text: '{player} 선수 9드론에 스포닝풀!', myResource: -15),
+        BuildStep(line: 8, text: '{player} 선수 저글링 생산!', stat: 'attack', myArmy: 6, myResource: -8),
+        BuildStep(line: 12, text: '{player}, 저글링으로 견제!', stat: 'harass', enemyResource: -15, isClash: true),
+        BuildStep(line: 16, text: '{player} 선수 앞마당 해처리 건설!', stat: 'macro', myResource: -30),
+        BuildStep(line: 22, text: '{player} 선수 레어 건설!', myResource: -20),
+        BuildStep(line: 28, text: '{player} 선수 스파이어 건설!', myResource: -25),
+        BuildStep(line: 34, text: '{player}, 뮤탈리스크 생산!', stat: 'harass', myArmy: 6, myResource: -15),
+        BuildStep(line: 40, text: '{player}, 뮤탈로 일꾼 견제!', stat: 'harass', enemyResource: -20),
+        BuildStep(line: 48, text: '{player} 선수 뮤탈 추가 생산!', stat: 'control', myArmy: 5, myResource: -10),
+        BuildStep(line: 56, text: '{player}, 뮤탈 물량으로 주도권 장악!', stat: 'control', myArmy: 4, enemyArmy: -5, isClash: true),
+      ],
+    ),
+
+    // 3. 9오버풀 (zvt_9overpool - Aggressive)
+    // 9드론에 오버로드 후 스포닝풀. 서플 관리 + 공격적 저글링 운영
+    BuildOrder(
+      id: 'zvt_9overpool',
+      name: '9오버풀',
+      race: 'Z',
+      vsRace: 'T',
+      style: BuildStyle.aggressive,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 드론 생산!', myResource: 5),
+        BuildStep(line: 4, text: '{player} 선수 9드론에 오버로드!', myResource: -5),
+        BuildStep(line: 6, text: '{player}, 스포닝풀 건설!', myResource: -15),
+        BuildStep(line: 10, text: '{player} 선수 저글링 생산!', stat: 'attack', myArmy: 6, myResource: -8),
+        BuildStep(line: 14, text: '{player}, 저글링으로 견제!', stat: 'harass', enemyResource: -15, isClash: true),
+        BuildStep(line: 18, text: '{player} 선수 앞마당 해처리 건설!', stat: 'macro', myResource: -30),
+        BuildStep(line: 24, text: '{player}, 저글링 추가 생산!', stat: 'attack', myArmy: 4, myResource: -5),
+        BuildStep(line: 30, text: '{player} 선수 레어 건설!', myResource: -20),
+        BuildStep(line: 36, text: '{player} 선수 스파이어 건설!', myResource: -25),
+        BuildStep(line: 42, text: '{player}, 뮤탈리스크 생산!', stat: 'harass', myArmy: 6, myResource: -15),
+        BuildStep(line: 48, text: '{player}, 뮤탈로 견제!', stat: 'harass', enemyResource: -20),
+        BuildStep(line: 56, text: '{player} 선수 뮤탈 추가! 공중 장악!', stat: 'control', myArmy: 5, enemyArmy: -4, myResource: -10, isClash: true),
+      ],
+    ),
+
+    // 4. 12풀 (zvt_12pool - Balanced)
+    // 12드론에 스포닝풀. 안정적 확장 → 뮤탈/럴커 운영
+    BuildOrder(
+      id: 'zvt_12pool',
+      name: '12풀',
+      race: 'Z',
+      vsRace: 'T',
+      style: BuildStyle.balanced,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 드론 생산!', stat: 'macro', myResource: 8),
+        BuildStep(line: 4, text: '{player} 선수 12드론에 스포닝풀!', myResource: -15),
+        BuildStep(line: 8, text: '{player}, 가스 채취 시작!', myResource: -10),
+        BuildStep(line: 12, text: '{player} 선수 저글링 생산!', myArmy: 4, myResource: -5),
+        BuildStep(line: 16, text: '{player} 선수 앞마당 해처리 건설!', stat: 'macro', myResource: -30),
+        BuildStep(line: 22, text: '{player}, 레어 건설!', myResource: -20),
+        BuildStep(line: 28, text: '{player} 선수 스파이어 건설!', myResource: -25),
+        BuildStep(line: 34, text: '{player}, 뮤탈리스크 생산!', stat: 'harass', myArmy: 6, myResource: -15),
+        BuildStep(line: 40, text: '{player}, 뮤탈로 견제!', stat: 'harass', enemyResource: -20),
+        BuildStep(line: 48, text: '{player} 선수 3해처리 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 56, text: '{player} 선수 히드라덴 건설!', myResource: -15),
+        BuildStep(line: 64, text: '{player}, 럴커 변태!', stat: 'defense', myArmy: 5, myResource: -15),
+        BuildStep(line: 72, text: '{player}, 뮤탈 럴커 조합으로 운영!', stat: 'macro', myArmy: 8, myResource: -20),
+      ],
+    ),
+
+    // 4. 12앞 (zvt_12hatch - Balanced)
+    // 12드론에 앞마당 해처리. 경제 우선 확장 → 뮤탈/럴커 전환
+    BuildOrder(
+      id: 'zvt_12hatch',
+      name: '12앞',
+      race: 'Z',
+      vsRace: 'T',
+      style: BuildStyle.balanced,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 드론 생산!', stat: 'macro', myResource: 8),
+        BuildStep(line: 4, text: '{player} 선수 12드론에 앞마당 해처리!', stat: 'macro', myResource: -30),
+        BuildStep(line: 7, text: '{player} 선수 스포닝풀 건설!', myResource: -15),
+        BuildStep(line: 12, text: '{player} 선수 저글링 생산!', myArmy: 4, myResource: -5),
+        BuildStep(line: 16, text: '{player}, 선링 방어!', stat: 'defense'),
+        BuildStep(line: 22, text: '{player} 선수 레어 건설!', myResource: -20),
+        BuildStep(line: 28, text: '{player} 선수 스파이어 건설!', myResource: -25),
+        BuildStep(line: 34, text: '{player}, 뮤탈리스크 생산!', stat: 'harass', myArmy: 6, myResource: -15),
+        BuildStep(line: 40, text: '{player}, 뮤탈로 견제!', stat: 'harass', enemyResource: -20),
+        BuildStep(line: 48, text: '{player} 선수 3해처리 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 56, text: '{player}, 럴커 변태!', stat: 'defense', myArmy: 5, myResource: -15),
+        BuildStep(line: 64, text: '{player}, 경제력으로 물량 압도!', stat: 'macro', myArmy: 10, myResource: -25),
+      ],
+    ),
+
+    // 5. 노풀 3해처리 (zvt_3hatch_nopool - Defensive)
+    // 스포닝풀 없이 3해처리 먼저. 극 수비적, 후반 울트라 지향
+    BuildOrder(
+      id: 'zvt_3hatch_nopool',
+      name: '노풀 3해처리',
+      race: 'Z',
+      vsRace: 'T',
+      style: BuildStyle.defensive,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 해처리 건설합니다.', myResource: -10),
+        BuildStep(line: 4, text: '{player}, 앞마당 해처리!', stat: 'macro', myResource: -30),
+        BuildStep(line: 8, text: '{player} 선수 3번째 해처리!', stat: 'macro', myResource: -30),
+        BuildStep(line: 12, text: '{player} 선수 스포닝풀 건설!', myResource: -15),
+        BuildStep(line: 16, text: '{player}, 드론 풀가동!', stat: 'macro', myResource: 20),
+        BuildStep(line: 22, text: '{player} 선수 저글링 생산!', myArmy: 6, myResource: -8),
+        BuildStep(line: 28, text: '{player} 선수 레어 건설!', myResource: -20),
+        BuildStep(line: 34, text: '{player} 선수 스파이어 건설!', myResource: -25),
+        BuildStep(line: 40, text: '{player}, 뮤탈리스크 생산!', stat: 'harass', myArmy: 6, myResource: -15),
+        BuildStep(line: 48, text: '{player}, 뮤탈로 견제!', stat: 'harass', enemyResource: -20),
+        BuildStep(line: 56, text: '{player} 선수 4번째 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 64, text: '{player}, 럴커 변태!', stat: 'defense', myArmy: 6, myResource: -15),
+        BuildStep(line: 72, text: '{player} 선수 하이브 건설!', stat: 'macro', myResource: -25),
+        BuildStep(line: 80, text: '{player}, 울트라리스크 생산!', stat: 'attack', myArmy: 8, myResource: -30),
+        BuildStep(line: 88, text: '{player}, 경제력 폭발! 울트라 저글링 돌진!', stat: 'attack', myArmy: 12, myResource: -25, isClash: true),
+      ],
+    ),
+
+    // ===== 특화 빌드 (4개) =====
+
     // 1. 미친 저그 (zvt3HatchMutal - Aggressive)
     // 럴커/디파일러 스킵 → 뮤탈 견제 후 울트라리스크 직행. 현 메타 공격형
     BuildOrder(
@@ -720,11 +1254,12 @@ class BuildOrderData {
         BuildStep(line: 22, text: '{player} 선수 스파이어 건설!', myResource: -25),
         BuildStep(line: 28, text: '{player} 선수 뮤탈리스크 생산!', stat: 'harass', myArmy: 8, myResource: -15),
         BuildStep(line: 32, text: '{player}, 뮤탈로 견제!', stat: 'harass', enemyResource: -30),
-        BuildStep(line: 38, text: '{player} 선수 3해처리 확장!', stat: 'macro', myArmy: 3, myResource: -30),
-        BuildStep(line: 45, text: '{player}, 뮤탈 매직!', stat: 'control', enemyArmy: -6),
-        BuildStep(line: 55, text: '{player} 선수 히드라덴 건설!', myResource: -15),
-        BuildStep(line: 65, text: '{player}, 럴커 변태!', stat: 'strategy', myArmy: 6, myResource: -15),
-        BuildStep(line: 75, text: '{player} 선수 뮤탈 럴커 조합!', stat: 'macro', myArmy: 12, myResource: -30),
+        BuildStep(line: 38, text: '{player} 선수 3해처리 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 42, text: '{player}, 뮤탈 매직!', stat: 'control', enemyArmy: -6),
+        BuildStep(line: 48, text: '{player} 선수 히드라덴 건설!', myResource: -15),
+        BuildStep(line: 55, text: '{player}, 히드라리스크 생산!', stat: 'attack', myArmy: 8, myResource: -20),
+        BuildStep(line: 62, text: '{player} 선수 뮤탈 추가 생산!', stat: 'harass', myArmy: 5, myResource: -15),
+        BuildStep(line: 70, text: '{player}, 뮤탈 히드라 조합 완성!', stat: 'macro', myArmy: 8, myResource: -25),
       ],
     ),
 
@@ -782,6 +1317,151 @@ class BuildOrderData {
 
   // ZvP 빌드들 (BuildType: zvp3HatchHydra(5해처리히드라), zvp2HatchMutal, zvpScourgeDefiler, zvp5DroneZergling, zvp973Hydra)
   static const zergVsProtossBuilds = [
+    // ===== 기본 빌드 (5개) =====
+
+    // 1. 4풀 (zvp_4pool - Cheese)
+    // 4드론에 스포닝풀. 극 초반 저글링 러쉬로 프로브 학살
+    BuildOrder(
+      id: 'zvp_4pool',
+      name: '4풀',
+      race: 'Z',
+      vsRace: 'P',
+      style: BuildStyle.cheese,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 4드론에 스포닝풀!', stat: 'attack', myResource: -15),
+        BuildStep(line: 5, text: '{player}, 저글링 6기 생산!', stat: 'attack', myArmy: 6, myResource: -8),
+        BuildStep(line: 9, text: '{player} 선수 저글링 돌진!', stat: 'attack', isClash: true),
+        BuildStep(line: 13, text: '{player}, 프로브 학살!', stat: 'attack', enemyResource: -25),
+        BuildStep(line: 17, text: '{player} 선수 저글링 추가 생산!', stat: 'control', myArmy: 6, myResource: -8),
+        BuildStep(line: 21, text: '{player}, 올인! 멈추지 않습니다!', stat: 'attack', isClash: true, decisive: true),
+      ],
+    ),
+
+    // 2. 9풀 (zvp_9pool - Aggressive)
+    // 9드론에 스포닝풀. 저글링 견제 후 히드라 전환
+    BuildOrder(
+      id: 'zvp_9pool',
+      name: '9풀',
+      race: 'Z',
+      vsRace: 'P',
+      style: BuildStyle.aggressive,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 드론 생산!', myResource: 5),
+        BuildStep(line: 4, text: '{player} 선수 9드론에 스포닝풀!', myResource: -15),
+        BuildStep(line: 8, text: '{player} 선수 저글링 생산!', stat: 'attack', myArmy: 6, myResource: -8),
+        BuildStep(line: 12, text: '{player}, 저글링으로 프로브 견제!', stat: 'harass', enemyResource: -15, isClash: true),
+        BuildStep(line: 16, text: '{player} 선수 앞마당 해처리 건설!', stat: 'macro', myResource: -30),
+        BuildStep(line: 22, text: '{player} 선수 히드라덴 건설!', myResource: -15),
+        BuildStep(line: 28, text: '{player}, 히드라리스크 생산!', stat: 'attack', myArmy: 8, myResource: -20),
+        BuildStep(line: 34, text: '{player} 선수 3해처리 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 40, text: '{player}, 히드라 물량 압박!', stat: 'attack', myArmy: 8, myResource: -15),
+        BuildStep(line: 48, text: '{player} 선수 레어 건설!', myResource: -20),
+        BuildStep(line: 54, text: '{player}, 럴커 변태!', stat: 'defense', myArmy: 4, myResource: -15),
+        BuildStep(line: 62, text: '{player}, 히드라 럴커 물량!', stat: 'macro', myArmy: 6, myResource: -15, isClash: true),
+      ],
+    ),
+
+    // 3. 9오버풀 (zvp_9overpool - Aggressive)
+    // 9드론에 오버로드 후 스포닝풀. 서플 관리 + 공격적 저글링 → 히드라 전환
+    BuildOrder(
+      id: 'zvp_9overpool',
+      name: '9오버풀',
+      race: 'Z',
+      vsRace: 'P',
+      style: BuildStyle.aggressive,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 드론 생산!', myResource: 5),
+        BuildStep(line: 4, text: '{player} 선수 9드론에 오버로드!', myResource: -5),
+        BuildStep(line: 6, text: '{player}, 스포닝풀 건설!', myResource: -15),
+        BuildStep(line: 10, text: '{player} 선수 저글링 생산!', stat: 'attack', myArmy: 6, myResource: -8),
+        BuildStep(line: 14, text: '{player}, 저글링으로 프로브 견제!', stat: 'harass', enemyResource: -15, isClash: true),
+        BuildStep(line: 18, text: '{player} 선수 앞마당 해처리 건설!', stat: 'macro', myResource: -30),
+        BuildStep(line: 24, text: '{player}, 저글링 추가 생산!', stat: 'attack', myArmy: 4, myResource: -5),
+        BuildStep(line: 30, text: '{player} 선수 히드라덴 건설!', myResource: -15),
+        BuildStep(line: 36, text: '{player}, 히드라리스크 생산!', stat: 'attack', myArmy: 8, myResource: -20),
+        BuildStep(line: 42, text: '{player} 선수 3해처리 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 50, text: '{player}, 히드라 물량 압박!', stat: 'attack', myArmy: 8, myResource: -15),
+        BuildStep(line: 58, text: '{player} 선수 럴커 변태!', stat: 'defense', myArmy: 4, myResource: -15),
+        BuildStep(line: 66, text: '{player}, 히드라 럴커 물량!', stat: 'macro', myArmy: 6, myResource: -15, isClash: true),
+      ],
+    ),
+
+    // 4. 12풀 (zvp_12pool - Balanced)
+    // 12드론에 스포닝풀. 안정적 확장 → 히드라/럴커 운영
+    BuildOrder(
+      id: 'zvp_12pool',
+      name: '12풀',
+      race: 'Z',
+      vsRace: 'P',
+      style: BuildStyle.balanced,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 드론 생산!', stat: 'macro', myResource: 8),
+        BuildStep(line: 4, text: '{player} 선수 12드론에 스포닝풀!', myResource: -15),
+        BuildStep(line: 8, text: '{player}, 가스 채취 시작!', myResource: -10),
+        BuildStep(line: 12, text: '{player} 선수 저글링 생산!', myArmy: 4, myResource: -5),
+        BuildStep(line: 16, text: '{player} 선수 앞마당 해처리 건설!', stat: 'macro', myResource: -30),
+        BuildStep(line: 22, text: '{player} 선수 히드라덴 건설!', myResource: -15),
+        BuildStep(line: 28, text: '{player}, 히드라리스크 생산!', stat: 'attack', myArmy: 8, myResource: -20),
+        BuildStep(line: 34, text: '{player} 선수 3해처리 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 40, text: '{player}, 히드라 추가 생산!', stat: 'attack', myArmy: 6, myResource: -15),
+        BuildStep(line: 48, text: '{player} 선수 레어 건설!', myResource: -20),
+        BuildStep(line: 54, text: '{player}, 럴커 변태!', stat: 'defense', myArmy: 5, myResource: -15),
+        BuildStep(line: 62, text: '{player} 선수 히드라 럴커 조합으로 운영!', stat: 'macro', myArmy: 8, myResource: -20),
+      ],
+    ),
+
+    // 4. 12앞 (zvp_12hatch - Balanced)
+    // 12드론에 앞마당 해처리. 경제 우선 확장 → 히드라 물량
+    BuildOrder(
+      id: 'zvp_12hatch',
+      name: '12앞',
+      race: 'Z',
+      vsRace: 'P',
+      style: BuildStyle.balanced,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 드론 생산!', stat: 'macro', myResource: 8),
+        BuildStep(line: 4, text: '{player} 선수 12드론에 앞마당 해처리!', stat: 'macro', myResource: -30),
+        BuildStep(line: 7, text: '{player} 선수 스포닝풀 건설!', myResource: -15),
+        BuildStep(line: 12, text: '{player} 선수 저글링 생산!', myArmy: 4, myResource: -5),
+        BuildStep(line: 16, text: '{player}, 선링 방어!', stat: 'defense'),
+        BuildStep(line: 22, text: '{player} 선수 히드라덴 건설!', myResource: -15),
+        BuildStep(line: 28, text: '{player}, 히드라리스크 생산!', stat: 'attack', myArmy: 8, myResource: -20),
+        BuildStep(line: 34, text: '{player} 선수 3해처리 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 42, text: '{player}, 히드라 추가 생산!', stat: 'attack', myArmy: 8, myResource: -15),
+        BuildStep(line: 50, text: '{player} 선수 레어 건설!', myResource: -20),
+        BuildStep(line: 56, text: '{player}, 럴커 변태!', stat: 'defense', myArmy: 5, myResource: -15),
+        BuildStep(line: 64, text: '{player}, 경제력으로 물량 압도!', stat: 'macro', myArmy: 10, myResource: -25),
+      ],
+    ),
+
+    // 5. 노풀 3해처리 (zvp_3hatch_nopool - Defensive)
+    // 스포닝풀 없이 3해처리 먼저. 극 수비적, 후반 히드라 물량 지향
+    BuildOrder(
+      id: 'zvp_3hatch_nopool',
+      name: '노풀 3해처리',
+      race: 'Z',
+      vsRace: 'P',
+      style: BuildStyle.defensive,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 해처리 건설합니다.', myResource: -10),
+        BuildStep(line: 4, text: '{player}, 앞마당 해처리!', stat: 'macro', myResource: -30),
+        BuildStep(line: 8, text: '{player} 선수 3번째 해처리!', stat: 'macro', myResource: -30),
+        BuildStep(line: 12, text: '{player} 선수 스포닝풀 건설!', myResource: -15),
+        BuildStep(line: 16, text: '{player}, 드론 풀가동!', stat: 'macro', myResource: 20),
+        BuildStep(line: 22, text: '{player} 선수 저글링 생산!', myArmy: 6, myResource: -8),
+        BuildStep(line: 28, text: '{player} 선수 히드라덴 건설!', myResource: -15),
+        BuildStep(line: 34, text: '{player}, 히드라리스크 대량 생산!', stat: 'attack', myArmy: 12, myResource: -25),
+        BuildStep(line: 42, text: '{player} 선수 4번째 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 50, text: '{player} 선수 레어 건설!', myResource: -20),
+        BuildStep(line: 56, text: '{player}, 럴커 변태!', stat: 'defense', myArmy: 5, myResource: -15),
+        BuildStep(line: 64, text: '{player}, 5번째 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 72, text: '{player} 선수 히드라 럴커 물량!', stat: 'macro', myArmy: 15, myResource: -30),
+        BuildStep(line: 80, text: '{player}, 압도적 물량으로 밀어붙입니다!', stat: 'attack', isClash: true),
+      ],
+    ),
+
+    // ===== 특화 빌드 (7개) =====
+
     // 1. 5해처리 히드라 (zvp3HatchHydra - Aggressive)
     // 현 메타 정석. 5해처리까지 확장 후 히드라 물량으로 압박
     BuildOrder(
@@ -823,13 +1503,14 @@ class BuildOrderData {
         BuildStep(line: 12, text: '{player} 선수 저글링 소량 생산!', myArmy: 4, myResource: -5),
         BuildStep(line: 18, text: '{player} 선수 레어 건설!', myResource: -20),
         BuildStep(line: 24, text: '{player} 선수 스파이어 건설!', myResource: -25),
-        BuildStep(line: 30, text: '{player} 선수 뮤탈리스크 5기 생산!', stat: 'harass', myArmy: 5, myResource: -15),
-        BuildStep(line: 36, text: '{player}, 뮤탈로 프로브 견제!', stat: 'harass', enemyResource: -25),
+        BuildStep(line: 30, text: '{player} 선수 뮤탈리스크 5기 생산!', stat: 'harass', myArmy: 6, myResource: -15),
+        BuildStep(line: 36, text: '{player}, 뮤탈로 프로브 견제!', stat: 'harass', enemyArmy: -3, enemyResource: -25),
         BuildStep(line: 42, text: '{player} 선수 히드라덴 건설!', stat: 'strategy', myResource: -15),
         BuildStep(line: 50, text: '{player}, 3해처리 확장!', stat: 'strategy', myResource: -30),
-        BuildStep(line: 58, text: '{player} 선수 히드라리스크 대량 생산!', stat: 'attack', myArmy: 10, myResource: -25),
-        BuildStep(line: 66, text: '{player}, 히드라 뮤탈 콤비네이션!', stat: 'strategy', myArmy: 5, myResource: -15, isClash: true),
-        BuildStep(line: 75, text: '{player} 선수 물량으로 밀어붙입니다!', stat: 'attack', isClash: true),
+        BuildStep(line: 58, text: '{player} 선수 히드라리스크 대량 생산!', stat: 'attack', myArmy: 12, myResource: -25),
+        BuildStep(line: 66, text: '{player}, 히드라 뮤탈 콤비네이션!', stat: 'strategy', myArmy: 7, myResource: -15, isClash: true),
+        BuildStep(line: 72, text: '{player}, 뮤탈 재생산! 히드라 뮤탈 투트랙!', stat: 'harass', myArmy: 4, myResource: -10),
+        BuildStep(line: 78, text: '{player} 선수 물량으로 밀어붙입니다!', stat: 'attack', isClash: true),
       ],
     ),
 
@@ -918,13 +1599,15 @@ class BuildOrderData {
         BuildStep(line: 8, text: '{player} 선수 앞마당 해처리 건설!', stat: 'harass', myResource: -30),
         BuildStep(line: 14, text: '{player} 선수 레어 건설!', myResource: -20),
         BuildStep(line: 20, text: '{player} 선수 스파이어 건설!', myResource: -25),
-        BuildStep(line: 26, text: '{player} 선수 뮤탈리스크 생산!', stat: 'harass', myArmy: 5, myResource: -15),
+        BuildStep(line: 26, text: '{player} 선수 뮤탈리스크 생산!', stat: 'harass', myArmy: 6, myResource: -15),
         BuildStep(line: 32, text: '{player}, 스커지 동시 생산!', stat: 'control', myArmy: 4, myResource: -10),
-        BuildStep(line: 38, text: '{player}, 스커지로 커세어 격추!', stat: 'control', enemyArmy: -8),
-        BuildStep(line: 46, text: '{player}, 뮤탈로 프로브 견제!', stat: 'harass', enemyResource: -25),
+        BuildStep(line: 38, text: '{player}, 스커지로 커세어 격추!', stat: 'control', enemyArmy: -10),
+        BuildStep(line: 46, text: '{player}, 뮤탈로 프로브 견제!', stat: 'harass', enemyArmy: -3, enemyResource: -25),
         BuildStep(line: 54, text: '{player} 선수 3해처리 확장!', stat: 'harass', myResource: -30),
-        BuildStep(line: 62, text: '{player} 선수 히드라덴 건설!', myResource: -15),
-        BuildStep(line: 70, text: '{player}, 히드라 지상군 전환!', stat: 'control', myArmy: 10, myResource: -25, isClash: true),
+        BuildStep(line: 60, text: '{player} 선수 히드라덴 건설!', myResource: -15),
+        BuildStep(line: 66, text: '{player}, 디파일러 생산! 다크스웜 준비!', stat: 'strategy', myArmy: 5, myResource: -10),
+        BuildStep(line: 74, text: '{player}, 히드라 지상군 전환!', stat: 'control', myArmy: 15, myResource: -25, isClash: true),
+        BuildStep(line: 82, text: '{player} 선수 디파일러 다크스웜! 물량전!', stat: 'strategy', isClash: true),
       ],
     ),
 
@@ -952,7 +1635,388 @@ class BuildOrderData {
     ),
   ];
 
-  // ZvZ 빌드들 (BuildType: zvzPoolFirst, zvz9Pool, zvz12Hatch, zvzOverPool)
+  // ==================== 저그 오프닝 데이터 (ZvT 6종 + ZvP 6종) ====================
+
+  static const zergOpeningsZvT = [
+    // 1. 4풀 (치즈 - 트랜지션 없이 자체 완결)
+    RaceOpening(race: 'Z',
+      id: 'zvt_4pool', name: '4풀', vsRace: 'T',
+      style: BuildStyle.cheese, aggressionTier: 0,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 4드론에 스포닝풀!', stat: 'attack', myResource: -15),
+        BuildStep(line: 5, text: '{player}, 저글링 6기 생산!', stat: 'attack', myArmy: 6, myResource: -8),
+        BuildStep(line: 9, text: '{player} 선수 저글링 돌진!', stat: 'attack', isClash: true),
+        BuildStep(line: 13, text: '{player}, SCV 학살!', stat: 'attack', enemyResource: -25),
+        BuildStep(line: 17, text: '{player} 선수 저글링 추가 생산!', stat: 'control', myArmy: 6, myResource: -8),
+        BuildStep(line: 21, text: '{player}, 올인! 멈추지 않습니다!', stat: 'attack', isClash: true, decisive: true),
+      ],
+    ),
+    // 2. 9풀 (공격적)
+    RaceOpening(race: 'Z',
+      id: 'zvt_9pool', name: '9풀', vsRace: 'T',
+      style: BuildStyle.aggressive, aggressionTier: 1,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 드론 생산!', myResource: 5),
+        BuildStep(line: 4, text: '{player} 선수 9드론에 스포닝풀!', myResource: -15),
+        BuildStep(line: 8, text: '{player} 선수 저글링 생산!', stat: 'attack', myArmy: 6, myResource: -8),
+        BuildStep(line: 12, text: '{player}, 저글링으로 견제!', stat: 'harass', enemyResource: -15, isClash: true),
+        BuildStep(line: 16, text: '{player} 선수 앞마당 해처리 건설!', stat: 'macro', myResource: -30),
+      ],
+    ),
+    // 3. 9오버풀 (공격적)
+    RaceOpening(race: 'Z',
+      id: 'zvt_9overpool', name: '9오버풀', vsRace: 'T',
+      style: BuildStyle.aggressive, aggressionTier: 1,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 드론 생산!', myResource: 5),
+        BuildStep(line: 4, text: '{player} 선수 9드론에 오버로드!', myResource: -5),
+        BuildStep(line: 6, text: '{player}, 스포닝풀 건설!', myResource: -15),
+        BuildStep(line: 10, text: '{player} 선수 저글링 생산!', stat: 'attack', myArmy: 6, myResource: -8),
+        BuildStep(line: 14, text: '{player}, 저글링으로 견제!', stat: 'harass', enemyResource: -15, isClash: true),
+      ],
+    ),
+    // 4. 12풀 (밸런스)
+    RaceOpening(race: 'Z',
+      id: 'zvt_12pool', name: '12풀', vsRace: 'T',
+      style: BuildStyle.balanced, aggressionTier: 2,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 드론 생산!', stat: 'macro', myResource: 8),
+        BuildStep(line: 4, text: '{player} 선수 12드론에 스포닝풀!', myResource: -15),
+        BuildStep(line: 8, text: '{player}, 가스 채취 시작!', myResource: -10),
+        BuildStep(line: 12, text: '{player} 선수 저글링 생산!', myArmy: 4, myResource: -5),
+        BuildStep(line: 16, text: '{player} 선수 앞마당 해처리 건설!', stat: 'macro', myResource: -30),
+      ],
+    ),
+    // 5. 12앞 (밸런스)
+    RaceOpening(race: 'Z',
+      id: 'zvt_12hatch', name: '12앞', vsRace: 'T',
+      style: BuildStyle.balanced, aggressionTier: 2,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 드론 생산!', stat: 'macro', myResource: 8),
+        BuildStep(line: 4, text: '{player} 선수 12드론에 앞마당 해처리!', stat: 'macro', myResource: -30),
+        BuildStep(line: 7, text: '{player} 선수 스포닝풀 건설!', myResource: -15),
+        BuildStep(line: 12, text: '{player} 선수 저글링 생산!', myArmy: 4, myResource: -5),
+        BuildStep(line: 16, text: '{player}, 선링 방어!', stat: 'defense'),
+      ],
+    ),
+    // 6. 노풀 3해처리 (수비적)
+    RaceOpening(race: 'Z',
+      id: 'zvt_3hatch_nopool', name: '노풀 3해처리', vsRace: 'T',
+      style: BuildStyle.defensive, aggressionTier: 3,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 해처리 건설합니다.', myResource: -10),
+        BuildStep(line: 4, text: '{player}, 앞마당 해처리!', stat: 'macro', myResource: -30),
+        BuildStep(line: 8, text: '{player} 선수 3번째 해처리!', stat: 'macro', myResource: -30),
+        BuildStep(line: 12, text: '{player} 선수 스포닝풀 건설!', myResource: -15),
+        BuildStep(line: 16, text: '{player}, 드론 풀가동!', stat: 'macro', myResource: 20),
+      ],
+    ),
+  ];
+
+  static const zergOpeningsZvP = [
+    // 1. 4풀 (치즈 - 트랜지션 없이 자체 완결)
+    RaceOpening(race: 'Z',
+      id: 'zvp_4pool', name: '4풀', vsRace: 'P',
+      style: BuildStyle.cheese, aggressionTier: 0,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 4드론에 스포닝풀!', stat: 'attack', myResource: -15),
+        BuildStep(line: 5, text: '{player}, 저글링 6기 생산!', stat: 'attack', myArmy: 6, myResource: -8),
+        BuildStep(line: 9, text: '{player} 선수 저글링 돌진!', stat: 'attack', isClash: true),
+        BuildStep(line: 13, text: '{player}, 프로브 학살!', stat: 'attack', enemyResource: -25),
+        BuildStep(line: 17, text: '{player} 선수 저글링 추가 생산!', stat: 'control', myArmy: 6, myResource: -8),
+        BuildStep(line: 21, text: '{player}, 올인! 멈추지 않습니다!', stat: 'attack', isClash: true, decisive: true),
+      ],
+    ),
+    // 2. 9풀 (공격적)
+    RaceOpening(race: 'Z',
+      id: 'zvp_9pool', name: '9풀', vsRace: 'P',
+      style: BuildStyle.aggressive, aggressionTier: 1,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 드론 생산!', myResource: 5),
+        BuildStep(line: 4, text: '{player} 선수 9드론에 스포닝풀!', myResource: -15),
+        BuildStep(line: 8, text: '{player} 선수 저글링 생산!', stat: 'attack', myArmy: 6, myResource: -8),
+        BuildStep(line: 12, text: '{player}, 저글링으로 프로브 견제!', stat: 'harass', enemyResource: -15, isClash: true),
+        BuildStep(line: 16, text: '{player} 선수 앞마당 해처리 건설!', stat: 'macro', myResource: -30),
+      ],
+    ),
+    // 3. 9오버풀 (공격적)
+    RaceOpening(race: 'Z',
+      id: 'zvp_9overpool', name: '9오버풀', vsRace: 'P',
+      style: BuildStyle.aggressive, aggressionTier: 1,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 드론 생산!', myResource: 5),
+        BuildStep(line: 4, text: '{player} 선수 9드론에 오버로드!', myResource: -5),
+        BuildStep(line: 6, text: '{player}, 스포닝풀 건설!', myResource: -15),
+        BuildStep(line: 10, text: '{player} 선수 저글링 생산!', stat: 'attack', myArmy: 6, myResource: -8),
+        BuildStep(line: 14, text: '{player}, 저글링으로 프로브 견제!', stat: 'harass', enemyResource: -15, isClash: true),
+      ],
+    ),
+    // 4. 12풀 (밸런스)
+    RaceOpening(race: 'Z',
+      id: 'zvp_12pool', name: '12풀', vsRace: 'P',
+      style: BuildStyle.balanced, aggressionTier: 2,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 드론 생산!', stat: 'macro', myResource: 8),
+        BuildStep(line: 4, text: '{player} 선수 12드론에 스포닝풀!', myResource: -15),
+        BuildStep(line: 8, text: '{player}, 가스 채취 시작!', myResource: -10),
+        BuildStep(line: 12, text: '{player} 선수 저글링 생산!', myArmy: 4, myResource: -5),
+        BuildStep(line: 16, text: '{player} 선수 앞마당 해처리 건설!', stat: 'macro', myResource: -30),
+      ],
+    ),
+    // 5. 12앞 (밸런스)
+    RaceOpening(race: 'Z',
+      id: 'zvp_12hatch', name: '12앞', vsRace: 'P',
+      style: BuildStyle.balanced, aggressionTier: 2,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 드론 생산!', stat: 'macro', myResource: 8),
+        BuildStep(line: 4, text: '{player} 선수 12드론에 앞마당 해처리!', stat: 'macro', myResource: -30),
+        BuildStep(line: 7, text: '{player} 선수 스포닝풀 건설!', myResource: -15),
+        BuildStep(line: 12, text: '{player} 선수 저글링 생산!', myArmy: 4, myResource: -5),
+        BuildStep(line: 16, text: '{player}, 선링 방어!', stat: 'defense'),
+      ],
+    ),
+    // 6. 노풀 3해처리 (수비적)
+    RaceOpening(race: 'Z',
+      id: 'zvp_3hatch_nopool', name: '노풀 3해처리', vsRace: 'P',
+      style: BuildStyle.defensive, aggressionTier: 3,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 해처리 건설합니다.', myResource: -10),
+        BuildStep(line: 4, text: '{player}, 앞마당 해처리!', stat: 'macro', myResource: -30),
+        BuildStep(line: 8, text: '{player} 선수 3번째 해처리!', stat: 'macro', myResource: -30),
+        BuildStep(line: 12, text: '{player} 선수 스포닝풀 건설!', myResource: -15),
+        BuildStep(line: 16, text: '{player}, 드론 풀가동!', stat: 'macro', myResource: 20),
+      ],
+    ),
+    // 7. 9투 올인 (치즈 - 트랜지션 없이 자체 완결)
+    RaceOpening(race: 'Z',
+      id: 'zvp_5drone', name: '9투 올인', vsRace: 'P',
+      style: BuildStyle.cheese, aggressionTier: 0,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 9드론에 스포닝풀!', stat: 'attack', myResource: -15),
+        BuildStep(line: 5, text: '{player}, 투해처리 건설!', stat: 'attack', myResource: -30),
+        BuildStep(line: 9, text: '{player} 선수 저글링 대량 생산!', stat: 'control', myArmy: 8, myResource: -10),
+        BuildStep(line: 13, text: '{player}, 저글링 물량 돌진!', stat: 'attack', isClash: true),
+        BuildStep(line: 17, text: '{player}, 저글링 추가 투입!', stat: 'control', myArmy: 8, myResource: -10),
+        BuildStep(line: 21, text: '{player} 선수 프로브 라인 올인!', stat: 'attack', enemyResource: -20, isClash: true, decisive: true),
+      ],
+    ),
+  ];
+
+  // ==================== 저그 트랜지션 데이터 ====================
+
+  static const zergTransitionsZvT = [
+    // 1. 뮤탈→울트라 (미친 저그에서 추출)
+    RaceTransition(race: 'Z',
+      id: 'zvt_trans_mutal_ultra', name: '뮤탈→울트라', vsRace: 'T',
+      style: BuildStyle.aggressive, keyStats: ['attack', 'macro'],
+      steps: [
+        BuildStep(line: 20, text: '{player} 선수 레어 건설!', myResource: -20),
+        BuildStep(line: 26, text: '{player} 선수 스파이어 건설!', myResource: -25),
+        BuildStep(line: 32, text: '{player} 선수 뮤탈리스크 생산!', stat: 'harass', myArmy: 5, myResource: -20),
+        BuildStep(line: 36, text: '{player}, 뮤탈로 일꾼 견제!', stat: 'harass', enemyResource: -25),
+        BuildStep(line: 39, text: '{player} 선수 퀸즈 네스트 건설!', myResource: -15),
+        BuildStep(line: 42, text: '{player} 선수 하이브 건설!', stat: 'macro', myResource: -30),
+        BuildStep(line: 48, text: '{player}, 4번째 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 54, text: '{player} 선수 울트라리스크 캐번 건설!', stat: 'attack', myResource: -25),
+        BuildStep(line: 60, text: '{player}, 울트라리스크 생산!', stat: 'attack', myArmy: 8, myResource: -30),
+        BuildStep(line: 68, text: '{player} 선수 울트라 방업!', stat: 'attack', myResource: -15),
+        BuildStep(line: 75, text: '{player}, 울트라 저글링 돌진!', stat: 'attack', myArmy: 10, myResource: -25, isClash: true),
+      ],
+    ),
+    // 2. 투해처리 뮤탈 (투해처리 뮤탈에서 추출)
+    RaceTransition(race: 'Z',
+      id: 'zvt_trans_2hatch_mutal', name: '투해처리 뮤탈', vsRace: 'T',
+      style: BuildStyle.aggressive, keyStats: ['harass', 'control'],
+      steps: [
+        BuildStep(line: 22, text: '{player} 선수 스파이어 건설!', myResource: -25),
+        BuildStep(line: 28, text: '{player} 선수 뮤탈리스크 생산!', stat: 'harass', myArmy: 8, myResource: -15),
+        BuildStep(line: 32, text: '{player}, 뮤탈로 견제!', stat: 'harass', enemyResource: -30),
+        BuildStep(line: 38, text: '{player} 선수 3해처리 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 42, text: '{player}, 뮤탈 매직!', stat: 'control', enemyArmy: -6),
+        BuildStep(line: 48, text: '{player} 선수 히드라덴 건설!', myResource: -15),
+        BuildStep(line: 55, text: '{player}, 히드라리스크 생산!', stat: 'attack', myArmy: 8, myResource: -20),
+        BuildStep(line: 62, text: '{player} 선수 뮤탈 추가 생산!', stat: 'harass', myArmy: 5, myResource: -15),
+        BuildStep(line: 70, text: '{player}, 뮤탈 히드라 조합 완성!', stat: 'macro', myArmy: 8, myResource: -25),
+      ],
+    ),
+    // 3. 가드라→디파일러 (가드라에서 추출)
+    RaceTransition(race: 'Z',
+      id: 'zvt_trans_lurker_defiler', name: '가드라→디파일러', vsRace: 'T',
+      style: BuildStyle.defensive, keyStats: ['macro', 'defense'],
+      steps: [
+        BuildStep(line: 22, text: '{player} 선수 히드라덴 건설!', myResource: -15),
+        BuildStep(line: 28, text: '{player} 선수 레어 건설!', myResource: -20),
+        BuildStep(line: 34, text: '{player} 선수 히드라리스크 생산!', stat: 'defense', myArmy: 6, myResource: -15),
+        BuildStep(line: 40, text: '{player}, 럴커 변태!', stat: 'defense', myArmy: 4, myResource: -15),
+        BuildStep(line: 48, text: '{player} 선수 럴커 매복 포진!', stat: 'defense', enemyArmy: -8),
+        BuildStep(line: 56, text: '{player}, 3해처리 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 64, text: '{player} 선수 럴커 추가 변태!', stat: 'defense', myArmy: 4, myResource: -15),
+        BuildStep(line: 72, text: '{player}, 하이브 건설!', stat: 'macro', myResource: -25),
+        BuildStep(line: 80, text: '{player} 선수 디파일러 마운드 건설!', myResource: -15),
+        BuildStep(line: 88, text: '{player}, 디파일러 다크스웜으로 전진!', stat: 'macro', myArmy: 3, myResource: -15),
+      ],
+    ),
+    // 4. 530 뮤탈 (530 뮤탈에서 추출)
+    RaceTransition(race: 'Z',
+      id: 'zvt_trans_530_mutal', name: '530 뮤탈', vsRace: 'T',
+      style: BuildStyle.aggressive, keyStats: ['harass', 'control'],
+      steps: [
+        BuildStep(line: 20, text: '{player} 선수 가스 올리고 레어 건설!', myResource: -20),
+        BuildStep(line: 26, text: '{player} 선수 스파이어 건설!', myResource: -25),
+        BuildStep(line: 32, text: '{player} 선수 뮤탈리스크 생산!', stat: 'harass', myArmy: 6, myResource: -15),
+        BuildStep(line: 36, text: '{player}, 뮤탈로 SCV 학살!', stat: 'harass', enemyResource: -30),
+        BuildStep(line: 40, text: '{player} 선수 뮤탈 추가 생산!', stat: 'control', myArmy: 6, myResource: -15),
+        BuildStep(line: 45, text: '{player}, 뮤탈 매직으로 경제 파괴!', stat: 'control', enemyResource: -25, isClash: true, decisive: true),
+      ],
+    ),
+    // 5. 뮤탈→럴커 (기본 12풀에서 추출)
+    RaceTransition(race: 'Z',
+      id: 'zvt_trans_mutal_lurker', name: '뮤탈→럴커', vsRace: 'T',
+      style: BuildStyle.balanced, keyStats: ['macro', 'harass'],
+      steps: [
+        BuildStep(line: 22, text: '{player}, 레어 건설!', myResource: -20),
+        BuildStep(line: 28, text: '{player} 선수 스파이어 건설!', myResource: -25),
+        BuildStep(line: 34, text: '{player}, 뮤탈리스크 생산!', stat: 'harass', myArmy: 6, myResource: -15),
+        BuildStep(line: 40, text: '{player}, 뮤탈로 견제!', stat: 'harass', enemyResource: -20),
+        BuildStep(line: 48, text: '{player} 선수 3해처리 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 56, text: '{player} 선수 히드라덴 건설!', myResource: -15),
+        BuildStep(line: 64, text: '{player}, 럴커 변태!', stat: 'defense', myArmy: 5, myResource: -15),
+        BuildStep(line: 72, text: '{player}, 뮤탈 럴커 조합으로 운영!', stat: 'macro', myArmy: 8, myResource: -20),
+      ],
+    ),
+    // 6. 울트라→하이브 (기본 노풀3해처리에서 추출)
+    RaceTransition(race: 'Z',
+      id: 'zvt_trans_ultra_hive', name: '울트라→하이브', vsRace: 'T',
+      style: BuildStyle.defensive, keyStats: ['macro', 'attack'],
+      steps: [
+        BuildStep(line: 22, text: '{player} 선수 저글링 생산!', myArmy: 6, myResource: -8),
+        BuildStep(line: 28, text: '{player} 선수 레어 건설!', myResource: -20),
+        BuildStep(line: 34, text: '{player} 선수 스파이어 건설!', myResource: -25),
+        BuildStep(line: 40, text: '{player}, 뮤탈리스크 생산!', stat: 'harass', myArmy: 6, myResource: -15),
+        BuildStep(line: 48, text: '{player}, 뮤탈로 견제!', stat: 'harass', enemyResource: -20),
+        BuildStep(line: 56, text: '{player} 선수 4번째 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 64, text: '{player}, 럴커 변태!', stat: 'defense', myArmy: 6, myResource: -15),
+        BuildStep(line: 72, text: '{player} 선수 하이브 건설!', stat: 'macro', myResource: -25),
+        BuildStep(line: 80, text: '{player}, 울트라리스크 생산!', stat: 'attack', myArmy: 8, myResource: -30),
+        BuildStep(line: 88, text: '{player}, 경제력 폭발! 울트라 저글링 돌진!', stat: 'attack', myArmy: 12, myResource: -25, isClash: true),
+      ],
+    ),
+  ];
+
+  static const zergTransitionsZvP = [
+    // 1. 5해처리 히드라 (5해처리 히드라에서 추출)
+    RaceTransition(race: 'Z',
+      id: 'zvp_trans_5hatch_hydra', name: '5해처리 히드라', vsRace: 'P',
+      style: BuildStyle.aggressive, keyStats: ['macro', 'attack'],
+      steps: [
+        BuildStep(line: 20, text: '{player} 선수 히드라덴 건설!', myResource: -15),
+        BuildStep(line: 24, text: '{player}, 4번째 해처리!', stat: 'macro', myResource: -30),
+        BuildStep(line: 28, text: '{player} 선수 5번째 해처리!', stat: 'macro', myResource: -30),
+        BuildStep(line: 32, text: '{player} 선수 히드라리스크 대량 생산!', stat: 'attack', myArmy: 12, myResource: -30),
+        BuildStep(line: 38, text: '{player} 선수 레어 건설!', myResource: -20),
+        BuildStep(line: 44, text: '{player}, 럴커 변태!', stat: 'defense', myArmy: 5, myResource: -15),
+        BuildStep(line: 52, text: '{player}, 럴커로 질럿 학살!', stat: 'defense', enemyArmy: -15),
+        BuildStep(line: 62, text: '{player} 선수 히드라 럴커 물량!', stat: 'macro', myArmy: 15, myResource: -40),
+        BuildStep(line: 75, text: '{player}, 물량으로 밀어붙입니다!', stat: 'attack', isClash: true),
+      ],
+    ),
+    // 2. 뮤탈→히드라 (5뮤탈에서 추출)
+    RaceTransition(race: 'Z',
+      id: 'zvp_trans_mutal_hydra', name: '뮤탈→히드라', vsRace: 'P',
+      style: BuildStyle.balanced, keyStats: ['harass', 'strategy'],
+      steps: [
+        BuildStep(line: 18, text: '{player} 선수 레어 건설!', myResource: -20),
+        BuildStep(line: 24, text: '{player} 선수 스파이어 건설!', myResource: -25),
+        BuildStep(line: 30, text: '{player} 선수 뮤탈리스크 5기 생산!', stat: 'harass', myArmy: 6, myResource: -15),
+        BuildStep(line: 36, text: '{player}, 뮤탈로 프로브 견제!', stat: 'harass', enemyArmy: -3, enemyResource: -25),
+        BuildStep(line: 42, text: '{player} 선수 히드라덴 건설!', stat: 'strategy', myResource: -15),
+        BuildStep(line: 50, text: '{player}, 3해처리 확장!', stat: 'strategy', myResource: -30),
+        BuildStep(line: 58, text: '{player} 선수 히드라리스크 대량 생산!', stat: 'attack', myArmy: 12, myResource: -25),
+        BuildStep(line: 66, text: '{player}, 히드라 뮤탈 콤비네이션!', stat: 'strategy', myArmy: 7, myResource: -15, isClash: true),
+        BuildStep(line: 72, text: '{player}, 뮤탈 재생산! 히드라 뮤탈 투트랙!', stat: 'harass', myArmy: 4, myResource: -10),
+        BuildStep(line: 78, text: '{player} 선수 물량으로 밀어붙입니다!', stat: 'attack', isClash: true),
+      ],
+    ),
+    // 3. 하이브→디파일러 (하이브 운영에서 추출)
+    RaceTransition(race: 'Z',
+      id: 'zvp_trans_hive_defiler', name: '하이브→디파일러', vsRace: 'P',
+      style: BuildStyle.defensive, keyStats: ['macro', 'strategy'],
+      steps: [
+        BuildStep(line: 22, text: '{player} 선수 레어 건설!', myResource: -20),
+        BuildStep(line: 25, text: '{player} 선수 스파이어 건설!', myResource: -25),
+        BuildStep(line: 28, text: '{player}, 스커지 생산으로 커세어 견제!', stat: 'strategy', myArmy: 4, myResource: -10),
+        BuildStep(line: 36, text: '{player} 선수 4번째 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 44, text: '{player} 선수 히드라덴 건설!', myResource: -15),
+        BuildStep(line: 52, text: '{player} 선수 히드라리스크 생산!', stat: 'macro', myArmy: 8, myResource: -20),
+        BuildStep(line: 56, text: '{player} 선수 퀸즈 네스트 건설!', myResource: -15),
+        BuildStep(line: 60, text: '{player} 선수 하이브 건설!', stat: 'macro', myResource: -25),
+        BuildStep(line: 70, text: '{player} 선수 디파일러 마운드 건설!', stat: 'strategy', myResource: -15),
+        BuildStep(line: 78, text: '{player}, 디파일러 생산!', stat: 'strategy', myArmy: 3, myResource: -15),
+        BuildStep(line: 86, text: '{player}, 다크스웜 전개!', stat: 'strategy', enemyArmy: -8),
+        BuildStep(line: 94, text: '{player}, 플레이그 투하!', stat: 'macro', enemyArmy: -15, isClash: true, decisive: true),
+      ],
+    ),
+    // 4. 973 히드라 (973 히드라에서 추출)
+    RaceTransition(race: 'Z',
+      id: 'zvp_trans_973_hydra', name: '973 히드라', vsRace: 'P',
+      style: BuildStyle.aggressive, keyStats: ['attack', 'control'],
+      steps: [
+        BuildStep(line: 20, text: '{player}, 3해처리 운영!', stat: 'macro', myResource: -30),
+        BuildStep(line: 26, text: '{player} 선수 히드라 대량 생산!', stat: 'attack', myArmy: 10, myResource: -25),
+        BuildStep(line: 30, text: '{player}, 히드라 사거리 업그레이드!', stat: 'control', myResource: -15),
+        BuildStep(line: 34, text: '{player} 선수 973 타이밍!', stat: 'attack'),
+        BuildStep(line: 38, text: '{player}, 히드라 웨이브 출발!', stat: 'attack', myArmy: 6, myResource: -15),
+        BuildStep(line: 42, text: '{player}, 상대 앞마당 압박!', stat: 'control', isClash: true),
+        BuildStep(line: 48, text: '{player} 선수 히드라 물량으로 밀어붙입니다!', stat: 'attack', isClash: true, decisive: true),
+      ],
+    ),
+    // 5. 뮤커지 (뮤커지에서 추출)
+    RaceTransition(race: 'Z',
+      id: 'zvp_trans_mukerji', name: '뮤커지', vsRace: 'P',
+      style: BuildStyle.balanced, keyStats: ['harass', 'control'],
+      steps: [
+        BuildStep(line: 20, text: '{player} 선수 스파이어 건설!', myResource: -25),
+        BuildStep(line: 26, text: '{player} 선수 뮤탈리스크 생산!', stat: 'harass', myArmy: 6, myResource: -15),
+        BuildStep(line: 32, text: '{player}, 스커지 동시 생산!', stat: 'control', myArmy: 4, myResource: -10),
+        BuildStep(line: 38, text: '{player}, 스커지로 커세어 격추!', stat: 'control', enemyArmy: -10),
+        BuildStep(line: 46, text: '{player}, 뮤탈로 프로브 견제!', stat: 'harass', enemyArmy: -3, enemyResource: -25),
+        BuildStep(line: 54, text: '{player} 선수 3해처리 확장!', stat: 'harass', myResource: -30),
+        BuildStep(line: 60, text: '{player} 선수 히드라덴 건설!', myResource: -15),
+        BuildStep(line: 66, text: '{player}, 디파일러 생산! 다크스웜 준비!', stat: 'strategy', myArmy: 5, myResource: -10),
+        BuildStep(line: 74, text: '{player}, 히드라 지상군 전환!', stat: 'control', myArmy: 15, myResource: -25, isClash: true),
+        BuildStep(line: 82, text: '{player} 선수 디파일러 다크스웜! 물량전!', stat: 'strategy', isClash: true),
+      ],
+    ),
+    // 6. 야바위 (야바위에서 추출)
+    RaceTransition(race: 'Z',
+      id: 'zvp_trans_yabarwi', name: '야바위', vsRace: 'P',
+      style: BuildStyle.aggressive, keyStats: ['strategy', 'attack'],
+      steps: [
+        BuildStep(line: 22, text: '{player} 선수 레어 건설!', myResource: -20),
+        BuildStep(line: 28, text: '{player} 선수 스파이어 건설!', stat: 'strategy', myResource: -25),
+        BuildStep(line: 32, text: '{player}, 뮤탈리스크 기습 생산!', stat: 'attack', myArmy: 6, myResource: -15),
+        BuildStep(line: 36, text: '{player}, 뮤탈로 기습 견제!', stat: 'attack', enemyResource: -25),
+        BuildStep(line: 40, text: '{player} 선수 히드라 추가 생산!', stat: 'attack', myArmy: 8, myResource: -20),
+        BuildStep(line: 45, text: '{player}, 뮤탈 히드라 기만 공격!', stat: 'strategy', isClash: true, decisive: true),
+      ],
+    ),
+    // 7. 히드라→럴커 (기본 12풀에서 추출)
+    RaceTransition(race: 'Z',
+      id: 'zvp_trans_hydra_lurker', name: '히드라→럴커', vsRace: 'P',
+      style: BuildStyle.balanced, keyStats: ['macro', 'attack'],
+      steps: [
+        BuildStep(line: 22, text: '{player} 선수 히드라덴 건설!', myResource: -15),
+        BuildStep(line: 28, text: '{player}, 히드라리스크 생산!', stat: 'attack', myArmy: 8, myResource: -20),
+        BuildStep(line: 34, text: '{player} 선수 3해처리 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 40, text: '{player}, 히드라 추가 생산!', stat: 'attack', myArmy: 6, myResource: -15),
+        BuildStep(line: 48, text: '{player} 선수 레어 건설!', myResource: -20),
+        BuildStep(line: 54, text: '{player}, 럴커 변태!', stat: 'defense', myArmy: 5, myResource: -15),
+        BuildStep(line: 62, text: '{player} 선수 히드라 럴커 조합으로 운영!', stat: 'macro', myArmy: 8, myResource: -20),
+      ],
+    ),
+  ];
+
+  // ZvZ 빌드들 (BuildType: zvzPoolFirst, zvz9Pool, zvz12Pool, zvz12Hatch, zvz3HatchNoPool)
   static const zergVsZergBuilds = [
     // 1. 4풀 (zvzPoolFirst - Cheese)
     // 상대 해처리 퍼스트 읽고 저글링으로 4풀 러시
@@ -972,11 +2036,11 @@ class BuildOrderData {
       ],
     ),
 
-    // 2. 9레어 (zvz9Pool - Aggressive)
-    // 9풀 후 빠른 레어 → 뮤탈 전환
+    // 2. 9풀 (zvz9Pool - Aggressive)
+    // 9드론에 스포닝풀 → 저글링 싸움 → 레어 → 뮤탈 전환
     BuildOrder(
       id: 'zvz_9pool',
-      name: '9레어',
+      name: '9풀',
       race: 'Z',
       vsRace: 'Z',
       style: BuildStyle.aggressive,
@@ -995,13 +2059,13 @@ class BuildOrderData {
       ],
     ),
 
-    // 3. 12앞마당 (zvz12Hatch - Defensive)
+    // 3. 12앞 (zvz12Hatch - Balanced)
     BuildOrder(
       id: 'zvz_12hatch',
-      name: '12앞마당',
+      name: '12앞',
       race: 'Z',
       vsRace: 'Z',
-      style: BuildStyle.defensive,
+      style: BuildStyle.balanced,
       steps: [
         BuildStep(line: 1, text: '{player} 선수 드론 생산!', stat: 'macro', myResource: 8),
         BuildStep(line: 4, text: '{player} 선수 12드론에 해처리!', stat: 'macro', myResource: -30),
@@ -1016,25 +2080,27 @@ class BuildOrderData {
       ],
     ),
 
-    // 4. 오버풀 (zvzOverPool - Balanced)
+    // 4. 9오버풀 (zvz9OverPool - Aggressive)
+    // 9드론에 오버로드 후 스포닝풀. 서플 관리 + 공격적 저글링 → 뮤탈 전환
     BuildOrder(
-      id: 'zvz_overpool',
-      name: '오버풀',
+      id: 'zvz_9overpool',
+      name: '9오버풀',
       race: 'Z',
       vsRace: 'Z',
-      style: BuildStyle.balanced,
+      style: BuildStyle.aggressive,
       steps: [
-        BuildStep(line: 1, text: '{player} 선수 오버로드 생산!', myResource: -5),
-        BuildStep(line: 4, text: '{player} 선수 스포닝풀 건설!', myResource: -15),
-        BuildStep(line: 8, text: '{player} 선수 저글링 생산!', myArmy: 6, myResource: -8),
-        BuildStep(line: 12, text: '{player}, 오버풀 타이밍!', stat: 'control'),
-        BuildStep(line: 16, text: '{player}, 저글링 싸움!', stat: 'control', isClash: true),
-        BuildStep(line: 22, text: '{player} 선수 앞마당 해처리!', stat: 'macro', myResource: -30),
-        BuildStep(line: 30, text: '{player}, 저글링 추가!', myArmy: 6, myResource: -8),
-        BuildStep(line: 38, text: '{player} 선수 레어 건설!', myResource: -20),
-        BuildStep(line: 42, text: '{player} 선수 스파이어 건설!', myResource: -25),
-        BuildStep(line: 46, text: '{player} 선수 뮤탈리스크 생산!', stat: 'control', myArmy: 6, myResource: -15),
-        BuildStep(line: 55, text: '{player}, 뮤탈 싸움!', stat: 'control', isClash: true),
+        BuildStep(line: 1, text: '{player} 선수 드론 생산!', myResource: 5),
+        BuildStep(line: 4, text: '{player} 선수 9드론에 오버로드!', myResource: -5),
+        BuildStep(line: 6, text: '{player}, 스포닝풀 건설!', myResource: -15),
+        BuildStep(line: 10, text: '{player} 선수 저글링 생산!', stat: 'attack', myArmy: 6, myResource: -8),
+        BuildStep(line: 14, text: '{player}, 저글링 싸움!', stat: 'control', isClash: true),
+        BuildStep(line: 18, text: '{player} 선수 앞마당 해처리 건설!', stat: 'macro', myResource: -30),
+        BuildStep(line: 24, text: '{player}, 저글링 추가!', myArmy: 4, myResource: -5),
+        BuildStep(line: 30, text: '{player} 선수 레어 건설!', myResource: -20),
+        BuildStep(line: 36, text: '{player} 선수 스파이어 건설!', myResource: -25),
+        BuildStep(line: 42, text: '{player}, 뮤탈리스크 생산!', stat: 'control', myArmy: 8, myResource: -15),
+        BuildStep(line: 48, text: '{player}, 뮤탈로 드론 견제!', stat: 'harass', enemyResource: -20),
+        BuildStep(line: 56, text: '{player}, 뮤탈 물량으로 제공권 장악!', stat: 'control', myArmy: 4, enemyArmy: -4, isClash: true, decisive: true),
       ],
     ),
 
@@ -1059,6 +2125,30 @@ class BuildOrderData {
         BuildStep(line: 42, text: '{player} 선수 스파이어 건설!', myResource: -25),
         BuildStep(line: 50, text: '{player}, 뮤탈리스크 생산!', stat: 'control', myArmy: 8, myResource: -15),
         BuildStep(line: 58, text: '{player} 선수 뮤탈 물량! 경제력 우세!', stat: 'macro', myArmy: 5, isClash: true, decisive: true),
+      ],
+    ),
+
+    // 5. 노풀 3해처리 (zvz_3hatch_nopool - Defensive)
+    // 스포닝풀 없이 3해처리 먼저. 극 수비적, 경제력 폭발 후 물량전
+    BuildOrder(
+      id: 'zvz_3hatch_nopool',
+      name: '노풀 3해처리',
+      race: 'Z',
+      vsRace: 'Z',
+      style: BuildStyle.defensive,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 해처리 건설합니다.', myResource: -10),
+        BuildStep(line: 4, text: '{player}, 앞마당 해처리!', stat: 'macro', myResource: -30),
+        BuildStep(line: 8, text: '{player} 선수 3번째 해처리!', stat: 'macro', myResource: -30),
+        BuildStep(line: 12, text: '{player} 선수 스포닝풀 건설!', myResource: -15),
+        BuildStep(line: 16, text: '{player}, 드론 풀가동!', stat: 'macro', myResource: 20),
+        BuildStep(line: 22, text: '{player} 선수 저글링 대량 생산!', stat: 'defense', myArmy: 8, myResource: -10),
+        BuildStep(line: 28, text: '{player}, 저글링으로 수비!', stat: 'defense', isClash: true),
+        BuildStep(line: 34, text: '{player} 선수 레어 건설!', myResource: -20),
+        BuildStep(line: 40, text: '{player} 선수 스파이어 건설!', myResource: -25),
+        BuildStep(line: 48, text: '{player}, 뮤탈리스크 생산!', stat: 'control', myArmy: 8, myResource: -20),
+        BuildStep(line: 56, text: '{player}, 경제력 우세로 뮤탈 추가!', stat: 'macro', myArmy: 6, myResource: -15),
+        BuildStep(line: 64, text: '{player}, 압도적 물량! 뮤탈 전쟁 승리!', stat: 'macro', myArmy: 4, isClash: true, decisive: true),
       ],
     ),
   ];
@@ -1403,6 +2493,322 @@ class BuildOrderData {
         BuildStep(line: 37, text: '{player}, 커세어 편대로 맵 장악!', stat: 'harass', enemyArmy: -4, isClash: true),
         BuildStep(line: 41, text: '{player} 선수 지상군 보강!', stat: 'strategy', myArmy: 6, myResource: -18),
         BuildStep(line: 45, text: '{player}, 공중 우세 속에 지상 푸시!', stat: 'strategy', myArmy: 5, isClash: true),
+      ],
+    ),
+  ];
+
+  // ── PvT 오프닝 ──
+  static const protossOpeningsPvT = [
+    // 1. 다크드랍 (치즈 - 자체 완결)
+    RaceOpening(race: 'P', id: 'pvt_dark_swing', name: '다크드랍', vsRace: 'T',
+      style: BuildStyle.cheese, aggressionTier: 0,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 게이트웨이 건설합니다.', myResource: -15),
+        BuildStep(line: 5, text: '{player} 선수 사이버네틱스 코어!', myResource: -15),
+        BuildStep(line: 9, text: '{player} 선수 시타델 건설!', stat: 'strategy', myResource: -15),
+        BuildStep(line: 14, text: '{player} 선수 템플러 아카이브!', myResource: -20),
+        BuildStep(line: 20, text: '{player}, 다크템플러 생산!', stat: 'harass', myArmy: 3, myResource: -15),
+        BuildStep(line: 25, text: '{player}, 다크 드랍!', stat: 'strategy'),
+        BuildStep(line: 28, text: '{player}, 다크로 일꾼 학살!', stat: 'harass', enemyArmy: -5, enemyResource: -40),
+        BuildStep(line: 34, text: '{player}, 다크 추가 투입!', myArmy: 2, myResource: -10),
+        BuildStep(line: 40, text: '{player} 선수 다크 공습!', stat: 'harass', enemyResource: -30, isClash: true, decisive: true),
+      ],
+    ),
+    // 2. 선질럿 (공격적)
+    RaceOpening(race: 'P', id: 'pvt_2gate_open', name: '선질럿', vsRace: 'T',
+      style: BuildStyle.aggressive, aggressionTier: 1,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 게이트웨이 건설합니다.', myResource: -15),
+        BuildStep(line: 4, text: '{player} 선수 2번째 게이트웨이!', stat: 'attack', myResource: -15),
+        BuildStep(line: 7, text: '{player} 선수 질럿 생산!', myArmy: 4, myResource: -10),
+        BuildStep(line: 10, text: '{player}, 질럿 찌르기!', stat: 'attack'),
+        BuildStep(line: 14, text: '{player}, 상대 본진 압박!', stat: 'attack', isClash: true),
+      ],
+    ),
+    // 3. 전진로보 (공격적 - 자체 완결)
+    RaceOpening(race: 'P', id: 'pvt_proxy_dark', name: '전진로보', vsRace: 'T',
+      style: BuildStyle.aggressive, aggressionTier: 1,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 게이트웨이 건설합니다.', myResource: -15),
+        BuildStep(line: 4, text: '{player} 선수 사이버네틱스 코어!', myResource: -15),
+        BuildStep(line: 8, text: '{player} 선수 드라군 생산!', stat: 'control', myArmy: 2, myResource: -10),
+        BuildStep(line: 12, text: '{player}, 전진 로보틱스 건설!', stat: 'attack', myResource: -20),
+        BuildStep(line: 16, text: '{player} 선수 셔틀 생산!', myArmy: 1, myResource: -10),
+        BuildStep(line: 18, text: '{player} 선수 서포트 베이 건설!', myResource: -10),
+        BuildStep(line: 20, text: '{player}, 리버 생산 시작!', stat: 'attack', myArmy: 2, myResource: -15),
+        BuildStep(line: 24, text: '{player} 선수 셔틀에 리버 탑승!', stat: 'control'),
+        BuildStep(line: 28, text: '{player}, 리버 드랍!', stat: 'attack', enemyArmy: -6, enemyResource: -30, isClash: true),
+        BuildStep(line: 32, text: '{player} 선수 리버 추가 생산!', stat: 'control', myArmy: 2, myResource: -15),
+        BuildStep(line: 36, text: '{player}, 멀티 방면 리버 드랍!', stat: 'attack', enemyResource: -25),
+        BuildStep(line: 40, text: '{player} 선수 게이트웨이 추가!', myResource: -15),
+        BuildStep(line: 45, text: '{player}, 리버 드랍과 지상군 동시 압박!', stat: 'control', myArmy: 5, isClash: true, decisive: true),
+      ],
+    ),
+    // 4. 원게이트 코어 (밸런스)
+    RaceOpening(race: 'P', id: 'pvt_1gate_core', name: '원게이트 코어', vsRace: 'T',
+      style: BuildStyle.balanced, aggressionTier: 2,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 게이트웨이 건설합니다.', myResource: -15),
+        BuildStep(line: 4, text: '{player} 선수 사이버네틱스 코어!', stat: 'macro', myResource: -10),
+        BuildStep(line: 7, text: '{player}, 드라군 생산!', stat: 'control', myArmy: 3, myResource: -10),
+        BuildStep(line: 9, text: '{player} 선수 19서플라이 넥서스!', stat: 'macro', myResource: -40),
+        BuildStep(line: 13, text: '{player}, 드라군 추가 생산!', myArmy: 3, myResource: -10),
+      ],
+    ),
+    // 5. 23넥 (수비적)
+    RaceOpening(race: 'P', id: 'pvt_23nex_open', name: '23넥', vsRace: 'T',
+      style: BuildStyle.defensive, aggressionTier: 3,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 게이트웨이 건설합니다.', myResource: -15),
+        BuildStep(line: 5, text: '{player} 선수 사이버네틱스 코어!', myResource: -15),
+        BuildStep(line: 10, text: '{player} 선수 드라군 생산!', myArmy: 3, myResource: -10),
+        BuildStep(line: 14, text: '{player} 선수 23서플라이 앞마당 넥서스!', stat: 'macro', myResource: -40),
+      ],
+    ),
+  ];
+
+  // ── PvT 트랜지션 ──
+  static const protossTransitionsPvT = [
+    // 1. 옵저버→아비터 (from pvt_1gate_obs)
+    RaceTransition(race: 'P', id: 'pvt_trans_obs_arbiter', name: '옵저버→아비터', vsRace: 'T',
+      style: BuildStyle.defensive, keyStats: ['strategy', 'scout'],
+      steps: [
+        BuildStep(line: 18, text: '{player} 선수 로보틱스 건설!', stat: 'defense', myResource: -20),
+        BuildStep(line: 20, text: '{player} 선수 옵저버토리 건설!', myResource: -10),
+        BuildStep(line: 22, text: '{player} 선수 옵저버 생산!', stat: 'scout', myArmy: 1, myResource: -10),
+        BuildStep(line: 28, text: '{player}, 상대 빌드 정찰!', stat: 'scout'),
+        BuildStep(line: 34, text: '{player} 선수 드라군 추가!', myArmy: 6, myResource: -18),
+        BuildStep(line: 40, text: '{player}, 드라군 사거리!', stat: 'strategy', myResource: -15),
+        BuildStep(line: 46, text: '{player} 선수 시타델 오브 아둔!', myResource: -15),
+        BuildStep(line: 52, text: '{player} 선수 템플러 아카이브!', myResource: -20),
+        BuildStep(line: 58, text: '{player} 선수 스타게이트 건설!', myResource: -25),
+        BuildStep(line: 64, text: '{player}, 아비터 트리뷰널 건설!', stat: 'strategy', myResource: -15),
+        BuildStep(line: 72, text: '{player} 선수 아비터 생산!', stat: 'strategy', myArmy: 2, myResource: -20),
+        BuildStep(line: 80, text: '{player}, 리콜! 본진 기습!', stat: 'strategy', myArmy: 8, isClash: true),
+      ],
+    ),
+    // 2. 리버 드랍 (from pvt_proxy_dark mid-late)
+    RaceTransition(race: 'P', id: 'pvt_trans_reaver_drop', name: '리버 드랍', vsRace: 'T',
+      style: BuildStyle.aggressive, keyStats: ['attack', 'harass'],
+      steps: [
+        BuildStep(line: 17, text: '{player} 선수 로보틱스 건설!', stat: 'harass', myResource: -20),
+        BuildStep(line: 20, text: '{player} 선수 서포트 베이 건설!', myResource: -10),
+        BuildStep(line: 23, text: '{player}, 리버 생산!', stat: 'harass', myArmy: 2, myResource: -15),
+        BuildStep(line: 26, text: '{player} 선수 셔틀 생산!', myArmy: 1, myResource: -10),
+        BuildStep(line: 30, text: '{player}, 리버 드랍!', stat: 'attack', enemyArmy: -6, enemyResource: -30, isClash: true),
+        BuildStep(line: 36, text: '{player} 선수 리버 추가 생산!', stat: 'control', myArmy: 2, myResource: -15),
+        BuildStep(line: 42, text: '{player}, 멀티 방면 드랍!', stat: 'attack', enemyResource: -25),
+        BuildStep(line: 50, text: '{player} 선수 게이트웨이 추가!', myArmy: 5, myResource: -15),
+        BuildStep(line: 60, text: '{player}, 리버와 지상군 동시 공격!', stat: 'control', myArmy: 4, isClash: true),
+      ],
+    ),
+    // 3. 확장→템플러 (from pvt_1gate_expand)
+    RaceTransition(race: 'P', id: 'pvt_trans_expand_templar', name: '확장→템플러', vsRace: 'T',
+      style: BuildStyle.balanced, keyStats: ['strategy', 'macro'],
+      steps: [
+        BuildStep(line: 17, text: '{player} 선수 로보틱스 건설!', stat: 'strategy', myResource: -15),
+        BuildStep(line: 21, text: '{player}, 셔틀 생산!', stat: 'harass', myArmy: 1, myResource: -10),
+        BuildStep(line: 25, text: '{player} 선수 리버 생산!', stat: 'harass', myArmy: 2, myResource: -15),
+        BuildStep(line: 28, text: '{player} 선수 셔틀 스피드 연구!', stat: 'harass', myResource: -15),
+        BuildStep(line: 32, text: '{player}, 속셔틀 리버 드랍!', stat: 'harass', enemyResource: -25, isClash: true),
+        BuildStep(line: 38, text: '{player} 선수 시타델 건설!', myResource: -15),
+        BuildStep(line: 42, text: '{player} 선수 템플러 아카이브!', stat: 'strategy', myResource: -20),
+        BuildStep(line: 50, text: '{player}, 하이템플러 생산!', stat: 'strategy', myArmy: 3, myResource: -15),
+        BuildStep(line: 60, text: '{player}, 스톰 연구!', stat: 'strategy', myResource: -15),
+        BuildStep(line: 72, text: '{player} 선수 병력 모아서 푸시!', stat: 'attack', myArmy: 8, isClash: true),
+      ],
+    ),
+    // 4. 캐리어 (from pvt_carrier)
+    RaceTransition(race: 'P', id: 'pvt_trans_carrier', name: '캐리어', vsRace: 'T',
+      style: BuildStyle.defensive, keyStats: ['macro', 'strategy'],
+      steps: [
+        BuildStep(line: 16, text: '{player} 선수 포지 건설!', myResource: -10),
+        BuildStep(line: 18, text: '{player} 선수 포톤캐논 방어!', stat: 'defense', myResource: -15),
+        BuildStep(line: 23, text: '{player}, 드라군 추가 생산!', myArmy: 4, myResource: -12),
+        BuildStep(line: 28, text: '{player} 선수 드라군 사거리 연구!', stat: 'strategy', myResource: -15),
+        BuildStep(line: 34, text: '{player}, 상대 초반 압박 방어!', stat: 'defense', isClash: true),
+        BuildStep(line: 40, text: '{player} 선수 스타게이트 건설!', myResource: -25),
+        BuildStep(line: 48, text: '{player}, 스타게이트 추가!', stat: 'strategy', myResource: -25),
+        BuildStep(line: 52, text: '{player} 선수 플릿 비컨 건설!', myResource: -15),
+        BuildStep(line: 56, text: '{player} 선수 캐리어 생산 시작!', stat: 'macro', myArmy: 3, myResource: -25),
+        BuildStep(line: 64, text: '{player}, 인터셉터 가득 충전!', stat: 'macro', myArmy: 4, myResource: -20),
+        BuildStep(line: 72, text: '{player} 선수 캐리어 편대 완성!', stat: 'strategy', myArmy: 5, myResource: -25),
+        BuildStep(line: 80, text: '{player}, 캐리어 함대 진격!', stat: 'macro', isClash: true),
+        BuildStep(line: 88, text: '{player} 선수 공중 함대로 제압!', stat: 'strategy', myArmy: 4, isClash: true, decisive: true),
+      ],
+    ),
+    // 5. 속셔틀 리버 (from pvt_reaver_shuttle)
+    RaceTransition(race: 'P', id: 'pvt_trans_shuttle_reaver', name: '속셔틀 리버', vsRace: 'T',
+      style: BuildStyle.balanced, keyStats: ['harass', 'control'],
+      steps: [
+        BuildStep(line: 17, text: '{player} 선수 로보틱스 건설!', stat: 'harass', myResource: -20),
+        BuildStep(line: 20, text: '{player} 선수 서포트 베이 건설!', myResource: -10),
+        BuildStep(line: 22, text: '{player}, 리버 생산!', stat: 'harass', myArmy: 2, myResource: -15),
+        BuildStep(line: 26, text: '{player} 선수 셔틀 생산!', myArmy: 1, myResource: -10),
+        BuildStep(line: 30, text: '{player}, 셔틀 스피드 연구!', stat: 'harass', myResource: -15),
+        BuildStep(line: 35, text: '{player}, 속셔틀 리버 출격!', stat: 'control', enemyResource: -25, isClash: true),
+        BuildStep(line: 42, text: '{player} 선수 리버 추가 생산!', stat: 'harass', myArmy: 2, myResource: -15),
+        BuildStep(line: 50, text: '{player}, 멀티 방면 속셔틀 견제!', stat: 'control', enemyArmy: -5, enemyResource: -20),
+        BuildStep(line: 58, text: '{player} 선수 게이트웨이 추가!', myArmy: 5, myResource: -15),
+        BuildStep(line: 66, text: '{player}, 드라군 물량 확보!', stat: 'macro', myArmy: 6, myResource: -18),
+        BuildStep(line: 75, text: '{player} 선수 리버 셔틀과 지상군 동시 공격!', stat: 'control', myArmy: 4, isClash: true),
+      ],
+    ),
+  ];
+
+  // ── PvZ 오프닝 ──
+  static const protossOpeningsPvZ = [
+    // 1. 센터 99게이트 (치즈 - 자체 완결)
+    RaceOpening(race: 'P', id: 'pvz_proxy_gate', name: '센터 99게이트', vsRace: 'Z',
+      style: BuildStyle.cheese, aggressionTier: 0,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 프로브 출발합니다.', stat: 'attack'),
+        BuildStep(line: 4, text: '{player}, 맵 중앙에 파일런!', stat: 'attack', myResource: -10),
+        BuildStep(line: 7, text: '{player} 선수 센터 게이트웨이 건설!', stat: 'control', myResource: -15),
+        BuildStep(line: 11, text: '{player}, 질럿 생산!', stat: 'attack', myArmy: 3, myResource: -8),
+        BuildStep(line: 15, text: '{player} 선수 질럿 투입!', stat: 'attack', isClash: true),
+        BuildStep(line: 19, text: '{player}, 드론 사냥!', stat: 'control', enemyResource: -30),
+        BuildStep(line: 23, text: '{player}, 질럿 추가!', myArmy: 3, myResource: -8),
+        BuildStep(line: 25, text: '{player} 선수 올인!', stat: 'attack', isClash: true, decisive: true),
+      ],
+    ),
+    // 2. 캐논 러쉬 (치즈 - 자체 완결)
+    RaceOpening(race: 'P', id: 'pvz_cannon_rush', name: '캐논 러쉬', vsRace: 'Z',
+      style: BuildStyle.cheese, aggressionTier: 0,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 프로브 출발합니다.', stat: 'attack'),
+        BuildStep(line: 4, text: '{player}, 상대 앞마당 프록시 포지!', stat: 'sense', myResource: -15),
+        BuildStep(line: 8, text: '{player} 선수 포톤캐논 건설!', stat: 'attack', myResource: -15),
+        BuildStep(line: 12, text: '{player}, 캐논 추가 건설!', stat: 'attack', myResource: -15, enemyResource: -15),
+        BuildStep(line: 16, text: '{player} 선수 앞마당 봉쇄!', stat: 'sense', enemyArmy: -4, enemyResource: -20, isClash: true),
+        BuildStep(line: 20, text: '{player}, 캐논 포위망 완성!', stat: 'attack', enemyArmy: -5, enemyResource: -25),
+        BuildStep(line: 25, text: '{player} 선수 캐논으로 해처리 파괴!', stat: 'attack', isClash: true, decisive: true),
+      ],
+    ),
+    // 3. 8겟뽕 (치즈 - 자체 완결)
+    RaceOpening(race: 'P', id: 'pvz_8gat', name: '8겟뽕', vsRace: 'Z',
+      style: BuildStyle.cheese, aggressionTier: 0,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 8서플라이 게이트웨이!', stat: 'attack', myResource: -15),
+        BuildStep(line: 5, text: '{player}, 질럿 생산!', stat: 'attack', myArmy: 2, myResource: -8),
+        BuildStep(line: 9, text: '{player} 선수 질럿 돌격!', stat: 'control'),
+        BuildStep(line: 13, text: '{player}, 드론 학살!', stat: 'attack', enemyResource: -25, isClash: true),
+        BuildStep(line: 17, text: '{player} 선수 질럿 추가 생산!', stat: 'control', myArmy: 3, myResource: -8),
+        BuildStep(line: 21, text: '{player}, 저글링 상대 마이크로!', stat: 'control', isClash: true),
+        BuildStep(line: 25, text: '{player} 선수 올인!', stat: 'attack', isClash: true, decisive: true),
+      ],
+    ),
+    // 4. 투게이트 (공격적)
+    RaceOpening(race: 'P', id: 'pvz_2gate_open', name: '투게이트', vsRace: 'Z',
+      style: BuildStyle.aggressive, aggressionTier: 1,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 게이트웨이 건설합니다.', myResource: -15),
+        BuildStep(line: 4, text: '{player} 선수 사이버네틱스 코어!', myResource: -15),
+        BuildStep(line: 8, text: '{player} 선수 드라군 생산!', stat: 'attack', myArmy: 3, myResource: -12),
+        BuildStep(line: 12, text: '{player}, 2번째 게이트웨이!', stat: 'macro', myResource: -15),
+      ],
+    ),
+    // 5. 투스타 커세어 (공격적 - 자체 완결)
+    RaceOpening(race: 'P', id: 'pvz_2star_corsair', name: '투스타 커세어', vsRace: 'Z',
+      style: BuildStyle.aggressive, aggressionTier: 1,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 게이트웨이 건설합니다.', myResource: -15),
+        BuildStep(line: 5, text: '{player} 선수 사이버네틱스 코어!', myResource: -15),
+        BuildStep(line: 9, text: '{player} 선수 스타게이트 건설!', stat: 'harass', myResource: -25),
+        BuildStep(line: 13, text: '{player}, 2번째 스타게이트!', stat: 'strategy', myResource: -25),
+        BuildStep(line: 17, text: '{player} 선수 커세어 생산!', stat: 'harass', myArmy: 4, myResource: -15),
+        BuildStep(line: 21, text: '{player}, 커세어 추가 생산!', stat: 'harass', myArmy: 4, myResource: -15),
+        BuildStep(line: 25, text: '{player} 선수 오버로드 대량 학살!', stat: 'harass', enemyArmy: -8),
+        BuildStep(line: 29, text: '{player}, 서플라이 블락!', stat: 'strategy', enemyResource: -25),
+        BuildStep(line: 33, text: '{player} 선수 앞마당 넥서스!', stat: 'macro', myResource: -40),
+        BuildStep(line: 37, text: '{player}, 커세어 편대로 맵 장악!', stat: 'harass', enemyArmy: -4, isClash: true),
+        BuildStep(line: 41, text: '{player} 선수 지상군 보강!', stat: 'strategy', myArmy: 6, myResource: -18),
+        BuildStep(line: 45, text: '{player}, 공중 우세 속에 지상 푸시!', stat: 'strategy', myArmy: 5, isClash: true),
+      ],
+    ),
+    // 6. 원게이트 코어 (밸런스)
+    RaceOpening(race: 'P', id: 'pvz_1gate_core', name: '원게이트 코어', vsRace: 'Z',
+      style: BuildStyle.balanced, aggressionTier: 2,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 게이트웨이 건설합니다.', myResource: -15),
+        BuildStep(line: 5, text: '{player} 선수 사이버네틱스 코어!', myResource: -15),
+        BuildStep(line: 9, text: '{player} 선수 시타델 오브 아둔 건설!', stat: 'strategy', myResource: -15),
+        BuildStep(line: 13, text: '{player}, 질럿 스피드 업그레이드!', stat: 'strategy', myResource: -15),
+      ],
+    ),
+    // 7. 포지더블 (수비적)
+    RaceOpening(race: 'P', id: 'pvz_forge_open', name: '포지더블', vsRace: 'Z',
+      style: BuildStyle.defensive, aggressionTier: 3,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 넥서스 건설합니다.', myResource: -10),
+        BuildStep(line: 4, text: '{player} 선수 포지 건설!', stat: 'defense', myResource: -15),
+        BuildStep(line: 7, text: '{player} 선수 포톤캐논 건설!', stat: 'defense', myResource: -15),
+        BuildStep(line: 10, text: '{player}, 저글링 러쉬 방어!', stat: 'defense', myArmy: -2, enemyArmy: -8),
+        BuildStep(line: 14, text: '{player} 선수 게이트웨이 건설!', myResource: -15),
+      ],
+    ),
+  ];
+
+  // ── PvZ 트랜지션 ──
+  static const protossTransitionsPvZ = [
+    // 1. 드라군 푸시 (from pvz_2gate_zealot)
+    RaceTransition(race: 'P', id: 'pvz_trans_dragoon_push', name: '드라군 푸시', vsRace: 'Z',
+      style: BuildStyle.aggressive, keyStats: ['attack', 'macro'],
+      steps: [
+        BuildStep(line: 16, text: '{player} 선수 드라군 사거리 연구!', stat: 'attack', myResource: -15),
+        BuildStep(line: 20, text: '{player}, 드라군 대량 생산!', stat: 'macro', myArmy: 6, myResource: -18),
+        BuildStep(line: 24, text: '{player} 선수 3번째 게이트웨이!', myResource: -15),
+        BuildStep(line: 28, text: '{player}, 드라군 물량으로 앞마당 압박!', stat: 'attack', isClash: true),
+        BuildStep(line: 32, text: '{player} 선수 드라군 추가 생산!', stat: 'macro', myArmy: 6, myResource: -18),
+        BuildStep(line: 36, text: '{player}, 히드라 상대로 마이크로!', stat: 'attack', isClash: true),
+        BuildStep(line: 40, text: '{player} 선수 앞마당 넥서스!', stat: 'macro', myResource: -40),
+        BuildStep(line: 45, text: '{player}, 드라군 물량 밀어붙이기!', stat: 'attack', myArmy: 5, isClash: true, decisive: true),
+      ],
+    ),
+    // 2. 커세어 운영 (from pvz_forge_cannon)
+    RaceTransition(race: 'P', id: 'pvz_trans_corsair', name: '커세어 운영', vsRace: 'Z',
+      style: BuildStyle.balanced, keyStats: ['harass', 'strategy'],
+      steps: [
+        BuildStep(line: 18, text: '{player} 선수 앞마당 넥서스!', stat: 'macro', myResource: -40),
+        BuildStep(line: 22, text: '{player} 선수 지상 공격력 업그레이드!', stat: 'strategy', myResource: -15),
+        BuildStep(line: 28, text: '{player} 선수 사이버네틱스 코어!', myResource: -15),
+        BuildStep(line: 34, text: '{player} 선수 드라군 생산!', myArmy: 4, myResource: -12),
+        BuildStep(line: 40, text: '{player}, 드라군 사거리!', stat: 'strategy', myResource: -15),
+        BuildStep(line: 48, text: '{player} 선수 스타게이트 건설!', myResource: -25),
+        BuildStep(line: 56, text: '{player}, 커세어 생산!', stat: 'harass', myArmy: 4, myResource: -15),
+        BuildStep(line: 64, text: '{player}, 커세어로 오버로드 사냥!', stat: 'harass', enemyArmy: -5),
+        BuildStep(line: 75, text: '{player} 선수 안정적 더블 운영!', stat: 'macro', myArmy: 10, myResource: -30),
+      ],
+    ),
+    // 3. 아콘 조합 (from pvz_corsair_reaver)
+    RaceTransition(race: 'P', id: 'pvz_trans_archon', name: '아콘 조합', vsRace: 'Z',
+      style: BuildStyle.balanced, keyStats: ['strategy', 'macro'],
+      steps: [
+        BuildStep(line: 18, text: '{player} 선수 드라군 생산!', stat: 'macro', myArmy: 3, myResource: -12),
+        BuildStep(line: 23, text: '{player}, 앞마당 넥서스!', stat: 'macro', myResource: -40),
+        BuildStep(line: 28, text: '{player} 선수 템플러 아카이브!', myResource: -20),
+        BuildStep(line: 34, text: '{player}, 하이템플러 생산!', stat: 'strategy', myArmy: 3, myResource: -15),
+        BuildStep(line: 40, text: '{player} 선수 아콘 합체!', stat: 'macro', myArmy: 4, myResource: -10),
+        BuildStep(line: 48, text: '{player}, 레그 질럿 대량 생산!', stat: 'macro', myArmy: 6, myResource: -15),
+        BuildStep(line: 56, text: '{player} 선수 질럿 아콘 조합 완성!', stat: 'strategy', myArmy: 4, myResource: -12),
+        BuildStep(line: 64, text: '{player}, 지상군 진격!', stat: 'macro', isClash: true),
+        BuildStep(line: 75, text: '{player} 선수 레그 질럿 아콘 최종 푸시!', stat: 'strategy', myArmy: 5, isClash: true, decisive: true),
+      ],
+    ),
+    // 4. 포지 확장 운영 (from pvz_forge_cannon)
+    RaceTransition(race: 'P', id: 'pvz_trans_forge_expand', name: '포지 확장 운영', vsRace: 'Z',
+      style: BuildStyle.defensive, keyStats: ['defense', 'macro'],
+      steps: [
+        BuildStep(line: 18, text: '{player} 선수 앞마당 넥서스!', stat: 'macro', myResource: -40),
+        BuildStep(line: 22, text: '{player} 선수 지상 공격력 업그레이드!', stat: 'strategy', myResource: -15),
+        BuildStep(line: 28, text: '{player} 선수 사이버네틱스 코어!', myResource: -15),
+        BuildStep(line: 34, text: '{player} 선수 드라군 생산!', myArmy: 4, myResource: -12),
+        BuildStep(line: 40, text: '{player}, 드라군 사거리!', stat: 'strategy', myResource: -15),
+        BuildStep(line: 46, text: '{player} 선수 시타델 오브 아둔!', myResource: -15),
+        BuildStep(line: 52, text: '{player} 선수 템플러 아카이브!', stat: 'strategy', myResource: -20),
+        BuildStep(line: 58, text: '{player}, 하이템플러 생산!', stat: 'strategy', myArmy: 3, myResource: -15),
+        BuildStep(line: 66, text: '{player} 선수 아콘 합체!', stat: 'macro', myArmy: 4, myResource: -10),
+        BuildStep(line: 75, text: '{player}, 업그레이드 완료 후 진격!', stat: 'macro', myArmy: 8, isClash: true),
       ],
     ),
   ];
@@ -2085,7 +3491,11 @@ class BuildOrderData {
       ClashEvent(text: '레이스 공중 장악! 오버로드 사냥!', favorsStat: 'strategy', attackerArmy: -2, defenderArmy: -8, defenderResource: -20),
     ],
 
-    // ==================== TvP 빌드들 (11개) ====================
+    // ==================== TvP 빌드들 (12개) ====================
+    BuildType.tvpBbs: [
+      ClashEvent(text: '센터 8배럭! 마린 러쉬가 시작됩니다!', favorsStat: 'attack', attackerArmy: -3, defenderArmy: -10),
+      ClashEvent(text: 'BBS 올인! 프로브 라인에 마린 난입!', favorsStat: 'control', attackerArmy: -4, defenderArmy: -8, defenderResource: -20),
+    ],
     BuildType.tvpDouble: [
       ClashEvent(text: '팩더블! 팩토리 후 안정적 확장!', favorsStat: 'macro', attackerArmy: 3, defenderArmy: 0, attackerResource: 20),
       ClashEvent(text: '팩더블 운영! 탱크 라인으로 앞마당 보호!', favorsStat: 'defense', attackerArmy: 5, defenderArmy: -2, attackerResource: 10),
@@ -2178,8 +3588,8 @@ class BuildOrderData {
       ClashEvent(text: '히드라 웨이브! 드라군 라인을 밀어붙입니다!', favorsStat: 'attack', attackerArmy: -8, defenderArmy: -12),
     ],
     BuildType.zvp2HatchMutal: [
-      ClashEvent(text: '5뮤탈 견제! 프로브 라인 공격!', favorsStat: 'harass', attackerArmy: -3, defenderArmy: -4, defenderResource: -30),
-      ClashEvent(text: '뮤탈 5기로 맵 장악! 히드라 전환 준비!', favorsStat: 'strategy', attackerArmy: -2, defenderArmy: -6, defenderResource: -20),
+      ClashEvent(text: '5뮤탈 견제! 프로브 라인 공격!', favorsStat: 'harass', attackerArmy: -2, defenderArmy: -6, defenderResource: -30),
+      ClashEvent(text: '뮤탈 5기로 맵 장악! 히드라 전환 준비!', favorsStat: 'strategy', attackerArmy: -1, defenderArmy: -8, defenderResource: -20),
     ],
     BuildType.zvpScourgeDefiler: [
       ClashEvent(text: '하이브 운영! 디파일러 다크스웜 전개!', favorsStat: 'strategy', attackerArmy: -2, defenderArmy: -5, attackerResource: 10),
@@ -2194,8 +3604,8 @@ class BuildOrderData {
       ClashEvent(text: '히드라 사거리로 드라군 아웃레인지! 앞마당 압박!', favorsStat: 'control', attackerArmy: -6, defenderArmy: -10),
     ],
     BuildType.zvpMukerji: [
-      ClashEvent(text: '뮤커지! 뮤탈 스커지 공중 장악!', favorsStat: 'harass', attackerArmy: -3, defenderArmy: -8, defenderResource: -20),
-      ClashEvent(text: '뮤탈 스커지 조합! 커세어 격추 후 견제!', favorsStat: 'control', attackerArmy: -4, defenderArmy: -6, defenderResource: -25),
+      ClashEvent(text: '뮤커지! 뮤탈 스커지 공중 장악!', favorsStat: 'harass', attackerArmy: -2, defenderArmy: -10, defenderResource: -20),
+      ClashEvent(text: '뮤탈 스커지 조합! 커세어 격추 후 견제!', favorsStat: 'control', attackerArmy: -3, defenderArmy: -8, defenderResource: -25),
     ],
     BuildType.zvpYabarwi: [
       ClashEvent(text: '야바위! 히드라인 줄 알았는데 뮤탈!', favorsStat: 'strategy', attackerArmy: -3, defenderArmy: -10, defenderResource: -20),
@@ -2215,9 +3625,9 @@ class BuildOrderData {
       ClashEvent(text: '12앞마당 드론 뽑기! 경제력으로 역전!', favorsStat: 'macro', attackerArmy: 2, defenderArmy: 0, attackerResource: 20),
       ClashEvent(text: '물량 축적 완료! 이제 반격입니다!', favorsStat: 'macro', attackerArmy: 5, defenderArmy: -3, attackerResource: -15),
     ],
-    BuildType.zvzOverPool: [
-      ClashEvent(text: '오버풀! 경제와 병력의 균형!', favorsStat: 'macro', attackerArmy: 3, defenderArmy: -2, attackerResource: 10),
-      ClashEvent(text: '오버풀 타이밍! 적절한 저글링 수!', favorsStat: 'control', attackerArmy: -4, defenderArmy: -6),
+    BuildType.zvz3HatchNoPool: [
+      ClashEvent(text: '노풀 3해처리! 경제력 폭발!', favorsStat: 'macro', attackerArmy: 4, defenderArmy: -2, attackerResource: 20),
+      ClashEvent(text: '3해처리 드론 풀가동! 물량으로 압도!', favorsStat: 'macro', attackerArmy: -3, defenderArmy: -6, attackerResource: 15),
     ],
     BuildType.zvz12Pool: [
       ClashEvent(text: '12풀! 안정적 경제에서 저글링 생산!', favorsStat: 'macro', attackerArmy: 4, defenderArmy: -2, attackerResource: 15),
@@ -3308,20 +4718,20 @@ class BuildOrderData {
     ClashEvent(
       text: '럴커로 질럿 학살!',
       favorsStat: 'defense',
-      attackerArmy: -5,
+      attackerArmy: -3,
       defenderArmy: -12,
     ),
     ClashEvent(
       text: '뮤탈로 커세어 견제 후 프로브 공략!',
       favorsStat: 'harass',
-      attackerArmy: -5,
+      attackerArmy: -3,
       defenderArmy: -3,
       defenderResource: -20,
     ),
     ClashEvent(
       text: '히드라 물량으로 압박!',
       favorsStat: 'macro',
-      attackerArmy: -10,
+      attackerArmy: -8,
       defenderArmy: -10,
     ),
     ClashEvent(
@@ -3333,19 +4743,19 @@ class BuildOrderData {
     ClashEvent(
       text: '저글링 서라운드! 드라군 포위 섬멸!',
       favorsStat: 'attack',
-      attackerArmy: -8,
+      attackerArmy: -6,
       defenderArmy: -12,
     ),
     ClashEvent(
       text: '하이템플러 스톰! 히드라 전멸!',
       favorsStat: 'strategy',
-      attackerArmy: -13,
+      attackerArmy: -10,
       defenderArmy: -3,
     ),
     ClashEvent(
       text: '리버 스캐럽! 저글링 무리 소탕!',
       favorsStat: 'defense',
-      attackerArmy: -9,
+      attackerArmy: -7,
       defenderArmy: -3,
     ),
     ClashEvent(
@@ -3377,7 +4787,7 @@ class BuildOrderData {
     ClashEvent(
       text: '오버로드 투하! 프로토스 멀티 뒤치기!',
       favorsStat: 'harass',
-      attackerArmy: -8,
+      attackerArmy: -6,
       defenderArmy: -5,
       defenderResource: -20,
     ),
@@ -3390,7 +4800,7 @@ class BuildOrderData {
     ClashEvent(
       text: '타이밍 절묘! 캐리어 완성 전 올인 성공!',
       favorsStat: 'sense',
-      attackerArmy: -8,
+      attackerArmy: -6,
       defenderArmy: -12,
     ),
   ];
@@ -3400,34 +4810,34 @@ class BuildOrderData {
     ClashEvent(
       text: '사이오닉 스톰! 히드라 편대 초토화!',
       favorsStat: 'strategy',
-      attackerArmy: -3,
-      defenderArmy: -18,
+      attackerArmy: -5,
+      defenderArmy: -12,
     ),
     ClashEvent(
       text: '커세어로 오버로드 사냥! 서플라이 블락!',
       favorsStat: 'harass',
-      attackerArmy: -2,
+      attackerArmy: -3,
       defenderArmy: -5,
       defenderResource: -25,
     ),
     ClashEvent(
       text: '리버 드랍! 드론 라인 학살!',
       favorsStat: 'harass',
-      attackerArmy: -2,
-      defenderArmy: -8,
-      defenderResource: -40,
+      attackerArmy: -4,
+      defenderArmy: -6,
+      defenderResource: -30,
     ),
     ClashEvent(
       text: '캐리어 진형! 저그 병력 접근 불가!',
       favorsStat: 'macro',
-      attackerArmy: -5,
-      defenderArmy: -15,
+      attackerArmy: -6,
+      defenderArmy: -10,
     ),
     ClashEvent(
       text: '아콘! 저글링 떼 소탕!',
       favorsStat: 'strategy',
-      attackerArmy: -3,
-      defenderArmy: -12,
+      attackerArmy: -5,
+      defenderArmy: -8,
     ),
     ClashEvent(
       text: '질럿 봄! 성큰 라인 무력화!',
@@ -3438,27 +4848,27 @@ class BuildOrderData {
     ClashEvent(
       text: '다크템플러 잠입! 드론 학살!',
       favorsStat: 'harass',
-      attackerArmy: -2,
+      attackerArmy: -3,
       defenderArmy: -3,
-      defenderResource: -35,
+      defenderResource: -25,
     ),
     ClashEvent(
       text: '드라군 집중 포커싱! 히드라 편대 궤멸!',
       favorsStat: 'control',
-      attackerArmy: -6,
-      defenderArmy: -12,
+      attackerArmy: -7,
+      defenderArmy: -9,
     ),
     ClashEvent(
       text: '하이템플러 스톰 연사! 뮤탈 떼 궤멸!',
       favorsStat: 'strategy',
-      attackerArmy: -3,
-      defenderArmy: -15,
+      attackerArmy: -5,
+      defenderArmy: -10,
     ),
     ClashEvent(
       text: '포톤캐논 방벽! 저글링 러시 완벽 차단!',
       favorsStat: 'defense',
-      attackerArmy: -3,
-      defenderArmy: -10,
+      attackerArmy: -4,
+      defenderArmy: -7,
     ),
     ClashEvent(
       text: '옵저버 정찰! 스파이어 건설 확인!',
@@ -3470,7 +4880,7 @@ class BuildOrderData {
       text: '럴커 매복 위치 직감적 회피! 놀라운 센스!',
       favorsStat: 'sense',
       attackerArmy: -5,
-      defenderArmy: -8,
+      defenderArmy: -6,
     ),
   ];
 
@@ -4269,6 +5679,7 @@ class BuildOrderData {
   // ==================== 헬퍼 메서드 ====================
 
   /// ID로 빌드 검색 (테스트/디버그용)
+  /// 트랜지션 ID의 경우 기본 12앞 오프닝과 조합하여 반환
   static BuildOrder? getBuildOrderById(String buildId) {
     final allBuilds = [
       ...terranVsZergBuilds, ...terranVsProtossBuilds, ...terranVsTerranBuilds,
@@ -4278,6 +5689,25 @@ class BuildOrderData {
     for (final build in allBuilds) {
       if (build.id == buildId) return build;
     }
+
+    // 트랜지션 ID 검색 → 기본 오프닝과 조합
+    final transitionSearch = <(List<RaceTransition>, List<RaceOpening>, String)>[
+      (zergTransitionsZvT, zergOpeningsZvT, 'zvt_12hatch'),
+      (zergTransitionsZvP, zergOpeningsZvP, 'zvp_12hatch'),
+      (terranTransitionsTvZ, terranOpeningsTvZ, 'tvz_1fac_double'),
+      (terranTransitionsTvP, terranOpeningsTvP, 'tvp_1fac_double'),
+      (protossTransitionsPvT, protossOpeningsPvT, 'pvt_1gate_core'),
+      (protossTransitionsPvZ, protossOpeningsPvZ, 'pvz_1gate_core'),
+    ];
+    for (final (transitions, openings, defaultOpeningId) in transitionSearch) {
+      for (final tr in transitions) {
+        if (tr.id == buildId) {
+          final opening = openings.firstWhere((o) => o.id == defaultOpeningId);
+          return composeBuild(opening, tr);
+        }
+      }
+    }
+
     return null;
   }
 
@@ -4298,6 +5728,109 @@ class BuildOrderData {
     }
   }
 
+  /// 저그 오프닝 + 트랜지션 조합으로 BuildOrder 생성
+  static BuildOrder composeBuild(RaceOpening opening, RaceTransition transition) {
+    return BuildOrder(
+      id: transition.id, // BuildType 매핑은 트랜지션 ID 기준
+      name: '${opening.name} → ${transition.name}',
+      race: opening.race,
+      vsRace: opening.vsRace,
+      style: transition.style,
+      steps: [...opening.steps, ...transition.steps],
+      aggressionTier: opening.aggressionTier, // 오프닝 공격성 등급 상속
+    );
+  }
+
+  /// 오프닝 선택 (능력치 + 맵 기반 스코어링)
+  static RaceOpening _selectOpening(
+    List<RaceOpening> openings,
+    Map<String, int> statValues,
+    GameMap map,
+  ) {
+    // 치즈 오프닝 게이트 (5~15%)
+    final cheeseGate = 0.05 + (_random.nextDouble() * 0.10);
+    final allowCheese = _random.nextDouble() < cheeseGate;
+
+    final scored = <MapEntry<RaceOpening, double>>[];
+    for (final op in openings) {
+      if (op.style == BuildStyle.cheese && !allowCheese) continue;
+
+      double score = 0;
+      // 공격형 → attack + harass 중시
+      if (op.style == BuildStyle.aggressive) {
+        score += (statValues['attack'] ?? 500) + (statValues['harass'] ?? 500).toDouble();
+        score += (5 - map.rushDistance) * 40;
+      }
+      // 밸런스 → macro + defense 중시
+      else if (op.style == BuildStyle.balanced) {
+        score += (statValues['macro'] ?? 500) + (statValues['defense'] ?? 500).toDouble();
+      }
+      // 수비적 → macro + strategy 중시
+      else if (op.style == BuildStyle.defensive) {
+        score += (statValues['macro'] ?? 500) + (statValues['strategy'] ?? 500).toDouble();
+        score += (map.rushDistance - 5) * 40;
+      }
+      // 치즈 → attack + sense 중시
+      else if (op.style == BuildStyle.cheese) {
+        score += (statValues['attack'] ?? 500) + (statValues['sense'] ?? 500).toDouble();
+        score += (5 - map.rushDistance) * 60;
+        score *= 0.7; // 치즈 감쇠
+      }
+
+      scored.add(MapEntry(op, score));
+    }
+
+    if (scored.isEmpty) return openings[_random.nextInt(openings.length)];
+
+    // 가중 랜덤 선택
+    final minScore = scored.map((e) => e.value).reduce((a, b) => a < b ? a : b);
+    final adjusted = scored.map((e) => MapEntry(e.key, e.value - minScore + 100)).toList();
+    final totalWeight = adjusted.fold<double>(0, (sum, e) => sum + e.value);
+    var roll = _random.nextDouble() * totalWeight;
+    for (final entry in adjusted) {
+      roll -= entry.value;
+      if (roll <= 0) return entry.key;
+    }
+    return adjusted.last.key;
+  }
+
+  /// 트랜지션 선택 (능력치 + 맵 기반 스코어링)
+  static RaceTransition _selectTransition(
+    List<RaceTransition> transitions,
+    Map<String, int> statValues,
+    GameMap map,
+  ) {
+    final scored = <MapEntry<RaceTransition, double>>[];
+    for (final tr in transitions) {
+      double score = 0;
+      for (final stat in tr.keyStats) {
+        score += (statValues[stat] ?? 500).toDouble();
+      }
+
+      // 맵 보너스 (스타일 기반)
+      if (tr.style == BuildStyle.aggressive) {
+        score += (5 - map.rushDistance) * 30;
+      } else if (tr.style == BuildStyle.defensive) {
+        score += (map.rushDistance - 5) * 30;
+        if (tr.keyStats.contains('macro')) score += (map.resources - 5) * 20;
+      }
+
+      scored.add(MapEntry(tr, score));
+    }
+
+    if (scored.isEmpty) return transitions[_random.nextInt(transitions.length)];
+
+    final minScore = scored.map((e) => e.value).reduce((a, b) => a < b ? a : b);
+    final adjusted = scored.map((e) => MapEntry(e.key, e.value - minScore + 100)).toList();
+    final totalWeight = adjusted.fold<double>(0, (sum, e) => sum + e.value);
+    var roll = _random.nextDouble() * totalWeight;
+    for (final entry in adjusted) {
+      roll -= entry.value;
+      if (roll <= 0) return entry.key;
+    }
+    return adjusted.last.key;
+  }
+
   /// 매치업과 능력치/맵 기반 통합 빌드 선택
   ///
   /// [statValues]/[map] 둘 다 있으면 스코어링 시스템 사용,
@@ -4311,6 +5844,58 @@ class BuildOrderData {
   }) {
     final candidates = _getCandidates(race, vsRace);
     if (candidates.isEmpty) return null;
+
+    // ── 저그 비미러 조합 시스템 (스코어링 모드에서만) ──
+    if (race == 'Z' && vsRace != 'Z' && statValues != null && map != null) {
+      final openings = vsRace == 'T' ? zergOpeningsZvT : zergOpeningsZvP;
+      final opening = _selectOpening(openings, statValues, map);
+
+      // 치즈 오프닝은 트랜지션 없이 자체 완결
+      if (opening.style == BuildStyle.cheese) {
+        // 기존 풀 빌드 반환 (치즈 빌드는 오프닝 = 전체 빌드)
+        final cheeseBuild = getBuildOrderById(opening.id);
+        if (cheeseBuild != null) return cheeseBuild;
+      }
+
+      // 트랜지션 선택 → 조합
+      final transitions = vsRace == 'T' ? zergTransitionsZvT : zergTransitionsZvP;
+      final transition = _selectTransition(transitions, statValues, map);
+      return composeBuild(opening, transition);
+    }
+
+    // ── 테란 비미러 조합 시스템 (스코어링 모드에서만) ──
+    if (race == 'T' && vsRace != 'T' && statValues != null && map != null) {
+      final openings = vsRace == 'Z' ? terranOpeningsTvZ : terranOpeningsTvP;
+      final opening = _selectOpening(openings, statValues, map);
+
+      // 치즈 또는 자체 완결 오프닝 (steps가 line 16 이후까지 있으면 풀 빌드)
+      if (opening.style == BuildStyle.cheese || opening.steps.last.line > 16) {
+        final fullBuild = getBuildOrderById(opening.id);
+        if (fullBuild != null) return fullBuild;
+      }
+
+      // 트랜지션 선택 → 조합
+      final transitions = vsRace == 'Z' ? terranTransitionsTvZ : terranTransitionsTvP;
+      final transition = _selectTransition(transitions, statValues, map);
+      return composeBuild(opening, transition);
+    }
+
+    // ── 프로토스 비미러 조합 시스템 (스코어링 모드에서만) ──
+    if (race == 'P' && vsRace != 'P' && statValues != null && map != null) {
+      final openings = vsRace == 'T' ? protossOpeningsPvT : protossOpeningsPvZ;
+      final opening = _selectOpening(openings, statValues, map);
+
+      // 치즈 또는 자체 완결 오프닝 (steps가 line 16 이후까지 있으면 풀 빌드)
+      if (opening.style == BuildStyle.cheese || opening.steps.last.line > 16) {
+        final fullBuild = getBuildOrderById(opening.id);
+        if (fullBuild != null) return fullBuild;
+      }
+
+      // 트랜지션 선택 → 조합
+      final transitions = vsRace == 'T' ? protossTransitionsPvT : protossTransitionsPvZ;
+      final transition = _selectTransition(transitions, statValues, map);
+      return composeBuild(opening, transition);
+    }
 
     // ── 새 스코어링 시스템 (능력치 + 맵 모두 있을 때) ──
     if (statValues != null && map != null) {
