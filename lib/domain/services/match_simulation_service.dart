@@ -442,9 +442,14 @@ class MatchSimulationService {
     }
 
     // 빌드 스텝에서 유닛 키워드 추출 (이벤트 필터링용)
-    final homeUnitTags = homeBuildFinal != null ? BuildOrderData.extractUnitTags(homeBuildFinal) : <String>{};
-    final awayUnitTags = awayBuildFinal != null ? BuildOrderData.extractUnitTags(awayBuildFinal) : <String>{};
-    final combinedUnitTags = homeUnitTags.union(awayUnitTags);
+    // 전체 빌드 태그 (midLateEvent 필터링용 - 빌드에 포함된 유닛 기반)
+    final homeUnitTagsFull = homeBuildFinal != null ? BuildOrderData.extractUnitTags(homeBuildFinal) : <String>{};
+    final awayUnitTagsFull = awayBuildFinal != null ? BuildOrderData.extractUnitTags(awayBuildFinal) : <String>{};
+    // 동적 태그 (실행된 스텝까지만 - 클래시 이벤트 필터링용)
+    final homeUnitTags = <String>{};
+    final awayUnitTags = <String>{};
+    // 확장 여부 추적 (섬 기지 이벤트 전제 조건)
+    bool anyExpanded = false;
 
     // 빌드가 없으면 기본 시뮬레이션
     if (homeBuildFinal == null || awayBuildFinal == null) {
@@ -504,6 +509,17 @@ class MatchSimulationService {
       awayPlayer: awayPlayer,
     );
     bool buildMatchupCommentaryShown = false;
+
+    // 오프닝 미스매치 해설 (aggression tier 차이 ≥ 2)
+    final openingMismatchCommentary = _getOpeningMismatchCommentary(
+      homeBuildType: homeBuildType,
+      awayBuildType: awayBuildType,
+      homeBuild: homeBuildFinal,
+      awayBuild: awayBuildFinal,
+      homePlayer: homePlayer,
+      awayPlayer: awayPlayer,
+    );
+    bool openingMismatchShown = false;
 
     // ZvZ 상수 (루프 밖에서 한번만 계산)
     final isZvZ = homePlayer.race == Race.zerg && awayPlayer.race == Race.zerg;
@@ -634,7 +650,8 @@ class MatchSimulationService {
               map: map,
               homeBuildType: homeBuildType,
               awayBuildType: awayBuildType,
-              combinedUnitTags: combinedUnitTags,
+              combinedUnitTags: homeUnitTags.union(awayUnitTags),
+              anyExpanded: anyExpanded,
             );
             // 미사용 텍스트면 바로 채택
             if ((usedTexts[clashResult.text] ?? 0) == 0 || clashResult.decisive) {
@@ -741,6 +758,11 @@ class MatchSimulationService {
         awayArmyChange += homeStep.enemyArmy;
         awayResourceChange += homeStep.enemyResource;
         homeIndex++;
+        // 동적 유닛 태그 + 확장 추적
+        BuildOrderData.addUnitTagsFromText(homeStep.text, homeUnitTags);
+        if (homeStep.text.contains('확장') || homeStep.text.contains('커맨드센터')) {
+          anyExpanded = true;
+        }
 
         // 인터랙션 이벤트 (상대 반응)
         final interaction = _getInteractionEvent(
@@ -780,6 +802,11 @@ class MatchSimulationService {
         homeArmyChange += awayStep.enemyArmy;
         homeResourceChange += awayStep.enemyResource;
         awayIndex++;
+        // 동적 유닛 태그 + 확장 추적
+        BuildOrderData.addUnitTagsFromText(awayStep.text, awayUnitTags);
+        if (awayStep.text.contains('확장') || awayStep.text.contains('커맨드센터')) {
+          anyExpanded = true;
+        }
 
         // 인터랙션 이벤트 (상대 반응)
         final interaction = _getInteractionEvent(
@@ -810,9 +837,21 @@ class MatchSimulationService {
         }
       }
 
+      // 오프닝 미스매치 해설 삽입 (초반 1회, 빌드 스타일이 드러나기 전)
+      if (!openingMismatchShown && openingMismatchCommentary != null &&
+          lineCount >= 5 && lineCount <= 14 &&
+          lineCount - lastCommentaryLine >= 3) {
+        newEntries.add(BattleLogEntry(text: openingMismatchCommentary, owner: LogOwner.system));
+        lastCommentaryLine = lineCount;
+        usedTexts[openingMismatchCommentary] = (usedTexts[openingMismatchCommentary] ?? 0) + 1;
+        openingMismatchShown = true;
+      }
+
       // 빌드 매치업 해설 삽입 (초반 1회, 빌드가 드러나는 시점)
+      // 오프닝 미스매치 해설과 중복 시 오프닝 해설만 표시
       if (!buildMatchupCommentaryShown && buildMatchupCommentary != null &&
-          lineCount >= 8 && lineCount <= 20 &&
+          !openingMismatchShown &&
+          lineCount >= 20 && lineCount <= 35 &&
           lineCount - lastCommentaryLine >= 3) {
         newEntries.add(BattleLogEntry(text: buildMatchupCommentary, owner: LogOwner.system));
         lastCommentaryLine = lineCount;
@@ -862,7 +901,7 @@ class MatchSimulationService {
               resources: map.resources,
               terrainComplexity: map.terrainComplexity,
               random: _random,
-              availableUnits: isHomeTurn ? homeUnitTags : awayUnitTags,
+              availableUnits: isHomeTurn ? homeUnitTagsFull : awayUnitTagsFull,
             );
             final candidateText = _transformEnding(candidate.text.replaceAll('{player}', player.name));
             // 미사용 텍스트 우선
@@ -951,7 +990,7 @@ class MatchSimulationService {
 
   // ==================== 엔딩 시스템 ====================
 
-  /// 엔딩 emit (GG + 코멘터리 + 승리 선언)
+  /// 엔딩 emit (결정타 + GG + 코멘터리 + 승리 선언)
   Stream<SimulationState> _emitEnding({
     required SimulationState state,
     required bool? homeWinOverride,
@@ -966,6 +1005,13 @@ class MatchSimulationService {
     final winner = isHomeWinner ? homePlayer : awayPlayer;
     final loser = isHomeWinner ? awayPlayer : homePlayer;
 
+    final finishingBlow = _getFinishingBlow(
+      winner: winner,
+      loser: loser,
+      state: state,
+      lineCount: lineCount,
+    );
+
     final endingCommentary = _getEndingCommentary(
       winner: winner,
       state: state,
@@ -978,6 +1024,10 @@ class MatchSimulationService {
       homeWin: isHomeWinner,
       battleLogEntries: [
         ...state.battleLogEntries,
+        BattleLogEntry(
+          text: finishingBlow,
+          owner: isHomeWinner ? LogOwner.home : LogOwner.away,
+        ),
         BattleLogEntry(
           text: isLongGame
               ? '접전 끝에 ${loser.name} 선수가 GG를 선언합니다.'
@@ -1036,6 +1086,53 @@ class MatchSimulationService {
       '대단한 경기력! ${winner.name} 선수 승리 가져갑니다.',
     ];
     return normalTexts[_random.nextInt(normalTexts.length)];
+  }
+
+  /// 결정타 텍스트 (GG 직전, 경기가 끝나는 이유)
+  String _getFinishingBlow({
+    required Player winner,
+    required Player loser,
+    required SimulationState state,
+    required int lineCount,
+  }) {
+    // 빠른 승리 (초반 러시/치즈 성공)
+    if (lineCount <= 40) {
+      final earlyTexts = [
+        '${winner.name} 선수, ${loser.name} 선수 본진 초토화!',
+        '${loser.name} 선수 병력 수급 불가! 프로브까지 잡히고 있습니다!',
+        '${winner.name} 선수 공격에 ${loser.name} 선수 본진이 무너집니다!',
+      ];
+      return earlyTexts[_random.nextInt(earlyTexts.length)];
+    }
+
+    // 병력 격차가 클 때 (패배측 병력 잔여량 확인)
+    final loserArmy = (state.homeArmy <= state.awayArmy) ? state.homeArmy : state.awayArmy;
+    if (loserArmy <= 10) {
+      final wipeTexts = [
+        '${loser.name} 선수 전 병력 소실!',
+        '${loser.name} 선수 남은 병력이 없습니다! 더 이상 막을 수 없는 상황!',
+        '${winner.name} 선수 총공격! ${loser.name} 선수 병력 괴멸!',
+      ];
+      return wipeTexts[_random.nextInt(wipeTexts.length)];
+    }
+
+    // 장기전 (멀티/자원 고갈)
+    if (lineCount >= 80) {
+      final lateTexts = [
+        '${loser.name} 선수 멀티 괴멸! 병력 수급이 불가능합니다!',
+        '${winner.name} 선수 결정적 한 방! ${loser.name} 선수 더 이상 버틸 수 없습니다!',
+        '자원이 고갈된 ${loser.name} 선수, 병력 보충이 안 되는 상황!',
+      ];
+      return lateTexts[_random.nextInt(lateTexts.length)];
+    }
+
+    // 일반 중반 마무리
+    final midTexts = [
+      '${winner.name} 선수 총공격! ${loser.name} 선수 본진이 위험합니다!',
+      '${loser.name} 선수 주력 병력 소실! 수비 라인이 무너졌습니다!',
+      '${winner.name} 선수 결정적 교전 승리! ${loser.name} 선수 막을 수가 없습니다!',
+    ];
+    return midTexts[_random.nextInt(midTexts.length)];
   }
 
   // ==================== 인터랙션 이벤트 시스템 ====================
@@ -1356,6 +1453,62 @@ class MatchSimulationService {
 
   /// 양측 빌드 조합에 따른 해설 (초반 1회)
   /// 빌드가 크게 갈렸을 때, 구체적 빌드명을 언급하는 해설
+  /// 오프닝 미스매치 코멘터리 (aggression tier 차이 ≥ 2 시 발동)
+  /// 수비측 시점: "초반을 잘 넘어갈 수 있을까요?", "위험한 오프닝입니다"
+  String? _getOpeningMismatchCommentary({
+    required BuildType? homeBuildType,
+    required BuildType? awayBuildType,
+    required BuildOrder? homeBuild,
+    required BuildOrder? awayBuild,
+    required Player homePlayer,
+    required Player awayPlayer,
+  }) {
+    // 양측 aggressionTier 산출
+    // 조합 빌드의 경우 BuildOrder.aggressionTier (오프닝 기준) 우선 사용
+    final homeTier = homeBuild?.aggressionTier ?? homeBuildType?.aggressionTier;
+    final awayTier = awayBuild?.aggressionTier ?? awayBuildType?.aggressionTier;
+    if (homeTier == null || awayTier == null) return null;
+
+    final diff = (homeTier - awayTier).abs();
+    if (diff < 2) return null;
+
+    // 더 공격적인 쪽(tier가 낮은 쪽)이 공격자
+    final homeIsAggressor = homeTier < awayTier;
+    final aggressor = homeIsAggressor ? homePlayer : awayPlayer;
+    final defender = homeIsAggressor ? awayPlayer : homePlayer;
+    final aggrTier = homeIsAggressor ? homeTier : awayTier;
+    final defTier = homeIsAggressor ? awayTier : homeTier;
+
+    final texts = <String>[];
+
+    // 치즈(0) vs 수비(3) - 극단적 미스매치
+    if (aggrTier == 0 && defTier == 3) {
+      texts.addAll([
+        '${aggressor.name} 선수 초반 올인인데, ${defender.name} 선수 경제적인 빌드! 초반이 관건이겠습니다!',
+        '매우 위험한 상황이 될 수 있겠네요! ${defender.name} 선수가 이 초반을 잘 넘어갈 수 있을까요?',
+        '${aggressor.name} 선수 빠르게 승부를 걸어야 합니다! ${defender.name} 선수가 버텨낸다면 유리해질 수 있는데요!',
+      ]);
+    }
+    // 치즈(0) vs 밸런스(2)
+    else if (aggrTier == 0 && defTier == 2) {
+      texts.addAll([
+        '${aggressor.name} 선수 초반 승부수인데, ${defender.name} 선수가 잘 대응할 수 있을까요?',
+        '위험한 오프닝입니다! ${defender.name} 선수 피해를 최소화해야 합니다!',
+      ]);
+    }
+    // 공격(1) vs 수비(3)
+    else if (aggrTier == 1 && defTier == 3) {
+      texts.addAll([
+        '${aggressor.name} 선수 공격적으로 나오는데, ${defender.name} 선수가 초반을 잘 넘어갈 수 있을까요?',
+        '공격적 오프닝과 수비적 오프닝의 대결! 타이밍이 관건이겠네요!',
+        '${defender.name} 선수 경제적 빌드인데, ${aggressor.name} 선수 공격을 버텨내야 합니다!',
+      ]);
+    }
+
+    if (texts.isEmpty) return null;
+    return texts[_random.nextInt(texts.length)];
+  }
+
   String? _getBuildMatchupCommentary({
     required BuildType? homeBuildType,
     required BuildType? awayBuildType,
@@ -1496,7 +1649,9 @@ class MatchSimulationService {
     // 1. 벙커링 vs 저그 확장
     const _BuildMatchupRule(
       attackerIds: {'tvz_bunker'},
-      defenderIds: {'zvt_3hatch_mutal', 'zvt_2hatch_mutal', 'zvt_2hatch_lurker'},
+      defenderIds: {'zvt_3hatch_mutal', 'zvt_2hatch_mutal', 'zvt_2hatch_lurker',
+                    'zvt_trans_mutal_ultra', 'zvt_trans_2hatch_mutal', 'zvt_trans_lurker_defiler',
+                    'zvt_trans_mutal_lurker', 'zvt_trans_ultra_hive'},
       texts: [
         '빌드가 갈렸습니다! {atk} 선수 {atkBuild}인데, {def} 선수가 피해없이 막을 수 있을까요?',
         '{atkBuild}! {atk} 선수 초반 승부수를 던졌는데요, {def} 선수가 막아낼 수 있을지!',
@@ -1506,8 +1661,11 @@ class MatchSimulationService {
 
     // 2. 테란 공격(아카/엔베/레이스) vs 저그 확장
     const _BuildMatchupRule(
-      attackerIds: {'tvz_sk', 'tvz_4rax_enbe', 'tvz_2star_wraith'},
-      defenderIds: {'zvt_3hatch_mutal', 'zvt_2hatch_mutal', 'zvt_2hatch_lurker'},
+      attackerIds: {'tvz_sk', 'tvz_4rax_enbe', 'tvz_2star_wraith',
+                    'tvz_trans_enbe_push', 'tvz_trans_wraith', 'tvz_trans_bionic_push'},
+      defenderIds: {'zvt_3hatch_mutal', 'zvt_2hatch_mutal', 'zvt_2hatch_lurker',
+                    'zvt_trans_mutal_ultra', 'zvt_trans_2hatch_mutal', 'zvt_trans_lurker_defiler',
+                    'zvt_trans_mutal_lurker', 'zvt_trans_ultra_hive'},
       texts: [
         '빌드가 갈렸는데요! {atk} 선수 {atkBuild}, {def} 선수는 {defBuild}! 이 공격을 버텨낼 수 있을까요!',
         '{atk} 선수가 {atkBuild}으로 왔습니다! {def} 선수 {defBuild}인데 초반 견제가 관건이겠네요!',
@@ -1517,8 +1675,9 @@ class MatchSimulationService {
 
     // 3. 530뮤탈 vs 테란 수비
     const _BuildMatchupRule(
-      attackerIds: {'zvt_1hatch_allin'},
-      defenderIds: {'tvz_3fac_goliath', 'tvz_valkyrie'},
+      attackerIds: {'zvt_1hatch_allin', 'zvt_trans_530_mutal'},
+      defenderIds: {'tvz_3fac_goliath', 'tvz_valkyrie',
+                    'tvz_trans_mech_goliath', 'tvz_trans_valkyrie'},
       texts: [
         '{atk} 선수 {atkBuild}! 빠른 뮤탈로 견제를 노리는데요, {def} 선수 대공이 관건!',
         '{atkBuild}입니다! {def} 선수 {defBuild}인데, 뮤탈 대비가 됐을지!',
@@ -1528,8 +1687,11 @@ class MatchSimulationService {
 
     // 4. 양쪽 운영 (저그 확장 vs 테란 수비/밸런스)
     const _BuildMatchupRule(
-      attackerIds: {'zvt_3hatch_mutal', 'zvt_2hatch_mutal', 'zvt_2hatch_lurker'},
-      defenderIds: {'tvz_3fac_goliath', 'tvz_valkyrie', 'tvz_111', 'tvz_sk'},
+      attackerIds: {'zvt_3hatch_mutal', 'zvt_2hatch_mutal', 'zvt_2hatch_lurker',
+                    'zvt_trans_mutal_ultra', 'zvt_trans_2hatch_mutal', 'zvt_trans_lurker_defiler',
+                    'zvt_trans_mutal_lurker', 'zvt_trans_ultra_hive'},
+      defenderIds: {'tvz_3fac_goliath', 'tvz_valkyrie', 'tvz_111', 'tvz_sk',
+                    'tvz_trans_mech_goliath', 'tvz_trans_valkyrie', 'tvz_trans_111_balance', 'tvz_trans_bionic_push'},
       texts: [
         '양 선수 모두 운영 체제! {atkBuild} vs {defBuild}, 긴 싸움이 예상됩니다!',
         '양측 다 확장하며 배를 불리고 있습니다! 중후반 싸움이 관건이겠네요.',
@@ -1540,7 +1702,7 @@ class MatchSimulationService {
     // 5. 벙커링 vs 530뮤탈 (양쪽 초반)
     const _BuildMatchupRule(
       attackerIds: {'tvz_bunker'},
-      defenderIds: {'zvt_1hatch_allin'},
+      defenderIds: {'zvt_1hatch_allin', 'zvt_trans_530_mutal'},
       texts: [
         '양쪽 다 초반 승부수입니다! {atkBuild} vs {defBuild}, 누가 먼저 치명타를 입히느냐!',
         '{atk} 선수 벙커링, {def} 선수 빠른 뮤탈! 양쪽 다 올인에 가까운 선택이네요!',
@@ -1550,8 +1712,10 @@ class MatchSimulationService {
 
     // 6. 투스타레이스 vs 뮤탈 (공중전)
     const _BuildMatchupRule(
-      attackerIds: {'tvz_2star_wraith'},
-      defenderIds: {'zvt_2hatch_mutal', 'zvt_1hatch_allin'},
+      attackerIds: {'tvz_2star_wraith', 'tvz_trans_wraith'},
+      defenderIds: {'zvt_2hatch_mutal', 'zvt_1hatch_allin',
+                    'zvt_trans_2hatch_mutal', 'zvt_trans_530_mutal',
+                    'zvt_trans_mutal_ultra', 'zvt_trans_mutal_lurker'},
       texts: [
         '레이스 vs 뮤탈! 공중에서 격돌이 벌어집니다! 누가 하늘을 장악할까요!',
         '{atk} 선수 {atkBuild}인데 {def} 선수도 뮤탈! 공중 컨트롤 싸움이 관건이겠네요!',
@@ -1561,8 +1725,8 @@ class MatchSimulationService {
 
     // 7. 111 밸런스 vs 미친저그 (밸런스 vs 물량)
     const _BuildMatchupRule(
-      attackerIds: {'tvz_111'},
-      defenderIds: {'zvt_3hatch_mutal'},
+      attackerIds: {'tvz_111', 'tvz_trans_111_balance'},
+      defenderIds: {'zvt_3hatch_mutal', 'zvt_trans_mutal_ultra'},
       texts: [
         '{atk} 선수 {atkBuild}! 밸런스 체제로 {def} 선수의 물량을 상대합니다!',
         '{atkBuild} vs {defBuild}! 테란의 밸런스 운영이 저그 물량을 감당할 수 있을지!',
@@ -1575,7 +1739,8 @@ class MatchSimulationService {
     // 1. P 치즈(다크드랍/전진로보) vs T 확장
     const _BuildMatchupRule(
       attackerIds: {'pvt_dark_swing', 'pvt_proxy_dark'},
-      defenderIds: {'tvp_double', 'tvp_1fac_gosu', 'tvp_rax_double', 'tvp_fd'},
+      defenderIds: {'tvp_double', 'tvp_1fac_gosu', 'tvp_rax_double', 'tvp_fd',
+                    'tvp_trans_tank_defense', 'tvp_trans_upgrade', 'tvp_trans_bio_mech'},
       texts: [
         '빌드가 크게 갈렸습니다! {atk} 선수 {atkBuild}! {def} 선수가 읽고 대비할 수 있을까요?',
         '{atkBuild}입니다! {def} 선수 {defBuild}로 가고 있는데, 대비가 됐을지!',
@@ -1585,8 +1750,9 @@ class MatchSimulationService {
 
     // 2. 선질럿찌르기 vs T 확장
     const _BuildMatchupRule(
-      attackerIds: {'pvt_2gate_zealot'},
-      defenderIds: {'tvp_double', 'tvp_1fac_gosu', 'tvp_rax_double'},
+      attackerIds: {'pvt_2gate_zealot', 'pvt_trans_5gate_push', 'pvt_trans_reaver_push'},
+      defenderIds: {'tvp_double', 'tvp_1fac_gosu', 'tvp_rax_double',
+                    'tvp_trans_tank_defense', 'tvp_trans_upgrade', 'tvp_trans_bio_mech'},
       texts: [
         '빌드가 갈렸는데요! {atk} 선수 {atkBuild}, {def} 선수는 {defBuild}! 이 압박을 버텨야 합니다!',
         '{atkBuild} 타이밍! {def} 선수 확장 갔는데, 벙커가 제때 올라올 수 있을까요!',
@@ -1596,8 +1762,10 @@ class MatchSimulationService {
 
     // 3. T 타이밍(타이밍러쉬/5팩/11업8팩) vs P 확장
     const _BuildMatchupRule(
-      attackerIds: {'tvp_fake_double', 'tvp_5fac_timing', 'tvp_11up_8fac'},
-      defenderIds: {'pvt_1gate_obs', 'pvt_1gate_expand', 'pvt_carrier'},
+      attackerIds: {'tvp_fake_double', 'tvp_5fac_timing', 'tvp_11up_8fac',
+                    'tvp_trans_timing_push', 'tvp_trans_5fac_mass'},
+      defenderIds: {'pvt_1gate_obs', 'pvt_1gate_expand', 'pvt_carrier',
+                    'pvt_trans_5gate_arbiter', 'pvt_trans_5gate_carrier', 'pvt_trans_reaver_arbiter', 'pvt_trans_reaver_carrier'},
       texts: [
         '{atk} 선수 {atkBuild}입니다! {def} 선수가 버텨낼 수 있을까요?',
         '{atkBuild} 타이밍! {def} 선수 {defBuild}인데 이 공격을 넘겨야 합니다!',
@@ -1607,8 +1775,10 @@ class MatchSimulationService {
 
     // 4. 양쪽 확장 (장기전)
     const _BuildMatchupRule(
-      attackerIds: {'tvp_double', 'tvp_1fac_gosu', 'tvp_rax_double', 'tvp_fd', 'tvp_mine_triple'},
-      defenderIds: {'pvt_1gate_obs', 'pvt_1gate_expand', 'pvt_carrier', 'pvt_reaver_shuttle'},
+      attackerIds: {'tvp_double', 'tvp_1fac_gosu', 'tvp_rax_double', 'tvp_fd', 'tvp_mine_triple',
+                    'tvp_trans_tank_defense', 'tvp_trans_upgrade', 'tvp_trans_bio_mech', 'tvp_trans_5fac_mass', 'tvp_trans_anti_carrier'},
+      defenderIds: {'pvt_1gate_obs', 'pvt_1gate_expand', 'pvt_carrier', 'pvt_reaver_shuttle',
+                    'pvt_trans_5gate_arbiter', 'pvt_trans_5gate_carrier', 'pvt_trans_reaver_arbiter', 'pvt_trans_reaver_carrier'},
       texts: [
         '양 선수 모두 안정적인 운영! {atkBuild} vs {defBuild}, 중후반 싸움이 될 것 같습니다.',
         '양쪽 다 확장하며 경기를 풀어갑니다. 긴 호흡의 경기가 예상됩니다!',
@@ -1618,8 +1788,8 @@ class MatchSimulationService {
 
     // 6. 안티캐리어 vs 캐리어
     const _BuildMatchupRule(
-      attackerIds: {'tvp_anti_carrier'},
-      defenderIds: {'pvt_carrier'},
+      attackerIds: {'tvp_anti_carrier', 'tvp_trans_anti_carrier'},
+      defenderIds: {'pvt_carrier', 'pvt_trans_5gate_carrier', 'pvt_trans_reaver_carrier'},
       texts: [
         '{atk} 선수 {atkBuild}! 캐리어 대비 골리앗 체제로 전환했습니다!',
         '안티 캐리어 빌드! {def} 선수 캐리어를 꺼냈는데, 골리앗이 잡아낼 수 있을까요?',
@@ -1630,7 +1800,7 @@ class MatchSimulationService {
     // 7. 투팩찌르기 vs 리버후속셔템 (양쪽 공격)
     const _BuildMatchupRule(
       attackerIds: {'tvp_1fac_drop'},
-      defenderIds: {'pvt_reaver_shuttle'},
+      defenderIds: {'pvt_reaver_shuttle', 'pvt_trans_reaver_push', 'pvt_trans_reaver_arbiter', 'pvt_trans_reaver_carrier'},
       texts: [
         '양쪽 다 공격적입니다! {atkBuild} vs {defBuild}, 드랍과 리버 셔틀 경쟁이 벌어집니다!',
         '{atk} 선수 찌르기 들어가는데 {def} 선수도 리버 셔틀! 서로 뒷마당이 위험하네요!',
@@ -1640,8 +1810,10 @@ class MatchSimulationService {
 
     // 8. FD/밸런스 vs 19넥/밸런스 (중도전)
     const _BuildMatchupRule(
-      attackerIds: {'tvp_fd', 'tvp_anti_carrier'},
-      defenderIds: {'pvt_1gate_expand', 'pvt_reaver_shuttle'},
+      attackerIds: {'tvp_fd', 'tvp_anti_carrier',
+                    'tvp_trans_bio_mech', 'tvp_trans_anti_carrier'},
+      defenderIds: {'pvt_1gate_expand', 'pvt_reaver_shuttle',
+                    'pvt_trans_5gate_arbiter', 'pvt_trans_reaver_arbiter'},
       texts: [
         '{atkBuild} vs {defBuild}! 양 선수 균형 잡힌 빌드로 중반 싸움을 준비합니다.',
         '밸런스 대결이네요! {atk} 선수와 {def} 선수 모두 안정적인 전개를 하고 있습니다.',
@@ -1744,7 +1916,8 @@ class MatchSimulationService {
     // 1. 9투올인 vs P 운영
     const _BuildMatchupRule(
       attackerIds: {'zvp_5drone'},
-      defenderIds: {'pvz_forge_cannon', 'pvz_corsair_reaver', 'pvz_2gate_zealot', 'pvz_2star_corsair'},
+      defenderIds: {'pvz_forge_cannon', 'pvz_corsair_reaver', 'pvz_2gate_zealot', 'pvz_2star_corsair',
+                    'pvz_trans_corsair', 'pvz_trans_archon', 'pvz_trans_dragoon_push', 'pvz_trans_forge_expand'},
       texts: [
         '{atk} 선수 {atkBuild}! {def} 선수가 피해없이 막을 수 있을까요?',
         '올인입니다! {atk} 선수 {atkBuild}! {def} 선수 {defBuild}인데 큰 피해 없이 넘겨야 합니다!',
@@ -1755,7 +1928,9 @@ class MatchSimulationService {
     // 2. P 치즈(99게이트/캐논/8겟뽕) vs Z 확장
     const _BuildMatchupRule(
       attackerIds: {'pvz_proxy_gate', 'pvz_cannon_rush', 'pvz_8gat'},
-      defenderIds: {'zvp_3hatch_hydra', 'zvp_2hatch_mutal', 'zvp_scourge_defiler', 'zvp_973_hydra', 'zvp_mukerji'},
+      defenderIds: {'zvp_3hatch_hydra', 'zvp_2hatch_mutal', 'zvp_scourge_defiler', 'zvp_973_hydra', 'zvp_mukerji',
+                    'zvp_trans_5hatch_hydra', 'zvp_trans_mutal_hydra', 'zvp_trans_hive_defiler',
+                    'zvp_trans_973_hydra', 'zvp_trans_mukerji', 'zvp_trans_hydra_lurker'},
       texts: [
         '{atk} 선수 {atkBuild}! {def} 선수가 스카우팅할 수 있을까요!',
         '올인입니다! {def} 선수 {defBuild}로 가고 있는데, 이걸 막지 못하면 경기가 끝납니다!',
@@ -1765,8 +1940,10 @@ class MatchSimulationService {
 
     // 3. 히드라 타이밍(5히/973/야바위) vs P 확장
     const _BuildMatchupRule(
-      attackerIds: {'zvp_3hatch_hydra', 'zvp_973_hydra', 'zvp_yabarwi'},
-      defenderIds: {'pvz_forge_cannon', 'pvz_corsair_reaver'},
+      attackerIds: {'zvp_3hatch_hydra', 'zvp_973_hydra', 'zvp_yabarwi',
+                    'zvp_trans_5hatch_hydra', 'zvp_trans_973_hydra', 'zvp_trans_yabarwi'},
+      defenderIds: {'pvz_forge_cannon', 'pvz_corsair_reaver',
+                    'pvz_trans_corsair', 'pvz_trans_forge_expand', 'pvz_trans_archon'},
       texts: [
         '빌드가 갈렸는데요! {atk} 선수 {atkBuild}, {def} 선수는 {defBuild}! 히드라 타이밍을 버텨야 합니다!',
         '{atkBuild} 타이밍! {def} 선수 확장 갔는데, 캐논과 질럿으로 막을 수 있을까요!',
@@ -1777,7 +1954,9 @@ class MatchSimulationService {
     // 4. 투스타커세어 vs 저그
     const _BuildMatchupRule(
       attackerIds: {'pvz_2star_corsair'},
-      defenderIds: {'zvp_3hatch_hydra', 'zvp_973_hydra', 'zvp_scourge_defiler', 'zvp_mukerji'},
+      defenderIds: {'zvp_3hatch_hydra', 'zvp_973_hydra', 'zvp_scourge_defiler', 'zvp_mukerji',
+                    'zvp_trans_5hatch_hydra', 'zvp_trans_973_hydra', 'zvp_trans_hive_defiler',
+                    'zvp_trans_mukerji', 'zvp_trans_hydra_lurker'},
       texts: [
         '{atk} 선수 {atkBuild}! 커세어로 공중 장악을 노리는데, {def} 선수 오버로드가 위험합니다!',
         '커세어가 날아갑니다! {def} 선수 {defBuild}인데, 오버로드 관리가 관건이겠네요!',
@@ -1788,7 +1967,9 @@ class MatchSimulationService {
     // 5. 파워드라군 vs Z 확장
     const _BuildMatchupRule(
       attackerIds: {'pvz_2gate_zealot'},
-      defenderIds: {'zvp_3hatch_hydra', 'zvp_scourge_defiler', 'zvp_2hatch_mutal', 'zvp_mukerji'},
+      defenderIds: {'zvp_3hatch_hydra', 'zvp_scourge_defiler', 'zvp_2hatch_mutal', 'zvp_mukerji',
+                    'zvp_trans_5hatch_hydra', 'zvp_trans_hive_defiler', 'zvp_trans_mutal_hydra',
+                    'zvp_trans_mukerji', 'zvp_trans_hydra_lurker'},
       texts: [
         '빌드가 갈렸습니다! {atk} 선수 {atkBuild}인데, {def} 선수 확장 가는 상황!',
         '{atkBuild} vs {defBuild}! {atk} 선수가 드라군으로 초반 압박을 넣습니다!',
@@ -1798,8 +1979,11 @@ class MatchSimulationService {
 
     // 6. 양쪽 운영 (장기전)
     const _BuildMatchupRule(
-      attackerIds: {'zvp_scourge_defiler', 'zvp_2hatch_mutal', 'zvp_mukerji'},
-      defenderIds: {'pvz_forge_cannon', 'pvz_corsair_reaver'},
+      attackerIds: {'zvp_scourge_defiler', 'zvp_2hatch_mutal', 'zvp_mukerji',
+                    'zvp_trans_hive_defiler', 'zvp_trans_mutal_hydra', 'zvp_trans_mukerji',
+                    'zvp_trans_hydra_lurker'},
+      defenderIds: {'pvz_forge_cannon', 'pvz_corsair_reaver',
+                    'pvz_trans_corsair', 'pvz_trans_archon', 'pvz_trans_forge_expand'},
       texts: [
         '양 선수 모두 운영 체제! {atkBuild} vs {defBuild}, 긴 싸움이 예상됩니다!',
         '양쪽 다 안정적으로 경기를 풀어갑니다. 중후반 대군 싸움이 관건이겠네요.',
@@ -1809,8 +1993,9 @@ class MatchSimulationService {
 
     // 7. 야바위 특수 (기만 빌드)
     const _BuildMatchupRule(
-      attackerIds: {'zvp_yabarwi'},
-      defenderIds: {'pvz_forge_cannon', 'pvz_corsair_reaver'},
+      attackerIds: {'zvp_yabarwi', 'zvp_trans_yabarwi'},
+      defenderIds: {'pvz_forge_cannon', 'pvz_corsair_reaver',
+                    'pvz_trans_corsair', 'pvz_trans_archon', 'pvz_trans_forge_expand'},
       texts: [
         '{atk} 선수 야바위입니다! 가스 타이밍으로 상대를 속이는 빌드인데요!',
         '{atkBuild}! {def} 선수가 이 기만적인 빌드를 읽어낼 수 있을까요!',
@@ -1820,9 +2005,9 @@ class MatchSimulationService {
 
     // ==================== ZvZ (6개) ====================
 
-    // 1. 4풀/9레어 vs 12앞마당/12풀 (러쉬 vs 확장형)
+    // 1. 4풀/9풀/9오버풀 vs 12앞/12풀 (러쉬 vs 확장형)
     const _BuildMatchupRule(
-      attackerIds: {'zvz_pool_first', 'zvz_9pool'},
+      attackerIds: {'zvz_pool_first', 'zvz_9pool', 'zvz_9overpool'},
       defenderIds: {'zvz_12hatch', 'zvz_12pool'},
       texts: [
         '빌드가 갈렸는데요! {atk} 선수 {atkBuild}, {def} 선수 {defBuild}! 초반 러쉬를 막아야 합니다!',
@@ -1833,8 +2018,8 @@ class MatchSimulationService {
 
     // 2. 양쪽 러쉬
     const _BuildMatchupRule(
-      attackerIds: {'zvz_pool_first', 'zvz_9pool'},
-      defenderIds: {'zvz_pool_first', 'zvz_9pool'},
+      attackerIds: {'zvz_pool_first', 'zvz_9pool', 'zvz_9overpool'},
+      defenderIds: {'zvz_pool_first', 'zvz_9pool', 'zvz_9overpool'},
       texts: [
         '양 선수 모두 빠른 풀! 초반부터 저글링 싸움이 벌어집니다!',
         '양쪽 다 공격적! {atkBuild} vs {defBuild}, 컨트롤 싸움이 승부를 가릅니다!',
@@ -1844,8 +2029,8 @@ class MatchSimulationService {
 
     // 3. 양쪽 운영
     const _BuildMatchupRule(
-      attackerIds: {'zvz_12hatch', 'zvz_overpool', 'zvz_12pool'},
-      defenderIds: {'zvz_12hatch', 'zvz_overpool', 'zvz_12pool'},
+      attackerIds: {'zvz_12hatch', 'zvz_12pool', 'zvz_3hatch_nopool'},
+      defenderIds: {'zvz_12hatch', 'zvz_12pool', 'zvz_3hatch_nopool'},
       texts: [
         '양 선수 모두 안정적인 운영! 뮤탈 싸움이 관건인 중후반전이 예상됩니다.',
         '{atkBuild} vs {defBuild}! 양쪽 다 확장하며 긴 경기를 준비합니다.',
@@ -1853,36 +2038,36 @@ class MatchSimulationService {
       ],
     ),
 
-    // 4. 4풀 vs 오버풀 (치즈 vs 밸런스)
+    // 4. 4풀 vs 노풀 3해처리 (극 공격 vs 극 수비)
     const _BuildMatchupRule(
       attackerIds: {'zvz_pool_first'},
-      defenderIds: {'zvz_overpool'},
+      defenderIds: {'zvz_3hatch_nopool'},
       texts: [
-        '{atk} 선수 4풀! {def} 선수 오버풀인데, 저글링 수 차이를 극복할 수 있을까요?',
-        '{atkBuild} vs {defBuild}! 빠른 저글링이 들어가는데, 오버로드 타이밍에 따라 갈립니다!',
-        '4풀 vs 오버풀! {def} 선수가 서플라이 관리만 잘하면 버틸 수 있는 매치업입니다!',
+        '{atk} 선수 4풀! {def} 선수 노풀 3해처리인데, 저글링이 들어가면 끝날 수 있습니다!',
+        '{atkBuild} vs {defBuild}! 극과 극의 빌드 매치업! {def} 선수가 버틸 수 있을까요?',
+        '4풀 vs 노풀 3해처리! {def} 선수에게 치명적인 빌드 매치업입니다!',
       ],
     ),
 
-    // 5. 12풀 vs 오버풀 (12풀의 저글링 타이밍)
+    // 5. 9풀 vs 노풀 3해처리 (공격 vs 극 수비)
     const _BuildMatchupRule(
-      attackerIds: {'zvz_12pool'},
-      defenderIds: {'zvz_overpool'},
+      attackerIds: {'zvz_9pool'},
+      defenderIds: {'zvz_3hatch_nopool'},
       texts: [
-        '{atk} 선수 12풀! 오버풀보다 빠른 저글링으로 압박합니다!',
-        '{atkBuild} vs {defBuild}! 풀 타이밍 차이가 초반 싸움을 결정합니다!',
-        '12풀 vs 오버풀! {atk} 선수의 저글링이 먼저 도착하는 매치업입니다!',
+        '{atk} 선수 9풀! {def} 선수 노풀 3해처리인데, 저글링 타이밍이 관건입니다!',
+        '{atkBuild} vs {defBuild}! 풀 타이밍 차이가 경기를 결정합니다!',
+        '9풀 vs 노풀 3해처리! {atk} 선수의 저글링이 먼저 도착하는 매치업입니다!',
       ],
     ),
 
-    // 6. 9레어 vs 12풀 (공격형 vs 밸런스)
+    // 6. 9풀 vs 12풀 (9풀이 피해를 주느냐 vs 12풀이 드론 우위를 살리느냐)
     const _BuildMatchupRule(
       attackerIds: {'zvz_9pool'},
       defenderIds: {'zvz_12pool'},
       texts: [
-        '{atk} 선수 9레어! {def} 선수 12풀인데, 레어 타이밍이 앞서갑니다!',
-        '{atkBuild} vs {defBuild}! 뮤탈 타이밍에서 {atk} 선수가 유리한 매치업!',
-        '9레어 vs 12풀! {atk} 선수의 빠른 뮤탈이 경기를 주도할 수 있습니다!',
+        '{atk} 선수 9풀! {def} 선수 12풀인데, 드론 3기 차이를 살릴 수 있을지가 관건입니다!',
+        '9풀 vs 12풀! {atk} 선수가 초반에 피해를 주지 못하면 경제력 차이가 벌어집니다!',
+        '{atkBuild} vs {defBuild}! {def} 선수가 저글링 피해를 최소화하면 경제 우위로 갈 수 있습니다!',
       ],
     ),
 
@@ -1906,7 +2091,6 @@ class MatchSimulationService {
       texts: [
         '양 선수 모두 공격적! {atkBuild} vs {defBuild}, 초반부터 폭풍 같은 경기!',
         '양쪽 다 올인에 가까운 선택! 누가 먼저 상대를 무너뜨리느냐의 싸움!',
-        '{atkBuild} vs {defBuild}! PvP다운 불꽃 튀는 경기가 예상됩니다!',
       ],
     ),
 
@@ -1992,7 +2176,6 @@ class MatchSimulationService {
       attackerIds: {'pvp_2gate_reaver', 'pvp_3gate_speedzealot'},
       defenderIds: {'pvp_2gate_reaver', 'pvp_3gate_speedzealot'},
       texts: [
-        '양쪽 다 공격적! {atkBuild} vs {defBuild}, 한 치 양보 없는 PvP!',
         '공격형 대결! 누가 먼저 상대의 약점을 찌르느냐가 관건입니다!',
         '{atkBuild} vs {defBuild}! 양 선수 모두 물러서지 않습니다!',
       ],
@@ -2289,6 +2472,7 @@ class MatchSimulationService {
     BuildType? homeBuildType,
     BuildType? awayBuildType,
     Set<String>? combinedUnitTags,
+    bool anyExpanded = false,
   }) {
     final clashDuration = lineCount - clashStartLine;
     final isZvZ = homePlayer.race == Race.zerg && awayPlayer.race == Race.zerg;
@@ -2385,6 +2569,7 @@ class MatchSimulationService {
       gamePhase: gamePhase,
       attackerArmySize: isHomeAttacker ? currentState.homeArmy : currentState.awayArmy,
       defenderArmySize: isHomeAttacker ? currentState.awayArmy : currentState.homeArmy,
+      hasExpanded: anyExpanded,
     );
 
     // 가중치 기반 이벤트 선택
@@ -3012,12 +3197,16 @@ class MatchSimulationService {
       if (result != null) {
         final winner = result ? homePlayer : awayPlayer;
         final loser = result ? awayPlayer : homePlayer;
+        final finishingBlow = _getFinishingBlow(
+          winner: winner, loser: loser, state: state, lineCount: lineCount,
+        );
 
         state = state.copyWith(
           isFinished: true,
           homeWin: result,
           battleLogEntries: [
             ...state.battleLogEntries,
+            BattleLogEntry(text: finishingBlow, owner: result ? LogOwner.home : LogOwner.away),
             BattleLogEntry(text: '${loser.name} 선수, GG를 선언합니다.', owner: result ? LogOwner.away : LogOwner.home),
             BattleLogEntry(text: '${winner.name} 선수 승리!', owner: LogOwner.system),
           ],
@@ -3032,12 +3221,16 @@ class MatchSimulationService {
       final homeWin = _random.nextDouble() < winRate;
       final winner = homeWin ? homePlayer : awayPlayer;
       final loser = homeWin ? awayPlayer : homePlayer;
+      final finishingBlow = _getFinishingBlow(
+        winner: winner, loser: loser, state: state, lineCount: lineCount,
+      );
 
       state = state.copyWith(
         isFinished: true,
         homeWin: homeWin,
         battleLogEntries: [
           ...state.battleLogEntries,
+          BattleLogEntry(text: finishingBlow, owner: homeWin ? LogOwner.home : LogOwner.away),
           BattleLogEntry(text: '${loser.name} 선수, GG를 선언합니다.', owner: homeWin ? LogOwner.away : LogOwner.home),
           BattleLogEntry(text: '${winner.name} 선수 승리!', owner: LogOwner.system),
         ],

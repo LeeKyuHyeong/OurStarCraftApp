@@ -33,6 +33,61 @@ const _standardMap = GameMap(
 
 typedef BuildInfo = (String id, String name, String style);
 
+// === TvZ 빌드 목록 ===
+const _tvzBuilds = <BuildInfo>[
+  ('tvz_bunker', '벙커링', 'CHE'),
+  ('tvz_sk', '투배럭아카', 'AGG'),
+  ('tvz_3fac_goliath', '5팩골리앗', 'DEF'),
+  ('tvz_4rax_enbe', '선엔베', 'AGG'),
+  ('tvz_111', '111', 'BAL'),
+  ('tvz_valkyrie', '발키리', 'DEF'),
+  ('tvz_2star_wraith', '투스타레이스', 'AGG'),
+];
+
+const _zvtBuilds = <BuildInfo>[
+  ('zvt_4pool', '4풀', 'CHE'),
+  ('zvt_9pool', '9풀', 'AGG'),
+  ('zvt_9overpool', '9오버풀', 'AGG'),
+  ('zvt_12pool', '12풀', 'BAL'),
+  ('zvt_12hatch', '12앞', 'BAL'),
+  ('zvt_3hatch_nopool', '노풀3해처리', 'DEF'),
+  ('zvt_3hatch_mutal', '미친저그', 'AGG'),
+  ('zvt_2hatch_mutal', '투해처리뮤탈', 'AGG'),
+  ('zvt_2hatch_lurker', '가드라', 'DEF'),
+  ('zvt_1hatch_allin', '530뮤탈', 'AGG'),
+];
+
+// === ZvT 트랜지션 빌드 ===
+const _zvtTransBuilds = <BuildInfo>[
+  ('zvt_trans_mutal_ultra', '뮤탈→울트라', 'AGG'),
+  ('zvt_trans_2hatch_mutal', '투해처리뮤탈T', 'AGG'),
+  ('zvt_trans_lurker_defiler', '가드라→디파일러', 'DEF'),
+  ('zvt_trans_530_mutal', '530뮤탈T', 'AGG'),
+  ('zvt_trans_mutal_lurker', '뮤탈→럴커', 'BAL'),
+  ('zvt_trans_ultra_hive', '울트라→하이브', 'DEF'),
+];
+
+// === ZvP 트랜지션 빌드 ===
+const _zvpTransBuilds = <BuildInfo>[
+  ('zvp_trans_5hatch_hydra', '5히트랜지션', 'AGG'),
+  ('zvp_trans_mutal_hydra', '뮤탈→히드라', 'BAL'),
+  ('zvp_trans_hive_defiler', '하이브→디파일러', 'DEF'),
+  ('zvp_trans_973_hydra', '973히드라T', 'AGG'),
+  ('zvp_trans_mukerji', '뮤커지T', 'BAL'),
+  ('zvp_trans_yabarwi', '야바위T', 'AGG'),
+  ('zvp_trans_hydra_lurker', '히드라→럴커', 'BAL'),
+];
+
+// === TvZ 트랜지션 빌드 ===
+const _tvzTransBuilds = <BuildInfo>[
+  ('tvz_trans_bionic_push', '바이오닉푸시', 'AGG'),
+  ('tvz_trans_mech_goliath', '메카닉골리앗', 'DEF'),
+  ('tvz_trans_111_balance', '111밸런스', 'BAL'),
+  ('tvz_trans_valkyrie', '발키리대공', 'DEF'),
+  ('tvz_trans_wraith', '레이스공중', 'AGG'),
+  ('tvz_trans_enbe_push', '선엔베푸시', 'AGG'),
+];
+
 // === TvP 빌드 목록 ===
 const _tvpBuilds = <BuildInfo>[
   ('tvp_double', '팩더블', 'DEF'),
@@ -48,8 +103,9 @@ const _tvpBuilds = <BuildInfo>[
 ];
 
 const _pvtBuilds = <BuildInfo>[
+  ('pvt_proxy_gate', '센터게이트', 'CHE'),
   ('pvt_2gate_zealot', '선질럿', 'AGG'),
-  ('pvt_dark_swing', '다크드랍', 'CHE'),
+  ('pvt_dark_swing', '초패스트다크', 'AGG'),
   ('pvt_1gate_obs', '23넥아비터', 'DEF'),
   ('pvt_proxy_dark', '전진로보', 'AGG'),
   ('pvt_1gate_expand', '19넥', 'BAL'),
@@ -57,8 +113,42 @@ const _pvtBuilds = <BuildInfo>[
   ('pvt_reaver_shuttle', '리버속셔템', 'BAL'),
 ];
 
+// === TvP 트랜지션 빌드 ===
+const _tvpTransBuilds = <BuildInfo>[
+  ('tvp_trans_tank_defense', '탱크수비', 'DEF'),
+  ('tvp_trans_timing_push', '타이밍푸시', 'AGG'),
+  ('tvp_trans_upgrade', '업그레이드운영', 'BAL'),
+  ('tvp_trans_bio_mech', '바이오메카닉', 'BAL'),
+  ('tvp_trans_5fac_mass', '5팩물량', 'AGG'),
+  ('tvp_trans_anti_carrier', '안티캐리어T', 'BAL'),
+];
+
+// === PvT 트랜지션 빌드 ===
+const _pvtTransBuilds = <BuildInfo>[
+  ('pvt_trans_5gate_push', '5게이트푸시', 'AGG'),
+  ('pvt_trans_5gate_arbiter', '5게이트아비터', 'BAL'),
+  ('pvt_trans_5gate_carrier', '5게이트캐리어', 'DEF'),
+  ('pvt_trans_reaver_push', '셔틀리버푸시', 'AGG'),
+  ('pvt_trans_reaver_arbiter', '셔틀리버아비터', 'BAL'),
+  ('pvt_trans_reaver_carrier', '셔틀리버캐리어', 'DEF'),
+];
+
+// === PvZ 트랜지션 빌드 ===
+const _pvzTransBuilds = <BuildInfo>[
+  ('pvz_trans_dragoon_push', '드라군푸시', 'AGG'),
+  ('pvz_trans_corsair', '커세어운영', 'BAL'),
+  ('pvz_trans_archon', '아콘조합', 'BAL'),
+  ('pvz_trans_forge_expand', '포지확장', 'DEF'),
+];
+
 // === ZvP 빌드 목록 ===
 const _zvpBuilds = <BuildInfo>[
+  ('zvp_4pool', '4풀', 'CHE'),
+  ('zvp_9pool', '9풀', 'AGG'),
+  ('zvp_9overpool', '9오버풀', 'AGG'),
+  ('zvp_12pool', '12풀', 'BAL'),
+  ('zvp_12hatch', '12앞', 'BAL'),
+  ('zvp_3hatch_nopool', '노풀3해처리', 'DEF'),
   ('zvp_3hatch_hydra', '5해처리히드라', 'AGG'),
   ('zvp_2hatch_mutal', '5뮤탈', 'BAL'),
   ('zvp_scourge_defiler', '하이브운영', 'DEF'),
@@ -72,7 +162,7 @@ const _pvzBuilds = <BuildInfo>[
   ('pvz_2gate_zealot', '파워드라군', 'AGG'),
   ('pvz_forge_cannon', '포지더블', 'DEF'),
   ('pvz_corsair_reaver', '선아둔', 'BAL'),
-  ('pvz_proxy_gate', '센터99겟', 'CHE'),
+  ('pvz_proxy_gate', '센터게이트', 'CHE'),
   ('pvz_cannon_rush', '캐논러쉬', 'CHE'),
   ('pvz_8gat', '8겟뽕', 'CHE'),
   ('pvz_2star_corsair', '투스타커세어', 'AGG'),
@@ -91,10 +181,11 @@ const _tvtBuilds = <BuildInfo>[
 // === ZvZ 빌드 목록 ===
 const _zvzBuilds = <BuildInfo>[
   ('zvz_pool_first', '4풀', 'CHE'),
-  ('zvz_9pool', '9레어', 'AGG'),
-  ('zvz_12hatch', '12앞마당', 'DEF'),
-  ('zvz_overpool', '오버풀', 'BAL'),
+  ('zvz_9pool', '9풀', 'AGG'),
+  ('zvz_9overpool', '9오버풀', 'AGG'),
   ('zvz_12pool', '12풀', 'BAL'),
+  ('zvz_12hatch', '12앞', 'BAL'),
+  ('zvz_3hatch_nopool', '노풀3해처리', 'DEF'),
 ];
 
 // === PvP 빌드 목록 ===
@@ -220,6 +311,58 @@ Future<void> _runMirrorTest({
 void main() {
   const runs = 100; // 100회 × 매치업수
 
+  test('TvZ 빌드 매치업별 승률', () async {
+    final service = MatchSimulationService();
+    await _runMatchupTest(
+      service: service,
+      homeBuilds: _tvzBuilds,
+      awayBuilds: _zvtBuilds,
+      homeRace: Race.terran,
+      awayRace: Race.zerg,
+      label: 'TvZ (7T × 10Z)',
+      runs: runs,
+    );
+  }, timeout: const Timeout(Duration(minutes: 30)));
+
+  test('ZvT 빌드 매치업별 승률', () async {
+    final service = MatchSimulationService();
+    await _runMatchupTest(
+      service: service,
+      homeBuilds: _zvtBuilds,
+      awayBuilds: _tvzBuilds,
+      homeRace: Race.zerg,
+      awayRace: Race.terran,
+      label: 'ZvT (10Z × 7T)',
+      runs: runs,
+    );
+  }, timeout: const Timeout(Duration(minutes: 30)));
+
+  test('ZvT 트랜지션 빌드 매치업별 승률', () async {
+    final service = MatchSimulationService();
+    await _runMatchupTest(
+      service: service,
+      homeBuilds: _zvtTransBuilds,
+      awayBuilds: _tvzBuilds,
+      homeRace: Race.zerg,
+      awayRace: Race.terran,
+      label: 'ZvT 트랜지션 (6Z × 7T)',
+      runs: runs,
+    );
+  }, timeout: const Timeout(Duration(minutes: 30)));
+
+  test('ZvP 트랜지션 빌드 매치업별 승률', () async {
+    final service = MatchSimulationService();
+    await _runMatchupTest(
+      service: service,
+      homeBuilds: _zvpTransBuilds,
+      awayBuilds: _pvzBuilds,
+      homeRace: Race.zerg,
+      awayRace: Race.protoss,
+      label: 'ZvP 트랜지션 (7Z × 7P)',
+      runs: runs,
+    );
+  }, timeout: const Timeout(Duration(minutes: 30)));
+
   test('TvP 빌드 매치업별 승률', () async {
     final service = MatchSimulationService();
     await _runMatchupTest(
@@ -268,6 +411,58 @@ void main() {
       homeRace: Race.protoss,
       awayRace: Race.zerg,
       label: 'PvZ (7P × 7Z)',
+      runs: runs,
+    );
+  }, timeout: const Timeout(Duration(minutes: 30)));
+
+  test('TvZ 트랜지션 빌드 매치업별 승률', () async {
+    final service = MatchSimulationService();
+    await _runMatchupTest(
+      service: service,
+      homeBuilds: _tvzTransBuilds,
+      awayBuilds: _zvtBuilds,
+      homeRace: Race.terran,
+      awayRace: Race.zerg,
+      label: 'TvZ 트랜지션 (6T × 10Z)',
+      runs: runs,
+    );
+  }, timeout: const Timeout(Duration(minutes: 30)));
+
+  test('TvP 트랜지션 빌드 매치업별 승률', () async {
+    final service = MatchSimulationService();
+    await _runMatchupTest(
+      service: service,
+      homeBuilds: _tvpTransBuilds,
+      awayBuilds: _pvtBuilds,
+      homeRace: Race.terran,
+      awayRace: Race.protoss,
+      label: 'TvP 트랜지션 (6T × 7P)',
+      runs: runs,
+    );
+  }, timeout: const Timeout(Duration(minutes: 30)));
+
+  test('PvT 트랜지션 빌드 매치업별 승률', () async {
+    final service = MatchSimulationService();
+    await _runMatchupTest(
+      service: service,
+      homeBuilds: _pvtTransBuilds,
+      awayBuilds: _tvpBuilds,
+      homeRace: Race.protoss,
+      awayRace: Race.terran,
+      label: 'PvT 트랜지션 (6P × 10T)',
+      runs: runs,
+    );
+  }, timeout: const Timeout(Duration(minutes: 30)));
+
+  test('PvZ 트랜지션 빌드 매치업별 승률', () async {
+    final service = MatchSimulationService();
+    await _runMatchupTest(
+      service: service,
+      homeBuilds: _pvzTransBuilds,
+      awayBuilds: _zvpBuilds,
+      homeRace: Race.protoss,
+      awayRace: Race.zerg,
+      label: 'PvZ 트랜지션 (4P × 13Z)',
       runs: runs,
     );
   }, timeout: const Timeout(Duration(minutes: 30)));

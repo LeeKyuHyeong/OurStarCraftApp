@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../app/theme.dart';
+import '../../../core/constants/initial_data.dart';
 import '../../../core/constants/team_data.dart';
+import '../../../domain/models/player.dart';
+import '../../widgets/player_radar_chart.dart';
+import '../../widgets/player_thumbnail.dart';
 import '../../widgets/reset_button.dart';
 
 class TeamSelectScreen extends ConsumerStatefulWidget {
@@ -14,6 +18,24 @@ class TeamSelectScreen extends ConsumerStatefulWidget {
 
 class _TeamSelectScreenState extends ConsumerState<TeamSelectScreen> {
   String? selectedTeamId;
+  late final Map<String, List<Player>> _playersByTeam;
+
+  @override
+  void initState() {
+    super.initState();
+    final allPlayers = InitialData.createPlayers();
+    _playersByTeam = {};
+    for (final player in allPlayers) {
+      final teamId = player.teamId;
+      if (teamId != null) {
+        _playersByTeam.putIfAbsent(teamId, () => []).add(player);
+      }
+    }
+    // 등급(능력치 합계) 내림차순 정렬 → 에이스가 맨 앞
+    for (final players in _playersByTeam.values) {
+      players.sort((a, b) => b.stats.total.compareTo(a.stats.total));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,16 +98,17 @@ class _TeamSelectScreenState extends ConsumerState<TeamSelectScreen> {
                 ),
               ),
 
-              // 선택된 팀 정보
+              // 선택된 팀 선수 카드
               if (selectedTeamId != null) ...[
                 Builder(
                   builder: (context) {
                     final selectedTeam = TeamData.teams.firstWhere(
                       (t) => t['id'] == selectedTeamId,
                     );
+                    final players = _playersByTeam[selectedTeamId] ?? [];
                     return Container(
                       width: double.infinity,
-                      padding: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       color: AppTheme.cardBackground,
                       child: Column(
                         children: [
@@ -96,11 +119,15 @@ class _TeamSelectScreenState extends ConsumerState<TeamSelectScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const SizedBox(height: 4),
-                          Text(
-                            '에이스: ${selectedTeam['ace'] as String}',
-                            style: const TextStyle(
-                              color: AppTheme.textSecondary,
+                          const SizedBox(height: 8),
+                          SizedBox(
+                            height: 210,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: players.length,
+                              itemBuilder: (context, index) {
+                                return _PlayerCard(player: players[index]);
+                              },
                             ),
                           ),
                         ],
@@ -221,6 +248,44 @@ class _TeamCard extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _PlayerCard extends StatelessWidget {
+  final Player player;
+
+  const _PlayerCard({required this.player});
+
+  @override
+  Widget build(BuildContext context) {
+    final gradeDisplay = player.grade.display;
+    final gradeColor = AppTheme.getGradeColor(gradeDisplay);
+
+    return Container(
+      width: 130,
+      margin: const EdgeInsets.only(right: 8),
+      child: Column(
+        children: [
+          PlayerThumbnail(player: player, size: 36),
+          const SizedBox(height: 4),
+          Text(
+            player.nickname ?? player.name,
+            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+          const SizedBox(height: 4),
+          Expanded(
+            child: PlayerRadarChart(
+              stats: player.stats,
+              color: gradeColor,
+              grade: gradeDisplay,
+              level: player.level.value,
+            ),
+          ),
+        ],
       ),
     );
   }

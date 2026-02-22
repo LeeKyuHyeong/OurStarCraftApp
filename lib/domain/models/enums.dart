@@ -346,8 +346,9 @@ enum BuildType {
   zvz3HatchNoPool('zvz_3hatch_nopool', 'ZvZ', '노풀 3해처리', BuildStyle.defensive, ['macro', 'defense']),
 
   // ==================== PvT 빌드 (7개) ====================
+  pvtProxyGate('pvt_proxy_gate', 'PvT', '센터 게이트', BuildStyle.cheese, ['attack', 'control']),
   pvt2GateZealot('pvt_2gate_zealot', 'PvT', '선질럿 찌르기', BuildStyle.aggressive, ['attack', 'control']),
-  pvtDarkSwing('pvt_dark_swing', 'PvT', '다크드랍', BuildStyle.cheese, ['strategy', 'harass']),
+  pvtDarkSwing('pvt_dark_swing', 'PvT', '초패스트다크', BuildStyle.aggressive, ['strategy', 'harass']),
   pvt1GateObserver('pvt_1gate_obs', 'PvT', '23넥 아비터', BuildStyle.defensive, ['defense', 'macro']),
   pvtProxyDark('pvt_proxy_dark', 'PvT', '전진로보', BuildStyle.aggressive, ['attack', 'control']),
   pvt1GateExpansion('pvt_1gate_expand', 'PvT', '19넥', BuildStyle.balanced, ['macro', 'defense']),
@@ -358,7 +359,7 @@ enum BuildType {
   pvz2GateZealot('pvz_2gate_zealot', 'PvZ', '파워 드라군', BuildStyle.aggressive, ['attack', 'macro']),
   pvzForgeCannon('pvz_forge_cannon', 'PvZ', '포지더블', BuildStyle.defensive, ['defense', 'macro']),
   pvzCorsairReaver('pvz_corsair_reaver', 'PvZ', '선아둔', BuildStyle.balanced, ['strategy', 'macro']),
-  pvzProxyGateway('pvz_proxy_gate', 'PvZ', '센터 99게이트', BuildStyle.cheese, ['attack', 'control']),
+  pvzProxyGateway('pvz_proxy_gate', 'PvZ', '센터 게이트', BuildStyle.cheese, ['attack', 'control']),
   pvzCannonRush('pvz_cannon_rush', 'PvZ', '캐논 러쉬', BuildStyle.cheese, ['attack', 'sense']),
   pvz8Gat('pvz_8gat', 'PvZ', '8겟뽕', BuildStyle.cheese, ['attack', 'control']),
   pvz2StarCorsair('pvz_2star_corsair', 'PvZ', '투스타 커세어', BuildStyle.aggressive, ['harass', 'strategy']),
@@ -406,12 +407,13 @@ enum BuildType {
   tvpTrans5FacMass('tvp_trans_5fac_mass', 'TvP', '5팩 물량', BuildStyle.aggressive, ['attack', 'macro']),
   tvpTransAntiCarrier('tvp_trans_anti_carrier', 'TvP', '안티 캐리어', BuildStyle.balanced, ['strategy', 'defense']),
 
-  // PvT 트랜지션 빌드 (5개)
-  pvtTransObsArbiter('pvt_trans_obs_arbiter', 'PvT', '옵저버 아비터', BuildStyle.defensive, ['scout', 'strategy']),
-  pvtTransReaverDrop('pvt_trans_reaver_drop', 'PvT', '리버 드랍', BuildStyle.aggressive, ['harass', 'control']),
-  pvtTransExpandTemplar('pvt_trans_expand_templar', 'PvT', '확장 템플러', BuildStyle.balanced, ['strategy', 'attack']),
-  pvtTransCarrier('pvt_trans_carrier', 'PvT', '캐리어 전환', BuildStyle.defensive, ['macro', 'strategy']),
-  pvtTransShuttleReaver('pvt_trans_shuttle_reaver', 'PvT', '속셔틀 리버', BuildStyle.balanced, ['harass', 'control']),
+  // PvT 트랜지션 빌드 (6개)
+  pvtTrans5GatePush('pvt_trans_5gate_push', 'PvT', '5게이트 푸시', BuildStyle.aggressive, ['attack', 'control']),
+  pvtTrans5GateArbiter('pvt_trans_5gate_arbiter', 'PvT', '5게이트 아비터', BuildStyle.balanced, ['strategy', 'attack']),
+  pvtTrans5GateCarrier('pvt_trans_5gate_carrier', 'PvT', '5게이트 캐리어', BuildStyle.defensive, ['macro', 'strategy']),
+  pvtTransReaverPush('pvt_trans_reaver_push', 'PvT', '셔틀리버 푸시', BuildStyle.aggressive, ['harass', 'control']),
+  pvtTransReaverArbiter('pvt_trans_reaver_arbiter', 'PvT', '셔틀리버 아비터', BuildStyle.balanced, ['harass', 'strategy']),
+  pvtTransReaverCarrier('pvt_trans_reaver_carrier', 'PvT', '셔틀리버 캐리어', BuildStyle.defensive, ['harass', 'macro']),
 
   // PvZ 트랜지션 빌드 (4개)
   pvzTransDragoonPush('pvz_trans_dragoon_push', 'PvZ', '드라군 압박', BuildStyle.aggressive, ['attack', 'macro']),
@@ -521,8 +523,8 @@ class BuildMatchup {
     if (a == BuildType.zvz3HatchNoPool && b == BuildType.zvz9Pool) return -18;
     if (a == BuildType.zvz12Hatch && b == BuildType.zvz12Pool) return 3;       // 12앞 ≈ 12풀 (미세 우위)
     if (a == BuildType.zvz12Pool && b == BuildType.zvz12Hatch) return -3;
-    if (a == BuildType.zvz9Pool && b == BuildType.zvz12Pool) return 5;         // 9풀 > 12풀
-    if (a == BuildType.zvz12Pool && b == BuildType.zvz9Pool) return -5;
+    if (a == BuildType.zvz9Pool && b == BuildType.zvz12Pool) return -5;        // 12풀 > 9풀 (드론 3개 경제 우위, 9풀 피해 못 주면 불리)
+    if (a == BuildType.zvz12Pool && b == BuildType.zvz9Pool) return 5;
     if (a == BuildType.zvz3HatchNoPool && b == BuildType.zvz12Hatch) return 5; // 노풀 3해처리 > 12앞 (후반 경제력)
     if (a == BuildType.zvz12Hatch && b == BuildType.zvz3HatchNoPool) return -5;
     if (a == BuildType.zvz3HatchNoPool && b == BuildType.zvz12Pool) return 8;  // 노풀 3해처리 > 12풀 (경제력 격차)
@@ -532,8 +534,8 @@ class BuildMatchup {
     // 9오버풀 상성
     if (a == BuildType.zvz9OverPool && b == BuildType.zvz12Hatch) return 12;  // 9오버풀 > 12앞
     if (a == BuildType.zvz12Hatch && b == BuildType.zvz9OverPool) return -12;
-    if (a == BuildType.zvz9OverPool && b == BuildType.zvz12Pool) return 5;    // 9오버풀 > 12풀
-    if (a == BuildType.zvz12Pool && b == BuildType.zvz9OverPool) return -5;
+    if (a == BuildType.zvz9OverPool && b == BuildType.zvz12Pool) return -3;   // 12풀 > 9오버풀 (경제 우위)
+    if (a == BuildType.zvz12Pool && b == BuildType.zvz9OverPool) return 3;
     if (a == BuildType.zvz9OverPool && b == BuildType.zvz3HatchNoPool) return 15; // 9오버풀 > 노풀 3해처리
     if (a == BuildType.zvz3HatchNoPool && b == BuildType.zvz9OverPool) return -15;
     if (a == BuildType.zvz9Pool && b == BuildType.zvz9OverPool) return 3;     // 9풀 > 9오버풀 (미세 우위)
@@ -616,6 +618,12 @@ class BuildMatchup {
     if (a == BuildType.tvpFakeDouble && b == BuildType.pvtCarrier) return 10;
     if (a == BuildType.pvtReaverShuttle && b == BuildType.tvpDouble) return 10; // 리버속셔템 > 팩더블
     if (a == BuildType.tvpDouble && b == BuildType.pvtReaverShuttle) return -10;
+    if (a == BuildType.pvtProxyGate && b == BuildType.tvpDouble) return 20;   // 센터게이트 > 팩더블 (치즈>수비)
+    if (a == BuildType.tvpDouble && b == BuildType.pvtProxyGate) return -20;
+    if (a == BuildType.pvtProxyGate && b == BuildType.tvpBbs) return -5;      // 센터게이트 < BBS (치즈 대 치즈, 마린 유리)
+    if (a == BuildType.tvpBbs && b == BuildType.pvtProxyGate) return 5;
+    if (a == BuildType.pvtProxyGate && b == BuildType.tvpRaxDouble) return 15; // 센터게이트 > 배럭더블 (치즈>수비)
+    if (a == BuildType.tvpRaxDouble && b == BuildType.pvtProxyGate) return -15;
 
     // PvZ/ZvP 특수 상성
     if (a == BuildType.pvzForgeCannon && b == BuildType.zvp5DroneZergling) return 30; // 포지더블 > 9투올인

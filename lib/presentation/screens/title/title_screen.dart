@@ -9,6 +9,7 @@ import '../../../data/providers/game_provider.dart';
 import '../../../domain/models/models.dart';
 import '../../../app/theme.dart';
 import '../../widgets/player_radar_chart.dart';
+import '../../widgets/player_thumbnail.dart';
 
 /// 타이틀 화면 - 팀 선택 및 게임 시작
 class TitleScreen extends ConsumerStatefulWidget {
@@ -499,6 +500,8 @@ class _TitleScreenState extends ConsumerState<TitleScreen> {
       return const SizedBox.shrink();
     }
 
+    final player = _teamRoster[focusedPlayerIndex];
+
     return Container(
       decoration: BoxDecoration(
         color: const Color(0xFF1a1a2e),
@@ -507,7 +510,34 @@ class _TitleScreenState extends ConsumerState<TitleScreen> {
       ),
       child: Padding(
         padding: EdgeInsets.all(8.sp),
-        child: _buildRadarChart(teamColor),
+        child: Column(
+          children: [
+            // 선수 사진 + 이름
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                PlayerThumbnail(player: player, size: 32),
+                SizedBox(width: 8.sp),
+                Flexible(
+                  child: Text(
+                    player.nickname ?? player.name,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 4.sp),
+            // 레이더 차트
+            Expanded(
+              child: _buildRadarChart(teamColor),
+            ),
+          ],
+        ),
       ),
     );
   }
