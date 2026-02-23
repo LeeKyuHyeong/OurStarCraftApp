@@ -3128,7 +3128,7 @@ class BuildOrderData {
       attackerResource: 20,
     ),
     ClashEvent(
-      text: '자원 많은 맵! 물량 싸움으로 가려합니다!',
+      text: '자원 많은 맵! 물량 싸움으로 갈 것 같습니다!',
       favorsStat: 'macro',
       attackerArmy: -5,
       defenderArmy: -8,
@@ -3200,7 +3200,7 @@ class BuildOrderData {
       defenderResource: -25,
     ),
     ClashEvent(
-      text: '열린 하늘! 대공이 부족하면 끝납니다!',
+      text: '공중 전투가 벌어집니다! 대공이 부족하면 끝납니다!',
       favorsStat: 'strategy',
       attackerArmy: -5,
       defenderArmy: -12,
@@ -3217,7 +3217,7 @@ class BuildOrderData {
       attackerResource: 35,
     ),
     ClashEvent(
-      text: '섬 기지로 자원 역전! 드랍십 필수!',
+      text: '섬 기지로 자원 역전! 드랍십 없이는 대응이 어렵습니다!',
       favorsStat: 'macro',
       attackerArmy: -2,
       defenderArmy: -3,
@@ -3254,7 +3254,7 @@ class BuildOrderData {
       defenderArmy: -12,
     ),
     ClashEvent(
-      text: '중앙 워치타워 확보! 상대 움직임 완벽 파악!',
+      text: '중앙 고지대 확보! 상대 움직임 완벽 파악!',
       favorsStat: 'scout',
       attackerArmy: -3,
       defenderArmy: -6,
@@ -3560,7 +3560,7 @@ class BuildOrderData {
     ],
     BuildType.tvzValkyrie: [
       ClashEvent(text: '발키리 등장! 뮤탈 편대가 녹아내립니다!', favorsStat: 'defense', attackerArmy: -3, defenderArmy: -12),
-      ClashEvent(text: '발리오닉! 발키리 마린 메딕 조합 완성!', favorsStat: 'defense', attackerArmy: -4, defenderArmy: -10, defenderResource: -15),
+      ClashEvent(text: '발키리 합류! 마린 메딕 조합 완성!', favorsStat: 'defense', attackerArmy: -4, defenderArmy: -10, defenderResource: -15),
     ],
     BuildType.tvz2StarWraith: [
       ClashEvent(text: '투스타 레이스! 드론 견제!', favorsStat: 'harass', attackerArmy: -3, defenderArmy: -5, defenderResource: -30),
@@ -3569,7 +3569,7 @@ class BuildOrderData {
 
     // ==================== TvP 빌드들 (12개) ====================
     BuildType.tvpBbs: [
-      ClashEvent(text: '센터 8배럭! 마린 러쉬가 시작됩니다!', favorsStat: 'attack', attackerArmy: -3, defenderArmy: -10),
+      ClashEvent(text: '센터 배럭! 마린 러쉬가 시작됩니다!', favorsStat: 'attack', attackerArmy: -3, defenderArmy: -10),
       ClashEvent(text: 'BBS 올인! 프로브에 마린 난입!', favorsStat: 'control', attackerArmy: -4, defenderArmy: -8, defenderResource: -20),
     ],
     BuildType.tvpDouble: [
@@ -3639,7 +3639,7 @@ class BuildOrderData {
       ClashEvent(text: '메카닉 물량 밀어붙이기! 상대 진형 붕괴!', favorsStat: 'macro', attackerArmy: -6, defenderArmy: -15),
     ],
     BuildType.tvtBBS: [
-      ClashEvent(text: 'BBS 벙커링 성공! 앞마당이 막힙니다!', favorsStat: 'attack', attackerArmy: -3, defenderArmy: -10, defenderResource: -20),
+      ClashEvent(text: 'BBS 벙커링 성공! 앞마당 확장을 막습니다!', favorsStat: 'attack', attackerArmy: -3, defenderArmy: -10, defenderResource: -20),
       ClashEvent(text: '센터 배럭 마린 투입! SCV 끌고 총공격!', favorsStat: 'control', attackerArmy: -5, defenderArmy: -12, defenderResource: -15),
     ],
 
@@ -3724,7 +3724,7 @@ class BuildOrderData {
       ClashEvent(text: '질럿 찌르기! 벙커 건설 전에 들어갑니다!', favorsStat: 'attack', attackerArmy: -10, defenderArmy: -15),
     ],
     BuildType.pvtDarkSwing: [
-      ClashEvent(text: '다크드랍! 디텍 없으면 끝입니다!', favorsStat: 'strategy', attackerArmy: -2, defenderArmy: -8, defenderResource: -40),
+      ClashEvent(text: '다크드랍! 탐지 수단 없으면 끝입니다!', favorsStat: 'strategy', attackerArmy: -2, defenderArmy: -8, defenderResource: -40),
       ClashEvent(text: '다크드랍 성공! SCV가 녹습니다!', favorsStat: 'harass', attackerArmy: -3, defenderArmy: -5, defenderResource: -50),
     ],
     BuildType.pvt1GateObserver: [
@@ -4243,7 +4243,7 @@ class BuildOrderData {
       defenderArmy: -4,
     ),
     ClashEvent(
-      text: '불사조처럼 다시 살아납니다! {defender} 선수!',
+      text: '기적적으로 다시 살아납니다! {defender} 선수!',
       favorsStat: 'sense',
       attackerArmy: -18,
       defenderArmy: -5,
@@ -4301,7 +4301,7 @@ class BuildOrderData {
       defenderArmy: -15,
     ),
     ClashEvent(
-      text: '저글링 병력을 감쌉니다!',
+      text: '저글링 서라운드! 상대 병력을 감쌉니다!',
       favorsStat: 'attack',
       attackerArmy: -6,
       defenderArmy: -10,
@@ -4329,7 +4329,7 @@ class BuildOrderData {
       defenderArmy: -2,
     ),
     ClashEvent(
-      text: '저글링 럴커 뮤탈로 바이오닉 병력 쌈싸먹습니다!',
+      text: '저글링 럴커 뮤탈로 바이오닉 병력 녹여냅니다!',
       favorsStat: 'attack',
       attackerArmy: -10,
       defenderArmy: -24,
@@ -4568,7 +4568,7 @@ class BuildOrderData {
       defenderArmy: -10,
     ),
     ClashEvent(
-      text: '저글링 어택땅! 멀티를 동시에 노립니다!',
+      text: '저글링 돌진! 멀티를 동시에 노립니다!',
       favorsStat: 'harass',
       attackerArmy: -5,
       defenderArmy: -5,
@@ -4654,7 +4654,7 @@ class BuildOrderData {
       defenderResource: -20,
     ),
     ClashEvent(
-      text: '시즈 탱크 포진! 드라군 접근 차단!',
+      text: '시즈 탱크 포진! 앞마당 봉쇄!',
       favorsStat: 'defense',
       attackerArmy: -8,
       defenderArmy: -5,
@@ -4746,7 +4746,7 @@ class BuildOrderData {
       defenderArmy: -12,
     ),
     ClashEvent(
-      text: '다크템플러 투입! 디텍 없으면 끝!',
+      text: '다크템플러 투입! 탐지 수단 없으면 끝!',
       favorsStat: 'strategy',
       attackerArmy: -2,
       defenderArmy: -8,
@@ -5313,7 +5313,7 @@ class BuildOrderData {
     BuildStep(line: 0, text: '{player}, 생산 시설 풀가동!', stat: 'macro', myArmy: 7, myResource: -20),
     BuildStep(line: 0, text: '{player} 선수 최대 서플라이 향해 달려갑니다!', stat: 'macro', myArmy: 6, myResource: -18),
     BuildStep(line: 0, text: '{player}, 병력 손실분 빠르게 보충!', myArmy: 5, myResource: -15),
-    BuildStep(line: 0, text: '{player} 선수 리플레이스먼트 생산!', myArmy: 4, myResource: -14),
+    BuildStep(line: 0, text: '{player} 선수 리플레이스 생산!', myArmy: 4, myResource: -14),
     BuildStep(line: 0, text: '{player}, 다음 전투 준비 완료!', stat: 'attack', myArmy: 6, myResource: -17),
     BuildStep(line: 0, text: '{player} 선수 전선 유지용 병력 생산!', myArmy: 4, myResource: -12),
   ];
@@ -5627,7 +5627,7 @@ class BuildOrderData {
 
   /// 빌드 스텝 텍스트에서 매칭할 유닛 키워드 목록
   static const _unitKeywords = [
-    '드라군', '리버', '캐리어', '아비터', '다크템플러', '하이템플러', '아콘', '커세어', '커세어', '셔틀',
+    '드라군', '리버', '캐리어', '아비터', '다크템플러', '하이템플러', '아콘', '커세어', '셔틀',
     '시즈', '탱크', '벌처', '골리앗', '베슬', '드랍십', '발키리', '배틀크루저', '마인', '고스트', '뉴클리어',
     '뮤탈', '럴커', '히드라', '울트라', '디파일러', '가디언', '스커지', '디바우러', '퀸',
     // 특수 유닛/전술 키워드 (빌드에 없는 이벤트 필터링용)
