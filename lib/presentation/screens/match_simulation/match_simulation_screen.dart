@@ -167,6 +167,12 @@ class _MatchSimulationScreenState extends ConsumerState<MatchSimulationScreen> {
     }
 
     // 시뮬레이션 스트림 시작 (배속 콜백으로 전달하여 중간 변경 가능)
+    // 장비 보너스 적용
+    final gameState = ref.read(gameStateProvider);
+    final allEquipments = gameState != null
+        ? [...gameState.saveData.inventory.equipments, ...gameState.saveData.aiEquipments]
+        : <EquipmentInstance>[];
+
     final stream = _simulationService.simulateMatchWithLog(
       homePlayer: homePlayer,
       awayPlayer: awayPlayer,
@@ -176,6 +182,7 @@ class _MatchSimulationScreenState extends ConsumerState<MatchSimulationScreen> {
       awaySnipingBonus: awaySnipingBonus,
       homeSnipingPlayerName: homeSnipingPlayerName,
       awaySnipingPlayerName: awaySnipingPlayerName,
+      allEquipments: allEquipments,
     );
 
     _simulationSubscription?.cancel();

@@ -531,6 +531,12 @@ class GameStateNotifier extends StateNotifier<GameState?> {
     var updatedPlayers = <Player>[];
     var updatedTeams = <Team>[];
 
+    // AI 장비: 내구도 감소 (2경기 진행 → 2 감소) + 파손 장비 제거
+    var aiEquipmentsList = state!.saveData.aiEquipments
+        .map((e) => e.use().use())
+        .where((e) => !e.isBroken)
+        .toList();
+
     for (final team in state!.saveData.allTeams) {
       // 플레이어 팀은 직접 관리
       if (team.id == playerTeamId) continue;
@@ -629,13 +635,61 @@ class GameStateNotifier extends StateNotifier<GameState?> {
         }
       }
 
+      // 5. 자금 여유 시 랜덤 장비 구매 (핫팩 5만, 미키마우스 30만, 기본키보드 30만)
+      // ~30% 확률로 시도, 팀당 1명에게 1개
+      final buyChance = (random + team.id.hashCode) % 100;
+      if (buyChance < 30 && currentTeam.money >= 5) {
+        const aiEquipOptions = [
+          Equipments.hotPack,       // 5만, accessory, 내구도 10
+          Equipments.mickeyMouse,   // 30만, mouse, 내구도 20
+          Equipments.basicKeyboard, // 30만, keyboard, 내구도 20
+        ];
+
+        // 장비 2개 미만인 선수 찾기
+        final eligiblePlayers = teamPlayers.where((p) {
+          final count = aiEquipmentsList
+              .where((e) => e.equippedPlayerId == p.id)
+              .length;
+          return count < 2;
+        }).toList();
+
+        if (eligiblePlayers.isNotEmpty) {
+          final targetPlayer = eligiblePlayers[
+              (random + team.id.hashCode) % eligiblePlayers.length];
+
+          // 이미 보유한 타입 제외, 가격 감당 가능한 아이템 필터
+          final ownedTypes = aiEquipmentsList
+              .where((e) => e.equippedPlayerId == targetPlayer.id)
+              .map((e) => Equipments.getById(e.equipmentId)?.typeIndex)
+              .toSet();
+
+          final availableItems = aiEquipOptions
+              .where((item) =>
+                  !ownedTypes.contains(item.typeIndex) &&
+                  currentTeam.money >= item.price)
+              .toList();
+
+          if (availableItems.isNotEmpty) {
+            final selectedItem = availableItems[
+                (random + targetPlayer.id.hashCode) % availableItems.length];
+            aiEquipmentsList.add(EquipmentInstance(
+              equipmentId: selectedItem.id,
+              currentDurability: selectedItem.durability,
+              equippedPlayerId: targetPlayer.id,
+            ));
+            currentTeam = currentTeam.spendMoney(selectedItem.price);
+          }
+        }
+      }
+
       // 업데이트된 선수/팀 수집
       updatedPlayers.addAll(playerUpdates.values);
       updatedTeams.add(currentTeam);
     }
 
-    // 상태 업데이트
-    if (updatedPlayers.isNotEmpty || updatedTeams.isNotEmpty) {
+    // 상태 업데이트 (AI 장비 포함)
+    if (updatedPlayers.isNotEmpty || updatedTeams.isNotEmpty ||
+        aiEquipmentsList != state!.saveData.aiEquipments) {
       var newSaveData = state!.saveData;
       for (final team in updatedTeams) {
         newSaveData = newSaveData.updateTeam(team);
@@ -643,6 +697,7 @@ class GameStateNotifier extends StateNotifier<GameState?> {
       if (updatedPlayers.isNotEmpty) {
         newSaveData = newSaveData.updatePlayers(updatedPlayers);
       }
+      newSaveData = newSaveData.updateAiEquipments(aiEquipmentsList);
       state = state!.copyWith(saveData: newSaveData);
     }
   }
@@ -652,7 +707,8 @@ class GameStateNotifier extends StateNotifier<GameState?> {
   void debugSkipToGroupDraw() {
     if (state == null) return;
 
-    final leagueService = IndividualLeagueService();
+    final leagueService = IndividualLeagueService()
+      ..setEquipments(_allEquipments);
     final isWinnersSeason = state!.saveData.currentSeason.isWinnersLeagueSeason;
     final rand = Random();
 
@@ -1163,6 +1219,15 @@ class GameStateNotifier extends StateNotifier<GameState?> {
     }
   }
 
+  /// 전체 장비 목록 (플레이어 인벤토리 + AI 장비) 합산
+  List<EquipmentInstance> get _allEquipments {
+    if (state == null) return const [];
+    return [
+      ...state!.saveData.inventory.equipments,
+      ...state!.saveData.aiEquipments,
+    ];
+  }
+
   /// 일반 프로리그 AI 시뮬레이션
   void _simulateNormalMatch(
     int matchIndex,
@@ -1176,13 +1241,14 @@ class GameStateNotifier extends StateNotifier<GameState?> {
     int homeScore = 0;
     int awayScore = 0;
     int setIndex = 0;
+    final equips = _allEquipments;
 
     while (homeScore < 4 && awayScore < 4) {
       final homePlayer = homePlayers[setIndex % homePlayers.length];
       final awayPlayer = awayPlayers[setIndex % awayPlayers.length];
 
-      final homeStrength = homePlayer.stats.applyCondition(homePlayer.displayCondition).total.toDouble();
-      final awayStrength = awayPlayer.stats.applyCondition(awayPlayer.displayCondition).total.toDouble();
+      final homeStrength = homePlayer.effectiveStatsWithEquipment(equips).total.toDouble();
+      final awayStrength = awayPlayer.effectiveStatsWithEquipment(equips).total.toDouble();
       final totalStrength = homeStrength + awayStrength;
       final homeWinProb = totalStrength > 0 ? homeStrength / totalStrength : 0.5;
 
@@ -1246,13 +1312,14 @@ class GameStateNotifier extends StateNotifier<GameState?> {
     int awayPlayerIndex = 0;
     final homeUsed = <int>{0}; // 사용된 선수 인덱스
     final awayUsed = <int>{0};
+    final equips = _allEquipments;
 
     while (homeScore < 4 && awayScore < 4) {
       final homePlayer = homePlayers[homePlayerIndex % homePlayers.length];
       final awayPlayer = awayPlayers[awayPlayerIndex % awayPlayers.length];
 
-      final homeStrength = homePlayer.stats.applyCondition(homePlayer.displayCondition).total.toDouble();
-      final awayStrength = awayPlayer.stats.applyCondition(awayPlayer.displayCondition).total.toDouble();
+      final homeStrength = homePlayer.effectiveStatsWithEquipment(equips).total.toDouble();
+      final awayStrength = awayPlayer.effectiveStatsWithEquipment(equips).total.toDouble();
       final totalStrength = homeStrength + awayStrength;
       final homeWinProb = totalStrength > 0 ? homeStrength / totalStrength : 0.5;
 

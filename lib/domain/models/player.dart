@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:hive/hive.dart';
 import 'enums.dart';
+import 'item.dart';
 
 part 'player.g.dart';
 
@@ -563,6 +564,46 @@ class Player {
 
   /// 컨디션 적용된 실제 능력치
   PlayerStats get effectiveStats => stats.applyCondition(condition);
+
+  /// 장비 보너스가 적용된 경기용 능력치
+  /// [allEquipments]에서 이 선수에게 장착된 장비의 스탯/컨디션 보너스를 모두 반영
+  PlayerStats effectiveStatsWithEquipment(List<EquipmentInstance> allEquipments) {
+    final myEquips = allEquipments.where(
+      (e) => e.equippedPlayerId == id && !e.isBroken,
+    );
+    if (myEquips.isEmpty) return effectiveStats;
+
+    int condBonus = 0;
+    int senseB = 0, controlB = 0, attackB = 0, harassB = 0;
+    int strategyB = 0, macroB = 0, defenseB = 0, scoutB = 0;
+
+    for (final equip in myEquips) {
+      final def = Equipments.getById(equip.equipmentId);
+      if (def == null) continue;
+      condBonus += def.conditionBonus;
+      senseB += def.senseBonus;
+      controlB += def.controlBonus;
+      attackB += def.attackBonus;
+      harassB += def.harassBonus;
+      strategyB += def.strategyBonus;
+      macroB += def.macroBonus;
+      defenseB += def.defenseBonus;
+      scoutB += def.scoutBonus;
+    }
+
+    // 컨디션 보너스 포함하여 적용 → 스탯 보너스 적용
+    final effectiveCond = (condition + condBonus).clamp(0, 200);
+    return stats.applyCondition(effectiveCond).applyEquipmentBonus(
+      senseBonus: senseB,
+      controlBonus: controlB,
+      attackBonus: attackB,
+      harassBonus: harassB,
+      strategyBonus: strategyB,
+      macroBonus: macroB,
+      defenseBonus: defenseB,
+      scoutBonus: scoutB,
+    );
+  }
 
   /// 전투 보정값 (레벨 기반, 0.0 ~ 0.38)
   double get battleBonus => level.battleBonus;

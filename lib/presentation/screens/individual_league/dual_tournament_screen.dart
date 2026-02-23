@@ -661,6 +661,13 @@ class _DualTournamentScreenState extends ConsumerState<DualTournamentScreen> {
       _currentStep = 0;
     });
 
+    // 장비 보너스 설정
+    final gameState = ref.read(gameStateProvider);
+    _leagueService.setEquipments([
+      ...gameState!.saveData.inventory.equipments,
+      ...gameState.saveData.aiEquipments,
+    ]);
+
     // 먼저 전체 시뮬레이션 실행 (결과 저장)
     final updatedBracket = _leagueService.simulateDualTournamentRound(
       bracket: bracket,

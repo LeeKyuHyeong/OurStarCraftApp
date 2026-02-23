@@ -165,6 +165,7 @@ class MatchSimulationService {
     int awayCheerfulBonus = 0,
     double homeSnipingBonus = 0,
     double awaySnipingBonus = 0,
+    List<EquipmentInstance> allEquipments = const [],
   }) {
     // 1. 종족 상성 (맵 기반)
     final raceMatchupBonus = map.matchup.getWinRate(
@@ -172,9 +173,9 @@ class MatchSimulationService {
       awayPlayer.race,
     );
 
-    // 2. 능력치 비교 (컨디션 적용)
-    final homeStats = homePlayer.effectiveStats;
-    final awayStats = awayPlayer.effectiveStats;
+    // 2. 능력치 비교 (컨디션 + 장비 적용)
+    final homeStats = homePlayer.effectiveStatsWithEquipment(allEquipments);
+    final awayStats = awayPlayer.effectiveStatsWithEquipment(allEquipments);
 
     // 종족 문자열
     final homeRace = _getRaceString(homePlayer.race);
@@ -335,6 +336,7 @@ class MatchSimulationService {
     int awayCheerfulBonus = 0,
     double homeSnipingBonus = 0,
     double awaySnipingBonus = 0,
+    List<EquipmentInstance> allEquipments = const [],
   }) {
     final winRate = calculateWinRate(
       homePlayer: homePlayer,
@@ -344,6 +346,7 @@ class MatchSimulationService {
       awayCheerfulBonus: awayCheerfulBonus,
       homeSnipingBonus: homeSnipingBonus,
       awaySnipingBonus: awaySnipingBonus,
+      allEquipments: allEquipments,
     );
 
     final homeWin = _random.nextDouble() < winRate;
@@ -371,6 +374,7 @@ class MatchSimulationService {
     String? awaySnipingPlayerName,
     String? forcedHomeBuildId,
     String? forcedAwayBuildId,
+    List<EquipmentInstance> allEquipments = const [],
   }) async* {
     var winRate = calculateWinRate(
       homePlayer: homePlayer,
@@ -380,11 +384,12 @@ class MatchSimulationService {
       awayCheerfulBonus: awayCheerfulBonus,
       homeSnipingBonus: homeSnipingBonus,
       awaySnipingBonus: awaySnipingBonus,
+      allEquipments: allEquipments,
     );
 
     var state = const SimulationState();
-    final homeStats = homePlayer.effectiveStats;
-    final awayStats = awayPlayer.effectiveStats;
+    final homeStats = homePlayer.effectiveStatsWithEquipment(allEquipments);
+    final awayStats = awayPlayer.effectiveStatsWithEquipment(allEquipments);
 
     // 각 선수의 빌드오더 가져오기
     final homeRace = _getRaceString(homePlayer.race);

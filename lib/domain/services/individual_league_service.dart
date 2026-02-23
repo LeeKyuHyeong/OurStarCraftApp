@@ -7,6 +7,14 @@ class IndividualLeagueService {
   final MatchSimulationService _matchService = MatchSimulationService();
   final Random _random = Random();
 
+  /// 시뮬레이션 시 적용할 전체 장비 목록 (플레이어 + AI)
+  List<EquipmentInstance> _allEquipments = const [];
+
+  /// 장비 목록 설정 (시뮬레이션 전 호출)
+  void setEquipments(List<EquipmentInstance> equipments) {
+    _allEquipments = equipments;
+  }
+
   /// 개인리그 시드 배정 및 조 편성
   ///
   /// 시드 배정 방식:
@@ -1330,6 +1338,7 @@ class IndividualLeagueService {
       homePlayer: player1,
       awayPlayer: player2,
       map: map,
+      allEquipments: _allEquipments,
     );
 
     final isPlayer1Win = setResult.homeWin;
@@ -1386,6 +1395,7 @@ class IndividualLeagueService {
         homePlayer: player1,
         awayPlayer: player2,
         map: map,
+        allEquipments: _allEquipments,
       );
       sets.add(setResult);
       if (setResult.homeWin) {

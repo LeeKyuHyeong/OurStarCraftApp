@@ -995,6 +995,13 @@ class _PcBangQualifierScreenState extends ConsumerState<PcBangQualifierScreen> {
   ) async {
     IndividualLeagueBracket currentBracket;
 
+    // 장비 보너스 설정
+    final gs = ref.read(gameStateProvider)!;
+    _leagueService.setEquipments([
+      ...gs.saveData.inventory.equipments,
+      ...gs.saveData.aiEquipments,
+    ]);
+
     if (bracket == null || bracket.pcBangGroups.isEmpty) {
       // 조 편성 먼저
       final gameState = ref.read(gameStateProvider)!;

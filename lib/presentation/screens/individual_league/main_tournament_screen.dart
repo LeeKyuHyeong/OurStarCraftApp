@@ -957,6 +957,13 @@ class _MainTournamentScreenState extends ConsumerState<MainTournamentScreen> {
     final playerTeamId = gameState?.playerTeam.id;
     final half = _getCurrentHalf(bracket);
 
+    // 장비 보너스 설정
+    final allEquipments = [
+      ...gameState!.saveData.inventory.equipments,
+      ...gameState.saveData.aiEquipments,
+    ];
+    _leagueService.setEquipments(allEquipments);
+
     setState(() {
       _statusMessage = '#$half 진행 중...';
     });
@@ -977,7 +984,7 @@ class _MainTournamentScreenState extends ConsumerState<MainTournamentScreen> {
         break;
       case '8':
         // 8강은 우리팀 경기만 battle log 표시
-        updatedBracket = await _simulate8GangHalf(bracket, playerMap, half, playerTeamId);
+        updatedBracket = await _simulate8GangHalf(bracket, playerMap, half, playerTeamId, allEquipments);
         break;
       default:
         updatedBracket = bracket;
@@ -1037,6 +1044,7 @@ class _MainTournamentScreenState extends ConsumerState<MainTournamentScreen> {
     Map<String, Player> playerMap,
     int half,
     String? playerTeamId,
+    List<EquipmentInstance> allEquipments,
   ) async {
     final existingResults = List<IndividualMatchResult>.from(bracket.mainTournamentResults);
     final advancers = _leagueService.getRound16Advancers(bracket);
@@ -1061,7 +1069,7 @@ class _MainTournamentScreenState extends ConsumerState<MainTournamentScreen> {
 
       if (isMyTeamMatch) {
         // 우리팀 경기: Bo5 텍스트 시뮬레이션
-        final result = await _simulateBo5WithLog(p1, p2, playerMap);
+        final result = await _simulateBo5WithLog(p1, p2, playerMap, allEquipments);
         existingResults.add(result);
       } else {
         // 다른 팀 경기: 빠른 시뮬
@@ -1088,7 +1096,7 @@ class _MainTournamentScreenState extends ConsumerState<MainTournamentScreen> {
 
   /// Bo5 텍스트 시뮬레이션 (우리팀 경기용)
   Future<IndividualMatchResult> _simulateBo5WithLog(
-    Player p1, Player p2, Map<String, Player> playerMap,
+    Player p1, Player p2, Map<String, Player> playerMap, List<EquipmentInstance> allEquipments,
   ) async {
     final maps = GameMaps.all;
     int p1Wins = 0;
@@ -1109,6 +1117,7 @@ class _MainTournamentScreenState extends ConsumerState<MainTournamentScreen> {
       final stream = _matchService.simulateMatchWithLog(
         homePlayer: p1, awayPlayer: p2, map: map,
         getIntervalMs: () => _matchSpeed.intervalMs,
+        allEquipments: allEquipments,
       );
 
       SetResult? setResult;

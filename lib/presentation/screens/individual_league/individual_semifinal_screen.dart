@@ -532,6 +532,14 @@ class _IndividualSemiFinalScreenState
 
     final gameState = ref.read(gameStateProvider);
     final playerTeamId = gameState?.playerTeam.id;
+
+    // 장비 보너스 설정
+    final allEquipments = [
+      ...gameState!.saveData.inventory.equipments,
+      ...gameState.saveData.aiEquipments,
+    ];
+    _leagueService.setEquipments(allEquipments);
+
     final advancers = _leagueService.getQuarterFinalAdvancers(bracket);
 
     if (advancers.length < 4) {
@@ -561,7 +569,7 @@ class _IndividualSemiFinalScreenState
 
       if (isMyTeamMatch) {
         final result =
-            await _simulateSeriesWithLog(p1, p2, playerMap, 5);
+            await _simulateSeriesWithLog(p1, p2, playerMap, 5, allEquipments);
         existingResults.add(result);
         _roundResults.add(result);
       } else {
@@ -606,6 +614,7 @@ class _IndividualSemiFinalScreenState
     Player p2,
     Map<String, Player> playerMap,
     int bestOf,
+    List<EquipmentInstance> allEquipments,
   ) async {
     final maps = GameMaps.all;
     final winsNeeded = (bestOf + 1) ~/ 2;
@@ -631,6 +640,7 @@ class _IndividualSemiFinalScreenState
         awayPlayer: p2,
         map: map,
         getIntervalMs: () => _matchSpeed.intervalMs,
+        allEquipments: allEquipments,
       );
 
       SetResult? setResult;

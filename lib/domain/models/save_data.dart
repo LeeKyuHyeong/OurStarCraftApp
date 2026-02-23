@@ -43,6 +43,9 @@ class SaveData {
   @HiveField(10)
   final IndividualLeagueBracket? previousSeasonIndividualLeague; // 이전 시즌 개인리그 결과 (시드 배정용)
 
+  @HiveField(11)
+  final List<EquipmentInstance> aiEquipments; // AI 팀 장비 (모든 AI 팀 공용)
+
   const SaveData({
     required this.slotNumber,
     required this.playerTeamId,
@@ -55,6 +58,7 @@ class SaveData {
     this.totalPlayTime = 0,
     this.freeAgentPool = const [],
     this.previousSeasonIndividualLeague,
+    this.aiEquipments = const [],
   });
 
   Team get playerTeam => allTeams.firstWhere((t) => t.id == playerTeamId);
@@ -154,6 +158,16 @@ class SaveData {
     return copyWith(inventory: newInventory);
   }
 
+  /// AI 장비 업데이트
+  SaveData updateAiEquipments(List<EquipmentInstance> newAiEquipments) {
+    return copyWith(aiEquipments: newAiEquipments);
+  }
+
+  /// 특정 AI 선수의 장비 목록 조회
+  List<EquipmentInstance> getAiPlayerEquipments(String playerId) {
+    return aiEquipments.where((e) => e.equippedPlayerId == playerId).toList();
+  }
+
   /// 새 시즌 시작
   SaveData startNewSeason(Season newSeason) {
     // 이전 시즌 히스토리 추가
@@ -174,6 +188,8 @@ class SaveData {
       allTeams: newTeams,
       // 이전 시즌 개인리그 결과 저장 (다음 시즌 시드 배정용)
       previousSeasonIndividualLeague: currentSeason.individualLeague,
+      // AI 장비 초기화 (시즌마다 리셋)
+      aiEquipments: const [],
     );
   }
 
@@ -199,6 +215,7 @@ class SaveData {
     int? totalPlayTime,
     List<Player>? freeAgentPool,
     IndividualLeagueBracket? previousSeasonIndividualLeague,
+    List<EquipmentInstance>? aiEquipments,
   }) {
     return SaveData(
       slotNumber: slotNumber ?? this.slotNumber,
@@ -212,6 +229,7 @@ class SaveData {
       totalPlayTime: totalPlayTime ?? this.totalPlayTime,
       freeAgentPool: freeAgentPool ?? this.freeAgentPool,
       previousSeasonIndividualLeague: previousSeasonIndividualLeague ?? this.previousSeasonIndividualLeague,
+      aiEquipments: aiEquipments ?? this.aiEquipments,
     );
   }
 }
