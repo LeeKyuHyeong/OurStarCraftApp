@@ -313,11 +313,6 @@ class _InfoScreenState extends ConsumerState<InfoScreen> with SingleTickerProvid
   Widget _buildPlayerDetail(Player player, GameState gameState) {
     final stats = player.stats;
     final grade = player.grade;
-    final conditionColor = player.condition >= 80
-        ? AppTheme.accentGreen
-        : player.condition >= 50
-            ? Colors.orange
-            : Colors.red;
     final imagePath = _imageRepo.getImagePath(player.id);
     final hasImage = imagePath != null;
 
@@ -326,7 +321,7 @@ class _InfoScreenState extends ConsumerState<InfoScreen> with SingleTickerProvid
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // 선수 사진 + 이름 + 종족 + 컨디션
+          // 선수 사진 + 이름 + 종족
           Row(
             children: [
               // 선수 사진 (모든 선수 탭하여 관리)
@@ -381,14 +376,6 @@ class _InfoScreenState extends ConsumerState<InfoScreen> with SingleTickerProvid
                   ),
                 ),
               ),
-              Text(
-                '컨디션 ${player.condition}%',
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: conditionColor,
-                ),
-              ),
             ],
           ),
           const SizedBox(height: 4),
@@ -401,7 +388,7 @@ class _InfoScreenState extends ConsumerState<InfoScreen> with SingleTickerProvid
             ),
           ),
           const SizedBox(height: 8),
-          // 8각형 레이더 차트 (등급+레벨 중앙 표시)
+          // 8각형 레이더 차트 (등급+레벨+컨디션 중앙 표시)
           SizedBox(
             height: 180,
             child: PlayerRadarChart(
@@ -409,6 +396,8 @@ class _InfoScreenState extends ConsumerState<InfoScreen> with SingleTickerProvid
               color: AppTheme.getGradeColor(grade.display),
               grade: grade.display,
               level: player.level.value,
+              effectiveStats: player.effectiveStats,
+              conditionPercent: player.condition,
             ),
           ),
           const SizedBox(height: 8),

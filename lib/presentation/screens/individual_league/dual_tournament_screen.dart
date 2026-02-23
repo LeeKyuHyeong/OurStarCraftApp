@@ -667,7 +667,7 @@ class _DualTournamentScreenState extends ConsumerState<DualTournamentScreen> {
       playerMap: playerMap,
       round: widget.round,
     );
-    ref.read(gameStateProvider.notifier).updateIndividualLeague(updatedBracket);
+    ref.read(gameStateProvider.notifier).updateIndividualLeague(updatedBracket, updatedPlayerMap: playerMap);
     ref.read(gameStateProvider.notifier).save();
 
     // 1초마다 단계별로 결과 공개

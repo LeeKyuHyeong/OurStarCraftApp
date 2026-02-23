@@ -1332,11 +1332,29 @@ class IndividualLeagueService {
       map: map,
     );
 
+    final isPlayer1Win = setResult.homeWin;
+
+    // PC방 예선 제외, 개인리그 경기 결과를 선수 이력에 반영
+    if (stage != IndividualLeagueStage.pcBangQualifier) {
+      playerMap[player1Id] = playerMap[player1Id]!.applyMatchResult(
+        isWin: isPlayer1Win,
+        opponentGrade: player2.grade,
+        opponentRace: player2.race,
+        opponentId: player2Id,
+      );
+      playerMap[player2Id] = playerMap[player2Id]!.applyMatchResult(
+        isWin: !isPlayer1Win,
+        opponentGrade: player1.grade,
+        opponentRace: player1.race,
+        opponentId: player1Id,
+      );
+    }
+
     return IndividualMatchResult(
       id: '${stage.name}_${player1Id}_$player2Id',
       player1Id: player1Id,
       player2Id: player2Id,
-      winnerId: setResult.homeWin ? player1Id : player2Id,
+      winnerId: isPlayer1Win ? player1Id : player2Id,
       mapId: map.id,
       stageIndex: stage.index,
       battleLog: showBattleLog ? setResult.battleLog : [],
@@ -1378,6 +1396,23 @@ class IndividualLeagueService {
     }
 
     final winnerId = p1Wins > p2Wins ? player1Id : player2Id;
+
+    // 시리즈 결과를 선수 이력에 반영 (각 세트별로 적용)
+    for (final set in sets) {
+      final isP1Win = set.homeWin;
+      playerMap[player1Id] = playerMap[player1Id]!.applyMatchResult(
+        isWin: isP1Win,
+        opponentGrade: player2.grade,
+        opponentRace: player2.race,
+        opponentId: player2Id,
+      );
+      playerMap[player2Id] = playerMap[player2Id]!.applyMatchResult(
+        isWin: !isP1Win,
+        opponentGrade: player1.grade,
+        opponentRace: player1.race,
+        opponentId: player1Id,
+      );
+    }
 
     return IndividualMatchResult(
       id: '${stage.name}_${player1Id}_$player2Id',

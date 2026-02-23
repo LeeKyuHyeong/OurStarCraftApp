@@ -228,21 +228,31 @@ class _PlayerRadarChartPainter extends CustomPainter {
       textPainter.paint(canvas, point);
     }
 
-    // 중앙에 등급 + 레벨 표시
+    // 중앙에 등급 + 레벨 + 컨디션 표시
     if (grade != null && level != null) {
       final gradePainter = TextPainter(textDirection: TextDirection.ltr);
-      gradePainter.text = TextSpan(
-        children: [
-          TextSpan(
-            text: '$grade\n',
-            style: TextStyle(color: color, fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-          TextSpan(
-            text: 'Lv.$level',
-            style: TextStyle(color: Colors.grey[400], fontSize: 11),
-          ),
-        ],
-      );
+      final children = <TextSpan>[
+        TextSpan(
+          text: '$grade\n',
+          style: TextStyle(color: color, fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        TextSpan(
+          text: 'Lv.$level',
+          style: TextStyle(color: Colors.grey[400], fontSize: 11),
+        ),
+      ];
+      if (conditionPercent != null) {
+        final condColor = conditionPercent! > 100
+            ? Colors.greenAccent
+            : conditionPercent! >= 90
+                ? Colors.grey[300]!
+                : Colors.orange;
+        children.add(TextSpan(
+          text: '\n$conditionPercent%',
+          style: TextStyle(color: condColor, fontSize: 10, fontWeight: FontWeight.bold),
+        ));
+      }
+      gradePainter.text = TextSpan(children: children);
       gradePainter.textAlign = TextAlign.center;
       gradePainter.layout();
       gradePainter.paint(

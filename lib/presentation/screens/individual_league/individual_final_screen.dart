@@ -722,7 +722,7 @@ class _IndividualFinalScreenState
 
     ref
         .read(gameStateProvider.notifier)
-        .updateIndividualLeague(updatedBracket);
+        .updateIndividualLeague(updatedBracket, updatedPlayerMap: playerMap);
 
     setState(() {
       _isSimulating = false;
@@ -794,6 +794,19 @@ class _IndividualFinalScreenState
         } else {
           p2Wins++;
         }
+        // 세트 결과를 선수 이력에 반영
+        playerMap[p1.id] = playerMap[p1.id]!.applyMatchResult(
+          isWin: setResult.homeWin,
+          opponentGrade: p2.grade,
+          opponentRace: p2.race,
+          opponentId: p2.id,
+        );
+        playerMap[p2.id] = playerMap[p2.id]!.applyMatchResult(
+          isWin: !setResult.homeWin,
+          opponentGrade: p1.grade,
+          opponentRace: p1.race,
+          opponentId: p1.id,
+        );
       }
 
       await Future.delayed(const Duration(milliseconds: 500));

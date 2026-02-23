@@ -427,7 +427,7 @@ class GameStateNotifier extends StateNotifier<GameState?> {
           player.addActionPoints(100).copyWith(
             condition: player.condition > 100
                 ? player.condition
-                : (player.condition + 5).clamp(0, 100),
+                : (player.condition + 5).clamp(80, 100),
           ),
         );
       }
@@ -621,7 +621,7 @@ class GameStateNotifier extends StateNotifier<GameState?> {
 
           final p = _getLatest(player);
           final updatedPlayer = p.copyWith(
-            condition: (p.condition + 3).clamp(0, 100),
+            condition: (p.condition + 3).clamp(80, 100),
           );
           playerUpdates[player.id] = updatedPlayer;
           currentTeam = currentTeam.spendMoney(5);
@@ -719,7 +719,7 @@ class GameStateNotifier extends StateNotifier<GameState?> {
       );
     }
 
-    updateIndividualLeague(bracket);
+    updateIndividualLeague(bracket, updatedPlayerMap: playerMap);
 
     // 4. weekProgress를 14로 설정 (week 4, step 2 = 조지명식)
     final updatedSeason = state!.saveData.currentSeason.copyWith(weekProgress: 14);
@@ -730,11 +730,17 @@ class GameStateNotifier extends StateNotifier<GameState?> {
   }
 
   /// 개인리그 대진표 업데이트
-  void updateIndividualLeague(IndividualLeagueBracket bracket) {
+  /// [updatedPlayerMap] 제공 시 경기 결과가 반영된 선수 정보도 함께 저장
+  void updateIndividualLeague(IndividualLeagueBracket bracket, {Map<String, Player>? updatedPlayerMap}) {
     if (state == null) return;
 
     final updatedSeason = state!.saveData.currentSeason.updateIndividualLeague(bracket);
     var newSaveData = state!.saveData.updateSeason(updatedSeason);
+
+    // 개인리그 경기 결과가 반영된 선수 정보 저장
+    if (updatedPlayerMap != null) {
+      newSaveData = newSaveData.updatePlayers(updatedPlayerMap.values.toList());
+    }
 
     // 개인리그 결승 완료 시 상금 지급
     final playerTeamId = state!.saveData.playerTeamId;

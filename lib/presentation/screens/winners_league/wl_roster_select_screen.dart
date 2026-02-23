@@ -550,30 +550,6 @@ class _WLRosterSelectScreenState extends ConsumerState<WLRosterSelectScreen> {
               ),
             ],
           ),
-          SizedBox(height: 2.sp),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 4.sp, vertical: 1.sp),
-                decoration: BoxDecoration(
-                  color: AppTheme.getGradeColor(player.grade.display),
-                  borderRadius: BorderRadius.circular(2.sp),
-                ),
-                child: Text(player.grade.display,
-                    style: TextStyle(fontSize: 8.sp, fontWeight: FontWeight.bold, color: Colors.black)),
-              ),
-              SizedBox(width: 4.sp),
-              Text('Lv.${player.level.value}',
-                  style: TextStyle(fontSize: 8.sp, color: AppTheme.textSecondary)),
-              SizedBox(width: 4.sp),
-              Text('${player.displayCondition}%',
-                  style: TextStyle(
-                      fontSize: 9.sp,
-                      fontWeight: FontWeight.bold,
-                      color: player.displayCondition >= 80 ? Colors.green : Colors.orange)),
-            ],
-          ),
           SizedBox(height: 4.sp),
           SizedBox(
             width: 110.sp,

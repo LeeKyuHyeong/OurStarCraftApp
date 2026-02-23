@@ -609,225 +609,220 @@ class _TransferScreenState extends ConsumerState<TransferScreen> {
         borderRadius: BorderRadius.circular(6.sp),
         border: Border.all(color: Colors.grey[700]!, width: 1),
       ),
-      child: Column(
+      child: Row(
         children: [
-          // 선수 정보 헤더
-          Container(
-            padding: EdgeInsets.all(12.sp),
-            decoration: BoxDecoration(
-              color: _getRaceColor(player.race).withValues(alpha: 0.1),
-              borderRadius: BorderRadius.vertical(top: Radius.circular(5.sp)),
-            ),
-            child: Row(
-              children: [
-                // 선수 사진 (placeholder)
-                Container(
-                  width: 60.sp,
-                  height: 70.sp,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[800],
-                    borderRadius: BorderRadius.circular(4.sp),
-                    border: Border.all(color: _getRaceColor(player.race), width: 2),
+          // 왼쪽: 선수 정보 + 컨디션 + 버튼
+          Expanded(
+            flex: 2,
+            child: Container(
+              padding: EdgeInsets.all(8.sp),
+              decoration: BoxDecoration(
+                color: _getRaceColor(player.race).withValues(alpha: 0.1),
+                borderRadius: BorderRadius.horizontal(left: Radius.circular(5.sp)),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // 선수 사진 (placeholder)
+                  Container(
+                    width: 50.sp,
+                    height: 58.sp,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[800],
+                      borderRadius: BorderRadius.circular(4.sp),
+                      border: Border.all(color: _getRaceColor(player.race), width: 2),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.person, color: Colors.grey[600], size: 26.sp),
+                        Text(
+                          '0 승',
+                          style: TextStyle(
+                            color: Colors.grey[500],
+                            fontSize: 7.sp,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  child: Column(
+                  SizedBox(height: 4.sp),
+
+                  // 이름 + 종족
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.person, color: Colors.grey[600], size: 30.sp),
-                      Text(
-                        '0 승',
-                        style: TextStyle(
-                          color: Colors.grey[500],
-                          fontSize: 8.sp,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(width: 12.sp),
-
-                // 선수 정보
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Flexible(
-                            child: Text(
-                              player.name,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          SizedBox(width: 8.sp),
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 6.sp,
-                              vertical: 2.sp,
-                            ),
-                            decoration: BoxDecoration(
-                              color: _getRaceColor(player.race).withValues(alpha: 0.3),
-                              borderRadius: BorderRadius.circular(4.sp),
-                            ),
-                            child: Text(
-                              player.race.code,
-                              style: TextStyle(
-                                color: _getRaceColor(player.race),
-                                fontSize: 11.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 4.sp),
-                      if (player.nickname != null)
-                        Text(
-                          'ID: ${player.nickname}',
+                      Flexible(
+                        child: Text(
+                          player.name,
                           style: TextStyle(
-                            color: Colors.amber,
-                            fontSize: 12.sp,
+                            color: Colors.white,
+                            fontSize: 13.sp,
+                            fontWeight: FontWeight.bold,
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),
+                      ),
+                      SizedBox(width: 4.sp),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 4.sp,
+                          vertical: 1.sp,
+                        ),
+                        decoration: BoxDecoration(
+                          color: _getRaceColor(player.race).withValues(alpha: 0.3),
+                          borderRadius: BorderRadius.circular(3.sp),
+                        ),
+                        child: Text(
+                          player.race.code,
+                          style: TextStyle(
+                            color: _getRaceColor(player.race),
+                            fontSize: 10.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                ),
-              ],
-            ),
-          ),
 
-          // 레이더 차트 (스탯 숫자 포함) - 더 크게
-          Expanded(
-            child: _buildRadarChartWithStats(player),
-          ),
-
-          // 컨디션 + 영입 버튼 (컴팩트하게)
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 8.sp, vertical: 2.sp),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Condition ${player.displayCondition}%',
-                  style: TextStyle(
-                    color: Colors.grey[500],
-                    fontSize: 9.sp,
-                  ),
-                ),
-
-                // 방출, 트레이드, 또는 영입 버튼
-                if (isRelease)
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        // 방출: 영입된 선수 목록에서 제거
-                        _recruitedPlayers.removeWhere((p) => p.id == player.id);
-                        _selectedTargetPlayerId = null;
-                      });
-                      _showMessage('${player.name} 선수를 방출했습니다! (+$releasePrice 만원)');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red[700],
-                      foregroundColor: Colors.white,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 20.sp,
-                        vertical: 8.sp,
+                  // ID
+                  if (player.nickname != null)
+                    Padding(
+                      padding: EdgeInsets.only(top: 2.sp),
+                      child: Text(
+                        'ID: ${player.nickname}',
+                        style: TextStyle(
+                          color: Colors.amber,
+                          fontSize: 10.sp,
+                        ),
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    child: Text(
-                      '방출',
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  )
-                else if (_isTradeMode)
-                  // 트레이드 모드
-                  selectedMyPlayer == null
-                      ? Text(
-                          '내 선수 선택 필요',
-                          style: TextStyle(
-                            color: Colors.cyan[400],
-                            fontSize: 12.sp,
+
+                  SizedBox(height: 6.sp),
+
+                  // 방출, 트레이드, 또는 영입 버튼
+                  if (isRelease)
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            _recruitedPlayers.removeWhere((p) => p.id == player.id);
+                            _selectedTargetPlayerId = null;
+                          });
+                          _showMessage('${player.name} 선수를 방출했습니다! (+$releasePrice 만원)');
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red[700],
+                          foregroundColor: Colors.white,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8.sp,
+                            vertical: 6.sp,
                           ),
-                        )
-                      : canAfford
-                          ? ElevatedButton(
-                              onPressed: () {
-                                setState(() {
-                                  // 트레이드: 상대 선수 영입, 내 선수 방출
-                                  _recruitedPlayers.add(player.copyWith(teamId: 'my_team'));
-                                  _recruitedPlayers.removeWhere((p) => p.id == selectedMyPlayer!.id);
-                                  _selectedTargetPlayerId = null;
-                                  _selectedMyPlayerId = null;
-                                });
-                                _showMessage('${selectedMyPlayer!.name} ↔ ${player.name} 트레이드 완료! (차액: ${tradeDiff >= 0 ? "-" : "+"}${tradeDiff.abs()}만원)');
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.cyan,
-                                foregroundColor: Colors.white,
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 16.sp,
-                                  vertical: 8.sp,
+                        ),
+                        child: Text(
+                          '방출',
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    )
+                  else if (_isTradeMode)
+                    selectedMyPlayer == null
+                        ? Text(
+                            '내 선수 선택 필요',
+                            style: TextStyle(
+                              color: Colors.cyan[400],
+                              fontSize: 11.sp,
+                            ),
+                          )
+                        : canAfford
+                            ? SizedBox(
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      _recruitedPlayers.add(player.copyWith(teamId: 'my_team'));
+                                      _recruitedPlayers.removeWhere((p) => p.id == selectedMyPlayer!.id);
+                                      _selectedTargetPlayerId = null;
+                                      _selectedMyPlayerId = null;
+                                    });
+                                    _showMessage('${selectedMyPlayer!.name} ↔ ${player.name} 트레이드 완료! (차액: ${tradeDiff >= 0 ? "-" : "+"}${tradeDiff.abs()}만원)');
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.cyan,
+                                    foregroundColor: Colors.white,
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 8.sp,
+                                      vertical: 6.sp,
+                                    ),
+                                  ),
+                                  child: Text(
+                                    '트레이드\n(${tradeDiff >= 0 ? "-" : "+"}${tradeDiff.abs()})',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 10.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              child: Text(
-                                '트레이드 (${tradeDiff >= 0 ? "-" : "+"}${tradeDiff.abs()})',
+                              )
+                            : Text(
+                                '차액 부족\n($tradeDiff만원)',
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.bold,
+                                  color: Colors.red[400],
+                                  fontSize: 10.sp,
                                 ),
-                              ),
-                            )
-                          : Text(
-                              '차액 부족 ($tradeDiff만원)',
-                              style: TextStyle(
-                                color: Colors.red[400],
-                                fontSize: 12.sp,
-                              ),
-                            )
-                else if (canAfford)
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        // 영입된 선수를 내 팀에 추가
-                        _recruitedPlayers.add(player.copyWith(teamId: 'my_team'));
-                        _selectedTargetPlayerId = null;
-                      });
-                      _showMessage('${player.name} 선수를 영입했습니다!');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.amber,
-                      foregroundColor: Colors.black,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 20.sp,
-                        vertical: 8.sp,
+                              )
+                  else if (canAfford)
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            _recruitedPlayers.add(player.copyWith(teamId: 'my_team'));
+                            _selectedTargetPlayerId = null;
+                          });
+                          _showMessage('${player.name} 선수를 영입했습니다!');
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.amber,
+                          foregroundColor: Colors.black,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8.sp,
+                            vertical: 6.sp,
+                          ),
+                        ),
+                        child: Text(
+                          '영입',
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
-                    ),
-                    child: Text(
-                      '영입',
+                    )
+                  else
+                    Text(
+                      '금액 부족',
                       style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.bold,
+                        color: Colors.red[400],
+                        fontSize: 11.sp,
                       ),
                     ),
-                  )
-                else
-                  Text(
-                    '금액 부족',
-                    style: TextStyle(
-                      color: Colors.red[400],
-                      fontSize: 12.sp,
-                    ),
-                  ),
-              ],
+                ],
+              ),
             ),
+          ),
+
+          // 오른쪽: 레이더 차트 (8각형)
+          Expanded(
+            flex: 3,
+            child: _buildRadarChartWithStats(player),
           ),
         ],
       ),
@@ -840,6 +835,8 @@ class _TransferScreenState extends ConsumerState<TransferScreen> {
       color: AppTheme.getGradeColor(player.grade.display),
       grade: player.grade.display,
       level: player.levelValue,
+      effectiveStats: player.effectiveStats,
+      conditionPercent: player.displayCondition,
     );
   }
 

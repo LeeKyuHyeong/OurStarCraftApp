@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:path_provider/path_provider.dart';
 
 /// 선수 사진을 기기 전역으로 관리하는 저장소
@@ -29,6 +30,11 @@ class PlayerImageRepository {
   /// 초기 로드 (앱 시작 시 한 번)
   Future<void> load() async {
     if (_loaded) return;
+    if (kIsWeb) {
+      // 웹에서는 파일 시스템 미지원 — 선수 사진 기능 비활성화
+      _loaded = true;
+      return;
+    }
     final file = File(await _filePath);
     if (await file.exists()) {
       final json = await file.readAsString();

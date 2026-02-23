@@ -613,28 +613,6 @@ class _RosterSelectScreenState extends ConsumerState<RosterSelectScreen> {
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
-                decoration: BoxDecoration(
-                  color: AppTheme.getGradeColor(player.grade.display),
-                  borderRadius: BorderRadius.circular(2),
-                ),
-                child: Text(
-                  player.grade.display,
-                  style: const TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: Colors.black),
-                ),
-              ),
-              const SizedBox(width: 3),
-              Text('Lv.${player.level.value}', style: const TextStyle(fontSize: 8, color: AppTheme.textSecondary)),
-              const SizedBox(width: 3),
-              Text(
-                '$condition%',
-                style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.bold,
-                  color: condition >= 80 ? Colors.green : (condition >= 50 ? Colors.orange : Colors.red),
-                ),
-              ),
             ],
           ),
           const SizedBox(height: 4),

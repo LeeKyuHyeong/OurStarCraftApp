@@ -983,8 +983,8 @@ class _MainTournamentScreenState extends ConsumerState<MainTournamentScreen> {
         updatedBracket = bracket;
     }
 
-    // 결과 저장
-    ref.read(gameStateProvider.notifier).updateIndividualLeague(updatedBracket);
+    // 결과 저장 (경기 결과가 반영된 선수 정보도 함께 저장)
+    ref.read(gameStateProvider.notifier).updateIndividualLeague(updatedBracket, updatedPlayerMap: playerMap);
 
     // UI에 표시할 결과 로드
     final stage = widget.stage == '32'
@@ -1138,6 +1138,19 @@ class _MainTournamentScreenState extends ConsumerState<MainTournamentScreen> {
       if (setResult != null) {
         sets.add(setResult);
         if (setResult.homeWin) p1Wins++; else p2Wins++;
+        // 세트 결과를 선수 이력에 반영
+        playerMap[p1.id] = playerMap[p1.id]!.applyMatchResult(
+          isWin: setResult.homeWin,
+          opponentGrade: p2.grade,
+          opponentRace: p2.race,
+          opponentId: p2.id,
+        );
+        playerMap[p2.id] = playerMap[p2.id]!.applyMatchResult(
+          isWin: !setResult.homeWin,
+          opponentGrade: p1.grade,
+          opponentRace: p1.race,
+          opponentId: p1.id,
+        );
       }
 
       await Future.delayed(const Duration(milliseconds: 500));

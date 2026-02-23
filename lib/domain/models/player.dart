@@ -613,7 +613,7 @@ class Player {
     // 먼저 스탯과 컨디션 적용
     final afterMatch = copyWith(
       stats: newStats,
-      condition: (condition + conditionChange).clamp(0, 100),
+      condition: (condition + conditionChange).clamp(80, 100),
       record: newRecord,
     );
 
@@ -685,7 +685,7 @@ class Player {
   Player applyRest() {
     final random = Random();
     final recovery = 4 + random.nextInt(2); // +4 or +5
-    return copyWith(condition: (condition + recovery).clamp(0, 100));
+    return copyWith(condition: (condition + recovery).clamp(80, 100));
   }
 
   /// 특훈 적용 (커리어 기반 성장폭)
@@ -695,7 +695,7 @@ class Player {
     // 먼저 스탯과 컨디션 적용
     final afterTraining = copyWith(
       stats: newStats,
-      condition: (condition - 1).clamp(0, 100),
+      condition: (condition - 1).clamp(80, 100),
     );
 
     // 특훈도 경험치 획득 (10) 및 레벨업 보너스 적용
@@ -704,7 +704,7 @@ class Player {
 
   /// 팬미팅 적용 (치어풀 획득 여부와 소지금은 외부에서 처리)
   Player applyFanMeeting() {
-    return copyWith(condition: (condition - 2).clamp(0, 100));
+    return copyWith(condition: (condition - 2).clamp(80, 100));
   }
 
   /// 시즌 종료 시 커리어 진행 (시즌 수 증가)
