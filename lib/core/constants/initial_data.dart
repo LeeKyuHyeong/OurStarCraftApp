@@ -769,7 +769,7 @@ class InitialData {
         stats: const PlayerStats(
           sense: 350, control: 400, attack: 390, harass: 380,
           strategy: 330, macro: 370, defense: 310, scout: 390,
-        ), // 합계: 2920 (B) - 빠른 APM, 마이크로 컨트롤/기동력 우수
+        ), // 합계: 2920 (B) - 빠른 APM, 컨트롤/기동력 우수
         levelValue: 6,
         teamId: 'skt_t1',
       ),

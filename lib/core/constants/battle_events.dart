@@ -605,7 +605,7 @@ class BattleEventsData {
     BattleEvent(text: '{player} 선수 드라군 생산!', myArmy: 5, myResource: -12),
     BattleEvent(text: '{player}, 질럿 싸움 승리!', stat: 'control', myArmy: -3, enemyArmy: -6),
     BattleEvent(text: '{player} 선수 질럿 싸움 패배!', stat: 'control', myArmy: -6, enemyArmy: -3),
-    BattleEvent(text: '{player}, 드라군 마이크로!', stat: 'control', myArmy: -2, enemyArmy: -8),
+    BattleEvent(text: '{player}, 드라군 컨트롤!', stat: 'control', myArmy: -2, enemyArmy: -8),
     BattleEvent(text: '{player} 선수 앞마당 넥서스 건설!', stat: 'macro', myResource: -40),
     BattleEvent(text: '양 선수 초반 유닛 싸움 치열합니다!', myArmy: -3, enemyArmy: -3),
     BattleEvent(text: '{player}, 초반 러쉬 성공!', stat: 'attack', myArmy: -5, enemyArmy: -30, enemyResource: -50, decisive: true),

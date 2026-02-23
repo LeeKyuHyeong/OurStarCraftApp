@@ -2406,7 +2406,7 @@ class BuildOrderData {
         BuildStep(line: 24, text: '{player} 선수 3번째 게이트웨이!', myResource: -15),
         BuildStep(line: 28, text: '{player}, 드라군 물량으로 앞마당 압박!', stat: 'attack', isClash: true),
         BuildStep(line: 32, text: '{player} 선수 드라군 추가 생산!', stat: 'macro', myArmy: 6, myResource: -18),
-        BuildStep(line: 36, text: '{player}, 히드라 상대로 마이크로!', stat: 'attack', isClash: true),
+        BuildStep(line: 36, text: '{player}, 히드라 상대로 컨트롤!', stat: 'attack', isClash: true),
         BuildStep(line: 40, text: '{player} 선수 앞마당 넥서스!', stat: 'macro', myResource: -40),
         BuildStep(line: 45, text: '{player}, 드라군 물량 밀어붙이기!', stat: 'attack', myArmy: 5, isClash: true, decisive: true),
       ],
@@ -2516,7 +2516,7 @@ class BuildOrderData {
         BuildStep(line: 9, text: '{player} 선수 질럿 돌격!', stat: 'control'),
         BuildStep(line: 13, text: '{player}, 드론 학살!', stat: 'attack', enemyResource: -25, isClash: true),
         BuildStep(line: 17, text: '{player} 선수 질럿 추가 생산!', stat: 'control', myArmy: 3, myResource: -8),
-        BuildStep(line: 21, text: '{player}, 저글링 상대 마이크로!', stat: 'control', isClash: true),
+        BuildStep(line: 21, text: '{player}, 저글링 상대 컨트롤!', stat: 'control', isClash: true),
         BuildStep(line: 25, text: '{player} 선수 올인!', stat: 'attack', isClash: true, decisive: true),
       ],
     ),
@@ -2836,7 +2836,7 @@ class BuildOrderData {
         BuildStep(line: 24, text: '{player} 선수 3번째 게이트웨이!', myResource: -15),
         BuildStep(line: 28, text: '{player}, 드라군 물량으로 앞마당 압박!', stat: 'attack', isClash: true),
         BuildStep(line: 32, text: '{player} 선수 드라군 추가 생산!', stat: 'macro', myArmy: 6, myResource: -18),
-        BuildStep(line: 36, text: '{player}, 히드라 상대로 마이크로!', stat: 'attack', isClash: true),
+        BuildStep(line: 36, text: '{player}, 히드라 상대로 컨트롤!', stat: 'attack', isClash: true),
         BuildStep(line: 40, text: '{player} 선수 앞마당 넥서스!', stat: 'macro', myResource: -40),
         BuildStep(line: 45, text: '{player}, 드라군 물량 밀어붙이기!', stat: 'attack', myArmy: 5, isClash: true, decisive: true),
       ],
@@ -5173,7 +5173,7 @@ class BuildOrderData {
   /// PvP 전용 이벤트
   static const clashEventsPvP = [
     ClashEvent(
-      text: '드라군 마이크로 싸움! 포커싱 승리!',
+      text: '드라군 컨트롤 싸움! 포커싱 승리!',
       favorsStat: 'control',
       attackerArmy: -8,
       defenderArmy: -10,
@@ -5198,7 +5198,7 @@ class BuildOrderData {
       defenderArmy: -10,
     ),
     ClashEvent(
-      text: '셔틀 마이크로! 리버 생존 성공!',
+      text: '셔틀 컨트롤! 리버 생존 성공!',
       favorsStat: 'harass',
       attackerArmy: -5,
       defenderArmy: -8,
@@ -5558,7 +5558,7 @@ class BuildOrderData {
 
   /// PvP 매치업 이벤트 (프로토스 시점)
   static const pvpMidLateEvents = [
-    BuildStep(line: 0, text: '{player}, 드라군 마이크로 싸움!', stat: 'control', myArmy: -2, enemyArmy: -3),
+    BuildStep(line: 0, text: '{player}, 드라군 컨트롤 싸움!', stat: 'control', myArmy: -2, enemyArmy: -3),
     BuildStep(line: 0, text: '{player} 선수 리버 스캐럽 적중!', stat: 'harass', enemyArmy: -4),
     BuildStep(line: 0, text: '{player}, 셔틀 리버로 프로브 견제!', stat: 'harass', myArmy: -1, enemyResource: -25),
     BuildStep(line: 0, text: '{player} 선수 다크템플러 잠입 성공!', stat: 'harass', enemyArmy: -3, enemyResource: -15),
@@ -5573,7 +5573,7 @@ class BuildOrderData {
     BuildStep(line: 0, text: '{player} 선수 아콘 합체!', stat: 'strategy', myArmy: 3, myResource: -10),
     BuildStep(line: 0, text: '{player}, 아콘으로 질럿 물량 소각!', stat: 'attack', myArmy: -1, enemyArmy: -5),
     // 리버 셔틀 심화
-    BuildStep(line: 0, text: '{player} 선수 셔틀 마이크로! 리버 생존하며 스캐럽 연사!', stat: 'control', myArmy: -1, enemyArmy: -4, enemyResource: -20),
+    BuildStep(line: 0, text: '{player} 선수 셔틀 컨트롤! 리버 생존하며 스캐럽 연사!', stat: 'control', myArmy: -1, enemyArmy: -4, enemyResource: -20),
     // 드라군 라인전
     BuildStep(line: 0, text: '{player} 선수 드라군 라인전! 포커싱 승리!', stat: 'control', myArmy: -2, enemyArmy: -5),
     // 확장 견제

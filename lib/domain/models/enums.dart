@@ -910,7 +910,7 @@ class StatWeights {
       case 'PvT':
         return {
           'sense': 1.0,
-          'control': 1.3,   // 드라군/리버 (1.4→1.3: 테란 마이크로 대응 고려)
+          'control': 1.3,   // 드라군/리버 (1.4→1.3: 테란 컨트롤 대응 고려)
           'attack': 1.1,
           'harass': 1.2,    // 리버 드랍 (1.3→1.2: TvP harass와 균형)
           'strategy': 1.3,  // 스톰 타이밍
@@ -969,7 +969,7 @@ class StatWeights {
       case 'PvP':
         return {
           'sense': 1.3,     // 다크 읽기
-          'control': 1.5,   // 드라군 마이크로
+          'control': 1.5,   // 드라군 컨트롤
           'attack': 1.2,
           'harass': 1.0,
           'strategy': 1.3,  // 다크/리버
