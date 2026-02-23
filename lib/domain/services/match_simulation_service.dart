@@ -453,8 +453,13 @@ class MatchSimulationService {
     // 동적 태그 (실행된 스텝까지만 - 클래시 이벤트 필터링용)
     final homeUnitTags = <String>{};
     final awayUnitTags = <String>{};
-    // 확장 여부 추적 (섬 기지 이벤트 전제 조건)
-    bool anyExpanded = false;
+    // per-player 게임 상태 추적
+    int homeExpansionCount = 0;    // 홈 확장기지 수
+    int awayExpansionCount = 0;    // 어웨이 확장기지 수
+    bool homeHasHiddenBase = false; // 홈 히든 베이스 시도 여부
+    bool awayHasHiddenBase = false; // 어웨이 히든 베이스 시도 여부
+    final homeBuildings = <String>{}; // 홈 건물 세트
+    final awayBuildings = <String>{}; // 어웨이 건물 세트
 
     // 빌드가 없으면 기본 시뮬레이션
     if (homeBuildFinal == null || awayBuildFinal == null) {
@@ -503,6 +508,7 @@ class MatchSimulationService {
     // 충돌 발생 여부
     bool clashOccurred = false;
     int clashStartLine = -1;
+    int clashEventCount = 0; // 클래시 이벤트 발생 횟수 (초반 조기 종료용)
     LogOwner lastClashOwner = LogOwner.home; // 클래시 교차 표시용
     int lastClashLine = -10; // 마지막 클래시 이벤트 라인 (빈도 조절용)
 
@@ -532,6 +538,8 @@ class MatchSimulationService {
       (homeStyle == BuildStyle.aggressive && awayStyle != BuildStyle.aggressive) ||
       (awayStyle == BuildStyle.aggressive && homeStyle != BuildStyle.aggressive)
     );
+    // ZvZ 스커지로 뮤탈 격추 보장 (중후반 1회)
+    bool zvzScourgeShown = false;
 
     while (!state.isFinished && lineCount < maxLines) {
       lineCount++;
@@ -656,7 +664,14 @@ class MatchSimulationService {
               homeBuildType: homeBuildType,
               awayBuildType: awayBuildType,
               combinedUnitTags: homeUnitTags.union(awayUnitTags),
-              anyExpanded: anyExpanded,
+              homeUnitTags: homeUnitTags,
+              awayUnitTags: awayUnitTags,
+              homeExpansionCount: homeExpansionCount,
+              awayExpansionCount: awayExpansionCount,
+              homeHasHiddenBase: homeHasHiddenBase,
+              awayHasHiddenBase: awayHasHiddenBase,
+              homeBuildings: homeBuildings,
+              awayBuildings: awayBuildings,
             );
             // 미사용 텍스트면 바로 채택
             if ((usedTexts[clashResult.text] ?? 0) == 0 || clashResult.decisive) {
@@ -712,6 +727,8 @@ class MatchSimulationService {
               : state.battleLogEntries,
         );
 
+        if (text.isNotEmpty) clashEventCount++;
+
         yield state;
         await Future.delayed(Duration(milliseconds: getIntervalMs()));
 
@@ -720,6 +737,21 @@ class MatchSimulationService {
           yield* _emitEnding(
             state: state,
             homeWinOverride: homeWinOverride,
+            winRate: winRate,
+            homePlayer: homePlayer,
+            awayPlayer: awayPlayer,
+            lineCount: lineCount,
+            getIntervalMs: getIntervalMs,
+          );
+          return;
+        }
+
+        // 초반 클래시 조기 종료: clashStartLine <= 20이면 3~4개 이벤트 후 종료
+        // 초반에는 마린/저글링 소수 병력으로 빠르게 결판남
+        if (clashStartLine <= 20 && clashEventCount >= 3 && !isZvZ) {
+          yield* _emitEnding(
+            state: state,
+            homeWinOverride: null,
             winRate: winRate,
             homePlayer: homePlayer,
             awayPlayer: awayPlayer,
@@ -763,10 +795,14 @@ class MatchSimulationService {
         awayArmyChange += homeStep.enemyArmy;
         awayResourceChange += homeStep.enemyResource;
         homeIndex++;
-        // 동적 유닛 태그 + 확장 추적
+        // 동적 유닛 태그 + 건물/확장 추적
         BuildOrderData.addUnitTagsFromText(homeStep.text, homeUnitTags);
-        if (homeStep.text.contains('확장') || homeStep.text.contains('커맨드센터')) {
-          anyExpanded = true;
+        BuildOrderData.addBuildingsFromText(homeStep.text, homeBuildings);
+        if (BuildOrderData.isExpansionText(homeStep.text)) {
+          homeExpansionCount++;
+        }
+        if (BuildOrderData.isHiddenBaseText(homeStep.text)) {
+          homeHasHiddenBase = true;
         }
 
         // 인터랙션 이벤트 (상대 반응)
@@ -775,6 +811,7 @@ class MatchSimulationService {
           triggerRace: homeRace,
           reactorRace: awayRace,
           reactorName: awayPlayer.name,
+          reactorStyle: awayStyle,
         );
         if (interaction != null) {
           newEntries.add(BattleLogEntry(text: interaction, owner: LogOwner.away));
@@ -807,10 +844,14 @@ class MatchSimulationService {
         homeArmyChange += awayStep.enemyArmy;
         homeResourceChange += awayStep.enemyResource;
         awayIndex++;
-        // 동적 유닛 태그 + 확장 추적
+        // 동적 유닛 태그 + 건물/확장 추적
         BuildOrderData.addUnitTagsFromText(awayStep.text, awayUnitTags);
-        if (awayStep.text.contains('확장') || awayStep.text.contains('커맨드센터')) {
-          anyExpanded = true;
+        BuildOrderData.addBuildingsFromText(awayStep.text, awayBuildings);
+        if (BuildOrderData.isExpansionText(awayStep.text)) {
+          awayExpansionCount++;
+        }
+        if (BuildOrderData.isHiddenBaseText(awayStep.text)) {
+          awayHasHiddenBase = true;
         }
 
         // 인터랙션 이벤트 (상대 반응)
@@ -819,6 +860,7 @@ class MatchSimulationService {
           triggerRace: awayRace,
           reactorRace: homeRace,
           reactorName: homePlayer.name,
+          reactorStyle: homeStyle,
         );
         if (interaction != null) {
           newEntries.add(BattleLogEntry(text: interaction, owner: LogOwner.home));
@@ -907,6 +949,9 @@ class MatchSimulationService {
               terrainComplexity: map.terrainComplexity,
               random: _random,
               availableUnits: isHomeTurn ? homeUnitTagsFull : awayUnitTagsFull,
+              opponentUnits: isHomeTurn ? awayUnitTagsFull : homeUnitTagsFull,
+              buildings: isHomeTurn ? homeBuildings : awayBuildings,
+              expansionCount: isHomeTurn ? homeExpansionCount : awayExpansionCount,
             );
             final candidateText = _transformEnding(candidate.text.replaceAll('{player}', player.name));
             // 미사용 텍스트 우선
@@ -937,6 +982,33 @@ class MatchSimulationService {
             awayResourceChange += midLateStep.myResource;
             homeArmyChange += midLateStep.enemyArmy;
             homeResourceChange += midLateStep.enemyResource;
+          }
+        }
+      }
+
+      // ZvZ 스커지로 뮤탈 격추 보장: 양측 뮤탈 등장 후 40~60라인에 1회 강제 삽입
+      if (isZvZ && !zvzScourgeShown && lineCount >= 40 && lineCount <= 60 &&
+          homeUnitTagsFull.contains('뮤탈') && awayUnitTagsFull.contains('뮤탈')) {
+        final isHomeTurn = _random.nextBool();
+        final player = isHomeTurn ? homePlayer : awayPlayer;
+        final scourgeText = '${player.name} 선수 스커지로 상대 뮤탈 격추!';
+        newEntries.add(BattleLogEntry(text: scourgeText, owner: isHomeTurn ? LogOwner.home : LogOwner.away));
+        if (isHomeTurn) {
+          homeArmyChange += -2;
+          awayArmyChange += -3;
+        } else {
+          awayArmyChange += -2;
+          homeArmyChange += -3;
+        }
+        zvzScourgeShown = true;
+      }
+
+      // 기존 이벤트에서 스커지 텍스트 나왔으면 플래그 갱신
+      if (isZvZ && !zvzScourgeShown) {
+        for (final entry in newEntries) {
+          if (entry.text.contains('스커지')) {
+            zvzScourgeShown = true;
+            break;
           }
         }
       }
@@ -1100,12 +1172,49 @@ class MatchSimulationService {
     required SimulationState state,
     required int lineCount,
   }) {
-    // 빠른 승리 (초반 러시/치즈 성공)
+    // 빠른 승리 (초반 러시/치즈 성공) - 종족별 구체적 텍스트
     if (lineCount <= 40) {
+      final winnerRace = winner.race;
+      final loserRace = loser.race;
+
+      // TvZ 초반: 마린 vs 저글링
+      if (winnerRace == Race.terran && loserRace == Race.zerg) {
+        final texts = [
+          '${winner.name} 선수, 마린으로 저글링 초토화 후 본진 입성!',
+          '${winner.name} 선수 마린 화력! ${loser.name} 선수 저글링이 녹습니다!',
+          '${winner.name} 선수 공격에 ${loser.name} 선수 본진이 무너집니다!',
+        ];
+        return texts[_random.nextInt(texts.length)];
+      }
+      if (winnerRace == Race.zerg && loserRace == Race.terran) {
+        final texts = [
+          '${winner.name} 선수, 저글링으로 마린 초토화 후 본진 입성!',
+          '${winner.name} 선수 저글링 서라운드! ${loser.name} 선수 마린이 녹습니다!',
+          '${winner.name} 선수 저글링 물량에 ${loser.name} 선수 수비 붕괴!',
+        ];
+        return texts[_random.nextInt(texts.length)];
+      }
+      // TvP 초반: 마린 vs 질럿/드라군
+      if (winnerRace == Race.terran && loserRace == Race.protoss) {
+        final texts = [
+          '${winner.name} 선수, 마린으로 ${loser.name} 선수 본진 초토화!',
+          '${winner.name} 선수 공격에 ${loser.name} 선수 본진이 무너집니다!',
+        ];
+        return texts[_random.nextInt(texts.length)];
+      }
+      if (winnerRace == Race.protoss && loserRace == Race.terran) {
+        final texts = [
+          '${winner.name} 선수, 질럿 돌진! ${loser.name} 선수 본진 초토화!',
+          '${winner.name} 선수 공격에 ${loser.name} 선수 본진이 무너집니다!',
+        ];
+        return texts[_random.nextInt(texts.length)];
+      }
+
+      // 범용 초반 마무리
       final earlyTexts = [
         '${winner.name} 선수, ${loser.name} 선수 본진 초토화!',
-        '${loser.name} 선수 병력 수급 불가! 프로브까지 잡히고 있습니다!',
         '${winner.name} 선수 공격에 ${loser.name} 선수 본진이 무너집니다!',
+        '${winner.name} 선수, 초반 공격 성공! ${loser.name} 선수 수비 실패!',
       ];
       return earlyTexts[_random.nextInt(earlyTexts.length)];
     }
@@ -1215,7 +1324,7 @@ class MatchSimulationService {
     ]),
     _InteractionRule(triggerPattern: RegExp(r'벌처|벌쳐'), triggerRace: 'T', reactorRace: 'P', reactions: [
       '{reactor} 선수 드라군으로 벌처 대응합니다.',
-      '{reactor} 선수 질럿으로 벌처 잡아내고.',
+      '{reactor} 선수 드라군으로 벌처 잡아내고.',
     ]),
     _InteractionRule(triggerPattern: RegExp(r'레이스'), triggerRace: 'T', reactorRace: 'P', reactions: [
       '{reactor} 선수 드라군 생산량 늘립니다.',
@@ -1263,6 +1372,7 @@ class MatchSimulationService {
     required String triggerRace,
     required String reactorRace,
     required String reactorName,
+    BuildStyle? reactorStyle,
   }) {
     if (_random.nextDouble() > 0.40) return null; // 60% 확률로 스킵
 
@@ -1271,7 +1381,14 @@ class MatchSimulationService {
       if (rule.triggerRace != '*' && rule.triggerRace != triggerRace) continue;
       if (rule.reactorRace != '*' && rule.reactorRace != reactorRace) continue;
 
-      final reaction = rule.reactions[_random.nextInt(rule.reactions.length)];
+      // 수비/밸런스 빌드인 선수에게 '견제 나갈 타이밍' 노출 방지
+      var candidates = rule.reactions;
+      if (reactorStyle == BuildStyle.defensive || reactorStyle == BuildStyle.balanced) {
+        candidates = candidates.where((r) => !r.contains('견제 나갈')).toList();
+        if (candidates.isEmpty) candidates = ['{reactor} 선수도 확장 서두르네요.'];
+      }
+
+      final reaction = candidates[_random.nextInt(candidates.length)];
       return reaction.replaceAll('{reactor}', reactorName);
     }
     return null;
@@ -1330,7 +1447,7 @@ class MatchSimulationService {
       final texts = [
         '올인이 막혔습니다! ${cheesePlayer.name} 선수 이대로면 힘들어요.',
         '초반 공격이 실패했고, ${defender.name} 선수가 유리한 상황입니다.',
-        '${cheesePlayer.name} 선수, 경제적으로 뒤처지고 있습니다.',
+        '${cheesePlayer.name} 선수, 자원 운영에서 뒤처지고 있습니다.',
         '올인 실패 후 갈 곳이 없는 ${cheesePlayer.name} 선수입니다.',
       ];
       return pickUnused(texts);
@@ -1378,11 +1495,11 @@ class MatchSimulationService {
       final rTrailing = state.homeResources > state.awayResources ? awayPlayer : homePlayer;
       final texts = [
         '자원 차이가 크구요, 이대로라면 후반이 어려워집니다.',
-        '${rLeading.name} 선수가 경제적으로 크게 앞서고 있네요.',
-        '경제력 차이가 나기 시작합니다.',
+        '${rLeading.name} 선수가 멀티 운영에서 크게 앞서고 있네요.',
+        '자원 격차가 벌어지기 시작합니다.',
         '${rTrailing.name} 선수, 자원이 부족한 상황입니다.',
-        '멀티 운영 차이가 경제력 격차로 이어지고 있네요.',
-        '이 경제력 차이가 후반에 큰 영향을 미칠 겁니다.',
+        '멀티 운영 차이가 자원 격차로 이어지고 있네요.',
+        '이 자원 격차가 후반에 큰 영향을 미칠 겁니다.',
       ];
       return pickUnused(texts);
     }
@@ -1425,7 +1542,7 @@ class MatchSimulationService {
         '경기가 점점 흥미로워지고 있습니다.',
         '중반 운영이 이번 경기의 관건이 되겠네요.',
         '테크 전환을 노리고 있는 것 같은데요!',
-        '양측 모두 경제를 챙기면서 운영하고 있습니다.',
+        '양측 모두 자원을 챙기면서 운영하고 있습니다.',
         '이 타이밍에 누가 먼저 움직이느냐가 관건입니다.',
         '중반 싸움이 본격적으로 시작됩니다!',
         '슬슬 본격적인 전투가 시작될 것 같은데요.',
@@ -1489,7 +1606,7 @@ class MatchSimulationService {
     // 치즈(0) vs 수비(3) - 극단적 미스매치
     if (aggrTier == 0 && defTier == 3) {
       texts.addAll([
-        '${aggressor.name} 선수 초반 올인인데, ${defender.name} 선수 경제적인 빌드! 초반이 관건이겠습니다!',
+        '${aggressor.name} 선수 초반 올인인데, ${defender.name} 선수 안정적인 빌드! 초반이 관건이겠습니다!',
         '매우 위험한 상황이 될 수 있겠네요! ${defender.name} 선수가 이 초반을 잘 넘어갈 수 있을까요?',
         '${aggressor.name} 선수 빠르게 승부를 걸어야 합니다! ${defender.name} 선수가 버텨낸다면 유리해질 수 있는데요!',
       ]);
@@ -1505,8 +1622,8 @@ class MatchSimulationService {
     else if (aggrTier == 1 && defTier == 3) {
       texts.addAll([
         '${aggressor.name} 선수 공격적으로 나오는데, ${defender.name} 선수가 초반을 잘 넘어갈 수 있을까요?',
-        '공격적 오프닝과 수비적 오프닝의 대결! 타이밍이 관건이겠네요!',
-        '${defender.name} 선수 경제적 빌드인데, ${aggressor.name} 선수 공격을 버텨내야 합니다!',
+        '양 선수 서로 다른 빌드를 가져온 것 같은데요! 타이밍이 관건이겠네요!',
+        '${defender.name} 선수 안정적인 빌드인데, ${aggressor.name} 선수 공격을 버텨내야 합니다!',
       ]);
     }
 
@@ -1867,7 +1984,7 @@ class MatchSimulationService {
       defenderIds: {'tvt_wraith_cloak'},
       texts: [
         '{atk} 선수 벌처 물량! {def} 선수는 레이스로 견제! 지상 vs 공중 대결!',
-        '투팩 벌처 vs 투스타 레이스! 벌처가 먼저 치느냐 레이스가 경제를 깎느냐!',
+        '투팩 벌처 vs 투스타 레이스! 벌처가 먼저 치느냐 레이스가 일꾼을 깎느냐!',
         '{atk} 선수 벌처로 맵 장악, {def} 선수 레이스로 후방 교란! 다른 방향의 싸움입니다!',
       ],
     ),
@@ -1878,7 +1995,7 @@ class MatchSimulationService {
       defenderIds: {'tvt_1fac_expand', 'tvt_cc_first'},
       texts: [
         '{atk} 선수 5팩토리 가동! {def} 선수 {defBuild}인데 이 물량을 버텨야 합니다!',
-        '5팩 타이밍 푸시! {def} 선수 확장 경제가 살아남을 수 있을지!',
+        '5팩 타이밍 푸시! {def} 선수 확장이 살아남을 수 있을지!',
         '{atk} 선수 메카닉 물량으로 밀어붙이는데, {def} 선수 탱크 라인 방어가 관건!',
       ],
     ),
@@ -1900,7 +2017,7 @@ class MatchSimulationService {
       defenderIds: {'tvt_cc_first', 'tvt_1fac_expand'},
       texts: [
         '양 선수 모두 안정적 운영! 탱크 자리잡기 경쟁이 승부를 가릅니다.',
-        '{atkBuild} vs {defBuild}! 경제력과 포지셔닝 싸움이 예상되네요.',
+        '{atkBuild} vs {defBuild}! 멀티와 포지셔닝 싸움이 예상되네요.',
         '양쪽 다 확장 체제! 중반 이후 탱크 라인 대결이 관건입니다.',
       ],
     ),
@@ -2071,8 +2188,8 @@ class MatchSimulationService {
       defenderIds: {'zvz_12pool'},
       texts: [
         '{atk} 선수 9풀! {def} 선수 12풀인데, 드론 3기 차이를 살릴 수 있을지가 관건입니다!',
-        '9풀 vs 12풀! {atk} 선수가 초반에 피해를 주지 못하면 경제력 차이가 벌어집니다!',
-        '{atkBuild} vs {defBuild}! {def} 선수가 저글링 피해를 최소화하면 경제 우위로 갈 수 있습니다!',
+        '9풀 vs 12풀! {atk} 선수가 초반에 피해를 주지 못하면 멀티 격차가 벌어집니다!',
+        '{atkBuild} vs {defBuild}! {def} 선수가 저글링 피해를 최소화하면 멀티 우위로 갈 수 있습니다!',
       ],
     ),
 
@@ -2477,7 +2594,14 @@ class MatchSimulationService {
     BuildType? homeBuildType,
     BuildType? awayBuildType,
     Set<String>? combinedUnitTags,
-    bool anyExpanded = false,
+    Set<String>? homeUnitTags,
+    Set<String>? awayUnitTags,
+    int homeExpansionCount = 0,
+    int awayExpansionCount = 0,
+    bool homeHasHiddenBase = false,
+    bool awayHasHiddenBase = false,
+    Set<String>? homeBuildings,
+    Set<String>? awayBuildings,
   }) {
     final clashDuration = lineCount - clashStartLine;
     final isZvZ = homePlayer.race == Race.zerg && awayPlayer.race == Race.zerg;
@@ -2574,7 +2698,11 @@ class MatchSimulationService {
       gamePhase: gamePhase,
       attackerArmySize: isHomeAttacker ? currentState.homeArmy : currentState.awayArmy,
       defenderArmySize: isHomeAttacker ? currentState.awayArmy : currentState.homeArmy,
-      hasExpanded: anyExpanded,
+      attackerExpansions: isHomeAttacker ? homeExpansionCount : awayExpansionCount,
+      defenderExpansions: isHomeAttacker ? awayExpansionCount : homeExpansionCount,
+      attackerHasHiddenBase: isHomeAttacker ? homeHasHiddenBase : awayHasHiddenBase,
+      attackerBuildings: isHomeAttacker ? homeBuildings : awayBuildings,
+      defenderBuildings: isHomeAttacker ? awayBuildings : homeBuildings,
     );
 
     // 가중치 기반 이벤트 선택
@@ -2707,6 +2835,9 @@ class MatchSimulationService {
         final defenseCounter = (awayStats.defense - homeStats.defense) * 0.3;
         final totalDiff = controlDiff + attackDiff - defenseCounter;
 
+        // 양측 저글링 보유 여부 (수비 빌드는 초반에 저글링 부재 가능)
+        final bothHaveZerglings = homeStyle != BuildStyle.defensive && awayStyle != BuildStyle.defensive;
+
         // 60% 확률로 전투, 40% 포지셔닝
         if (_random.nextDouble() < 0.6) {
           if (totalDiff > 80) {
@@ -2729,8 +2860,8 @@ class MatchSimulationService {
             final damage = (2 + (awayTotal - homeTotal) / 3000).clamp(1, 3).round();
             homeArmyChange -= damage;
             awayArmyChange -= 1;
-          } else {
-            // 비슷한 경우 - 양쪽 소량 피해
+          } else if (bothHaveZerglings) {
+            // 비슷한 경우 - 양쪽 소량 피해 (양측 모두 저글링 보유 시)
             final evenTexts = [
               '치열한 저글링 싸움! 서로 물고 물립니다!',
               '저글링 컨트롤 대결! 양 선수 팽팽합니다!',
@@ -2742,23 +2873,45 @@ class MatchSimulationService {
             const baseDamage = 2;
             homeArmyChange -= (baseDamage - homeDefAdv * 0.3).clamp(1, 3).round();
             awayArmyChange -= (baseDamage - awayDefAdv * 0.3).clamp(1, 3).round();
+          } else {
+            // 한쪽만 저글링 보유 - 일방적 교전
+            final aggressor = homeStyle != BuildStyle.defensive ? homePlayer : awayPlayer;
+            final defender = homeStyle == BuildStyle.defensive ? homePlayer : awayPlayer;
+            final aggrTexts = [
+              '${aggressor.name} 선수 저글링으로 압박!',
+              '${aggressor.name}, 저글링으로 드론 라인 위협!',
+              '${aggressor.name} 선수 저글링 진입! ${defender.name} 선수 드론으로 막아봅니다!',
+            ];
+            text = aggrTexts[_random.nextInt(aggrTexts.length)];
+            if (homeStyle == BuildStyle.defensive) {
+              homeArmyChange -= 1;
+            } else {
+              awayArmyChange -= 1;
+            }
           }
         } else {
           // 비전투 이벤트 - 소규모 교전으로 양쪽 동일 피해
-          final zlingTexts = [
-            '${homePlayer.name}, 상대 확장 견제!',
-            '${awayPlayer.name}, 상대 확장 견제!',
+          final zlingTexts = <String>[
             '${homePlayer.name} 선수 언덕에서 유리한 교전!',
             '${awayPlayer.name} 선수 언덕에서 유리한 교전!',
             '${homePlayer.name} 선수 국지전 승리!',
             '${awayPlayer.name} 선수 국지전 승리!',
-            '${homePlayer.name}, 드론 견제로 상대 경제 흔들기!',
-            '${awayPlayer.name}, 드론 견제로 상대 경제 흔들기!',
+            '${homePlayer.name}, 드론 견제로 상대 일꾼 털기!',
+            '${awayPlayer.name}, 드론 견제로 상대 일꾼 털기!',
             '${homePlayer.name} 선수, 성큰 올리며 방어 태세!',
             '${awayPlayer.name} 선수, 성큰 올리며 방어 태세!',
             '${homePlayer.name}, 오버로드로 상대 빌드 정찰!',
             '${awayPlayer.name}, 오버로드로 상대 빌드 정찰!',
           ];
+          // 상대 확장 견제는 실제 확장이 있을 때만
+          if (homeExpansionCount > 0 || awayExpansionCount > 0) {
+            if (awayExpansionCount > 0) {
+              zlingTexts.add('${homePlayer.name}, 상대 확장 견제!');
+            }
+            if (homeExpansionCount > 0) {
+              zlingTexts.add('${awayPlayer.name}, 상대 확장 견제!');
+            }
+          }
           text = zlingTexts[_random.nextInt(zlingTexts.length)];
           // 소규모 교전: 양쪽 동일 피해
           final minorDamage = _random.nextInt(2) + 1;
