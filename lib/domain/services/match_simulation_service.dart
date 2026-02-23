@@ -1271,7 +1271,7 @@ class MatchSimulationService {
       '{reactor} 선수 컴샛 스테이션 올립니다!',
       '{reactor} 선수 스캔으로 다크 잡아내구요.',
     ]),
-    _InteractionRule(triggerPattern: RegExp(r'캐리어|모선'), triggerRace: 'P', reactorRace: 'T', reactions: [
+    _InteractionRule(triggerPattern: RegExp(r'캐리어'), triggerRace: 'P', reactorRace: 'T', reactions: [
       '{reactor} 선수 골리앗도 나왔구요.',
       '{reactor} 선수 발키리 생산 서두릅니다.',
     ]),
@@ -1294,7 +1294,7 @@ class MatchSimulationService {
       '{reactor} 선수 저글링으로 견제 나갑니다.',
       '{reactor} 선수 성큰 올려서 방어 준비!',
     ]),
-    _InteractionRule(triggerPattern: RegExp(r'캐리어|모선'), triggerRace: 'P', reactorRace: 'Z', reactions: [
+    _InteractionRule(triggerPattern: RegExp(r'캐리어'), triggerRace: 'P', reactorRace: 'Z', reactions: [
       '{reactor} 선수 스커지 서둘러 모읍니다!',
       '{reactor} 선수 히드라리스크로 대공 준비!',
     ]),
@@ -1311,7 +1311,7 @@ class MatchSimulationService {
     ]),
     _InteractionRule(triggerPattern: RegExp(r'럴커'), triggerRace: 'Z', reactorRace: 'T', reactions: [
       '{reactor} 선수 사이언스 베슬 서두릅니다.',
-      '{reactor} 선수 디텍터 확보에 주력하네요.',
+      '{reactor} 선수 탐지 유닛 확보에 주력하네요.',
     ]),
     _InteractionRule(triggerPattern: RegExp(r'디파일러|플레이그'), triggerRace: 'Z', reactorRace: 'T', reactions: [
       '{reactor} 선수 이레디에이트 준비하구요.',
@@ -1322,7 +1322,7 @@ class MatchSimulationService {
       '{reactor} 선수 리버 견제 나가구요.',
     ]),
     _InteractionRule(triggerPattern: RegExp(r'뮤탈'), triggerRace: 'Z', reactorRace: 'P', reactions: [
-      '{reactor} 선수 코르세어 생산!',
+      '{reactor} 선수 커세어 생산!',
       '{reactor} 선수 드라군으로 방어 준비합니다.',
     ]),
 
@@ -1339,7 +1339,7 @@ class MatchSimulationService {
       '{reactor} 선수 드라군 생산량 늘립니다.',
       '{reactor} 선수 옵저버로 클로킹 레이스 잡아내고.',
     ]),
-    _InteractionRule(triggerPattern: RegExp(r'배틀크루저|전투순양함'), triggerRace: 'T', reactorRace: 'P', reactions: [
+    _InteractionRule(triggerPattern: RegExp(r'배틀크루저'), triggerRace: 'T', reactorRace: 'P', reactions: [
       '{reactor} 선수 아비터 리콜 준비합니다!',
       '{reactor} 선수 드라군 대량으로 모읍니다.',
     ]),
@@ -1879,7 +1879,7 @@ class MatchSimulationService {
       texts: [
         '빌드가 크게 갈렸습니다! {atk} 선수 {atkBuild}! {def} 선수가 읽고 대비할 수 있을까요?',
         '{atkBuild}입니다! {def} 선수 {defBuild}로 가고 있는데, 대비가 됐을지!',
-        '{atk} 선수 기습적인 다크 투입! {def} 선수 확장 가는 상황에서 디텍팅이 관건이겠네요!',
+        '{atk} 선수 기습적인 다크 투입! {def} 선수 확장 가는 상황에서 탐지가 관건이겠네요!',
       ],
     ),
 
@@ -2088,7 +2088,7 @@ class MatchSimulationService {
                     'zvp_trans_5hatch_hydra', 'zvp_trans_mutal_hydra', 'zvp_trans_hive_defiler',
                     'zvp_trans_973_hydra', 'zvp_trans_mukerji', 'zvp_trans_hydra_lurker'},
       texts: [
-        '{atk} 선수 {atkBuild}! {def} 선수가 스카우팅할 수 있을까요!',
+        '{atk} 선수 {atkBuild}! {def} 선수가 정찰할 수 있을까요!',
         '올인입니다! {def} 선수 {defBuild}로 가고 있는데, 이걸 막지 못하면 경기가 끝납니다!',
         '{atkBuild}! {atk} 선수 승부수를 던졌는데, {def} 선수 저글링 타이밍이 관건!',
       ],
@@ -2155,7 +2155,7 @@ class MatchSimulationService {
       texts: [
         '{atk} 선수 야바위입니다! 가스 타이밍으로 상대를 속이는 빌드인데요!',
         '{atkBuild}! {def} 선수가 이 기만적인 빌드를 읽어낼 수 있을까요!',
-        '야바위! 겉으로는 운영처럼 보이지만 실제로는... {def} 선수 스카우팅이 관건입니다!',
+        '야바위! 겉으로는 운영처럼 보이지만 실제로는... {def} 선수 정찰이 관건입니다!',
       ],
     ),
 
@@ -2294,12 +2294,12 @@ class MatchSimulationService {
       ],
     ),
 
-    // 7. 옵3겟 vs 치즈 (스카우팅 대결)
+    // 7. 옵3겟 vs 치즈 (정찰 대결)
     const _BuildMatchupRule(
       attackerIds: {'pvp_2gate_dragoon'},
       defenderIds: {'pvp_dark_allin', 'pvp_zealot_rush', 'pvp_4gate_dragoon'},
       texts: [
-        '{atk} 선수 {atkBuild}로 안정적으로 갑니다! {def} 선수 {defBuild}인데, 스카우팅이 관건!',
+        '{atk} 선수 {atkBuild}로 안정적으로 갑니다! {def} 선수 {defBuild}인데, 정찰이 관건!',
         '{atkBuild}! 옵저버로 상대 빌드를 읽고 있는데, {def} 선수의 공격을 대비할 수 있을지!',
         '{atk} 선수 드라군 체제로 {def} 선수의 공격을 받아치려 합니다! 수비 라인이 관건이네요!',
       ],
@@ -2334,7 +2334,7 @@ class MatchSimulationService {
       texts: [
         '{atk} 선수 {atkBuild}! {def} 선수 {defBuild}로 읽고 대응할 수 있을지!',
         '{atkBuild} 공세! {def} 선수 옵저버로 빌드를 읽었다면 대비가 가능합니다!',
-        '{atk} 선수 공격적 운영! {def} 선수 스카우팅으로 대응 전략을 세울 수 있을까요!',
+        '{atk} 선수 공격적 운영! {def} 선수 정찰으로 대응 전략을 세울 수 있을까요!',
       ],
     ),
 
@@ -2372,7 +2372,7 @@ class MatchSimulationService {
       pattern: RegExp(r'다크템플러|다크|DT'),
       reactions: [
         '{opponent} 선수가 눈치채고 잘 막아 낼 수 있을까요!',
-        '다크템플러입니다! {opponent} 선수 디텍터 준비는 됐을까요?',
+        '다크템플러입니다! {opponent} 선수 탐지 준비는 됐을까요?',
         '은밀한 다크 투입! 이걸 읽었느냐가 관건입니다!',
         '다크가 나옵니다! {opponent} 선수 대비가 됐을지 궁금하네요.',
       ],
@@ -2381,7 +2381,7 @@ class MatchSimulationService {
     _BuildReactionRule(
       pattern: RegExp(r'럴커'),
       reactions: [
-        '럴커입니다! {opponent} 선수 디텍터가 있을까요?',
+        '럴커입니다! {opponent} 선수 탐지가 되고 있을까요?',
         '럴커 등장! 이걸로 전세가 뒤집힐 수 있습니다!',
         '럴커가 나왔는데요, {opponent} 선수 대응이 관건이겠네요!',
       ],
@@ -2404,9 +2404,9 @@ class MatchSimulationService {
         '드랍 타이밍인데요, {opponent} 선수 본진 수비가 관건입니다!',
       ],
     ),
-    // 캐리어/모선 관련
+    // 캐리어 관련
     _BuildReactionRule(
-      pattern: RegExp(r'캐리어|모선'),
+      pattern: RegExp(r'캐리어'),
       reactions: [
         '캐리어 전환! {opponent} 선수 대공 준비가 급해졌습니다!',
         '대함선 테크입니다! 이걸로 후반을 노리는 건가요?',
@@ -2442,7 +2442,7 @@ class MatchSimulationService {
     ),
     // 배틀크루저 관련
     _BuildReactionRule(
-      pattern: RegExp(r'배틀크루저|전투순양함'),
+      pattern: RegExp(r'배틀크루저'),
       reactions: [
         '배틀크루저입니다! 최종 병기가 나왔네요!',
         '배틀크루저 전환! {opponent} 선수가 막을 수 있을까요?',
@@ -2493,7 +2493,7 @@ class MatchSimulationService {
       pattern: RegExp(r'레이스'),
       reactions: [
         '레이스! 클로킹 견제가 시작되겠네요!',
-        '레이스 투입! {opponent} 선수 디텍터가 준비됐을까요?',
+        '레이스 투입! {opponent} 선수 탐지 준비는 됐을까요?',
       ],
     ),
     // 확장/멀티 관련

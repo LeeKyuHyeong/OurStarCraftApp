@@ -249,7 +249,7 @@ class BattleEventsData {
     BattleEvent(text: '{player} 선수 최종 공세 시작!', stat: 'attack', myArmy: -10, enemyArmy: -20),
     BattleEvent(text: '{player}, 상대 본진 진입!', stat: 'attack', myArmy: -5, enemyArmy: -15, enemyResource: -30),
     BattleEvent(text: '{player} 선수 프로토스 본진 초토화!', stat: 'attack', myArmy: -3, enemyArmy: -20, enemyResource: -50, decisive: true),
-    BattleEvent(text: '{player} 선수 EMP 사이언스로 완벽한 승리!', decisive: true),
+    BattleEvent(text: '{player} 선수 EMP로 완벽한 승리!', decisive: true),
     BattleEvent(text: '양측 가스가 부족해지고 있습니다!', myResource: -5, enemyResource: -5),
     BattleEvent(text: '{player}, 골리앗 탱크로 최종 밀어붙입니다!', stat: 'macro', myArmy: -10, enemyArmy: -30),
     BattleEvent(text: '{player} 선수 프로토스 본진 함락!', decisive: true),
@@ -280,7 +280,7 @@ class BattleEventsData {
     BattleEvent(text: '{player} 선수 리버 드랍 성공!', stat: 'harass', myArmy: -2, enemyArmy: -8, enemyResource: -35),
     BattleEvent(text: '{player}, 리버 드랍 실패!', stat: 'harass', myArmy: -7),
     BattleEvent(text: '{player} 선수 옵저버 생산!', myArmy: 1, myResource: -10),
-    BattleEvent(text: '{player}, 드라군 사거리 업그레이드!', stat: 'strategy', myResource: -15),
+    BattleEvent(text: '{player}, 드라군 레인지 업!', stat: 'strategy', myResource: -15),
     BattleEvent(text: '{player} 선수 드라군으로 탱크 견제!', stat: 'control', myArmy: -5, enemyArmy: -8),
     BattleEvent(text: '{player}, 탱크 포격에 드라군 피해!', stat: 'defense', myArmy: -12),
     BattleEvent(text: '{player} 선수 템플러 아카이브 건설!', myResource: -20),
@@ -438,7 +438,7 @@ class BattleEventsData {
     BattleEvent(text: '{player}, 리콜 투입!', stat: 'strategy', myArmy: -5, enemyArmy: -15, enemyResource: -30),
     BattleEvent(text: '{player} 선수 최대 서플라이 도달!', stat: 'macro', myArmy: 20, myResource: -50),
     BattleEvent(text: '{player}, 대규모 병력으로 진격!', stat: 'attack'),
-    BattleEvent(text: '{player} 선수 다크스웜에 갇힘!', stat: 'sense', myArmy: -10, enemyArmy: -3),
+    BattleEvent(text: '{player} 선수 다크스웜에 갇혔습니다!', stat: 'sense', myArmy: -10, enemyArmy: -3),
     BattleEvent(text: '{player}, 스톰으로 다크스웜 안 저그 처리!', stat: 'control', enemyArmy: -20),
     BattleEvent(text: '{player} 선수 플레이그 피해!', stat: 'sense', myArmy: -15),
     BattleEvent(text: '{player}, 치열한 물량 싸움!', stat: 'control', myArmy: -15, myResource: -20, enemyArmy: -15, enemyResource: -20),
@@ -635,7 +635,7 @@ class BattleEventsData {
     BattleEvent(text: '{player}, 아칸으로 질럿 돌파!', stat: 'attack', myArmy: -3, enemyArmy: -8),
     BattleEvent(text: '{player} 선수 셔틀 리버 드랍으로 프로브 사냥!', stat: 'harass', myArmy: -2, enemyResource: -30),
     BattleEvent(text: '{player}, 옵저버로 상대 다크 탐지!', stat: 'scout', enemyArmy: -5),
-    BattleEvent(text: '{player} 선수 드라군 사거리 업! 전투력 향상!', stat: 'strategy', myResource: -10),
+    BattleEvent(text: '{player} 선수 드라군 레인지 업! 전투력 향상!', stat: 'strategy', myResource: -10),
   ];
 
   static const pvpLate = [

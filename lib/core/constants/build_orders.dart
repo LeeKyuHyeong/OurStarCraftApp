@@ -1057,7 +1057,7 @@ class BuildOrderData {
         BuildStep(line: 38, text: '{player}, 탱크 물량 생산!', stat: 'attack', myArmy: 8, myResource: -25),
         BuildStep(line: 48, text: '{player} 선수 5팩 타이밍 푸시!', stat: 'attack', myArmy: -4, enemyArmy: -6, isClash: true),
         BuildStep(line: 58, text: '{player}, 탱크 추가 밀어붙이기!', stat: 'macro', myArmy: 6, myResource: -20),
-        BuildStep(line: 70, text: '{player} 선수 메카닉 물량으로 압살!', stat: 'attack', myArmy: 4, isClash: true, decisive: true),
+        BuildStep(line: 70, text: '{player} 선수 메카닉 물량으로 압도!', stat: 'attack', myArmy: 4, isClash: true, decisive: true),
       ],
     ),
 
@@ -1598,7 +1598,7 @@ class BuildOrderData {
         BuildStep(line: 16, text: '{player} 선수 히드라덴 건설!', myResource: -15),
         BuildStep(line: 20, text: '{player}, 3해처리 운영!', stat: 'macro', myResource: -30),
         BuildStep(line: 26, text: '{player} 선수 히드라 대량 생산!', stat: 'attack', myArmy: 10, myResource: -25),
-        BuildStep(line: 30, text: '{player}, 히드라 사거리 업그레이드!', stat: 'control', myResource: -15),
+        BuildStep(line: 30, text: '{player}, 히드라 레인지 업!', stat: 'control', myResource: -15),
         BuildStep(line: 34, text: '{player} 선수 973 타이밍!', stat: 'attack'),
         BuildStep(line: 38, text: '{player}, 히드라 웨이브 출발!', stat: 'attack', myArmy: 6, myResource: -15),
         BuildStep(line: 42, text: '{player}, 상대 앞마당 압박!', stat: 'control', isClash: true),
@@ -1984,7 +1984,7 @@ class BuildOrderData {
       steps: [
         BuildStep(line: 20, text: '{player}, 3해처리 운영!', stat: 'macro', myResource: -30),
         BuildStep(line: 26, text: '{player} 선수 히드라 대량 생산!', stat: 'attack', myArmy: 10, myResource: -25),
-        BuildStep(line: 30, text: '{player}, 히드라 사거리 업그레이드!', stat: 'control', myResource: -15),
+        BuildStep(line: 30, text: '{player}, 히드라 레인지 업!', stat: 'control', myResource: -15),
         BuildStep(line: 34, text: '{player} 선수 973 타이밍!', stat: 'attack'),
         BuildStep(line: 38, text: '{player}, 히드라 웨이브 출발!', stat: 'attack', myArmy: 6, myResource: -15),
         BuildStep(line: 42, text: '{player}, 상대 앞마당 압박!', stat: 'control', isClash: true),
@@ -3390,7 +3390,7 @@ class BuildOrderData {
   /// 고물량력 이벤트 (macro >= 700)
   static const highMacroEvents = [
     ClashEvent(
-      text: '{attacker} 선수, 물량으로 압살! 끝이 없는 병력!',
+      text: '{attacker} 선수, 물량으로 압도! 끝이 없는 병력!',
       favorsStat: 'macro',
       attackerArmy: 5,
       defenderArmy: -12,
@@ -3636,7 +3636,7 @@ class BuildOrderData {
     ],
     BuildType.tvt5Fac: [
       ClashEvent(text: '5팩토리 가동! 탱크가 쏟아집니다!', favorsStat: 'attack', attackerArmy: -8, defenderArmy: -12, defenderResource: -15),
-      ClashEvent(text: '메카닉 물량 밀어붙이기! 상대 라인 붕괴!', favorsStat: 'macro', attackerArmy: -6, defenderArmy: -15),
+      ClashEvent(text: '메카닉 물량 밀어붙이기! 상대 진형 붕괴!', favorsStat: 'macro', attackerArmy: -6, defenderArmy: -15),
     ],
     BuildType.tvtBBS: [
       ClashEvent(text: 'BBS 벙커링 성공! 앞마당이 막힙니다!', favorsStat: 'attack', attackerArmy: -3, defenderArmy: -10, defenderResource: -20),
@@ -4008,7 +4008,7 @@ class BuildOrderData {
       defenderResource: -40,
     ),
     ClashEvent(
-      text: '{attacker}, 탱크 드랍! 상대 라인 박살!',
+      text: '{attacker}, 탱크 드랍! 상대 진형 박살!',
       favorsStat: 'harass',
       attackerArmy: -2,
       defenderArmy: -10,
@@ -4864,7 +4864,7 @@ class BuildOrderData {
       defenderArmy: -10,
     ),
     ClashEvent(
-      text: '히드라 사거리 업! 드라군을 아웃레인지!',
+      text: '히드라 레인지 업! 드라군을 아웃레인지!',
       favorsStat: 'attack',
       attackerArmy: -8,
       defenderArmy: -12,
@@ -5150,7 +5150,7 @@ class BuildOrderData {
       defenderArmy: -10,
     ),
     ClashEvent(
-      text: '드론 수 싸움! 멀티 격차로 물량 압살!',
+      text: '드론 수 싸움! 멀티 격차로 물량 압도!',
       favorsStat: 'macro',
       attackerArmy: -8,
       defenderArmy: -12,
@@ -5283,7 +5283,7 @@ class BuildOrderData {
   static const expansionEvents = [
     BuildStep(line: 0, text: '{player} 선수 멀티 확장 성공!', stat: 'macro', myResource: 25),
     BuildStep(line: 0, text: '{player}, 새로운 기지에서 자원 채취 시작!', stat: 'macro', myResource: 20),
-    BuildStep(line: 0, text: '{player} 선수 자원 라인 풀가동!', stat: 'macro', myResource: 15),
+    BuildStep(line: 0, text: '{player} 선수 일꾼 풀가동!', stat: 'macro', myResource: 15),
     BuildStep(line: 0, text: '{player}, 확장 기지 완성! 자원 수급 안정!', stat: 'macro', myResource: 30),
     BuildStep(line: 0, text: '{player} 선수 일꾼 추가 생산!', stat: 'macro', myArmy: 1, myResource: 10),
     BuildStep(line: 0, text: '{player}, 가스 채취 가속!', stat: 'macro', myResource: 12),
@@ -5328,8 +5328,8 @@ class BuildOrderData {
     BuildStep(line: 0, text: '{player} 선수 2단계 업그레이드 진행!', stat: 'strategy', myArmy: 1, myResource: -18),
     BuildStep(line: 0, text: '{player}, 3-3 업그레이드 돌입!', stat: 'macro', myResource: -25),
     BuildStep(line: 0, text: '{player} 선수 특수 능력 업그레이드!', stat: 'strategy', myResource: -20),
-    BuildStep(line: 0, text: '{player}, 이동속도 업그레이드 완료!', stat: 'control', myArmy: 1, myResource: -12),
-    BuildStep(line: 0, text: '{player} 선수 사거리 업그레이드!', stat: 'attack', myArmy: 1, myResource: -15),
+    BuildStep(line: 0, text: '{player}, 속업 완료!', stat: 'control', myArmy: 1, myResource: -12),
+    BuildStep(line: 0, text: '{player} 선수 레인지 업!', stat: 'attack', myArmy: 1, myResource: -15),
     BuildStep(line: 0, text: '{player}, 고급 테크 연구 시작!', stat: 'strategy', myResource: -22),
     BuildStep(line: 0, text: '{player} 선수 1-1 업그레이드 완료!', stat: 'macro', myArmy: 2, myResource: -12),
     BuildStep(line: 0, text: '{player}, 업그레이드로 전투력 강화!', stat: 'attack', myArmy: 2, myResource: -14),
@@ -5406,7 +5406,7 @@ class BuildOrderData {
     BuildStep(line: 0, text: '{player}, 팩토리 추가 건설! 생산력 증가!', stat: 'macro', myArmy: 3, myResource: -15),
     BuildStep(line: 0, text: '{player} 선수 아머리 업그레이드 진행!', stat: 'strategy', myArmy: 1, myResource: -12),
     BuildStep(line: 0, text: '{player}, 벌처 속업 완료!', stat: 'control', myArmy: 2, myResource: -10),
-    BuildStep(line: 0, text: '{player} 선수 터렛 라인 구축!', stat: 'defense', myArmy: 1, myResource: -10),
+    BuildStep(line: 0, text: '{player} 선수 터렛 배치!', stat: 'defense', myArmy: 1, myResource: -10),
   ];
 
   /// 저그 중후반 이벤트
@@ -5437,7 +5437,7 @@ class BuildOrderData {
     BuildStep(line: 0, text: '{player} 선수 옵저버 추가 생산!', stat: 'scout', myArmy: 1, myResource: -10),
     BuildStep(line: 0, text: '{player}, 스톰 준비 완료! 적 병력 초토화!', stat: 'strategy', myArmy: 1, enemyArmy: -8),
     BuildStep(line: 0, text: '{player} 선수 아비터 생산!', stat: 'strategy', myArmy: 3, myResource: -25),
-    BuildStep(line: 0, text: '{player}, 드라군 사거리 업그레이드!', stat: 'attack', myArmy: 2, myResource: -15),
+    BuildStep(line: 0, text: '{player}, 드라군 레인지 업!', stat: 'attack', myArmy: 2, myResource: -15),
     BuildStep(line: 0, text: '{player} 선수 포지 업그레이드 진행!', stat: 'macro', myArmy: 1, myResource: -10),
     BuildStep(line: 0, text: '{player}, 다크템플러 생산!', stat: 'harass', myArmy: 3, myResource: -20),
     BuildStep(line: 0, text: '{player} 선수 셔틀 추가 생산!', stat: 'harass', myArmy: 1, myResource: -10),
