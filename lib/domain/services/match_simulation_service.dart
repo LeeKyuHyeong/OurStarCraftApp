@@ -504,6 +504,7 @@ class MatchSimulationService {
     const maxLines = 200;
     int lastCommentaryLine = -10; // 코멘터리 연속 방지
     final usedTexts = <String, int>{}; // 텍스트 사용 횟수 추적 (같은 텍스트 2회 이상 방지)
+    bool expansionReactionUsed = false; // 확장 인터랙션 중복 방지
 
     // 충돌 발생 여부
     bool clashOccurred = false;
@@ -812,9 +813,13 @@ class MatchSimulationService {
           reactorRace: awayRace,
           reactorName: awayPlayer.name,
           reactorStyle: awayStyle,
+          expansionReactionUsed: expansionReactionUsed,
         );
         if (interaction != null) {
           newEntries.add(BattleLogEntry(text: interaction, owner: LogOwner.away));
+          if (interaction.contains('확장') || interaction.contains('서두르')) {
+            expansionReactionUsed = true;
+          }
         }
 
         // 빌드 반응 해설 (주요 빌드 선택에 대한 해설자 코멘터리)
@@ -861,9 +866,13 @@ class MatchSimulationService {
           reactorRace: homeRace,
           reactorName: homePlayer.name,
           reactorStyle: homeStyle,
+          expansionReactionUsed: expansionReactionUsed,
         );
         if (interaction != null) {
           newEntries.add(BattleLogEntry(text: interaction, owner: LogOwner.home));
+          if (interaction.contains('확장') || interaction.contains('서두르')) {
+            expansionReactionUsed = true;
+          }
         }
 
         // 빌드 반응 해설 (주요 빌드 선택에 대한 해설자 코멘터리)
@@ -1373,6 +1382,7 @@ class MatchSimulationService {
     required String reactorRace,
     required String reactorName,
     BuildStyle? reactorStyle,
+    bool expansionReactionUsed = false,
   }) {
     if (_random.nextDouble() > 0.40) return null; // 60% 확률로 스킵
 
@@ -1380,6 +1390,9 @@ class MatchSimulationService {
       if (!rule.triggerPattern.hasMatch(triggerText)) continue;
       if (rule.triggerRace != '*' && rule.triggerRace != triggerRace) continue;
       if (rule.reactorRace != '*' && rule.reactorRace != reactorRace) continue;
+
+      // 확장 인터랙션 경기당 1회 제한
+      if (rule.triggerPattern.pattern.contains('확장') && expansionReactionUsed) continue;
 
       // 수비/밸런스 빌드인 선수에게 '견제 나갈 타이밍' 노출 방지
       var candidates = rule.reactions;
@@ -1925,7 +1938,7 @@ class MatchSimulationService {
       defenderIds: {'pvt_reaver_shuttle', 'pvt_trans_reaver_push', 'pvt_trans_reaver_arbiter', 'pvt_trans_reaver_carrier'},
       texts: [
         '양쪽 다 공격적입니다! {atkBuild} vs {defBuild}, 드랍과 리버 셔틀 경쟁이 벌어집니다!',
-        '{atk} 선수 찌르기 들어가는데 {def} 선수도 리버 셔틀! 서로 뒷마당이 위험하네요!',
+        '{atk} 선수 찌르기 들어가는데 {def} 선수도 리버 셔틀! 서로 본진이 위험하네요!',
         '양 선수 모두 견제전! 누가 더 효율적으로 피해를 입히느냐가 승부를 가릅니다!',
       ],
     ),
@@ -1943,11 +1956,11 @@ class MatchSimulationService {
       ],
     ),
 
-    // ==================== TvT (8개) ====================
+    // ==================== TvT (10개) ====================
 
     // 1. 공격 vs 확장/수비
     const _BuildMatchupRule(
-      attackerIds: {'tvt_1fac_push', 'tvt_wraith_cloak', 'tvt_2fac_vulture', 'tvt_5fac'},
+      attackerIds: {'tvt_1fac_push', 'tvt_wraith_cloak', 'tvt_2fac_vulture', 'tvt_5fac', 'tvt_bbs'},
       defenderIds: {'tvt_cc_first', 'tvt_1fac_expand'},
       texts: [
         '빌드가 갈렸습니다! {atk} 선수 {atkBuild}, {def} 선수는 {defBuild}! 이 공격을 넘겨야 합니다!',
@@ -1958,8 +1971,8 @@ class MatchSimulationService {
 
     // 2. 양쪽 공격
     const _BuildMatchupRule(
-      attackerIds: {'tvt_1fac_push', 'tvt_wraith_cloak', 'tvt_2fac_vulture', 'tvt_5fac'},
-      defenderIds: {'tvt_1fac_push', 'tvt_wraith_cloak', 'tvt_2fac_vulture', 'tvt_5fac'},
+      attackerIds: {'tvt_1fac_push', 'tvt_wraith_cloak', 'tvt_2fac_vulture', 'tvt_5fac', 'tvt_bbs'},
+      defenderIds: {'tvt_1fac_push', 'tvt_wraith_cloak', 'tvt_2fac_vulture', 'tvt_5fac', 'tvt_bbs'},
       texts: [
         '양 선수 모두 공격적! {atkBuild} vs {defBuild}, 초반부터 불꽃 튀는 싸움!',
         '양쪽 다 공격 빌드입니다! 누가 먼저 유리한 포지션을 잡느냐가 관건!',
@@ -2030,6 +2043,27 @@ class MatchSimulationService {
         '{atk} 선수 벌처 견제! {def} 선수 5팩 완성 전에 흔들어야 합니다!',
         '투팩 벌처 vs 5팩토리! 초반 벌처 피해가 관건, 5팩이 돌면 물량에서 밀립니다!',
         '{atk} 선수 마인으로 시간 벌기, {def} 선수 팩토리 추가 중! 타이밍 싸움이네요!',
+      ],
+    ),
+
+    // 9. BBS vs 배럭더블/원팩확장 (치즈 vs 확장)
+    const _BuildMatchupRule(
+      attackerIds: {'tvt_bbs'},
+      defenderIds: {'tvt_cc_first', 'tvt_1fac_expand'},
+      texts: [
+        '{atk} 선수 BBS입니다! SCV 끌고 벙커링! {def} 선수 {defBuild}인데 막아낼 수 있을까요!',
+        'BBS 올인! {atk} 선수 센터 배럭에서 마린 모아 공격! {def} 선수 정찰이 관건!',
+        '{atk} 선수 벙커링 시도! {def} 선수 SCV로 정찰 성공하면 마린 끊을 수 있는데!',
+      ],
+    ),
+
+    // 10. BBS vs BBS (양쪽 치즈)
+    const _BuildMatchupRule(
+      attackerIds: {'tvt_bbs'},
+      defenderIds: {'tvt_bbs'},
+      texts: [
+        '양쪽 모두 BBS! 센터에서 마린끼리 충돌할 수 있습니다!',
+        'BBS 미러! 누가 먼저 벙커를 올리느냐의 싸움!',
       ],
     ),
 
@@ -2193,7 +2227,7 @@ class MatchSimulationService {
       ],
     ),
 
-    // ==================== PvP (6개) ====================
+    // ==================== PvP (8개) ====================
 
     // 1. 치즈(다크더블/99겟/21 3겟) vs 수비(기어리버/옵3겟/원겟멀티)
     const _BuildMatchupRule(
@@ -2216,7 +2250,18 @@ class MatchSimulationService {
       ],
     ),
 
-    // 3. 양쪽 안정
+    // 3. 옵3겟/투겟리버 vs 기어리버 (드라군 vs 리버 타이밍 레이스)
+    const _BuildMatchupRule(
+      attackerIds: {'pvp_2gate_dragoon', 'pvp_2gate_reaver'},
+      defenderIds: {'pvp_1gate_robo'},
+      texts: [
+        '{atk} 선수 {atkBuild}! {def} 선수 기어리버! 셔틀 리버 합류 전에 밀어붙일 수 있을까요?',
+        '{atkBuild} vs {defBuild}! 이 경기는 셔틀 생존이 관건이 되겠습니다!',
+        '{def} 선수 로보틱스 테크! {atk} 선수 드라군으로 리버 나오기 전에 교전을 노립니다!',
+      ],
+    ),
+
+    // 4. 양쪽 안정
     const _BuildMatchupRule(
       attackerIds: {'pvp_2gate_dragoon', 'pvp_1gate_robo', 'pvp_1gate_multi'},
       defenderIds: {'pvp_2gate_dragoon', 'pvp_1gate_robo', 'pvp_1gate_multi'},
@@ -2227,7 +2272,7 @@ class MatchSimulationService {
       ],
     ),
 
-    // 4. 다크더블 vs 기어리버 (다크 vs 탐지)
+    // 5. 다크더블 vs 기어리버 (다크 vs 탐지)
     const _BuildMatchupRule(
       attackerIds: {'pvp_dark_allin'},
       defenderIds: {'pvp_1gate_robo'},
@@ -2238,7 +2283,7 @@ class MatchSimulationService {
       ],
     ),
 
-    // 5. 센터99겟/21 3겟 vs 원겟멀티 (러쉬 vs 확장)
+    // 6. 센터99겟/21 3겟 vs 원겟멀티 (러쉬 vs 확장)
     const _BuildMatchupRule(
       attackerIds: {'pvp_zealot_rush', 'pvp_4gate_dragoon'},
       defenderIds: {'pvp_1gate_multi'},
@@ -2249,7 +2294,7 @@ class MatchSimulationService {
       ],
     ),
 
-    // 6. 옵3겟 vs 치즈 (스카우팅 대결)
+    // 7. 옵3겟 vs 치즈 (스카우팅 대결)
     const _BuildMatchupRule(
       attackerIds: {'pvp_2gate_dragoon'},
       defenderIds: {'pvp_dark_allin', 'pvp_zealot_rush', 'pvp_4gate_dragoon'},
@@ -2260,7 +2305,7 @@ class MatchSimulationService {
       ],
     ),
 
-    // 7. 치즈 vs 공격형 (다크/99겟/3겟드라 vs 투겟리버/스피드질)
+    // 8. 치즈 vs 공격형 (다크/99겟/3겟드라 vs 투겟리버/발업질)
     const _BuildMatchupRule(
       attackerIds: {'pvp_dark_allin', 'pvp_zealot_rush', 'pvp_4gate_dragoon'},
       defenderIds: {'pvp_2gate_reaver', 'pvp_3gate_speedzealot'},
@@ -2271,7 +2316,7 @@ class MatchSimulationService {
       ],
     ),
 
-    // 8. 공격형 vs 수비형 (투겟리버/스피드질 vs 기어리버/원겟멀티)
+    // 9. 공격형 vs 수비형 (투겟리버/발업질 vs 기어리버/원겟멀티)
     const _BuildMatchupRule(
       attackerIds: {'pvp_2gate_reaver', 'pvp_3gate_speedzealot'},
       defenderIds: {'pvp_1gate_robo', 'pvp_1gate_multi'},
@@ -2282,7 +2327,7 @@ class MatchSimulationService {
       ],
     ),
 
-    // 9. 공격형 vs 밸런스 (투겟리버/스피드질 vs 옵3겟)
+    // 10. 공격형 vs 밸런스 (투겟리버/발업질 vs 옵3겟)
     const _BuildMatchupRule(
       attackerIds: {'pvp_2gate_reaver', 'pvp_3gate_speedzealot'},
       defenderIds: {'pvp_2gate_dragoon'},
@@ -2293,7 +2338,7 @@ class MatchSimulationService {
       ],
     ),
 
-    // 10. 양쪽 공격형 (투겟리버/스피드질 vs 투겟리버/스피드질)
+    // 11. 양쪽 공격형 (투겟리버/발업질 vs 투겟리버/발업질)
     const _BuildMatchupRule(
       attackerIds: {'pvp_2gate_reaver', 'pvp_3gate_speedzealot'},
       defenderIds: {'pvp_2gate_reaver', 'pvp_3gate_speedzealot'},
@@ -2303,7 +2348,7 @@ class MatchSimulationService {
       ],
     ),
 
-    // 11. 투겟리버 vs 다크더블 (로보 탐지)
+    // 12. 투겟리버 vs 다크더블 (로보 탐지)
     const _BuildMatchupRule(
       attackerIds: {'pvp_2gate_reaver'},
       defenderIds: {'pvp_dark_allin'},
@@ -2879,7 +2924,7 @@ class MatchSimulationService {
             final defender = homeStyle == BuildStyle.defensive ? homePlayer : awayPlayer;
             final aggrTexts = [
               '${aggressor.name} 선수 저글링으로 압박!',
-              '${aggressor.name}, 저글링으로 드론 라인 위협!',
+              '${aggressor.name}, 저글링으로 드론 위협!',
               '${aggressor.name} 선수 저글링 진입! ${defender.name} 선수 드론으로 막아봅니다!',
             ];
             text = aggrTexts[_random.nextInt(aggrTexts.length)];

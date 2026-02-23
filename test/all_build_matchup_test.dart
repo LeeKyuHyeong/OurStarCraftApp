@@ -197,7 +197,7 @@ const _pvpBuilds = <BuildInfo>[
   ('pvp_4gate_dragoon', '3겟드라군', 'CHE'),
   ('pvp_1gate_multi', '원겟멀티', 'DEF'),
   ('pvp_2gate_reaver', '투겟리버', 'AGG'),
-  ('pvp_3gate_speedzealot', '스피드질럿', 'AGG'),
+  ('pvp_3gate_speedzealot', '발업질럿', 'AGG'),
 ];
 
 /// 매치업 테스트 실행 (Home builds vs Away builds)

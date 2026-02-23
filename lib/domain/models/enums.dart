@@ -298,13 +298,14 @@ enum BuildType {
   tvp11Up8Fac('tvp_11up_8fac', 'TvP', '11업 8팩', BuildStyle.aggressive, ['attack', 'macro']),
   tvpAntiCarrier('tvp_anti_carrier', 'TvP', '안티 캐리어', BuildStyle.balanced, ['strategy', 'defense']),
 
-  // ==================== TvT 빌드 (6개) ====================
+  // ==================== TvT 빌드 (7개) ====================
   tvt1FactPush('tvt_1fac_push', 'TvT', '원팩원스타', BuildStyle.aggressive, ['attack', 'control']),
   tvtWraithCloak('tvt_wraith_cloak', 'TvT', '투스타 레이스', BuildStyle.aggressive, ['harass', 'strategy']),
-  tvtCCFirst('tvt_cc_first', 'TvT', '배럭더블', BuildStyle.defensive, ['macro', 'defense']),
-  tvt2FactVulture('tvt_2fac_vulture', 'TvT', '투팩 벌처', BuildStyle.aggressive, ['attack', 'control']),
+  tvtCCFirst('tvt_cc_first', 'TvT', '배럭더블', BuildStyle.balanced, ['macro', 'defense']),
+  tvt2FactVulture('tvt_2fac_vulture', 'TvT', '투팩 벌처', BuildStyle.balanced, ['attack', 'control']),
   tvt1FactExpand('tvt_1fac_expand', 'TvT', '원팩 확장', BuildStyle.defensive, ['macro', 'defense']),
   tvt5Fac('tvt_5fac', 'TvT', '5팩토리', BuildStyle.aggressive, ['attack', 'macro']),
+  tvtBBS('tvt_bbs', 'TvT', 'BBS', BuildStyle.cheese, ['attack', 'scout']),
 
   // ==================== ZvT 빌드 (10개) ====================
   // 기본 빌드 (6개)
@@ -372,7 +373,7 @@ enum BuildType {
   pvp4GateDragoon('pvp_4gate_dragoon', 'PvP', '21 3게이트 드라군', BuildStyle.cheese, ['attack', 'control']),
   pvp1GateMulti('pvp_1gate_multi', 'PvP', '원겟 멀티', BuildStyle.defensive, ['macro', 'defense']),
   pvp2GateReaver('pvp_2gate_reaver', 'PvP', '투겟 리버', BuildStyle.aggressive, ['harass', 'control']),
-  pvp3GateSpeedZealot('pvp_3gate_speedzealot', 'PvP', '스피드 질럿', BuildStyle.aggressive, ['attack', 'control']),
+  pvp3GateSpeedZealot('pvp_3gate_speedzealot', 'PvP', '발업 질럿', BuildStyle.aggressive, ['attack', 'control']),
 
   // ==================== ZvT 트랜지션 빌드 (6개) ====================
   zvtTransMutalUltra('zvt_trans_mutal_ultra', 'ZvT', '뮤탈→울트라', BuildStyle.aggressive, ['attack', 'macro']),
@@ -538,8 +539,8 @@ class BuildMatchup {
     if (a == BuildType.zvz12Pool && b == BuildType.zvz9OverPool) return 3;
     if (a == BuildType.zvz9OverPool && b == BuildType.zvz3HatchNoPool) return 15; // 9오버풀 > 노풀 3해처리
     if (a == BuildType.zvz3HatchNoPool && b == BuildType.zvz9OverPool) return -15;
-    if (a == BuildType.zvz9Pool && b == BuildType.zvz9OverPool) return 3;     // 9풀 > 9오버풀 (미세 우위)
-    if (a == BuildType.zvz9OverPool && b == BuildType.zvz9Pool) return -3;
+    if (a == BuildType.zvz9OverPool && b == BuildType.zvz9Pool) return 3;     // 9오버풀 > 9풀 (드론 하나 많은 장점)
+    if (a == BuildType.zvz9Pool && b == BuildType.zvz9OverPool) return -3;
     if (a == BuildType.zvzPoolFirst && b == BuildType.zvz9OverPool) return -5; // 9오버풀 > 4풀 (서플 관리)
     if (a == BuildType.zvz9OverPool && b == BuildType.zvzPoolFirst) return 5;
 
@@ -570,8 +571,8 @@ class BuildMatchup {
     if (a == BuildType.tvtWraithCloak && b == BuildType.tvt1FactPush) return -5;
     if (a == BuildType.tvt2FactVulture && b == BuildType.tvt1FactExpand) return 10; // 투팩벌처 > 원팩확장
     if (a == BuildType.tvt1FactExpand && b == BuildType.tvt2FactVulture) return -10;
-    if (a == BuildType.tvt2FactVulture && b == BuildType.tvtCCFirst) return 8;     // 투팩벌처 > 배럭더블
-    if (a == BuildType.tvtCCFirst && b == BuildType.tvt2FactVulture) return -8;
+    if (a == BuildType.tvtCCFirst && b == BuildType.tvt2FactVulture) return 3;     // 배럭더블 > 투팩벌처 (약 우위)
+    if (a == BuildType.tvt2FactVulture && b == BuildType.tvtCCFirst) return -3;
     if (a == BuildType.tvtWraithCloak && b == BuildType.tvt2FactVulture) return 10; // 투스타레이스 > 투팩벌처
     if (a == BuildType.tvt2FactVulture && b == BuildType.tvtWraithCloak) return -10;
     if (a == BuildType.tvt1FactExpand && b == BuildType.tvtWraithCloak) return 8;  // 원팩확장 > 투스타레이스
@@ -592,6 +593,19 @@ class BuildMatchup {
     if (a == BuildType.tvt5Fac && b == BuildType.tvt1FactPush) return -3;
     if (a == BuildType.tvt1FactExpand && b == BuildType.tvtCCFirst) return 5;      // 원팩확장 > 배럭더블
     if (a == BuildType.tvtCCFirst && b == BuildType.tvt1FactExpand) return -5;
+    // BBS 상성 (7쌍)
+    if (a == BuildType.tvtBBS && b == BuildType.tvtCCFirst) return 18;            // BBS > 배럭더블 (앞마당 벙커링)
+    if (a == BuildType.tvtCCFirst && b == BuildType.tvtBBS) return -18;
+    if (a == BuildType.tvtBBS && b == BuildType.tvt1FactExpand) return 15;        // BBS > 원팩확장 (확장 타이밍 공격)
+    if (a == BuildType.tvt1FactExpand && b == BuildType.tvtBBS) return -15;
+    if (a == BuildType.tvtBBS && b == BuildType.tvt2FactVulture) return 8;        // BBS > 투팩벌처 (벌처 나오기 전 공격)
+    if (a == BuildType.tvt2FactVulture && b == BuildType.tvtBBS) return -8;
+    if (a == BuildType.tvtBBS && b == BuildType.tvt5Fac) return 8;               // BBS > 5팩토리 (팩토리 올라가기 전 공격)
+    if (a == BuildType.tvt5Fac && b == BuildType.tvtBBS) return -8;
+    if (a == BuildType.tvtBBS && b == BuildType.tvtWraithCloak) return 5;         // BBS > 투스타레이스 (레이스 나오기 전 공격)
+    if (a == BuildType.tvtWraithCloak && b == BuildType.tvtBBS) return -5;
+    if (a == BuildType.tvtBBS && b == BuildType.tvt1FactPush) return 3;           // BBS > 원팩원스타 (둘 다 공격적, BBS 약간 빠름)
+    if (a == BuildType.tvt1FactPush && b == BuildType.tvtBBS) return -3;
 
     // TvP/PvT 특수 상성
     if (a == BuildType.tvpFakeDouble && b == BuildType.pvt1GateObserver) return -10; // 타이밍러쉬 < 23넥아비터
@@ -696,7 +710,7 @@ class BuildMatchup {
     if (a == BuildType.pvp1GateMulti && b == BuildType.pvp2GateDragoon) return -10;
     if (a == BuildType.pvp2GateReaver && b == BuildType.pvp2GateDragoon) return 3;    // 투겟리버 > 옵3겟
     if (a == BuildType.pvp2GateDragoon && b == BuildType.pvp2GateReaver) return -3;
-    if (a == BuildType.pvp2GateDragoon && b == BuildType.pvp3GateSpeedZealot) return 10; // 옵3겟 > 스피드질
+    if (a == BuildType.pvp2GateDragoon && b == BuildType.pvp3GateSpeedZealot) return 10; // 옵3겟 > 발업질
     if (a == BuildType.pvp3GateSpeedZealot && b == BuildType.pvp2GateDragoon) return -10;
     if (a == BuildType.pvpZealotRush && b == BuildType.pvpDarkAllIn) return 5;        // 센터99겟 > 다크더블
     if (a == BuildType.pvpDarkAllIn && b == BuildType.pvpZealotRush) return -5;
@@ -706,7 +720,7 @@ class BuildMatchup {
     if (a == BuildType.pvp1GateMulti && b == BuildType.pvpDarkAllIn) return -5;
     if (a == BuildType.pvp2GateReaver && b == BuildType.pvpDarkAllIn) return 12;      // 투겟리버 > 다크더블
     if (a == BuildType.pvpDarkAllIn && b == BuildType.pvp2GateReaver) return -12;
-    if (a == BuildType.pvp3GateSpeedZealot && b == BuildType.pvpDarkAllIn) return 3;  // 스피드질 > 다크더블
+    if (a == BuildType.pvp3GateSpeedZealot && b == BuildType.pvpDarkAllIn) return 3;  // 발업질 > 다크더블
     if (a == BuildType.pvpDarkAllIn && b == BuildType.pvp3GateSpeedZealot) return -3;
     if (a == BuildType.pvp1GateRobo && b == BuildType.pvpZealotRush) return 15;       // 기어리버 > 센터99겟
     if (a == BuildType.pvpZealotRush && b == BuildType.pvp1GateRobo) return -15;
@@ -716,23 +730,23 @@ class BuildMatchup {
     if (a == BuildType.pvp1GateMulti && b == BuildType.pvp1GateRobo) return -3;
     if (a == BuildType.pvp2GateReaver && b == BuildType.pvp1GateRobo) return 5;       // 투겟리버 > 기어리버
     if (a == BuildType.pvp1GateRobo && b == BuildType.pvp2GateReaver) return -5;
-    if (a == BuildType.pvp1GateRobo && b == BuildType.pvp3GateSpeedZealot) return 5;  // 기어리버 > 스피드질
+    if (a == BuildType.pvp1GateRobo && b == BuildType.pvp3GateSpeedZealot) return 5;  // 기어리버 > 발업질
     if (a == BuildType.pvp3GateSpeedZealot && b == BuildType.pvp1GateRobo) return -5;
     if (a == BuildType.pvp4GateDragoon && b == BuildType.pvpZealotRush) return 8;     // 3겟드라 > 센터99겟
     if (a == BuildType.pvpZealotRush && b == BuildType.pvp4GateDragoon) return -8;
     if (a == BuildType.pvp2GateReaver && b == BuildType.pvpZealotRush) return 8;      // 투겟리버 > 센터99겟
     if (a == BuildType.pvpZealotRush && b == BuildType.pvp2GateReaver) return -8;
-    if (a == BuildType.pvp3GateSpeedZealot && b == BuildType.pvpZealotRush) return 5; // 스피드질 > 센터99겟
+    if (a == BuildType.pvp3GateSpeedZealot && b == BuildType.pvpZealotRush) return 5; // 발업질 > 센터99겟
     if (a == BuildType.pvpZealotRush && b == BuildType.pvp3GateSpeedZealot) return -5;
     if (a == BuildType.pvp4GateDragoon && b == BuildType.pvp2GateReaver) return 10;   // 3겟드라 > 투겟리버
     if (a == BuildType.pvp2GateReaver && b == BuildType.pvp4GateDragoon) return -10;
-    if (a == BuildType.pvp4GateDragoon && b == BuildType.pvp3GateSpeedZealot) return 8; // 3겟드라 > 스피드질
+    if (a == BuildType.pvp4GateDragoon && b == BuildType.pvp3GateSpeedZealot) return 8; // 3겟드라 > 발업질
     if (a == BuildType.pvp3GateSpeedZealot && b == BuildType.pvp4GateDragoon) return -8;
     if (a == BuildType.pvp2GateReaver && b == BuildType.pvp1GateMulti) return 5;      // 투겟리버 > 원겟멀티
     if (a == BuildType.pvp1GateMulti && b == BuildType.pvp2GateReaver) return -5;
-    if (a == BuildType.pvp3GateSpeedZealot && b == BuildType.pvp1GateMulti) return 3; // 스피드질 > 원겟멀티
+    if (a == BuildType.pvp3GateSpeedZealot && b == BuildType.pvp1GateMulti) return 3; // 발업질 > 원겟멀티
     if (a == BuildType.pvp1GateMulti && b == BuildType.pvp3GateSpeedZealot) return -3;
-    if (a == BuildType.pvp2GateReaver && b == BuildType.pvp3GateSpeedZealot) return 8; // 투겟리버 > 스피드질
+    if (a == BuildType.pvp2GateReaver && b == BuildType.pvp3GateSpeedZealot) return 8; // 투겟리버 > 발업질
     if (a == BuildType.pvp3GateSpeedZealot && b == BuildType.pvp2GateReaver) return -8;
 
     return 0;

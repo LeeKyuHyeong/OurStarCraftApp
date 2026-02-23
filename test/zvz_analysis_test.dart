@@ -1,5 +1,5 @@
-// TvZ 100경기 상세 분석
-// 실행: flutter test test/tvz_analysis_test.dart --reporter expanded
+// ZvZ 100경기 상세 분석
+// 실행: flutter test test/zvz_analysis_test.dart --reporter expanded
 import 'dart:math';
 
 import 'package:flutter_test/flutter_test.dart';
@@ -38,18 +38,6 @@ const _balancedStats = PlayerStats(
   strategy: 650, macro: 650, defense: 650, scout: 650,
 );
 
-// 공격형 스탯
-const _aggroStats = PlayerStats(
-  sense: 550, control: 750, attack: 800, harass: 700,
-  strategy: 600, macro: 500, defense: 450, scout: 500,
-);
-
-// 수비형 스탯
-const _defStats = PlayerStats(
-  sense: 600, control: 600, attack: 450, harass: 500,
-  strategy: 700, macro: 800, defense: 750, scout: 550,
-);
-
 class GameRecord {
   final bool homeWin;
   final int lineCount;
@@ -71,14 +59,14 @@ class GameRecord {
 }
 
 void main() {
-  test('TvZ 100경기 상세 분석', () async {
+  test('ZvZ 100경기 상세 분석', () async {
     final service = MatchSimulationService();
     final buf = StringBuffer();
     final records = <GameRecord>[];
 
     // --- 100경기 시뮬레이션 ---
     for (int i = 0; i < 100; i++) {
-      final home = _makePlayer(name: 'Home', race: Race.terran, stats: _balancedStats);
+      final home = _makePlayer(name: 'Home', race: Race.zerg, stats: _balancedStats);
       final away = _makePlayer(name: 'Away', race: Race.zerg, stats: _balancedStats);
 
       final stream = service.simulateMatchWithLog(
@@ -110,7 +98,7 @@ void main() {
     // 1. 기본 통계
     // ============================================================
     buf.writeln('╔══════════════════════════════════════════╗');
-    buf.writeln('║   TvZ 100경기 시뮬레이션 분석 보고서     ║');
+    buf.writeln('║   ZvZ 100경기 시뮬레이션 분석 보고서     ║');
     buf.writeln('╚══════════════════════════════════════════╝');
     buf.writeln('');
 
@@ -127,8 +115,8 @@ void main() {
     buf.writeln('| 항목 | 값 |');
     buf.writeln('|------|-----|');
     buf.writeln('| 총 경기 | $totalGames |');
-    buf.writeln('| T 승리 | $homeWins (${(homeWins / totalGames * 100).toStringAsFixed(1)}%) |');
-    buf.writeln('| Z 승리 | $awayWins (${(awayWins / totalGames * 100).toStringAsFixed(1)}%) |');
+    buf.writeln('| Home 승리 | $homeWins (${(homeWins / totalGames * 100).toStringAsFixed(1)}%) |');
+    buf.writeln('| Away 승리 | $awayWins (${(awayWins / totalGames * 100).toStringAsFixed(1)}%) |');
     buf.writeln('| 평균 줄 수 | ${avgLines.toStringAsFixed(1)} |');
     buf.writeln('| 짧은 경기 (<=30줄) | $shortGames |');
     buf.writeln('| 중간 경기 (31~80줄) | $midGames |');
@@ -145,8 +133,8 @@ void main() {
 
     buf.writeln('## 2. 최종 병력/자원');
     buf.writeln('');
-    buf.writeln('| 항목 | T (Home) | Z (Away) |');
-    buf.writeln('|------|----------|----------|');
+    buf.writeln('| 항목 | Home | Away |');
+    buf.writeln('|------|------|------|');
     buf.writeln('| 평균 잔여 병력 | ${avgFinalHomeArmy.toStringAsFixed(1)} | ${avgFinalAwayArmy.toStringAsFixed(1)} |');
     buf.writeln('| 평균 잔여 자원 | ${avgFinalHomeRes.toStringAsFixed(1)} | ${avgFinalAwayRes.toStringAsFixed(1)} |');
     buf.writeln('| 병력 0 패배 | ${records.where((r) => !r.homeWin && r.finalHomeArmy <= 0).length} | ${records.where((r) => r.homeWin && r.finalAwayArmy <= 0).length} |');
@@ -180,14 +168,13 @@ void main() {
     // 4. 주요 유닛/키워드 등장 빈도
     // ============================================================
     final unitKeywords = [
-      // 테란
-      '마린', '메딕', '벌처', '탱크', '시즈', '골리앗', '드랍십', '베슬', '레이스', '발키리', '배틀크루저', 'EMP', '마인',
-      // 저그
-      '저글링', '히드라', '뮤탈', '럴커', '디파일러', '다크스웜', '울트라', '스커지', '가디언', '퀸',
+      '저글링', '뮤탈', '스커지', '히드라', '럴커', '드론',
+      '성큰', '스포어', '스파이어', '해처리', '레어', '하이브',
+      '디파일러', '울트라', '가디언', '오버로드', '발업',
     ];
 
-    final keywordGameCounts = <String, int>{}; // 키워드가 등장한 경기 수
-    final keywordTotalCounts = <String, int>{}; // 총 등장 횟수
+    final keywordGameCounts = <String, int>{};
+    final keywordTotalCounts = <String, int>{};
 
     for (final r in records) {
       final seen = <String>{};
@@ -204,7 +191,6 @@ void main() {
       }
     }
 
-    // 등장 빈도 높은 순 정렬
     final sortedKeywords = keywordGameCounts.keys.toList()
       ..sort((a, b) => keywordGameCounts[b]!.compareTo(keywordGameCounts[a]!));
 
@@ -225,11 +211,10 @@ void main() {
     final textCounts = <String, int>{};
     for (final r in records) {
       for (final e in r.entries) {
-        if (e.owner == LogOwner.system) continue; // 해설 제외
-        // 선수명 제거하여 패턴 그룹핑
+        if (e.owner == LogOwner.system) continue;
         final normalized = e.text
-            .replaceAll('Home', '{T}')
-            .replaceAll('Away', '{Z}');
+            .replaceAll('Home', '{H}')
+            .replaceAll('Away', '{A}');
         textCounts[normalized] = (textCounts[normalized] ?? 0) + 1;
       }
     }
@@ -254,8 +239,8 @@ void main() {
       for (final e in r.entries) {
         if (e.owner != LogOwner.system) continue;
         final normalized = e.text
-            .replaceAll('Home', '{T}')
-            .replaceAll('Away', '{Z}');
+            .replaceAll('Home', '{H}')
+            .replaceAll('Away', '{A}');
         systemTexts[normalized] = (systemTexts[normalized] ?? 0) + 1;
       }
     }
@@ -278,11 +263,10 @@ void main() {
     final forbiddenPatterns = [
       '불굴의 정신력',
       '질럿 스피드 연구',
-      '스피드',
-      '질럿으로 벌처',
       '경제력 우위',
       '경제 흔들기',
       '공격적 오프닝과 수비적 오프닝의 대결',
+      '저글링 속도 업그레이드',
     ];
 
     final violations = <String>[];
@@ -320,13 +304,13 @@ void main() {
     buf.writeln('## 8. 경기 예시 (마지막 경기 전체 로그)');
     buf.writeln('');
     final sample = records.last;
-    buf.writeln('결과: ${sample.homeWin ? "T 승리" : "Z 승리"} | 병력 T:${sample.finalHomeArmy} Z:${sample.finalAwayArmy} | 자원 T:${sample.finalHomeRes} Z:${sample.finalAwayRes}');
+    buf.writeln('결과: ${sample.homeWin ? "Home 승리" : "Away 승리"} | 병력 H:${sample.finalHomeArmy} A:${sample.finalAwayArmy} | 자원 H:${sample.finalHomeRes} A:${sample.finalAwayRes}');
     buf.writeln('');
     buf.writeln('```');
     for (final e in sample.entries) {
       final prefix = switch (e.owner) {
-        LogOwner.home => '[T]',
-        LogOwner.away => '[Z]',
+        LogOwner.home => '[H]',
+        LogOwner.away => '[A]',
         LogOwner.system => '[해설]',
         LogOwner.clash => '[전투]',
       };
