@@ -514,8 +514,8 @@ class BuildMatchup {
     // ZvZ 특수 상성 (10쌍)
     if (a == BuildType.zvzPoolFirst && b == BuildType.zvz12Hatch) return 20;   // 4풀 > 12앞마당
     if (a == BuildType.zvz12Hatch && b == BuildType.zvzPoolFirst) return -20;
-    if (a == BuildType.zvz9Pool && b == BuildType.zvz12Hatch) return 15;       // 9레어 > 12앞마당
-    if (a == BuildType.zvz12Hatch && b == BuildType.zvz9Pool) return -15;
+    if (a == BuildType.zvz9Pool && b == BuildType.zvz12Hatch) return 2;        // 9풀 > 12앞마당 (경제력 회복 가능)
+    if (a == BuildType.zvz12Hatch && b == BuildType.zvz9Pool) return -2;
     if (a == BuildType.zvz9Pool && b == BuildType.zvzPoolFirst) return 8;      // 9풀 > 4풀
     if (a == BuildType.zvzPoolFirst && b == BuildType.zvz9Pool) return -8;
     if (a == BuildType.zvzPoolFirst && b == BuildType.zvz3HatchNoPool) return 25; // 4풀 > 노풀 3해처리 (극상성)

@@ -466,23 +466,22 @@ const _zvz12hatchVs9pool = ScenarioScript(
     ),
     // Phase 4: 결전 (lines 53-68)
     // 12앞마당의 경제력 우위가 뮤탈 물량으로 전환
-    // 고정 피해로 awayArmy를 깎고, skipChance 이벤트로 추가 킬 가능
+    // winRate ~38% → decisive로 결정
     // 목표: 전체 35-42% 홈 승률
     ScriptPhase(
       name: 'decisive_battle',
       startLine: 53,
-      recoveryArmyPerLine: 0,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 뮤탈이 완성됩니다! 스커지도 섞습니다!',
           owner: LogOwner.home,
-          homeArmy: 10, homeResource: -20,
+          homeArmy: 8, homeResource: -20,
           altText: '{home}, 뮤탈+스커지! 반격 준비!',
         ),
         ScriptEvent(
           text: '{away} 선수 뮤탈로 드론을 견제하지만 스포어에 막힙니다!',
           owner: LogOwner.away,
-          awayArmy: -5, favorsStat: 'harass',
+          awayArmy: -3, favorsStat: 'harass',
           altText: '{away}, 스포어에 막힙니다! 뮤탈이 녹고 있어요!',
         ),
         ScriptEvent(
@@ -492,31 +491,24 @@ const _zvz12hatchVs9pool = ScenarioScript(
         ScriptEvent(
           text: '{home}, 스커지 자폭! 상대 뮤탈을 잡아냅니다!',
           owner: LogOwner.home,
-          awayArmy: -12, homeArmy: -5, favorsStat: 'control',
+          awayArmy: -8, homeArmy: -4, favorsStat: 'control',
           altText: '{home} 선수 스커지가 뮤탈에 돌진! 격추합니다!',
         ),
         ScriptEvent(
           text: '{home}, 경제력 차이! 뮤탈을 계속 보충합니다!',
           owner: LogOwner.home,
-          homeArmy: 8, homeResource: -15,
+          homeArmy: 5, homeResource: -15,
           altText: '{home} 선수 경제력으로 뮤탈 추가 생산!',
         ),
         ScriptEvent(
           text: '{away}, 자원이 부족합니다! 뮤탈을 뽑을 수가 없어요!',
           owner: LogOwner.away,
-          awayArmy: -8, awayResource: -10,
+          awayArmy: -5, awayResource: -10,
         ),
         ScriptEvent(
-          text: '{home}, 뮤탈 편대로 상대 드론을 학살합니다!',
+          text: '{home}, 뮤탈 편대로 상대 드론을 견제합니다!',
           owner: LogOwner.home,
-          awayArmy: -15, awayResource: -20, favorsStat: 'harass',
-          skipChance: 0.45,
-        ),
-        ScriptEvent(
-          text: '{home}, 경제력으로 뮤탈을 추가 보충! 물량 차이가 큽니다!',
-          owner: LogOwner.home,
-          homeArmy: 5, awayArmy: -12, favorsStat: 'macro',
-          skipChance: 0.45,
+          awayResource: -15, favorsStat: 'harass',
         ),
         ScriptEvent(
           text: '경제 차이가 승부를 가르고 있습니다!',
