@@ -3,6 +3,11 @@ import '../../domain/services/match_simulation_service.dart';
 import '../../domain/models/models.dart';
 
 part 'scenario_tvz.dart';
+part 'scenario_pvt.dart';
+part 'scenario_zvp.dart';
+part 'scenario_tvt.dart';
+part 'scenario_zvz.dart';
+part 'scenario_pvp.dart';
 
 // ============================================================
 // 시나리오 스크립트 데이터 클래스
@@ -146,8 +151,8 @@ class ScenarioScriptData {
       return exactMatches[random.nextInt(exactMatches.length)];
     }
 
-    // 2. 역방향 매칭 (ZvT 빌드가 home이고 TvZ가 away인 경우)
-    final reverseMatchup = matchup == 'TvZ' ? 'ZvT' : (matchup == 'ZvT' ? 'TvZ' : null);
+    // 2. 역방향 매칭 (ZvT 빌드가 home이고 TvZ가 away인 경우 등)
+    final reverseMatchup = _reverseMatchups[matchup];
     if (reverseMatchup != null) {
       final reverseMatches = _allScripts.where((s) =>
         s.matchup == reverseMatchup &&
@@ -177,6 +182,14 @@ class ScenarioScriptData {
   // 전체 스크립트 목록 (종족별 파일에서 정의)
   // ============================================================
 
+  static const Map<String, String> _reverseMatchups = {
+    'TvZ': 'ZvT', 'ZvT': 'TvZ',
+    'TvP': 'PvT', 'PvT': 'TvP',
+    'ZvP': 'PvZ', 'PvZ': 'ZvP',
+    // 미러 매치업은 역방향이 자기 자신
+    'TvT': 'TvT', 'ZvZ': 'ZvZ', 'PvP': 'PvP',
+  };
+
   static const List<ScenarioScript> _allScripts = [
     // TvZ (scenario_tvz.dart)
     _tvzBioVsMutal,
@@ -186,5 +199,34 @@ class ScenarioScriptData {
     _tvzWraithVsMutal,
     _tvzCheeseVsCheese,
     _tvz9poolVsStandard,
+    // PvT (scenario_pvt.dart)
+    _pvtDragoonExpandVsFactory,
+    _pvtReaverVsTiming,
+    _pvtDarkVsStandard,
+    _pvtCheeseVsStandard,
+    _pvtCarrierVsAnti,
+    _pvt5gatePush,
+    // ZvP (scenario_zvp.dart)
+    _zvpHydraVsForge,
+    _zvpMutalVsForge,
+    _zvp9poolVsForge,
+    _zvpCheeseVsCheese,
+    _zvpMukerjiVsCorsairReaver,
+    // TvT (scenario_tvt.dart)
+    _tvtRaxDoubleVsFacDouble,
+    _tvtBbsVsDouble,
+    _tvtWraithVsRaxDouble,
+    _tvt5facVsMineTriple,
+    // ZvZ (scenario_zvz.dart)
+    _zvz9poolVs9overpool,
+    _zvz12hatchVs9pool,
+    _zvz4poolVs12hatch,
+    _zvz3hatchMirror,
+    // PvP (scenario_pvp.dart)
+    _pvpDragoonNexusMirror,
+    _pvpDragoonVsNogate,
+    _pvpRoboVs2gateDragoon,
+    _pvpDarkVsDragoon,
+    _pvpZealotRush,
   ];
 }

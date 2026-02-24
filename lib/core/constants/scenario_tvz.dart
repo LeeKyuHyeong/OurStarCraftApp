@@ -29,10 +29,10 @@ const _tvzBioVsMutal = ScenarioScript(
           homeResource: -10,
         ),
         ScriptEvent(
-          text: '{away} 선수 앞마당에 해처리를 올립니다! 빠른 확장이네요.',
+          text: '{away} 선수 앞마당에 해처리를 올립니다!',
           owner: LogOwner.away,
           awayResource: -30,
-          altText: '{away}, 해처리부터 올립니다! 앞마당 확장이 빠르구요.',
+          altText: '{away}, 해처리부터 올립니다! 앞마당 확장을 가져가는군요.',
         ),
         ScriptEvent(
           text: '{home} 선수 마린 생산!',

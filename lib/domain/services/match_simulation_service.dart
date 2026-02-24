@@ -534,29 +534,26 @@ class MatchSimulationService {
     );
     bool openingMismatchShown = false;
 
-    // 시나리오 스크립트 선택 (TvZ/ZvT)
+    // 시나리오 스크립트 선택 (모든 종족전)
     final matchupStr = '${_getRaceString(homePlayer.race)}v${_getRaceString(awayPlayer.race)}';
-    final isTvZMatchup = matchupStr == 'TvZ' || matchupStr == 'ZvT';
     ScenarioScript? scenarioScript;
     bool scenarioReversed = false; // 스크립트의 home/away가 실제와 반전
     int scenarioPhaseIndex = 0;
     int scenarioEventIndex = 0;
     List<ScriptEvent>? scenarioActiveEvents; // 현재 실행 중인 이벤트 리스트 (분기 선택 후)
 
-    if (isTvZMatchup) {
-      scenarioScript = ScenarioScriptData.selectScript(
-        matchup: matchupStr,
+    scenarioScript = ScenarioScriptData.selectScript(
+      matchup: matchupStr,
+      homeBuildType: homeBuildType,
+      awayBuildType: awayBuildType,
+      map: map,
+      random: _random,
+    );
+    if (scenarioScript != null) {
+      scenarioReversed = ScenarioScriptData.isReversed(
+        script: scenarioScript,
         homeBuildType: homeBuildType,
-        awayBuildType: awayBuildType,
-        map: map,
-        random: _random,
       );
-      if (scenarioScript != null) {
-        scenarioReversed = ScenarioScriptData.isReversed(
-          script: scenarioScript,
-          homeBuildType: homeBuildType,
-        );
-      }
     }
 
     // ZvZ 상수 (루프 밖에서 한번만 계산)
