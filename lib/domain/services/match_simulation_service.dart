@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import '../models/models.dart';
 import '../../core/constants/build_orders.dart';
+import '../../core/constants/scenario_scripts.dart';
 
 /// 전투 로그 소유자 타입
 enum LogOwner {
@@ -533,6 +534,31 @@ class MatchSimulationService {
     );
     bool openingMismatchShown = false;
 
+    // 시나리오 스크립트 선택 (TvZ/ZvT)
+    final matchupStr = '${_getRaceString(homePlayer.race)}v${_getRaceString(awayPlayer.race)}';
+    final isTvZMatchup = matchupStr == 'TvZ' || matchupStr == 'ZvT';
+    ScenarioScript? scenarioScript;
+    bool scenarioReversed = false; // 스크립트의 home/away가 실제와 반전
+    int scenarioPhaseIndex = 0;
+    int scenarioEventIndex = 0;
+    List<ScriptEvent>? scenarioActiveEvents; // 현재 실행 중인 이벤트 리스트 (분기 선택 후)
+
+    if (isTvZMatchup) {
+      scenarioScript = ScenarioScriptData.selectScript(
+        matchup: matchupStr,
+        homeBuildType: homeBuildType,
+        awayBuildType: awayBuildType,
+        map: map,
+        random: _random,
+      );
+      if (scenarioScript != null) {
+        scenarioReversed = ScenarioScriptData.isReversed(
+          script: scenarioScript,
+          homeBuildType: homeBuildType,
+        );
+      }
+    }
+
     // ZvZ 상수 (루프 밖에서 한번만 계산)
     final isZvZ = homePlayer.race == Race.zerg && awayPlayer.race == Race.zerg;
     final isZvZAggressiveVsNonAggressive = isZvZ && (
@@ -545,12 +571,88 @@ class MatchSimulationService {
     while (!state.isFinished && lineCount < maxLines) {
       lineCount++;
 
+      // ========== 시나리오 스크립트 실행 (TvZ) ==========
+      // 시나리오 첫 phase 이전에는 기존 빌드오더 병합 시스템이 처리 (초반 빌드업 표시)
+      if (scenarioScript != null && lineCount >= scenarioScript.phases.first.startLine) {
+        final scriptResult = _executeScenarioLine(
+          script: scenarioScript,
+          phaseIndex: scenarioPhaseIndex,
+          eventIndex: scenarioEventIndex,
+          activeEvents: scenarioActiveEvents,
+          state: state,
+          homePlayer: homePlayer,
+          awayPlayer: awayPlayer,
+          homeStats: homeStats,
+          awayStats: awayStats,
+          reversed: scenarioReversed,
+          lineCount: lineCount,
+          map: map,
+          usedTexts: usedTexts,
+        );
+
+        if (scriptResult != null) {
+          scenarioPhaseIndex = scriptResult.nextPhaseIndex;
+          scenarioEventIndex = scriptResult.nextEventIndex;
+          scenarioActiveEvents = scriptResult.activeEvents;
+
+          if (scriptResult.entry != null) {
+            state = scriptResult.newState;
+            yield state;
+            await Future.delayed(Duration(milliseconds: getIntervalMs()));
+
+            // 승패 체크
+            if (scriptResult.decisive) {
+              yield* _emitEnding(
+                state: state,
+                homeWinOverride: null,
+                winRate: winRate,
+                homePlayer: homePlayer,
+                awayPlayer: awayPlayer,
+                lineCount: lineCount,
+                getIntervalMs: getIntervalMs,
+              );
+              return;
+            }
+
+            final winCheck = _checkWinCondition(state, lineCount);
+            if (winCheck != null) {
+              yield* _emitEnding(
+                state: state,
+                homeWinOverride: winCheck,
+                winRate: winRate,
+                homePlayer: homePlayer,
+                awayPlayer: awayPlayer,
+                lineCount: lineCount,
+                getIntervalMs: getIntervalMs,
+              );
+              return;
+            }
+          } else {
+            // 이벤트 없는 라인: 회복 적용
+            final phase = scenarioScript.phases[scriptResult.nextPhaseIndex < scenarioScript.phases.length
+                ? scriptResult.nextPhaseIndex : scenarioScript.phases.length - 1];
+            state = state.copyWith(
+              homeArmy: (state.homeArmy + phase.recoveryArmyPerLine).clamp(0, 200),
+              awayArmy: (state.awayArmy + phase.recoveryArmyPerLine).clamp(0, 200),
+              homeResources: (state.homeResources + phase.recoveryResourcePerLine).clamp(0, 10000),
+              awayResources: (state.awayResources + phase.recoveryResourcePerLine).clamp(0, 10000),
+            );
+          }
+          continue;
+        }
+        // scriptResult == null: 스크립트 소진, 기존 시스템으로 폴백
+        scenarioScript = null;
+      }
+
       // 현재 라인에 해당하는 이벤트 결정 (양측 독립)
       final homeStep = _getNextStep(homeBuildFinal, homeIndex, lineCount);
       final awayStep = _getNextStep(awayBuildFinal, awayIndex, lineCount);
 
+      // 시나리오 시작 전에는 클래시 억제 (빌드 스텝이 자연스럽게 진행되도록)
+      final scenarioPending = scenarioScript != null && lineCount < scenarioScript.phases.first.startLine;
+
       // 충돌 체크
-      if (!clashOccurred && (
+      if (!clashOccurred && !scenarioPending && (
           (homeStep?.isClash == true) ||
           (awayStep?.isClash == true) ||
           (isZvZAggressiveVsNonAggressive && lineCount >= 10 && _random.nextDouble() < 0.4) ||
@@ -1808,15 +1910,15 @@ class MatchSimulationService {
       ],
     ),
 
-    // 3. 530뮤탈 vs 테란 수비
+    // 3. 원해처리 럴커 vs 테란 수비
     const _BuildMatchupRule(
       attackerIds: {'zvt_1hatch_allin', 'zvt_trans_530_mutal'},
       defenderIds: {'tvz_3fac_goliath', 'tvz_valkyrie',
                     'tvz_trans_mech_goliath', 'tvz_trans_valkyrie'},
       texts: [
-        '{atk} 선수 {atkBuild}! 빠른 뮤탈로 견제를 노리는데요, {def} 선수 대공이 관건!',
-        '{atkBuild}입니다! {def} 선수 {defBuild}인데, 뮤탈 대비가 됐을지!',
-        '{atk} 선수 빠른 뮤탈 전환! {def} 선수 {defBuild}로 대공을 준비하고 있습니다!',
+        '{atk} 선수 {atkBuild}! 빠른 럴커로 돌파를 노리는데요, {def} 선수 스캔이 관건!',
+        '{atkBuild}입니다! {def} 선수 {defBuild}인데, 럴커 대비가 됐을지!',
+        '{atk} 선수 원해처리 럴커 올인! {def} 선수 {defBuild}로 방어를 준비하고 있습니다!',
       ],
     ),
 
@@ -1834,22 +1936,22 @@ class MatchSimulationService {
       ],
     ),
 
-    // 5. 벙커링 vs 530뮤탈 (양쪽 초반)
+    // 5. 벙커링 vs 원해처리 럴커 (양쪽 초반)
     const _BuildMatchupRule(
       attackerIds: {'tvz_bunker'},
       defenderIds: {'zvt_1hatch_allin', 'zvt_trans_530_mutal'},
       texts: [
         '양쪽 다 초반 승부수입니다! {atkBuild} vs {defBuild}, 누가 먼저 치명타를 입히느냐!',
-        '{atk} 선수 벙커링, {def} 선수 빠른 뮤탈! 양쪽 다 올인에 가까운 선택이네요!',
-        '초반부터 살벌합니다! 벙커가 먼저냐 뮤탈이 먼저냐, 타이밍 싸움이 되겠네요!',
+        '{atk} 선수 벙커링, {def} 선수 원해처리 럴커! 양쪽 다 올인에 가까운 선택이네요!',
+        '초반부터 살벌합니다! 벙커가 먼저냐 럴커가 먼저냐, 타이밍 싸움이 되겠네요!',
       ],
     ),
 
     // 6. 투스타레이스 vs 뮤탈 (공중전)
     const _BuildMatchupRule(
       attackerIds: {'tvz_2star_wraith', 'tvz_trans_wraith'},
-      defenderIds: {'zvt_2hatch_mutal', 'zvt_1hatch_allin',
-                    'zvt_trans_2hatch_mutal', 'zvt_trans_530_mutal',
+      defenderIds: {'zvt_2hatch_mutal',
+                    'zvt_trans_2hatch_mutal',
                     'zvt_trans_mutal_ultra', 'zvt_trans_mutal_lurker'},
       texts: [
         '레이스 vs 뮤탈! 공중에서 격돌이 벌어집니다! 누가 하늘을 장악할까요!',
@@ -1866,6 +1968,30 @@ class MatchSimulationService {
         '{atk} 선수 {atkBuild}! 밸런스 체제로 {def} 선수의 물량을 상대합니다!',
         '{atkBuild} vs {defBuild}! 테란의 밸런스 운영이 저그 물량을 감당할 수 있을지!',
         '{def} 선수 3해처리 물량! {atk} 선수 111로 대응하는데, 타이밍 싸움이 관건입니다!',
+      ],
+    ),
+
+    // 8. 9풀/9오버풀 vs 수비형 테란 (빠른 저글링으로 노배럭더블 공략)
+    const _BuildMatchupRule(
+      attackerIds: {'zvt_9pool', 'zvt_9overpool',
+                    'zvt_trans_mutal_ultra', 'zvt_trans_2hatch_mutal'},
+      defenderIds: {'tvz_3fac_goliath', 'tvz_valkyrie',
+                    'tvz_trans_mech_goliath', 'tvz_trans_valkyrie'},
+      texts: [
+        '{atk} 선수 빠른 저글링! {def} 선수 수비형인데 마린이 늦을 수 있겠는데요!',
+        '{atkBuild}입니다! {def} 선수 {defBuild}로 갔는데 초반 저글링 대응이 관건!',
+        '저글링이 빠릅니다! {def} 선수 배럭이 늦었는데 SCV 컨트롤로 버텨야 합니다!',
+      ],
+    ),
+
+    // 9. 벙커러쉬 vs 노풀3해처리 (극상성)
+    const _BuildMatchupRule(
+      attackerIds: {'tvz_bunker'},
+      defenderIds: {'zvt_3hatch_nopool'},
+      texts: [
+        '큰일 났습니다! {def} 선수 노풀 3해처리인데 벙커러쉬가 들어옵니다!',
+        '{atk} 선수 벙커러쉬! {def} 선수 스포닝풀도 없는 상황! 드론으로 막아야 합니다!',
+        '최악의 상성입니다! {def} 선수 저글링이 없는데 벙커가 올라가고 있네요!',
       ],
     ),
 
@@ -3289,6 +3415,260 @@ class MatchSimulationService {
     }
   }
 
+  // ==================== 시나리오 스크립트 실행 엔진 ====================
+
+  /// 시나리오 스크립트 한 라인 실행
+  /// 반환: null이면 스크립트 소진 (기존 시스템으로 폴백)
+  _ScenarioLineResult? _executeScenarioLine({
+    required ScenarioScript script,
+    required int phaseIndex,
+    required int eventIndex,
+    required List<ScriptEvent>? activeEvents,
+    required SimulationState state,
+    required Player homePlayer,
+    required Player awayPlayer,
+    required PlayerStats homeStats,
+    required PlayerStats awayStats,
+    required bool reversed,
+    required int lineCount,
+    required GameMap map,
+    required Map<String, int> usedTexts,
+  }) {
+    // 모든 페이즈 소진 시 null 반환
+    if (phaseIndex >= script.phases.length) return null;
+
+    final phase = script.phases[phaseIndex];
+
+    // 현재 라인이 페이즈 시작 라인보다 작으면 빈 라인 (회복만)
+    if (lineCount < phase.startLine) {
+      return _ScenarioLineResult(
+        nextPhaseIndex: phaseIndex,
+        nextEventIndex: eventIndex,
+        activeEvents: activeEvents,
+        newState: state,
+        entry: null,
+        decisive: false,
+      );
+    }
+
+    // 이벤트 리스트 결정 (분기 또는 선형)
+    if (activeEvents == null) {
+      if (phase.linearEvents != null) {
+        activeEvents = phase.linearEvents!;
+      } else if (phase.branches != null && phase.branches!.isNotEmpty) {
+        final branch = _selectScriptBranch(
+          branches: phase.branches!,
+          homeStats: homeStats,
+          awayStats: awayStats,
+          reversed: reversed,
+        );
+        activeEvents = branch.events;
+      } else {
+        // 이벤트 없는 페이즈 → 다음 페이즈로
+        return _ScenarioLineResult(
+          nextPhaseIndex: phaseIndex + 1,
+          nextEventIndex: 0,
+          activeEvents: null,
+          newState: state,
+          entry: null,
+          decisive: false,
+        );
+      }
+    }
+
+    // 현재 페이즈의 이벤트가 모두 소진 → 다음 페이즈로
+    if (eventIndex >= activeEvents.length) {
+      return _ScenarioLineResult(
+        nextPhaseIndex: phaseIndex + 1,
+        nextEventIndex: 0,
+        activeEvents: null,
+        newState: state,
+        entry: null,
+        decisive: false,
+      );
+    }
+
+    // 이벤트 선택 (skipChance, mapTag 체크)
+    ScriptEvent? event;
+    int nextEventIndex = eventIndex;
+    while (nextEventIndex < activeEvents.length) {
+      final candidate = activeEvents[nextEventIndex];
+      nextEventIndex++;
+
+      // 맵 조건 체크
+      if (candidate.requiresMapTag != null && !_checkMapTag(candidate.requiresMapTag!, map)) {
+        continue;
+      }
+      // 스킵 확률 체크
+      if (candidate.skipChance > 0 && _random.nextDouble() < candidate.skipChance) {
+        continue;
+      }
+      event = candidate;
+      break;
+    }
+
+    // 이벤트가 없으면 (모두 스킵됨) 빈 라인
+    if (event == null) {
+      // 이 페이즈의 남은 이벤트 모두 소진됨
+      if (nextEventIndex >= activeEvents.length) {
+        return _ScenarioLineResult(
+          nextPhaseIndex: phaseIndex + 1,
+          nextEventIndex: 0,
+          activeEvents: null,
+          newState: state,
+          entry: null,
+          decisive: false,
+        );
+      }
+      return _ScenarioLineResult(
+        nextPhaseIndex: phaseIndex,
+        nextEventIndex: nextEventIndex,
+        activeEvents: activeEvents,
+        newState: state,
+        entry: null,
+        decisive: false,
+      );
+    }
+
+    // 텍스트 선택 (altText 50% 확률)
+    String text = event.text;
+    if (event.altText != null && _random.nextBool()) {
+      text = event.altText!;
+    }
+
+    // 플레이스홀더 치환
+    text = _resolveScriptPlaceholders(
+      text: text,
+      homePlayer: homePlayer,
+      awayPlayer: awayPlayer,
+      reversed: reversed,
+    );
+
+    // 방송 어미 변환
+    text = _transformEnding(text);
+
+    // 병력/자원 변화 계산 (favorsStat 보정 적용)
+    int homeArmyChange = reversed ? event.awayArmy : event.homeArmy;
+    int awayArmyChange = reversed ? event.homeArmy : event.awayArmy;
+    int homeResourceChange = reversed ? event.awayResource : event.homeResource;
+    int awayResourceChange = reversed ? event.homeResource : event.awayResource;
+
+    // favorsStat 보정 (기존 클래시 로직 재사용)
+    if (event.favorsStat != null) {
+      final homeStat = _getStatValue(homeStats, event.favorsStat);
+      final awayStat = _getStatValue(awayStats, event.favorsStat);
+      final statDiff = (homeStat - awayStat).abs();
+      final modifier = 1.0 + (statDiff / 800).clamp(0.0, 0.3);
+
+      if (homeStat > awayStat) {
+        // 홈이 유리: 홈 피해 감소, 어웨이 피해 증가
+        if (homeArmyChange < 0) homeArmyChange = (homeArmyChange * (2 - modifier)).round();
+        if (awayArmyChange < 0) awayArmyChange = (awayArmyChange * modifier).round();
+        if (homeResourceChange < 0) homeResourceChange = (homeResourceChange * (2 - modifier)).round();
+        if (awayResourceChange < 0) awayResourceChange = (awayResourceChange * modifier).round();
+      } else if (awayStat > homeStat) {
+        if (awayArmyChange < 0) awayArmyChange = (awayArmyChange * (2 - modifier)).round();
+        if (homeArmyChange < 0) homeArmyChange = (homeArmyChange * modifier).round();
+        if (awayResourceChange < 0) awayResourceChange = (awayResourceChange * (2 - modifier)).round();
+        if (homeResourceChange < 0) homeResourceChange = (homeResourceChange * modifier).round();
+      }
+    }
+
+    // 상태 업데이트
+    final newState = state.copyWith(
+      homeArmy: (state.homeArmy + homeArmyChange).clamp(0, 200),
+      awayArmy: (state.awayArmy + awayArmyChange).clamp(0, 200),
+      homeResources: (state.homeResources + homeResourceChange).clamp(0, 10000),
+      awayResources: (state.awayResources + awayResourceChange).clamp(0, 10000),
+      battleLogEntries: [...state.battleLogEntries, BattleLogEntry(text: text, owner: _resolveScriptOwner(event.owner, reversed))],
+    );
+
+    return _ScenarioLineResult(
+      nextPhaseIndex: phaseIndex,
+      nextEventIndex: nextEventIndex,
+      activeEvents: activeEvents,
+      newState: newState,
+      entry: BattleLogEntry(text: text, owner: _resolveScriptOwner(event.owner, reversed)),
+      decisive: event.decisive,
+    );
+  }
+
+  /// 분기 선택
+  ScriptBranch _selectScriptBranch({
+    required List<ScriptBranch> branches,
+    required PlayerStats homeStats,
+    required PlayerStats awayStats,
+    required bool reversed,
+  }) {
+    // conditionStat 조건에 맞는 분기 필터링
+    final eligible = <ScriptBranch>[];
+    for (final branch in branches) {
+      if (branch.conditionStat != null) {
+        final homeStat = _getStatValue(reversed ? awayStats : homeStats, branch.conditionStat);
+        final awayStat = _getStatValue(reversed ? homeStats : awayStats, branch.conditionStat);
+        final homeHigher = homeStat > awayStat;
+        if (branch.homeStatMustBeHigher == homeHigher) {
+          eligible.add(branch);
+        }
+      } else {
+        eligible.add(branch);
+      }
+    }
+
+    if (eligible.isEmpty) {
+      // 조건 미충족 시 baseProbability로 가중 랜덤
+      return _weightedBranchSelect(branches);
+    }
+    if (eligible.length == 1) return eligible.first;
+    return _weightedBranchSelect(eligible);
+  }
+
+  ScriptBranch _weightedBranchSelect(List<ScriptBranch> branches) {
+    final totalWeight = branches.fold(0.0, (sum, b) => sum + b.baseProbability);
+    var roll = _random.nextDouble() * totalWeight;
+    for (final branch in branches) {
+      roll -= branch.baseProbability;
+      if (roll <= 0) return branch;
+    }
+    return branches.last;
+  }
+
+  /// 플레이스홀더 치환
+  String _resolveScriptPlaceholders({
+    required String text,
+    required Player homePlayer,
+    required Player awayPlayer,
+    required bool reversed,
+  }) {
+    // {home}/{away}는 스크립트 기준 (reversed면 실제 반전)
+    final scriptHome = reversed ? awayPlayer : homePlayer;
+    final scriptAway = reversed ? homePlayer : awayPlayer;
+    return text
+        .replaceAll('{home}', scriptHome.name)
+        .replaceAll('{away}', scriptAway.name)
+        .replaceAll('{terran}', homePlayer.race == Race.terran ? homePlayer.name : awayPlayer.name)
+        .replaceAll('{zerg}', homePlayer.race == Race.zerg ? homePlayer.name : awayPlayer.name);
+  }
+
+  /// 스크립트 owner를 실제 home/away로 변환
+  LogOwner _resolveScriptOwner(LogOwner scriptOwner, bool reversed) {
+    if (!reversed) return scriptOwner;
+    if (scriptOwner == LogOwner.home) return LogOwner.away;
+    if (scriptOwner == LogOwner.away) return LogOwner.home;
+    return scriptOwner; // system, clash는 그대로
+  }
+
+  /// 맵 태그 체크
+  bool _checkMapTag(String tag, GameMap map) {
+    switch (tag) {
+      case 'rushShort': return map.rushDistance <= 4;
+      case 'rushLong': return map.rushDistance >= 7;
+      case 'airHigh': return map.airAccessibility >= 7;
+      case 'terrainHigh': return map.terrainComplexity >= 7;
+      default: return false;
+    }
+  }
+
   /// 승패 조건 체크
   bool? _checkWinCondition(SimulationState state, int lineCount) {
     // 병력 0 이하 = 패배
@@ -3528,6 +3908,25 @@ class _ClashResult {
     required this.awayResourceChange,
     required this.decisive,
     this.homeWinOverride,
+  });
+}
+
+/// 시나리오 스크립트 실행 결과
+class _ScenarioLineResult {
+  final int nextPhaseIndex;
+  final int nextEventIndex;
+  final List<ScriptEvent>? activeEvents;
+  final SimulationState newState;
+  final BattleLogEntry? entry; // null이면 빈 라인 (회복만)
+  final bool decisive;
+
+  const _ScenarioLineResult({
+    required this.nextPhaseIndex,
+    required this.nextEventIndex,
+    this.activeEvents,
+    required this.newState,
+    this.entry,
+    required this.decisive,
   });
 }
 
