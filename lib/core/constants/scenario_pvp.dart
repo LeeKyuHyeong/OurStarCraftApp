@@ -14,7 +14,7 @@ const _pvpDragoonNexusMirror = ScenarioScript(
   id: 'pvp_dragoon_nexus_mirror',
   matchup: 'PvP',
   homeBuildIds: ['pvp_2gate_dragoon'],
-  awayBuildIds: ['pvp_2gate_dragoon', 'pvp_1gate_multi'],
+  awayBuildIds: ['pvp_2gate_dragoon'],
   description: '원겟 드라군 넥서스 미러',
   phases: [
     // Phase 0: 오프닝 (lines 1-16)
@@ -363,23 +363,22 @@ const _pvpDragoonVsNogate = ScenarioScript(
             ScriptEvent(
               text: '{home}, 질럿이 프로브 3기를 잡습니다! 경제 타격!',
               owner: LogOwner.home,
-              awayResource: -15, favorsStat: 'harass',
+              awayResource: -10, favorsStat: 'harass',
               altText: '{home} 선수 질럿 컨트롤! 프로브 피해가 큽니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 프로브 피해가 크네요! 노겟 넥서스의 이점이 줄어듭니다!',
               owner: LogOwner.away,
-              awayResource: -10,
+              awayResource: -5,
             ),
             ScriptEvent(
               text: '{home}, 드라군까지 도착! 노겟 넥서스를 흔듭니다!',
               owner: LogOwner.home,
-              homeArmy: 2, awayArmy: -1, favorsStat: 'attack',
+              homeArmy: 1, favorsStat: 'attack',
             ),
             ScriptEvent(
               text: '질럿 견제 성공! 노겟 넥서스의 이점이 사라지고 있습니다!',
               owner: LogOwner.system,
-              skipChance: 0.3,
             ),
           ],
         ),
@@ -402,13 +401,12 @@ const _pvpDragoonVsNogate = ScenarioScript(
             ScriptEvent(
               text: '{away}, 게이트가 빠르게 늘어납니다! 넥서스의 자원이 빛을 발합니다!',
               owner: LogOwner.away,
-              awayArmy: 4, awayResource: 15,
+              awayArmy: 5, awayResource: 20,
               altText: '{away} 선수 게이트 추가! 경제 이점을 병력으로 전환!',
             ),
             ScriptEvent(
               text: '프로브 수비 성공! 노겟 넥서스의 이점이 살아있습니다!',
               owner: LogOwner.system,
-              skipChance: 0.3,
             ),
           ],
         ),
@@ -755,19 +753,19 @@ const _pvpDarkVsDragoon = ScenarioScript(
             ScriptEvent(
               text: '{home}, 다크가 프로브를 베기 시작합니다! 옵저버가 없어요!',
               owner: LogOwner.home,
-              awayResource: -30, favorsStat: 'harass',
+              awayResource: -25, favorsStat: 'harass',
               altText: '{home} 선수 다크 성공! 프로브가 몰살당합니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 디텍이 없습니다! 로보틱스를 짓지 않았어요!',
               owner: LogOwner.away,
-              awayResource: -20,
+              awayResource: -15,
               altText: '{away}, 옵저버도 캐논도 없습니다! 다크에 속수무책!',
             ),
             ScriptEvent(
               text: '{home}, 다크가 프로브를 전멸시킵니다!',
               owner: LogOwner.home,
-              awayResource: -20, favorsStat: 'harass',
+              awayResource: -15, favorsStat: 'harass',
             ),
             ScriptEvent(
               text: '다크 올인 대성공! 프로토스 경제가 파괴됐습니다!',
@@ -783,19 +781,19 @@ const _pvpDarkVsDragoon = ScenarioScript(
             ScriptEvent(
               text: '{away} 선수 옵저버가 다크를 포착합니다!',
               owner: LogOwner.away,
-              favorsStat: 'scout',
+              awayArmy: 3, favorsStat: 'scout',
               altText: '{away}, 옵저버 있습니다! 다크가 보여요!',
             ),
             ScriptEvent(
               text: '{away}, 드라군이 다크를 집중 사격! 격파!',
               owner: LogOwner.away,
-              homeArmy: -4, favorsStat: 'defense',
+              homeArmy: -5, awayArmy: 2, favorsStat: 'defense',
               altText: '{away} 선수 다크를 잡아냅니다! 완벽한 대응!',
             ),
             ScriptEvent(
               text: '{home} 선수 다크가 막혔습니다! 올인이 실패하면 위기!',
               owner: LogOwner.home,
-              homeResource: -20,
+              homeResource: -25, homeArmy: -2,
             ),
             ScriptEvent(
               text: '다크 올인이 막혔습니다! 병력과 테크 모두 뒤처지는 상황!',

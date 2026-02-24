@@ -89,8 +89,6 @@ const _zvz9poolVs9overpool = ScenarioScript(
         // 분기 A: 9풀 공격 성공
         ScriptBranch(
           id: 'attacker_breaks_through',
-          conditionStat: 'attack',
-          homeStatMustBeHigher: true,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -119,8 +117,6 @@ const _zvz9poolVs9overpool = ScenarioScript(
         // 분기 B: 9오버풀 수비 성공 → 경제 우위
         ScriptBranch(
           id: 'defender_holds',
-          conditionStat: 'defense',
-          homeStatMustBeHigher: false,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -193,8 +189,6 @@ const _zvz9poolVs9overpool = ScenarioScript(
         // 분기 A: 뮤탈 먼저 낸 쪽이 드론 견제
         ScriptBranch(
           id: 'fast_mutal_harass',
-          conditionStat: 'harass',
-          homeStatMustBeHigher: true,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -225,8 +219,6 @@ const _zvz9poolVs9overpool = ScenarioScript(
         // 분기 B: 뮤탈 늦은 쪽이 스커지로 대응
         ScriptBranch(
           id: 'scourge_defense',
-          conditionStat: 'defense',
-          homeStatMustBeHigher: false,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -342,7 +334,7 @@ const _zvz12hatchVs9pool = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 발업 저글링 생산 시작!',
           owner: LogOwner.away,
-          awayArmy: 4, awayResource: -10,
+          awayArmy: 3, awayResource: -10,
           altText: '{away}, 저글링 나옵니다! 발업까지!',
         ),
       ],
@@ -355,13 +347,13 @@ const _zvz12hatchVs9pool = ScenarioScript(
         ScriptEvent(
           text: '{away}, 발업 저글링이 상대 앞마당에 도착합니다!',
           owner: LogOwner.away,
-          awayArmy: 3, favorsStat: 'attack',
+          awayArmy: 2, favorsStat: 'attack',
           altText: '{away} 선수 저글링 돌진! 12앞마당을 노립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 노발업 저글링+드론+성큰으로 수비합니다!',
           owner: LogOwner.home,
-          homeArmy: 3, homeResource: -15, favorsStat: 'defense',
+          homeArmy: 4, homeResource: -15, favorsStat: 'defense',
           altText: '{home}, 성큰을 올리면서 드론도 같이 막습니다!',
         ),
         ScriptEvent(
@@ -379,45 +371,41 @@ const _zvz12hatchVs9pool = ScenarioScript(
         // 분기 A: 앞마당 파괴
         ScriptBranch(
           id: 'hatch_destroyed',
-          conditionStat: 'attack',
-          homeStatMustBeHigher: false,
-          baseProbability: 1.0,
+          baseProbability: 0.8,
           events: [
             ScriptEvent(
               text: '{away}, 저글링이 드론을 뚫습니다! 앞마당 해처리를 공격!',
               owner: LogOwner.away,
-              homeResource: -25, homeArmy: -2, favorsStat: 'attack',
+              homeResource: -10, homeArmy: -1, favorsStat: 'attack',
               altText: '{away} 선수 저글링 돌파! 앞마당이 위험합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 앞마당 해처리가 부서지고 있습니다!',
               owner: LogOwner.home,
-              homeResource: -20,
+              homeResource: -10,
               altText: '{home}, 앞마당이 무너집니다! 경제 손실이 크네요!',
             ),
             ScriptEvent(
-              text: '{away}, 추가 저글링 합류! 드론까지 초토화!',
+              text: '{away}, 추가 저글링 합류! 하지만 성큰이 올라갑니다!',
               owner: LogOwner.away,
-              homeArmy: -2, homeResource: -10, favorsStat: 'attack',
+              homeArmy: -1, awayArmy: -3, favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '앞마당이 파괴됐습니다! 9풀 공격 성공!',
+              text: '앞마당에 피해를 입었지만 본진은 지켜냈습니다!',
               owner: LogOwner.system,
-              decisive: true,
+              skipChance: 0.3,
             ),
           ],
         ),
         // 분기 B: 수비 성공
         ScriptBranch(
           id: 'defense_success',
-          conditionStat: 'defense',
-          homeStatMustBeHigher: true,
-          baseProbability: 1.0,
+          baseProbability: 1.2,
           events: [
             ScriptEvent(
               text: '{home}, 성큰이 완성됩니다! 저글링을 잡아냅니다!',
               owner: LogOwner.home,
-              awayArmy: -4, homeArmy: -1, favorsStat: 'defense',
+              awayArmy: -5, homeArmy: -1, favorsStat: 'defense',
               altText: '{home} 선수 성큰 완성! 저글링이 녹습니다!',
             ),
             ScriptEvent(
@@ -428,7 +416,7 @@ const _zvz12hatchVs9pool = ScenarioScript(
             ScriptEvent(
               text: '{home}, 드론으로 협공! 완벽한 수비!',
               owner: LogOwner.home,
-              awayArmy: -2, favorsStat: 'control',
+              homeArmy: 2, awayArmy: -2, favorsStat: 'control',
             ),
             ScriptEvent(
               text: '수비 성공! 앞마당이 살았습니다! 경제 우위 확보!',
@@ -443,6 +431,8 @@ const _zvz12hatchVs9pool = ScenarioScript(
     ScriptPhase(
       name: 'mutal_race',
       startLine: 37,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 12,
       linearEvents: [
         ScriptEvent(
           text: '{away} 선수 레어 올리면서 스파이어 건설 서두릅니다!',
@@ -451,21 +441,21 @@ const _zvz12hatchVs9pool = ScenarioScript(
           altText: '{away}, 스파이어를 빠르게 올립니다! 뮤탈 선점!',
         ),
         ScriptEvent(
-          text: '{home} 선수 앞마당 경제를 돌리면서 스포어를 설치합니다.',
+          text: '{home} 선수 앞마당을 재건하면서 스포어를 설치합니다.',
           owner: LogOwner.home,
-          homeResource: -15,
+          homeResource: -10, homeArmy: 3,
           altText: '{home}, 스포어 건설! 뮤탈에 대비합니다!',
         ),
         ScriptEvent(
           text: '{away}, 뮤탈리스크가 먼저 나옵니다! 소수라도 강합니다!',
           owner: LogOwner.away,
-          awayArmy: 4, awayResource: -20,
+          awayArmy: 2, awayResource: -20,
           altText: '{away} 선수 뮤탈 선점! 드론을 노립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 스포어로 버티면서 뮤탈을 기다립니다!',
           owner: LogOwner.home,
-          homeArmy: 2, homeResource: -20,
+          homeArmy: 4, homeResource: -20,
         ),
         ScriptEvent(
           text: '뮤탈 타이밍 경쟁이 승부를 가르고 있습니다!',
@@ -475,6 +465,9 @@ const _zvz12hatchVs9pool = ScenarioScript(
       ],
     ),
     // Phase 4: 결전 (lines 53-68)
+    // winRate ~26% → decisive로 종료하면 ~26% 홈 승률
+    // 추가로 skipChance 이벤트 2개로 awayArmy → 0 가능성 (~8-12%)
+    // 목표: 전체 35-42% 홈 승률
     ScriptPhase(
       name: 'decisive_battle',
       startLine: 53,
@@ -482,13 +475,14 @@ const _zvz12hatchVs9pool = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 뮤탈이 완성됩니다! 스커지도 섞습니다!',
           owner: LogOwner.home,
-          homeArmy: 5, homeResource: -20,
+          homeArmy: 8, homeResource: -20,
           altText: '{home}, 뮤탈+스커지! 반격 준비!',
         ),
         ScriptEvent(
-          text: '{away} 선수 뮤탈로 드론을 계속 견제합니다!',
+          text: '{away} 선수 뮤탈로 드론을 견제하지만 스포어에 막힙니다!',
           owner: LogOwner.away,
-          homeResource: -15, favorsStat: 'harass',
+          awayArmy: -3, favorsStat: 'harass',
+          altText: '{away}, 스포어에 막힙니다! 뮤탈이 녹고 있어요!',
         ),
         ScriptEvent(
           text: '뮤탈 편대가 충돌합니다!',
@@ -501,15 +495,26 @@ const _zvz12hatchVs9pool = ScenarioScript(
           altText: '{home} 선수 스커지가 뮤탈에 돌진! 격추합니다!',
         ),
         ScriptEvent(
-          text: '{away}, 남은 뮤탈로 드론을 노립니다! 최후의 견제!',
-          owner: LogOwner.away,
-          homeResource: -15, awayArmy: -5, favorsStat: 'harass',
-          altText: '{away} 선수 뮤탈 최후의 기동! 드론을 끝까지 노립니다!',
+          text: '{home}, 경제력 차이! 뮤탈을 계속 보충합니다!',
+          owner: LogOwner.home,
+          homeArmy: 5, homeResource: -15,
+          altText: '{home} 선수 경제력으로 뮤탈 추가 생산!',
         ),
         ScriptEvent(
-          text: '결정적인 순간입니다!',
+          text: '{away}, 자원이 부족합니다! 뮤탈을 뽑을 수가 없어요!',
+          owner: LogOwner.away,
+          awayArmy: -5, awayResource: -10,
+        ),
+        ScriptEvent(
+          text: '{home}, 뮤탈 편대로 상대 드론을 견제합니다!',
+          owner: LogOwner.home,
+          awayResource: -15, favorsStat: 'harass',
+        ),
+        ScriptEvent(
+          text: '경제 차이가 승부를 가르고 있습니다!',
           owner: LogOwner.system,
           decisive: true,
+          skipChance: 0.50,
         ),
       ],
     ),
@@ -545,13 +550,13 @@ const _zvz4poolVs12hatch = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 저글링 6기 생산! 상대 진영으로 출발합니다!',
           owner: LogOwner.home,
-          homeArmy: 5, homeResource: -10,
+          homeArmy: 1, homeResource: -15,
           altText: '{home}, 저글링이 달려갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 12드론에 해처리를 건설하는 중입니다.',
           owner: LogOwner.away,
-          awayResource: -30,
+          awayResource: -20, awayArmy: 3,
         ),
       ],
     ),
@@ -563,13 +568,13 @@ const _zvz4poolVs12hatch = ScenarioScript(
         ScriptEvent(
           text: '{home}, 저글링이 상대 앞마당에 도착합니다! 스포닝풀이 없어요!',
           owner: LogOwner.home,
-          homeArmy: 2, favorsStat: 'attack',
+          favorsStat: 'attack',
           altText: '{home} 선수 저글링 도착! 상대는 아직 풀도 없습니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 스포닝풀이 없습니다! 드론으로 막아야 합니다!',
           owner: LogOwner.away,
-          awayArmy: 1,
+          awayArmy: 3,
         ),
         ScriptEvent(
           text: '4풀 올인! 막을 수 있을까요?',
@@ -584,20 +589,18 @@ const _zvz4poolVs12hatch = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'pool_crushes',
-          conditionStat: 'attack',
-          homeStatMustBeHigher: true,
-          baseProbability: 1.0,
+          baseProbability: 0.5,
           events: [
             ScriptEvent(
               text: '{home}, 저글링이 드론을 물어뜯습니다! 앞마당도 파괴!',
               owner: LogOwner.home,
-              awayResource: -30, awayArmy: -2, favorsStat: 'attack',
+              awayResource: -15, awayArmy: -2, favorsStat: 'attack',
               altText: '{home} 선수 저글링이 모든 걸 파괴합니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 드론이 전멸하고 있습니다! 막을 수가 없어요!',
               owner: LogOwner.away,
-              awayResource: -20,
+              awayResource: -10,
             ),
             ScriptEvent(
               text: '4풀이 앞마당을 초토화! 저그 올인 성공!',
@@ -608,32 +611,88 @@ const _zvz4poolVs12hatch = ScenarioScript(
         ),
         ScriptBranch(
           id: 'drone_defense',
-          conditionStat: 'control',
-          homeStatMustBeHigher: false,
-          baseProbability: 1.0,
+          baseProbability: 1.5,
           events: [
             ScriptEvent(
               text: '{away}, 드론을 뭉쳐서 저글링과 교전합니다! 드론 컨트롤!',
               owner: LogOwner.away,
-              homeArmy: -3, awayArmy: -1, favorsStat: 'control',
+              homeArmy: -6, awayArmy: -1, favorsStat: 'control',
               altText: '{away} 선수 드론 컨트롤! 저글링을 잡아냅니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 저글링이 드론에 당하고 있습니다!',
               owner: LogOwner.home,
-              homeArmy: -2,
+              homeArmy: -4,
             ),
             ScriptEvent(
               text: '{away}, 스포닝풀이 완성됩니다! 저글링으로 반격!',
               owner: LogOwner.away,
-              awayArmy: 4, awayResource: -10, favorsStat: 'defense',
+              awayArmy: 8, awayResource: -10, favorsStat: 'defense',
             ),
             ScriptEvent(
               text: '4풀이 막혔습니다! 드론 수 차이로 12앞 유리!',
               owner: LogOwner.system,
-              decisive: true,
             ),
           ],
+        ),
+      ],
+    ),
+    // Phase 3: 후속 전개 (lines 29-52)
+    // 고정 피해 -15, -22 + skipChance 0.40 이벤트 3개(-15씩)
+    // ~22% 확률(0.60^3)로 homeArmy → 0 (away 승), 나머지는 decisive(winRate~81%)
+    // 목표: 전체 65-72% 홈 승률
+    ScriptPhase(
+      name: 'aftermath',
+      startLine: 29,
+      recoveryArmyPerLine: 0,
+      recoveryResourcePerLine: 8,
+      linearEvents: [
+        ScriptEvent(
+          text: '{away} 선수 드론을 보충하면서 경제를 회복합니다.',
+          owner: LogOwner.away,
+          awayResource: 15, awayArmy: 5,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 드론이 적습니다. 경제 격차가 벌어지고 있어요.',
+          owner: LogOwner.home,
+          homeArmy: -15, homeResource: -20,
+          altText: '{home}, 4풀의 대가! 드론이 너무 적습니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 저글링 물량이 나오기 시작합니다!',
+          owner: LogOwner.away,
+          awayArmy: 10, awayResource: -15,
+        ),
+        ScriptEvent(
+          text: '{away}, 저글링 물량으로 반격합니다! 4풀 선수가 밀립니다!',
+          owner: LogOwner.away,
+          homeArmy: -22, awayArmy: 3, favorsStat: 'macro',
+          altText: '{away} 선수 물량 역전! 경제력의 차이가 드러납니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 본진 드론까지 뽑아서 저항하지만 부족합니다.',
+          owner: LogOwner.home,
+          homeArmy: -15, homeResource: -15,
+          altText: '{home}, 자원이 바닥입니다! 저글링을 뽑을 수가 없어요!',
+          skipChance: 0.40,
+        ),
+        ScriptEvent(
+          text: '{away}, 성큰까지 완성하면서 완벽한 수비 태세!',
+          owner: LogOwner.away,
+          awayArmy: 5, homeArmy: -15, awayResource: -10, favorsStat: 'defense',
+          skipChance: 0.40,
+        ),
+        ScriptEvent(
+          text: '{away}, 저글링이 상대 본진으로 진격합니다! 반격!',
+          owner: LogOwner.away,
+          homeArmy: -15, favorsStat: 'attack',
+          altText: '{away} 선수 반격 시작! 4풀의 빈 본진을 노립니다!',
+          skipChance: 0.40,
+        ),
+        ScriptEvent(
+          text: '4풀 올인 실패의 대가! 경제 차이가 돌이킬 수 없습니다!',
+          owner: LogOwner.system,
+          decisive: true,
         ),
       ],
     ),
@@ -740,8 +799,6 @@ const _zvz3hatchMirror = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'mutal_control_diff',
-          conditionStat: 'control',
-          homeStatMustBeHigher: true,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -769,8 +826,6 @@ const _zvz3hatchMirror = ScenarioScript(
         ),
         ScriptBranch(
           id: 'mutal_stalemate',
-          conditionStat: 'macro',
-          homeStatMustBeHigher: false,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -790,9 +845,47 @@ const _zvz3hatchMirror = ScenarioScript(
             ScriptEvent(
               text: '뮤탈 소모전! 누가 더 효율적으로 교환할 수 있을까요?',
               owner: LogOwner.system,
-              decisive: true,
+              skipChance: 0.3,
             ),
           ],
+        ),
+      ],
+    ),
+    // Phase 3: 결전 (lines 45-60)
+    ScriptPhase(
+      name: 'decisive_battle',
+      startLine: 45,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 뮤탈 편대 총출동! 상대 본진을 노립니다!',
+          owner: LogOwner.home,
+          homeArmy: 5, homeResource: -20,
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 뮤탈 스커지로 맞섭니다!',
+          owner: LogOwner.away,
+          awayArmy: 5, awayResource: -20,
+        ),
+        ScriptEvent(
+          text: '뮤탈 vs 뮤탈! 3해처리 미러 결전입니다!',
+          owner: LogOwner.system,
+        ),
+        ScriptEvent(
+          text: '{home}, 뮤탈 집중 공격! 상대 뮤탈이 떨어집니다!',
+          owner: LogOwner.home,
+          awayArmy: -8, homeArmy: -5, favorsStat: 'control',
+          altText: '{home} 선수 뮤탈 컨트롤! 상대 뮤탈을 잡습니다!',
+        ),
+        ScriptEvent(
+          text: '{away}, 스커지 자폭! 뮤탈이 동시에 떨어집니다!',
+          owner: LogOwner.away,
+          homeArmy: -8, awayArmy: -5, favorsStat: 'control',
+          altText: '{away} 선수 스커지가 뮤탈을 동반 추락시킵니다!',
+        ),
+        ScriptEvent(
+          text: '결정적인 순간입니다!',
+          owner: LogOwner.system,
+          decisive: true,
         ),
       ],
     ),

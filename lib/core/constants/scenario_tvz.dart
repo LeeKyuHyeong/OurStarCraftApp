@@ -111,11 +111,9 @@ const _tvzBioVsMutal = ScenarioScript(
       name: 'first_contact',
       startLine: 25,
       branches: [
-        // 분기 A: 테란 attack 높으면 마린 메딕 앞마당 압박 성공
+        // 분기 A: 마린 메딕 앞마당 압박 성공
         ScriptBranch(
           id: 'terran_push_success',
-          conditionStat: 'attack',
-          homeStatMustBeHigher: true,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -149,11 +147,9 @@ const _tvzBioVsMutal = ScenarioScript(
             ),
           ],
         ),
-        // 분기 B: 저그 control 높으면 뮤탈 빠른 등장
+        // 분기 B: 뮤탈 빠른 등장
         ScriptBranch(
           id: 'zerg_fast_mutal',
-          conditionStat: 'control',
-          homeStatMustBeHigher: false,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -180,11 +176,9 @@ const _tvzBioVsMutal = ScenarioScript(
             ),
           ],
         ),
-        // 분기 C: 저그 defense 높으면 저글링 기습
+        // 분기 C: 저글링 기습
         ScriptBranch(
           id: 'zerg_ling_ambush',
-          conditionStat: 'defense',
-          homeStatMustBeHigher: false,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -212,11 +206,9 @@ const _tvzBioVsMutal = ScenarioScript(
             ),
           ],
         ),
-        // 분기 D: 테란 scout 높으면 스파이어 발견
+        // 분기 D: 스파이어 발견
         ScriptBranch(
           id: 'terran_scout_spire',
-          conditionStat: 'scout',
-          homeStatMustBeHigher: true,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -307,11 +299,9 @@ const _tvzBioVsMutal = ScenarioScript(
       name: 'transition',
       startLine: 51,
       branches: [
-        // 분기 A: 테란 attack 높으면 타이밍 공격
+        // 분기 A: 테란 타이밍 공격
         ScriptBranch(
           id: 'terran_timing_push',
-          conditionStat: 'attack',
-          homeStatMustBeHigher: true,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -349,11 +339,9 @@ const _tvzBioVsMutal = ScenarioScript(
             ),
           ],
         ),
-        // 분기 B: 저그 macro 높으면 물량 전환
+        // 분기 B: 저그 물량 전환
         ScriptBranch(
           id: 'zerg_macro_transition',
-          conditionStat: 'macro',
-          homeStatMustBeHigher: false,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -385,11 +373,9 @@ const _tvzBioVsMutal = ScenarioScript(
             ),
           ],
         ),
-        // 분기 C: 테란 strategy 높으면 드랍십 견제
+        // 분기 C: 테란 드랍십 견제
         ScriptBranch(
           id: 'terran_dropship_raid',
-          conditionStat: 'strategy',
-          homeStatMustBeHigher: true,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -469,11 +455,9 @@ const _tvzBioVsMutal = ScenarioScript(
             ),
           ],
         ),
-        // 분기 B: 디파일러 다크스웜 (저그 strategy 높을 때)
+        // 분기 B: 디파일러 다크스웜
         ScriptBranch(
           id: 'defiler_darkswarm',
-          conditionStat: 'strategy',
-          homeStatMustBeHigher: false,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -507,11 +491,9 @@ const _tvzBioVsMutal = ScenarioScript(
             ),
           ],
         ),
-        // 분기 C: 최후의 드랍 올인 (테란 sense 높을 때)
+        // 분기 C: 최후의 드랍 올인
         ScriptBranch(
           id: 'last_drop_allin',
-          conditionStat: 'sense',
-          homeStatMustBeHigher: true,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -658,8 +640,6 @@ const _tvzMechVsLurker = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'terran_scan_lurker',
-          conditionStat: 'strategy',
-          homeStatMustBeHigher: true,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -693,8 +673,6 @@ const _tvzMechVsLurker = ScenarioScript(
         ),
         ScriptBranch(
           id: 'zerg_lurker_hold',
-          conditionStat: 'defense',
-          homeStatMustBeHigher: false,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -890,8 +868,6 @@ const _tvzCheeseVsStandard = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'zerg_detects_bunker',
-          conditionStat: 'scout',
-          homeStatMustBeHigher: false,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -930,8 +906,6 @@ const _tvzCheeseVsStandard = ScenarioScript(
         ),
         ScriptBranch(
           id: 'bunker_complete',
-          conditionStat: 'control',
-          homeStatMustBeHigher: true,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -1076,8 +1050,6 @@ const _tvz111VsMacro = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'wraith_overlord_hunt',
-          conditionStat: 'harass',
-          homeStatMustBeHigher: true,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -1111,8 +1083,6 @@ const _tvz111VsMacro = ScenarioScript(
         ),
         ScriptBranch(
           id: 'zerg_overlord_defense',
-          conditionStat: 'defense',
-          homeStatMustBeHigher: false,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -1195,8 +1165,6 @@ const _tvz111VsMacro = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'terran_second_push',
-          conditionStat: 'attack',
-          homeStatMustBeHigher: true,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -1224,8 +1192,6 @@ const _tvz111VsMacro = ScenarioScript(
         ),
         ScriptBranch(
           id: 'zerg_mass_overwhelm',
-          conditionStat: 'macro',
-          homeStatMustBeHigher: false,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -1357,8 +1323,6 @@ const _tvzWraithVsMutal = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'wraith_harass_success',
-          conditionStat: 'harass',
-          homeStatMustBeHigher: true,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -1387,8 +1351,6 @@ const _tvzWraithVsMutal = ScenarioScript(
         ),
         ScriptBranch(
           id: 'mutal_fast_response',
-          conditionStat: 'control',
-          homeStatMustBeHigher: false,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -1467,8 +1429,6 @@ const _tvzWraithVsMutal = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'terran_ground_transition',
-          conditionStat: 'strategy',
-          homeStatMustBeHigher: true,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -1496,8 +1456,6 @@ const _tvzWraithVsMutal = ScenarioScript(
         ),
         ScriptBranch(
           id: 'zerg_mutal_overwhelm',
-          conditionStat: 'macro',
-          homeStatMustBeHigher: false,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -1638,8 +1596,6 @@ const _tvzCheeseVsCheese = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'lings_hit_terran_base',
-          conditionStat: 'attack',
-          homeStatMustBeHigher: false,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -1667,8 +1623,6 @@ const _tvzCheeseVsCheese = ScenarioScript(
         ),
         ScriptBranch(
           id: 'terran_hits_zerg_base',
-          conditionStat: 'control',
-          homeStatMustBeHigher: true,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -1703,8 +1657,6 @@ const _tvzCheeseVsCheese = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'bunker_crushes_zerg',
-          conditionStat: 'attack',
-          homeStatMustBeHigher: true,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -1733,8 +1685,6 @@ const _tvzCheeseVsCheese = ScenarioScript(
         ),
         ScriptBranch(
           id: 'lings_destroy_terran',
-          conditionStat: 'control',
-          homeStatMustBeHigher: false,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -1843,8 +1793,6 @@ const _tvz9poolVsStandard = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'terran_scouted',
-          conditionStat: 'scout',
-          homeStatMustBeHigher: true,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -1873,8 +1821,6 @@ const _tvz9poolVsStandard = ScenarioScript(
         ),
         ScriptBranch(
           id: 'ling_rush_success',
-          conditionStat: 'attack',
-          homeStatMustBeHigher: false,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -1945,8 +1891,6 @@ const _tvz9poolVsStandard = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'terran_recovers',
-          conditionStat: 'macro',
-          homeStatMustBeHigher: true,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -1974,8 +1918,6 @@ const _tvz9poolVsStandard = ScenarioScript(
         ),
         ScriptBranch(
           id: 'zerg_leverages_lead',
-          conditionStat: 'strategy',
-          homeStatMustBeHigher: false,
           baseProbability: 1.0,
           events: [
             ScriptEvent(

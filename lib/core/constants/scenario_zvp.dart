@@ -381,13 +381,13 @@ const _zvpMutalVsForge = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 뮤탈리스크 생산 시작! 5기가 빠르게 나옵니다!',
           owner: LogOwner.home,
-          homeArmy: 5, homeResource: -25,
+          homeArmy: 3, homeResource: -25,
           altText: '{home}, 뮤탈 5기 완성! 견제 출발!',
         ),
         ScriptEvent(
           text: '{away} 선수 커세어와 스포어로 대비합니다.',
           owner: LogOwner.away,
-          awayArmy: 2, awayResource: -15,
+          awayArmy: 4, awayResource: -15,
         ),
         ScriptEvent(
           text: '{home}, 뮤탈이 프로브 라인으로 향합니다! 견제!',
@@ -410,13 +410,13 @@ const _zvpMutalVsForge = ScenarioScript(
             ScriptEvent(
               text: '{home}, 뮤탈이 프로브를 물어뜯습니다! 커세어가 늦었어요!',
               owner: LogOwner.home,
-              awayResource: -25, favorsStat: 'harass',
+              awayResource: -10, favorsStat: 'harass',
               altText: '{home} 선수 뮤짤! 프로브가 줄줄이 쓰러집니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 커세어가 뒤늦게 대응합니다!',
               owner: LogOwner.away,
-              homeArmy: -1,
+              homeArmy: -2,
             ),
             ScriptEvent(
               text: '{home}, 뮤탈을 빼면서 다른 곳을 노립니다! 기동력이 좋네요!',
@@ -439,7 +439,7 @@ const _zvpMutalVsForge = ScenarioScript(
             ScriptEvent(
               text: '{away}, 커세어가 뮤탈을 쫓아갑니다! 공중 추격전!',
               owner: LogOwner.away,
-              homeArmy: -3, favorsStat: 'control',
+              homeArmy: -4, favorsStat: 'control',
               altText: '{away} 선수 커세어 컨트롤! 뮤탈을 잡아냅니다!',
             ),
             ScriptEvent(
@@ -448,9 +448,9 @@ const _zvpMutalVsForge = ScenarioScript(
               homeArmy: -2,
             ),
             ScriptEvent(
-              text: '{away} 선수 스포어도 깔았습니다! 뮤탈이 못 들어와요!',
+              text: '{away} 선수 커세어로 오버로드까지 사냥합니다! 완벽한 공중 장악!',
               owner: LogOwner.away,
-              awayResource: -10,
+              homeResource: -10, awayArmy: 2,
             ),
             ScriptEvent(
               text: '커세어가 뮤탈을 견제하면서 안정적인 운영!',
@@ -469,23 +469,23 @@ const _zvpMutalVsForge = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 히드라를 추가 생산합니다! 뮤탈+히드라 조합!',
           owner: LogOwner.home,
-          homeArmy: 4, homeResource: -20,
+          homeArmy: 2, homeResource: -20,
           altText: '{home}, 뮤탈에 히드라까지! 복합 편성입니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 하이 템플러 합류! 스톰 준비 완료!',
           owner: LogOwner.away,
-          awayArmy: 3, awayResource: -25,
+          awayArmy: 8, awayResource: -25,
         ),
         ScriptEvent(
           text: '{home}, 히드라 편대가 프로토스 앞마당을 공격합니다!',
           owner: LogOwner.home,
-          homeArmy: 2, awayArmy: -3, favorsStat: 'attack',
+          awayArmy: -2, favorsStat: 'attack',
         ),
         ScriptEvent(
           text: '{away}, 스톰! 히드라 편대에 떨어집니다!',
           owner: LogOwner.away,
-          homeArmy: -5, favorsStat: 'strategy',
+          homeArmy: -10, favorsStat: 'strategy',
           altText: '{away} 선수 스톰 명중! 히드라가 증발합니다!',
         ),
         ScriptEvent(
@@ -496,6 +496,7 @@ const _zvpMutalVsForge = ScenarioScript(
       ],
     ),
     // Phase 4: 결전 (lines 55-70)
+    // P 아콘+스톰 화력으로 Z 병력 소모 → decisive에서 winRate 결정
     ScriptPhase(
       name: 'decisive_battle',
       startLine: 55,
@@ -503,12 +504,12 @@ const _zvpMutalVsForge = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 전 병력 총동원! 뮤탈 히드라 저글링!',
           owner: LogOwner.home,
-          homeArmy: 8, homeResource: -25,
+          homeArmy: 4, homeResource: -25,
         ),
         ScriptEvent(
           text: '{away} 선수도 드라군 질럿 하이 템플러 총출동!',
           owner: LogOwner.away,
-          awayArmy: 6, awayResource: -25,
+          awayArmy: 12, awayResource: -25,
         ),
         ScriptEvent(
           text: '양측 전면전이 시작됩니다!',
@@ -517,13 +518,19 @@ const _zvpMutalVsForge = ScenarioScript(
         ScriptEvent(
           text: '{home}, 뮤탈이 하이 템플러를 노립니다! 스톰을 막아야 합니다!',
           owner: LogOwner.home,
-          awayArmy: -8, homeArmy: -5, favorsStat: 'control',
+          awayArmy: -3, homeArmy: -8, favorsStat: 'control',
           altText: '{home} 선수 뮤탈로 하이 템플러 솎아내기! 핵심 유닛을 노립니다!',
+        ),
+        ScriptEvent(
+          text: '{away}, 스톰 연속 투하! 저그 병력이 증발합니다!',
+          owner: LogOwner.away,
+          homeArmy: -8, favorsStat: 'strategy',
+          altText: '{away} 선수 더블 스톰! 히드라가 녹아내립니다!',
         ),
         ScriptEvent(
           text: '{away}, 아콘 변환! 남은 하이 템플러가 아콘이 됩니다!',
           owner: LogOwner.away,
-          homeArmy: -10, awayArmy: -6, favorsStat: 'attack',
+          homeArmy: -12, awayArmy: -3, favorsStat: 'attack',
           altText: '{away} 선수 아콘! 저그 병력이 녹아내립니다!',
         ),
         ScriptEvent(
@@ -565,7 +572,7 @@ const _zvp9poolVsForge = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 저글링 생산! 발업도 연구합니다!',
           owner: LogOwner.home,
-          homeArmy: 4, homeResource: -15,
+          homeArmy: 3, homeResource: -15,
           altText: '{home}, 저글링 나옵니다! 발업까지!',
         ),
         ScriptEvent(
@@ -583,7 +590,7 @@ const _zvp9poolVsForge = ScenarioScript(
         ScriptEvent(
           text: '{home}, 발업 저글링이 프로토스 앞마당에 도착합니다!',
           owner: LogOwner.home,
-          homeArmy: 3, favorsStat: 'attack',
+          homeArmy: 2, favorsStat: 'attack',
           altText: '{home} 선수 저글링 돌진! 프로토스 앞마당을 노립니다!',
         ),
         ScriptEvent(
@@ -936,13 +943,13 @@ const _zvpMukerjiVsCorsairReaver = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 히드라+럴커로 전환! 전면전 준비!',
           owner: LogOwner.home,
-          homeArmy: 6, homeResource: -25,
+          homeArmy: 5, homeResource: -25,
           altText: '{home}, 히드라 럴커 조합! 지상 전력을 강화합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 드라군 질럿 하이 템플러! 한방 병력!',
           owner: LogOwner.away,
-          awayArmy: 5, awayResource: -25,
+          awayArmy: 6, awayResource: -25,
         ),
         ScriptEvent(
           text: '양측 결전 병력이 충돌합니다!',
