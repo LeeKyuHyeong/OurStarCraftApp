@@ -694,8 +694,8 @@ class BuildMatchup {
     if (a == BuildType.pvzForgeCannon && b == BuildType.zvpMukerji) return -8;
     if (a == BuildType.zvpYabarwi && b == BuildType.pvzCorsairReaver) return 12;      // 야바위 > 선아둔
     if (a == BuildType.pvzCorsairReaver && b == BuildType.zvpYabarwi) return -12;
-    if (a == BuildType.zvp2HatchMutal && b == BuildType.pvzForgeCannon) return 20;   // 5뮤탈 > 포지더블
-    if (a == BuildType.pvzForgeCannon && b == BuildType.zvp2HatchMutal) return -20;
+    if (a == BuildType.zvp2HatchMutal && b == BuildType.pvzForgeCannon) return 12;   // 5뮤탈 > 포지더블
+    if (a == BuildType.pvzForgeCannon && b == BuildType.zvp2HatchMutal) return -12;
     if (a == BuildType.zvp2HatchMutal && b == BuildType.pvzCannonRush) return 8;     // 5뮤탈 > 캐논러쉬 (2해치 생존 후 뮤탈)
     if (a == BuildType.pvzCannonRush && b == BuildType.zvp2HatchMutal) return -8;
     if (a == BuildType.zvp2HatchMutal && b == BuildType.pvz2StarCorsair) return 15;  // 5뮤탈 > 투스타커세어 (뮤탈 견제)

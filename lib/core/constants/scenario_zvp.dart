@@ -496,7 +496,8 @@ const _zvpMutalVsForge = ScenarioScript(
       ],
     ),
     // Phase 4: 결전 (lines 55-70)
-    // P 아콘+스톰 화력으로 Z 병력 소모 → decisive에서 winRate 결정
+    // P 아콘+스톰 화력으로 Z 병력 소모 → decisive에서 winRate(~62%) 결정
+    // 목표: 전체 60-65% 홈(저그) 승률
     ScriptPhase(
       name: 'decisive_battle',
       startLine: 55,
@@ -509,7 +510,7 @@ const _zvpMutalVsForge = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수도 드라군 질럿 하이 템플러 총출동!',
           owner: LogOwner.away,
-          awayArmy: 12, awayResource: -25,
+          awayArmy: 10, awayResource: -25,
         ),
         ScriptEvent(
           text: '양측 전면전이 시작됩니다!',
@@ -530,7 +531,7 @@ const _zvpMutalVsForge = ScenarioScript(
         ScriptEvent(
           text: '{away}, 아콘 변환! 남은 하이 템플러가 아콘이 됩니다!',
           owner: LogOwner.away,
-          homeArmy: -12, awayArmy: -3, favorsStat: 'attack',
+          homeArmy: -10, awayArmy: -3, favorsStat: 'attack',
           altText: '{away} 선수 아콘! 저그 병력이 녹아내립니다!',
         ),
         ScriptEvent(
