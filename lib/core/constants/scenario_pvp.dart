@@ -307,7 +307,7 @@ const _pvpDragoonVsNogate = ScenarioScript(
           text: '{away} 선수 넥서스를 먼저 건설합니다! 노겟 넥서스!',
           owner: LogOwner.away,
           awayResource: -30,
-          altText: '{away}, 넥서스 퍼스트! 경제를 가져가겠다는 배짱!',
+          altText: '{away}, 넥서스 퍼스트! 확장을 가져가겠다는 배짱!',
         ),
         ScriptEvent(
           text: '{home} 선수 사이버네틱스 코어 건설!',
@@ -361,7 +361,7 @@ const _pvpDragoonVsNogate = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 질럿이 프로브 3기를 잡습니다! 경제 타격!',
+              text: '{home}, 질럿이 프로브 3기를 잡습니다! 일꾼 타격!',
               owner: LogOwner.home,
               awayResource: -10, favorsStat: 'harass',
               altText: '{home} 선수 질럿 컨트롤! 프로브 피해가 큽니다!',
@@ -402,7 +402,7 @@ const _pvpDragoonVsNogate = ScenarioScript(
               text: '{away}, 게이트가 빠르게 늘어납니다! 넥서스의 자원이 빛을 발합니다!',
               owner: LogOwner.away,
               awayArmy: 5, awayResource: 20,
-              altText: '{away} 선수 게이트 추가! 경제 이점을 병력으로 전환!',
+              altText: '{away} 선수 게이트 추가! 자원 이점을 병력으로 전환!',
             ),
             ScriptEvent(
               text: '프로브 수비 성공! 노겟 넥서스의 이점이 살아있습니다!',
@@ -631,7 +631,7 @@ const _pvpRoboVs2gateDragoon = ScenarioScript(
       startLine: 43,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 앞마당 넥서스 건설! 경제를 가져갑니다.',
+          text: '{home} 선수 앞마당 넥서스 건설! 확장을 가져갑니다.',
           owner: LogOwner.home,
           homeResource: -30,
         ),
@@ -768,7 +768,7 @@ const _pvpDarkVsDragoon = ScenarioScript(
               awayResource: -15, favorsStat: 'harass',
             ),
             ScriptEvent(
-              text: '다크 올인 대성공! 프로토스 경제가 파괴됐습니다!',
+              text: '다크 올인 대성공! 프로토스 일꾼이 파괴됐습니다!',
               owner: LogOwner.system,
               decisive: true,
             ),
@@ -884,7 +884,7 @@ const _pvpZealotRush = ScenarioScript(
               altText: '{home} 선수 질럿이 프로브를 베어냅니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 프로브 피해가 큽니다! 경제가 흔들립니다!',
+              text: '{away} 선수 프로브 피해가 큽니다! 자원이 흔들립니다!',
               owner: LogOwner.away,
               awayResource: -15,
             ),

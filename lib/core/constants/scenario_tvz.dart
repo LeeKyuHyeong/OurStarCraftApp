@@ -132,7 +132,7 @@ const _tvzBioVsMutal = ScenarioScript(
               text: '{away}, 앞마당 드론이 큰 피해를 입었습니다! 가까스로 성큰으로 마린을 밀어냅니다!',
               owner: LogOwner.away,
               awayResource: -10,
-              altText: '{away} 선수 앞마당이 초토화! 겨우 막아냈지만 경제 손실이 크네요!',
+              altText: '{away} 선수 앞마당이 초토화! 겨우 막아냈지만 자원 손실이 크네요!',
             ),
             ScriptEvent(
               text: '마린 메딕 압박이 효과적이었습니다! 뮤탈 타이밍이 밀리겠는데요.',
@@ -568,7 +568,7 @@ const _tvzMechVsLurker = ScenarioScript(
           owner: LogOwner.away,
           awayResource: -30,
           skipChance: 0.2,
-          altText: '{away}, 앞마당 확장! 경제를 가져가려는 모습입니다.',
+          altText: '{away}, 앞마당 확장! 확장을 가져가려는 모습입니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 팩토리 건설! 메카닉 테크로 가는 건가요?',
@@ -693,7 +693,7 @@ const _tvzMechVsLurker = ScenarioScript(
               altText: '{home} 선수 전진을 멈추고 탱크를 앞세웁니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 그 사이 세 번째 해처리! 경제가 돌아가기 시작합니다!',
+              text: '{away} 선수 그 사이 세 번째 해처리! 자원이 돌아가기 시작합니다!',
               owner: LogOwner.away,
               awayResource: 25,
             ),
@@ -897,7 +897,7 @@ const _tvzCheeseVsStandard = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{home} 선수 후퇴합니다... 경제 손실이 크겠는데요.',
+              text: '{home} 선수 후퇴합니다... 자원 손실이 크겠는데요.',
               owner: LogOwner.home,
               homeArmy: -2, homeResource: -20,
               decisive: true,
@@ -964,7 +964,7 @@ const _tvz111VsMacro = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{away} 선수 해처리를 빠르게 추가합니다! 경제 우선!',
+          text: '{away} 선수 해처리를 빠르게 추가합니다! 자원 우선!',
           owner: LogOwner.away,
           awayResource: -30,
           altText: '{away}, 해처리부터 올립니다! 매크로 운영이구요.',
@@ -992,7 +992,7 @@ const _tvz111VsMacro = ScenarioScript(
           altText: '{home}, 배럭 하나에 팩토리! 테크 빌드입니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 세 번째 해처리까지! 경제가 폭발적입니다.',
+          text: '{away} 선수 세 번째 해처리까지! 자원이 폭발적입니다.',
           owner: LogOwner.away,
           awayResource: -30,
           skipChance: 0.2,
@@ -1032,7 +1032,7 @@ const _tvz111VsMacro = ScenarioScript(
           altText: '{away}, 해처리 3개에서 드론이 쏟아져 나옵니다!',
         ),
         ScriptEvent(
-          text: '경제 차이가 벌어지고 있습니다. 테란이 빨리 움직여야 할 텐데요.',
+          text: '자원 차이가 벌어지고 있습니다. 테란이 빨리 움직여야 할 텐데요.',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
@@ -1075,7 +1075,7 @@ const _tvz111VsMacro = ScenarioScript(
               favorsStat: 'scout',
             ),
             ScriptEvent(
-              text: '오버로드 손실이 뼈아픕니다. 저그 경제에 타격이 가는데요.',
+              text: '오버로드 손실이 뼈아픕니다. 저그 자원에 타격이 가는데요.',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
@@ -1096,10 +1096,10 @@ const _tvz111VsMacro = ScenarioScript(
               owner: LogOwner.home,
             ),
             ScriptEvent(
-              text: '{away} 선수 그 사이에도 드론 생산 계속! 경제 차이가 벌어집니다!',
+              text: '{away} 선수 그 사이에도 드론 생산 계속! 자원 차이가 벌어집니다!',
               owner: LogOwner.away,
               awayArmy: 3, awayResource: 20, favorsStat: 'macro',
-              altText: '{away}, 드론 40기 돌파! 경제가 폭발적입니다!',
+              altText: '{away}, 드론 40기 돌파! 자원이 폭발적입니다!',
             ),
             ScriptEvent(
               text: '레이스 견제가 실패했습니다. 테란이 빨리 전환해야 하는데요.',
@@ -1212,7 +1212,7 @@ const _tvz111VsMacro = ScenarioScript(
               homeArmy: -3,
             ),
             ScriptEvent(
-              text: '저그의 경제력이 승부를 가르고 있습니다!',
+              text: '저그의 물량이 승부를 가르고 있습니다!',
               owner: LogOwner.system,
               decisive: true,
             ),
@@ -1894,7 +1894,7 @@ const _tvz9poolVsStandard = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수 경제 복구 완료! 병력 생산이 정상화됩니다!',
+              text: '{home} 선수 일꾼 복구 완료! 병력 생산이 정상화됩니다!',
               owner: LogOwner.home,
               homeArmy: 4, homeResource: 15, favorsStat: 'macro',
             ),
@@ -1905,12 +1905,12 @@ const _tvz9poolVsStandard = ScenarioScript(
               altText: '{home} 선수 바이오닉 출진! 저그 앞마당을 노립니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 9풀 이후 경제가 부족합니다! 테크가 느려요!',
+              text: '{away} 선수 9풀 이후 자원이 부족합니다! 테크가 느려요!',
               owner: LogOwner.away,
               awayArmy: -2,
             ),
             ScriptEvent(
-              text: '초반 올인 이후 경제 차이가 나기 시작합니다!',
+              text: '초반 올인 이후 자원 차이가 나기 시작합니다!',
               owner: LogOwner.system,
               decisive: true,
             ),

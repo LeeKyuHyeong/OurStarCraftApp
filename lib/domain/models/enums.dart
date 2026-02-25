@@ -512,8 +512,8 @@ class BuildMatchup {
   /// 세부 빌드 특수 상성 (반대칭: f(A,B) = -f(B,A))
   static double _getSpecificAdvantage(BuildType a, BuildType b) {
     // ZvZ 특수 상성 (10쌍)
-    if (a == BuildType.zvzPoolFirst && b == BuildType.zvz12Hatch) return 20;   // 4풀 > 12앞마당
-    if (a == BuildType.zvz12Hatch && b == BuildType.zvzPoolFirst) return -20;
+    if (a == BuildType.zvzPoolFirst && b == BuildType.zvz12Hatch) return 9;    // 4풀 > 12앞마당 (20→9: 수비 성공 시 12앞 유리)
+    if (a == BuildType.zvz12Hatch && b == BuildType.zvzPoolFirst) return -9;
     if (a == BuildType.zvz9Pool && b == BuildType.zvz12Hatch) return 2;        // 9풀 > 12앞마당 (경제력 회복 가능)
     if (a == BuildType.zvz12Hatch && b == BuildType.zvz9Pool) return -2;
     if (a == BuildType.zvz9Pool && b == BuildType.zvzPoolFirst) return 8;      // 9풀 > 4풀
@@ -599,8 +599,8 @@ class BuildMatchup {
     // TvT 특수 상성 (15쌍)
     if (a == BuildType.tvt1FactPush && b == BuildType.tvtCCFirst) return 15;       // 원팩원스타 > 배럭더블
     if (a == BuildType.tvtCCFirst && b == BuildType.tvt1FactPush) return -15;
-    if (a == BuildType.tvtWraithCloak && b == BuildType.tvtCCFirst) return 12;     // 투스타레이스 > 배럭더블
-    if (a == BuildType.tvtCCFirst && b == BuildType.tvtWraithCloak) return -12;
+    if (a == BuildType.tvtWraithCloak && b == BuildType.tvtCCFirst) return 0;      // 투스타레이스 ≈ 배럭더블 (시나리오에서 밸런스 처리)
+    if (a == BuildType.tvtCCFirst && b == BuildType.tvtWraithCloak) return 0;
     if (a == BuildType.tvt1FactPush && b == BuildType.tvtWraithCloak) return 5;    // 원팩원스타 > 투스타레이스
     if (a == BuildType.tvtWraithCloak && b == BuildType.tvt1FactPush) return -5;
     if (a == BuildType.tvt2FactVulture && b == BuildType.tvt1FactExpand) return 10; // 투팩벌처 > 원팩확장
@@ -628,8 +628,8 @@ class BuildMatchup {
     if (a == BuildType.tvt1FactExpand && b == BuildType.tvtCCFirst) return 5;      // 원팩확장 > 배럭더블
     if (a == BuildType.tvtCCFirst && b == BuildType.tvt1FactExpand) return -5;
     // BBS 상성 (7쌍)
-    if (a == BuildType.tvtBBS && b == BuildType.tvtCCFirst) return 18;            // BBS > 배럭더블 (앞마당 벙커링)
-    if (a == BuildType.tvtCCFirst && b == BuildType.tvtBBS) return -18;
+    if (a == BuildType.tvtBBS && b == BuildType.tvtCCFirst) return 38;            // BBS > 노배럭더블 (배럭없이 CC먼저, BBS에 극도로 취약)
+    if (a == BuildType.tvtCCFirst && b == BuildType.tvtBBS) return -38;
     if (a == BuildType.tvtBBS && b == BuildType.tvt1FactExpand) return 15;        // BBS > 원팩확장 (확장 타이밍 공격)
     if (a == BuildType.tvt1FactExpand && b == BuildType.tvtBBS) return -15;
     if (a == BuildType.tvtBBS && b == BuildType.tvt2FactVulture) return 8;        // BBS > 투팩벌처 (벌처 나오기 전 공격)
@@ -648,8 +648,8 @@ class BuildMatchup {
     if (a == BuildType.pvt1GateExpansion && b == BuildType.tvp5FacTiming) return -12;
     if (a == BuildType.tvp11Up8Fac && b == BuildType.pvt1GateObserver) return 10;    // 11업8팩 > 느린아비터
     if (a == BuildType.pvt1GateObserver && b == BuildType.tvp11Up8Fac) return -10;
-    if (a == BuildType.tvpAntiCarrier && b == BuildType.pvtCarrier) return 25;       // 안티캐리어 특화
-    if (a == BuildType.pvtCarrier && b == BuildType.tvpAntiCarrier) return -25;
+    if (a == BuildType.tvpAntiCarrier && b == BuildType.pvtCarrier) return 12;       // 안티캐리어 특화 (25→12: 캐리어 인터셉터 물량 대응 가능)
+    if (a == BuildType.pvtCarrier && b == BuildType.tvpAntiCarrier) return -12;
 
     // PvT/TvP 특수 상성
     if (a == BuildType.tvpBbs && b == BuildType.pvt1GateExpansion) return 20;  // BBS > 19넥
@@ -666,8 +666,8 @@ class BuildMatchup {
     if (a == BuildType.tvpFakeDouble && b == BuildType.pvtCarrier) return 10;
     if (a == BuildType.pvtReaverShuttle && b == BuildType.tvpDouble) return 10; // 리버속셔템 > 팩더블
     if (a == BuildType.tvpDouble && b == BuildType.pvtReaverShuttle) return -10;
-    if (a == BuildType.pvtProxyGate && b == BuildType.tvpDouble) return 30;   // 센터게이트 > 팩더블 (스타일 보정: cheese>bal=+10, 합계=40)
-    if (a == BuildType.tvpDouble && b == BuildType.pvtProxyGate) return -30;
+    if (a == BuildType.pvtProxyGate && b == BuildType.tvpDouble) return 5;    // 센터게이트 > 팩더블 (30→5: 정찰 시 치즈 실패 리스크 반영)
+    if (a == BuildType.tvpDouble && b == BuildType.pvtProxyGate) return -5;
     if (a == BuildType.pvtProxyGate && b == BuildType.tvpBbs) return -5;      // 센터게이트 < BBS (치즈 대 치즈, 마린 유리)
     if (a == BuildType.tvpBbs && b == BuildType.pvtProxyGate) return 5;
     if (a == BuildType.pvtProxyGate && b == BuildType.tvpRaxDouble) return 15; // 센터게이트 > 배럭더블 (치즈>수비)
@@ -726,8 +726,8 @@ class BuildMatchup {
     if (a == BuildType.pvzForgeCannon && b == BuildType.zvpYabarwi) return 5;
 
     // PvP 특수 상성 (28쌍)
-    if (a == BuildType.pvpDarkAllIn && b == BuildType.pvp2GateDragoon) return 15;     // 다크더블 > 옵3겟
-    if (a == BuildType.pvp2GateDragoon && b == BuildType.pvpDarkAllIn) return -15;
+    if (a == BuildType.pvpDarkAllIn && b == BuildType.pvp2GateDragoon) return 8;      // 다크더블 > 옵3겟 (15→8: 옵저버 타이밍에 따라 성패 갈림)
+    if (a == BuildType.pvp2GateDragoon && b == BuildType.pvpDarkAllIn) return -8;
     if (a == BuildType.pvp4GateDragoon && b == BuildType.pvp1GateMulti) return 18;    // 3겟드라군 > 원겟멀티
     if (a == BuildType.pvp1GateMulti && b == BuildType.pvp4GateDragoon) return -18;
     if (a == BuildType.pvpZealotRush && b == BuildType.pvp1GateMulti) return 15;      // 센터99겟 > 원겟멀티

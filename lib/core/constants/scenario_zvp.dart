@@ -38,7 +38,7 @@ const _zvpHydraVsForge = ScenarioScript(
           text: '{home} 선수 앞마당에 해처리를 올립니다!',
           owner: LogOwner.home,
           homeResource: -30,
-          altText: '{home}, 12앞마당 해처리! 경제를 가져갑니다.',
+          altText: '{home}, 12앞마당 해처리! 확장을 가져갑니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 포지 건설! 앞마당 심시티를 준비합니다.',
@@ -425,7 +425,7 @@ const _zvpMutalVsForge = ScenarioScript(
               altText: '{home} 선수 뮤탈 컨트롤! 이리저리 피하면서 견제합니다!',
             ),
             ScriptEvent(
-              text: '뮤탈 견제가 성공적입니다! 프로토스 경제에 타격!',
+              text: '뮤탈 견제가 성공적입니다! 프로토스 일꾼에 타격!',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
@@ -629,7 +629,7 @@ const _zvp9poolVsForge = ScenarioScript(
               awayResource: -15, favorsStat: 'harass',
             ),
             ScriptEvent(
-              text: '저글링이 프로토스 경제를 파괴하고 있습니다!',
+              text: '저글링이 프로토스 일꾼을 파괴하고 있습니다!',
               owner: LogOwner.system,
               decisive: true,
             ),
@@ -657,7 +657,7 @@ const _zvp9poolVsForge = ScenarioScript(
               awayArmy: 3, homeArmy: -2, favorsStat: 'defense',
             ),
             ScriptEvent(
-              text: '캐논 수비 성공! 저그가 경제적으로 뒤처집니다!',
+              text: '캐논 수비 성공! 저그가 자원이 뒤처집니다!',
               owner: LogOwner.system,
               decisive: true,
             ),
@@ -899,7 +899,7 @@ const _zvpMukerjiVsCorsairReaver = ScenarioScript(
               favorsStat: 'control',
             ),
             ScriptEvent(
-              text: '리버 드랍이 성공! 저그 경제에 큰 타격!',
+              text: '리버 드랍이 성공! 저그 일꾼에 큰 타격!',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),

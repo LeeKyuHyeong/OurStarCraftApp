@@ -200,7 +200,7 @@ void main() {
           allText.contains('프로브 컨트롤! 질럿을 잡습니다') ||
           allText.contains('질럿을 잃었습니다! 견제 실패') ||
           allText.contains('넥서스의 자원이 빛을 발합니다') ||
-          allText.contains('경제 이점을 병력으로 전환') ||
+          allText.contains('자원 이점을 병력으로 전환') ||
           allText.contains('프로브 수비 성공');
 
       if (hasZealotDamage) { p2ZealotDamage++; if (won) p2ZealotDamageWin++; }

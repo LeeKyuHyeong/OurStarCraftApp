@@ -599,9 +599,21 @@ class MatchSimulationService {
 
             // 승패 체크
             if (scriptResult.decisive) {
+              // decisive 이벤트의 주체가 승자
+              bool? decisiveWinner;
+              if (scriptResult.entry != null) {
+                if (scriptResult.entry!.owner == LogOwner.home) {
+                  decisiveWinner = true;
+                } else if (scriptResult.entry!.owner == LogOwner.away) {
+                  decisiveWinner = false;
+                } else {
+                  // system/clash: 병력 우세 쪽 승리
+                  decisiveWinner = state.homeArmy >= state.awayArmy;
+                }
+              }
               yield* _emitEnding(
                 state: state,
-                homeWinOverride: null,
+                homeWinOverride: decisiveWinner,
                 winRate: winRate,
                 homePlayer: homePlayer,
                 awayPlayer: awayPlayer,
@@ -1245,7 +1257,7 @@ class MatchSimulationService {
     // 빠른 승리 (40줄 이하)
     if (lineCount <= 40) {
       final quickTexts = [
-        '${winner.name} 선수, 초반부터 압도적이었습니다!',
+        '${winner.name} 선수, 공격적인 빌드가 먹혔습니다!',
         '빠른 경기! ${winner.name} 선수가 일찍 승기를 잡았네요.',
         '${winner.name} 선수, 초반 운영이 완벽했습니다!',
       ];
@@ -3390,6 +3402,12 @@ class MatchSimulationService {
   /// 능력치 값 가져오기
   int _getStatValue(PlayerStats stats, String? statName) {
     if (statName == null) return 500;
+    // 복합 능력치 지원: 'attack+strategy' → 두 능력치 평균
+    if (statName.contains('+')) {
+      final parts = statName.split('+');
+      final values = parts.map((p) => _getStatValue(stats, p.trim())).toList();
+      return values.reduce((a, b) => a + b) ~/ values.length;
+    }
     switch (statName) {
       case 'sense':
         return stats.sense;

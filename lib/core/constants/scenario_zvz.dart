@@ -318,7 +318,7 @@ const _zvz12hatchVs9pool = ScenarioScript(
           text: '{home} 선수 12드론에 앞마당 해처리를 올립니다!',
           owner: LogOwner.home,
           homeResource: -30,
-          altText: '{home}, 12앞마당! 경제를 가져가겠다는 배짱 빌드!',
+          altText: '{home}, 12앞마당! 확장을 가져가겠다는 배짱 빌드!',
         ),
         ScriptEvent(
           text: '{away} 선수 9드론에 스포닝풀 건설! 공격적입니다!',
@@ -383,7 +383,7 @@ const _zvz12hatchVs9pool = ScenarioScript(
               text: '{home} 선수 앞마당 해처리가 부서지고 있습니다!',
               owner: LogOwner.home,
               homeResource: -10,
-              altText: '{home}, 앞마당이 무너집니다! 경제 손실이 크네요!',
+              altText: '{home}, 앞마당이 무너집니다! 자원 손실이 크네요!',
             ),
             ScriptEvent(
               text: '{away}, 추가 저글링 합류! 하지만 성큰이 올라갑니다!',
@@ -419,7 +419,7 @@ const _zvz12hatchVs9pool = ScenarioScript(
               homeArmy: 2, awayArmy: -2, favorsStat: 'control',
             ),
             ScriptEvent(
-              text: '수비 성공! 앞마당이 살았습니다! 경제 우위 확보!',
+              text: '수비 성공! 앞마당이 살았습니다! 자원 우위 확보!',
               owner: LogOwner.system,
               skipChance: 0.2,
             ),
@@ -495,10 +495,10 @@ const _zvz12hatchVs9pool = ScenarioScript(
           altText: '{home} 선수 스커지가 뮤탈에 돌진! 격추합니다!',
         ),
         ScriptEvent(
-          text: '{home}, 경제력 차이! 뮤탈을 계속 보충합니다!',
+          text: '{home}, 자원 차이! 뮤탈을 계속 보충합니다!',
           owner: LogOwner.home,
           homeArmy: 5, homeResource: -15,
-          altText: '{home} 선수 경제력으로 뮤탈 추가 생산!',
+          altText: '{home} 선수 물량으로 뮤탈 추가 생산!',
         ),
         ScriptEvent(
           text: '{away}, 자원이 부족합니다! 뮤탈을 뽑을 수가 없어요!',
@@ -511,7 +511,7 @@ const _zvz12hatchVs9pool = ScenarioScript(
           awayResource: -15, favorsStat: 'harass',
         ),
         ScriptEvent(
-          text: '경제 차이가 승부를 가르고 있습니다!',
+          text: '자원 차이가 승부를 가르고 있습니다!',
           owner: LogOwner.system,
           decisive: true,
         ),
@@ -647,12 +647,12 @@ const _zvz4poolVs12hatch = ScenarioScript(
       recoveryResourcePerLine: 8,
       linearEvents: [
         ScriptEvent(
-          text: '{away} 선수 드론을 보충하면서 경제를 회복합니다.',
+          text: '{away} 선수 드론을 보충하면서 자원을 회복합니다.',
           owner: LogOwner.away,
           awayResource: 15, awayArmy: 5,
         ),
         ScriptEvent(
-          text: '{home} 선수 드론이 적습니다. 경제 격차가 벌어지고 있어요.',
+          text: '{home} 선수 드론이 적습니다. 자원 격차가 벌어지고 있어요.',
           owner: LogOwner.home,
           homeArmy: -15, homeResource: -20,
           altText: '{home}, 4풀의 대가! 드론이 너무 적습니다!',
@@ -666,7 +666,7 @@ const _zvz4poolVs12hatch = ScenarioScript(
           text: '{away}, 저글링 물량으로 반격합니다! 4풀 선수가 밀립니다!',
           owner: LogOwner.away,
           homeArmy: -22, awayArmy: 3, favorsStat: 'macro',
-          altText: '{away} 선수 물량 역전! 경제력의 차이가 드러납니다!',
+          altText: '{away} 선수 물량 역전! 물량의 차이가 드러납니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 본진 드론까지 뽑아서 저항하지만 부족합니다.',
@@ -689,7 +689,7 @@ const _zvz4poolVs12hatch = ScenarioScript(
           skipChance: 0.40,
         ),
         ScriptEvent(
-          text: '4풀 올인 실패의 대가! 경제 차이가 돌이킬 수 없습니다!',
+          text: '4풀 올인 실패의 대가! 자원 차이가 돌이킬 수 없습니다!',
           owner: LogOwner.system,
           decisive: true,
         ),
@@ -714,7 +714,7 @@ const _zvz3hatchMirror = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 드론을 계속 뽑습니다. 경제 우선!',
+          text: '{home} 선수 드론을 계속 뽑습니다. 자원 우선!',
           owner: LogOwner.home,
           homeResource: -5,
         ),
@@ -734,7 +734,7 @@ const _zvz3hatchMirror = ScenarioScript(
           awayResource: -30,
         ),
         ScriptEvent(
-          text: '{home} 선수 3번째 해처리까지! 경제가 폭발합니다.',
+          text: '{home} 선수 3번째 해처리까지! 자원이 폭발합니다.',
           owner: LogOwner.home,
           homeResource: -30,
           altText: '{home}, 3해처리 체제! 드론이 쏟아져 나옵니다!',
@@ -751,7 +751,7 @@ const _zvz3hatchMirror = ScenarioScript(
           homeArmy: 3, homeResource: -15,
         ),
         ScriptEvent(
-          text: '양쪽 모두 경제를 극대화하는 모습입니다. 후반전이 기대되네요.',
+          text: '양쪽 모두 자원을 극대화하는 모습입니다. 후반전이 기대되네요.',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),

@@ -217,6 +217,10 @@ class ScenarioScriptData {
     _tvtBbsVsDouble,
     _tvtWraithVsRaxDouble,
     _tvt5facVsMineTriple,
+    _tvtBbsVsTech,
+    _tvtAggressiveMirror,
+    _tvtCcFirstVs1facExpand,
+    _tvtTwofacVs1facExpand,
     // ZvZ (scenario_zvz.dart)
     _zvz9poolVs9overpool,
     _zvz12hatchVs9pool,

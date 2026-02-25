@@ -776,7 +776,7 @@ void main() {
       else { p2Unknown++; }
 
       // Phase 4 판별
-      final hasP4A = allText.contains('경제 복구 완료') || allText.contains('마린 메딕 조합으로 전진') || allText.contains('9풀 이후 경제가 부족');
+      final hasP4A = allText.contains('일꾼 복구 완료') || allText.contains('마린 메딕 조합으로 전진') || allText.contains('9풀 이후 자원이 부족');
       final hasP4B = allText.contains('뮤탈리스크 등장! 초반 이득') || allText.contains('뮤탈로 견제하면서 세 번째') || allText.contains('초반 피해 복구가 안');
 
       if (hasP4A) { p4TerranRecovers++; if (won) p4TerranRecoversWin++; }

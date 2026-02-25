@@ -66,7 +66,7 @@ const _pvtDragoonExpandVsFactory = ScenarioScript(
           text: '{home} 선수 앞마당 넥서스 건설! 확장을 가져갑니다.',
           owner: LogOwner.home,
           homeResource: -30,
-          altText: '{home}, 앞마당 넥서스가 올라갑니다! 경제를 가져가겠다는 의지!',
+          altText: '{home}, 앞마당 넥서스가 올라갑니다! 확장을 가져가겠다는 의지!',
         ),
         ScriptEvent(
           text: '{away} 선수 앞마당에 커맨드 센터! 팩더블 체제입니다.',
@@ -173,7 +173,7 @@ const _pvtDragoonExpandVsFactory = ScenarioScript(
               awayArmy: 4, awayResource: -20,
             ),
             ScriptEvent(
-              text: '벌처 견제가 판을 흔들고 있습니다! 프로토스 경제에 타격!',
+              text: '벌처 견제가 판을 흔들고 있습니다! 프로토스 일꾼에 타격!',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
@@ -486,7 +486,7 @@ const _pvtReaverVsTiming = ScenarioScript(
               altText: '{home} 선수 셔틀 컨트롤! 리버를 살려냅니다!',
             ),
             ScriptEvent(
-              text: '리버 견제가 성공적! 테란 경제에 큰 타격!',
+              text: '리버 견제가 성공적! 테란 일꾼에 큰 타격!',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
@@ -736,7 +736,7 @@ const _pvtDarkVsStandard = ScenarioScript(
               awayResource: -20, favorsStat: 'harass',
             ),
             ScriptEvent(
-              text: '다크 템플러가 대활약! 테란 경제가 무너지고 있습니다!',
+              text: '다크 템플러가 대활약! 테란 일꾼이 무너지고 있습니다!',
               owner: LogOwner.system,
               skipChance: 0.2,
             ),
@@ -1007,7 +1007,7 @@ const _pvtCarrierVsAnti = ScenarioScript(
           text: '{home} 선수 앞마당 넥서스를 올립니다. 확장을 가져가네요.',
           owner: LogOwner.home,
           homeResource: -30,
-          altText: '{home}, 넥서스 건설! 경제를 가져가겠다는 모습!',
+          altText: '{home}, 넥서스 건설! 확장을 가져가겠다는 모습!',
         ),
         ScriptEvent(
           text: '{away} 선수 앞마당 커맨드 센터 건설합니다.',
