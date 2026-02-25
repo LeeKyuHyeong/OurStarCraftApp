@@ -931,3 +931,826 @@ const _pvpZealotRush = ScenarioScript(
     ),
   ],
 );
+
+// ----------------------------------------------------------
+// 6. 다크 올인 vs 질럿 러시 (치즈 vs 치즈)
+// ----------------------------------------------------------
+const _pvpDarkVsZealotRush = ScenarioScript(
+  id: 'pvp_dark_vs_zealot_rush',
+  matchup: 'PvP',
+  homeBuildIds: ['pvp_dark_allin'],
+  awayBuildIds: ['pvp_zealot_rush', 'pvp_3gate_speedzealot'],
+  description: '다크 올인 vs 질럿 러시',
+  phases: [
+    // Phase 0: 오프닝 (lines 1-12)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 게이트웨이 건설합니다.',
+          owner: LogOwner.home,
+          homeResource: -15,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 프로브를 앞으로 보냅니다!',
+          owner: LogOwner.away,
+          awayResource: -5,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 시타델 오브 아둔 건설! 다크 테크!',
+          owner: LogOwner.home,
+          homeResource: -20,
+          altText: '{home}, 시타델! 다크를 준비합니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 센터에 게이트웨이! 질럿 러시입니다!',
+          owner: LogOwner.away,
+          awayResource: -15,
+          altText: '{away}, 센터 게이트! 질럿을 쏟아냅니다!',
+        ),
+        ScriptEvent(
+          text: '양쪽 다 치즈 빌드! 올인 대결입니다!',
+          owner: LogOwner.system,
+          skipChance: 0.3,
+        ),
+      ],
+    ),
+    // Phase 1: 질럿 돌진 (lines 13-20)
+    ScriptPhase(
+      name: 'zealot_rush_arrives',
+      startLine: 13,
+      linearEvents: [
+        ScriptEvent(
+          text: '{away}, 질럿 3기가 상대 진영으로 돌진합니다!',
+          owner: LogOwner.away,
+          awayArmy: 4, favorsStat: 'attack',
+          altText: '{away} 선수 질럿 러시! 다크가 나오기 전에 끝내야 합니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 질럿 1기로 막으면서 다크를 기다립니다!',
+          owner: LogOwner.home,
+          homeArmy: 2,
+          altText: '{home}, 질럿 한 기로 시간을 벌어야 합니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 템플러 아카이브 건설 중! 다크까지 버틸 수 있을까요?',
+          owner: LogOwner.home,
+          homeResource: -20,
+        ),
+      ],
+    ),
+    // Phase 2: 결과 - 분기 (lines 21-36)
+    ScriptPhase(
+      name: 'cheese_result',
+      startLine: 21,
+      branches: [
+        // 분기 A: 질럿 러시가 다크 전에 밀어버림
+        ScriptBranch(
+          id: 'zealot_overruns',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away}, 질럿이 게이트웨이를 부수고 들어갑니다!',
+              owner: LogOwner.away,
+              homeArmy: -2, homeResource: -15, favorsStat: 'attack',
+              altText: '{away} 선수 질럿이 건물을 부수기 시작합니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 프로브가 잡히고 있습니다! 다크가 아직이에요!',
+              owner: LogOwner.home,
+              homeResource: -15,
+            ),
+            ScriptEvent(
+              text: '{away}, 추가 질럿 합류! 템플러 아카이브도 위험합니다!',
+              owner: LogOwner.away,
+              awayArmy: 2, homeResource: -10, favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '질럿 러시가 다크보다 빨랐습니다! 본진이 무너집니다!',
+              owner: LogOwner.system,
+              decisive: true,
+            ),
+          ],
+        ),
+        // 분기 B: 다크가 나오면서 역전
+        ScriptBranch(
+          id: 'dark_comes_out',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home}, 다크 템플러가 나옵니다! 질럿 러시를 버텨냈습니다!',
+              owner: LogOwner.home,
+              homeArmy: 3, favorsStat: 'defense',
+              altText: '{home} 선수 다크 등장! 보이지 않는 반격!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 다크가 질럿을 베기 시작합니다! 디텍이 없어요!',
+              owner: LogOwner.away,
+              awayArmy: -3,
+              altText: '{away}, 질럿이 다크에 녹고 있습니다!',
+            ),
+            ScriptEvent(
+              text: '{home}, 다크를 상대 본진으로 보냅니다! 역습!',
+              owner: LogOwner.home,
+              awayResource: -20, favorsStat: 'harass',
+            ),
+            ScriptEvent(
+              text: '다크 템플러가 판을 뒤집습니다! 치즈 vs 치즈의 결말!',
+              owner: LogOwner.system,
+              decisive: true,
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);
+
+// ----------------------------------------------------------
+// 7. 로보 미러 (리버 대결)
+// ----------------------------------------------------------
+const _pvpRoboMirror = ScenarioScript(
+  id: 'pvp_robo_mirror',
+  matchup: 'PvP',
+  homeBuildIds: ['pvp_1gate_robo', 'pvp_2gate_reaver'],
+  awayBuildIds: ['pvp_1gate_robo', 'pvp_2gate_reaver'],
+  description: '로보틱스 미러 - 셔틀 리버 대결',
+  phases: [
+    // Phase 0: 오프닝 (lines 1-16)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 게이트웨이 건설합니다.',
+          owner: LogOwner.home,
+          homeResource: -15,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 게이트웨이 건설합니다.',
+          owner: LogOwner.away,
+          awayResource: -15,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 사이버네틱스 코어! 드라군 준비!',
+          owner: LogOwner.home,
+          homeResource: -15,
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 사이버네틱스 코어!',
+          owner: LogOwner.away,
+          awayResource: -15,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 로보틱스 퍼실리티 건설! 셔틀 리버를 노립니다!',
+          owner: LogOwner.home,
+          homeResource: -25,
+          altText: '{home}, 로보틱스! 리버를 올립니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 로보틱스! 양쪽 리버 경쟁입니다!',
+          owner: LogOwner.away,
+          awayResource: -25,
+          altText: '{away}, 로보틱스! 셔틀 리버 미러!',
+        ),
+      ],
+    ),
+    // Phase 1: 셔틀 리버 출격 (lines 17-26)
+    ScriptPhase(
+      name: 'shuttle_reaver_deploy',
+      startLine: 17,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home}, 셔틀에 리버를 태웁니다! 출격!',
+          owner: LogOwner.home,
+          homeArmy: 3, homeResource: -25, favorsStat: 'harass',
+          altText: '{home} 선수 셔틀 리버 출격! 프로브를 노립니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 셔틀 리버! 교차 견제!',
+          owner: LogOwner.away,
+          awayArmy: 3, awayResource: -25, favorsStat: 'harass',
+          altText: '{away}, 셔틀 리버 출발! 양쪽 리버가 교차합니다!',
+        ),
+        ScriptEvent(
+          text: '양측 셔틀 리버 교차! 누가 먼저 피해를 입힐까요?',
+          owner: LogOwner.system,
+          skipChance: 0.2,
+        ),
+      ],
+    ),
+    // Phase 2: 셔틀 리버 견제 결과 - 분기 (lines 27-42)
+    ScriptPhase(
+      name: 'reaver_harass_result',
+      startLine: 27,
+      branches: [
+        // 분기 A: 홈 리버 견제 성공 + 어웨이 셔틀 격추
+        ScriptBranch(
+          id: 'home_reaver_dominates',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home}, 리버가 프로브 라인에 착지! 스캐럽!',
+              owner: LogOwner.home,
+              awayResource: -25, favorsStat: 'harass',
+              altText: '{home} 선수 리버 투하! 프로브가 날아갑니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 드라군이 상대 셔틀을 노립니다! 격추!',
+              owner: LogOwner.away,
+              homeArmy: -4, favorsStat: 'defense',
+              altText: '{away}, 셔틀 격추! 하지만 프로브 피해가 크네요!',
+            ),
+            ScriptEvent(
+              text: '{home}, 셔틀은 잃었지만 프로브 피해를 더 많이 줬습니다!',
+              owner: LogOwner.home,
+              homeArmy: -1,
+            ),
+            ScriptEvent(
+              text: '리버 교환이 끝났습니다! 프로브 피해 차이가 승부를 가릅니다!',
+              owner: LogOwner.system,
+              skipChance: 0.3,
+            ),
+          ],
+        ),
+        // 분기 B: 어웨이 리버 견제 성공 + 홈 셔틀 격추
+        ScriptBranch(
+          id: 'away_reaver_dominates',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away}, 리버가 프로브 라인에 투하! 스캐럽 명중!',
+              owner: LogOwner.away,
+              homeResource: -25, favorsStat: 'harass',
+              altText: '{away} 선수 리버 투하! 프로브가 쓸려갑니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 드라군으로 상대 셔틀을 잡습니다!',
+              owner: LogOwner.home,
+              awayArmy: -4, favorsStat: 'defense',
+              altText: '{home}, 셔틀을 잡긴 했지만 프로브 피해가!',
+            ),
+            ScriptEvent(
+              text: '{away}, 프로브 피해를 더 많이 입혔습니다! 자원 이점!',
+              owner: LogOwner.away,
+              awayArmy: -1,
+            ),
+            ScriptEvent(
+              text: '리버 견제 교환! 프로브 피해가 핵심이었습니다!',
+              owner: LogOwner.system,
+              skipChance: 0.3,
+            ),
+          ],
+        ),
+      ],
+    ),
+    // Phase 3: 후반 하이 템플러 전쟁 (lines 43-60)
+    ScriptPhase(
+      name: 'high_templar_war',
+      startLine: 43,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 하이 템플러 합류! 스톰 준비!',
+          owner: LogOwner.home,
+          homeArmy: 4, homeResource: -25,
+          altText: '{home}, 하이 템플러! 스톰 연구 완료!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 하이 템플러! 양쪽 스톰 대결!',
+          owner: LogOwner.away,
+          awayArmy: 4, awayResource: -25,
+        ),
+        ScriptEvent(
+          text: '{home}, 셔틀에 하이 템플러를 태워서 견제! 본진 스톰!',
+          owner: LogOwner.home,
+          awayResource: -15, awayArmy: -3, favorsStat: 'harass',
+          altText: '{home} 선수 셔틀 하이 템플러! 프로브가 스톰에 녹습니다!',
+          skipChance: 0.3,
+        ),
+        ScriptEvent(
+          text: '양측 드라군 리버 하이 템플러! 전면전!',
+          owner: LogOwner.system,
+        ),
+        ScriptEvent(
+          text: '{home}, 스톰! 상대 드라군이 녹습니다!',
+          owner: LogOwner.home,
+          awayArmy: -10, homeArmy: -3, favorsStat: 'strategy',
+          altText: '{home} 선수 스톰! 드라군 편대가 증발!',
+        ),
+        ScriptEvent(
+          text: '{away}, 맞스톰! 양쪽 병력이 동시에 녹습니다!',
+          owner: LogOwner.away,
+          homeArmy: -8, awayArmy: -6, favorsStat: 'strategy',
+          altText: '{away} 선수 맞스톰! 서로 병력이 녹아내립니다!',
+        ),
+        ScriptEvent(
+          text: '결정적인 순간입니다!',
+          owner: LogOwner.system,
+          decisive: true,
+        ),
+      ],
+    ),
+  ],
+);
+
+// ----------------------------------------------------------
+// 8. 4게이트 드라군 vs 원겟 멀티 (공격 vs 운영)
+// ----------------------------------------------------------
+const _pvp4gateVsMulti = ScenarioScript(
+  id: 'pvp_4gate_vs_multi',
+  matchup: 'PvP',
+  homeBuildIds: ['pvp_4gate_dragoon'],
+  awayBuildIds: ['pvp_1gate_multi'],
+  description: '4게이트 드라군 vs 원겟 멀티',
+  phases: [
+    // Phase 0: 오프닝 (lines 1-14)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 게이트웨이 건설합니다.',
+          owner: LogOwner.home,
+          homeResource: -15,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 게이트웨이 건설합니다.',
+          owner: LogOwner.away,
+          awayResource: -15,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 사이버네틱스 코어! 드라군 사업!',
+          owner: LogOwner.home,
+          homeResource: -15,
+          altText: '{home}, 사이버네틱스 코어 건설!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 넥서스를 빠르게 건설합니다! 원겟 멀티!',
+          owner: LogOwner.away,
+          awayResource: -30,
+          altText: '{away}, 빠른 확장! 자원 이점을 가져가겠다는 빌드!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 게이트웨이를 빠르게 추가합니다! 3게이트!',
+          owner: LogOwner.home,
+          homeResource: -30,
+          altText: '{home}, 게이트웨이 추가! 드라군을 빠르게 모읍니다!',
+        ),
+      ],
+    ),
+    // Phase 1: 드라군 압박 (lines 15-24)
+    ScriptPhase(
+      name: 'dragoon_pressure',
+      startLine: 15,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home}, 드라군 편대가 전진합니다! 멀티를 노립니다!',
+          owner: LogOwner.home,
+          homeArmy: 5, homeResource: -20, favorsStat: 'attack',
+          altText: '{home} 선수 드라군 전진! 확장을 흔들어야 합니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 드라군이 아직 적습니다! 멀티 경제를 믿고 버팁니다!',
+          owner: LogOwner.away,
+          awayArmy: 3, awayResource: -15,
+          altText: '{away}, 드라군 수가 부족합니다! 시간을 벌어야 해요!',
+        ),
+        ScriptEvent(
+          text: '4게이트 물량 vs 멀티 경제! 시간이 핵심입니다!',
+          owner: LogOwner.system,
+          skipChance: 0.2,
+        ),
+      ],
+    ),
+    // Phase 2: 압박 결과 - 분기 (lines 25-40)
+    ScriptPhase(
+      name: 'pressure_result',
+      startLine: 25,
+      branches: [
+        // 분기 A: 드라군 물량이 밀어냄
+        ScriptBranch(
+          id: 'dragoon_rush_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home}, 드라군 물량으로 상대 앞마당을 밀어냅니다!',
+              owner: LogOwner.home,
+              awayArmy: -3, awayResource: -10, favorsStat: 'attack',
+              altText: '{home} 선수 드라군이 밀려옵니다! 수가 너무 많아요!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 드라군이 부족합니다! 게이트가 아직 안 돌아요!',
+              owner: LogOwner.away,
+              awayArmy: -2,
+            ),
+            ScriptEvent(
+              text: '{home}, 앞마당 넥서스를 공격합니다! 확장을 무너뜨립니다!',
+              owner: LogOwner.home,
+              awayResource: -20, favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '4게이트 타이밍! 멀티가 자리잡기 전에 밀어냅니다!',
+              owner: LogOwner.system,
+              decisive: true,
+            ),
+          ],
+        ),
+        // 분기 B: 멀티가 버텨내며 역전
+        ScriptBranch(
+          id: 'multi_holds',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away}, 드라군과 질럿으로 앞마당을 지켜냅니다!',
+              owner: LogOwner.away,
+              homeArmy: -3, awayArmy: -1, favorsStat: 'defense',
+              altText: '{away} 선수 수비 성공! 드라군을 잡아냅니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 드라군을 많이 잃었습니다! 압박 실패!',
+              owner: LogOwner.home,
+              homeArmy: -3,
+            ),
+            ScriptEvent(
+              text: '{away}, 게이트웨이가 추가로 돌아갑니다! 멀티 자원이 빛을 발합니다!',
+              owner: LogOwner.away,
+              awayArmy: 5, awayResource: 15,
+              altText: '{away} 선수 병력이 쏟아져 나옵니다! 멀티의 힘!',
+            ),
+            ScriptEvent(
+              text: '멀티가 버텨냈습니다! 자원 차이로 병력이 역전됩니다!',
+              owner: LogOwner.system,
+            ),
+          ],
+        ),
+      ],
+    ),
+    // Phase 3: 후반 전개 (lines 41-58)
+    ScriptPhase(
+      name: 'late_game',
+      startLine: 41,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수도 앞마당 확장! 장기전으로 전환!',
+          owner: LogOwner.home,
+          homeResource: -30,
+          skipChance: 0.3,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 로보틱스 건설! 셔틀 리버 준비!',
+          owner: LogOwner.away,
+          awayResource: -25,
+        ),
+        ScriptEvent(
+          text: '{home} 선수도 로보틱스! 리버 경쟁!',
+          owner: LogOwner.home,
+          homeResource: -25,
+        ),
+        ScriptEvent(
+          text: '{away}, 셔틀 리버 출격! 프로브를 노립니다!',
+          owner: LogOwner.away,
+          awayArmy: 3, awayResource: -25, favorsStat: 'harass',
+          altText: '{away} 선수 셔틀 리버! PvP의 꽃!',
+        ),
+        ScriptEvent(
+          text: '{home}, 드라군이 셔틀을 노립니다!',
+          owner: LogOwner.home,
+          awayArmy: -2, favorsStat: 'defense',
+          skipChance: 0.3,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 하이 템플러 합류! 스톰!',
+          owner: LogOwner.home,
+          homeArmy: 4, homeResource: -25,
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 하이 템플러! 전면전!',
+          owner: LogOwner.away,
+          awayArmy: 4, awayResource: -25,
+        ),
+        ScriptEvent(
+          text: '결정적인 순간입니다!',
+          owner: LogOwner.system,
+          decisive: true,
+        ),
+      ],
+    ),
+  ],
+);
+
+// ----------------------------------------------------------
+// 9. 질럿 러시 vs 리버 (올인 vs 테크)
+// ----------------------------------------------------------
+const _pvpZealotRushVsReaver = ScenarioScript(
+  id: 'pvp_zealot_rush_vs_reaver',
+  matchup: 'PvP',
+  homeBuildIds: ['pvp_zealot_rush', 'pvp_3gate_speedzealot'],
+  awayBuildIds: ['pvp_1gate_robo', 'pvp_2gate_reaver'],
+  description: '질럿 러시 vs 로보 리버',
+  phases: [
+    // Phase 0: 오프닝 (lines 1-12)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 프로브를 앞으로 보냅니다!',
+          owner: LogOwner.home,
+          homeResource: -5,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 게이트웨이 건설합니다.',
+          owner: LogOwner.away,
+          awayResource: -15,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 센터에 게이트웨이! 질럿 러시!',
+          owner: LogOwner.home,
+          homeResource: -15,
+          altText: '{home}, 센터 게이트! 질럿을 빠르게 뽑겠다는 의도!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 로보틱스 퍼실리티 건설! 리버를 준비합니다!',
+          owner: LogOwner.away,
+          awayResource: -25,
+          altText: '{away}, 로보틱스! 셔틀 리버 빌드!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 질럿 생산 시작!',
+          owner: LogOwner.home,
+          homeArmy: 3, homeResource: -10,
+        ),
+      ],
+    ),
+    // Phase 1: 질럿 돌진 (lines 13-20)
+    ScriptPhase(
+      name: 'zealot_charge',
+      startLine: 13,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home}, 질럿이 상대 진영으로 돌진합니다! 리버 전에 끝내야 합니다!',
+          owner: LogOwner.home,
+          homeArmy: 2, favorsStat: 'attack',
+          altText: '{home} 선수 질럿 러시! 프로브를 노립니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 드라군과 질럿으로 막습니다! 리버까지 버텨야!',
+          owner: LogOwner.away,
+          awayArmy: 3, awayResource: -15,
+          altText: '{away}, 수비! 리버가 나올 때까지!',
+        ),
+        ScriptEvent(
+          text: '질럿 러시 vs 로보 테크! 시간 싸움입니다!',
+          owner: LogOwner.system,
+          skipChance: 0.2,
+        ),
+      ],
+    ),
+    // Phase 2: 결과 - 분기 (lines 21-36)
+    ScriptPhase(
+      name: 'rush_vs_tech_result',
+      startLine: 21,
+      branches: [
+        // 분기 A: 질럿이 리버 전에 밀어냄
+        ScriptBranch(
+          id: 'zealot_before_reaver',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home}, 질럿이 프로브를 잡습니다! 리버가 아직이에요!',
+              owner: LogOwner.home,
+              awayResource: -20, awayArmy: -1, favorsStat: 'attack',
+              altText: '{home} 선수 질럿이 프로브를 베어냅니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 리버가 생산 중이지만 시간이 부족합니다!',
+              owner: LogOwner.away,
+              awayResource: -10,
+            ),
+            ScriptEvent(
+              text: '{home}, 추가 질럿 합류! 로보틱스까지 위협합니다!',
+              owner: LogOwner.home,
+              homeArmy: 2, awayResource: -15, favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '질럿 러시 성공! 리버가 나오기 전에 밀어냈습니다!',
+              owner: LogOwner.system,
+              decisive: true,
+            ),
+          ],
+        ),
+        // 분기 B: 리버가 나오면서 역전
+        ScriptBranch(
+          id: 'reaver_saves',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away}, 질럿과 프로브로 버팁니다! 리버가 곧!',
+              owner: LogOwner.away,
+              homeArmy: -2, favorsStat: 'defense',
+              altText: '{away} 선수 수비! 리버만 나오면!',
+            ),
+            ScriptEvent(
+              text: '{away}, 리버가 나왔습니다! 스캐럽! 질럿이 터집니다!',
+              owner: LogOwner.away,
+              homeArmy: -3, awayArmy: 3, favorsStat: 'control',
+              altText: '{away} 선수 리버 등장! 스캐럽 한 방에 질럿이!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 질럿이 리버 화력에 녹고 있습니다!',
+              owner: LogOwner.home,
+              homeArmy: -2,
+            ),
+            ScriptEvent(
+              text: '리버가 판을 뒤집습니다! 질럿으로는 리버를 감당할 수 없습니다!',
+              owner: LogOwner.system,
+              decisive: true,
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);
+
+// ----------------------------------------------------------
+// 10. 다크 올인 미러 (다크 vs 다크)
+// ----------------------------------------------------------
+const _pvpDarkMirror = ScenarioScript(
+  id: 'pvp_dark_mirror',
+  matchup: 'PvP',
+  homeBuildIds: ['pvp_dark_allin'],
+  awayBuildIds: ['pvp_dark_allin'],
+  description: '다크 올인 미러',
+  phases: [
+    // Phase 0: 오프닝 (lines 1-14)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 게이트웨이 건설합니다.',
+          owner: LogOwner.home,
+          homeResource: -15,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 게이트웨이 건설합니다.',
+          owner: LogOwner.away,
+          awayResource: -15,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 시타델 오브 아둔! 다크를 노립니다!',
+          owner: LogOwner.home,
+          homeResource: -20,
+          altText: '{home}, 시타델! 다크 빌드입니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 시타델! 양쪽 다크 미러입니다!',
+          owner: LogOwner.away,
+          awayResource: -20,
+          altText: '{away}, 시타델! 양쪽 다 다크를 노리네요!',
+        ),
+        ScriptEvent(
+          text: '양측 다크 올인 미러! 서로 상대 다크를 모르는 상황!',
+          owner: LogOwner.system,
+          skipChance: 0.3,
+        ),
+      ],
+    ),
+    // Phase 1: 다크 투입 (lines 15-22)
+    ScriptPhase(
+      name: 'dark_deploy',
+      startLine: 15,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 다크 템플러 2기 생산! 상대 진영으로!',
+          owner: LogOwner.home,
+          homeArmy: 3, homeResource: -20,
+          altText: '{home}, 다크 출발! 보이지 않는 칼!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 다크 2기! 교차 투입!',
+          owner: LogOwner.away,
+          awayArmy: 3, awayResource: -20,
+          altText: '{away}, 다크 출발! 서로 다크를 보냅니다!',
+        ),
+        ScriptEvent(
+          text: '양쪽 다크가 교차합니다! 디텍은 누구에게도 없습니다!',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 2: 다크 결과 - 분기 (lines 23-38)
+    ScriptPhase(
+      name: 'dark_result',
+      startLine: 23,
+      branches: [
+        // 분기 A: 홈 다크가 더 큰 피해
+        ScriptBranch(
+          id: 'home_dark_more_damage',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home}, 다크가 프로브 라인에 도착! 학살!',
+              owner: LogOwner.home,
+              awayResource: -25, favorsStat: 'harass',
+              altText: '{home} 선수 다크 성공! 프로브가 몰살!',
+            ),
+            ScriptEvent(
+              text: '{away}, 다크가 상대 프로브도 베고 있습니다!',
+              owner: LogOwner.away,
+              homeResource: -15, favorsStat: 'harass',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 다크 컨트롤! 프로브를 더 많이 잡았습니다!',
+              owner: LogOwner.home,
+              awayResource: -10, favorsStat: 'control',
+            ),
+            ScriptEvent(
+              text: '다크 교환! 프로브 피해 차이가 승부를 가릅니다!',
+              owner: LogOwner.system,
+              skipChance: 0.2,
+            ),
+          ],
+        ),
+        // 분기 B: 어웨이 다크가 더 큰 피해
+        ScriptBranch(
+          id: 'away_dark_more_damage',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away}, 다크가 프로브를 베기 시작합니다! 큰 피해!',
+              owner: LogOwner.away,
+              homeResource: -25, favorsStat: 'harass',
+              altText: '{away} 선수 다크 대성공! 프로브가 녹습니다!',
+            ),
+            ScriptEvent(
+              text: '{home}, 다크가 프로브를 잡고는 있지만 피해가 적습니다!',
+              owner: LogOwner.home,
+              awayResource: -15, favorsStat: 'harass',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 다크 컨트롤! 더 많은 프로브를 잡습니다!',
+              owner: LogOwner.away,
+              homeResource: -10, favorsStat: 'control',
+            ),
+            ScriptEvent(
+              text: '다크 교환에서 밀렸습니다! 프로브 차이가 크네요!',
+              owner: LogOwner.system,
+              skipChance: 0.2,
+            ),
+          ],
+        ),
+      ],
+    ),
+    // Phase 3: 후반 복구전 (lines 39-55)
+    ScriptPhase(
+      name: 'recovery_battle',
+      startLine: 39,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 캐논을 건설합니다! 추가 다크에 대비!',
+          owner: LogOwner.home,
+          homeResource: -10,
+          skipChance: 0.3,
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 캐논! 양쪽 다크 대비!',
+          owner: LogOwner.away,
+          awayResource: -10,
+          skipChance: 0.3,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 로보틱스 건설! 옵저버와 리버를 준비합니다!',
+          owner: LogOwner.home,
+          homeResource: -25,
+          altText: '{home}, 로보틱스! 다크 미러 이후 테크 전환!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 로보틱스! 셔틀 리버 경쟁!',
+          owner: LogOwner.away,
+          awayResource: -25,
+        ),
+        ScriptEvent(
+          text: '{home}, 셔틀 리버 출격! 프로브를 추가로 노립니다!',
+          owner: LogOwner.home,
+          homeArmy: 3, homeResource: -25, favorsStat: 'harass',
+          altText: '{home} 선수 셔틀 리버! 남은 프로브를 노립니다!',
+        ),
+        ScriptEvent(
+          text: '{away}, 드라군이 셔틀을 집중합니다!',
+          owner: LogOwner.away,
+          homeArmy: -2, favorsStat: 'defense',
+          altText: '{away} 선수 셔틀 격추 시도!',
+          skipChance: 0.3,
+        ),
+        ScriptEvent(
+          text: '다크 미러 이후 복구전! 누가 더 빨리 회복하느냐!',
+          owner: LogOwner.system,
+          decisive: true,
+        ),
+      ],
+    ),
+  ],
+);

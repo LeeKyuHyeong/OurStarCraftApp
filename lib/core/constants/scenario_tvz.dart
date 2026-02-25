@@ -1948,3 +1948,1208 @@ const _tvz9poolVsStandard = ScenarioScript(
     ),
   ],
 );
+
+// ----------------------------------------------------------
+// 8. 발키리 바이오닉 vs 뮤탈 (대공 특화)
+// ----------------------------------------------------------
+const _tvzValkyrieVsMutal = ScenarioScript(
+  id: 'tvz_valkyrie_vs_mutal',
+  matchup: 'TvZ',
+  homeBuildIds: ['tvz_valkyrie', 'tvz_trans_valkyrie'],
+  awayBuildIds: ['zvt_2hatch_mutal', 'zvt_3hatch_mutal',
+                 'zvt_trans_2hatch_mutal', 'zvt_trans_mutal_ultra'],
+  description: '발키리 대공 vs 뮤탈리스크',
+  phases: [
+    // Phase 0: 오프닝 (lines 1-16)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 배럭 건설합니다.',
+          owner: LogOwner.home,
+          homeResource: -10,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 앞마당에 해처리를 올립니다!',
+          owner: LogOwner.away,
+          awayResource: -30,
+          altText: '{away}, 해처리부터 올립니다! 앞마당 확장!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 가스 채취를 시작합니다.',
+          owner: LogOwner.home,
+          homeResource: -5,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 스포닝풀 건설합니다.',
+          owner: LogOwner.away,
+          awayResource: -15,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 팩토리 건설! 테크를 올립니다.',
+          owner: LogOwner.home,
+          homeResource: -20,
+          altText: '{home}, 팩토리가 올라갑니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 저글링 생산하면서 레어 올립니다.',
+          owner: LogOwner.away,
+          awayArmy: 3, awayResource: -20,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 스타포트 건설! 아머리까지!',
+          owner: LogOwner.home,
+          homeResource: -30,
+          altText: '{home}, 스타포트와 아머리가 동시에 올라갑니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 스파이어 올립니다! 뮤탈 준비!',
+          owner: LogOwner.away,
+          awayResource: -25,
+          skipChance: 0.3,
+        ),
+      ],
+    ),
+    // Phase 1: 발키리 생산 vs 뮤탈 등장 (lines 17-26)
+    ScriptPhase(
+      name: 'valkyrie_buildup',
+      startLine: 17,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 12,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 스타포트에서 발키리 생산 시작합니다!',
+          owner: LogOwner.home,
+          homeArmy: 3, homeResource: -20,
+          altText: '{home}, 발키리가 나옵니다! 대공 특화 유닛!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 뮤탈리스크 3기 등장합니다!',
+          owner: LogOwner.away,
+          awayArmy: 4, awayResource: -20,
+          altText: '{away}, 뮤탈이 떴습니다! 견제를 나갈 텐데요.',
+        ),
+        ScriptEvent(
+          text: '{home}, 마린 메딕도 생산하면서 복합 편성 준비!',
+          owner: LogOwner.home,
+          homeArmy: 3, homeResource: -15,
+          skipChance: 0.2,
+        ),
+        ScriptEvent(
+          text: '{away}, 뮤탈이 테란 본진을 정찰합니다! 발키리를 확인!',
+          owner: LogOwner.away,
+          favorsStat: 'scout',
+          altText: '{away} 선수 뮤탈 정찰! 발키리를 확인했습니다!',
+        ),
+      ],
+    ),
+    // Phase 2: 뮤탈 견제 대응 - 분기 (lines 27-38)
+    ScriptPhase(
+      name: 'mutal_harass_response',
+      startLine: 27,
+      branches: [
+        // 분기 A: 발키리 대공 성공
+        ScriptBranch(
+          id: 'valkyrie_counter_mutal',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away}, 뮤탈이 SCV를 노리고 들어오는데! 발키리가 대응합니다!',
+              owner: LogOwner.away,
+              homeResource: -10, favorsStat: 'harass',
+            ),
+            ScriptEvent(
+              text: '{home}, 발키리 스플래시 데미지! 뭉쳐있던 뮤탈에 큰 피해!',
+              owner: LogOwner.home,
+              awayArmy: -5, favorsStat: 'defense',
+              altText: '{home} 선수 발키리 범위 공격! 뮤탈이 한꺼번에 당합니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 뮤탈 산개! 하지만 이미 3기가 빠졌습니다!',
+              owner: LogOwner.away,
+              awayArmy: -2,
+              altText: '{away}, 뮤탈을 빼지만 피해가 큽니다!',
+            ),
+            ScriptEvent(
+              text: '발키리 대공이 빛나는 순간입니다! 뮤탈이 자유롭게 움직이지 못합니다.',
+              owner: LogOwner.system,
+              skipChance: 0.3,
+            ),
+          ],
+        ),
+        // 분기 B: 뮤탈 소수 견제 후 물량전 전환
+        ScriptBranch(
+          id: 'mutal_avoid_valkyrie',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 발키리를 확인하고 뮤탈을 다른 곳으로 빼줍니다!',
+              owner: LogOwner.away,
+              favorsStat: 'strategy',
+              altText: '{away}, 발키리를 피해서 앞마당 쪽으로 뮤탈 기동!',
+            ),
+            ScriptEvent(
+              text: '{away}, 뮤탈이 발키리 없는 앞마당 SCV를 물어뜯습니다!',
+              owner: LogOwner.away,
+              homeResource: -20, favorsStat: 'harass',
+              altText: '{away} 선수 뮤짤! 앞마당이 비어있어요!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 발키리가 달려오지만 이미 뮤탈이 빠졌습니다.',
+              owner: LogOwner.home,
+              homeResource: -5,
+              altText: '{home}, 발키리 대응이 늦었습니다! SCV 피해가 크네요.',
+            ),
+            ScriptEvent(
+              text: '뮤탈이 발키리를 피해 기동하면서 견제를 이어갑니다.',
+              owner: LogOwner.system,
+              skipChance: 0.3,
+            ),
+          ],
+        ),
+      ],
+    ),
+    // Phase 3: 중반 병력 운용 (lines 39-52)
+    ScriptPhase(
+      name: 'mid_game',
+      startLine: 39,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 15,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 발키리 추가 생산! 골리앗도 섞어줍니다!',
+          owner: LogOwner.home,
+          homeArmy: 4, homeResource: -25,
+          altText: '{home}, 발키리 골리앗 조합! 대공 화력이 엄청납니다!',
+        ),
+        ScriptEvent(
+          text: '{away}, 뮤탈로는 정면 교전이 불리합니다. 저글링 물량을 늘립니다.',
+          owner: LogOwner.away,
+          awayArmy: 4, awayResource: -15,
+          altText: '{away} 선수 뮤탈 대신 지상 물량으로 전환!',
+        ),
+        ScriptEvent(
+          text: '{home}, 바이오닉과 발키리 복합 편성으로 전진합니다!',
+          owner: LogOwner.home,
+          homeArmy: 3, favorsStat: 'attack',
+          altText: '{home} 선수 마린 메딕 발키리 출진! 저그 앞마당을 노립니다!',
+        ),
+        ScriptEvent(
+          text: '{away}, 뮤탈이 후방에서 견제하면서 저글링이 정면에서 막습니다!',
+          owner: LogOwner.away,
+          homeArmy: -2, awayArmy: -3, favorsStat: 'control',
+          altText: '{away} 선수 뮤탈 견제와 저글링 수비 동시에!',
+        ),
+        ScriptEvent(
+          text: '대공이 완벽한 테란 vs 기동성의 뮤탈! 어디서 교전하느냐가 관건입니다.',
+          owner: LogOwner.system,
+          skipChance: 0.3,
+        ),
+      ],
+    ),
+    // Phase 4: 전환기 - 분기 (lines 53-66)
+    ScriptPhase(
+      name: 'transition',
+      startLine: 53,
+      branches: [
+        // 분기 A: 테란 발키리 밀어붙이기
+        ScriptBranch(
+          id: 'terran_valkyrie_push',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 발키리 3기! 하늘을 완전히 장악합니다!',
+              owner: LogOwner.home,
+              homeArmy: 3, homeResource: -20, favorsStat: 'defense',
+              altText: '{home}, 발키리 편대가 하늘을 지배합니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 뮤탈이 더 이상 견제를 나가지 못합니다!',
+              owner: LogOwner.away,
+              awayArmy: -2,
+            ),
+            ScriptEvent(
+              text: '{home}, 안전하게 확장하면서 화력을 키워갑니다!',
+              owner: LogOwner.home,
+              homeArmy: 3, homeResource: 15,
+              altText: '{home} 선수 발키리 덕에 안정적! 멀티까지!',
+            ),
+            ScriptEvent(
+              text: '대공 장악이 완벽합니다! 뮤탈이 갈 곳이 없네요.',
+              owner: LogOwner.system,
+              skipChance: 0.3,
+            ),
+          ],
+        ),
+        // 분기 B: 저그 럴커 전환
+        ScriptBranch(
+          id: 'zerg_lurker_transition',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 뮤탈이 막히니까 럴커로 전환합니다!',
+              owner: LogOwner.away,
+              awayArmy: 4, awayResource: -25, favorsStat: 'strategy',
+              altText: '{away}, 히드라덴 건설! 럴커로 노선 변경!',
+            ),
+            ScriptEvent(
+              text: '{away}, 럴커가 앞마당 입구에 포진! 발키리로는 못 잡습니다!',
+              owner: LogOwner.away,
+              awayArmy: 3, favorsStat: 'defense',
+              altText: '{away} 선수 럴커 매복! 지상에서 막겠다는 의도!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 발키리가 지상은 못 치죠! 탱크를 기다려야 합니다!',
+              owner: LogOwner.home,
+              homeArmy: -2,
+            ),
+            ScriptEvent(
+              text: '발키리의 약점이 드러납니다. 지상 화력이 부족한 상황!',
+              owner: LogOwner.system,
+              skipChance: 0.3,
+            ),
+          ],
+        ),
+      ],
+    ),
+    // Phase 5: 결전 (lines 67-85)
+    ScriptPhase(
+      name: 'decisive_battle',
+      startLine: 67,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 총 병력을 모읍니다! 바이오닉 발키리 탱크 복합!',
+          owner: LogOwner.home,
+          homeArmy: 6, homeResource: -25,
+          altText: '{home}, 최종 편성 완료! 공중 지상 모두 갖췄습니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 남은 뮤탈과 저글링 럴커를 총동원합니다!',
+          owner: LogOwner.away,
+          awayArmy: 6, awayResource: -20,
+          altText: '{away}, 공중 지상 총출동! 전면전 준비!',
+        ),
+        ScriptEvent(
+          text: '양측 풀 병력 전면전입니다!',
+          owner: LogOwner.system,
+        ),
+        ScriptEvent(
+          text: '{home}, 발키리가 뮤탈을 잡고 마린이 저글링을 잡습니다! 체계적인 전투!',
+          owner: LogOwner.home,
+          awayArmy: -20, homeArmy: -10, favorsStat: 'attack',
+          altText: '{home} 선수 발키리 대공 + 바이오닉 지상! 역할 분담이 완벽합니다!',
+        ),
+        ScriptEvent(
+          text: '{away}, 럴커가 마린을 녹이고 저글링이 탱크를 덮칩니다!',
+          owner: LogOwner.away,
+          homeArmy: -18, awayArmy: -8, favorsStat: 'control',
+          altText: '{away} 선수 럴커 저글링 합동! 바이오닉이 녹아내립니다!',
+        ),
+        ScriptEvent(
+          text: '결정적인 순간입니다!',
+          owner: LogOwner.system,
+          decisive: true,
+        ),
+      ],
+    ),
+  ],
+);
+
+// ----------------------------------------------------------
+// 9. 배럭더블 vs 노풀 3해처리 (후반 매크로전)
+// ----------------------------------------------------------
+const _tvzDoubleVs3Hatch = ScenarioScript(
+  id: 'tvz_double_vs_3hatch',
+  matchup: 'TvZ',
+  homeBuildIds: ['tvz_sk'],
+  awayBuildIds: ['zvt_3hatch_nopool'],
+  description: '배럭더블 vs 노풀 3해처리 매크로전',
+  phases: [
+    // Phase 0: 오프닝 (lines 1-16)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 배럭 건설합니다.',
+          owner: LogOwner.home,
+          homeResource: -10,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 해처리를 올립니다! 앞마당 확장!',
+          owner: LogOwner.away,
+          awayResource: -30,
+          altText: '{away}, 해처리부터 올립니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 두 번째 배럭! 배럭더블로 가는 모습입니다.',
+          owner: LogOwner.home,
+          homeResource: -10,
+          altText: '{home}, 배럭 2개째! 투배럭 체제입니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 세 번째 해처리까지! 노풀로 3해처리입니다!',
+          owner: LogOwner.away,
+          awayResource: -30,
+          altText: '{away}, 풀도 안 짓고 해처리 3개! 올인 매크로!',
+        ),
+        ScriptEvent(
+          text: '양쪽 모두 눕는 빌드입니다! 매크로 대결이 예상되는데요.',
+          owner: LogOwner.system,
+          skipChance: 0.2,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 마린 생산 시작합니다.',
+          owner: LogOwner.home,
+          homeArmy: 2, homeResource: -5,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 드론을 최대한 뽑고 있습니다. 자원이 쌓여가는 모습이구요.',
+          owner: LogOwner.away,
+          awayResource: 15,
+          altText: '{away}, 드론 풀가동! 미네랄이 폭발적입니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 아카데미 건설합니다.',
+          owner: LogOwner.home,
+          homeResource: -15,
+          skipChance: 0.3,
+        ),
+      ],
+    ),
+    // Phase 1: 내정 경쟁 (lines 17-28)
+    ScriptPhase(
+      name: 'macro_buildup',
+      startLine: 17,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 15,
+      linearEvents: [
+        ScriptEvent(
+          text: '{away} 선수 뒤늦게 스포닝풀 건설합니다. 노풀이었으니까요.',
+          owner: LogOwner.away,
+          awayResource: -15,
+          altText: '{away}, 이제야 스포닝풀이 올라갑니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 앞마당 커맨드센터 건설! 배럭더블 이후 확장!',
+          owner: LogOwner.home,
+          homeResource: -30,
+          altText: '{home}, 커맨드센터가 올라갑니다! 테란도 확장을 가져갑니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 저글링 소량 생산하면서 가스를 넣습니다.',
+          owner: LogOwner.away,
+          awayArmy: 3, awayResource: -10,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 가스를 넣으면서 팩토리 건설! 탱크 테크를 올립니다.',
+          owner: LogOwner.home,
+          homeResource: -25,
+          altText: '{home}, 팩토리가 올라갑니다! 시즈 탱크 준비!',
+        ),
+        ScriptEvent(
+          text: '양쪽 모두 내정에 집중하는 고요한 전개입니다.',
+          owner: LogOwner.system,
+          skipChance: 0.3,
+        ),
+      ],
+    ),
+    // Phase 2: 3가스 타이밍 - 분기 (lines 29-42)
+    ScriptPhase(
+      name: 'gas_timing',
+      startLine: 29,
+      branches: [
+        // 분기 A: 테란 초반 소수 마린 압박
+        ScriptBranch(
+          id: 'terran_marine_poke',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 마린 소수가 앞마당 정찰을 갑니다.',
+              owner: LogOwner.home,
+              homeArmy: 2, favorsStat: 'scout',
+              altText: '{home}, 마린 4기가 정찰 나갑니다!',
+            ),
+            ScriptEvent(
+              text: '{home}, 3해처리를 확인합니다! 드론이 엄청나네요!',
+              owner: LogOwner.home,
+              favorsStat: 'scout',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 성큰으로 마린을 밀어냅니다. 아직 저글링이 적습니다.',
+              owner: LogOwner.away,
+              awayArmy: 2, homeArmy: -1, favorsStat: 'defense',
+              altText: '{away}, 성큰이 마린을 잡아줍니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 3해처리를 확인하고 앞마당 가스를 안 주려고 합니다!',
+              owner: LogOwner.home,
+              favorsStat: 'strategy',
+            ),
+            ScriptEvent(
+              text: 'TvZ의 핵심! 가스를 주느냐 마느냐가 승부를 결정합니다!',
+              owner: LogOwner.system,
+              skipChance: 0.2,
+            ),
+          ],
+        ),
+        // 분기 B: 저그 빠른 레어 진화
+        ScriptBranch(
+          id: 'zerg_fast_lair',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 레어 진화 시작! 자원이 넉넉하니까요!',
+              owner: LogOwner.away,
+              awayResource: -20, favorsStat: 'macro',
+              altText: '{away}, 3해처리 자원으로 빠른 레어!',
+            ),
+            ScriptEvent(
+              text: '{away}, 스파이어 건설 들어갑니다! 뮤탈 타이밍이 빠르겠는데요!',
+              owner: LogOwner.away,
+              awayResource: -25,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 아직 탱크가 안 나왔습니다. 배럭더블이라 테크가 느려요.',
+              owner: LogOwner.home,
+              homeArmy: 2, homeResource: -15,
+            ),
+            ScriptEvent(
+              text: '{away}, 뮤탈 3기 등장! 3해처리 자원 덕분에 빠릅니다!',
+              owner: LogOwner.away,
+              awayArmy: 4, awayResource: -20, favorsStat: 'strategy',
+              altText: '{away} 선수 뮤탈이 빨리 나왔습니다!',
+            ),
+            ScriptEvent(
+              text: '3해처리의 자원이 빛나는 순간입니다! 테크가 빠르네요!',
+              owner: LogOwner.system,
+              skipChance: 0.3,
+            ),
+          ],
+        ),
+      ],
+    ),
+    // Phase 3: 한방 병력 빌드업 (lines 43-58)
+    ScriptPhase(
+      name: 'army_buildup',
+      startLine: 43,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 시즈 탱크 생산! 사이언스 퍼실리티도 건설합니다!',
+          owner: LogOwner.home,
+          homeArmy: 4, homeResource: -30,
+          altText: '{home}, 탱크에 베슬 테크! 한방 병력 준비!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 저글링 뮤탈 럴커 조합! 3라인 생산입니다!',
+          owner: LogOwner.away,
+          awayArmy: 6, awayResource: -25,
+          altText: '{away}, 저글링 뮤탈 럴커 풀가동! 물량이 쏟아집니다!',
+        ),
+        ScriptEvent(
+          text: '{home}, 사이언스 베슬 생산! 한방 병력의 핵심이 합류합니다!',
+          owner: LogOwner.home,
+          homeArmy: 2, homeResource: -20,
+          altText: '{home} 선수 베슬이 나옵니다! 이레디에이트 준비!',
+        ),
+        ScriptEvent(
+          text: '{away}, 디파일러 테크 준비합니다! 하이브 진화!',
+          owner: LogOwner.away,
+          awayResource: -30,
+          altText: '{away} 선수 하이브까지 올립니다! 디파일러가 나올 준비!',
+        ),
+        ScriptEvent(
+          text: '양쪽 모두 후반 한방 병력을 모으고 있습니다! 누가 먼저 완성할까요?',
+          owner: LogOwner.system,
+          skipChance: 0.3,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 탱크 베슬 바이오닉이 모입니다! 한방 준비!',
+          owner: LogOwner.home,
+          homeArmy: 4, homeResource: -15, favorsStat: 'macro',
+          altText: '{home}, 한방 병력이 완성되어 갑니다!',
+        ),
+      ],
+    ),
+    // Phase 4: 한방 교전 - 분기 (lines 59-80)
+    ScriptPhase(
+      name: 'decisive_clash',
+      startLine: 59,
+      branches: [
+        // 분기 A: 테란 한방 성공
+        ScriptBranch(
+          id: 'terran_one_push',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 시즈 탱크 베슬 바이오닉 총출격! 한방 갑니다!',
+              owner: LogOwner.home,
+              homeArmy: 3, favorsStat: 'attack',
+              altText: '{home}, 한방 병력 전진! 앞마당을 노립니다!',
+            ),
+            ScriptEvent(
+              text: '{home}, 시즈 모드! 앞마당 포격 시작! 베슬 이레디까지!',
+              owner: LogOwner.home,
+              awayArmy: -6, favorsStat: 'strategy',
+              altText: '{home} 선수 탱크 포격에 이레디까지! 저그가 녹습니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 럴커로 막아보지만 베슬 스캔에 위치가 드러납니다!',
+              owner: LogOwner.away,
+              awayArmy: -3,
+              altText: '{away}, 럴커가 스캔에 걸렸습니다! 탱크 포격에 녹아요!',
+            ),
+            ScriptEvent(
+              text: '{home}, 한방 병력이 앞마당을 밀어붙입니다!',
+              owner: LogOwner.home,
+              awayArmy: -4, homeArmy: -2, favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '테란 한방이 들어갔습니다! 결정적인 순간!',
+              owner: LogOwner.system,
+              decisive: true,
+            ),
+          ],
+        ),
+        // 분기 B: 디파일러 다크스웜으로 한방 저지
+        ScriptBranch(
+          id: 'defiler_stops_push',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 디파일러가 전선에 도착합니다! 다크스웜!',
+              owner: LogOwner.away,
+              awayArmy: 3, favorsStat: 'strategy',
+              altText: '{away}, 다크스웜! 테란 한방을 무력화합니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 탱크 포격이 다크스웜에 막힙니다! 한방이 불발!',
+              owner: LogOwner.home,
+              homeArmy: -3,
+              altText: '{home}, 다크스웜 속에서 탱크가 무용지물입니다!',
+            ),
+            ScriptEvent(
+              text: '{away}, 스웜 속에서 저글링 럴커가 돌진합니다!',
+              owner: LogOwner.away,
+              homeArmy: -8, awayArmy: -4, favorsStat: 'attack',
+              altText: '{away} 선수 다크스웜 속 돌진! 마린이 녹아내립니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 한방이 실패했습니다! 테란이 큰 피해를 입었는데요!',
+              owner: LogOwner.home,
+              homeArmy: -3, homeResource: -15,
+            ),
+            ScriptEvent(
+              text: '다크스웜이 한방을 막아냈습니다! 저그가 유리해지고 있습니다!',
+              owner: LogOwner.system,
+              decisive: true,
+            ),
+          ],
+        ),
+        // 분기 C: 후반 대규모 교환전
+        ScriptBranch(
+          id: 'massive_trade',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '양측 풀 병력이 정면에서 부딪칩니다! 대규모 교전!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{home}, 탱크 포격! 저글링이 쓸려나가지만 물량이 계속 옵니다!',
+              owner: LogOwner.home,
+              awayArmy: -8, homeArmy: -3, favorsStat: 'attack',
+              altText: '{home} 선수 탱크 화력! 하지만 저그 물량이 끝이 없습니다!',
+            ),
+            ScriptEvent(
+              text: '{away}, 뮤탈이 후방을 물어뜯으면서 정면에서도 밀어붙입니다!',
+              owner: LogOwner.away,
+              homeArmy: -5, homeResource: -20, awayArmy: -5, favorsStat: 'control',
+              altText: '{away} 선수 정면과 후방 동시 공격! 테란이 갈립니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 베슬 이레디로 뮤탈을 잡습니다! 하지만 정면이 뚫리는데요!',
+              owner: LogOwner.home,
+              awayArmy: -4, homeArmy: -4, favorsStat: 'strategy',
+            ),
+            ScriptEvent(
+              text: '양측 병력이 크게 소모됩니다! 누가 더 빨리 재생산할 수 있을까요!',
+              owner: LogOwner.system,
+              decisive: true,
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);
+
+// ----------------------------------------------------------
+// 10. 원해처리 올인 vs 스탠다드 테란 (초중반 승부)
+// ----------------------------------------------------------
+const _tvzStandardVs1HatchAllin = ScenarioScript(
+  id: 'tvz_standard_vs_1hatch_allin',
+  matchup: 'TvZ',
+  homeBuildIds: ['tvz_sk', 'tvz_4rax_enbe'],
+  awayBuildIds: ['zvt_1hatch_allin', 'zvt_trans_530_mutal'],
+  description: '스탠다드 테란 vs 원해처리 럴커 올인',
+  phases: [
+    // Phase 0: 오프닝 (lines 1-14)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 배럭 건설합니다.',
+          owner: LogOwner.home,
+          homeResource: -10,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 해처리 하나로 시작합니다. 앞마당을 안 올리네요!',
+          owner: LogOwner.away,
+          awayResource: -5,
+          altText: '{away}, 원해처리 운영! 확장 없이 가는 건가요?',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 마린 생산 시작!',
+          owner: LogOwner.home,
+          homeArmy: 2, homeResource: -5,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 스포닝풀에 이어 가스를 일찍 넣습니다!',
+          owner: LogOwner.away,
+          awayResource: -20,
+          altText: '{away}, 가스를 빠르게 올립니다! 테크 빌드인데요!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 배럭 추가합니다.',
+          owner: LogOwner.home,
+          homeResource: -10,
+          skipChance: 0.3,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 레어 진화 시작합니다! 원해처리에서 바로 테크!',
+          owner: LogOwner.away,
+          awayResource: -20,
+          altText: '{away}, 레어가 올라갑니다! 빠른 테크!',
+        ),
+      ],
+    ),
+    // Phase 1: 럴커 올인 준비 (lines 15-24)
+    ScriptPhase(
+      name: 'lurker_allin_prep',
+      startLine: 15,
+      linearEvents: [
+        ScriptEvent(
+          text: '{away} 선수 히드라덴 건설! 럴커를 노리는 건가요?',
+          owner: LogOwner.away,
+          awayResource: -20,
+          altText: '{away}, 히드라덴이 올라갑니다! 럴커 준비!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 아카데미 건설하면서 스팀팩 연구합니다.',
+          owner: LogOwner.home,
+          homeResource: -15,
+          altText: '{home}, 아카데미에 스팀팩! 바이오닉 완성 단계!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 히드라 생산! 바로 럴커 변태 들어갑니다!',
+          owner: LogOwner.away,
+          awayArmy: 4, awayResource: -20, favorsStat: 'strategy',
+          altText: '{away}, 히드라가 나오자마자 럴커로 변태합니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 마린 메딕 조합이 갖춰지고 있습니다.',
+          owner: LogOwner.home,
+          homeArmy: 4, homeResource: -10,
+        ),
+        ScriptEvent(
+          text: '저그가 원해처리에서 럴커를 뽑았습니다! 올인 타이밍입니다!',
+          owner: LogOwner.system,
+          skipChance: 0.2,
+        ),
+      ],
+    ),
+    // Phase 2: 럴커 올인 돌입 - 분기 (lines 25-38)
+    ScriptPhase(
+      name: 'lurker_allin',
+      startLine: 25,
+      branches: [
+        // 분기 A: 럴커 올인 성공
+        ScriptBranch(
+          id: 'lurker_allin_success',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 럴커 4기가 테란 앞마당으로 전진합니다!',
+              owner: LogOwner.away,
+              awayArmy: 3, favorsStat: 'attack',
+              altText: '{away}, 럴커 전진! 올인입니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 스캔이 없습니다! 럴커 위치를 모르는 상황!',
+              owner: LogOwner.home,
+              homeArmy: -3,
+              altText: '{home}, 디텍터가 부족합니다! 럴커에 마린이 녹아요!',
+            ),
+            ScriptEvent(
+              text: '{away}, 럴커가 입구에 자리잡습니다! 마린이 접근을 못 합니다!',
+              owner: LogOwner.away,
+              homeArmy: -4, favorsStat: 'strategy',
+              altText: '{away} 선수 럴커 포진! 테란 입구가 완전히 막혔습니다!',
+            ),
+            ScriptEvent(
+              text: '{away}, 저글링까지 합류! 럴커 뒤에서 달려나옵니다!',
+              owner: LogOwner.away,
+              awayArmy: 3, homeArmy: -2, favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '럴커 올인이 성공하고 있습니다! 테란이 무너지는데요!',
+              owner: LogOwner.system,
+              decisive: true,
+            ),
+          ],
+        ),
+        // 분기 B: 테란이 럴커를 읽고 대비
+        ScriptBranch(
+          id: 'terran_reads_lurker',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 SCV 정찰로 원해처리 럴커를 확인했습니다!',
+              owner: LogOwner.home,
+              favorsStat: 'scout',
+              altText: '{home}, 정찰 성공! 럴커 올인을 읽었습니다!',
+            ),
+            ScriptEvent(
+              text: '{home}, 팩토리 건설! 시즈 탱크로 럴커를 잡겠다는 판단!',
+              owner: LogOwner.home,
+              homeResource: -20, favorsStat: 'strategy',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 럴커가 전진하지만 탱크가 이미 깔려 있습니다!',
+              owner: LogOwner.away,
+              awayArmy: -3, favorsStat: 'defense',
+              altText: '{away}, 럴커가 탱크 사거리에 들어갑니다! 스캔!',
+            ),
+            ScriptEvent(
+              text: '{home}, 탱크 포격! 럴커를 하나씩 잡아냅니다!',
+              owner: LogOwner.home,
+              awayArmy: -4, homeArmy: 2, favorsStat: 'attack',
+              altText: '{home} 선수 시즈 탱크로 럴커 정밀 포격!',
+            ),
+            ScriptEvent(
+              text: '럴커 올인이 막혔습니다! 테란이 읽었어요!',
+              owner: LogOwner.system,
+            ),
+          ],
+        ),
+      ],
+    ),
+    // Phase 3: 올인 이후 (lines 39-50)
+    ScriptPhase(
+      name: 'post_allin',
+      startLine: 39,
+      branches: [
+        // 분기 A: 올인 실패 후 자원 차이
+        ScriptBranch(
+          id: 'allin_failed_resource_gap',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 올인이 실패했습니다! 원해처리라 자원이 없어요!',
+              owner: LogOwner.away,
+              awayArmy: -2, awayResource: -20,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 앞마당 확장하면서 병력을 모읍니다!',
+              owner: LogOwner.home,
+              homeArmy: 4, homeResource: 15, favorsStat: 'macro',
+              altText: '{home}, 자원 차이를 벌립니다! 테란이 유리해요!',
+            ),
+            ScriptEvent(
+              text: '{away}, 급히 앞마당을 올리지만 이미 자원 차이가 크네요.',
+              owner: LogOwner.away,
+              awayResource: -30,
+            ),
+            ScriptEvent(
+              text: '{home}, 마린 메딕 탱크 조합으로 전진! 저그가 막기 어렵습니다!',
+              owner: LogOwner.home,
+              homeArmy: 5, awayArmy: -3, favorsStat: 'attack',
+              altText: '{home} 선수 총공격! 올인 실패한 저그를 밀어붙입니다!',
+            ),
+            ScriptEvent(
+              text: '원해처리 올인 실패 후 자원 차이가 결정적입니다!',
+              owner: LogOwner.system,
+              decisive: true,
+            ),
+          ],
+        ),
+        // 분기 B: 올인 성공 후 마무리
+        ScriptBranch(
+          id: 'allin_success_finish',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 럴커 올인 성공! 테란 앞마당이 무너졌습니다!',
+              owner: LogOwner.away,
+              awayArmy: 3, homeArmy: -3, favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 본진으로 후퇴! 수비를 재건하려 합니다!',
+              owner: LogOwner.home,
+              homeArmy: -2, homeResource: -15,
+              altText: '{home}, 앞마당을 포기하고 본진 수비!',
+            ),
+            ScriptEvent(
+              text: '{away}, 럴커가 본진 입구에도 자리잡습니다! 탈출구가 없는데요!',
+              owner: LogOwner.away,
+              awayArmy: 2, favorsStat: 'strategy',
+            ),
+            ScriptEvent(
+              text: '{away}, 뮤탈까지 추가! 530 뮤탈 전환으로 마무리합니다!',
+              owner: LogOwner.away,
+              awayArmy: 4, awayResource: -20, homeResource: -15, favorsStat: 'harass',
+              altText: '{away} 선수 럴커에 뮤탈까지! 테란이 숨을 곳이 없습니다!',
+            ),
+            ScriptEvent(
+              text: '원해처리 올인이 테란을 무너뜨렸습니다!',
+              owner: LogOwner.system,
+              decisive: true,
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);
+
+// ----------------------------------------------------------
+// 11. 메카닉 vs 하이브 운영 (후반 대규모 전면전)
+// ----------------------------------------------------------
+const _tvzMechVsHive = ScenarioScript(
+  id: 'tvz_mech_vs_hive',
+  matchup: 'TvZ',
+  homeBuildIds: ['tvz_3fac_goliath', 'tvz_trans_mech_goliath'],
+  awayBuildIds: ['zvt_trans_ultra_hive', 'zvt_trans_lurker_defiler'],
+  description: '메카닉 vs 하이브 울트라/디파일러 후반전',
+  phases: [
+    // Phase 0: 오프닝 (lines 1-16)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 배럭 건설합니다.',
+          owner: LogOwner.home,
+          homeResource: -10,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 앞마당에 해처리를 올립니다.',
+          owner: LogOwner.away,
+          awayResource: -30,
+          altText: '{away}, 해처리부터 올립니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 가스를 일찍 넣으면서 팩토리 건설!',
+          owner: LogOwner.home,
+          homeResource: -25,
+          altText: '{home}, 가스와 팩토리! 메카닉 테크입니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 스포닝풀 건설합니다.',
+          owner: LogOwner.away,
+          awayResource: -15,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 팩토리 증설! 메카닉 체제를 확립합니다.',
+          owner: LogOwner.home,
+          homeResource: -20,
+          altText: '{home}, 팩토리 2개! 본격 메카닉 가동!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 저글링 소량 생산하면서 앞마당 가스를 넣습니다.',
+          owner: LogOwner.away,
+          awayArmy: 3, awayResource: -10,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 첫 시즈 탱크 생산! 골리앗도 곧 나옵니다.',
+          owner: LogOwner.home,
+          homeArmy: 3, homeResource: -20,
+          altText: '{home}, 탱크가 나왔습니다! 골리앗도 생산 대기 중!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 세 번째 해처리 건설합니다.',
+          owner: LogOwner.away,
+          awayResource: -30,
+          skipChance: 0.2,
+          altText: '{away}, 3번째 해처리! 자원을 벌려갑니다!',
+        ),
+      ],
+    ),
+    // Phase 1: 중반 내정 확장 (lines 17-30)
+    ScriptPhase(
+      name: 'mid_expansion',
+      startLine: 17,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 15,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 골리앗 대량 생산 시작! 아머리 업그레이드도!',
+          owner: LogOwner.home,
+          homeArmy: 5, homeResource: -25,
+          altText: '{home}, 골리앗이 쏟아져 나옵니다! 업그레이드도 진행 중!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 레어 올리면서 럴커 테크 준비합니다.',
+          owner: LogOwner.away,
+          awayArmy: 3, awayResource: -25,
+          altText: '{away}, 레어에 럴커 준비! 중반 수비 태세!',
+        ),
+        ScriptEvent(
+          text: '{home}, 앞마당 커맨드센터 건설! 테란도 확장합니다.',
+          owner: LogOwner.home,
+          homeResource: -30,
+          skipChance: 0.3,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 하이브 진화 시작합니다! 최종 테크로 가는 건가요?',
+          owner: LogOwner.away,
+          awayResource: -30,
+          altText: '{away}, 하이브가 올라갑니다! 디파일러와 울트라가 준비됩니다!',
+        ),
+        ScriptEvent(
+          text: '양쪽 모두 후반 빌드업 중입니다. 고요하지만 긴장감이 있는 전개!',
+          owner: LogOwner.system,
+          skipChance: 0.3,
+        ),
+      ],
+    ),
+    // Phase 2: 중반 교전 (lines 31-44)
+    ScriptPhase(
+      name: 'mid_clash',
+      startLine: 31,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 골리앗 탱크 조합으로 전진합니다!',
+          owner: LogOwner.home,
+          homeArmy: 3, favorsStat: 'attack',
+          altText: '{home}, 메카닉 부대 전진! 탱크 시즈 준비!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 럴커가 앞마당 입구에 포진합니다! 막아내려는 모습!',
+          owner: LogOwner.away,
+          awayArmy: 4, favorsStat: 'defense',
+          altText: '{away}, 럴커 포진! 메카닉 전진을 저지합니다!',
+        ),
+        ScriptEvent(
+          text: '{home}, 탱크 시즈 모드! 럴커를 스캔으로 잡아냅니다!',
+          owner: LogOwner.home,
+          awayArmy: -3, favorsStat: 'strategy',
+          altText: '{home} 선수 스캔 + 탱크 포격! 럴커를 하나씩 제거합니다!',
+        ),
+        ScriptEvent(
+          text: '{away}, 저글링이 탱크 사이로 파고듭니다! 시즈 라인을 흔들어요!',
+          owner: LogOwner.away,
+          homeArmy: -2, awayArmy: -3, favorsStat: 'control',
+          altText: '{away} 선수 저글링 돌진! 탱크 뒤를 칩니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 골리앗으로 저글링을 정리합니다!',
+          owner: LogOwner.home,
+          awayArmy: -2, favorsStat: 'defense',
+          skipChance: 0.3,
+        ),
+        ScriptEvent(
+          text: '중반 교전을 치렀습니다! 이제 후반 테크 싸움이 시작됩니다!',
+          owner: LogOwner.system,
+          skipChance: 0.3,
+        ),
+      ],
+    ),
+    // Phase 3: 하이브 테크 등장 - 분기 (lines 45-60)
+    ScriptPhase(
+      name: 'hive_tech',
+      startLine: 45,
+      branches: [
+        // 분기 A: 울트라 등장
+        ScriptBranch(
+          id: 'ultra_arrives',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 울트라리스크가 등장합니다! 최종 병기!',
+              owner: LogOwner.away,
+              awayArmy: 6, awayResource: -30,
+              altText: '{away}, 울트라가 나왔습니다! 거대한 병기!',
+            ),
+            ScriptEvent(
+              text: '{away}, 울트라가 골리앗 라인을 향해 돌진합니다!',
+              owner: LogOwner.away,
+              homeArmy: -3, favorsStat: 'attack',
+              altText: '{away} 선수 울트라 돌진! 골리앗 라인이 밀립니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 골리앗이 울트라를 집중 사격합니다! 골리앗이 울트라에 강하죠!',
+              owner: LogOwner.home,
+              awayArmy: -4, homeArmy: -2, favorsStat: 'defense',
+              altText: '{home}, 골리앗 집중 포화! 울트라가 쓰러집니다!',
+            ),
+            ScriptEvent(
+              text: '{away}, 하지만 뒤이어 저글링이 쏟아져 나옵니다! 물량 압박!',
+              owner: LogOwner.away,
+              awayArmy: 5, homeArmy: -2, favorsStat: 'macro',
+            ),
+            ScriptEvent(
+              text: '골리앗이 울트라를 잡았지만 뒤따르는 물량이 문제입니다!',
+              owner: LogOwner.system,
+              skipChance: 0.3,
+            ),
+          ],
+        ),
+        // 분기 B: 디파일러 다크스웜
+        ScriptBranch(
+          id: 'defiler_darkswarm',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 디파일러가 전선에 합류합니다!',
+              owner: LogOwner.away,
+              awayArmy: 3, awayResource: -25, favorsStat: 'strategy',
+              altText: '{away}, 디파일러 등장! 다크스웜 준비!',
+            ),
+            ScriptEvent(
+              text: '{away}, 다크스웜! 골리앗과 탱크의 사격이 무력화됩니다!',
+              owner: LogOwner.away,
+              homeArmy: -4, favorsStat: 'strategy',
+              altText: '{away} 선수 스웜! 메카닉 화력이 의미를 잃습니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 사이언스 베슬 이레디에이트로 디파일러를 노립니다!',
+              owner: LogOwner.home,
+              awayArmy: -3, homeResource: -15, favorsStat: 'strategy',
+              altText: '{home}, 이레디! 디파일러를 잡을 수 있을까요!',
+            ),
+            ScriptEvent(
+              text: '{away}, 디파일러가 컨슘으로 에너지를 채우면서 스웜을 계속 깔아줍니다!',
+              owner: LogOwner.away,
+              favorsStat: 'control',
+              altText: '{away} 선수 컨슘! 디파일러 에너지 회복! 스웜이 끊이질 않습니다!',
+            ),
+            ScriptEvent(
+              text: '다크스웜 vs 이레디에이트! 마법 대결이 승부를 가릅니다!',
+              owner: LogOwner.system,
+              skipChance: 0.2,
+            ),
+          ],
+        ),
+      ],
+    ),
+    // Phase 4: 최종 결전 (lines 61-80)
+    ScriptPhase(
+      name: 'final_battle',
+      startLine: 61,
+      branches: [
+        // 분기 A: 메카닉 물량으로 밀어붙이기
+        ScriptBranch(
+          id: 'mech_overwhelm',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 5팩토리 풀가동! 골리앗이 끝없이 나옵니다!',
+              owner: LogOwner.home,
+              homeArmy: 8, homeResource: -30, favorsStat: 'macro',
+              altText: '{home}, 골리앗 물량! 메카닉 재생산이 빠릅니다!',
+            ),
+            ScriptEvent(
+              text: '{home}, 골리앗 탱크 편대가 저그 4번째 확장을 노립니다!',
+              owner: LogOwner.home,
+              awayResource: -25, favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 수비가 갈립니다! 확장이 하나씩 무너지고 있어요!',
+              owner: LogOwner.away,
+              awayArmy: -4, awayResource: -20,
+              altText: '{away}, 멀티가 밀리고 있습니다! 자원이 끊겨요!',
+            ),
+            ScriptEvent(
+              text: '{home}, 메카닉 물량으로 저그 확장을 하나씩 밀어냅니다!',
+              owner: LogOwner.home,
+              awayArmy: -3, favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '메카닉 물량이 저그 확장을 하나씩 무너뜨리고 있습니다!',
+              owner: LogOwner.system,
+              decisive: true,
+            ),
+          ],
+        ),
+        // 분기 B: 하이브 유닛 총공격
+        ScriptBranch(
+          id: 'hive_all_out',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 울트라 디파일러 저글링 총동원! 전면전 태세!',
+              owner: LogOwner.away,
+              awayArmy: 8, awayResource: -30,
+              altText: '{away}, 하이브 유닛 풀가동! 최종 결전 준비!',
+            ),
+            ScriptEvent(
+              text: '{away}, 다크스웜 깔면서 울트라가 돌진합니다!',
+              owner: LogOwner.away,
+              homeArmy: -6, awayArmy: -3, favorsStat: 'attack',
+              altText: '{away} 선수 스웜 속 울트라 돌진! 탱크가 무력화됩니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 골리앗으로 울트라를 잡으려 하지만 스웜에 화력이 막힙니다!',
+              owner: LogOwner.home,
+              homeArmy: -5, favorsStat: 'defense',
+              altText: '{home}, 다크스웜 속에서 골리앗이 제 화력을 못 냅니다!',
+            ),
+            ScriptEvent(
+              text: '{away}, 저글링이 탱크 라인 뒤로 파고듭니다! 전선이 무너지는데요!',
+              owner: LogOwner.away,
+              homeArmy: -4, awayArmy: -5, favorsStat: 'control',
+            ),
+            ScriptEvent(
+              text: '하이브 유닛 총공격! 메카닉 라인이 무너지고 있습니다!',
+              owner: LogOwner.system,
+              decisive: true,
+            ),
+          ],
+        ),
+        // 분기 C: 접전 끝 재건 경쟁
+        ScriptBranch(
+          id: 'rebuild_race',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '양측 모두 큰 전투 후 병력이 바닥났습니다!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 5팩토리에서 골리앗을 재생산합니다!',
+              owner: LogOwner.home,
+              homeArmy: 5, homeResource: -25, favorsStat: 'macro',
+              altText: '{home}, 메카닉 재생산! 팩토리 풀가동!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 3해처리에서 저글링 울트라를 다시 뽑습니다!',
+              owner: LogOwner.away,
+              awayArmy: 6, awayResource: -25, favorsStat: 'macro',
+              altText: '{away}, 다해처리 재생산! 물량을 다시 채웁니다!',
+            ),
+            ScriptEvent(
+              text: '재건 속도 대결입니다! 누가 더 빨리 병력을 채울 수 있을까요!',
+              owner: LogOwner.system,
+              decisive: true,
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);
+
