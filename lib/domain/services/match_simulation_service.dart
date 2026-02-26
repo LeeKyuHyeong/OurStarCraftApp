@@ -1505,12 +1505,16 @@ class MatchSimulationService {
       // 확장 인터랙션 경기당 1회 제한
       if (rule.triggerPattern.pattern.contains('확장') && expansionReactionUsed) continue;
 
-      // 수비/밸런스 빌드인 선수에게 '견제 나갈 타이밍' 노출 방지
+      // 빌드 스타일에 따른 반응 필터링
       var candidates = rule.reactions;
       if (reactorStyle == BuildStyle.defensive || reactorStyle == BuildStyle.balanced) {
         candidates = candidates.where((r) => !r.contains('견제 나갈')).toList();
-        if (candidates.isEmpty) candidates = ['{reactor} 선수도 확장 서두르네요.'];
       }
+      // 공격적 빌드인 선수에게 '확장 서두르' 노출 방지 (치즈/러시 중인데 확장은 어색)
+      if (reactorStyle == BuildStyle.aggressive) {
+        candidates = candidates.where((r) => !r.contains('확장 서두르')).toList();
+      }
+      if (candidates.isEmpty) continue;
 
       final reaction = candidates[_random.nextInt(candidates.length)];
       return reaction.replaceAll('{reactor}', reactorName);

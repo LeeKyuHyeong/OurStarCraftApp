@@ -4013,7 +4013,7 @@ class BuildOrderData {
       defenderResource: -25,
     ),
     ClashEvent(
-      text: '{defender}, 드랍 루트를 미리 읽었습니다! 탱크가 대기하고 있었습니다!',
+      text: '{defender}, 드랍 루트를 미리 읽었습니다! 병력이 대기하고 있었습니다!',
       favorsStat: 'scout',
       attackerArmy: -8,
       defenderArmy: -2,
@@ -4071,7 +4071,7 @@ class BuildOrderData {
   /// 스톰/스펠 이벤트 (프로토스 vs 테란/저그)
   static const spellEventsPvTZ = [
     ClashEvent(
-      text: '피드백! 상대 에너지 유닛 폭발!',
+      text: '다크 아콘 피드백! 사이언스 베슬이 폭발합니다!',
       favorsStat: 'strategy',
       attackerArmy: -3,
       defenderArmy: -10,
@@ -4081,7 +4081,7 @@ class BuildOrderData {
   /// 스톰/스펠 이벤트 (테란이 스톰 상대)
   static const spellEventsTvP = [
     ClashEvent(
-      text: '{attacker}, 마린 스플릿! 스톰 피해 최소화!',
+      text: '{attacker}, 병력 분산! 스톰 피해 최소화!',
       favorsStat: 'control',
       attackerArmy: -8,
       defenderArmy: -3,
@@ -4763,7 +4763,7 @@ class BuildOrderData {
       defenderArmy: -12,
     ),
     ClashEvent(
-      text: '질럿 돌진! 마린 라인 정면 돌파!',
+      text: '질럿+드라군 돌진! 탱크 라인 정면 돌파!',
       favorsStat: 'attack',
       attackerArmy: -8,
       defenderArmy: -10,
@@ -5383,7 +5383,7 @@ class BuildOrderData {
     BuildStep(line: 0, text: '상대의 움직임을 주시하고 있습니다.', myResource: 3),
     BuildStep(line: 0, text: '양 선수 물량 싸움을 준비합니다.', myArmy: 2, myResource: -2),
     BuildStep(line: 0, text: '다음 전투가 승부를 가를 수 있습니다.', myResource: 3),
-    BuildStep(line: 0, text: '지금은 운영의 시간입니다.', myResource: 6),
+    BuildStep(line: 0, text: '양측 테크 경쟁이 치열합니다.', myResource: 6),
   ];
 
   // ==================== 종족별 중후반 이벤트 ====================

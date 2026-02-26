@@ -686,10 +686,10 @@ const _pvtDarkVsStandard = ScenarioScript(
           altText: '{away}, 팩토리가 올라갑니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 시타델 오브 아둔 건설! 다크 테크인가요?',
+          text: '{home} 선수 아둔 건설! 다크 테크인가요?',
           owner: LogOwner.home,
           homeResource: -20,
-          altText: '{home}, 시타델이 올라갑니다!',
+          altText: '{home}, 아둔이 올라갑니다!',
           skipChance: 0.3,
         ),
         ScriptEvent(
@@ -741,10 +741,10 @@ const _pvtDarkVsStandard = ScenarioScript(
               altText: '{home} 선수 다크 성공! SCV가 줄줄이 쓰러집니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 디텍이 없습니다! 엔지니어링 베이가 늦었어요!',
+              text: '{away} 선수 아카데미도 없고 엔지니어링 베이도 없습니다! 디텍이 전무해요!',
               owner: LogOwner.away,
               awayResource: -20,
-              altText: '{away}, 스캔도 없고 터렛도 없습니다! 다크에 속수무책!',
+              altText: '{away}, 스캔도 터렛도 마인도 없습니다! 감지 수단이 하나도 없어요!',
             ),
             ScriptEvent(
               text: '{home}, 다크 한 기가 SCV를 10기 이상 잡아냅니다!',
@@ -854,10 +854,10 @@ const _pvtDarkVsStandard = ScenarioScript(
           baseProbability: 0.5,
           events: [
             ScriptEvent(
-              text: '{home}, 스톰! 마린 편대에 떨어집니다!',
+              text: '{home}, 스톰! 탱크+벌처 편대에 떨어집니다!',
               owner: LogOwner.home,
               awayArmy: -12, homeArmy: -5, favorsStat: 'strategy',
-              altText: '{home} 선수 스톰 명중! 엄청난 피해!',
+              altText: '{home} 선수 스톰 명중! 메카닉 병력에 엄청난 피해!',
             ),
             ScriptEvent(
               text: '스톰이 결정적! 프로토스가 밀어냅니다!',
