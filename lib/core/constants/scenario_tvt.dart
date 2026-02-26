@@ -97,7 +97,7 @@ const _tvtRaxDoubleVsFacDouble = ScenarioScript(
         ScriptEvent(
           text: '{away}, 벌처 속업 완료! 속도가 빠릅니다!',
           owner: LogOwner.away,
-          awayArmy: 2, favorsStat: 'control',
+          awayArmy: 3, favorsStat: 'control',
           altText: '{away} 선수 벌처 속업! 기동력이 올라갑니다!',
         ),
         ScriptEvent(
@@ -157,10 +157,10 @@ const _tvtRaxDoubleVsFacDouble = ScenarioScript(
               homeArmy: -2,
             ),
             ScriptEvent(
-              text: '{away}, 마인 매설로 맵 컨트롤을 가져갑니다!',
+              text: '{away}, 벌처로 상대 SCV 라인을 노립니다!',
               owner: LogOwner.away,
-              awayResource: -10, favorsStat: 'strategy',
-              altText: '{away} 선수 마인 매설! 상대 이동 경로를 차단!',
+              homeResource: -15, favorsStat: 'harass',
+              altText: '{away} 선수 벌처 견제! 상대 일꾼을 공격!',
             ),
             ScriptEvent(
               text: '벌처 싸움에서 크게 밀리면 패배 직결! 벌처 컨트롤이 테테전의 메인 이벤트!',
@@ -201,23 +201,22 @@ const _tvtRaxDoubleVsFacDouble = ScenarioScript(
           altText: '{home}, 스타포트가 올라갑니다!',
         ),
         ScriptEvent(
+          text: '{away} 선수 아머리 건설! 골리앗도 준비합니다!',
+          owner: LogOwner.away,
+          awayArmy: 2, awayResource: -20,
+          altText: '{away}, 아머리가 올라갑니다! 골리앗 생산 준비!',
+        ),
+        ScriptEvent(
           text: '{home} 선수 드랍십 생산! 견제를 노리는 건가요?',
           owner: LogOwner.home,
           homeArmy: 2, homeResource: -15,
           altText: '{home}, 드랍십이 나옵니다! 상대 후방을 노릴 준비!',
         ),
         ScriptEvent(
-          text: '{away} 선수 아머리 건설! 골리앗도 준비합니다!',
+          text: '{away} 선수 벌처로 시야 확보! 상대 드랍 경로를 감시합니다!',
           owner: LogOwner.away,
-          awayResource: -20,
-          skipChance: 0.3,
-          altText: '{away}, 아머리가 올라갑니다! 골리앗 생산 준비!',
-        ),
-        ScriptEvent(
-          text: '{home} 선수 벌처로 시야 확보! 시즈 탱크 거리재기! 상대는 암흑 시야인데 우리 탱크가 먼저 때립니다!',
-          owner: LogOwner.home,
-          awayArmy: -2, favorsStat: 'strategy+scout',
-          altText: '{home}, 시야 싸움에서 앞섭니다! 상대 탱크가 안 보이는 사이 선제 포격!',
+          favorsStat: 'scout',
+          altText: '{away}, 시야 싸움! 벌처로 드랍을 경계합니다!',
           skipChance: 0.4,
         ),
         ScriptEvent(
@@ -240,22 +239,22 @@ const _tvtRaxDoubleVsFacDouble = ScenarioScript(
             ScriptEvent(
               text: '{home}, 드랍십 출격! 상대 확장기지에 탱크를 내립니다!',
               owner: LogOwner.home,
-              awayResource: -20, favorsStat: 'strategy',
+              awayResource: -15, favorsStat: 'strategy',
               altText: '{home} 선수 탱크 드랍! 상대 확장기지가 위험합니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 확장기지가 박살나고 있습니다! 병력을 돌려야 해요!',
               owner: LogOwner.away,
-              awayArmy: -2, awayResource: -15,
+              awayArmy: -2, awayResource: -10,
             ),
             ScriptEvent(
-              text: '{home}, 상대 확장기지를 타격하면서 자기 확장기지는 방어! 멀티포인트 공격!',
+              text: '{home}, 상대 확장기지를 타격하면서 정면 전진! 멀티포인트 공격!',
               owner: LogOwner.home,
-              homeArmy: 3, awayArmy: -3, favorsStat: 'attack',
+              homeArmy: 2, awayArmy: -2, favorsStat: 'attack',
               altText: '{home} 선수 드랍+정면 동시 공격! 수비가 갈립니다!',
             ),
             ScriptEvent(
-              text: '상대 확장기지 타격 + 자기 확장기지 방어! 승리로 직결됩니다!',
+              text: '상대 확장기지 타격 + 정면 전진! 승리로 직결됩니다!',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
@@ -269,22 +268,22 @@ const _tvtRaxDoubleVsFacDouble = ScenarioScript(
             ScriptEvent(
               text: '{away} 선수 탱크+골리앗 라인을 밀어냅니다!',
               owner: LogOwner.away,
-              awayArmy: 5, awayResource: -20, favorsStat: 'attack',
+              awayArmy: 2, awayResource: -15, favorsStat: 'attack',
               altText: '{away}, 탱크 골리앗 전진! 라인을 밀어붙입니다!',
             ),
             ScriptEvent(
               text: '{away}, 시즈 포격! 유지하던 라인을 파괴합니다!',
               owner: LogOwner.away,
-              homeArmy: -4, awayArmy: -2, favorsStat: 'attack',
+              homeArmy: -2, homeResource: -10, favorsStat: 'attack',
               altText: '{away} 선수 탱크 화력! 상대 라인이 무너집니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 라인이 밀립니다! 병력이 괴멸하고 있어요!',
+              text: '{home} 선수 라인이 밀립니다! 병력이 피해를 받고 있어요!',
               owner: LogOwner.home,
               homeArmy: -2,
             ),
             ScriptEvent(
-              text: '라인을 파괴하며 병력을 괴멸! 승리로 직결됩니다!',
+              text: '라인을 파괴하며 전진! 승리로 직결됩니다!',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
@@ -315,19 +314,43 @@ const _tvtRaxDoubleVsFacDouble = ScenarioScript(
         ScriptEvent(
           text: '{home}, 시즈 포격! 상대 탱크가 터집니다!',
           owner: LogOwner.home,
-          awayArmy: -12, homeArmy: -8, favorsStat: 'attack',
+          awayArmy: -5, homeArmy: -5, favorsStat: 'attack',
           altText: '{home} 선수 시즈 화력! 상대 병력이 무너집니다!',
         ),
         ScriptEvent(
           text: '{away}, 골리앗 집중 포화! 반격합니다!',
           owner: LogOwner.away,
-          homeArmy: -10, awayArmy: -6, favorsStat: 'defense',
+          homeArmy: -5, awayArmy: -5, favorsStat: 'defense',
           altText: '{away} 선수 골리앗 화력으로 맞섭니다!',
         ),
-        ScriptEvent(
-          text: '결정적인 순간입니다!',
-          owner: LogOwner.system,
-          decisive: true,
+      ],
+    ),
+    // Phase 6: 결전 판정 - 분기 (lines 86+)
+    ScriptPhase(
+      name: 'decisive_outcome',
+      startLine: 86,
+      branches: [
+        ScriptBranch(
+          id: 'home_wins_decisive',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수가 결정적인 한 방을 날립니다!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_wins_decisive',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수가 결정적인 한 방을 날립니다!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
         ),
       ],
     ),
@@ -424,10 +447,10 @@ const _tvtBbsVsDouble = ScenarioScript(
       name: 'marine_cut',
       startLine: 17,
       branches: [
-        // 분기 A: 수비쪽 SCV가 마린을 끊어냄 → 벙커에 마린 못 들어감
+        // 분기 A: 수비쪽 SCV가 마린을 끊어냄 → BBS 완전 차단
         ScriptBranch(
           id: 'scv_cuts_marines',
-          baseProbability: 0.9,
+          baseProbability: 1.1,
           events: [
             ScriptEvent(
               text: '{away} 선수 SCV를 뭉쳐서 마린을 끊습니다! 벙커에 마린이 못 들어갑니다!',
@@ -438,17 +461,23 @@ const _tvtBbsVsDouble = ScenarioScript(
             ScriptEvent(
               text: '{home} 선수 마린이 줄어들고 있습니다! BBS가 흔들립니다!',
               owner: LogOwner.home,
-              homeArmy: -1,
+              homeArmy: -2,
             ),
             ScriptEvent(
               text: '{home} 선수 후퇴합니다... 자원 손실이 크겠는데요.',
               owner: LogOwner.home,
-              homeResource: -10,
+              homeResource: -15,
             ),
             ScriptEvent(
-              text: '{away} 선수 앞마당 커맨드를 지켜냅니다! 앞마당이 가동됩니다!',
+              text: '{away} 선수 앞마당 커맨드를 지켜냅니다! BBS 완전 차단!',
               owner: LogOwner.away,
-              awayResource: -5,
+              awayArmy: 2, awayResource: 10,
+              altText: '{away}, 앞마당이 가동됩니다! BBS를 막아냈습니다!',
+            ),
+            ScriptEvent(
+              text: 'BBS가 실패했습니다! 더블 측이 자원 우위를 확보합니다!',
+              owner: LogOwner.away,
+              decisive: true,
             ),
           ],
         ),
@@ -456,7 +485,7 @@ const _tvtBbsVsDouble = ScenarioScript(
         // 배럭 없이 CC부터 올린 상대, 벙커에 취약
         ScriptBranch(
           id: 'bunker_success',
-          baseProbability: 1.0,
+          baseProbability: 0.9,
           events: [
             ScriptEvent(
               text: '{away} 선수 SCV로 막으려 하지만 벙커를 건설하는 SCV를 제거하지 못합니다!',
@@ -466,13 +495,13 @@ const _tvtBbsVsDouble = ScenarioScript(
             ScriptEvent(
               text: '{home}, 벙커 완성! 마린이 들어갑니다!',
               owner: LogOwner.home,
-              homeArmy: 2, homeResource: -10, favorsStat: 'attack',
+              homeArmy: 1, homeResource: -10, favorsStat: 'attack',
               altText: '{home} 선수 벙커 완성! 마린 투입!',
             ),
             ScriptEvent(
               text: '{away} 선수 마린으로 벙커를 공격합니다! 하지만 쉽지 않습니다!',
               owner: LogOwner.away,
-              awayArmy: -2, homeArmy: -1,
+              awayArmy: -1, homeArmy: -1,
             ),
             ScriptEvent(
               text: '{home}, SCV 수리까지! {away} 선수 벙커를 못 부수고 있습니다!',
@@ -586,24 +615,24 @@ const _tvtWraithVsRaxDouble = ScenarioScript(
         // 분기 A: 디텍 준비 안 됨 → SCV 학살
         ScriptBranch(
           id: 'cloak_devastation',
-          baseProbability: 0.8,
+          baseProbability: 0.7,
           events: [
             ScriptEvent(
               text: '{home}, 클로킹 완성! 레이스 3기가 침투합니다! 디텍이 없어요!',
               owner: LogOwner.home,
-              awayResource: -25, awayArmy: -3, favorsStat: 'harass',
+              awayResource: -20, awayArmy: -2, favorsStat: 'harass',
               altText: '{home} 선수 클로킹 레이스 침투! SCV가 쓰러집니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 급히 스캔! 하지만 이미 SCV 피해가 큽니다!',
               owner: LogOwner.away,
-              awayResource: -10, awayArmy: -2,
+              awayResource: -10, awayArmy: -1,
               skipChance: 0.4,
             ),
             ScriptEvent(
               text: '{home}, 추가 레이스까지! 견제가 이어집니다!',
               owner: LogOwner.home,
-              homeArmy: 1, awayArmy: -3, favorsStat: 'harass',
+              homeArmy: 1, awayArmy: -2, favorsStat: 'harass',
               skipChance: 0.4,
             ),
             ScriptEvent(
@@ -622,7 +651,7 @@ const _tvtWraithVsRaxDouble = ScenarioScript(
         // 분기 B: 본진+앞마당 분산 건설 → 골리앗/스캔으로 대응
         ScriptBranch(
           id: 'cloak_defended',
-          baseProbability: 1.2,
+          baseProbability: 1.1,
           events: [
             ScriptEvent(
               text: '{away} 선수 아머리를 본진과 앞마당에 나눠 짓습니다! 레이스를 피합니다!',
@@ -679,8 +708,9 @@ const _tvtWraithVsRaxDouble = ScenarioScript(
               altText: '{home} 선수 드랍 견제! 미네랄 라인을 노립니다!',
             ),
             ScriptEvent(
-              text: 'SCV 피해 + 드랍 견제! 레이스 측이 주도권을 잡고 있습니다!',
-              owner: LogOwner.system,
+              text: '레이스 측이 주도권을 잡고 병력까지 밀어붙입니다!',
+              owner: LogOwner.home,
+              decisive: true,
             ),
           ],
         ),
@@ -698,13 +728,12 @@ const _tvtWraithVsRaxDouble = ScenarioScript(
             ScriptEvent(
               text: '{home} 선수 지상병력이 부족합니다! 레이스 투자 회수가 안 됩니다!',
               owner: LogOwner.home,
-              homeArmy: -3, homeResource: -15,
+              homeArmy: -2, homeResource: -10,
             ),
             ScriptEvent(
               text: '{away}, 물량으로 압도! 따라잡기 힘듭니다!',
               owner: LogOwner.away,
               decisive: true,
-              skipChance: 0.65,
             ),
           ],
         ),
@@ -759,7 +788,7 @@ const _tvt5facVsMineTriple = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 시즈 모드 연구 시작! 팩토리 5개 체제! 탱크 벌처 대량 생산!',
           owner: LogOwner.home,
-          homeArmy: 6, homeResource: -30,
+          homeArmy: 4, homeResource: -30,
           altText: '{home}, 시즈 모드 연구와 5팩토리 풀가동! 병력이 쏟아져 나옵니다!',
         ),
         ScriptEvent(
@@ -791,7 +820,7 @@ const _tvt5facVsMineTriple = ScenarioScript(
           owner: LogOwner.home,
           awayArmy: -1, favorsStat: 'strategy+scout',
           altText: '{home}, 시즈 탱크 거리재기! 시야 싸움에서 앞서갑니다!',
-          skipChance: 0.4,
+          skipChance: 0.3,
         ),
         ScriptEvent(
           text: '5팩 타이밍 vs 마인 트리플! 공수 대결의 시작!',
@@ -812,13 +841,13 @@ const _tvt5facVsMineTriple = ScenarioScript(
             ScriptEvent(
               text: '{home}, 탱크 화력이 마인 지대를 뚫습니다! 벌처 돌진!',
               owner: LogOwner.home,
-              awayArmy: -4, homeArmy: -2, favorsStat: 'attack',
+              awayArmy: -3, homeArmy: -2, favorsStat: 'attack',
               altText: '{home} 선수 탱크 시즈 포격! 마인 라인 돌파!',
             ),
             ScriptEvent(
               text: '{away} 선수 수비 라인이 밀리고 있습니다!',
               owner: LogOwner.away,
-              awayArmy: -3,
+              awayArmy: -1,
             ),
             ScriptEvent(
               text: '{home}, 앞마당 진입! 5팩 물량으로 밀어냅니다!',
@@ -827,7 +856,7 @@ const _tvt5facVsMineTriple = ScenarioScript(
             ),
             ScriptEvent(
               text: '5팩 타이밍이 마인 수비를 뚫었습니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -843,9 +872,9 @@ const _tvt5facVsMineTriple = ScenarioScript(
               altText: '{away} 선수 마인 폭발! 벌처가 증발합니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 병력 손실! 마인 지대를 뚫기 어렵습니다!',
+              text: '{home} 선수 병력 손실! 탱크도 피해를 입었습니다!',
               owner: LogOwner.home,
-              homeArmy: -3,
+              homeArmy: -2,
             ),
             ScriptEvent(
               text: '{away} 선수 아머리 건설! 골리앗을 준비합니다!',
@@ -853,13 +882,13 @@ const _tvt5facVsMineTriple = ScenarioScript(
               awayResource: -20,
             ),
             ScriptEvent(
-              text: '{away}, 트리플 확장으로 역전 준비! 탱크+골리앗이 쌓입니다!',
+              text: '{away}, 트리플 확장의 자원 우위! 탱크+골리앗이 쌓입니다!',
               owner: LogOwner.away,
-              awayArmy: 5, awayResource: 20,
+              awayArmy: 3, homeResource: -20,
             ),
             ScriptEvent(
-              text: '마인 수비 성공! 자원 차이로 역전을 노립니다!',
-              owner: LogOwner.system,
+              text: '마인 수비 성공! 하지만 5팩 측도 물량이 있어 쉽지 않습니다!',
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -938,8 +967,13 @@ const _tvtBbsVsTech = ScenarioScript(
         ScriptEvent(
           text: '{home}, 상대 진지에 벙커 건설 시도!',
           owner: LogOwner.home,
-          favorsStat: 'attack',
           altText: '{home} 선수 벙커를 올립니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 마린+SCV로 벙커 건설을 방해합니다!',
+          owner: LogOwner.away,
+          favorsStat: 'defense',
+          skipChance: 0.3,
         ),
       ],
     ),
@@ -962,29 +996,29 @@ const _tvtBbsVsTech = ScenarioScript(
             ScriptEvent(
               text: '{home} 선수 마린이 녹고 있습니다! 팩토리 유닛을 못 뚫어요!',
               owner: LogOwner.home,
-              homeArmy: -3,
+              homeArmy: -2,
             ),
             ScriptEvent(
               text: '{away}, 추가 유닛까지 생산! 벌처가 합류합니다!',
               owner: LogOwner.away,
-              awayArmy: 3, homeArmy: -2,
+              awayArmy: 2, homeArmy: -1,
               altText: '{away} 선수 벌처 합류! BBS를 완전히 막아냅니다!',
               skipChance: 0.4,
             ),
             ScriptEvent(
               text: '{away}, 테크 우위를 살려 병력을 늘립니다!',
               owner: LogOwner.away,
-              awayArmy: 3, awayResource: -10,
+              awayArmy: 2, awayResource: -10,
               altText: '{away} 선수 병력 추가!',
             ),
             ScriptEvent(
               text: '{home} 선수 후퇴합니다... 자원도 병력도 뒤처졌습니다.',
               owner: LogOwner.home,
-              homeResource: -25,
+              homeResource: -20,
             ),
             ScriptEvent(
               text: 'BBS가 막혔습니다! 테크 차이가 결정적입니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -1018,7 +1052,7 @@ const _tvtBbsVsTech = ScenarioScript(
             ),
             ScriptEvent(
               text: 'BBS가 테크를 앞질렀습니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -1124,13 +1158,6 @@ const _tvtAggressiveMirror = ScenarioScript(
           homeArmy: -1, favorsStat: 'control',
         ),
         ScriptEvent(
-          text: '{home} 선수 벌처로 시야 확보! 시즈 탱크 거리재기! 상대는 암흑 시야인데 우리 탱크가 먼저 때립니다!',
-          owner: LogOwner.home,
-          awayArmy: -1, favorsStat: 'strategy+scout',
-          altText: '{home}, 시야 싸움에서 앞섭니다! 선제 포격!',
-          skipChance: 0.4,
-        ),
-        ScriptEvent(
           text: '공격적인 빌드 대결! 먼저 밀리면 끝입니다!',
           owner: LogOwner.system,
           skipChance: 0.3,
@@ -1150,13 +1177,13 @@ const _tvtAggressiveMirror = ScenarioScript(
             ScriptEvent(
               text: '{home}, 탱크 시즈! 상대 병력을 포격합니다!',
               owner: LogOwner.home,
-              awayArmy: -4, homeArmy: -1, favorsStat: 'attack',
+              awayArmy: -4, homeArmy: -2, favorsStat: 'attack',
               altText: '{home} 선수 탱크 화력! 상대 라인을 뚫습니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 탱크가 터집니다! 화력에서 밀리고 있어요!',
               owner: LogOwner.away,
-              awayArmy: -3,
+              awayArmy: -2,
             ),
             ScriptEvent(
               text: '{home}, 탱크+골리앗으로 밀어붙입니다! 상대 생산시설까지 위협!',
@@ -1166,7 +1193,7 @@ const _tvtAggressiveMirror = ScenarioScript(
             ),
             ScriptEvent(
               text: '타이밍 공격 성공! 병력 차이가 벌어집니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -1179,13 +1206,13 @@ const _tvtAggressiveMirror = ScenarioScript(
             ScriptEvent(
               text: '{away}, 병력이 더 빠르게 모입니다! 역습!',
               owner: LogOwner.away,
-              homeArmy: -3, awayArmy: -1, favorsStat: 'attack',
+              homeArmy: -4, awayArmy: -2, favorsStat: 'attack',
               altText: '{away} 선수 역습! 상대 탱크 라인을 무너뜨립니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 라인이 뚫립니다! 후퇴!',
               owner: LogOwner.home,
-              homeArmy: -3,
+              homeArmy: -2,
             ),
             ScriptEvent(
               text: '{away}, 탱크+골리앗으로 추격! 상대 생산시설을 노립니다!',
@@ -1194,7 +1221,7 @@ const _tvtAggressiveMirror = ScenarioScript(
             ),
             ScriptEvent(
               text: '역습 성공! 생산력 차이로 결정됩니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -1265,7 +1292,7 @@ const _tvtCcFirstVs1facExpand = ScenarioScript(
         ),
       ],
     ),
-    // Phase 1: 초반 마린 벌처 압박 (lines 15-24)
+    // Phase 1: 초반 벌처 교환 (lines 15-24)
     ScriptPhase(
       name: 'early_pressure',
       startLine: 15,
@@ -1275,7 +1302,7 @@ const _tvtCcFirstVs1facExpand = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 마린+벌처로 상대 앞마당을 정찰합니다!',
           owner: LogOwner.home,
-          homeArmy: 2, favorsStat: 'harass',
+          homeArmy: 1, favorsStat: 'harass',
           altText: '{home}, 마린 벌처 전진! 상대 빌드를 확인합니다!',
         ),
         ScriptEvent(
@@ -1287,17 +1314,18 @@ const _tvtCcFirstVs1facExpand = ScenarioScript(
         ScriptEvent(
           text: '{home}, 벌처로 견제! SCV 라인을 노리는데요!',
           owner: LogOwner.home,
-          favorsStat: 'harass',
+          awayResource: -5, favorsStat: 'harass',
           altText: '{home} 선수 벌처 기동! 일꾼을 노립니다!',
+          skipChance: 0.3,
         ),
         ScriptEvent(
-          text: '{away} 선수 마인에 벌처가 걸립니다! 하지만 {home} 선수 피해도 줍니다!',
+          text: '{away} 선수 마인에 벌처가 걸립니다! {home} 선수 벌처 피해!',
           owner: LogOwner.away,
           homeArmy: -1, favorsStat: 'defense',
           skipChance: 0.3,
         ),
         ScriptEvent(
-          text: '배럭 더블의 조기 압박 vs 원팩 확장의 수비! 구도가 나왔습니다!',
+          text: '양쪽 빌드 스타일이 극명하게 갈립니다! 이 싸움은 오래 갈 겁니다!',
           owner: LogOwner.system,
           skipChance: 0.2,
         ),
@@ -1316,13 +1344,13 @@ const _tvtCcFirstVs1facExpand = ScenarioScript(
             ScriptEvent(
               text: '{home}, 벌처가 마인을 피하면서 SCV를 잡습니다! 앞마당 가동이 늦어지고 있어요!',
               owner: LogOwner.home,
-              awayResource: -20, favorsStat: 'control+harass',
+              awayResource: -15, favorsStat: 'control+harass',
               altText: '{home} 선수 벌처 컨트롤! 상대 앞마당 SCV 피해!',
             ),
             ScriptEvent(
               text: '{away} 선수 앞마당 가동이 늦어집니다! 확장 이득을 못 보고 있어요!',
               owner: LogOwner.away,
-              awayResource: -10,
+              awayResource: -5,
             ),
             ScriptEvent(
               text: '{home}, 시즈 탱크 생산 시작! 앞마당 이득을 살려 밀어붙입니다!',
@@ -1331,7 +1359,7 @@ const _tvtCcFirstVs1facExpand = ScenarioScript(
               altText: '{home} 선수 탱크 합류! 압박이 강해집니다!',
             ),
             ScriptEvent(
-              text: '압박이 효과를 봤습니다! 확장 투자를 회수하지 못하면 치명적!',
+              text: '압박이 효과를 봤습니다! 하지만 원팩 측 테크 우위가 있습니다!',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
@@ -1351,13 +1379,13 @@ const _tvtCcFirstVs1facExpand = ScenarioScript(
             ScriptEvent(
               text: '{away} 선수 세 번째 커맨드 센터! 트리플 확장입니다!',
               owner: LogOwner.away,
-              awayResource: -30,
+              awayResource: -30, awayArmy: 2,
               altText: '{away}, 트리플! 자원 우위를 끌어올립니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 압박이 실패했습니다! 상대 확장이 늘어나는데요!',
               owner: LogOwner.home,
-              homeResource: -10,
+              homeResource: -15,
             ),
             ScriptEvent(
               text: '수비 성공 후 트리플 확장! 자원 격차가 벌어집니다!',
@@ -1399,10 +1427,10 @@ const _tvtCcFirstVs1facExpand = ScenarioScript(
           skipChance: 0.3,
         ),
         ScriptEvent(
-          text: '{home} 선수 스타포트 건설! 드랍십을 노립니다!',
-          owner: LogOwner.home,
-          homeResource: -25,
-          altText: '{home}, 스타포트! 드랍십으로 견제를 노리는 건가요?',
+          text: '{away} 선수 스타포트 건설! 드랍십을 준비합니다!',
+          owner: LogOwner.away,
+          awayResource: -25,
+          altText: '{away}, 스타포트! 드랍십을 노리는 건가요?',
         ),
         ScriptEvent(
           text: '양측 시즈 탱크 대치! 라인 싸움의 시작입니다!',
@@ -1422,24 +1450,24 @@ const _tvtCcFirstVs1facExpand = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 드랍십에 탱크를 싣고 상대 후방을 공격합니다!',
+              text: '{home}, 벌처로 상대 후방을 견제합니다! SCV를 노립니다!',
               owner: LogOwner.home,
-              awayResource: -20, favorsStat: 'strategy',
-              altText: '{home} 선수 탱크 드랍! 상대 확장기지가 위험합니다!',
+              awayResource: -15, favorsStat: 'harass',
+              altText: '{home} 선수 벌처 견제! 상대 일꾼 라인을 공격!',
             ),
             ScriptEvent(
-              text: '{away} 선수 후방이 뚫립니다! 병력을 돌려야 해요!',
+              text: '{away} 선수 벌처를 막느라 병력이 분산됩니다!',
               owner: LogOwner.away,
-              awayArmy: -3, awayResource: -15,
+              awayArmy: -2,
             ),
             ScriptEvent(
-              text: '{home}, 정면 탱크 라인도 전진! 드랍+정면 동시 공격!',
+              text: '{home}, 정면 탱크 라인도 전진! 압박이 이어집니다!',
               owner: LogOwner.home,
-              homeArmy: 3, awayArmy: -2, favorsStat: 'attack',
-              altText: '{home} 선수 멀티포인트 공격! 수비가 갈립니다!',
+              homeArmy: 2, awayArmy: -2, favorsStat: 'attack',
+              altText: '{home} 선수 정면 전진! 상대 라인을 밀어붙입니다!',
             ),
             ScriptEvent(
-              text: '드랍 견제+정면 밀기! 주도권을 잡았습니다!',
+              text: '배럭 더블의 조기 확장 이득이 나타납니다!',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
@@ -1451,9 +1479,9 @@ const _tvtCcFirstVs1facExpand = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 트리플 확장의 자원 우위! 병력이 빠르게 늘어납니다!',
+              text: '{away}, 확장 기지들의 자원 우위! 병력이 빠르게 늘어납니다!',
               owner: LogOwner.away,
-              awayArmy: 5, favorsStat: 'macro',
+              awayArmy: 3, favorsStat: 'macro',
               altText: '{away} 선수 물량 차이! 자원 우위가 드러납니다!',
             ),
             ScriptEvent(
@@ -1462,10 +1490,10 @@ const _tvtCcFirstVs1facExpand = ScenarioScript(
               homeArmy: -2,
             ),
             ScriptEvent(
-              text: '{away}, 골리앗+탱크 대군으로 역습! 숫자가 다릅니다!',
+              text: '{away}, 드랍십으로 상대 확장기지를 습격합니다!',
               owner: LogOwner.away,
-              homeArmy: -3, awayArmy: -1, favorsStat: 'attack',
-              altText: '{away} 선수 물량으로 역공! 상대 라인이 밀립니다!',
+              homeResource: -15, homeArmy: -2, favorsStat: 'strategy',
+              altText: '{away} 선수 탱크 드랍! 상대 후방이 위험합니다!',
             ),
             ScriptEvent(
               text: '자원 우위가 병력 차이로! 역전의 흐름입니다!',
@@ -1482,7 +1510,7 @@ const _tvtCcFirstVs1facExpand = ScenarioScript(
       startLine: 71,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 탱크+골리앗+드랍십 총동원! 마지막 결전!',
+          text: '{home} 선수 탱크+골리앗+벌처 총동원! 마지막 결전!',
           owner: LogOwner.home,
           homeArmy: 5, homeResource: -25,
           altText: '{home}, 전 병력 결집! 결전을 준비합니다!',
@@ -1499,19 +1527,43 @@ const _tvtCcFirstVs1facExpand = ScenarioScript(
         ScriptEvent(
           text: '{home}, 시즈 포격! 상대 라인을 뚫습니다!',
           owner: LogOwner.home,
-          awayArmy: -12, homeArmy: -8, favorsStat: 'attack',
+          awayArmy: -5, homeArmy: -5, favorsStat: 'attack',
           altText: '{home} 선수 탱크 화력 집중! 상대 병력이 녹습니다!',
         ),
         ScriptEvent(
           text: '{away}, 골리앗 집중 화력! 반격에 나섭니다!',
           owner: LogOwner.away,
-          homeArmy: -10, awayArmy: -6, favorsStat: 'defense',
+          homeArmy: -5, awayArmy: -5, favorsStat: 'defense',
           altText: '{away} 선수 골리앗 화력으로 맞섭니다!',
         ),
-        ScriptEvent(
-          text: '결정적인 순간입니다!',
-          owner: LogOwner.system,
-          decisive: true,
+      ],
+    ),
+    // Phase 6: 결전 판정 - 분기 (lines 83+)
+    ScriptPhase(
+      name: 'decisive_outcome',
+      startLine: 83,
+      branches: [
+        ScriptBranch(
+          id: 'home_wins_decisive',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수가 결정적인 한 방을 날립니다!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_wins_decisive',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수가 결정적인 한 방을 날립니다!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
         ),
       ],
     ),
@@ -1630,18 +1682,18 @@ const _tvtTwofacVs1facExpand = ScenarioScript(
             ScriptEvent(
               text: '{home}, 벌처가 마인을 피해 돌아서 SCV 라인에 침투합니다!',
               owner: LogOwner.home,
-              awayResource: -20, favorsStat: 'harass+control',
+              awayResource: -15, favorsStat: 'harass+control',
               altText: '{home} 선수 벌처 우회 침투! SCV가 쓰러집니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 SCV 피해가 큽니다! 앞마당 가동이 흔들립니다!',
               owner: LogOwner.away,
-              awayResource: -15,
+              awayResource: -10,
             ),
             ScriptEvent(
               text: '{home}, 추가 벌처까지 합류! 상대 일꾼 라인을 계속 괴롭힙니다!',
               owner: LogOwner.home,
-              homeArmy: 2, awayResource: -10, favorsStat: 'harass',
+              homeArmy: 2, awayResource: -5, favorsStat: 'harass',
               altText: '{home} 선수 벌처 추가! 견제가 이어집니다!',
             ),
             ScriptEvent(
@@ -1670,7 +1722,7 @@ const _tvtTwofacVs1facExpand = ScenarioScript(
             ScriptEvent(
               text: '{away} 선수 확장이 안정됩니다! 트리플 확장도 노립니다!',
               owner: LogOwner.away,
-              awayResource: -25,
+              awayResource: -25, awayArmy: 2,
               altText: '{away}, 수비 성공! 세 번째 확장을 가져갑니다!',
             ),
             ScriptEvent(
@@ -1738,18 +1790,18 @@ const _tvtTwofacVs1facExpand = ScenarioScript(
             ScriptEvent(
               text: '{home}, 드랍십으로 상대 확장기지 뒤를 공격합니다!',
               owner: LogOwner.home,
-              awayResource: -20, favorsStat: 'strategy',
+              awayResource: -15, favorsStat: 'strategy',
               altText: '{home} 선수 탱크 드랍! 상대 뒤쪽을 기습!',
             ),
             ScriptEvent(
               text: '{away} 선수 후방 피해! 골리앗을 돌리지만 늦었습니다!',
               owner: LogOwner.away,
-              awayArmy: -2, awayResource: -10,
+              awayArmy: -2, awayResource: -5,
             ),
             ScriptEvent(
               text: '{home}, 정면에서도 탱크 라인을 밀어붙입니다!',
               owner: LogOwner.home,
-              homeArmy: 3, awayArmy: -3, favorsStat: 'attack',
+              homeArmy: 2, awayArmy: -2, favorsStat: 'attack',
               altText: '{home} 선수 드랍+정면 동시 공격! 상대가 흔들립니다!',
             ),
             ScriptEvent(
@@ -1767,7 +1819,7 @@ const _tvtTwofacVs1facExpand = ScenarioScript(
             ScriptEvent(
               text: '{away}, 확장 기지들이 풀가동! 물량이 쏟아집니다!',
               owner: LogOwner.away,
-              awayArmy: 5, favorsStat: 'macro',
+              awayArmy: 4, favorsStat: 'macro',
               altText: '{away} 선수 자원 우위! 병력이 빠르게 늘어납니다!',
             ),
             ScriptEvent(
@@ -1778,7 +1830,7 @@ const _tvtTwofacVs1facExpand = ScenarioScript(
             ScriptEvent(
               text: '{away}, 탱크+골리앗 대군으로 역공! 숫자로 압도!',
               owner: LogOwner.away,
-              homeArmy: -3, awayArmy: -1, favorsStat: 'attack',
+              homeArmy: -2, awayArmy: -1, favorsStat: 'attack',
               altText: '{away} 선수 물량 공세! 상대 라인이 무너집니다!',
             ),
             ScriptEvent(
@@ -1813,19 +1865,43 @@ const _tvtTwofacVs1facExpand = ScenarioScript(
         ScriptEvent(
           text: '{home}, 시즈 포격! 상대 탱크 라인을 직격합니다!',
           owner: LogOwner.home,
-          awayArmy: -12, homeArmy: -8, favorsStat: 'attack',
+          awayArmy: -5, homeArmy: -5, favorsStat: 'attack',
           altText: '{home} 선수 탱크 화력! 상대 병력이 무너집니다!',
         ),
         ScriptEvent(
           text: '{away}, 골리앗 화력으로 반격합니다!',
           owner: LogOwner.away,
-          homeArmy: -10, awayArmy: -6, favorsStat: 'defense',
+          homeArmy: -5, awayArmy: -5, favorsStat: 'defense',
           altText: '{away} 선수 골리앗 집중 화력! 맞섭니다!',
         ),
-        ScriptEvent(
-          text: '결정적인 순간입니다!',
-          owner: LogOwner.system,
-          decisive: true,
+      ],
+    ),
+    // Phase 6: 결전 판정 - 분기 (lines 83+)
+    ScriptPhase(
+      name: 'decisive_outcome',
+      startLine: 83,
+      branches: [
+        ScriptBranch(
+          id: 'home_wins_decisive',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수가 결정적인 한 방을 날립니다!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_wins_decisive',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수가 결정적인 한 방을 날립니다!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
         ),
       ],
     ),
@@ -1965,7 +2041,7 @@ const _tvt1facPushVs5fac = ScenarioScript(
             ),
             ScriptEvent(
               text: '정면+후방 동시 공격! 5팩의 생산력을 꺾었습니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -1994,8 +2070,8 @@ const _tvt1facPushVs5fac = ScenarioScript(
             ),
             ScriptEvent(
               text: '5팩 물량 앞에 소수정예가 한계를 드러냅니다!',
-              owner: LogOwner.system,
-              skipChance: 0.3,
+              owner: LogOwner.away,
+              decisive: true,
             ),
           ],
         ),
@@ -2023,7 +2099,7 @@ const _tvt1facPushVs5fac = ScenarioScript(
         ScriptEvent(
           text: '{home}, 드랍십으로 상대 확장기지를 노립니다!',
           owner: LogOwner.home,
-          awayResource: -15, favorsStat: 'harass',
+          awayResource: -10, favorsStat: 'harass',
           altText: '{home} 선수 드랍 견제! 상대 SCV를 노립니다!',
           skipChance: 0.3,
         ),
@@ -2034,11 +2110,11 @@ const _tvt1facPushVs5fac = ScenarioScript(
           altText: '{away}, 골리앗이 합류합니다! 물량이 더 두터워집니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 기술적 우위로 버팁니다! 벌처 마인+드랍 견제!',
-          owner: LogOwner.home,
-          awayArmy: -2, favorsStat: 'strategy+harass',
+          text: '{away} 선수 5팩 물량으로 벌처를 대량 보냅니다! 마인으로 상대 이동을 봉쇄!',
+          owner: LogOwner.away,
+          homeArmy: -1, favorsStat: 'macro',
           skipChance: 0.3,
-          altText: '{home}, 마인과 드랍! 상대 물량을 흩트립니다!',
+          altText: '{away}, 벌처 물량! 마인 매설로 상대 기동을 제한합니다!',
         ),
         ScriptEvent(
           text: '기술 vs 물량! 결전의 시간이 다가옵니다!',
@@ -2070,19 +2146,43 @@ const _tvt1facPushVs5fac = ScenarioScript(
         ScriptEvent(
           text: '{home}, 시즈 포격+드랍 동시 투입! 상대 라인을 흔듭니다!',
           owner: LogOwner.home,
-          awayArmy: -12, homeArmy: -8, favorsStat: 'attack',
+          awayArmy: -5, homeArmy: -5, favorsStat: 'attack',
           altText: '{home} 선수 멀티포인트 공격! 상대 병력이 무너집니다!',
         ),
         ScriptEvent(
           text: '{away}, 물량으로 밀어붙입니다! 골리앗 화력 집중!',
           owner: LogOwner.away,
-          homeArmy: -10, awayArmy: -6, favorsStat: 'defense',
+          homeArmy: -5, awayArmy: -5, favorsStat: 'defense',
           altText: '{away} 선수 골리앗 집중 화력! 숫자의 힘!',
         ),
-        ScriptEvent(
-          text: '결정적인 순간입니다!',
-          owner: LogOwner.system,
-          decisive: true,
+      ],
+    ),
+    // Phase 5: 결전 판정 - 분기 (lines 66+)
+    ScriptPhase(
+      name: 'decisive_outcome',
+      startLine: 66,
+      branches: [
+        ScriptBranch(
+          id: 'home_wins_decisive',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수가 결정적인 한 방을 날립니다!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_wins_decisive',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수가 결정적인 한 방을 날립니다!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
         ),
       ],
     ),
@@ -2206,7 +2306,7 @@ const _tvtBbsMirror = ScenarioScript(
             ),
             ScriptEvent(
               text: '벙커 선점 차이! 먼저 완성한 쪽이 크게 유리합니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -2235,7 +2335,7 @@ const _tvtBbsMirror = ScenarioScript(
             ),
             ScriptEvent(
               text: '벙커 선점! 한 발 빠른 완성이 승부를 결정합니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -2318,19 +2418,43 @@ const _tvtBbsMirror = ScenarioScript(
         ScriptEvent(
           text: '{home}, 시즈 포격! 상대 탱크를 직격!',
           owner: LogOwner.home,
-          awayArmy: -12, homeArmy: -8, favorsStat: 'attack',
+          awayArmy: -5, homeArmy: -5, favorsStat: 'attack',
           altText: '{home} 선수 탱크 화력! 상대 병력이 무너집니다!',
         ),
         ScriptEvent(
           text: '{away}, 벌처로 우회! 탱크 포격에 맞섭니다!',
           owner: LogOwner.away,
-          homeArmy: -10, awayArmy: -5, favorsStat: 'defense',
+          homeArmy: -5, awayArmy: -5, favorsStat: 'defense',
           altText: '{away} 선수 벌처 우회 공격! 반격!',
         ),
-        ScriptEvent(
-          text: '결정적인 순간입니다!',
-          owner: LogOwner.system,
-          decisive: true,
+      ],
+    ),
+    // Phase 4: 결전 판정 - 분기 (lines 41+)
+    ScriptPhase(
+      name: 'decisive_outcome',
+      startLine: 41,
+      branches: [
+        ScriptBranch(
+          id: 'home_wins_decisive',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수가 결정적인 한 방을 날립니다!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_wins_decisive',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수가 결정적인 한 방을 날립니다!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
         ),
       ],
     ),
@@ -2590,19 +2714,43 @@ const _tvt1facPushMirror = ScenarioScript(
         ScriptEvent(
           text: '{home}, 시즈 포격! 상대 탱크 라인을 직격합니다!',
           owner: LogOwner.home,
-          awayArmy: -12, homeArmy: -8, favorsStat: 'attack',
+          awayArmy: -5, homeArmy: -5, favorsStat: 'control',
           altText: '{home} 선수 탱크 화력! 상대 병력이 무너집니다!',
         ),
         ScriptEvent(
           text: '{away}, 골리앗 화력으로 반격합니다!',
           owner: LogOwner.away,
-          homeArmy: -10, awayArmy: -6, favorsStat: 'defense',
+          homeArmy: -5, awayArmy: -5, favorsStat: 'control',
           altText: '{away} 선수 골리앗 집중 화력! 맞섭니다!',
         ),
-        ScriptEvent(
-          text: '결정적인 순간입니다!',
-          owner: LogOwner.system,
-          decisive: true,
+      ],
+    ),
+    // Phase 5: 결전 판정 - 분기 (lines 66+)
+    ScriptPhase(
+      name: 'decisive_outcome',
+      startLine: 66,
+      branches: [
+        ScriptBranch(
+          id: 'home_wins_decisive',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수가 결정적인 한 방을 날립니다!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_wins_decisive',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수가 결정적인 한 방을 날립니다!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
         ),
       ],
     ),
@@ -2854,7 +3002,6 @@ const _tvtWraithMirror = ScenarioScript(
         ScriptEvent(
           text: '레이스 교전이 끝나고 지상전으로! 레이스를 잃은 쪽이 불리합니다!',
           owner: LogOwner.system,
-          awayArmy: 1,
           skipChance: 0.2,
         ),
       ],
@@ -2882,19 +3029,43 @@ const _tvtWraithMirror = ScenarioScript(
         ScriptEvent(
           text: '{home}, 시즈 포격! 상대 탱크 라인을 직격!',
           owner: LogOwner.home,
-          awayArmy: -12, homeArmy: -8, favorsStat: 'attack',
+          awayArmy: -5, homeArmy: -5, favorsStat: 'attack',
           altText: '{home} 선수 탱크 화력! 상대 병력이 녹습니다!',
         ),
         ScriptEvent(
           text: '{away}, 골리앗 화력으로 반격!',
           owner: LogOwner.away,
-          homeArmy: -10, awayArmy: -6, favorsStat: 'defense',
+          homeArmy: -5, awayArmy: -5, favorsStat: 'defense',
           altText: '{away} 선수 골리앗 집중 포화! 맞섭니다!',
         ),
-        ScriptEvent(
-          text: '결정적인 순간입니다!',
-          owner: LogOwner.system,
-          decisive: true,
+      ],
+    ),
+    // Phase 5: 결전 판정 - 분기 (lines 61+)
+    ScriptPhase(
+      name: 'decisive_outcome',
+      startLine: 61,
+      branches: [
+        ScriptBranch(
+          id: 'home_wins_decisive',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수가 결정적인 한 방을 날립니다!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_wins_decisive',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수가 결정적인 한 방을 날립니다!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
         ),
       ],
     ),
@@ -3022,13 +3193,13 @@ const _tvt5facMirror = ScenarioScript(
             ScriptEvent(
               text: '{home}, 시즈 탱크 선제 포격! 상대 탱크가 터집니다!',
               owner: LogOwner.home,
-              awayArmy: -5, homeArmy: -1, favorsStat: 'attack',
+              awayArmy: -4, homeArmy: -1, favorsStat: 'attack',
               altText: '{home} 선수 탱크 선제 포격! 상대 탱크 라인에 직격!',
             ),
             ScriptEvent(
               text: '{away} 선수 탱크가 먼저 맞습니다! 시야 싸움에서 밀렸어요!',
               owner: LogOwner.away,
-              awayArmy: -3,
+              awayArmy: -2,
             ),
             ScriptEvent(
               text: '{home}, 벌처로 잔여 병력 추격! 탱크 잔해를 정리합니다!',
@@ -3052,7 +3223,7 @@ const _tvt5facMirror = ScenarioScript(
             ScriptEvent(
               text: '{away}, 마인으로 상대 벌처를 잡습니다! 시야가 끊겼어요!',
               owner: LogOwner.away,
-              homeArmy: -2, favorsStat: 'strategy',
+              favorsStat: 'strategy',
               altText: '{away} 선수 마인 폭발! 상대 벌처가 시야를 잃습니다!',
             ),
             ScriptEvent(
@@ -3064,7 +3235,7 @@ const _tvt5facMirror = ScenarioScript(
             ScriptEvent(
               text: '{home} 선수 측면에서 포격을 받습니다! 탱크가 큰 피해!',
               owner: LogOwner.home,
-              homeArmy: -3,
+              homeArmy: -2,
             ),
             ScriptEvent(
               text: '{away}, 벌처로 후속 추격! 잔여 탱크를 정리합니다!',
@@ -3108,25 +3279,55 @@ const _tvt5facMirror = ScenarioScript(
           altText: '{home}, 탱크+골리앗 총출동! 마지막 공세!',
         ),
         ScriptEvent(
+          text: '{away} 선수도 전 병력 재배치! 결전 준비 완료!',
+          owner: LogOwner.away,
+          awayArmy: 2, awayResource: -5,
+          altText: '{away}, 탱크+골리앗 재배치! 맞붙을 준비!',
+        ),
+        ScriptEvent(
           text: '양측 탱크+골리앗+벌처가 정면 충돌합니다!',
           owner: LogOwner.system,
         ),
         ScriptEvent(
           text: '{home}, 시즈 포격! 상대 탱크 라인을 직격합니다!',
           owner: LogOwner.home,
-          awayArmy: -12, homeArmy: -8, favorsStat: 'attack',
+          awayArmy: -5, homeArmy: -5, favorsStat: 'attack',
           altText: '{home} 선수 시즈 화력 집중! 상대 병력이 무너집니다!',
         ),
         ScriptEvent(
           text: '{away}, 골리앗 화력으로 반격합니다!',
           owner: LogOwner.away,
-          homeArmy: -10, awayArmy: -6, favorsStat: 'defense',
+          homeArmy: -5, awayArmy: -5, favorsStat: 'defense',
           altText: '{away} 선수 골리앗 집중 포화! 맞서 싸웁니다!',
         ),
-        ScriptEvent(
-          text: '결정적인 순간입니다!',
-          owner: LogOwner.system,
-          decisive: true,
+      ],
+    ),
+    // Phase 4: 결전 판정 - 분기 (lines 51+)
+    ScriptPhase(
+      name: 'decisive_outcome',
+      startLine: 51,
+      branches: [
+        ScriptBranch(
+          id: 'home_wins_decisive',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수가 결정적인 한 방을 날립니다!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_wins_decisive',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수가 결정적인 한 방을 날립니다!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
         ),
       ],
     ),
@@ -3209,7 +3410,7 @@ const _tvtCcFirstMirror = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 배럭을 앞마당 앞에 떨어뜨립니다! 상대 빌드 정찰!',
           owner: LogOwner.home,
-          homeResource: -10,
+          favorsStat: 'scout',
           altText: '{home}, 배럭 플로팅! 상대 진영을 정찰합니다!',
           skipChance: 0.3,
         ),
@@ -3278,15 +3479,16 @@ const _tvtCcFirstMirror = ScenarioScript(
               altText: '{away} 선수 속업 타이밍! 상대 벌처를 잡아냅니다!',
             ),
             ScriptEvent(
+              text: '{away}, 마인 매설로 맵 컨트롤! 상대 이동을 제한합니다!',
+              owner: LogOwner.away,
+              awayResource: -10, favorsStat: 'strategy',
+              altText: '{away} 선수 마인 매설! 상대 벌처 이동 경로를 차단!',
+            ),
+            ScriptEvent(
               text: '{away}, 상대 앞마당으로 침투합니다! SCV 견제!',
               owner: LogOwner.away,
               homeResource: -15, favorsStat: 'harass',
               altText: '{away} 선수 벌처 침투! SCV가 쓰러집니다!',
-            ),
-            ScriptEvent(
-              text: '{home} 선수 앞마당 SCV 피해! 벙커로 막아보지만 이미 피해가 큽니다!',
-              owner: LogOwner.home,
-              homeResource: -15,
             ),
             ScriptEvent(
               text: '벌처 컨트롤에서 밀린 쪽이 SCV 피해! 자원 격차가 벌어집니다!',
@@ -3351,7 +3553,7 @@ const _tvtCcFirstMirror = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 아머리 건설! 골리앗 생산 준비!',
           owner: LogOwner.away,
-          awayResource: -20,
+          awayResource: -25,
           altText: '{away}, 아머리! 골리앗으로 전환합니다!',
         ),
         ScriptEvent(
@@ -3363,13 +3565,12 @@ const _tvtCcFirstMirror = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수도 스타포트 건설! 골리앗도 생산!',
           owner: LogOwner.away,
-          awayArmy: 3, awayResource: -25,
+          awayArmy: 2, awayResource: -15,
           altText: '{away}, 스타포트+골리앗! 후반 교전 준비!',
         ),
         ScriptEvent(
           text: '탱크+골리앗+드랍십! 시야 싸움과 견제가 동시에 진행됩니다!',
           owner: LogOwner.system,
-          homeArmy: 1,
           skipChance: 0.2,
         ),
       ],
@@ -3490,19 +3691,43 @@ const _tvtCcFirstMirror = ScenarioScript(
         ScriptEvent(
           text: '{home}, 시즈 포격 집중! 상대 탱크가 터집니다!',
           owner: LogOwner.home,
-          awayArmy: -12, homeArmy: -8, favorsStat: 'attack',
+          awayArmy: -5, homeArmy: -5, favorsStat: 'attack',
           altText: '{home} 선수 시즈 화력! 상대 병력이 무너집니다!',
         ),
         ScriptEvent(
           text: '{away}, 골리앗 화력으로 반격합니다!',
           owner: LogOwner.away,
-          homeArmy: -10, awayArmy: -6, favorsStat: 'defense',
+          homeArmy: -5, awayArmy: -5, favorsStat: 'defense',
           altText: '{away} 선수 골리앗 반격! 끝까지 맞섭니다!',
         ),
-        ScriptEvent(
-          text: '결정적인 순간입니다!',
-          owner: LogOwner.system,
-          decisive: true,
+      ],
+    ),
+    // Phase 6: 결전 판정 - 분기 (lines 86+)
+    ScriptPhase(
+      name: 'decisive_outcome',
+      startLine: 86,
+      branches: [
+        ScriptBranch(
+          id: 'home_wins_decisive',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수가 결정적인 한 방을 날립니다!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_wins_decisive',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수가 결정적인 한 방을 날립니다!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
         ),
       ],
     ),
@@ -3588,10 +3813,10 @@ const _tvt2facVultureMirror = ScenarioScript(
           altText: '{home} 선수 벌처 4기 센터 진출! 마인 매설!',
         ),
         ScriptEvent(
-          text: '{away}, 벌처 6기로 맞대응! 마인을 피하면서 이동합니다!',
+          text: '{away}, 벌처 4기로 맞대응! 마인을 피하면서 이동합니다!',
           owner: LogOwner.away,
-          awayArmy: 4, awayResource: -15, favorsStat: 'control',
-          altText: '{away} 선수 벌처 6기! 마인을 피해 기동!',
+          awayArmy: 2, awayResource: -10, favorsStat: 'control',
+          altText: '{away} 선수 벌처 4기! 마인을 피해 기동!',
         ),
         ScriptEvent(
           text: '{home} 선수 벌처로 상대 앞마당 SCV를 노립니다! 견제 시도!',
@@ -3705,20 +3930,20 @@ const _tvt2facVultureMirror = ScenarioScript(
           altText: '{home}, 탱크로 전환! 시즈 연구 중!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 탱크 전환! 시즈 모드 연구! 아머리도 건설합니다!',
+          text: '{away} 선수도 탱크 전환! 시즈 모드 연구!',
           owner: LogOwner.away,
           awayArmy: 3, awayResource: -20,
         ),
         ScriptEvent(
           text: '{home} 선수 아머리 건설! 골리앗 생산을 준비합니다!',
           owner: LogOwner.home,
-          homeResource: -20,
-          altText: '{home}, 아머리가 올라갑니다!',
+          homeArmy: 2, homeResource: -20,
+          altText: '{home}, 아머리가 올라갑니다! 골리앗 준비!',
         ),
         ScriptEvent(
-          text: '{away} 선수 골리앗 생산 시작! 탱크+골리앗 라인 형성!',
+          text: '{away} 선수도 아머리 건설! 골리앗 생산 시작!',
           owner: LogOwner.away,
-          awayArmy: 3, awayResource: -20,
+          awayArmy: 2, awayResource: -20,
           altText: '{away}, 골리앗이 합류합니다! 화력이 올라갑니다!',
         ),
         ScriptEvent(
@@ -3731,7 +3956,6 @@ const _tvt2facVultureMirror = ScenarioScript(
           text: '{away} 선수도 스타포트 건설! 드랍십 경쟁입니다!',
           owner: LogOwner.away,
           awayResource: -25,
-          skipChance: 0.3,
         ),
         ScriptEvent(
           text: '탱크+골리앗+드랍십! 후반 결전이 다가옵니다!',
@@ -3763,19 +3987,43 @@ const _tvt2facVultureMirror = ScenarioScript(
         ScriptEvent(
           text: '{home}, 시즈 포격! 상대 탱크가 터집니다!',
           owner: LogOwner.home,
-          awayArmy: -12, homeArmy: -8, favorsStat: 'attack',
+          awayArmy: -5, homeArmy: -5, favorsStat: 'attack',
           altText: '{home} 선수 탱크 화력 집중! 상대 라인이 무너집니다!',
         ),
         ScriptEvent(
           text: '{away}, 골리앗 집중 화력으로 반격합니다!',
           owner: LogOwner.away,
-          homeArmy: -10, awayArmy: -6, favorsStat: 'defense',
+          homeArmy: -5, awayArmy: -5, favorsStat: 'defense',
           altText: '{away} 선수 골리앗 반격! 끝까지 싸웁니다!',
         ),
-        ScriptEvent(
-          text: '결정적인 순간입니다!',
-          owner: LogOwner.system,
-          decisive: true,
+      ],
+    ),
+    // Phase 5: 결전 판정 - 분기 (lines 69+)
+    ScriptPhase(
+      name: 'decisive_outcome',
+      startLine: 69,
+      branches: [
+        ScriptBranch(
+          id: 'home_wins_decisive',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수가 결정적인 한 방을 날립니다!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_wins_decisive',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수가 결정적인 한 방을 날립니다!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
         ),
       ],
     ),
@@ -4113,19 +4361,43 @@ const _tvt1facExpandMirror = ScenarioScript(
         ScriptEvent(
           text: '{home}, 시즈 포격 집중! 상대 탱크가 터집니다!',
           owner: LogOwner.home,
-          awayArmy: -12, homeArmy: -8, favorsStat: 'attack',
+          awayArmy: -5, homeArmy: -5, favorsStat: 'attack',
           altText: '{home} 선수 시즈 화력! 상대 병력이 무너집니다!',
         ),
         ScriptEvent(
           text: '{away}, 골리앗 집중 포화로 반격합니다!',
           owner: LogOwner.away,
-          homeArmy: -10, awayArmy: -6, favorsStat: 'defense',
+          homeArmy: -5, awayArmy: -5, favorsStat: 'defense',
           altText: '{away} 선수 골리앗 반격! 마지막까지 맞섭니다!',
         ),
-        ScriptEvent(
-          text: '결정적인 순간입니다!',
-          owner: LogOwner.system,
-          decisive: true,
+      ],
+    ),
+    // Phase 6: 결전 판정 - 분기 (lines 81+)
+    ScriptPhase(
+      name: 'decisive_outcome',
+      startLine: 81,
+      branches: [
+        ScriptBranch(
+          id: 'home_wins_decisive',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수가 결정적인 한 방을 날립니다!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_wins_decisive',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수가 결정적인 한 방을 날립니다!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
         ),
       ],
     ),

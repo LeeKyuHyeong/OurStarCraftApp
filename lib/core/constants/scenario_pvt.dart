@@ -53,13 +53,13 @@ const _pvtDragoonExpandVsFactory = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 팩토리 건설합니다.',
           owner: LogOwner.away,
-          awayResource: -20,
+          awayArmy: 1, awayResource: -20,
           altText: '{away}, 팩토리가 올라갑니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 드라군 생산 시작! 사거리 업그레이드도 들어갑니다!',
           owner: LogOwner.home,
-          homeArmy: 3, homeResource: -15,
+          homeArmy: 2, homeResource: -15,
           altText: '{home}, 첫 드라군이 나옵니다! 사업 시작!',
         ),
         ScriptEvent(
@@ -122,23 +122,23 @@ const _pvtDragoonExpandVsFactory = ScenarioScript(
         // 분기 A: 드라군 압박 (무조건 eligible, 확률 보정)
         ScriptBranch(
           id: 'protoss_dragoon_push',
-          baseProbability: 0.4,
+          baseProbability: 0.45,
           events: [
             ScriptEvent(
               text: '{home} 선수 드라군 편대가 전진합니다! 사거리 업그레이드 완료!',
               owner: LogOwner.home,
-              homeArmy: 4, favorsStat: 'attack',
+              homeArmy: 2, favorsStat: 'attack',
               altText: '{home}, 사업 완료된 드라군이 밀려갑니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 시즈 탱크로 맞서는데 수가 부족합니다!',
               owner: LogOwner.away,
-              awayArmy: -2, homeArmy: -1,
+              awayArmy: -1, homeArmy: -2,
             ),
             ScriptEvent(
               text: '{home}, 드라군 화력이 탱크 라인을 밀어냅니다!',
               owner: LogOwner.home,
-              awayArmy: -3, favorsStat: 'attack',
+              awayArmy: -2, favorsStat: 'attack',
               altText: '{home} 선수 드라군 집중 포화! 탱크가 터지고 있습니다!',
             ),
             ScriptEvent(
@@ -170,7 +170,7 @@ const _pvtDragoonExpandVsFactory = ScenarioScript(
             ScriptEvent(
               text: '{away}, 시즈 탱크도 전진 배치! 화력을 올립니다!',
               owner: LogOwner.away,
-              awayArmy: 4, awayResource: -20,
+              awayArmy: 2, awayResource: -20,
             ),
             ScriptEvent(
               text: '벌처 견제가 판을 흔들고 있습니다! 프로토스 일꾼에 타격!',
@@ -244,7 +244,7 @@ const _pvtDragoonExpandVsFactory = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 시즈 탱크 편대를 모아서 전진합니다!',
           owner: LogOwner.away,
-          awayArmy: 4, awayResource: -20, favorsStat: 'attack',
+          awayArmy: 2, awayResource: -20, favorsStat: 'attack',
           altText: '{away}, 탱크 라인 전진! 화력으로 밀어붙입니다!',
         ),
         ScriptEvent(
@@ -259,12 +259,10 @@ const _pvtDragoonExpandVsFactory = ScenarioScript(
       name: 'late_transition',
       startLine: 55,
       branches: [
-        // 분기 A: 프로토스 strategy 높으면 아비터
+        // 분기 A: 프로토스 아비터 전환
         ScriptBranch(
           id: 'protoss_arbiter',
-          conditionStat: 'strategy',
-          homeStatMustBeHigher: true,
-          baseProbability: 0.55,
+          baseProbability: 0.5,
           events: [
             ScriptEvent(
               text: '{home} 선수 아비터 트리뷰널 건설! 아비터를 준비합니다!',
@@ -275,19 +273,19 @@ const _pvtDragoonExpandVsFactory = ScenarioScript(
             ScriptEvent(
               text: '{home}, 아비터 등장! 스테이시스 필드 준비!',
               owner: LogOwner.home,
-              homeArmy: 3, homeResource: -20,
+              homeArmy: 2, homeResource: -20,
               altText: '{home} 선수 아비터가 나왔습니다! 전장의 판도가 바뀝니다!',
             ),
             ScriptEvent(
               text: '{home}, 리콜! 테란 본진에 병력이 떨어집니다!',
               owner: LogOwner.home,
-              awayResource: -25, favorsStat: 'sense',
+              awayResource: -15, homeArmy: -2, favorsStat: 'sense',
               altText: '{home} 선수 리콜 투하! 테란 본진이 위험합니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 본진 수비가 급합니다! 탱크를 돌리는데요!',
               owner: LogOwner.away,
-              awayArmy: -3,
+              awayArmy: -2, homeArmy: -1,
             ),
             ScriptEvent(
               text: '아비터 리콜이 판을 뒤집고 있습니다!',
@@ -296,28 +294,26 @@ const _pvtDragoonExpandVsFactory = ScenarioScript(
             ),
           ],
         ),
-        // 분기 B: 테란 attack 높으면 탱크 푸시
+        // 분기 B: 테란 탱크 푸시
         ScriptBranch(
           id: 'terran_tank_push',
-          conditionStat: 'attack',
-          homeStatMustBeHigher: false,
-          baseProbability: 0.45,
+          baseProbability: 0.5,
           events: [
             ScriptEvent(
               text: '{away} 선수 시즈 탱크 5기 이상! 대규모 푸시 들어갑니다!',
               owner: LogOwner.away,
-              awayArmy: 6, awayResource: -25, favorsStat: 'attack',
+              awayArmy: 3, awayResource: -25, favorsStat: 'attack',
             ),
             ScriptEvent(
               text: '{away}, 시즈 모드! 프로토스 앞마당을 포격합니다!',
               owner: LogOwner.away,
-              homeArmy: -4, homeResource: -15, favorsStat: 'attack',
+              homeArmy: -3, awayArmy: -1, homeResource: -15, favorsStat: 'attack',
               altText: '{away} 선수 시즈 포격 시작! 프로토스 앞마당이 흔들립니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 드라군으로 맞서지만 시즈 화력이 너무 강합니다!',
               owner: LogOwner.home,
-              homeArmy: -3,
+              homeArmy: -1,
               altText: '{home}, 드라군이 시즈 모드에 녹고 있습니다!',
             ),
             ScriptEvent(
@@ -335,42 +331,66 @@ const _pvtDragoonExpandVsFactory = ScenarioScript(
         ),
       ],
     ),
-    // Phase 5: 결전 (lines 71-85)
+    // Phase 5: 결전 전개 (lines 71-80)
     ScriptPhase(
-      name: 'decisive_battle',
+      name: 'decisive_clash',
       startLine: 71,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 하이 템플러 합류! 사이오닉 스톰 준비!',
           owner: LogOwner.home,
-          homeArmy: 5, homeResource: -25,
+          homeArmy: 4, homeResource: -25,
           altText: '{home}, 하이 템플러가 나왔습니다! 스톰 연구 완료!',
         ),
         ScriptEvent(
           text: '{away} 선수도 전 병력 결집! 최종 공격 준비!',
           owner: LogOwner.away,
-          awayArmy: 5, awayResource: -25,
+          awayArmy: 4, awayResource: -25,
         ),
         ScriptEvent(
           text: '양측 결전 병력이 충돌합니다!',
           owner: LogOwner.system,
         ),
-        ScriptEvent(
-          text: '{home}, 사이오닉 스톰! 바이오닉 병력이 녹아내립니다!',
-          owner: LogOwner.home,
-          awayArmy: -15, homeArmy: -5, favorsStat: 'strategy',
-          altText: '{home} 선수 스톰 투하! 마린 메딕이 순식간에 증발합니다!',
+      ],
+    ),
+    // Phase 6: 결전 결과
+    ScriptPhase(
+      name: 'decisive_result',
+      startLine: 81,
+      branches: [
+        ScriptBranch(
+          id: 'protoss_storm_wins',
+          baseProbability: 0.5,
+          events: [
+            ScriptEvent(
+              text: '{home}, 사이오닉 스톰! 바이오닉 병력이 녹아내립니다!',
+              owner: LogOwner.home,
+              awayArmy: -14, homeArmy: -5, favorsStat: 'strategy',
+              altText: '{home} 선수 스톰 투하! 마린 메딕이 순식간에 증발합니다!',
+            ),
+            ScriptEvent(
+              text: '스톰이 결정적이었습니다! 프로토스 승리!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
         ),
-        ScriptEvent(
-          text: '{away}, 시즈 탱크 포격! 드라군 편대가 쓸려나갑니다!',
-          owner: LogOwner.away,
-          homeArmy: -12, awayArmy: -8, favorsStat: 'attack',
-          altText: '{away} 선수 탱크 화력 집중! 프로토스 병력이 무너집니다!',
-        ),
-        ScriptEvent(
-          text: '결정적인 순간입니다!',
-          owner: LogOwner.system,
-          decisive: true,
+        ScriptBranch(
+          id: 'terran_tank_wins',
+          baseProbability: 0.5,
+          events: [
+            ScriptEvent(
+              text: '{away}, 시즈 탱크 포격! 드라군 편대가 쓸려나갑니다!',
+              owner: LogOwner.away,
+              homeArmy: -13, awayArmy: -6, favorsStat: 'attack',
+              altText: '{away} 선수 탱크 화력 집중! 프로토스 병력이 무너집니다!',
+            ),
+            ScriptEvent(
+              text: '탱크 화력이 결정적이었습니다! 테란 승리!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
         ),
       ],
     ),
@@ -424,7 +444,7 @@ const _pvtReaverVsTiming = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 팩토리를 추가합니다! 병력을 빠르게 모으려는 의도!',
           owner: LogOwner.away,
-          awayArmy: 3, awayResource: -20,
+          awayArmy: 2, awayResource: -20,
           altText: '{away}, 팩토리 증설! 빠른 타이밍을 노리는 건가요?',
         ),
         ScriptEvent(
@@ -448,7 +468,7 @@ const _pvtReaverVsTiming = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 병력을 모아서 전진합니다! 타이밍 공격!',
           owner: LogOwner.away,
-          awayArmy: 3, awayResource: -20, favorsStat: 'attack',
+          awayArmy: 2, awayResource: -20, favorsStat: 'attack',
           altText: '{away}, 탱크 벌처 병력이 프로토스로 이동합니다!',
         ),
         ScriptEvent(
@@ -507,7 +527,7 @@ const _pvtReaverVsTiming = ScenarioScript(
             ScriptEvent(
               text: '{away}, 셔틀 격추! 리버가 땅에 떨어집니다!',
               owner: LogOwner.away,
-              homeArmy: -3, favorsStat: 'defense',
+              homeArmy: -2, favorsStat: 'defense',
               altText: '{away} 선수 셔틀 폭사! 리버가 고립됐습니다!',
             ),
             ScriptEvent(
@@ -533,12 +553,12 @@ const _pvtReaverVsTiming = ScenarioScript(
         ScriptEvent(
           text: '{away}, 시즈 탱크 배치! 프로토스 앞마당을 노립니다!',
           owner: LogOwner.away,
-          awayArmy: 3, awayResource: -15, favorsStat: 'attack',
+          awayArmy: 2, awayResource: -15, favorsStat: 'attack',
         ),
         ScriptEvent(
           text: '{home} 선수 드라군 편대로 맞섭니다! 사거리가 길어서 유리한데요!',
           owner: LogOwner.home,
-          homeArmy: 5, homeResource: -15,
+          homeArmy: 6, homeResource: -15,
           altText: '{home}, 사업 드라군으로 탱크 사거리 밖에서 포격!',
         ),
         ScriptEvent(
@@ -568,9 +588,7 @@ const _pvtReaverVsTiming = ScenarioScript(
         // 분기 A: 프로토스 하이템플러 스톰
         ScriptBranch(
           id: 'protoss_storm_finish',
-          conditionStat: 'strategy',
-          homeStatMustBeHigher: true,
-          baseProbability: 0.55,
+          baseProbability: 0.5,
           events: [
             ScriptEvent(
               text: '{home} 선수 하이 템플러 합류! 사이오닉 스톰!',
@@ -591,15 +609,15 @@ const _pvtReaverVsTiming = ScenarioScript(
             ),
             ScriptEvent(
               text: '스톰이 결정적이었습니다! 테란 병력이 괴멸!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
         ),
-        // 분기 B: 테란 물량 압박 (무조건 eligible, 확률 보정)
+        // 분기 B: 테란 물량 압박
         ScriptBranch(
           id: 'terran_mass_push',
-          baseProbability: 0.45,
+          baseProbability: 0.5,
           events: [
             ScriptEvent(
               text: '{away} 선수 5팩토리 풀가동! 탱크 벌처가 쏟아져 나옵니다!',
@@ -620,7 +638,7 @@ const _pvtReaverVsTiming = ScenarioScript(
             ),
             ScriptEvent(
               text: '테란 물량이 프로토스를 압도하고 있습니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -714,9 +732,7 @@ const _pvtDarkVsStandard = ScenarioScript(
         // 분기 A: 테란 디텍 없음 - 다크 성공
         ScriptBranch(
           id: 'dark_success',
-          conditionStat: 'scout',
-          homeStatMustBeHigher: true,
-          baseProbability: 0.55,
+          baseProbability: 0.5,
           events: [
             ScriptEvent(
               text: '{home}, 다크 템플러가 SCV를 베기 시작합니다! 디텍이 없어요!',
@@ -742,10 +758,10 @@ const _pvtDarkVsStandard = ScenarioScript(
             ),
           ],
         ),
-        // 분기 B: 테란 디텍 성공 - 다크 실패 (무조건 eligible, 확률 보정)
+        // 분기 B: 테란 디텍 성공 - 다크 실패
         ScriptBranch(
           id: 'dark_failed',
-          baseProbability: 0.45,
+          baseProbability: 0.5,
           events: [
             ScriptEvent(
               text: '{away} 선수 스캔! 다크 템플러 위치가 드러납니다!',
@@ -756,7 +772,7 @@ const _pvtDarkVsStandard = ScenarioScript(
             ScriptEvent(
               text: '{away}, 마린이 다크 템플러를 집중 사격! 격파!',
               owner: LogOwner.away,
-              homeArmy: -3, favorsStat: 'defense',
+              homeArmy: -2, favorsStat: 'defense',
               altText: '{away} 선수 다크를 잡아냅니다! 완벽한 대응!',
             ),
             ScriptEvent(
@@ -781,18 +797,18 @@ const _pvtDarkVsStandard = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 게이트 추가하면서 드라군 생산!',
           owner: LogOwner.home,
-          homeArmy: 4, homeResource: -20,
+          homeArmy: 3, homeResource: -20,
           altText: '{home}, 드라군 물량으로 전환합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 시즈 탱크 생산! 화력을 올립니다.',
           owner: LogOwner.away,
-          awayArmy: 4, awayResource: -20,
+          awayArmy: 3, awayResource: -20,
         ),
         ScriptEvent(
           text: '{home}, 하이 템플러도 준비합니다! 스톰 연구!',
           owner: LogOwner.home,
-          homeArmy: 2, homeResource: -20,
+          homeArmy: 3, homeResource: -20,
           altText: '{home} 선수 하이 템플러 테크까지! 스톰을 노립니다!',
         ),
         ScriptEvent(
@@ -807,41 +823,65 @@ const _pvtDarkVsStandard = ScenarioScript(
         ),
       ],
     ),
-    // Phase 4: 결전 (lines 49-65)
+    // Phase 4: 결전 전개 (lines 49-58)
     ScriptPhase(
-      name: 'decisive_battle',
+      name: 'decisive_clash',
       startLine: 49,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 전 병력 결집! 드라군 질럿 하이 템플러!',
           owner: LogOwner.home,
-          homeArmy: 5, homeResource: -20,
+          homeArmy: 4, homeResource: -20,
         ),
         ScriptEvent(
           text: '{away} 선수도 총공격! 탱크 벌처 골리앗!',
           owner: LogOwner.away,
-          awayArmy: 5, awayResource: -20,
+          awayArmy: 4, awayResource: -20,
         ),
         ScriptEvent(
           text: '전면전이 시작됩니다!',
           owner: LogOwner.system,
         ),
-        ScriptEvent(
-          text: '{home}, 스톰! 마린 편대에 떨어집니다!',
-          owner: LogOwner.home,
-          awayArmy: -12, homeArmy: -5, favorsStat: 'strategy',
-          altText: '{home} 선수 스톰 명중! 엄청난 피해!',
+      ],
+    ),
+    // Phase 5: 결전 결과
+    ScriptPhase(
+      name: 'decisive_result',
+      startLine: 59,
+      branches: [
+        ScriptBranch(
+          id: 'protoss_storm_wins',
+          baseProbability: 0.5,
+          events: [
+            ScriptEvent(
+              text: '{home}, 스톰! 마린 편대에 떨어집니다!',
+              owner: LogOwner.home,
+              awayArmy: -12, homeArmy: -5, favorsStat: 'strategy',
+              altText: '{home} 선수 스톰 명중! 엄청난 피해!',
+            ),
+            ScriptEvent(
+              text: '스톰이 결정적! 프로토스가 밀어냅니다!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
         ),
-        ScriptEvent(
-          text: '{away}, 탱크 포격! 드라군이 부서집니다!',
-          owner: LogOwner.away,
-          homeArmy: -10, awayArmy: -5, favorsStat: 'attack',
-          altText: '{away} 선수 시즈 화력으로 드라군을 날립니다!',
-        ),
-        ScriptEvent(
-          text: '결정적인 순간입니다!',
-          owner: LogOwner.system,
-          decisive: true,
+        ScriptBranch(
+          id: 'terran_firepower_wins',
+          baseProbability: 0.5,
+          events: [
+            ScriptEvent(
+              text: '{away}, 탱크 포격! 드라군이 부서집니다!',
+              owner: LogOwner.away,
+              homeArmy: -10, awayArmy: -5, favorsStat: 'attack',
+              altText: '{away} 선수 시즈 화력으로 드라군을 날립니다!',
+            ),
+            ScriptEvent(
+              text: '화력이 결정적! 테란이 밀어냅니다!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
         ),
       ],
     ),
@@ -938,7 +978,7 @@ const _pvtCheeseVsStandard = ScenarioScript(
             ),
             ScriptEvent(
               text: '질럿 러시가 성공적! 테란이 무너지고 있습니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -967,7 +1007,7 @@ const _pvtCheeseVsStandard = ScenarioScript(
             ),
             ScriptEvent(
               text: '질럿 러시가 막혔습니다! 프로토스가 위기!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -1044,7 +1084,7 @@ const _pvtCarrierVsAnti = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 캐리어 생산 시작! 인터셉터를 채우고 있습니다.',
           owner: LogOwner.home,
-          homeArmy: 6, homeResource: -30,
+          homeArmy: 3, homeResource: -30,
           altText: '{home}, 캐리어가 나옵니다! 인터셉터 충전 중!',
         ),
         ScriptEvent(
@@ -1056,7 +1096,12 @@ const _pvtCarrierVsAnti = ScenarioScript(
         ScriptEvent(
           text: '{home}, 드라군과 캐리어 복합 편성! 하이 템플러도 준비!',
           owner: LogOwner.home,
-          homeArmy: 5, homeResource: -20,
+          homeArmy: 3, homeResource: -20,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 시즈 탱크도 추가 생산! 지상 화력을 올립니다.',
+          owner: LogOwner.away,
+          awayArmy: 3, awayResource: -20,
         ),
         ScriptEvent(
           text: '캐리어 대 골리앗의 대결이 예상됩니다.',
@@ -1072,59 +1117,55 @@ const _pvtCarrierVsAnti = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'carrier_dominance',
-          conditionStat: 'macro',
-          homeStatMustBeHigher: true,
           baseProbability: 0.5,
           events: [
             ScriptEvent(
               text: '{home}, 캐리어 3기! 인터셉터가 쏟아져 나옵니다!',
               owner: LogOwner.home,
-              homeArmy: 6, awayArmy: -6, favorsStat: 'macro',
+              homeArmy: 4, awayArmy: -5, favorsStat: 'macro',
               altText: '{home} 선수 캐리어 편대! 인터셉터가 비처럼 쏟아집니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 골리앗이 캐리어를 노리지만 인터셉터에 막힙니다!',
               owner: LogOwner.away,
-              awayArmy: -4,
+              awayArmy: -3, homeArmy: -2,
             ),
             ScriptEvent(
               text: '{home}, 하이 템플러 스톰까지! 골리앗이 녹아내립니다!',
               owner: LogOwner.home,
-              awayArmy: -6, favorsStat: 'strategy',
+              awayArmy: -4, homeArmy: -1, favorsStat: 'strategy',
               altText: '{home} 선수 스톰+캐리어! 이중 화력에 테란이 무너집니다!',
             ),
             ScriptEvent(
               text: '캐리어가 전장을 지배하고 있습니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
         ),
         ScriptBranch(
           id: 'goliath_counter',
-          conditionStat: 'defense',
-          homeStatMustBeHigher: false,
           baseProbability: 0.5,
           events: [
             ScriptEvent(
               text: '{away}, 골리앗 편대가 캐리어를 집중 포화! 대공 화력이 강합니다!',
               owner: LogOwner.away,
-              homeArmy: -3, favorsStat: 'defense',
+              homeArmy: -3, awayArmy: 2, favorsStat: 'defense',
               altText: '{away} 선수 골리앗 집중 사격! 캐리어가 흔들립니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 캐리어 1기가 격추됩니다! 인터셉터도 손실!',
               owner: LogOwner.home,
-              homeArmy: -2,
+              homeArmy: -3,
             ),
             ScriptEvent(
               text: '{away}, 시즈 탱크까지 합류! 지상 병력도 밀어냅니다!',
               owner: LogOwner.away,
-              awayArmy: 2, homeArmy: -1, favorsStat: 'attack',
+              awayArmy: 2, homeArmy: -2, favorsStat: 'attack',
             ),
             ScriptEvent(
               text: '안티 캐리어 전략이 효과를 보고 있습니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -1235,7 +1276,7 @@ const _pvt5gatePush = ScenarioScript(
             ),
             ScriptEvent(
               text: '5게이트 타이밍 공격 성공! 테란 앞마당 함락!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -1264,7 +1305,7 @@ const _pvt5gatePush = ScenarioScript(
             ),
             ScriptEvent(
               text: '타이밍 공격이 막혔습니다! 프로토스 병력이 녹았어요!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -1355,7 +1396,7 @@ const _pvtCheeseVsCheese = ScenarioScript(
         // 분기 A: 질럿이 마린을 압도
         ScriptBranch(
           id: 'zealot_overwhelm',
-          baseProbability: 0.45,
+          baseProbability: 0.5,
           events: [
             ScriptEvent(
               text: '{home}, 질럿이 마린에 달라붙습니다! 마린이 녹아요!',
@@ -1375,7 +1416,7 @@ const _pvtCheeseVsCheese = ScenarioScript(
             ),
             ScriptEvent(
               text: '질럿이 마린을 제압했습니다! 프로토스 치즈가 우세!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -1383,7 +1424,7 @@ const _pvtCheeseVsCheese = ScenarioScript(
         // 분기 B: 마린+벙커가 질럿을 막음
         ScriptBranch(
           id: 'marine_bunker_hold',
-          baseProbability: 0.55,
+          baseProbability: 0.5,
           events: [
             ScriptEvent(
               text: '{away}, 벙커 완성! 마린이 들어갑니다!',
@@ -1403,7 +1444,7 @@ const _pvtCheeseVsCheese = ScenarioScript(
             ),
             ScriptEvent(
               text: '벙커가 질럿을 막아냈습니다! 테란 치즈가 우세!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -1524,7 +1565,7 @@ const _pvtReaverVsBbs = ScenarioScript(
             ),
             ScriptEvent(
               text: 'BBS를 막고 리버 역습! 프로토스가 판을 뒤집습니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -1558,7 +1599,7 @@ const _pvtReaverVsBbs = ScenarioScript(
             ),
             ScriptEvent(
               text: 'BBS가 프로토스를 무너뜨리고 있습니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -1799,7 +1840,7 @@ const _pvtMineTriple = ScenarioScript(
             ),
             ScriptEvent(
               text: '스톰이 결정적! 트리플 체제를 무너뜨립니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -1828,7 +1869,7 @@ const _pvtMineTriple = ScenarioScript(
             ),
             ScriptEvent(
               text: '트리플 자원의 화력이 프로토스를 압도합니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -1982,19 +2023,19 @@ const _pvt11up8facVsExpand = ScenarioScript(
             ScriptEvent(
               text: '{away} 선수 메카닉 업그레이드 완료! 화력이 올라갑니다!',
               owner: LogOwner.away,
-              awayArmy: 4, favorsStat: 'macro',
+              awayArmy: 3, favorsStat: 'macro',
               altText: '{away}, 업그레이드 효과! 탱크 화력이 강해졌습니다!',
             ),
             ScriptEvent(
               text: '{away}, 8팩토리에서 탱크 벌처가 쏟아져 나옵니다!',
               owner: LogOwner.away,
-              awayArmy: 5, awayResource: -25,
+              awayArmy: 3, awayResource: -25,
               altText: '{away} 선수 8팩 가동! 물량이 끝없이 나옵니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 드라군으로 맞서지만 업그레이드 차이가 느껴집니다!',
               owner: LogOwner.home,
-              homeArmy: -3,
+              homeArmy: -2,
             ),
             ScriptEvent(
               text: '11업 완료! 테란 메카닉의 화력이 한 단계 올라갔습니다!',
@@ -2005,7 +2046,7 @@ const _pvt11up8facVsExpand = ScenarioScript(
         ),
       ],
     ),
-    // Phase 3: 대규모 교전 (lines 45-58)
+    // Phase 3: 대규모 교전 전개 (lines 45-55)
     ScriptPhase(
       name: 'mass_battle',
       startLine: 45,
@@ -2019,34 +2060,58 @@ const _pvt11up8facVsExpand = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 8팩토리 풀가동! 탱크가 끝없이 나옵니다!',
           owner: LogOwner.away,
-          awayArmy: 6, awayResource: -30,
+          awayArmy: 4, awayResource: -30,
           altText: '{away}, 탱크 물량이 대단합니다! 8팩의 위력!',
         ),
         ScriptEvent(
           text: '{home}, 하이 템플러 합류! 드라군과 함께 결전 준비!',
           owner: LogOwner.home,
-          homeArmy: 5, homeResource: -25,
+          homeArmy: 6, homeResource: -25,
         ),
         ScriptEvent(
           text: '대규모 교전이 임박합니다! 양측 주력이 충돌합니다!',
           owner: LogOwner.system,
         ),
-        ScriptEvent(
-          text: '{home}, 사이오닉 스톰! 메카닉 사이로 떨어집니다!',
-          owner: LogOwner.home,
-          awayArmy: -8, homeArmy: -3, favorsStat: 'strategy',
-          altText: '{home} 선수 스톰 투하! 벌처가 녹아내립니다!',
+      ],
+    ),
+    // Phase 4: 결전 결과
+    ScriptPhase(
+      name: 'decisive_result',
+      startLine: 56,
+      branches: [
+        ScriptBranch(
+          id: 'protoss_storm_wins',
+          baseProbability: 0.5,
+          events: [
+            ScriptEvent(
+              text: '{home}, 사이오닉 스톰! 메카닉 사이로 떨어집니다!',
+              owner: LogOwner.home,
+              awayArmy: -8, homeArmy: -3, favorsStat: 'strategy',
+              altText: '{home} 선수 스톰 투하! 벌처가 녹아내립니다!',
+            ),
+            ScriptEvent(
+              text: '스톰이 결정적! 프로토스가 밀어냅니다!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
         ),
-        ScriptEvent(
-          text: '{away}, 시즈 탱크 일제 포격! 드라군이 부서집니다!',
-          owner: LogOwner.away,
-          homeArmy: -10, awayArmy: -5, favorsStat: 'attack',
-          altText: '{away} 선수 업그레이드된 탱크 화력! 드라군이 견디지 못합니다!',
-        ),
-        ScriptEvent(
-          text: '결정적인 순간입니다!',
-          owner: LogOwner.system,
-          decisive: true,
+        ScriptBranch(
+          id: 'terran_tank_wins',
+          baseProbability: 0.5,
+          events: [
+            ScriptEvent(
+              text: '{away}, 시즈 탱크 일제 포격! 드라군이 부서집니다!',
+              owner: LogOwner.away,
+              homeArmy: -10, awayArmy: -5, favorsStat: 'attack',
+              altText: '{away} 선수 업그레이드된 탱크 화력! 드라군이 견디지 못합니다!',
+            ),
+            ScriptEvent(
+              text: '업그레이드된 화력이 결정적! 테란이 밀어냅니다!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
         ),
       ],
     ),
@@ -2291,7 +2356,7 @@ const _pvtFdTerran = ScenarioScript(
             ),
             ScriptEvent(
               text: '아비터 리콜이 판을 뒤집습니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -2326,7 +2391,7 @@ const _pvtFdTerran = ScenarioScript(
             ),
             ScriptEvent(
               text: 'FD테란의 화력이 프로토스를 밀어붙입니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],

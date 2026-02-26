@@ -117,7 +117,7 @@ const _zvpHydraVsForge = ScenarioScript(
         // 분기 A: 히드라 압박 성공 (조건 없음 → 항상 eligible, 가중치로 선택)
         ScriptBranch(
           id: 'hydra_push_success',
-          baseProbability: 1.2,
+          baseProbability: 1.1,
           events: [
             ScriptEvent(
               text: '{home}, 히드라 편대가 프로토스 앞마당을 두드립니다!',
@@ -146,7 +146,7 @@ const _zvpHydraVsForge = ScenarioScript(
         // 분기 B: 커세어 오버로드 사냥 성공 (조건 없음 → 항상 eligible, 가중치로 선택)
         ScriptBranch(
           id: 'corsair_overlord_hunt',
-          baseProbability: 0.8,
+          baseProbability: 0.9,
           events: [
             ScriptEvent(
               text: '{away}, 커세어 3기가 오버로드를 연속 격추합니다!',
@@ -211,29 +211,29 @@ const _zvpHydraVsForge = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 하이 템플러 합류! 사이오닉 스톰 준비!',
           owner: LogOwner.away,
-          awayArmy: 4, awayResource: -25,
+          awayArmy: 3, awayResource: -25,
           altText: '{away}, 하이 템플러가 나왔습니다! 스톰 연구 완료!',
         ),
         ScriptEvent(
           text: '{home} 선수 히드라 물량을 계속 보충합니다!',
           owner: LogOwner.home,
-          homeArmy: 4, homeResource: -20,
+          homeArmy: 5, homeResource: -20,
           altText: '{home}, 히드라를 계속 뽑고 있습니다! 물량으로 밀어붙입니다!',
         ),
         ScriptEvent(
           text: '{away}, 스톰! 히드라 편대에 떨어집니다!',
           owner: LogOwner.away,
-          homeArmy: -6, favorsStat: 'strategy',
-          altText: '{away} 선수 스톰 투하! 히드라가 녹아내립니다!',
+          homeArmy: -4, favorsStat: 'strategy',
+          altText: '{away} 선수 스톰 투하! 히드라가 피해를 입습니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 히드라가 스톰에 큰 피해를 입었습니다!',
+          text: '{home}, 히드라가 흩어지면서 피해를 줄입니다! 스톰 회피!',
           owner: LogOwner.home,
-          homeArmy: -3,
-          altText: '{home}, 뭉쳐있던 히드라가 스톰에 증발합니다!',
+          awayArmy: -2, favorsStat: 'control',
+          altText: '{home} 선수 히드라 분산! 스톰 피해를 최소화합니다!',
         ),
         ScriptEvent(
-          text: '스톰이 결정적입니다! 히드라 물량이 줄어들고 있어요!',
+          text: '스톰과 히드라 물량의 대결이 계속됩니다!',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
@@ -258,13 +258,13 @@ const _zvpHydraVsForge = ScenarioScript(
             ScriptEvent(
               text: '{home}, 디파일러 플레이그! 드라군 편대가 녹아내립니다!',
               owner: LogOwner.home,
-              awayArmy: -6, favorsStat: 'strategy',
+              awayArmy: -5, favorsStat: 'strategy',
               altText: '{home} 선수 플레이그! 프로토스 병력에 지속 피해!',
             ),
             ScriptEvent(
               text: '{home}, 울트라리스크까지 합류! 최종 병력 투입!',
               owner: LogOwner.home,
-              homeArmy: 6, homeResource: -25,
+              homeArmy: 5, homeResource: -25,
             ),
             ScriptEvent(
               text: '{away} 선수 아콘으로 전환! 하지만 디파일러가 너무 강합니다!',
@@ -273,7 +273,7 @@ const _zvpHydraVsForge = ScenarioScript(
             ),
             ScriptEvent(
               text: '하이브 병력이 전장을 지배하기 시작합니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -286,28 +286,29 @@ const _zvpHydraVsForge = ScenarioScript(
             ScriptEvent(
               text: '{away} 선수 드라군 질럿 하이 템플러 옵저버! 한방 병력 완성!',
               owner: LogOwner.away,
-              awayArmy: 6, awayResource: -25,
+              awayArmy: 5, awayResource: -25,
               altText: '{away}, 프로토스 한방 병력이 완성됐습니다!',
             ),
             ScriptEvent(
               text: '{away}, 전진! 야금야금 교전하면서 저그 멀티를 노립니다!',
               owner: LogOwner.away,
-              homeArmy: -4, awayArmy: -2, favorsStat: 'attack',
+              homeArmy: -3, awayArmy: -2, favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 럴커+히드라로 입구를 틀어막습니다!',
+              owner: LogOwner.home,
+              awayArmy: -3, homeArmy: -1, favorsStat: 'defense',
+              altText: '{home}, 럴커 포진! 프로토스 전진을 저지합니다!',
             ),
             ScriptEvent(
               text: '{away}, 셔틀에 하이 템플러를 태워서 견제! 드론이 스톰에!',
               owner: LogOwner.away,
-              homeResource: -25, favorsStat: 'harass',
+              homeResource: -15, favorsStat: 'harass',
               altText: '{away} 선수 셔틀 견제! 드론이 스톰에 녹습니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 럴커로 입구를 막으려 하지만 옵저버에 보입니다!',
-              owner: LogOwner.home,
-              homeArmy: -3,
-            ),
-            ScriptEvent(
-              text: '프로토스 한방 병력이 저그를 압박합니다!',
-              owner: LogOwner.system,
+              text: '프로토스 한방 병력과 저그 수비의 팽팽한 대결!',
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -381,13 +382,13 @@ const _zvpMutalVsForge = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 뮤탈리스크 생산 시작! 5기가 빠르게 나옵니다!',
           owner: LogOwner.home,
-          homeArmy: 3, homeResource: -25,
+          homeArmy: 4, homeResource: -25,
           altText: '{home}, 뮤탈 5기 완성! 견제 출발!',
         ),
         ScriptEvent(
           text: '{away} 선수 커세어와 스포어로 대비합니다.',
           owner: LogOwner.away,
-          awayArmy: 4, awayResource: -15,
+          awayArmy: 3, awayResource: -15,
         ),
         ScriptEvent(
           text: '{home}, 뮤탈이 프로브 라인으로 향합니다! 견제!',
@@ -405,23 +406,23 @@ const _zvpMutalVsForge = ScenarioScript(
         // 분기 A: 뮤탈 견제 성공 (조건 없음 → 항상 eligible, 가중치로 선택)
         ScriptBranch(
           id: 'mutal_harass_success',
-          baseProbability: 1.0,
+          baseProbability: 1.1,
           events: [
             ScriptEvent(
               text: '{home}, 뮤탈이 프로브를 물어뜯습니다! 커세어가 늦었어요!',
               owner: LogOwner.home,
-              awayResource: -10, favorsStat: 'harass',
+              awayResource: -15, favorsStat: 'harass',
               altText: '{home} 선수 뮤짤! 프로브가 줄줄이 쓰러집니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 커세어가 뒤늦게 대응합니다!',
               owner: LogOwner.away,
-              homeArmy: -2,
+              homeArmy: -1, awayArmy: -1,
             ),
             ScriptEvent(
               text: '{home}, 뮤탈을 빼면서 다른 곳을 노립니다! 기동력이 좋네요!',
               owner: LogOwner.home,
-              favorsStat: 'control',
+              awayResource: -5, favorsStat: 'control',
               altText: '{home} 선수 뮤탈 컨트롤! 이리저리 피하면서 견제합니다!',
             ),
             ScriptEvent(
@@ -439,18 +440,18 @@ const _zvpMutalVsForge = ScenarioScript(
             ScriptEvent(
               text: '{away}, 커세어가 뮤탈을 쫓아갑니다! 공중 추격전!',
               owner: LogOwner.away,
-              homeArmy: -4, favorsStat: 'control',
+              homeArmy: -2, favorsStat: 'control',
               altText: '{away} 선수 커세어 컨트롤! 뮤탈을 잡아냅니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 뮤탈 2기를 잃었습니다! 견제 효과가 반감!',
+              text: '{home} 선수 뮤탈이 피해를 입었지만 빠져나갑니다!',
               owner: LogOwner.home,
-              homeArmy: -2,
+              homeArmy: -1,
             ),
             ScriptEvent(
-              text: '{away} 선수 커세어로 오버로드까지 사냥합니다! 완벽한 공중 장악!',
+              text: '{away} 선수 커세어로 오버로드를 사냥합니다!',
               owner: LogOwner.away,
-              homeResource: -10, awayArmy: 2,
+              homeResource: -5, awayArmy: 1,
             ),
             ScriptEvent(
               text: '커세어가 뮤탈을 견제하면서 안정적인 운영!',
@@ -469,35 +470,39 @@ const _zvpMutalVsForge = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 히드라를 추가 생산합니다! 뮤탈+히드라 조합!',
           owner: LogOwner.home,
-          homeArmy: 2, homeResource: -20,
+          homeArmy: 5, homeResource: -20,
           altText: '{home}, 뮤탈에 히드라까지! 복합 편성입니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 하이 템플러 합류! 스톰 준비 완료!',
           owner: LogOwner.away,
-          awayArmy: 8, awayResource: -25,
+          awayArmy: 4, awayResource: -25,
         ),
         ScriptEvent(
           text: '{home}, 히드라 편대가 프로토스 앞마당을 공격합니다!',
           owner: LogOwner.home,
-          awayArmy: -2, favorsStat: 'attack',
+          awayArmy: -3, favorsStat: 'attack',
         ),
         ScriptEvent(
           text: '{away}, 스톰! 히드라 편대에 떨어집니다!',
           owner: LogOwner.away,
-          homeArmy: -10, favorsStat: 'strategy',
-          altText: '{away} 선수 스톰 명중! 히드라가 증발합니다!',
+          homeArmy: -5, favorsStat: 'strategy',
+          altText: '{away} 선수 스톰! 히드라가 피해를 입습니다!',
         ),
         ScriptEvent(
-          text: '스톰과 히드라 물량의 대결입니다!',
+          text: '{home}, 뮤탈이 하이 템플러를 물어뜯습니다! 스톰 시전을 방해!',
+          owner: LogOwner.home,
+          awayArmy: -2, favorsStat: 'control',
+          altText: '{home} 선수 뮤탈 견제! 하이 템플러가 잡힙니다!',
+        ),
+        ScriptEvent(
+          text: '스톰과 뮤탈 기동력의 대결입니다!',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
       ],
     ),
-    // Phase 4: 결전 (lines 55-70)
-    // P 아콘+스톰 화력으로 Z 병력 소모 → decisive에서 winRate(~62%) 결정
-    // 목표: 전체 60-65% 홈(저그) 승률
+    // Phase 4: 결전 전개 (lines 55-66)
     ScriptPhase(
       name: 'decisive_battle',
       startLine: 55,
@@ -505,12 +510,12 @@ const _zvpMutalVsForge = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 전 병력 총동원! 뮤탈 히드라 저글링!',
           owner: LogOwner.home,
-          homeArmy: 4, homeResource: -25,
+          homeArmy: 6, homeResource: -25,
         ),
         ScriptEvent(
           text: '{away} 선수도 드라군 질럿 하이 템플러 총출동!',
           owner: LogOwner.away,
-          awayArmy: 10, awayResource: -25,
+          awayArmy: 5, awayResource: -25,
         ),
         ScriptEvent(
           text: '양측 전면전이 시작됩니다!',
@@ -519,25 +524,49 @@ const _zvpMutalVsForge = ScenarioScript(
         ScriptEvent(
           text: '{home}, 뮤탈이 하이 템플러를 노립니다! 스톰을 막아야 합니다!',
           owner: LogOwner.home,
-          awayArmy: -3, homeArmy: -8, favorsStat: 'control',
+          awayArmy: -4, homeArmy: -3, favorsStat: 'control',
           altText: '{home} 선수 뮤탈로 하이 템플러 솎아내기! 핵심 유닛을 노립니다!',
         ),
         ScriptEvent(
-          text: '{away}, 스톰 연속 투하! 저그 병력이 증발합니다!',
+          text: '{away}, 스톰 투하! 히드라가 피해를 입습니다!',
           owner: LogOwner.away,
-          homeArmy: -8, favorsStat: 'strategy',
-          altText: '{away} 선수 더블 스톰! 히드라가 녹아내립니다!',
+          homeArmy: -4, awayArmy: -2, favorsStat: 'strategy',
+          altText: '{away} 선수 스톰! 히드라에 타격을 줍니다!',
         ),
         ScriptEvent(
-          text: '{away}, 아콘 변환! 남은 하이 템플러가 아콘이 됩니다!',
-          owner: LogOwner.away,
-          homeArmy: -10, awayArmy: -3, favorsStat: 'attack',
-          altText: '{away} 선수 아콘! 저그 병력이 녹아내립니다!',
+          text: '{home}, 저글링이 프로토스 확장기지로 침투합니다! 프로브가 위험!',
+          owner: LogOwner.home,
+          awayResource: -15, favorsStat: 'harass',
+          altText: '{home} 선수 저글링 견제! 프로브를 노립니다!',
         ),
-        ScriptEvent(
-          text: '결정적인 순간입니다!',
-          owner: LogOwner.system,
-          decisive: true,
+      ],
+    ),
+    // Phase 5: 결전 결과 - 분기 (lines 67-70)
+    ScriptPhase(
+      name: 'decisive_result',
+      startLine: 67,
+      branches: [
+        ScriptBranch(
+          id: 'zerg_mutal_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '뮤탈 기동력이 승부를 결정합니다! 저그 승리!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'protoss_storm_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '스톰이 히드라를 쓸어버립니다! 프로토스 승리!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
         ),
       ],
     ),
@@ -614,23 +643,23 @@ const _zvp9poolVsForge = ScenarioScript(
             ScriptEvent(
               text: '{home}, 저글링이 캐논 완성 전에 도착! 프로브를 노립니다!',
               owner: LogOwner.home,
-              awayResource: -20, favorsStat: 'attack',
+              awayResource: -10, awayArmy: -1, homeArmy: -1, favorsStat: 'attack',
               altText: '{home} 선수 저글링 진입! 캐논이 아직 미완성!',
             ),
             ScriptEvent(
               text: '{away} 선수 프로브로 막으려 하지만 저글링이 너무 빠릅니다!',
               owner: LogOwner.away,
-              awayResource: -15,
+              awayResource: -10, homeArmy: -1,
               altText: '{away}, 프로브가 쓰러집니다! 저글링 속도를 못 따라가요!',
             ),
             ScriptEvent(
               text: '{home}, 본진까지 침투! 프로브가 줄어들고 있습니다!',
               owner: LogOwner.home,
-              awayResource: -15, favorsStat: 'harass',
+              awayResource: -10, favorsStat: 'harass',
             ),
             ScriptEvent(
               text: '저글링이 프로토스 일꾼을 파괴하고 있습니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -649,16 +678,16 @@ const _zvp9poolVsForge = ScenarioScript(
             ScriptEvent(
               text: '{home} 선수 저글링 피해가 큽니다! 캐논에 막히는데요!',
               owner: LogOwner.home,
-              homeArmy: -3,
+              homeArmy: -2,
             ),
             ScriptEvent(
               text: '{away}, 질럿까지 나오면서 완벽한 수비!',
               owner: LogOwner.away,
-              awayArmy: 3, homeArmy: -2, favorsStat: 'defense',
+              awayArmy: 2, homeArmy: -2, favorsStat: 'defense',
             ),
             ScriptEvent(
               text: '캐논 수비 성공! 저그가 자원이 뒤처집니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -698,7 +727,7 @@ const _zvpCheeseVsCheese = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 저글링 대량 생산!',
           owner: LogOwner.home,
-          homeArmy: 5, homeResource: -10,
+          homeArmy: 3, homeResource: -10,
         ),
         ScriptEvent(
           text: '{away} 선수 질럿 생산 시작!',
@@ -719,13 +748,13 @@ const _zvpCheeseVsCheese = ScenarioScript(
         ScriptEvent(
           text: '{home}, 저글링이 질럿을 만났습니다! 수적 우위!',
           owner: LogOwner.home,
-          homeArmy: 3, awayArmy: -1, favorsStat: 'control',
+          homeArmy: 2, awayArmy: -1, favorsStat: 'control',
           altText: '{home} 선수 저글링 서라운드! 질럿을 감쌉니다!',
         ),
         ScriptEvent(
           text: '{away}, 질럿의 화력으로 저글링을 잡아냅니다!',
           owner: LogOwner.away,
-          homeArmy: -4, awayArmy: -1, favorsStat: 'control',
+          homeArmy: -1, awayArmy: 2, favorsStat: 'control',
           altText: '{away} 선수 질럿 컨트롤! 저글링이 녹습니다!',
         ),
       ],
@@ -738,22 +767,22 @@ const _zvpCheeseVsCheese = ScenarioScript(
         // 분기 A: 저글링 물량 승리 (조건 없음 → 항상 eligible, 가중치로 선택)
         ScriptBranch(
           id: 'lings_overwhelm',
-          baseProbability: 1.0,
+          baseProbability: 0.7,
           events: [
             ScriptEvent(
               text: '{home}, 저글링 물량이 질럿을 압도합니다! 프로브를 향해 돌진!',
               owner: LogOwner.home,
-              awayResource: -25, homeArmy: -2, favorsStat: 'attack',
+              awayArmy: -2, awayResource: -10, homeArmy: -1, favorsStat: 'attack',
               altText: '{home} 선수 저글링이 프로브 라인을 초토화!',
             ),
             ScriptEvent(
               text: '{away} 선수 프로브로 막으려 하지만 저글링이 너무 많습니다!',
               owner: LogOwner.away,
-              awayResource: -15,
+              awayResource: -10, homeArmy: -1,
             ),
             ScriptEvent(
               text: '저글링 물량이 프로토스를 압도합니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -766,17 +795,17 @@ const _zvpCheeseVsCheese = ScenarioScript(
             ScriptEvent(
               text: '{away}, 질럿이 저글링을 다 잡아냅니다! 컨트롤 차이!',
               owner: LogOwner.away,
-              homeArmy: -5, favorsStat: 'control',
+              homeArmy: -2, homeResource: -10, awayArmy: -1, favorsStat: 'control',
               altText: '{away} 선수 질럿 컨트롤! 저글링이 녹아내립니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 저글링이 전멸! 추가 생산할 자원도 부족합니다!',
               owner: LogOwner.home,
-              homeArmy: -3,
+              homeArmy: -1,
             ),
             ScriptEvent(
               text: '질럿이 저글링을 압도했습니다! 프로토스 유리!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -885,13 +914,13 @@ const _zvpMukerjiVsCorsairReaver = ScenarioScript(
             ScriptEvent(
               text: '{away}, 리버 투하! 드론이 스캐럽에 날아갑니다!',
               owner: LogOwner.away,
-              homeResource: -25, favorsStat: 'harass',
+              homeResource: -20, favorsStat: 'harass',
               altText: '{away} 선수 스캐럽 명중! 드론 대학살!',
             ),
             ScriptEvent(
               text: '{home} 선수 뮤탈이 대응하러 가지만 늦었습니다!',
               owner: LogOwner.home,
-              homeResource: -10,
+              homeResource: -5,
             ),
             ScriptEvent(
               text: '{away}, 셔틀 회수! 안전하게 빠집니다!',
@@ -913,13 +942,13 @@ const _zvpMukerjiVsCorsairReaver = ScenarioScript(
             ScriptEvent(
               text: '{home}, 스커지가 셔틀을 포착합니다! 돌진!',
               owner: LogOwner.home,
-              awayArmy: -4, favorsStat: 'control',
+              awayArmy: -3, favorsStat: 'control',
               altText: '{home} 선수 스커지 자폭! 셔틀이 격추됩니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 셔틀이 격추됩니다! 리버가 땅에 고립!',
               owner: LogOwner.away,
-              awayArmy: -2,
+              awayArmy: -1,
               altText: '{away}, 셔틀 폭사! 리버를 잃습니다!',
             ),
             ScriptEvent(
@@ -936,7 +965,7 @@ const _zvpMukerjiVsCorsairReaver = ScenarioScript(
         ),
       ],
     ),
-    // Phase 3: 결전 (lines 43-60)
+    // Phase 3: 결전 전개 (lines 43-56)
     ScriptPhase(
       name: 'decisive_battle',
       startLine: 43,
@@ -950,7 +979,7 @@ const _zvpMukerjiVsCorsairReaver = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 드라군 질럿 하이 템플러! 한방 병력!',
           owner: LogOwner.away,
-          awayArmy: 6, awayResource: -25,
+          awayArmy: 5, awayResource: -25,
         ),
         ScriptEvent(
           text: '양측 결전 병력이 충돌합니다!',
@@ -959,19 +988,43 @@ const _zvpMukerjiVsCorsairReaver = ScenarioScript(
         ScriptEvent(
           text: '{home}, 럴커 포진! 프로토스 병력을 잡아냅니다!',
           owner: LogOwner.home,
-          awayArmy: -8, homeArmy: -4, favorsStat: 'defense',
+          awayArmy: -4, homeArmy: -3, favorsStat: 'defense',
           altText: '{home} 선수 럴커가 드라군을 꿰뚫습니다!',
         ),
         ScriptEvent(
           text: '{away}, 스톰! 히드라 편대가 녹아내립니다!',
           owner: LogOwner.away,
-          homeArmy: -10, awayArmy: -5, favorsStat: 'strategy',
+          homeArmy: -6, awayArmy: -2, favorsStat: 'strategy',
           altText: '{away} 선수 스톰 투하! 히드라가 증발합니다!',
         ),
-        ScriptEvent(
-          text: '결정적인 순간입니다!',
-          owner: LogOwner.system,
-          decisive: true,
+      ],
+    ),
+    // Phase 4: 결전 결과 - 분기 (lines 57-60)
+    ScriptPhase(
+      name: 'decisive_result',
+      startLine: 57,
+      branches: [
+        ScriptBranch(
+          id: 'zerg_lurker_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '럴커가 전장을 지배합니다! 저그 승리!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'protoss_storm_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '스톰이 저그 병력을 쓸어버립니다! 프로토스 승리!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
         ),
       ],
     ),
@@ -1204,7 +1257,7 @@ const _zvpScourgeDefiler = ScenarioScript(
             ),
             ScriptEvent(
               text: '하이브 병력이 전장을 지배합니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -1238,7 +1291,7 @@ const _zvpScourgeDefiler = ScenarioScript(
             ),
             ScriptEvent(
               text: '프로토스 한방 병력의 화력이 저그를 압도합니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -1338,7 +1391,7 @@ const _zvp973HydraRush = ScenarioScript(
         // 분기 A: 히드라 타이밍 성공
         ScriptBranch(
           id: 'hydra_timing_hit',
-          baseProbability: 1.2,
+          baseProbability: 1.1,
           events: [
             ScriptEvent(
               text: '{home}, 히드라가 캐논 라인을 두드립니다! 커세어가 아직 없어요!',
@@ -1367,7 +1420,7 @@ const _zvp973HydraRush = ScenarioScript(
         // 분기 B: 캐논+질럿 방어 성공
         ScriptBranch(
           id: 'cannon_zealot_hold',
-          baseProbability: 0.8,
+          baseProbability: 0.9,
           events: [
             ScriptEvent(
               text: '{away} 선수 캐논 2개+질럿으로 버팁니다! 히드라를 잡아냅니다!',
@@ -1394,7 +1447,7 @@ const _zvp973HydraRush = ScenarioScript(
         ),
       ],
     ),
-    // Phase 3: 후반 전환 (lines 41-54)
+    // Phase 3: 후반 전환 (lines 41-52)
     ScriptPhase(
       name: 'late_transition',
       startLine: 41,
@@ -1402,30 +1455,54 @@ const _zvp973HydraRush = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 멀티 해처리를 추가합니다! 물량으로 밀어붙입니다!',
           owner: LogOwner.home,
-          homeArmy: 3, homeResource: -20,
+          homeArmy: 4, homeResource: -20,
           altText: '{home}, 확장! 히드라 물량을 보충합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 하이 템플러 합류! 스톰 준비!',
           owner: LogOwner.away,
-          awayArmy: 5, awayResource: -25,
+          awayArmy: 4, awayResource: -25,
           altText: '{away}, 하이 템플러가 나왔습니다! 스톰!',
         ),
         ScriptEvent(
-          text: '{away}, 스톰! 뭉쳐있던 히드라가 녹아내립니다!',
+          text: '{away}, 스톰! 뭉쳐있던 히드라가 피해를 입습니다!',
           owner: LogOwner.away,
-          homeArmy: -6, favorsStat: 'strategy',
-          altText: '{away} 선수 스톰 명중! 히드라 편대에 큰 피해!',
+          homeArmy: -4, favorsStat: 'strategy',
+          altText: '{away} 선수 스톰! 히드라 편대에 타격!',
         ),
         ScriptEvent(
           text: '{home} 선수 럴커 변태! 입구를 잡으면서 버팁니다!',
           owner: LogOwner.home,
-          homeArmy: 2, awayArmy: -2, favorsStat: 'defense',
+          homeArmy: 3, awayArmy: -3, favorsStat: 'defense',
         ),
-        ScriptEvent(
-          text: '히드라 물량 vs 스톰! 승부가 갈립니다!',
-          owner: LogOwner.system,
-          decisive: true,
+      ],
+    ),
+    // Phase 4: 후반 결과 - 분기 (lines 53-54)
+    ScriptPhase(
+      name: 'late_result',
+      startLine: 53,
+      branches: [
+        ScriptBranch(
+          id: 'hydra_quantity_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '히드라 물량이 스톰을 이겨냅니다! 저그 승리!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'storm_overwhelms',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '스톰이 히드라를 쓸어버립니다! 프로토스 승리!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
         ),
       ],
     ),
@@ -1515,13 +1592,13 @@ const _zvpStandardVs2Gate = ScenarioScript(
             ScriptEvent(
               text: '{away}, 질럿이 성큰을 노리지만 저글링이 서라운드합니다!',
               owner: LogOwner.away,
-              awayArmy: -2, homeArmy: -1, favorsStat: 'control',
+              awayArmy: -2, homeArmy: -2, favorsStat: 'control',
               altText: '{away} 선수 질럿이 성큰에 막힙니다!',
             ),
             ScriptEvent(
               text: '{home}, 저글링 추가 생산! 질럿을 하나씩 잡아냅니다!',
               owner: LogOwner.home,
-              homeArmy: 3, awayArmy: -2, favorsStat: 'control',
+              homeArmy: 2, awayArmy: -2, favorsStat: 'control',
             ),
             ScriptEvent(
               text: '성큰+저글링 수비 성공! 전진 2게이트를 막았습니다!',
@@ -1538,19 +1615,19 @@ const _zvpStandardVs2Gate = ScenarioScript(
             ScriptEvent(
               text: '{away}, 질럿이 성큰 완성 전에 도착! 해처리를 노립니다!',
               owner: LogOwner.away,
-              homeArmy: -2, homeResource: -20, favorsStat: 'attack',
+              homeArmy: -2, homeResource: -15, favorsStat: 'attack',
               altText: '{away} 선수 질럿 돌파! 성큰이 아직 안 올라왔습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 드론으로 막으려 하지만 질럿 화력에 밀립니다!',
               owner: LogOwner.home,
-              homeResource: -15,
+              homeResource: -10, awayArmy: -1,
               altText: '{home}, 드론이 쓰러집니다! 질럿이 너무 강해요!',
             ),
             ScriptEvent(
               text: '{away}, 질럿이 앞마당 해처리를 공격합니다!',
               owner: LogOwner.away,
-              homeResource: -20, favorsStat: 'attack',
+              homeResource: -15, favorsStat: 'attack',
             ),
             ScriptEvent(
               text: '전진 2게이트 타이밍이 적중! 앞마당이 위험합니다!',
@@ -1574,23 +1651,23 @@ const _zvpStandardVs2Gate = ScenarioScript(
             ScriptEvent(
               text: '{home} 선수 발업 저글링으로 역공! 프로토스 본진을 노립니다!',
               owner: LogOwner.home,
-              homeArmy: 4, favorsStat: 'attack',
+              homeArmy: 3, awayArmy: -1, favorsStat: 'attack',
               altText: '{home}, 저글링 역공! 프로토스가 투자한 게 너무 많습니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 본진에 유닛이 없습니다! 프로브가 위험!',
               owner: LogOwner.away,
-              awayResource: -20,
+              awayResource: -15,
               altText: '{away}, 본진이 비었습니다! 질럿이 전부 앞마당에!',
             ),
             ScriptEvent(
               text: '{home}, 저글링이 프로브를 쓸어버립니다!',
               owner: LogOwner.home,
-              awayResource: -15, favorsStat: 'harass',
+              awayResource: -10, homeArmy: -1, favorsStat: 'harass',
             ),
             ScriptEvent(
               text: '2게이트를 막고 역공까지! 저그가 유리합니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -1618,7 +1695,7 @@ const _zvpStandardVs2Gate = ScenarioScript(
             ),
             ScriptEvent(
               text: '소모전이 계속됩니다! 누가 먼저 지치느냐의 싸움!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -1778,7 +1855,7 @@ const _zvp3HatchVsCorsairReaver = ScenarioScript(
         ),
       ],
     ),
-    // Phase 3: 중반 교전 (lines 45-58)
+    // Phase 3: 중반 교전 (lines 45-56)
     ScriptPhase(
       name: 'mid_battle',
       startLine: 45,
@@ -1786,30 +1863,54 @@ const _zvp3HatchVsCorsairReaver = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 히드라 물량이 압도적입니다! 프로토스 앞마당을 공격!',
           owner: LogOwner.home,
-          homeArmy: 4, awayArmy: -2, favorsStat: 'attack',
+          homeArmy: 4, awayArmy: -3, favorsStat: 'attack',
           altText: '{home}, 히드라 대군! 3해처리의 물량이 쏟아집니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 하이 템플러가 합류합니다! 스톰!',
           owner: LogOwner.away,
-          awayArmy: 5, homeArmy: -5, favorsStat: 'strategy',
+          awayArmy: 4, homeArmy: -4, favorsStat: 'strategy',
           altText: '{away}, 스톰 투하! 히드라가 녹아내립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 히드라를 계속 보충합니다! 자원이 넉넉합니다!',
           owner: LogOwner.home,
-          homeArmy: 4, homeResource: -20,
+          homeArmy: 3, homeResource: -20,
         ),
         ScriptEvent(
           text: '{away}, 리버를 추가로 배치합니다! 스캐럽 화력!',
           owner: LogOwner.away,
-          homeArmy: -3, awayResource: -20,
+          homeArmy: -3, awayArmy: 1, awayResource: -20,
           altText: '{away} 선수 리버 추가! 히드라 물량을 잡아냅니다!',
         ),
-        ScriptEvent(
-          text: '물량 vs 테크! 3해처리의 자원력과 커세어 리버의 기술력 대결!',
-          owner: LogOwner.system,
-          decisive: true,
+      ],
+    ),
+    // Phase 4: 결전 결과 - 분기 (lines 57-58)
+    ScriptPhase(
+      name: 'decisive_result',
+      startLine: 57,
+      branches: [
+        ScriptBranch(
+          id: 'macro_quantity_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '3해처리의 물량이 테크를 압도합니다! 저그 승리!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'tech_quality_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '커세어 리버의 기술력이 물량을 꺾습니다! 프로토스 승리!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
         ),
       ],
     ),
@@ -1923,7 +2024,7 @@ const _zvpHydraLurkerVsForge = ScenarioScript(
         // 분기 A: 럴커 포진 성공 (입구 장악)
         ScriptBranch(
           id: 'lurker_lockdown',
-          baseProbability: 1.2,
+          baseProbability: 1.0,
           events: [
             ScriptEvent(
               text: '{home}, 럴커가 앞마당 입구에 포진합니다! 드라군이 접근 불가!',
@@ -1952,7 +2053,7 @@ const _zvpHydraLurkerVsForge = ScenarioScript(
         // 분기 B: 옵저버 대응 성공
         ScriptBranch(
           id: 'observer_counter',
-          baseProbability: 0.8,
+          baseProbability: 1.0,
           events: [
             ScriptEvent(
               text: '{away} 선수 옵저버가 럴커를 포착합니다! 드라군 사격!',
@@ -1994,7 +2095,7 @@ const _zvpHydraLurkerVsForge = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 드라군 푸시를 준비합니다! 옵저버와 함께!',
           owner: LogOwner.away,
-          awayArmy: 5, awayResource: -25,
+          awayArmy: 4, awayResource: -25,
           altText: '{away}, 드라군+옵저버! 럴커를 잡으면서 전진!',
         ),
         ScriptEvent(
@@ -2006,7 +2107,7 @@ const _zvpHydraLurkerVsForge = ScenarioScript(
         ScriptEvent(
           text: '{away}, 하이 템플러가 합류합니다! 스톰 준비 완료!',
           owner: LogOwner.away,
-          awayArmy: 3, awayResource: -20,
+          awayArmy: 2, awayResource: -20,
         ),
         ScriptEvent(
           text: '럴커 진지전 vs 드라군 옵저버 밀어붙이기! 치열한 공방!',
@@ -2050,7 +2151,7 @@ const _zvpHydraLurkerVsForge = ScenarioScript(
             ),
             ScriptEvent(
               text: '럴커 진지가 난공불락! 프로토스가 돌파하지 못합니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -2084,7 +2185,7 @@ const _zvpHydraLurkerVsForge = ScenarioScript(
             ),
             ScriptEvent(
               text: '프로토스 한방 병력이 럴커 진지를 돌파합니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -2142,7 +2243,7 @@ const _zvpCheeseVsForge = ScenarioScript(
         ScriptEvent(
           text: '{home}, 저글링이 프로토스 앞마당에 도착합니다! 건물이 미완성!',
           owner: LogOwner.home,
-          homeArmy: 2, favorsStat: 'attack',
+          homeArmy: 1, favorsStat: 'attack',
           altText: '{home} 선수 저글링 돌진! 캐논이 아직 완성 전!',
         ),
         ScriptEvent(
@@ -2166,28 +2267,28 @@ const _zvpCheeseVsForge = ScenarioScript(
         // 분기 A: 저글링 돌파 성공
         ScriptBranch(
           id: 'ling_rush_success',
-          baseProbability: 1.0,
+          baseProbability: 0.7,
           events: [
             ScriptEvent(
-              text: '{home}, 저글링이 캐논 완성 전에 진입! 프로브를 학살합니다!',
+              text: '{home}, 저글링이 캐논 완성 전에 진입! 프로브를 노립니다!',
               owner: LogOwner.home,
-              awayResource: -25, favorsStat: 'attack',
-              altText: '{home} 선수 저글링 난입! 프로브가 줄줄이 쓰러집니다!',
+              awayResource: -15, favorsStat: 'attack',
+              altText: '{home} 선수 저글링 난입! 프로브가 쓰러집니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 프로브로 버텨보지만 저글링이 너무 많습니다!',
+              text: '{away} 선수 프로브로 버텨보지만 저글링이 빠릅니다!',
               owner: LogOwner.away,
-              awayResource: -15,
+              awayResource: -10, homeArmy: -1,
               altText: '{away}, 프로브가 녹고 있습니다! 캐논이 1초 늦었어요!',
             ),
             ScriptEvent(
               text: '{home}, 저글링이 넥서스까지 공격합니다! 앞마당 포기?',
               owner: LogOwner.home,
-              awayResource: -15, favorsStat: 'attack',
+              awayResource: -10, favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '4풀 저글링이 포지더블을 박살냅니다!',
-              owner: LogOwner.system,
+              text: '4풀 저글링이 포지더블을 흔들고 있습니다!',
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -2195,7 +2296,7 @@ const _zvpCheeseVsForge = ScenarioScript(
         // 분기 B: 캐논+프로브 방어 성공
         ScriptBranch(
           id: 'forge_defense_hold',
-          baseProbability: 1.0,
+          baseProbability: 1.3,
           events: [
             ScriptEvent(
               text: '{away} 선수 캐논이 간신히 완성! 저글링을 잡아냅니다!',
@@ -2231,7 +2332,7 @@ const _zvpCheeseVsForge = ScenarioScript(
         // 분기 A: 러시 실패 후 경제 격차
         ScriptBranch(
           id: 'economy_gap',
-          baseProbability: 1.2,
+          baseProbability: 1.5,
           events: [
             ScriptEvent(
               text: '{home} 선수 드론이 4마리뿐입니다! 경제가 바닥!',
@@ -2252,7 +2353,7 @@ const _zvpCheeseVsForge = ScenarioScript(
             ),
             ScriptEvent(
               text: '4풀 실패! 경제 격차를 극복할 수 없습니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -2260,12 +2361,12 @@ const _zvpCheeseVsForge = ScenarioScript(
         // 분기 B: 피해를 주고 후속 올인
         ScriptBranch(
           id: 'follow_up_allin',
-          baseProbability: 0.8,
+          baseProbability: 0.5,
           events: [
             ScriptEvent(
               text: '{home} 선수 저글링을 계속 보냅니다! 2차 러시!',
               owner: LogOwner.home,
-              homeArmy: 4, homeResource: -15, favorsStat: 'attack',
+              homeArmy: 3, homeResource: -15, favorsStat: 'attack',
               altText: '{home}, 추가 저글링! 한 번 더 밀어붙입니다!',
             ),
             ScriptEvent(
@@ -2276,12 +2377,12 @@ const _zvpCheeseVsForge = ScenarioScript(
             ScriptEvent(
               text: '{home}, 발업 연구 완료! 저글링이 더 빨라졌습니다!',
               owner: LogOwner.home,
-              homeArmy: 2, favorsStat: 'control',
+              homeArmy: 1, favorsStat: 'control',
               altText: '{home} 선수 발업 저글링! 캐논 사이를 파고듭니다!',
             ),
             ScriptEvent(
               text: '2차 저글링 러시! 포지더블이 버틸 수 있을까요?',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],

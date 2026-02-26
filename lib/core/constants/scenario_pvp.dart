@@ -74,13 +74,13 @@ const _pvpDragoonNexusMirror = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 질럿 한 기로 상대를 정찰합니다!',
           owner: LogOwner.home,
-          homeArmy: 1, favorsStat: 'scout',
+          favorsStat: 'scout',
           altText: '{home}, 질럿 정찰! 상대 빌드를 확인하러 갑니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 드라군으로 질럿을 견제합니다.',
+          text: '{away} 선수도 질럿으로 정찰!',
           owner: LogOwner.away,
-          homeArmy: -1,
+          favorsStat: 'scout',
           skipChance: 0.3,
         ),
         ScriptEvent(
@@ -241,9 +241,9 @@ const _pvpDragoonNexusMirror = ScenarioScript(
         ),
       ],
     ),
-    // Phase 4: 결전 (lines 59-75)
+    // Phase 4: 하이 템플러 준비 (lines 59-66)
     ScriptPhase(
-      name: 'decisive_battle',
+      name: 'ht_prepare',
       startLine: 59,
       linearEvents: [
         ScriptEvent(
@@ -261,22 +261,58 @@ const _pvpDragoonNexusMirror = ScenarioScript(
           text: '양측 드라군 질럿 하이 템플러! 전면전입니다!',
           owner: LogOwner.system,
         ),
-        ScriptEvent(
-          text: '{home}, 스톰! 상대 드라군 편대에 떨어집니다!',
-          owner: LogOwner.home,
-          awayArmy: -10, homeArmy: -3, favorsStat: 'strategy',
-          altText: '{home} 선수 스톰 투하! 드라군이 녹아내립니다!',
+      ],
+    ),
+    // Phase 5: 결전 분기 (lines 67-80)
+    ScriptPhase(
+      name: 'decisive_battle',
+      startLine: 67,
+      branches: [
+        ScriptBranch(
+          id: 'home_storm_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home}, 스톰! 상대 드라군 편대에 떨어집니다!',
+              owner: LogOwner.home,
+              awayArmy: -8, homeArmy: -3, favorsStat: 'strategy',
+              altText: '{home} 선수 스톰 투하! 드라군이 녹아내립니다!',
+            ),
+            ScriptEvent(
+              text: '{away}, 맞스톰! 하지만 타이밍이 늦었습니다!',
+              owner: LogOwner.away,
+              homeArmy: -5, awayArmy: -3,
+              altText: '{away} 선수도 스톰! 하지만 이미 병력이 부족합니다!',
+            ),
+            ScriptEvent(
+              text: '결정적인 순간입니다!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
         ),
-        ScriptEvent(
-          text: '{away}, 맞스톰! 양쪽 병력이 동시에 녹습니다!',
-          owner: LogOwner.away,
-          homeArmy: -8, awayArmy: -6, favorsStat: 'strategy',
-          altText: '{away} 선수도 스톰! 양측 병력이 증발합니다!',
-        ),
-        ScriptEvent(
-          text: '결정적인 순간입니다!',
-          owner: LogOwner.system,
-          decisive: true,
+        ScriptBranch(
+          id: 'away_storm_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away}, 스톰! 상대 드라군 편대에 떨어집니다!',
+              owner: LogOwner.away,
+              homeArmy: -8, awayArmy: -3, favorsStat: 'strategy',
+              altText: '{away} 선수 스톰 투하! 드라군이 녹아내립니다!',
+            ),
+            ScriptEvent(
+              text: '{home}, 맞스톰! 하지만 타이밍이 늦었습니다!',
+              owner: LogOwner.home,
+              awayArmy: -5, homeArmy: -3,
+              altText: '{home} 선수도 스톰! 하지만 이미 병력이 부족합니다!',
+            ),
+            ScriptEvent(
+              text: '결정적인 순간입니다!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
         ),
       ],
     ),
@@ -335,7 +371,7 @@ const _pvpDragoonVsNogate = ScenarioScript(
         ScriptEvent(
           text: '{home}, 질럿이 상대 앞마당에 도착합니다! 프로브를 노립니다!',
           owner: LogOwner.home,
-          favorsStat: 'harass',
+          homeArmy: 1, favorsStat: 'harass',
           altText: '{home} 선수 질럿이 프로브를 베기 시작합니다!',
         ),
         ScriptEvent(
@@ -346,7 +382,7 @@ const _pvpDragoonVsNogate = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 드라군도 바로 출발! 압박을 이어갑니다!',
           owner: LogOwner.home,
-          homeArmy: 2, homeResource: -15,
+          homeArmy: 3, homeResource: -15,
         ),
       ],
     ),
@@ -374,7 +410,7 @@ const _pvpDragoonVsNogate = ScenarioScript(
             ScriptEvent(
               text: '{home}, 드라군까지 도착! 노겟 넥서스를 흔듭니다!',
               owner: LogOwner.home,
-              homeArmy: 1, favorsStat: 'attack',
+              homeArmy: 3, favorsStat: 'attack',
             ),
             ScriptEvent(
               text: '질럿 견제 성공! 노겟 넥서스의 이점이 사라지고 있습니다!',
@@ -390,7 +426,7 @@ const _pvpDragoonVsNogate = ScenarioScript(
             ScriptEvent(
               text: '{away}, 프로브와 질럿의 협공으로 적 질럿을 잡아냅니다!',
               owner: LogOwner.away,
-              homeArmy: -2, favorsStat: 'defense',
+              homeArmy: -1, favorsStat: 'defense',
               altText: '{away} 선수 프로브 컨트롤! 질럿을 잡습니다!',
             ),
             ScriptEvent(
@@ -401,7 +437,7 @@ const _pvpDragoonVsNogate = ScenarioScript(
             ScriptEvent(
               text: '{away}, 게이트가 빠르게 늘어납니다! 넥서스의 자원이 빛을 발합니다!',
               owner: LogOwner.away,
-              awayArmy: 5, awayResource: 20,
+              awayArmy: 2, awayResource: 10,
               altText: '{away} 선수 게이트 추가! 자원 이점을 병력으로 전환!',
             ),
             ScriptEvent(
@@ -446,9 +482,9 @@ const _pvpDragoonVsNogate = ScenarioScript(
         ),
       ],
     ),
-    // Phase 4: 결전 (lines 55-70)
+    // Phase 4: 결전 전개 (lines 55-65)
     ScriptPhase(
-      name: 'decisive_battle',
+      name: 'decisive_clash',
       startLine: 55,
       linearEvents: [
         ScriptEvent(
@@ -465,22 +501,46 @@ const _pvpDragoonVsNogate = ScenarioScript(
           text: '양측 전 병력이 충돌합니다!',
           owner: LogOwner.system,
         ),
-        ScriptEvent(
-          text: '{home}, 스톰! 상대 드라군이 녹습니다!',
-          owner: LogOwner.home,
-          awayArmy: -12, homeArmy: -5, favorsStat: 'strategy',
-          altText: '{home} 선수 스톰! 드라군 편대가 무너집니다!',
+      ],
+    ),
+    // Phase 5: 결전 결과
+    ScriptPhase(
+      name: 'decisive_result',
+      startLine: 66,
+      branches: [
+        ScriptBranch(
+          id: 'home_storm_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home}, 스톰! 상대 드라군이 녹습니다!',
+              owner: LogOwner.home,
+              awayArmy: -8, homeArmy: -3, favorsStat: 'strategy',
+              altText: '{home} 선수 스톰! 드라군 편대가 무너집니다!',
+            ),
+            ScriptEvent(
+              text: '스톰이 결정적! 전장을 지배합니다!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
         ),
-        ScriptEvent(
-          text: '{away}, 셔틀에 하이 템플러를 태워서 본진 견제!',
-          owner: LogOwner.away,
-          homeResource: -20, homeArmy: -5, favorsStat: 'harass',
-          altText: '{away} 선수 셔틀 하이 템플러! 본진 스톰!',
-        ),
-        ScriptEvent(
-          text: '결정적인 순간입니다!',
-          owner: LogOwner.system,
-          decisive: true,
+        ScriptBranch(
+          id: 'away_harass_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away}, 셔틀에 하이 템플러를 태워서 본진 견제!',
+              owner: LogOwner.away,
+              homeResource: -15, homeArmy: -3, favorsStat: 'harass',
+              altText: '{away} 선수 셔틀 하이 템플러! 본진 스톰!',
+            ),
+            ScriptEvent(
+              text: '본진 견제가 결정적! 판을 뒤집습니다!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
         ),
       ],
     ),
@@ -569,7 +629,7 @@ const _pvpRoboVs2gateDragoon = ScenarioScript(
         // 분기 A: 드라군 물량이 밀어냄
         ScriptBranch(
           id: 'dragoon_overwhelm',
-          baseProbability: 1.0,
+          baseProbability: 0.9,
           events: [
             ScriptEvent(
               text: '{away}, 드라군 물량이 리버 나오기 전에 밀어냅니다!',
@@ -589,7 +649,7 @@ const _pvpRoboVs2gateDragoon = ScenarioScript(
             ),
             ScriptEvent(
               text: '드라군 물량 차이가 결정적! 리버를 보호하지 못 했습니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -618,14 +678,14 @@ const _pvpRoboVs2gateDragoon = ScenarioScript(
             ),
             ScriptEvent(
               text: '리버 화력이 드라군 물량을 압도합니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
         ),
       ],
     ),
-    // Phase 3: 후반 전개 (lines 43-58)
+    // Phase 3: 후반 전개 (lines 43-52)
     ScriptPhase(
       name: 'late_game',
       startLine: 43,
@@ -654,21 +714,45 @@ const _pvpRoboVs2gateDragoon = ScenarioScript(
           text: '양측 드라군 리버 하이 템플러! 전면전!',
           owner: LogOwner.system,
         ),
-        ScriptEvent(
-          text: '{home}, 스톰과 리버 화력! 드라군이 녹습니다!',
-          owner: LogOwner.home,
-          awayArmy: -10, homeArmy: -5, favorsStat: 'strategy',
-          altText: '{home} 선수 스톰+스캐럽 이중 화력!',
+      ],
+    ),
+    // Phase 4: 결전 결과
+    ScriptPhase(
+      name: 'decisive_result',
+      startLine: 53,
+      branches: [
+        ScriptBranch(
+          id: 'home_storm_reaver_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home}, 스톰과 리버 화력! 드라군이 녹습니다!',
+              owner: LogOwner.home,
+              awayArmy: -10, homeArmy: -5, favorsStat: 'strategy',
+              altText: '{home} 선수 스톰+스캐럽 이중 화력!',
+            ),
+            ScriptEvent(
+              text: '스톰과 리버가 결정적! 전장을 지배합니다!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
         ),
-        ScriptEvent(
-          text: '{away}, 맞스톰! 양쪽 병력이 동시에 소멸합니다!',
-          owner: LogOwner.away,
-          homeArmy: -8, awayArmy: -8, favorsStat: 'strategy',
-        ),
-        ScriptEvent(
-          text: '결정적인 순간입니다!',
-          owner: LogOwner.system,
-          decisive: true,
+        ScriptBranch(
+          id: 'away_counter_storm_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away}, 맞스톰! 양쪽 병력이 동시에 소멸합니다!',
+              owner: LogOwner.away,
+              homeArmy: -8, awayArmy: -8, favorsStat: 'strategy',
+            ),
+            ScriptEvent(
+              text: '맞스톰 이후 병력 운용이 결정적! 판을 뒤집습니다!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
         ),
       ],
     ),
@@ -748,12 +832,12 @@ const _pvpDarkVsDragoon = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'dark_massacre',
-          baseProbability: 1.0,
+          baseProbability: 1.1,
           events: [
             ScriptEvent(
               text: '{home}, 다크가 프로브를 베기 시작합니다! 옵저버가 없어요!',
               owner: LogOwner.home,
-              awayResource: -25, favorsStat: 'harass',
+              homeArmy: 2, awayResource: -25, favorsStat: 'harass',
               altText: '{home} 선수 다크 성공! 프로브가 몰살당합니다!',
             ),
             ScriptEvent(
@@ -769,7 +853,7 @@ const _pvpDarkVsDragoon = ScenarioScript(
             ),
             ScriptEvent(
               text: '다크 올인 대성공! 프로토스 일꾼이 파괴됐습니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -781,23 +865,23 @@ const _pvpDarkVsDragoon = ScenarioScript(
             ScriptEvent(
               text: '{away} 선수 옵저버가 다크를 포착합니다!',
               owner: LogOwner.away,
-              awayArmy: 3, favorsStat: 'scout',
+              awayArmy: 2, favorsStat: 'scout',
               altText: '{away}, 옵저버 있습니다! 다크가 보여요!',
             ),
             ScriptEvent(
               text: '{away}, 드라군이 다크를 집중 사격! 격파!',
               owner: LogOwner.away,
-              homeArmy: -5, awayArmy: 2, favorsStat: 'defense',
+              homeArmy: -3, favorsStat: 'defense',
               altText: '{away} 선수 다크를 잡아냅니다! 완벽한 대응!',
             ),
             ScriptEvent(
               text: '{home} 선수 다크가 막혔습니다! 올인이 실패하면 위기!',
               owner: LogOwner.home,
-              homeResource: -25, homeArmy: -2,
+              homeResource: -15, homeArmy: -1,
             ),
             ScriptEvent(
               text: '다크 올인이 막혔습니다! 병력과 테크 모두 뒤처지는 상황!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -875,34 +959,34 @@ const _pvpZealotRush = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'zealot_rush_wins',
-          baseProbability: 1.0,
+          baseProbability: 0.9,
           events: [
             ScriptEvent(
               text: '{home}, 질럿이 프로브를 잡습니다! 수적 우위!',
               owner: LogOwner.home,
-              awayResource: -20, awayArmy: -1, favorsStat: 'attack',
+              awayResource: -15, awayArmy: -1, favorsStat: 'attack',
               altText: '{home} 선수 질럿이 프로브를 베어냅니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 프로브 피해가 큽니다! 자원이 흔들립니다!',
               owner: LogOwner.away,
-              awayResource: -15,
+              awayResource: -10,
             ),
             ScriptEvent(
               text: '{home}, 추가 질럿까지 합류! 상대 본진 초토화!',
               owner: LogOwner.home,
-              homeArmy: 2, awayResource: -15, favorsStat: 'attack',
+              homeArmy: 2, awayResource: -10, favorsStat: 'attack',
             ),
             ScriptEvent(
               text: '질럿 러시 성공! 프로토스가 무너지고 있습니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
         ),
         ScriptBranch(
           id: 'rush_defended',
-          baseProbability: 1.0,
+          baseProbability: 1.1,
           events: [
             ScriptEvent(
               text: '{away}, 질럿과 프로브로 협공! 적 질럿을 잡아냅니다!',
@@ -922,7 +1006,7 @@ const _pvpZealotRush = ScenarioScript(
             ),
             ScriptEvent(
               text: '질럿 러시가 막혔습니다! 테크 차이가 벌어집니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -1013,13 +1097,13 @@ const _pvpDarkVsZealotRush = ScenarioScript(
             ScriptEvent(
               text: '{away}, 질럿이 게이트웨이를 부수고 들어갑니다!',
               owner: LogOwner.away,
-              homeArmy: -2, homeResource: -15, favorsStat: 'attack',
+              homeArmy: -2, homeResource: -10, favorsStat: 'attack',
               altText: '{away} 선수 질럿이 건물을 부수기 시작합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 프로브가 잡히고 있습니다! 다크가 아직이에요!',
               owner: LogOwner.home,
-              homeResource: -15,
+              homeResource: -10,
             ),
             ScriptEvent(
               text: '{away}, 추가 질럿 합류! 템플러 아카이브도 위험합니다!',
@@ -1028,7 +1112,7 @@ const _pvpDarkVsZealotRush = ScenarioScript(
             ),
             ScriptEvent(
               text: '질럿 러시가 다크보다 빨랐습니다! 본진이 무너집니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -1036,7 +1120,7 @@ const _pvpDarkVsZealotRush = ScenarioScript(
         // 분기 B: 다크가 나오면서 역전
         ScriptBranch(
           id: 'dark_comes_out',
-          baseProbability: 1.0,
+          baseProbability: 1.1,
           events: [
             ScriptEvent(
               text: '{home}, 다크 템플러가 나옵니다! 질럿 러시를 버텨냈습니다!',
@@ -1057,7 +1141,7 @@ const _pvpDarkVsZealotRush = ScenarioScript(
             ),
             ScriptEvent(
               text: '다크 템플러가 판을 뒤집습니다! 치즈 vs 치즈의 결말!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -1159,7 +1243,7 @@ const _pvpRoboMirror = ScenarioScript(
             ScriptEvent(
               text: '{away} 선수 드라군이 상대 셔틀을 노립니다! 격추!',
               owner: LogOwner.away,
-              homeArmy: -4, favorsStat: 'defense',
+              homeArmy: -3, favorsStat: 'defense',
               altText: '{away}, 셔틀 격추! 하지만 프로브 피해가 크네요!',
             ),
             ScriptEvent(
@@ -1188,7 +1272,7 @@ const _pvpRoboMirror = ScenarioScript(
             ScriptEvent(
               text: '{home} 선수 드라군으로 상대 셔틀을 잡습니다!',
               owner: LogOwner.home,
-              awayArmy: -4, favorsStat: 'defense',
+              awayArmy: -3, favorsStat: 'defense',
               altText: '{home}, 셔틀을 잡긴 했지만 프로브 피해가!',
             ),
             ScriptEvent(
@@ -1205,9 +1289,9 @@ const _pvpRoboMirror = ScenarioScript(
         ),
       ],
     ),
-    // Phase 3: 후반 하이 템플러 전쟁 (lines 43-60)
+    // Phase 3: 하이 템플러 준비 (lines 43-50)
     ScriptPhase(
-      name: 'high_templar_war',
+      name: 'ht_prepare',
       startLine: 43,
       linearEvents: [
         ScriptEvent(
@@ -1222,32 +1306,59 @@ const _pvpRoboMirror = ScenarioScript(
           awayArmy: 4, awayResource: -25,
         ),
         ScriptEvent(
-          text: '{home}, 셔틀에 하이 템플러를 태워서 견제! 본진 스톰!',
-          owner: LogOwner.home,
-          awayResource: -15, awayArmy: -3, favorsStat: 'harass',
-          altText: '{home} 선수 셔틀 하이 템플러! 프로브가 스톰에 녹습니다!',
-          skipChance: 0.3,
-        ),
-        ScriptEvent(
           text: '양측 드라군 리버 하이 템플러! 전면전!',
           owner: LogOwner.system,
         ),
-        ScriptEvent(
-          text: '{home}, 스톰! 상대 드라군이 녹습니다!',
-          owner: LogOwner.home,
-          awayArmy: -10, homeArmy: -3, favorsStat: 'strategy',
-          altText: '{home} 선수 스톰! 드라군 편대가 증발!',
+      ],
+    ),
+    // Phase 4: 결전 분기 (lines 51-65)
+    ScriptPhase(
+      name: 'decisive_battle',
+      startLine: 51,
+      branches: [
+        ScriptBranch(
+          id: 'home_storm_dominates',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home}, 스톰! 상대 드라군이 녹습니다!',
+              owner: LogOwner.home,
+              awayArmy: -8, homeArmy: -3, favorsStat: 'strategy',
+              altText: '{home} 선수 스톰! 드라군 편대가 증발!',
+            ),
+            ScriptEvent(
+              text: '{away}, 맞스톰! 하지만 이미 병력 차이가 벌어졌습니다!',
+              owner: LogOwner.away,
+              homeArmy: -5, awayArmy: -3,
+            ),
+            ScriptEvent(
+              text: '결정적인 순간입니다!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
         ),
-        ScriptEvent(
-          text: '{away}, 맞스톰! 양쪽 병력이 동시에 녹습니다!',
-          owner: LogOwner.away,
-          homeArmy: -8, awayArmy: -6, favorsStat: 'strategy',
-          altText: '{away} 선수 맞스톰! 서로 병력이 녹아내립니다!',
-        ),
-        ScriptEvent(
-          text: '결정적인 순간입니다!',
-          owner: LogOwner.system,
-          decisive: true,
+        ScriptBranch(
+          id: 'away_storm_dominates',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away}, 스톰! 상대 드라군이 녹습니다!',
+              owner: LogOwner.away,
+              homeArmy: -8, awayArmy: -3, favorsStat: 'strategy',
+              altText: '{away} 선수 스톰! 드라군 편대가 증발!',
+            ),
+            ScriptEvent(
+              text: '{home}, 맞스톰! 하지만 이미 병력 차이가 벌어졌습니다!',
+              owner: LogOwner.home,
+              awayArmy: -5, homeArmy: -3,
+            ),
+            ScriptEvent(
+              text: '결정적인 순간입니다!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
         ),
       ],
     ),
@@ -1331,7 +1442,7 @@ const _pvp4gateVsMulti = ScenarioScript(
         // 분기 A: 드라군 물량이 밀어냄
         ScriptBranch(
           id: 'dragoon_rush_wins',
-          baseProbability: 1.0,
+          baseProbability: 0.9,
           events: [
             ScriptEvent(
               text: '{home}, 드라군 물량으로 상대 앞마당을 밀어냅니다!',
@@ -1342,16 +1453,16 @@ const _pvp4gateVsMulti = ScenarioScript(
             ScriptEvent(
               text: '{away} 선수 드라군이 부족합니다! 게이트가 아직 안 돌아요!',
               owner: LogOwner.away,
-              awayArmy: -2,
+              awayArmy: -1,
             ),
             ScriptEvent(
               text: '{home}, 앞마당 넥서스를 공격합니다! 확장을 무너뜨립니다!',
               owner: LogOwner.home,
-              awayResource: -20, favorsStat: 'attack',
+              awayResource: -15, favorsStat: 'attack',
             ),
             ScriptEvent(
               text: '4게이트 타이밍! 멀티가 자리잡기 전에 밀어냅니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -1359,7 +1470,7 @@ const _pvp4gateVsMulti = ScenarioScript(
         // 분기 B: 멀티가 버텨내며 역전
         ScriptBranch(
           id: 'multi_holds',
-          baseProbability: 1.0,
+          baseProbability: 1.1,
           events: [
             ScriptEvent(
               text: '{away}, 드라군과 질럿으로 앞마당을 지켜냅니다!',
@@ -1380,13 +1491,13 @@ const _pvp4gateVsMulti = ScenarioScript(
             ),
             ScriptEvent(
               text: '멀티가 버텨냈습니다! 자원 차이로 병력이 역전됩니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
             ),
           ],
         ),
       ],
     ),
-    // Phase 3: 후반 전개 (lines 41-58)
+    // Phase 3: 후반 전개 (lines 41-52)
     ScriptPhase(
       name: 'late_game',
       startLine: 41,
@@ -1398,40 +1509,25 @@ const _pvp4gateVsMulti = ScenarioScript(
           skipChance: 0.3,
         ),
         ScriptEvent(
-          text: '{away} 선수 로보틱스 건설! 셔틀 리버 준비!',
+          text: '{away} 선수 멀티 자원으로 병력을 빠르게 보충합니다!',
           owner: LogOwner.away,
-          awayResource: -25,
+          awayArmy: 4, awayResource: -20,
+          altText: '{away}, 멀티의 자원이 빛을 발합니다! 병력 보충이 빠릅니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수도 로보틱스! 리버 경쟁!',
+          text: '{home} 선수도 병력을 모읍니다. 하지만 자원이 부족합니다.',
           owner: LogOwner.home,
-          homeResource: -25,
+          homeArmy: 2, homeResource: -20,
         ),
         ScriptEvent(
-          text: '{away}, 셔틀 리버 출격! 프로브를 노립니다!',
+          text: '{away}, 드라군 편대가 전진합니다! 멀티의 힘!',
           owner: LogOwner.away,
-          awayArmy: 3, awayResource: -25, favorsStat: 'harass',
-          altText: '{away} 선수 셔틀 리버! PvP의 꽃!',
+          awayArmy: 2, favorsStat: 'attack',
+          altText: '{away} 선수 멀티 자원으로 압도합니다!',
         ),
         ScriptEvent(
-          text: '{home}, 드라군이 셔틀을 노립니다!',
-          owner: LogOwner.home,
-          awayArmy: -2, favorsStat: 'defense',
-          skipChance: 0.3,
-        ),
-        ScriptEvent(
-          text: '{home} 선수 하이 템플러 합류! 스톰!',
-          owner: LogOwner.home,
-          homeArmy: 4, homeResource: -25,
-        ),
-        ScriptEvent(
-          text: '{away} 선수도 하이 템플러! 전면전!',
+          text: '멀티가 살아남으면서 자원 차이가 결정적입니다!',
           owner: LogOwner.away,
-          awayArmy: 4, awayResource: -25,
-        ),
-        ScriptEvent(
-          text: '결정적인 순간입니다!',
-          owner: LogOwner.system,
           decisive: true,
         ),
       ],
@@ -1473,13 +1569,13 @@ const _pvpZealotRushVsReaver = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 로보틱스 퍼실리티 건설! 리버를 준비합니다!',
           owner: LogOwner.away,
-          awayResource: -25,
+          awayResource: -25, awayArmy: 2,
           altText: '{away}, 로보틱스! 셔틀 리버 빌드!',
         ),
         ScriptEvent(
           text: '{home} 선수 질럿 생산 시작!',
           owner: LogOwner.home,
-          homeArmy: 3, homeResource: -10,
+          homeArmy: 2, homeResource: -10,
         ),
       ],
     ),
@@ -1497,7 +1593,7 @@ const _pvpZealotRushVsReaver = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 드라군과 질럿으로 막습니다! 리버까지 버텨야!',
           owner: LogOwner.away,
-          awayArmy: 3, awayResource: -15,
+          awayArmy: 2, awayResource: -15,
           altText: '{away}, 수비! 리버가 나올 때까지!',
         ),
         ScriptEvent(
@@ -1535,7 +1631,7 @@ const _pvpZealotRushVsReaver = ScenarioScript(
             ),
             ScriptEvent(
               text: '질럿 러시 성공! 리버가 나오기 전에 밀어냈습니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -1548,23 +1644,23 @@ const _pvpZealotRushVsReaver = ScenarioScript(
             ScriptEvent(
               text: '{away}, 질럿과 프로브로 버팁니다! 리버가 곧!',
               owner: LogOwner.away,
-              homeArmy: -2, favorsStat: 'defense',
+              homeArmy: -1, favorsStat: 'defense',
               altText: '{away} 선수 수비! 리버만 나오면!',
             ),
             ScriptEvent(
               text: '{away}, 리버가 나왔습니다! 스캐럽! 질럿이 터집니다!',
               owner: LogOwner.away,
-              homeArmy: -3, awayArmy: 3, favorsStat: 'control',
+              homeArmy: -2, awayArmy: 2, favorsStat: 'control',
               altText: '{away} 선수 리버 등장! 스캐럽 한 방에 질럿이!',
             ),
             ScriptEvent(
               text: '{home} 선수 질럿이 리버 화력에 녹고 있습니다!',
               owner: LogOwner.home,
-              homeArmy: -2,
+              homeArmy: -1,
             ),
             ScriptEvent(
               text: '리버가 판을 뒤집습니다! 질럿으로는 리버를 감당할 수 없습니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -1704,7 +1800,7 @@ const _pvpDarkMirror = ScenarioScript(
         ),
       ],
     ),
-    // Phase 3: 후반 복구전 (lines 39-55)
+    // Phase 3: 후반 복구전 (lines 39-52)
     ScriptPhase(
       name: 'recovery_battle',
       startLine: 39,
@@ -1733,22 +1829,67 @@ const _pvpDarkMirror = ScenarioScript(
           awayResource: -25,
         ),
         ScriptEvent(
-          text: '{home}, 셔틀 리버 출격! 프로브를 추가로 노립니다!',
+          text: '{home}, 드라군을 모아 전진합니다!',
           owner: LogOwner.home,
-          homeArmy: 3, homeResource: -25, favorsStat: 'harass',
-          altText: '{home} 선수 셔틀 리버! 남은 프로브를 노립니다!',
+          homeArmy: 3, homeResource: -15,
+          altText: '{home} 선수 드라군 편대 전진!',
         ),
         ScriptEvent(
-          text: '{away}, 드라군이 셔틀을 집중합니다!',
+          text: '{away}, 드라군으로 맞대응! 병력을 모읍니다!',
           owner: LogOwner.away,
-          homeArmy: -2, favorsStat: 'defense',
-          altText: '{away} 선수 셔틀 격추 시도!',
-          skipChance: 0.3,
+          awayArmy: 3, awayResource: -15,
+          altText: '{away} 선수도 드라군 편대를 구성합니다!',
         ),
-        ScriptEvent(
-          text: '다크 미러 이후 복구전! 누가 더 빨리 회복하느냐!',
-          owner: LogOwner.system,
-          decisive: true,
+      ],
+    ),
+    // Phase 4: 결전 분기 (lines 53-65)
+    ScriptPhase(
+      name: 'decisive_clash',
+      startLine: 53,
+      branches: [
+        ScriptBranch(
+          id: 'home_recovers_faster',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home}, 프로브를 먼저 복구! 자원이 돌아옵니다!',
+              owner: LogOwner.home,
+              homeArmy: 2, homeResource: 10, favorsStat: 'macro',
+              altText: '{home} 선수 일꾼 복구가 빠릅니다!',
+            ),
+            ScriptEvent(
+              text: '{home}, 셔틀 리버 출격! 남은 프로브를 노립니다!',
+              owner: LogOwner.home,
+              awayResource: -15, favorsStat: 'harass',
+            ),
+            ScriptEvent(
+              text: '다크 미러 이후 복구전에서 앞섭니다!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_recovers_faster',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away}, 프로브를 먼저 복구! 자원이 돌아옵니다!',
+              owner: LogOwner.away,
+              awayArmy: 2, awayResource: 10, favorsStat: 'macro',
+              altText: '{away} 선수 일꾼 복구가 빠릅니다!',
+            ),
+            ScriptEvent(
+              text: '{away}, 셔틀 리버 출격! 남은 프로브를 노립니다!',
+              owner: LogOwner.away,
+              homeResource: -15, favorsStat: 'harass',
+            ),
+            ScriptEvent(
+              text: '다크 미러 이후 복구전에서 앞섭니다!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
         ),
       ],
     ),

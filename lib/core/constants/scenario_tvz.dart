@@ -271,7 +271,7 @@ const _tvzBioVsMutal = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 저글링이 달려나옵니다! 탱크 라인을 노리는데요!',
           owner: LogOwner.away,
-          homeArmy: -3, awayArmy: -4, favorsStat: 'control',
+          homeArmy: -3, awayArmy: -3, favorsStat: 'control',
           altText: '{away}, 발업 저글링 돌진! 시즈 라인 돌파 시도!',
         ),
         ScriptEvent(
@@ -450,7 +450,7 @@ const _tvzBioVsMutal = ScenarioScript(
             ),
             ScriptEvent(
               text: '결정적인 순간입니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -486,7 +486,7 @@ const _tvzBioVsMutal = ScenarioScript(
             ),
             ScriptEvent(
               text: '다크스웜이 전장을 뒤덮었습니다! 결정적인 순간!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -522,7 +522,7 @@ const _tvzBioVsMutal = ScenarioScript(
             ),
             ScriptEvent(
               text: '양측 본진이 불타고 있습니다! 누가 먼저 무너질 것인가!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -656,7 +656,7 @@ const _tvzMechVsLurker = ScenarioScript(
             ScriptEvent(
               text: '{home} 선수 시즈 탱크로 럴커 위치를 정밀 포격!',
               owner: LogOwner.home,
-              awayArmy: -4, favorsStat: 'strategy',
+              awayArmy: -3, favorsStat: 'strategy',
               altText: '{home}, 탱크 포격! 럴커를 하나씩 잡아냅니다!',
             ),
             ScriptEvent(
@@ -731,7 +731,7 @@ const _tvzMechVsLurker = ScenarioScript(
         ScriptEvent(
           text: '{away}, 다크스웜 깔아줍니다! 탱크 포격이 무력화됩니다!',
           owner: LogOwner.away,
-          homeArmy: -2, favorsStat: 'strategy',
+          favorsStat: 'strategy',
           altText: '{away} 선수 다크스웜! 시즈 탱크가 의미를 잃습니다!',
         ),
         ScriptEvent(
@@ -748,7 +748,7 @@ const _tvzMechVsLurker = ScenarioScript(
         ),
       ],
     ),
-    // Phase 4: 결전 (lines 61-80)
+    // Phase 4: 결전 전개 (lines 61-72)
     ScriptPhase(
       name: 'decisive_battle',
       startLine: 61,
@@ -767,7 +767,7 @@ const _tvzMechVsLurker = ScenarioScript(
         ScriptEvent(
           text: '{away}, 울트라 저글링 돌진! 탱크 라인 정면 돌파!',
           owner: LogOwner.away,
-          homeArmy: -5, awayArmy: -4, favorsStat: 'attack',
+          homeArmy: -3, awayArmy: -4, favorsStat: 'attack',
           altText: '{away} 선수 울트라가 탱크 라인을 뚫습니다!',
         ),
         ScriptEvent(
@@ -776,10 +776,44 @@ const _tvzMechVsLurker = ScenarioScript(
           awayArmy: -5, homeArmy: -3, favorsStat: 'defense',
           altText: '{home}, 골리앗 화력으로 울트라를 잡아냅니다!',
         ),
-        ScriptEvent(
-          text: '양측 병력이 크게 소모되고 있습니다! 누가 이길 것인가!',
-          owner: LogOwner.system,
-          decisive: true,
+      ],
+    ),
+    // Phase 5: 결전 결과
+    ScriptPhase(
+      name: 'decisive_result',
+      startLine: 73,
+      branches: [
+        ScriptBranch(
+          id: 'terran_holds',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 골리앗 화력이 울트라를 잡아냈습니다! 메카닉 라인 유지!',
+              owner: LogOwner.home,
+              awayArmy: -3,
+            ),
+            ScriptEvent(
+              text: '메카닉 화력이 저그를 밀어냅니다!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'zerg_breaks_through',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away}, 울트라가 탱크 라인을 완전히 뚫었습니다! 저그 물량이 밀려옵니다!',
+              owner: LogOwner.away,
+              homeArmy: -3,
+            ),
+            ScriptEvent(
+              text: '저그 물량이 메카닉을 압도합니다!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
         ),
       ],
     ),
@@ -898,15 +932,15 @@ const _tvzCheeseVsStandard = ScenarioScript(
             ),
             ScriptEvent(
               text: '{home} 선수 후퇴합니다... 자원 손실이 크겠는데요.',
-              owner: LogOwner.home,
-              homeArmy: -2, homeResource: -20,
+              owner: LogOwner.away,
+              homeArmy: -4, homeResource: -20,
               decisive: true,
             ),
           ],
         ),
         ScriptBranch(
           id: 'bunker_complete',
-          baseProbability: 1.0,
+          baseProbability: 0.9,
           events: [
             ScriptEvent(
               text: '{home} 선수 벙커 건설 성공! 마린이 들어갑니다!',
@@ -934,11 +968,11 @@ const _tvzCheeseVsStandard = ScenarioScript(
             ScriptEvent(
               text: '{home}, 추가 마린 도착! 벙커 압박 강화!',
               owner: LogOwner.home,
-              homeArmy: 3, awayArmy: -2, favorsStat: 'attack',
+              homeArmy: 2, awayArmy: -1, favorsStat: 'attack',
             ),
             ScriptEvent(
               text: '벙커 압박이 거세집니다! 저그가 버틸 수 있을까요!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -1185,7 +1219,7 @@ const _tvz111VsMacro = ScenarioScript(
             ),
             ScriptEvent(
               text: '테란의 멀티 공격이 효과를 보고 있습니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -1213,7 +1247,7 @@ const _tvz111VsMacro = ScenarioScript(
             ),
             ScriptEvent(
               text: '저그의 물량이 승부를 가르고 있습니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -1484,7 +1518,7 @@ const _tvzWraithVsMutal = ScenarioScript(
         ),
       ],
     ),
-    // Phase 5: 결전 (lines 66-85)
+    // Phase 5: 결전 전개 (lines 66-78)
     ScriptPhase(
       name: 'decisive_battle',
       startLine: 66,
@@ -1517,10 +1551,44 @@ const _tvzWraithVsMutal = ScenarioScript(
           homeArmy: -4, awayArmy: -3, favorsStat: 'control',
           altText: '{away} 선수 스커지가 레이스를 잡아냅니다!',
         ),
-        ScriptEvent(
-          text: '공중 전면전! 누가 살아남을 것인가!',
-          owner: LogOwner.system,
-          decisive: true,
+      ],
+    ),
+    // Phase 6: 결전 결과
+    ScriptPhase(
+      name: 'decisive_result',
+      startLine: 79,
+      branches: [
+        ScriptBranch(
+          id: 'terran_air_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 레이스가 뮤탈을 제압했습니다! 제공권 장악!',
+              owner: LogOwner.home,
+              awayArmy: -2,
+            ),
+            ScriptEvent(
+              text: '레이스가 하늘을 지배합니다!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'zerg_air_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away}, 뮤탈 물량이 레이스를 압도합니다! 저그의 하늘!',
+              owner: LogOwner.away,
+              homeArmy: -2,
+            ),
+            ScriptEvent(
+              text: '뮤탈 물량이 제공권을 차지합니다!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
         ),
       ],
     ),
@@ -1657,7 +1725,7 @@ const _tvzCheeseVsCheese = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'bunker_crushes_zerg',
-          baseProbability: 1.0,
+          baseProbability: 0.9,
           events: [
             ScriptEvent(
               text: '{home}, 벙커 완성! 마린이 들어갑니다!',
@@ -1678,14 +1746,14 @@ const _tvzCheeseVsCheese = ScenarioScript(
             ),
             ScriptEvent(
               text: '벙커 압박이 성공했습니다! 저그가 자원도 병력도 없는 상황!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
         ),
         ScriptBranch(
           id: 'lings_destroy_terran',
-          baseProbability: 1.0,
+          baseProbability: 1.1,
           events: [
             ScriptEvent(
               text: '{away}, 저글링이 테란 본진 SCV를 전부 잡아냅니다!',
@@ -1701,12 +1769,12 @@ const _tvzCheeseVsCheese = ScenarioScript(
             ScriptEvent(
               text: '{away}, 추가 저글링까지 합류! 테란 앞마당도 노립니다!',
               owner: LogOwner.away,
-              awayArmy: 3, homeArmy: -2, favorsStat: 'attack',
+              awayArmy: 4, homeArmy: -3, favorsStat: 'attack',
               altText: '{away} 선수 저글링이 계속 쏟아져 나옵니다!',
             ),
             ScriptEvent(
               text: '테란 본진이 무너졌습니다! 돌이킬 수 없는 피해!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -1793,7 +1861,7 @@ const _tvz9poolVsStandard = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'terran_scouted',
-          baseProbability: 1.0,
+          baseProbability: 1.1,
           events: [
             ScriptEvent(
               text: '{home} 선수 SCV 정찰로 9풀을 확인했습니다!',
@@ -1821,7 +1889,7 @@ const _tvz9poolVsStandard = ScenarioScript(
         ),
         ScriptBranch(
           id: 'ling_rush_success',
-          baseProbability: 1.0,
+          baseProbability: 0.9,
           events: [
             ScriptEvent(
               text: '{away}, 발업 저글링이 진영 입구에 도착! 마린이 부족합니다!',
@@ -1911,7 +1979,7 @@ const _tvz9poolVsStandard = ScenarioScript(
             ),
             ScriptEvent(
               text: '초반 올인 이후 자원 차이가 나기 시작합니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -1939,7 +2007,7 @@ const _tvz9poolVsStandard = ScenarioScript(
             ),
             ScriptEvent(
               text: '초반 러시의 효과가 중반까지 이어지고 있습니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -2213,7 +2281,7 @@ const _tvzValkyrieVsMutal = ScenarioScript(
         ),
       ],
     ),
-    // Phase 5: 결전 (lines 67-85)
+    // Phase 5: 결전 전개 (lines 67-80)
     ScriptPhase(
       name: 'decisive_battle',
       startLine: 67,
@@ -2246,10 +2314,44 @@ const _tvzValkyrieVsMutal = ScenarioScript(
           homeArmy: -18, awayArmy: -8, favorsStat: 'control',
           altText: '{away} 선수 럴커 저글링 합동! 바이오닉이 녹아내립니다!',
         ),
-        ScriptEvent(
-          text: '결정적인 순간입니다!',
-          owner: LogOwner.system,
-          decisive: true,
+      ],
+    ),
+    // Phase 6: 결전 결과
+    ScriptPhase(
+      name: 'decisive_result',
+      startLine: 81,
+      branches: [
+        ScriptBranch(
+          id: 'terran_complex_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 발키리 탱크 복합이 저그를 제압합니다!',
+              owner: LogOwner.home,
+              awayArmy: -3,
+            ),
+            ScriptEvent(
+              text: '복합 편성의 위력! 테란이 승기를 잡습니다!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'zerg_overwhelms',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away}, 럴커 저글링 물량이 테란 전선을 무너뜨립니다!',
+              owner: LogOwner.away,
+              homeArmy: -3,
+            ),
+            ScriptEvent(
+              text: '저그 물량이 테란을 압도합니다!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
         ),
       ],
     ),
@@ -2507,7 +2609,7 @@ const _tvzDoubleVs3Hatch = ScenarioScript(
             ),
             ScriptEvent(
               text: '테란 한방이 들어갔습니다! 결정적인 순간!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -2542,12 +2644,12 @@ const _tvzDoubleVs3Hatch = ScenarioScript(
             ),
             ScriptEvent(
               text: '다크스웜이 한방을 막아냈습니다! 저그가 유리해지고 있습니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
         ),
-        // 분기 C: 후반 대규모 교환전
+        // 분기 C: 후반 대규모 교환전 (양측 균등 소모 → 병력 우세 쪽 승리)
         ScriptBranch(
           id: 'massive_trade',
           baseProbability: 1.0,
@@ -2559,13 +2661,13 @@ const _tvzDoubleVs3Hatch = ScenarioScript(
             ScriptEvent(
               text: '{home}, 탱크 포격! 저글링이 쓸려나가지만 물량이 계속 옵니다!',
               owner: LogOwner.home,
-              awayArmy: -8, homeArmy: -3, favorsStat: 'attack',
+              awayArmy: -6, homeArmy: -4, favorsStat: 'attack',
               altText: '{home} 선수 탱크 화력! 하지만 저그 물량이 끝이 없습니다!',
             ),
             ScriptEvent(
               text: '{away}, 뮤탈이 후방을 물어뜯으면서 정면에서도 밀어붙입니다!',
               owner: LogOwner.away,
-              homeArmy: -5, homeResource: -20, awayArmy: -5, favorsStat: 'control',
+              homeArmy: -5, homeResource: -15, awayArmy: -5, favorsStat: 'control',
               altText: '{away} 선수 정면과 후방 동시 공격! 테란이 갈립니다!',
             ),
             ScriptEvent(
@@ -2696,7 +2798,7 @@ const _tvzStandardVs1HatchAllin = ScenarioScript(
             ScriptEvent(
               text: '{away}, 럴커가 입구에 자리잡습니다! 마린이 접근을 못 합니다!',
               owner: LogOwner.away,
-              homeArmy: -4, favorsStat: 'strategy',
+              homeArmy: -3, favorsStat: 'strategy',
               altText: '{away} 선수 럴커 포진! 테란 입구가 완전히 막혔습니다!',
             ),
             ScriptEvent(
@@ -2706,8 +2808,9 @@ const _tvzStandardVs1HatchAllin = ScenarioScript(
             ),
             ScriptEvent(
               text: '럴커 올인이 성공하고 있습니다! 테란이 무너지는데요!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
+              skipChance: 0.15,
             ),
           ],
         ),
@@ -2741,7 +2844,9 @@ const _tvzStandardVs1HatchAllin = ScenarioScript(
             ),
             ScriptEvent(
               text: '럴커 올인이 막혔습니다! 테란이 읽었어요!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
+              decisive: true,
+              skipChance: 0.15,
             ),
           ],
         ),
@@ -2781,7 +2886,7 @@ const _tvzStandardVs1HatchAllin = ScenarioScript(
             ),
             ScriptEvent(
               text: '원해처리 올인 실패 후 자원 차이가 결정적입니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -2815,7 +2920,7 @@ const _tvzStandardVs1HatchAllin = ScenarioScript(
             ),
             ScriptEvent(
               text: '원해처리 올인이 테란을 무너뜨렸습니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -3054,12 +3159,12 @@ const _tvzMechVsHive = ScenarioScript(
         // 분기 A: 메카닉 물량으로 밀어붙이기
         ScriptBranch(
           id: 'mech_overwhelm',
-          baseProbability: 1.0,
+          baseProbability: 1.1,
           events: [
             ScriptEvent(
               text: '{home} 선수 5팩토리 풀가동! 골리앗이 끝없이 나옵니다!',
               owner: LogOwner.home,
-              homeArmy: 8, homeResource: -30, favorsStat: 'macro',
+              homeArmy: 9, homeResource: -30, favorsStat: 'macro',
               altText: '{home}, 골리앗 물량! 메카닉 재생산이 빠릅니다!',
             ),
             ScriptEvent(
@@ -3080,7 +3185,7 @@ const _tvzMechVsHive = ScenarioScript(
             ),
             ScriptEvent(
               text: '메카닉 물량이 저그 확장을 하나씩 무너뜨리고 있습니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -3088,34 +3193,34 @@ const _tvzMechVsHive = ScenarioScript(
         // 분기 B: 하이브 유닛 총공격
         ScriptBranch(
           id: 'hive_all_out',
-          baseProbability: 1.0,
+          baseProbability: 0.9,
           events: [
             ScriptEvent(
               text: '{away} 선수 울트라 디파일러 저글링 총동원! 전면전 태세!',
               owner: LogOwner.away,
-              awayArmy: 8, awayResource: -30,
+              awayArmy: 6, awayResource: -30,
               altText: '{away}, 하이브 유닛 풀가동! 최종 결전 준비!',
             ),
             ScriptEvent(
               text: '{away}, 다크스웜 깔면서 울트라가 돌진합니다!',
               owner: LogOwner.away,
-              homeArmy: -6, awayArmy: -3, favorsStat: 'attack',
+              homeArmy: -5, awayArmy: -3, favorsStat: 'attack',
               altText: '{away} 선수 스웜 속 울트라 돌진! 탱크가 무력화됩니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 골리앗으로 울트라를 잡으려 하지만 스웜에 화력이 막힙니다!',
               owner: LogOwner.home,
-              homeArmy: -5, favorsStat: 'defense',
+              homeArmy: -4, favorsStat: 'defense',
               altText: '{home}, 다크스웜 속에서 골리앗이 제 화력을 못 냅니다!',
             ),
             ScriptEvent(
               text: '{away}, 저글링이 탱크 라인 뒤로 파고듭니다! 전선이 무너지는데요!',
               owner: LogOwner.away,
-              homeArmy: -4, awayArmy: -5, favorsStat: 'control',
+              homeArmy: -3, awayArmy: -5, favorsStat: 'control',
             ),
             ScriptEvent(
               text: '하이브 유닛 총공격! 메카닉 라인이 무너지고 있습니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -3123,7 +3228,7 @@ const _tvzMechVsHive = ScenarioScript(
         // 분기 C: 접전 끝 재건 경쟁
         ScriptBranch(
           id: 'rebuild_race',
-          baseProbability: 1.0,
+          baseProbability: 0.9,
           events: [
             ScriptEvent(
               text: '양측 모두 큰 전투 후 병력이 바닥났습니다!',
@@ -3143,7 +3248,7 @@ const _tvzMechVsHive = ScenarioScript(
             ),
             ScriptEvent(
               text: '재건 속도 대결입니다! 누가 더 빨리 병력을 채울 수 있을까요!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],

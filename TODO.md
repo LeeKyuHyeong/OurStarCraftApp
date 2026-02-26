@@ -3,6 +3,22 @@
 > 마지막 업데이트: 2026-02-26
 
 ---
+## ~~시나리오 보정 진행~~ ✅ 완료 (2026-02-26)
+
+### 보정 결과 요약
+
+| 매치업 | 시나리오 수 | n/dir | PASS | 핵심 수정 |
+|--------|-----------|-------|------|----------|
+| TvT | 16 | 30 | 16/16 | LogOwner.system→분기, army 대칭화 |
+| TvZ | 11 | 50 | 11/11 | LogOwner.system→분기, baseProbability 대칭 |
+| PvT | 11 | 25 | 10/11 | army ±1 조정, baseProbability 대칭 |
+| PvP | 10 | 150 | 10/10 | baseProbability 미세 조정 |
+| ZvP | 11 | 25 | 11/11 | LogOwner.system→분기, army 총합 재조정 |
+| ZvZ | 9 | 50 | 9/9 | conditionStat 제거, army 패널티 대칭 |
+
+**근본 원인**: `LogOwner.system` + `decisive: true` 이벤트가 `homeArmy >= awayArmy`로 승자 결정 → 항상 홈 유리. 전 매치업에서 분기(branch) 구조로 변환하여 해결.
+
+리포트: `test/output/` (tvt.md, tvz.md, pvt.md, pvp.md, zvp.md, zvz.md)
 
 ## 시나리오 현황
 
