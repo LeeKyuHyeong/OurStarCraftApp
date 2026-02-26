@@ -23,6 +23,12 @@ flutter analyze
 
 # 테스트 실행
 flutter test
+
+# 단일 테스트 파일 실행
+flutter test test/pvp_all_scenarios_100games_test.dart
+
+# 이름으로 특정 테스트만 실행
+flutter test -n "PvP S1:" test/pvp_all_scenarios_100games_test.dart
 ```
 
 ## Architecture
@@ -33,17 +39,30 @@ flutter test
 lib/
 ├── app/              # 앱 설정 (theme.dart, routes.dart, app.dart)
 ├── core/
-│   ├── constants/    # 초기 데이터 (team_data, initial_data, build_orders, battle_events)
+│   ├── constants/    # 초기 데이터 + 시나리오 스크립트 (아래 별도 설명)
 │   └── utils/        # Responsive 유틸리티
 ├── data/
 │   ├── providers/    # Riverpod providers (game_provider, match_provider)
-│   └── repositories/ # Hive 저장소 (save_repository)
+│   └── repositories/ # Hive 저장소 (save_repository, player_image_repository)
 ├── domain/
 │   ├── models/       # 데이터 모델 (Player, Team, Match, Season, Item 등)
 │   └── services/     # 비즈니스 로직 (match_simulation_service, individual_league_service, playoff_service)
 └── presentation/
-    ├── screens/      # 화면별 UI (title, main_menu, match_simulation 등)
-    └── widgets/      # 공통 위젯
+    ├── screens/      # 화면별 UI (20+ 폴더, 화면당 1폴더)
+    └── widgets/      # 공통 위젯 (player_radar_chart, player_thumbnail, reset_button)
+```
+
+### 시나리오 스크립트 파일 구조 (`core/constants/`)
+
+```
+scenario_scripts.dart          # 프레임워크 클래스 정의 (ScenarioScript, ScriptPhase, ScriptBranch, ScriptEvent 등)
+scenario_tvt.dart (16개)       # TvT 시나리오
+scenario_tvz.dart (11개)       # TvZ 시나리오
+scenario_pvt.dart (11개)       # PvT 시나리오
+scenario_pvp.dart (10개)       # PvP 시나리오
+scenario_zvp.dart (11개)       # ZvP 시나리오
+scenario_zvz.dart  (9개)       # ZvZ 시나리오
+build_orders.dart              # BuildOrder 정의 + BuildOrderData (빌드 저장소)
 ```
 
 ## Key Components
@@ -52,6 +71,14 @@ lib/
 - `gameStateProvider`: 전체 게임 상태 관리 (StateNotifierProvider)
 - `GameState`: SaveData를 감싸는 상태 객체 (playerTeam, currentSeason, inventory 등)
 - `GameStateNotifier`: 게임 로직 메서드 (startNewGame, loadGame, save, updatePlayer 등)
+- 파생 Provider: `playerTeamPlayersProvider`, `allTeamsProvider`, `currentSeasonProvider`, `inventoryProvider` 등이 `gameStateProvider`에 의존
+
+### Match Simulation (`match_simulation_service.dart`)
+- **Stream 기반**: `simulateMatchWithLog()`가 `Stream<SimulationState>`를 반환 → UI가 실시간 소비
+- `SimulationState`: 병력/자원/로그 상태
+- `BattleLogEntry`: 로그 텍스트 + 소유자(home/away/system)
+- `getIntervalMs()` 콜백으로 시뮬레이션 중 속도 변경 가능
+- 테스트 시 `forcedHomeBuildId`, `forcedAwayBuildId` 파라미터로 특정 빌드 조합 강제 지정
 
 ### Models (`domain/models/`)
 - `Player`: 선수 (능력치 8개: sense, control, attack, harass, strategy, macro, defense, scout)
@@ -60,23 +87,54 @@ lib/
 - `Match`: 경기 정보 (7전 4선승제)
 - `Season`: 시즌 (프로리그 + 개인리그)
 - Hive 어노테이션 사용 (`@HiveType`, `@HiveField`) - 모델 변경 시 `build_runner` 실행 필요
-- **Hive TypeId 규칙**: PlayerStats=0, Player=1, Team=2, Match=3, Season=4 등 순차 할당
+
+### Hive TypeId 할당 (전체 맵)
+
+| TypeId | 클래스 | 파일 |
+|--------|--------|------|
+| 0 | PlayerStats | player.dart |
+| 1 | PlayerRecord | player.dart |
+| 2 | Player | player.dart |
+| 3 | TeamRecord | team.dart |
+| 4 | Team | team.dart |
+| 5 | ConsumableItem | item.dart |
+| 6 | Equipment | item.dart |
+| 7 | EquipmentInstance | item.dart |
+| 8 | Inventory | item.dart |
+| 9 | RaceMatchup | game_map.dart |
+| 10 | GameMap | game_map.dart |
+| 11 | SetResult | match.dart |
+| 12 | MatchResult | match.dart |
+| 13 | ScheduleItem | match.dart |
+| 14 | IndividualMatchResult | match.dart |
+| 15 | IndividualLeagueBracket | match.dart |
+| 16 | RosterSelection | match.dart |
+| 17 | Season | season.dart |
+| 18 | TeamStanding | season.dart |
+| 19 | SeasonHistory | season.dart |
+| 20 | SaveData | save_data.dart |
+| 21 | SaveSlotInfo | save_data.dart |
+| 22 | PlayoffBracket | season.dart |
+
+> 새 TypeId 추가 시 **23번부터** 할당할 것.
 
 ### Navigation (`app/routes.dart`)
 - GoRouter 사용, 명명된 라우트로 이동: `context.pushNamed('teamSelect')`
 - 쿼리 파라미터 지원: `/individual-league/pcbang?viewOnly=true`
 - 경로 파라미터 지원: `/individual-league/dual/:round`
 
-### Match Simulation (`match_simulation_service.dart`)
-- 빌드오더 기반 경기 시뮬레이션
-- `SimulationState`: 병력/자원/로그 상태
-- `BattleLogEntry`: 로그 텍스트 + 소유자(home/away/system)
-
 ### Responsive System (`core/utils/responsive.dart`)
 - `Responsive.sp(size)`: 전체 비율 적용 (폰트, 아이콘)
 - `Responsive.w(width)`: 너비 비율 적용
 - `Responsive.h(height)`: 높이 비율 적용
 - Extension: `14.sp`, `100.w`, `50.h`
+
+## 네이밍 규칙
+
+- **빌드 ID**: `{matchup}_{build_name}` (예: `'tvz_bunker'`, `'pvp_2gate_dragoon'`)
+- **시나리오 ID**: `{matchup}_{description}` (예: `'pvp_dragoon_nexus_mirror'`)
+- **맵 태그**: `'rushShort'`, `'rushLong'`, `'airHigh'`, `'terrainHigh'`
+- **선수 위치**: `home` / `away` (player1/player2 사용 안 함)
 
 ## UI/Layout Rules
 
@@ -90,6 +148,18 @@ lib/
 - `*.g.dart`, `*.freezed.dart` 파일은 자동 생성 - 직접 수정 금지
 - `prefer_const_constructors` 활성화 - 가능한 곳에 `const` 사용
 - `avoid_print: false` - 디버그용 print 허용
+
+## 테스트
+
+종족전별 시나리오 검증 테스트 (test/ 폴더):
+- `tvt_scenarios_100games_test.dart`, `tvz_scenarios_100games_test.dart`, `pvt_all_scenarios_100games_test.dart`, `pvp_all_scenarios_100games_test.dart`, `zvp_scenario_100games_test.dart`, `zvz_scenario_100games_test.dart`
+- 테스트 출력: `test/output/` 디렉토리에 마크다운 통계 리포트 생성
+- 테스트 패턴: 동일 능력치(~700) + 100% 컨디션 선수로 균형 시나리오 검증, `forcedHomeBuildId`/`forcedAwayBuildId`로 빌드 고정
+
+### 보정 기준
+- 승률: 동일 능력치 기준 30~70% (미러는 45~55%)
+- 홈/어웨이: 반전 시 승률 차이 ±5%p 이내
+- 다양성: 500경기 중 최소 50+ 고유 로그
 
 ## 스타크래프트 경기 다움 (핵심 원칙)
 

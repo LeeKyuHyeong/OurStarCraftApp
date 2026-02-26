@@ -228,7 +228,7 @@ class Season {
 }
 
 /// 플레이오프 대진표
-@HiveType(typeId: 20)
+@HiveType(typeId: 22)
 class PlayoffBracket {
   @HiveField(0)
   final String firstPlaceTeamId; // 1위 팀 (결승 직행)
