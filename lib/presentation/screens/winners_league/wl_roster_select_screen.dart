@@ -9,6 +9,7 @@ import '../../../core/utils/responsive.dart';
 import '../../../data/providers/game_provider.dart';
 import '../../../data/providers/match_provider.dart';
 import '../../../domain/models/models.dart';
+import '../../widgets/player_info_sheet.dart';
 import '../../widgets/player_radar_chart.dart';
 import '../../widgets/reset_button.dart';
 
@@ -443,6 +444,7 @@ class _WLRosterSelectScreenState extends ConsumerState<WLRosterSelectScreen> {
                     _isSnipingMode = false;
                   });
                 },
+                onLongPress: () => showPlayerInfoSheet(context, player),
                 child: Container(
                   margin: EdgeInsets.symmetric(vertical: 1.sp),
                   padding: EdgeInsets.symmetric(horizontal: 6.sp, vertical: 4.sp),
@@ -619,6 +621,7 @@ class _WLRosterSelectScreenState extends ConsumerState<WLRosterSelectScreen> {
                 onTap: _isSnipingMode
                     ? () => _onSnipingSelectOpponent(player, teamPlayers)
                     : null,
+                onLongPress: () => showPlayerInfoSheet(context, player),
                 child: Container(
                   margin: EdgeInsets.symmetric(vertical: 1.sp),
                   padding: EdgeInsets.symmetric(horizontal: 6.sp, vertical: 4.sp),

@@ -997,13 +997,19 @@ class GameStateNotifier extends StateNotifier<GameState?> {
 
     var newSaveData = state!.saveData.updateSeason(updatedSeason);
 
-    // 플레이어 팀 승리 보상 (+5만원)
+    // 플레이어 팀 세트승/매치승 보상
     final playerTeamId = state!.saveData.playerTeamId;
     final winnerTeamId = result.isHomeWin ? result.homeTeamId : result.awayTeamId;
-    if (winnerTeamId == playerTeamId) {
-      final playerTeam = newSaveData.getTeamById(playerTeamId);
-      if (playerTeam != null) {
-        newSaveData = newSaveData.updateTeam(playerTeam.addMoney(5));
+    if (result.homeTeamId == playerTeamId || result.awayTeamId == playerTeamId) {
+      final playerSetWins = result.homeTeamId == playerTeamId ? result.homeScore : result.awayScore;
+      final playerMatchWin = winnerTeamId == playerTeamId;
+      int reward = playerSetWins * 10; // 세트당 10만원
+      if (playerMatchWin) reward += 30; // 매치승 30만원
+      if (reward > 0) {
+        final playerTeam = newSaveData.getTeamById(playerTeamId);
+        if (playerTeam != null) {
+          newSaveData = newSaveData.updateTeam(playerTeam.addMoney(reward));
+        }
       }
     }
 
@@ -1150,11 +1156,15 @@ class GameStateNotifier extends StateNotifier<GameState?> {
         opponentSets: actualHomeScore,
       );
 
-      // 플레이어 팀 승리 보상 (+5만원)
-      if (match.homeTeamId == playerTeamId && homeWin) {
-        updatedHomeTeam = updatedHomeTeam.addMoney(5);
-      } else if (match.awayTeamId == playerTeamId && !homeWin) {
-        updatedAwayTeam = updatedAwayTeam.addMoney(5);
+      // 플레이어 팀 세트승/매치승 보상 (세트당 10만원 + 매치승 30만원)
+      if (match.homeTeamId == playerTeamId) {
+        int reward = actualHomeScore * 10;
+        if (homeWin) reward += 30;
+        updatedHomeTeam = updatedHomeTeam.addMoney(reward);
+      } else if (match.awayTeamId == playerTeamId) {
+        int reward = actualAwayScore * 10;
+        if (!homeWin) reward += 30;
+        updatedAwayTeam = updatedAwayTeam.addMoney(reward);
       }
 
       var newSaveData = state!.saveData

@@ -450,7 +450,9 @@ class _DualTournamentScreenState extends ConsumerState<DualTournamentScreen> {
       );
     }
 
-    // 색상 우선순위: 진출(초록) > 탈락(회색) > 승리(accent) > 기본(흰)
+    final isMyTeam = _myTeamPlayerIds.contains(player.id);
+
+    // 색상 우선순위: 진출(초록) > 탈락(회색) > 승리(accent) > 우리팀(lightBlueAccent) > 기본(흰)
     final Color textColor;
     if (isAdvanced) {
       textColor = Colors.greenAccent;
@@ -458,6 +460,8 @@ class _DualTournamentScreenState extends ConsumerState<DualTournamentScreen> {
       textColor = Colors.grey;
     } else if (isWinner) {
       textColor = AppColors.accent;
+    } else if (isMyTeam) {
+      textColor = Colors.lightBlueAccent;
     } else {
       textColor = Colors.white;
     }
@@ -482,7 +486,7 @@ class _DualTournamentScreenState extends ConsumerState<DualTournamentScreen> {
             style: TextStyle(
               color: textColor,
               fontSize: 10.sp,
-              fontWeight: (isAdvanced || isWinner) ? FontWeight.bold : FontWeight.normal,
+              fontWeight: (isAdvanced || isWinner || isMyTeam) ? FontWeight.bold : FontWeight.normal,
             ),
             overflow: TextOverflow.ellipsis,
           ),

@@ -1033,12 +1033,24 @@ class IndividualLeagueService {
     final round32Results = bracket.mainTournamentResults
         .where((r) => r.stage == IndividualLeagueStage.round32)
         .toList();
-    final advancers = <String>[];
 
-    // 5경기씩 묶어서 승자전 승자 + 최종전 승자
+    // 조별 [1위, 2위] 수집
+    final groupResults = <List<String>>[];
     for (var i = 0; i + 4 < round32Results.length; i += 5) {
-      advancers.add(round32Results[i + 2].winnerId); // 승자전 승자
-      advancers.add(round32Results[i + 4].winnerId); // 최종전 승자
+      groupResults.add([
+        round32Results[i + 2].winnerId, // 승자전 승자 (1위)
+        round32Results[i + 4].winnerId, // 최종전 승자 (2위)
+      ]);
+    }
+
+    // 교차 조 배치: 인접 조끼리 (A-B, C-D, ...) 교차 매칭
+    // → simulateRound16Half의 [i*2] vs [i*2+1] 페어링이
+    //   A조 1위 vs B조 2위, B조 1위 vs A조 2위 형태가 됨
+    final advancers = <String>[];
+    for (var g = 0; g + 1 < groupResults.length; g += 2) {
+      final gA = groupResults[g];
+      final gB = groupResults[g + 1];
+      advancers.addAll([gA[0], gB[1], gB[0], gA[1]]);
     }
     return advancers;
   }

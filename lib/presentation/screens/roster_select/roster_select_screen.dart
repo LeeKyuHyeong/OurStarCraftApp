@@ -9,6 +9,8 @@ import '../../../core/utils/responsive.dart';
 import '../../../data/providers/game_provider.dart';
 import '../../../data/providers/match_provider.dart';
 import '../../../domain/models/models.dart';
+import '../../widgets/comparison_radar_chart.dart';
+import '../../widgets/player_info_sheet.dart';
 import '../../widgets/player_radar_chart.dart';
 import '../../widgets/reset_button.dart';
 
@@ -177,6 +179,9 @@ class _RosterSelectScreenState extends ConsumerState<RosterSelectScreen> {
             ),
           ),
 
+          // 5. 비교 패널 (양쪽 선수 선택 시)
+          _buildComparisonPanel(teamPlayers, opponentPlayers),
+
           // 제출 버튼
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -271,18 +276,40 @@ class _RosterSelectScreenState extends ConsumerState<RosterSelectScreen> {
         ? teamPlayers[_selectedMyPlayerIndex!]
         : null;
 
+    final isSelectingMyPlayer = _snipingState == 'selectingMyPlayer';
+
     return Column(
       children: [
         // 헤더
         Container(
           padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 6),
-          color: AppTheme.primaryBlue.withValues(alpha: 0.2),
+          color: isSelectingMyPlayer
+              ? Colors.orange.withValues(alpha: 0.3)
+              : AppTheme.primaryBlue.withValues(alpha: 0.2),
           child: Row(
             children: [
-              const Icon(Icons.person, size: 10, color: AppTheme.primaryBlue),
+              Icon(Icons.person, size: 10,
+                  color: isSelectingMyPlayer ? Colors.orange : AppTheme.primaryBlue),
               const SizedBox(width: 3),
-              Text('내 팀 (${teamPlayers.length})',
-                  style: const TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: AppTheme.primaryBlue)),
+              Expanded(
+                child: Text(
+                  isSelectingMyPlayer ? '스나이핑할 선수 선택' : '내 팀 (${teamPlayers.length})',
+                  style: TextStyle(
+                    fontSize: 9,
+                    fontWeight: FontWeight.bold,
+                    color: isSelectingMyPlayer ? Colors.orange : AppTheme.primaryBlue,
+                  ),
+                ),
+              ),
+              if (isSelectingMyPlayer)
+                GestureDetector(
+                  onTap: _cancelSnipingFlow,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 1),
+                    decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(2)),
+                    child: const Text('취소', style: TextStyle(fontSize: 7, color: Colors.white)),
+                  ),
+                ),
             ],
           ),
         ),
@@ -308,7 +335,13 @@ class _RosterSelectScreenState extends ConsumerState<RosterSelectScreen> {
                 isAssigned: isAssigned,
                 isSelected: isSelected,
                 assignedSet: assignedSet >= 0 ? assignedSet + 1 : null,
+                isSnipingSelectable: isSelectingMyPlayer && isAssigned,
                 onTap: () {
+                  // 스나이핑 모드: 배치된 선수 선택
+                  if (isSelectingMyPlayer && isAssigned) {
+                    _onSnipingSelectMyPlayer(assignedSet, teamPlayers);
+                    return;
+                  }
                   setState(() {
                     _selectedMyPlayerIndex = index;
                   });
@@ -634,6 +667,142 @@ class _RosterSelectScreenState extends ConsumerState<RosterSelectScreen> {
     );
   }
 
+  /// 선수 비교 패널 (양쪽 선수 선택 시 하단에 표시)
+  Widget _buildComparisonPanel(List<Player> teamPlayers, List<Player> opponentPlayers) {
+    if (_selectedMyPlayerIndex == null || _selectedOpponentPlayerIndex == null) {
+      return const SizedBox.shrink();
+    }
+
+    final myPlayer = _selectedMyPlayerIndex! < teamPlayers.length
+        ? teamPlayers[_selectedMyPlayerIndex!]
+        : null;
+
+    // 상대 팀은 정렬된 순서로 인덱싱
+    final sortedOpponents = List<Player>.from(opponentPlayers)
+      ..sort((a, b) {
+        final scoreA = a.condition + a.grade.index * 10;
+        final scoreB = b.condition + b.grade.index * 10;
+        return scoreB - scoreA;
+      });
+    final oppPlayer = _selectedOpponentPlayerIndex! < sortedOpponents.length
+        ? sortedOpponents[_selectedOpponentPlayerIndex!]
+        : null;
+
+    if (myPlayer == null || oppPlayer == null) return const SizedBox.shrink();
+
+    const myColor = Colors.lightBlueAccent;
+    const oppColor = Colors.redAccent;
+
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: const EdgeInsets.all(6),
+      decoration: BoxDecoration(
+        color: AppTheme.cardBackground,
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(color: Colors.grey.withValues(alpha: 0.3)),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // 상단: 양쪽 선수 정보
+          Row(
+            children: [
+              // 우리 선수
+              Expanded(
+                child: Row(
+                  children: [
+                    Container(width: 3, height: 24, color: myColor),
+                    const SizedBox(width: 4),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '(${myPlayer.race.code}) ${myPlayer.name}',
+                            style: const TextStyle(
+                              fontSize: 9, fontWeight: FontWeight.bold, color: myColor,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Text(
+                            '${myPlayer.grade.display} Lv.${myPlayer.level.value}  ${myPlayer.displayCondition}%',
+                            style: TextStyle(fontSize: 8, color: Colors.grey[400]),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // VS
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 4),
+                child: Text('VS', style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: Colors.grey)),
+              ),
+              // 상대 선수
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            '${oppPlayer.name} (${oppPlayer.race.code})',
+                            style: const TextStyle(
+                              fontSize: 9, fontWeight: FontWeight.bold, color: oppColor,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.end,
+                          ),
+                          Text(
+                            '${oppPlayer.grade.display} Lv.${oppPlayer.level.value}  ${oppPlayer.displayCondition}%',
+                            style: TextStyle(fontSize: 8, color: Colors.grey[400]),
+                            textAlign: TextAlign.end,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    Container(width: 3, height: 24, color: oppColor),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          // 오버레이 레이더 차트
+          SizedBox(
+            width: 180,
+            height: 180,
+            child: ComparisonRadarChart(
+              stats1: myPlayer.stats,
+              color1: myColor,
+              stats2: oppPlayer.stats,
+              color2: oppColor,
+            ),
+          ),
+          const SizedBox(height: 2),
+          // 총합 비교
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                '총합 ${myPlayer.stats.total}',
+                style: const TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: myColor),
+              ),
+              Text(
+                '총합 ${oppPlayer.stats.total}',
+                style: const TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: oppColor),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
   /// 중앙 맵 컬럼 (7개 세로 다닥다닥 배치)
   Widget _buildMapColumn(List<GameMap> matchMaps, List<Player> teamPlayers) {
     return Container(
@@ -654,7 +823,7 @@ class _RosterSelectScreenState extends ConsumerState<RosterSelectScreen> {
               : null;
           final isFocused = _focusedMapIndex == index;
           final snipingAssignment = _getSnipingForSet(index);
-          final isSnipingSelecting = _snipingState == 'selectingMyPlayer';
+          final isSnipingActive = _snipingState != 'idle';
 
           return _MapRowCompact(
             setNumber: index + 1,
@@ -662,17 +831,12 @@ class _RosterSelectScreenState extends ConsumerState<RosterSelectScreen> {
             player: player,
             isFocused: isFocused,
             hasSniping: snipingAssignment != null,
-            isSnipingSelectable: isSnipingSelecting && player != null,
             onTap: () {
-              if (isSnipingSelecting) {
-                _onSnipingSelectMyPlayer(index, teamPlayers);
-              } else {
-                setState(() {
-                  _focusedMapIndex = index;
-                });
-              }
+              setState(() {
+                _focusedMapIndex = index;
+              });
             },
-            onPlayerRemove: () {
+            onPlayerRemove: isSnipingActive ? null : () {
               _cancelSnipingForSet(index);
               setState(() {
                 selectedPlayers[index] = null;
@@ -692,7 +856,7 @@ class _RosterSelectScreenState extends ConsumerState<RosterSelectScreen> {
     });
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('스나이핑할 세트의 내 선수를 선택하세요'),
+        content: Text('스나이핑할 내 선수를 선택하세요'),
         backgroundColor: Colors.orange,
         duration: Duration(seconds: 2),
       ),
@@ -882,6 +1046,7 @@ class _PlayerGridItem extends StatelessWidget {
   final bool isAssigned;
   final bool isSelected;
   final int? assignedSet;
+  final bool isSnipingSelectable;
   final VoidCallback onTap;
 
   const _PlayerGridItem({
@@ -889,6 +1054,7 @@ class _PlayerGridItem extends StatelessWidget {
     required this.isAssigned,
     required this.isSelected,
     this.assignedSet,
+    this.isSnipingSelectable = false,
     required this.onTap,
   });
 
@@ -896,18 +1062,23 @@ class _PlayerGridItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
+      onLongPress: () => showPlayerInfoSheet(context, player),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
         decoration: BoxDecoration(
-          color: isSelected
-              ? AppTheme.primaryBlue.withValues(alpha: 0.3)
-              : (isAssigned ? AppTheme.accentGreen.withValues(alpha: 0.2) : AppTheme.cardBackground),
+          color: isSnipingSelectable
+              ? Colors.orange.withValues(alpha: 0.2)
+              : isSelected
+                  ? AppTheme.primaryBlue.withValues(alpha: 0.3)
+                  : (isAssigned ? AppTheme.accentGreen.withValues(alpha: 0.2) : AppTheme.cardBackground),
           borderRadius: BorderRadius.circular(4),
           border: Border.all(
-            color: isSelected
-                ? AppTheme.primaryBlue
-                : (isAssigned ? AppTheme.accentGreen : Colors.transparent),
-            width: isSelected ? 2 : 1,
+            color: isSnipingSelectable
+                ? Colors.orange
+                : isSelected
+                    ? AppTheme.primaryBlue
+                    : (isAssigned ? AppTheme.accentGreen : Colors.transparent),
+            width: isSnipingSelectable ? 2 : (isSelected ? 2 : 1),
           ),
         ),
         child: Row(
@@ -980,6 +1151,7 @@ class _OpponentGridItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
+      onLongPress: () => showPlayerInfoSheet(context, player),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
         decoration: BoxDecoration(
@@ -1202,9 +1374,8 @@ class _MapRowCompact extends StatelessWidget {
   final Player? player;
   final bool isFocused;
   final bool hasSniping;
-  final bool isSnipingSelectable;
   final VoidCallback onTap;
-  final VoidCallback onPlayerRemove;
+  final VoidCallback? onPlayerRemove;
 
   const _MapRowCompact({
     required this.setNumber,
@@ -1212,9 +1383,8 @@ class _MapRowCompact extends StatelessWidget {
     required this.player,
     required this.isFocused,
     this.hasSniping = false,
-    this.isSnipingSelectable = false,
     required this.onTap,
-    required this.onPlayerRemove,
+    this.onPlayerRemove,
   });
 
   @override
@@ -1229,19 +1399,15 @@ class _MapRowCompact extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 2, vertical: 1),
         padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
         decoration: BoxDecoration(
-          color: isSnipingSelectable
-              ? Colors.orange.withValues(alpha: 0.2)
-              : isFocused
-                  ? AppTheme.accentGreen.withValues(alpha: 0.2)
-                  : (player != null ? AppTheme.primaryBlue.withValues(alpha: 0.1) : Colors.transparent),
+          color: isFocused
+              ? AppTheme.accentGreen.withValues(alpha: 0.2)
+              : (player != null ? AppTheme.primaryBlue.withValues(alpha: 0.1) : Colors.transparent),
           borderRadius: BorderRadius.circular(3),
           border: Border.all(
-            color: isSnipingSelectable
-                ? Colors.orange
-                : isFocused
-                    ? AppTheme.accentGreen
-                    : (player != null ? AppTheme.primaryBlue : AppTheme.textSecondary.withValues(alpha: 0.3)),
-            width: isSnipingSelectable ? 1.5 : (isFocused ? 1.5 : 0.5),
+            color: isFocused
+                ? AppTheme.accentGreen
+                : (player != null ? AppTheme.primaryBlue : AppTheme.textSecondary.withValues(alpha: 0.3)),
+            width: isFocused ? 1.5 : 0.5,
           ),
         ),
         child: Row(
