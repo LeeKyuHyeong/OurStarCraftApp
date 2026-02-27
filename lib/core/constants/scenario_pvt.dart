@@ -69,10 +69,10 @@ const _pvtDragoonExpandVsFactory = ScenarioScript(
           altText: '{home}, 앞마당 넥서스가 올라갑니다! 확장을 가져가겠다는 의지!',
         ),
         ScriptEvent(
-          text: '{away} 선수 앞마당에 커맨드 센터! 팩더블 체제입니다.',
+          text: '{away} 선수 앞마당에 커맨드센터! 팩더블 체제입니다.',
           owner: LogOwner.away,
           awayResource: -30,
-          altText: '{away}, 커맨드 센터 건설! 양측 모두 확장을 올리네요.',
+          altText: '{away}, 커맨드센터 건설! 양측 모두 확장을 올리네요.',
         ),
       ],
     ),
@@ -102,7 +102,7 @@ const _pvtDragoonExpandVsFactory = ScenarioScript(
           altText: '{away} 선수 벌처 기동! 프로브 라인에 마인을 뿌립니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스 퍼실리티 건설! 옵저버를 노리는 건가요?',
+          text: '{home} 선수 로보틱스 건설! 옵저버를 노리는 건가요?',
           owner: LogOwner.home,
           homeResource: -20,
           altText: '{home}, 로보틱스가 올라갑니다! 리버가 될지 옵저버가 될지!',
@@ -428,7 +428,7 @@ const _pvtReaverVsTiming = ScenarioScript(
           text: '{home} 선수 사이버네틱스 코어 이후 로보틱스 건설!',
           owner: LogOwner.home,
           homeResource: -25,
-          altText: '{home}, 로보틱스 퍼실리티가 올라갑니다! 리버를 노리는 건가요?',
+          altText: '{home}, 로보틱스가 올라갑니다! 리버를 노리는 건가요?',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리 건설! 빠르게 테크를 올립니다.',
@@ -1050,7 +1050,7 @@ const _pvtCarrierVsAnti = ScenarioScript(
           altText: '{home}, 넥서스 건설! 확장을 가져가겠다는 모습!',
         ),
         ScriptEvent(
-          text: '{away} 선수 앞마당 커맨드 센터 건설합니다.',
+          text: '{away} 선수 앞마당 커맨드센터 건설합니다.',
           owner: LogOwner.away,
           awayResource: -30,
         ),
@@ -1493,7 +1493,7 @@ const _pvtReaverVsBbs = ScenarioScript(
           altText: '{away}, 마린이 빠르게 쌓이고 있습니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스 퍼실리티 건설!',
+          text: '{home} 선수 로보틱스 건설!',
           owner: LogOwner.home,
           homeResource: -20,
           altText: '{home}, 로보틱스가 올라갑니다! 리버 준비!',
@@ -1666,7 +1666,7 @@ const _pvtMineTriple = ScenarioScript(
           altText: '{home}, 넥서스가 올라갑니다! 확장!',
         ),
         ScriptEvent(
-          text: '{away} 선수 앞마당 커맨드 센터! 그리고 자연스럽게 세 번째 커맨드로!',
+          text: '{away} 선수 앞마당 커맨드센터! 그리고 자연스럽게 세 번째 커맨드로!',
           owner: LogOwner.away,
           awayResource: -30,
           altText: '{away}, 앞마당에 이어 세 번째 확장까지! 마인 트리플!',
@@ -1692,13 +1692,13 @@ const _pvtMineTriple = ScenarioScript(
           homeArmy: 3, homeResource: -15,
         ),
         ScriptEvent(
-          text: '{home}, 로보틱스 퍼실리티 건설! 옵저버를 준비합니다.',
+          text: '{home}, 로보틱스 건설! 옵저버를 준비합니다.',
           owner: LogOwner.home,
           homeResource: -20,
           altText: '{home} 선수 로보틱스! 옵저버로 마인을 잡으려는 의도!',
         ),
         ScriptEvent(
-          text: '{away} 선수 세 번째 커맨드 센터에서 자원이 들어옵니다! 시즈 탱크 추가 생산!',
+          text: '{away} 선수 세 번째 커맨드센터에서 자원이 들어옵니다! 시즈 탱크 추가 생산!',
           owner: LogOwner.away,
           awayArmy: 3, awayResource: -20,
           altText: '{away}, 트리플 자원으로 탱크를 찍어냅니다!',
@@ -1924,7 +1924,7 @@ const _pvt11up8facVsExpand = ScenarioScript(
           altText: '{home}, 사업 시작! 드라군 준비!',
         ),
         ScriptEvent(
-          text: '{away} 선수 앞마당 커맨드 센터! 아머리 건설도 시작합니다!',
+          text: '{away} 선수 앞마당 커맨드센터! 아머리 건설도 시작합니다!',
           owner: LogOwner.away,
           awayResource: -30,
           altText: '{away}, 더블에 아머리까지! 업그레이드를 서두릅니다!',
@@ -1969,7 +1969,7 @@ const _pvt11up8facVsExpand = ScenarioScript(
           altText: '{away} 선수 벌처 기동! 마인으로 시간 벌기!',
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스 퍼실리티 건설! 옵저버 생산!',
+          text: '{home} 선수 로보틱스 건설! 옵저버 생산!',
           owner: LogOwner.home,
           homeResource: -20,
           altText: '{home}, 로보틱스! 옵저버로 마인 대비!',
@@ -2174,7 +2174,7 @@ const _pvtFdTerran = ScenarioScript(
           altText: '{home}, 드라군과 사업! 안정적인 오프닝!',
         ),
         ScriptEvent(
-          text: '{away} 선수 앞마당 커맨드 센터 건설합니다.',
+          text: '{away} 선수 앞마당 커맨드센터 건설합니다.',
           owner: LogOwner.away,
           awayResource: -30,
           altText: '{away}, 앞마당 확장! FD 체제!',
@@ -2208,7 +2208,7 @@ const _pvtFdTerran = ScenarioScript(
           altText: '{away} 선수 마인 매설! 프로토스 이동을 제한!',
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스 퍼실리티 건설! 옵저버를 준비합니다.',
+          text: '{home} 선수 로보틱스 건설! 옵저버를 준비합니다.',
           owner: LogOwner.home,
           homeResource: -20,
           altText: '{home}, 로보틱스! 옵저버로 시야 확보!',

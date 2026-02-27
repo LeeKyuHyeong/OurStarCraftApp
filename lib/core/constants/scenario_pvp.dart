@@ -95,7 +95,7 @@ const _pvpDragoonNexusMirror = ScenarioScript(
           awayResource: -30,
         ),
         ScriptEvent(
-          text: '양측 모두 확장을 올립니다! 미러 매치의 시작!',
+          text: '양측 모두 확장을 올립니다! 빌드가 동일한데요, 운영 싸움이 중요하겠습니다!',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
@@ -112,16 +112,16 @@ const _pvpDragoonNexusMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수 로보틱스 퍼실리티 건설! 리버를 준비합니다!',
+              text: '{home} 선수 로보틱스 건설! 리버를 준비합니다!',
               owner: LogOwner.home,
               homeResource: -25, favorsStat: 'strategy',
               altText: '{home}, 로보틱스! 셔틀 리버를 노리는 건가요?',
             ),
             ScriptEvent(
-              text: '{away} 선수 시타델 오브 아둔 건설! 다크를 노립니다!',
+              text: '{away} 선수 아둔 건설! 질럿 발업을 준비합니다!',
               owner: LogOwner.away,
               awayResource: -20,
-              altText: '{away}, 다크 테크! 기습을 노리는 건가요?',
+              altText: '{away}, 아둔! 하이 템플러를 준비하는 건가요?',
             ),
             ScriptEvent(
               text: '{home}, 옵저버를 먼저 뽑을까 리버를 먼저 뽑을까?',
@@ -129,13 +129,13 @@ const _pvpDragoonNexusMirror = ScenarioScript(
               skipChance: 0.2,
             ),
             ScriptEvent(
-              text: '{home} 선수 옵저버 먼저 생산! 다크에 대비합니다!',
+              text: '{home} 선수 리버를 먼저 생산! 공격적인 선택입니다!',
               owner: LogOwner.home,
-              homeArmy: 1, homeResource: -15, favorsStat: 'scout',
-              altText: '{home}, 옵저버 먼저! 안전한 선택입니다!',
+              homeArmy: 1, homeResource: -15, favorsStat: 'harass',
+              altText: '{home}, 리버 먼저! 견제를 노립니다!',
             ),
             ScriptEvent(
-              text: '{away}, 다크 템플러가 잠입합니다! 옵저버가 있을까요?',
+              text: '{away}, 그런데 다크 템플러가 잠입합니다! 옵저버가 없습니다!',
               owner: LogOwner.away,
               awayArmy: 2, awayResource: -20, favorsStat: 'harass',
             ),
@@ -147,7 +147,7 @@ const _pvpDragoonNexusMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수 로보틱스 퍼실리티 건설!',
+              text: '{home} 선수 로보틱스 건설!',
               owner: LogOwner.home,
               homeResource: -25,
             ),
@@ -573,7 +573,7 @@ const _pvpRoboVs2gateDragoon = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스 퍼실리티 건설! 리버를 노립니다!',
+          text: '{home} 선수 로보틱스 건설! 리버를 노립니다!',
           owner: LogOwner.home,
           homeResource: -25,
           altText: '{home}, 로보틱스가 올라갑니다! 셔틀 리버!',
@@ -629,7 +629,7 @@ const _pvpRoboVs2gateDragoon = ScenarioScript(
         // 분기 A: 드라군 물량이 밀어냄
         ScriptBranch(
           id: 'dragoon_overwhelm',
-          baseProbability: 0.9,
+          baseProbability: 0.93,
           events: [
             ScriptEvent(
               text: '{away}, 드라군 물량이 리버 나오기 전에 밀어냅니다!',
@@ -785,10 +785,10 @@ const _pvpDarkVsDragoon = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '{home} 선수 시타델 오브 아둔 건설! 다크 테크!',
+          text: '{home} 선수 아둔 건설! 다크 테크!',
           owner: LogOwner.home,
           homeResource: -20,
-          altText: '{home}, 시타델! 다크를 노리는 건가요?',
+          altText: '{home}, 아둔! 다크를 노리는 건가요?',
         ),
         ScriptEvent(
           text: '{away} 선수 사이버네틱스 코어 건설! 드라군 준비!',
@@ -1042,10 +1042,10 @@ const _pvpDarkVsZealotRush = ScenarioScript(
           awayResource: -5,
         ),
         ScriptEvent(
-          text: '{home} 선수 시타델 오브 아둔 건설! 다크 테크!',
+          text: '{home} 선수 아둔 건설! 다크 테크!',
           owner: LogOwner.home,
           homeResource: -20,
-          altText: '{home}, 시타델! 다크를 준비합니다!',
+          altText: '{home}, 아둔! 다크를 준비합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 센터에 게이트웨이! 질럿 러시입니다!',
@@ -1187,7 +1187,7 @@ const _pvpRoboMirror = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스 퍼실리티 건설! 셔틀 리버를 노립니다!',
+          text: '{home} 선수 로보틱스 건설! 셔틀 리버를 노립니다!',
           owner: LogOwner.home,
           homeResource: -25,
           altText: '{home}, 로보틱스! 리버를 올립니다!',
@@ -1196,7 +1196,7 @@ const _pvpRoboMirror = ScenarioScript(
           text: '{away} 선수도 로보틱스! 양쪽 리버 경쟁입니다!',
           owner: LogOwner.away,
           awayResource: -25,
-          altText: '{away}, 로보틱스! 셔틀 리버 미러!',
+          altText: '{away}, 로보틱스! 셔틀 리버 경쟁입니다!',
         ),
       ],
     ),
@@ -1567,7 +1567,7 @@ const _pvpZealotRushVsReaver = ScenarioScript(
           altText: '{home}, 센터 게이트! 질럿을 빠르게 뽑겠다는 의도!',
         ),
         ScriptEvent(
-          text: '{away} 선수 로보틱스 퍼실리티 건설! 리버를 준비합니다!',
+          text: '{away} 선수 로보틱스 건설! 리버를 준비합니다!',
           owner: LogOwner.away,
           awayResource: -25, awayArmy: 2,
           altText: '{away}, 로보틱스! 셔틀 리버 빌드!',
@@ -1696,19 +1696,19 @@ const _pvpDarkMirror = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '{home} 선수 시타델 오브 아둔! 다크를 노립니다!',
+          text: '{home} 선수 아둔! 다크를 노립니다!',
           owner: LogOwner.home,
           homeResource: -20,
-          altText: '{home}, 시타델! 다크 빌드입니다!',
+          altText: '{home}, 아둔! 다크 빌드입니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 시타델! 양쪽 다크 미러입니다!',
+          text: '{away} 선수도 아둔! 양쪽 다 다크를 노리는 상황입니다!',
           owner: LogOwner.away,
           awayResource: -20,
-          altText: '{away}, 시타델! 양쪽 다 다크를 노리네요!',
+          altText: '{away}, 아둔! 양쪽 다 다크를 노리네요!',
         ),
         ScriptEvent(
-          text: '양측 다크 올인 미러! 서로 상대 다크를 모르는 상황!',
+          text: '양측 다크 올인! 서로 상대 다크를 모르는 상황!',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
@@ -1821,7 +1821,7 @@ const _pvpDarkMirror = ScenarioScript(
           text: '{home} 선수 로보틱스 건설! 옵저버와 리버를 준비합니다!',
           owner: LogOwner.home,
           homeResource: -25,
-          altText: '{home}, 로보틱스! 다크 미러 이후 테크 전환!',
+          altText: '{home}, 로보틱스! 다크 교환 이후 테크 전환!',
         ),
         ScriptEvent(
           text: '{away} 선수도 로보틱스! 셔틀 리버 경쟁!',
@@ -1863,7 +1863,7 @@ const _pvpDarkMirror = ScenarioScript(
               awayResource: -15, favorsStat: 'harass',
             ),
             ScriptEvent(
-              text: '다크 미러 이후 복구전에서 앞섭니다!',
+              text: '다크 교환 이후 복구전에서 앞섭니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -1885,7 +1885,7 @@ const _pvpDarkMirror = ScenarioScript(
               homeResource: -15, favorsStat: 'harass',
             ),
             ScriptEvent(
-              text: '다크 미러 이후 복구전에서 앞섭니다!',
+              text: '다크 교환 이후 복구전에서 앞섭니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

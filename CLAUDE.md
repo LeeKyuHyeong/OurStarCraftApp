@@ -52,7 +52,7 @@ lib/
     └── widgets/      # 공통 위젯 (player_radar_chart, player_thumbnail, reset_button)
 ```
 
-### 시나리오 스크립트 파일 구조 (`core/constants/`)
+### 데이터 파일 구조 (`core/constants/`)
 
 ```
 scenario_scripts.dart          # 프레임워크 클래스 정의 (ScenarioScript, ScriptPhase, ScriptBranch, ScriptEvent 등)
@@ -62,8 +62,30 @@ scenario_pvt.dart (11개)       # PvT 시나리오
 scenario_pvp.dart (10개)       # PvP 시나리오
 scenario_zvp.dart (11개)       # ZvP 시나리오
 scenario_zvz.dart  (9개)       # ZvZ 시나리오
-build_orders.dart              # BuildOrder 정의 + BuildOrderData (빌드 저장소)
+build_orders.dart              # 빌드오더 + 이벤트 풀 시스템 (아래 별도 설명)
+initial_data.dart              # 초기 데이터 (선수/팀 생성)
+map_data.dart                  # 게임 맵 정의 (맵 태그, 종족별 승률)
+team_data.dart                 # 팀 초기 데이터
 ```
+
+### build_orders.dart 구조
+
+시나리오 미매칭 시 사용되는 **폴백 시스템** + 빌드 정의 + 이벤트 풀 (~6,800줄)
+
+**클래스 6개:**
+- `BuildStep`: 빌드 단계 이벤트 (line, text, stat, army/resource 변동)
+- `BuildOrder`: 빌드오더 정의 (id, race, vsRace, style, steps)
+- `RaceOpening`: 오프닝 빌드 (line 1~16, aggressionTier 0~3)
+- `RaceTransition`: 트랜지션 빌드 (line 20~, keyStats)
+- `ClashEvent`: 충돌 이벤트 ({attacker}/{defender} 플레이스홀더)
+- `BuildOrderData`: 빌드 저장소 + 이벤트 풀 + 유틸리티 (static 메서드)
+
+**이벤트 풀 체계:**
+- 매치업별 mid-late 이벤트 (tvzMidLateEvents 등 9개 풀, 각 16~20개)
+- clash 이벤트 (aggressiveVsAggressive, comebackEvents, microEventsTerran 등)
+- `getMidLateEvent()`: 상황(병력/자원/라인)에 따라 가중치 기반 이벤트 선택
+- `getClashEvents()`: 빌드 스타일 + 종족 조합에 맞는 충돌 이벤트 풀 구성
+- `extractUnitTags()`: 빌드 스텝에서 유닛 키워드 추출 (캐싱 적용)
 
 ## Key Components
 
@@ -188,6 +210,57 @@ ScenarioScript
 3. **텍스트 다양성**: `altText`(50% 대체), `skipChance`(확률 스킵)으로 매번 다른 경기 연출
 4. **해설 코멘터리**: `LogOwner.system` 이벤트로 상황 해설 삽입
 5. **용어 규칙**: '경제'라는 단어 사용 금지 → '자원', '일꾼', '확장' 등 구체적 표현
+6. **건물명 규칙**: 실제 방송 해설 톤에 맞춘 건물 명칭 사용 (아래 표 참조)
+
+### 건물명 표기 기준
+
+시나리오/빌드오더 텍스트에서 건물 이름은 아래 표를 따른다. **정식 명칭이 아닌 해설 톤의 약칭**을 사용.
+
+#### 테란
+| 건물 | 표기 | 비고 |
+|------|------|------|
+| Command Center | `커맨드센터` | 붙여쓰기 |
+| Barracks | `배럭` | |
+| Factory | `팩토리` | |
+| Starport | `스타포트` | |
+| Engineering Bay | `엔지니어링 베이` | |
+| Academy | `아카데미` | |
+| Armory | `아머리` | |
+| Bunker | `벙커` | |
+| Missile Turret | `터렛` | |
+| Machine Shop | `머신샵` | |
+| Control Tower | `컨트롤타워` | 붙여쓰기 |
+| Science Facility | `사이언스 퍼실리티` | |
+| Nuclear Silo | `뉴클리어` | |
+
+#### 프로토스
+| 건물 | 표기 | 비고 |
+|------|------|------|
+| Nexus | `넥서스` | |
+| Gateway | `게이트웨이` | |
+| Pylon | `파일런` | |
+| Forge | `포지` | |
+| Photon Cannon | `캐논` | ~~포토캐논~~ 사용 금지 |
+| Cybernetics Core | `사이버네틱스 코어` | |
+| Robotics Facility | `로보틱스` | ~~로보틱스 퍼실리티~~ 사용 금지 |
+| Citadel of Adun | `아둔` | ~~시타델~~ 사용 금지 |
+| Templar Archives | `템플러 아카이브` | |
+| Stargate | `스타게이트` | |
+| Fleet Beacon | `플릿 비콘` | ~~플릿~~ 단독 사용 금지 |
+| Arbiter Tribunal | `아비터 트리뷰널` | 유닛 `아비터`와 구분 |
+| Shield Battery | `쉴드 배터리` | |
+
+#### 저그
+| 건물 | 표기 | 비고 |
+|------|------|------|
+| Hatchery | `해처리` | |
+| Spawning Pool | `스포닝풀` | |
+| Hydralisk Den | `히드라덴` | |
+| Lair | `레어` | |
+| Spire | `스파이어` | |
+| Hive | `하이브` | |
+| Queens Nest | `퀸즈네스트` | |
+| Sunken Colony | `성큰` | |
 
 ### 능력치 반영 (`favorsStat`)
 

@@ -3662,11 +3662,16 @@ class MatchSimulationService {
     // {home}/{away}는 스크립트 기준 (reversed면 실제 반전)
     final scriptHome = reversed ? awayPlayer : homePlayer;
     final scriptAway = reversed ? homePlayer : awayPlayer;
+    // 기존 '{home} 선수' 패턴 정규화 후 항상 '선수' 붙여서 치환
     return text
-        .replaceAll('{home}', scriptHome.name)
-        .replaceAll('{away}', scriptAway.name)
-        .replaceAll('{terran}', homePlayer.race == Race.terran ? homePlayer.name : awayPlayer.name)
-        .replaceAll('{zerg}', homePlayer.race == Race.zerg ? homePlayer.name : awayPlayer.name);
+        .replaceAll('{home} 선수', '{home}')
+        .replaceAll('{away} 선수', '{away}')
+        .replaceAll('{terran} 선수', '{terran}')
+        .replaceAll('{zerg} 선수', '{zerg}')
+        .replaceAll('{home}', '${scriptHome.name} 선수')
+        .replaceAll('{away}', '${scriptAway.name} 선수')
+        .replaceAll('{terran}', '${homePlayer.race == Race.terran ? homePlayer.name : awayPlayer.name} 선수')
+        .replaceAll('{zerg}', '${homePlayer.race == Race.zerg ? homePlayer.name : awayPlayer.name} 선수');
   }
 
   /// 스크립트 owner를 실제 home/away로 변환

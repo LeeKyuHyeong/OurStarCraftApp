@@ -123,10 +123,10 @@ const _zvpHydraVsForge = ScenarioScript(
               text: '{home}, 히드라 편대가 프로토스 앞마당을 두드립니다!',
               owner: LogOwner.home,
               awayArmy: -3, awayResource: -15, favorsStat: 'attack',
-              altText: '{home} 선수 히드라 공격! 포토캐논이 무너지고 있습니다!',
+              altText: '{home} 선수 히드라 공격! 캐논이 무너지고 있습니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 질럿과 포토캐논으로 막으려 하지만 히드라가 너무 많습니다!',
+              text: '{away} 선수 질럿과 캐논으로 막으려 하지만 히드라가 너무 많습니다!',
               owner: LogOwner.away,
               awayArmy: -2,
               altText: '{away}, 질럿이 녹습니다! 히드라 화력에 밀리는데요!',
@@ -178,7 +178,7 @@ const _zvpHydraVsForge = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수 포토캐논 추가 건설! 히드라를 막아냅니다!',
+              text: '{away} 선수 캐논 추가 건설! 히드라를 막아냅니다!',
               owner: LogOwner.away,
               awayArmy: 3, awayResource: -15, favorsStat: 'defense',
               altText: '{away}, 캐논 라인이 촘촘합니다! 히드라가 못 뚫어요!',
@@ -350,7 +350,7 @@ const _zvpMutalVsForge = ScenarioScript(
           homeResource: -30,
         ),
         ScriptEvent(
-          text: '{away} 선수 앞마당 넥서스와 포토캐논 건설!',
+          text: '{away} 선수 앞마당 넥서스와 캐논 건설!',
           owner: LogOwner.away,
           awayResource: -30,
           altText: '{away}, 포지더블 완성! 입구를 단단히 막습니다.',
@@ -673,7 +673,7 @@ const _zvp9poolVsForge = ScenarioScript(
               text: '{away} 선수 캐논 완성! 저글링을 잡아냅니다!',
               owner: LogOwner.away,
               homeArmy: -3, awayResource: -10, favorsStat: 'defense',
-              altText: '{away}, 포토캐논이 제때 완성! 저글링이 녹습니다!',
+              altText: '{away}, 캐논이 제때 완성! 저글링이 녹습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 저글링 피해가 큽니다! 캐논에 막히는데요!',

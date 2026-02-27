@@ -45,7 +45,7 @@ const _tvtRaxDoubleVsFacDouble = ScenarioScript(
           awayResource: -5,
         ),
         ScriptEvent(
-          text: '{home} 선수 앞마당에 커맨드 센터를 건설합니다!',
+          text: '{home} 선수 앞마당에 커맨드센터를 건설합니다!',
           owner: LogOwner.home,
           homeResource: -30,
           altText: '{home}, 빠른 앞마당! 확장을 가져가겠다는 의도!',
@@ -378,7 +378,7 @@ const _tvtBbsVsDouble = ScenarioScript(
           homeResource: -5,
         ),
         ScriptEvent(
-          text: '{away} 선수 앞마당에 커맨드 센터를 먼저 올립니다!',
+          text: '{away} 선수 앞마당에 커맨드센터를 먼저 올립니다!',
           owner: LogOwner.away,
           awayResource: -30,
           altText: '{away}, 노배럭 더블! 배럭 없이 커맨드 먼저 짓습니다!',
@@ -551,7 +551,7 @@ const _tvtWraithVsRaxDouble = ScenarioScript(
           homeResource: -20,
         ),
         ScriptEvent(
-          text: '{away} 선수 앞마당 커맨드 센터 건설합니다.',
+          text: '{away} 선수 앞마당 커맨드센터 건설합니다.',
           owner: LogOwner.away,
           awayResource: -30,
         ),
@@ -792,7 +792,7 @@ const _tvt5facVsMineTriple = ScenarioScript(
           altText: '{home}, 시즈 모드 연구와 5팩토리 풀가동! 병력이 쏟아져 나옵니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 세 번째 커맨드 센터! 마인으로 시간을 벌면서!',
+          text: '{away} 선수 세 번째 커맨드센터! 마인으로 시간을 벌면서!',
           owner: LogOwner.away,
           awayResource: -30,
           altText: '{away}, 트리플 확장! 자원을 최대한 끌어올립니다!',
@@ -1257,7 +1257,7 @@ const _tvtCcFirstVs1facExpand = ScenarioScript(
           awayResource: -10,
         ),
         ScriptEvent(
-          text: '{home} 선수 앞마당에 커맨드 센터를 올립니다!',
+          text: '{home} 선수 앞마당에 커맨드센터를 올립니다!',
           owner: LogOwner.home,
           homeResource: -30,
           altText: '{home}, 빠른 앞마당! 안정적인 운영을 가져갑니다!',
@@ -1285,7 +1285,7 @@ const _tvtCcFirstVs1facExpand = ScenarioScript(
           homeResource: -20,
         ),
         ScriptEvent(
-          text: '{away} 선수 앞마당에 커맨드 센터! 원팩 확장입니다!',
+          text: '{away} 선수 앞마당에 커맨드센터! 원팩 확장입니다!',
           owner: LogOwner.away,
           awayResource: -30,
           altText: '{away}, 원팩으로 확장까지! 수비적인 운영!',
@@ -1377,7 +1377,7 @@ const _tvtCcFirstVs1facExpand = ScenarioScript(
               altText: '{away} 선수 수비 성공! 벌처 견제를 무력화!',
             ),
             ScriptEvent(
-              text: '{away} 선수 세 번째 커맨드 센터! 트리플 확장입니다!',
+              text: '{away} 선수 세 번째 커맨드센터! 트리플 확장입니다!',
               owner: LogOwner.away,
               awayResource: -30, awayArmy: 2,
               altText: '{away}, 트리플! 자원 우위를 끌어올립니다!',
@@ -1613,7 +1613,7 @@ const _tvtTwofacVs1facExpand = ScenarioScript(
           altText: '{home}, 팩토리가 하나 더! 투팩 벌처 체제!',
         ),
         ScriptEvent(
-          text: '{away} 선수 앞마당 커맨드 센터! 원팩으로 확장을 가져갑니다!',
+          text: '{away} 선수 앞마당 커맨드센터! 원팩으로 확장을 가져갑니다!',
           owner: LogOwner.away,
           awayResource: -30,
           altText: '{away}, 원팩 확장! 안정적인 운영을 선택합니다!',
@@ -3360,13 +3360,13 @@ const _tvtCcFirstMirror = ScenarioScript(
           awayResource: -10,
         ),
         ScriptEvent(
-          text: '{home} 선수 마린을 뽑으면서 앞마당 커맨드 센터를 올립니다!',
+          text: '{home} 선수 마린을 뽑으면서 앞마당 커맨드센터를 올립니다!',
           owner: LogOwner.home,
           homeResource: -30,
           altText: '{home}, 앞마당 커맨드! 배럭 더블입니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 앞마당 커맨드 센터! 미러 오프닝!',
+          text: '{away} 선수도 앞마당 커맨드센터! 미러 오프닝!',
           owner: LogOwner.away,
           awayResource: -30,
           altText: '{away}, 앞마당 확장! 같은 빌드입니다!',
@@ -4078,13 +4078,13 @@ const _tvt1facExpandMirror = ScenarioScript(
           awayArmy: 2, awayResource: -10,
         ),
         ScriptEvent(
-          text: '{home} 선수 앞마당에 커맨드 센터를 건설합니다!',
+          text: '{home} 선수 앞마당에 커맨드센터를 건설합니다!',
           owner: LogOwner.home,
           homeResource: -30,
           altText: '{home}, 앞마당 확장! 원팩 확장입니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 앞마당 커맨드 센터! 미러 오프닝!',
+          text: '{away} 선수도 앞마당 커맨드센터! 미러 오프닝!',
           owner: LogOwner.away,
           awayResource: -30,
           altText: '{away}, 앞마당 확장! 같은 빌드!',
