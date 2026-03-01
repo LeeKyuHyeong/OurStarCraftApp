@@ -599,8 +599,8 @@ const _tvzMechVsLurker = ScenarioScript(
     ScriptPhase(
       name: 'buildup',
       startLine: 17,
-      recoveryArmyPerLine: 2,
-      recoveryResourcePerLine: 15,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 팩토리 증설! 본격적인 메카닉 체제입니다.',
@@ -1051,7 +1051,7 @@ const _tvz111VsMacro = ScenarioScript(
       name: 'tech_vs_economy',
       startLine: 17,
       recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 12,
+      recoveryResourcePerLine: 6,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 팩토리, 스타포트 순차 건설! 111 체제입니다.',
@@ -2084,7 +2084,7 @@ const _tvzValkyrieVsMutal = ScenarioScript(
       name: 'valkyrie_buildup',
       startLine: 17,
       recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 12,
+      recoveryResourcePerLine: 6,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 스타포트에서 발키리 생산 시작합니다!',
@@ -2182,8 +2182,8 @@ const _tvzValkyrieVsMutal = ScenarioScript(
     ScriptPhase(
       name: 'mid_game',
       startLine: 39,
-      recoveryArmyPerLine: 2,
-      recoveryResourcePerLine: 15,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 발키리 추가 생산! 골리앗도 섞어줍니다!',
@@ -2424,8 +2424,8 @@ const _tvzDoubleVs3Hatch = ScenarioScript(
     ScriptPhase(
       name: 'macro_buildup',
       startLine: 17,
-      recoveryArmyPerLine: 2,
-      recoveryResourcePerLine: 15,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
       linearEvents: [
         ScriptEvent(
           text: '{away} 선수 뒤늦게 스포닝풀 건설합니다. 노풀이었으니까요.',
@@ -2997,8 +2997,8 @@ const _tvzMechVsHive = ScenarioScript(
     ScriptPhase(
       name: 'mid_expansion',
       startLine: 17,
-      recoveryArmyPerLine: 2,
-      recoveryResourcePerLine: 15,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 골리앗 대량 생산 시작! 아머리 업그레이드도!',

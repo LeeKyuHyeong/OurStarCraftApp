@@ -455,7 +455,7 @@ const _zvz12hatchVs9pool = ScenarioScript(
       name: 'mutal_race',
       startLine: 37,
       recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 10,
+      recoveryResourcePerLine: 5,
       linearEvents: [
         ScriptEvent(
           text: '{away} 선수 레어 올리면서 스파이어 건설 서두릅니다!',
@@ -687,7 +687,7 @@ const _zvz4poolVs12hatch = ScenarioScript(
       name: 'aftermath',
       startLine: 29,
       recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 10,
+      recoveryResourcePerLine: 5,
       linearEvents: [
         ScriptEvent(
           text: '{away} 선수 드론을 보충하면서 자원을 회복합니다.',
@@ -834,8 +834,8 @@ const _zvz3hatchMirror = ScenarioScript(
     ScriptPhase(
       name: 'defensive_buildup',
       startLine: 17,
-      recoveryArmyPerLine: 2,
-      recoveryResourcePerLine: 15,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 성큰 콜로니를 앞마당에 깔아놓습니다.',
@@ -1126,7 +1126,7 @@ const _zvz4poolVs9pool = ScenarioScript(
       name: 'ling_upgrade_battle',
       startLine: 31,
       recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 10,
+      recoveryResourcePerLine: 5,
       linearEvents: [
         ScriptEvent(
           text: '{away} 선수 발업 저글링으로 반격 준비! 병력 차이가 나기 시작합니다!',
@@ -1335,7 +1335,7 @@ const _zvz4poolVs3hatch = ScenarioScript(
       name: 'aftermath',
       startLine: 31,
       recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 10,
+      recoveryResourcePerLine: 5,
       linearEvents: [
         ScriptEvent(
           text: '{away} 선수 드론을 보충합니다. 해처리가 살아남아서 자원이 나옵니다.',
@@ -1563,7 +1563,7 @@ const _zvz9poolMirror = ScenarioScript(
       name: 'spire_race',
       startLine: 39,
       recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 10,
+      recoveryResourcePerLine: 5,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 저글링을 줄이고 스파이어를 올리려 합니다!',
@@ -1868,8 +1868,8 @@ const _zvz12poolVs3hatch = ScenarioScript(
     ScriptPhase(
       name: 'spire_race',
       startLine: 41,
-      recoveryArmyPerLine: 2,
-      recoveryResourcePerLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 6,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 레어를 올리면서 스파이어를 준비합니다.',
@@ -2134,8 +2134,8 @@ const _zvz9overpoolMirror = ScenarioScript(
     ScriptPhase(
       name: 'ling_skirmish',
       startLine: 29,
-      recoveryArmyPerLine: 2,
-      recoveryResourcePerLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 6,
       branches: [
         // 분기 A: 홈이 저글링 견제 성공
         ScriptBranch(

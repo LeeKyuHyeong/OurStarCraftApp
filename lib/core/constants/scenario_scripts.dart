@@ -96,8 +96,8 @@ class ScriptPhase {
     required this.startLine,
     this.linearEvents,
     this.branches,
-    this.recoveryArmyPerLine = 1,
-    this.recoveryResourcePerLine = 10,
+    this.recoveryArmyPerLine = 0,
+    this.recoveryResourcePerLine = 5,
   });
 }
 

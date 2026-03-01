@@ -74,7 +74,7 @@ const _tvtRaxDoubleVsFacDouble = ScenarioScript(
       name: 'vulture_battle',
       startLine: 17,
       recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 12,
+      recoveryResourcePerLine: 6,
       linearEvents: [
         ScriptEvent(
           text: '{away}, 벌처가 상대 앞마당을 정찰합니다! SCV를 노리는데요!',
@@ -175,8 +175,8 @@ const _tvtRaxDoubleVsFacDouble = ScenarioScript(
     ScriptPhase(
       name: 'tank_standoff',
       startLine: 43,
-      recoveryArmyPerLine: 2,
-      recoveryResourcePerLine: 15,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 시즈 탱크 생산 시작! 시즈 모드 연구!',
@@ -1120,8 +1120,8 @@ const _tvtAggressiveMirror = ScenarioScript(
     ScriptPhase(
       name: 'mid_buildup',
       startLine: 12,
-      recoveryArmyPerLine: 2,
-      recoveryResourcePerLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 6,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 추가 팩토리 건설! 물량을 늘립니다!',
@@ -1297,7 +1297,7 @@ const _tvtCcFirstVs1facExpand = ScenarioScript(
       name: 'early_pressure',
       startLine: 15,
       recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 12,
+      recoveryResourcePerLine: 6,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 마린+벌처로 상대 앞마당을 정찰합니다!',
@@ -1400,8 +1400,8 @@ const _tvtCcFirstVs1facExpand = ScenarioScript(
     ScriptPhase(
       name: 'tank_standoff',
       startLine: 41,
-      recoveryArmyPerLine: 2,
-      recoveryResourcePerLine: 15,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 시즈 탱크 배치! 라인을 밀어갑니다!',
@@ -1636,7 +1636,7 @@ const _tvtTwofacVs1facExpand = ScenarioScript(
       name: 'vulture_control',
       startLine: 15,
       recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 12,
+      recoveryResourcePerLine: 6,
       linearEvents: [
         ScriptEvent(
           text: '{home}, 벌처 속업 완료! 센터로 벌처를 보냅니다!',
@@ -1738,8 +1738,8 @@ const _tvtTwofacVs1facExpand = ScenarioScript(
     ScriptPhase(
       name: 'dropship_tank',
       startLine: 41,
-      recoveryArmyPerLine: 2,
-      recoveryResourcePerLine: 15,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 스타포트 건설! 드랍십을 준비합니다!',
@@ -1980,7 +1980,7 @@ const _tvt1facPushVs5fac = ScenarioScript(
       name: 'early_clash',
       startLine: 14,
       recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 10,
+      recoveryResourcePerLine: 5,
       linearEvents: [
         ScriptEvent(
           text: '{home}, 벌처+탱크 소수정예로 전진합니다!',
@@ -2081,8 +2081,8 @@ const _tvt1facPushVs5fac = ScenarioScript(
     ScriptPhase(
       name: 'late_fight',
       startLine: 35,
-      recoveryArmyPerLine: 2,
-      recoveryResourcePerLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 6,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 레이스 생산! 공중에서 견제를 노립니다!',
@@ -2375,7 +2375,7 @@ const _tvtBbsMirror = ScenarioScript(
       name: 'aftermath',
       startLine: 28,
       recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 10,
+      recoveryResourcePerLine: 5,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 가스를 넣고 팩토리 건설합니다!',
@@ -2532,7 +2532,7 @@ const _tvt1facPushMirror = ScenarioScript(
       name: 'vulture_skirmish',
       startLine: 12,
       recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 10,
+      recoveryResourcePerLine: 5,
       linearEvents: [
         ScriptEvent(
           text: '{home}, 벌처로 센터를 장악합니다! 마인 매설!',
@@ -2644,8 +2644,8 @@ const _tvt1facPushMirror = ScenarioScript(
     ScriptPhase(
       name: 'drop_war',
       startLine: 38,
-      recoveryArmyPerLine: 2,
-      recoveryResourcePerLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 6,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 드랍십 생산! 상대 후방을 노립니다!',
@@ -2827,7 +2827,7 @@ const _tvtWraithMirror = ScenarioScript(
       name: 'wraith_clash',
       startLine: 12,
       recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 10,
+      recoveryResourcePerLine: 5,
       linearEvents: [
         ScriptEvent(
           text: '{home}, 레이스 3기로 상대 진영 정찰! 공중전 시작!',
@@ -2962,8 +2962,8 @@ const _tvtWraithMirror = ScenarioScript(
     ScriptPhase(
       name: 'ground_transition',
       startLine: 32,
-      recoveryArmyPerLine: 2,
-      recoveryResourcePerLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 6,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 아머리 건설! 골리앗 생산 시작!',
@@ -3142,8 +3142,8 @@ const _tvt5facMirror = ScenarioScript(
     ScriptPhase(
       name: 'buildup',
       startLine: 14,
-      recoveryArmyPerLine: 2,
-      recoveryResourcePerLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 6,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 벌처 4기로 센터 시야를 확보합니다!',
@@ -3257,8 +3257,8 @@ const _tvt5facMirror = ScenarioScript(
     ScriptPhase(
       name: 'decisive_battle',
       startLine: 38,
-      recoveryArmyPerLine: 2,
-      recoveryResourcePerLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 6,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 아머리 건설! 골리앗 생산도 시작합니다!',
@@ -3394,7 +3394,7 @@ const _tvtCcFirstMirror = ScenarioScript(
       name: 'vulture_battle',
       startLine: 14,
       recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 12,
+      recoveryResourcePerLine: 6,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 벌처 생산 시작! 센터로 보냅니다!',
@@ -3530,8 +3530,8 @@ const _tvtCcFirstMirror = ScenarioScript(
     ScriptPhase(
       name: 'tank_standoff',
       startLine: 40,
-      recoveryArmyPerLine: 2,
-      recoveryResourcePerLine: 15,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 시즈 탱크 생산! 시즈 모드 연구 완료!',
@@ -3804,7 +3804,7 @@ const _tvt2facVultureMirror = ScenarioScript(
       name: 'vulture_control',
       startLine: 12,
       recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 12,
+      recoveryResourcePerLine: 6,
       linearEvents: [
         ScriptEvent(
           text: '{home}, 벌처 4기로 센터 장악! 마인을 깔면서 전진합니다!',
@@ -3920,8 +3920,8 @@ const _tvt2facVultureMirror = ScenarioScript(
     ScriptPhase(
       name: 'tank_transition',
       startLine: 36,
-      recoveryArmyPerLine: 2,
-      recoveryResourcePerLine: 15,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 시즈 탱크 생산 시작! 시즈 모드 연구!',
@@ -4101,7 +4101,7 @@ const _tvt1facExpandMirror = ScenarioScript(
       name: 'mine_defense',
       startLine: 14,
       recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 15,
+      recoveryResourcePerLine: 8,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 마인을 앞마당 주변에 매설합니다! 영역 확보!',
@@ -4230,8 +4230,8 @@ const _tvt1facExpandMirror = ScenarioScript(
     ScriptPhase(
       name: 'buildup',
       startLine: 38,
-      recoveryArmyPerLine: 2,
-      recoveryResourcePerLine: 15,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 시즈 탱크 대량 생산! 시즈 모드 연구 완료!',

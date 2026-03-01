@@ -81,7 +81,7 @@ const _pvtDragoonExpandVsFactory = ScenarioScript(
       name: 'deployment',
       startLine: 17,
       recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 12,
+      recoveryResourcePerLine: 6,
       linearEvents: [
         ScriptEvent(
           text: '{away} 선수 벌처 생산! 마인 업그레이드도 연구합니다.',
@@ -1078,8 +1078,8 @@ const _pvtCarrierVsAnti = ScenarioScript(
     ScriptPhase(
       name: 'carrier_buildup',
       startLine: 17,
-      recoveryArmyPerLine: 2,
-      recoveryResourcePerLine: 15,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 캐리어 생산 시작! 인터셉터를 채우고 있습니다.',
@@ -1678,7 +1678,7 @@ const _pvtMineTriple = ScenarioScript(
       name: 'mine_control',
       startLine: 19,
       recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 15,
+      recoveryResourcePerLine: 8,
       linearEvents: [
         ScriptEvent(
           text: '{away}, 벌처가 맵 곳곳에 마인을 뿌립니다!',
@@ -1778,8 +1778,8 @@ const _pvtMineTriple = ScenarioScript(
     ScriptPhase(
       name: 'late_tech',
       startLine: 45,
-      recoveryArmyPerLine: 2,
-      recoveryResourcePerLine: 15,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 템플러 아카이브 건설! 하이 템플러를 준비합니다!',
@@ -1946,8 +1946,8 @@ const _pvt11up8facVsExpand = ScenarioScript(
     ScriptPhase(
       name: 'tech_race',
       startLine: 19,
-      recoveryArmyPerLine: 2,
-      recoveryResourcePerLine: 15,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
       linearEvents: [
         ScriptEvent(
           text: '{away} 선수 팩토리를 계속 증설합니다! 8팩을 향해!',
@@ -2186,7 +2186,7 @@ const _pvtFdTerran = ScenarioScript(
       name: 'fd_deployment',
       startLine: 19,
       recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 12,
+      recoveryResourcePerLine: 6,
       linearEvents: [
         ScriptEvent(
           text: '{away} 선수 벌처 생산하면서 스타포트 건설!',

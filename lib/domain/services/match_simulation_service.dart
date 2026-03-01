@@ -315,14 +315,9 @@ class MatchSimulationService {
     }
 
     // 최종 승률 계산
-    // TvZ 기본 보정 (+3%) + 맵 종족상성 효과 (증폭률 0.5)
+    // 맵 종족상성을 승률에 직접 반영 (맵 55 → 승률 55%)
     final raceDeviation = raceMatchupBonus.toDouble() - 50.0;
-    final isTvZ = (homePlayer.race == Race.terran && awayPlayer.race == Race.zerg) ||
-                  (homePlayer.race == Race.zerg && awayPlayer.race == Race.terran);
-    final tvzBase = isTvZ
-        ? (homePlayer.race == Race.terran ? 2.5 : -2.5)
-        : 0.0;
-    final baseWinRate = 50.0 + tvzBase + raceDeviation * 0.35;
+    final baseWinRate = 50.0 + raceDeviation * 1.0;
     final finalWinRate = (baseWinRate + statBonus + buildBonus + mapBonus + scoutMapBonus + levelBonus + snipingBonus).clamp(3.0, 97.0);
 
     return finalWinRate / 100;
@@ -440,10 +435,7 @@ class MatchSimulationService {
       final levelBonus = ((homePlayer.level.value - awayPlayer.level.value) * 2).clamp(-20, 20);
       final raceBonus = map.matchup.getWinRate(homePlayer.race, awayPlayer.race);
       final raceDeviation = raceBonus.toDouble() - 50.0;
-      final isTvZ = (homePlayer.race == Race.terran && awayPlayer.race == Race.zerg) ||
-                    (homePlayer.race == Race.zerg && awayPlayer.race == Race.terran);
-      final tvzBase = isTvZ ? (homePlayer.race == Race.terran ? 2.5 : -2.5) : 0.0;
-      final baseWinRate = 50.0 + tvzBase + raceDeviation * 0.35;
+      final baseWinRate = 50.0 + raceDeviation * 1.0;
       winRate = ((baseWinRate + statBonus + actualBuildBonus + levelBonus) / 100).clamp(0.03, 0.97);
     }
 
@@ -585,6 +577,7 @@ class MatchSimulationService {
           lineCount: lineCount,
           map: map,
           usedTexts: usedTexts,
+          winRate: winRate,
         );
 
         if (scriptResult != null) {
@@ -599,16 +592,28 @@ class MatchSimulationService {
 
             // 승패 체크
             if (scriptResult.decisive) {
-              // decisive 이벤트의 주체가 승자
+              // decisive 이벤트의 주체가 승자 (winRate 보정 적용)
+              // 시나리오 소유자에게 +15% 보정 → 동급이면 소유자 65% 승리
+              // 핵심: home/away 평균 = (winRate+0.15 + winRate-0.15)/2 = winRate
+              // → 시나리오 방향성은 유지하되 전체 승률은 정확히 winRate와 일치
               bool? decisiveWinner;
               if (scriptResult.entry != null) {
+                const scenarioBoost = 0.15;
                 if (scriptResult.entry!.owner == LogOwner.home) {
-                  decisiveWinner = true;
+                  decisiveWinner = _random.nextDouble() < (winRate + scenarioBoost).clamp(0.05, 0.95);
                 } else if (scriptResult.entry!.owner == LogOwner.away) {
-                  decisiveWinner = false;
+                  decisiveWinner = _random.nextDouble() < (winRate - scenarioBoost).clamp(0.05, 0.95);
                 } else {
-                  // system/clash: 병력 우세 쪽 승리
-                  decisiveWinner = state.homeArmy >= state.awayArmy;
+                  // system/clash: 병력 우세 + winRate 종합
+                  final armyDiff = state.homeArmy - state.awayArmy;
+                  if (armyDiff > 15) {
+                    decisiveWinner = true;
+                  } else if (armyDiff < -15) {
+                    decisiveWinner = false;
+                  } else {
+                    final armyBonus = armyDiff / 100;
+                    decisiveWinner = _random.nextDouble() < (winRate + armyBonus).clamp(0.05, 0.95);
+                  }
                 }
               }
               yield* _emitEnding(
@@ -690,14 +695,14 @@ class MatchSimulationService {
 
         // ===== 회복/포지셔닝 구간 (클래시 사이) =====
         if (linesSinceLastClash < clashInterval) {
-          // 매크로 능력치에 따라 회복량 차등
+          // 매크로 능력치에 따라 회복량 차등 (절반 수준으로 감소)
           final homeMacro = homeStats.macro;
           final awayMacro = awayStats.macro;
-          final homeRecoveryResource = 10 + (homeMacro / 200).round(); // 12~15
-          final awayRecoveryResource = 10 + (awayMacro / 200).round();
-          // 소량 병력 보충 (매크로 700+ 시 +2, 아니면 +1)
-          final homeRecoveryArmy = homeMacro >= 700 ? 2 : 1;
-          final awayRecoveryArmy = awayMacro >= 700 ? 2 : 1;
+          final homeRecoveryResource = 5 + (homeMacro / 400).round(); // 6~7
+          final awayRecoveryResource = 5 + (awayMacro / 400).round();
+          // 소량 병력 보충 (매크로 700+ 시 +1, 아니면 +0)
+          final homeRecoveryArmy = homeMacro >= 700 ? 1 : 0;
+          final awayRecoveryArmy = awayMacro >= 700 ? 1 : 0;
 
           // 수치만 적용, 텍스트 출력 없음 (로그에 회복 멘트 미표시)
           state = state.copyWith(
@@ -1216,7 +1221,28 @@ class MatchSimulationService {
       isLongGame: isLongGame,
     );
 
+    // 경기 종료 시 패배자 병력/자원 소진 + 승리자 전투 비용 반영
+    final loserArmy = _random.nextInt(10); // 0~9
+    final loserResource = _random.nextInt(30); // 0~29
+    final winnerArmy = isHomeWinner ? state.homeArmy : state.awayArmy;
+    final winnerResource = isHomeWinner ? state.homeResources : state.awayResources;
+    // 승리자: 병력 30~50% 소모, 자원 20~40% 소모
+    final winnerArmyLoss = (winnerArmy * (0.30 + _random.nextDouble() * 0.20)).round();
+    final winnerResourceLoss = (winnerResource * (0.20 + _random.nextDouble() * 0.20)).round();
+
     state = state.copyWith(
+      homeArmy: isHomeWinner
+          ? (winnerArmy - winnerArmyLoss).clamp(5, 200)
+          : loserArmy,
+      awayArmy: isHomeWinner
+          ? loserArmy
+          : (winnerArmy - winnerArmyLoss).clamp(5, 200),
+      homeResources: isHomeWinner
+          ? (winnerResource - winnerResourceLoss).clamp(10, 10000)
+          : loserResource,
+      awayResources: isHomeWinner
+          ? loserResource
+          : (winnerResource - winnerResourceLoss).clamp(10, 10000),
       isFinished: true,
       homeWin: isHomeWinner,
       battleLogEntries: [
@@ -2943,22 +2969,13 @@ class MatchSimulationService {
     }
 
     // 종족 상성 보정 (클래시 데미지)
-    // 1) TvZ 구조적 보정: 테란의 시즈모드/벙커 전투 이점 (+6%)
-    // 2) 맵별 종족 상성: tvz 설정값 기반 (증폭률 0.5)
+    // 맵별 종족 상성만 반영 (baseRaceFactor 제거 → 맵 설정으로 통일)
     if (!isZvZ) {
       final raceBonus = map?.matchup.getWinRate(homePlayer.race, awayPlayer.race) ?? 50;
 
-      // TvZ 기본 보정 (53% 기준: 시뮬 엔진의 구조적 Z우위 상쇄)
-      double baseRaceFactor = 0;
-      final isTvZ = (homePlayer.race == Race.terran && awayPlayer.race == Race.zerg) ||
-                    (homePlayer.race == Race.zerg && awayPlayer.race == Race.terran);
-      if (isTvZ) {
-        baseRaceFactor = homePlayer.race == Race.terran ? 0.025 : -0.025;
-      }
-
-      // 맵별 종족 상성 (증폭률 0.35, 극단값 clamp ±0.10)
-      final mapRaceFactor = (raceBonus - 50) / 100 * 0.35;
-      final totalFactor = (baseRaceFactor + mapRaceFactor).clamp(-0.10, 0.10);
+      // 맵별 종족 상성 (증폭률 0.20, 극단값 clamp ±0.10)
+      final mapRaceFactor = (raceBonus - 50) / 100 * 0.20;
+      final totalFactor = mapRaceFactor.clamp(-0.10, 0.10);
 
       if (totalFactor != 0) {
         homeArmyChange = (homeArmyChange * (1.0 - totalFactor)).round();
@@ -2983,6 +3000,51 @@ class MatchSimulationService {
         } else {
           awayArmyChange = (awayArmyChange * 0.80).round();
           homeArmyChange = (homeArmyChange * 1.15).round();
+        }
+      }
+    }
+
+    // 후반 클래시 데미지 가속: clashDuration이 길어질수록 병력 소모 증가
+    // 실제 스타크래프트처럼 후반 대치가 길어지면 소모전이 격화됨
+    if (clashDuration >= 40 && !isZvZ) {
+      // clashDuration 40~80: 1.2~1.5배, 80+: 1.5배 고정
+      final lateMultiplier = clashDuration >= 80
+          ? 1.5
+          : 1.0 + (clashDuration - 40) * 0.0125; // 40줄에서 1.0→1.5
+      // 음수(피해)인 경우에만 배율 적용 (병력 증가 이벤트는 그대로)
+      if (homeArmyChange < 0) {
+        homeArmyChange = (homeArmyChange * lateMultiplier).round();
+      }
+      if (awayArmyChange < 0) {
+        awayArmyChange = (awayArmyChange * lateMultiplier).round();
+      }
+      if (homeResourceChange < 0) {
+        homeResourceChange = (homeResourceChange * lateMultiplier).round();
+      }
+      if (awayResourceChange < 0) {
+        awayResourceChange = (awayResourceChange * lateMultiplier).round();
+      }
+    }
+
+    // winRate 기반 종합 데미지 보정 (ZvZ 제외 - ZvZ는 전용 winRate 로직 사용)
+    // 등급/레벨/컨디션/맵 등 모든 요소가 반영된 winRate로 전투 피해 차등
+    // winRate 0.5 → 보정 없음, 0.6 → ±6%, 0.7 → ±12%, 0.8 → ±18%
+    if (!isZvZ) {
+      final winRateBias = (winRate - 0.5) * 2.0; // -1.0 ~ +1.0
+      if (winRateBias.abs() > 0.01) {
+        final favoredMod = 1.0 - winRateBias * 0.3;  // 유리측 피해 감소
+        final unfavoredMod = 1.0 + winRateBias * 0.3; // 불리측 피해 증가
+        if (homeArmyChange < 0) {
+          homeArmyChange = (homeArmyChange * favoredMod).round();
+        }
+        if (awayArmyChange < 0) {
+          awayArmyChange = (awayArmyChange * unfavoredMod).round();
+        }
+        if (homeResourceChange < 0) {
+          homeResourceChange = (homeResourceChange * favoredMod).round();
+        }
+        if (awayResourceChange < 0) {
+          awayResourceChange = (awayResourceChange * unfavoredMod).round();
         }
       }
     }
@@ -3364,22 +3426,26 @@ class MatchSimulationService {
     //   clashDuration 81+:  1-(0.94×0.88×0.80) ≈ 33.8% (3개 체크)
     // 경기 길어질수록 결정적 이벤트 확률 급상승 → 무한 경기 방지
     if (!decisive) {
-      bool armyBasedWinner() {
-        if (currentState.homeArmy > currentState.awayArmy) return true;
-        if (currentState.awayArmy > currentState.homeArmy) return false;
-        return _random.nextBool(); // 동일하면 랜덤
+      bool decisiveWinner() {
+        // 병력 확정 우세 → 병력 기반 승자
+        final armyDiff = currentState.homeArmy - currentState.awayArmy;
+        if (armyDiff > 15) return true;
+        if (armyDiff < -15) return false;
+        // 병력 근소 차이 → winRate + 병력 보정으로 결정
+        final armyBonus = armyDiff / 100; // -0.15 ~ +0.15
+        return _random.nextDouble() < (winRate + armyBonus).clamp(0.05, 0.95);
       }
       if (clashDuration > 30 && _random.nextDouble() < 0.06) {
         decisive = true;
-        homeWinOverride = armyBasedWinner();
+        homeWinOverride = decisiveWinner();
       }
       if (!decisive && clashDuration > 50 && _random.nextDouble() < 0.12) {
         decisive = true;
-        homeWinOverride = armyBasedWinner();
+        homeWinOverride = decisiveWinner();
       }
       if (!decisive && clashDuration > 80 && _random.nextDouble() < 0.20) {
         decisive = true;
-        homeWinOverride = armyBasedWinner();
+        homeWinOverride = decisiveWinner();
       }
     }
 
@@ -3452,6 +3518,7 @@ class MatchSimulationService {
     required int lineCount,
     required GameMap map,
     required Map<String, int> usedTexts,
+    required double winRate,
   }) {
     // 모든 페이즈 소진 시 null 반환
     if (phaseIndex >= script.phases.length) return null;
@@ -3593,6 +3660,18 @@ class MatchSimulationService {
       }
     }
 
+    // winRate 기반 종합 데미지 보정 (시나리오 이벤트에도 적용)
+    // 피해(음수)에만 적용 → 빌드업(양수)은 영향 없음
+    final scenarioWinBias = (winRate - 0.5) * 2.0;
+    if (scenarioWinBias.abs() > 0.01) {
+      final sFavoredMod = 1.0 - scenarioWinBias * 0.3;
+      final sUnfavoredMod = 1.0 + scenarioWinBias * 0.3;
+      if (homeArmyChange < 0) homeArmyChange = (homeArmyChange * sFavoredMod).round();
+      if (awayArmyChange < 0) awayArmyChange = (awayArmyChange * sUnfavoredMod).round();
+      if (homeResourceChange < 0) homeResourceChange = (homeResourceChange * sFavoredMod).round();
+      if (awayResourceChange < 0) awayResourceChange = (awayResourceChange * sUnfavoredMod).round();
+    }
+
     // 상태 업데이트
     final newState = state.copyWith(
       homeArmy: (state.homeArmy + homeArmyChange).clamp(0, 200),
@@ -3695,9 +3774,12 @@ class MatchSimulationService {
 
   /// 승패 조건 체크
   bool? _checkWinCondition(SimulationState state, int lineCount) {
-    // 병력 0 이하 = 패배
-    if (state.homeArmy <= 0) return false;
-    if (state.awayArmy <= 0) return true;
+    // 병력 0 이하 = 패배 (동시 전멸 시 50/50 랜덤 → 홈/어웨이 편향 방지)
+    final homeDead = state.homeArmy <= 0;
+    final awayDead = state.awayArmy <= 0;
+    if (homeDead && awayDead) return _random.nextBool();
+    if (homeDead) return false;
+    if (awayDead) return true;
 
     // 병력 격차 승리 조건 (최소 50줄 이후에만 체크)
     if (lineCount >= 50) {
@@ -3788,6 +3870,17 @@ class MatchSimulationService {
         homeResourceChange = midLateStep.enemyResource;
       }
 
+      // winRate 기반 종합 데미지 보정 (폴백 시뮬레이션)
+      final fbWinBias = (winRate - 0.5) * 2.0;
+      if (fbWinBias.abs() > 0.01) {
+        final fbFavoredMod = 1.0 - fbWinBias * 0.3;
+        final fbUnfavoredMod = 1.0 + fbWinBias * 0.3;
+        if (homeArmyChange < 0) homeArmyChange = (homeArmyChange * fbFavoredMod).round();
+        if (awayArmyChange < 0) awayArmyChange = (awayArmyChange * fbUnfavoredMod).round();
+        if (homeResourceChange < 0) homeResourceChange = (homeResourceChange * fbFavoredMod).round();
+        if (awayResourceChange < 0) awayResourceChange = (awayResourceChange * fbUnfavoredMod).round();
+      }
+
       state = state.copyWith(
         homeArmy: (state.homeArmy + homeArmyChange).clamp(0, 200),
         awayArmy: (state.awayArmy + awayArmyChange).clamp(0, 200),
@@ -3808,7 +3901,27 @@ class MatchSimulationService {
           winner: winner, loser: loser, state: state, lineCount: lineCount,
         );
 
+        // 패배자 병력/자원 소진 + 승리자 전투 비용 반영
+        final fbLoserArmy = _random.nextInt(10);
+        final fbLoserResource = _random.nextInt(30);
+        final fbWinnerArmy = result ? state.homeArmy : state.awayArmy;
+        final fbWinnerResource = result ? state.homeResources : state.awayResources;
+        final fbWinnerArmyLoss = (fbWinnerArmy * (0.30 + _random.nextDouble() * 0.20)).round();
+        final fbWinnerResourceLoss = (fbWinnerResource * (0.20 + _random.nextDouble() * 0.20)).round();
+
         state = state.copyWith(
+          homeArmy: result
+              ? (fbWinnerArmy - fbWinnerArmyLoss).clamp(5, 200)
+              : fbLoserArmy,
+          awayArmy: result
+              ? fbLoserArmy
+              : (fbWinnerArmy - fbWinnerArmyLoss).clamp(5, 200),
+          homeResources: result
+              ? (fbWinnerResource - fbWinnerResourceLoss).clamp(10, 10000)
+              : fbLoserResource,
+          awayResources: result
+              ? fbLoserResource
+              : (fbWinnerResource - fbWinnerResourceLoss).clamp(10, 10000),
           isFinished: true,
           homeWin: result,
           battleLogEntries: [
@@ -3832,7 +3945,27 @@ class MatchSimulationService {
         winner: winner, loser: loser, state: state, lineCount: lineCount,
       );
 
+      // 패배자 병력/자원 소진 + 승리자 전투 비용 반영
+      final fbLoserArmy2 = _random.nextInt(10);
+      final fbLoserResource2 = _random.nextInt(30);
+      final fbWinnerArmy2 = homeWin ? state.homeArmy : state.awayArmy;
+      final fbWinnerResource2 = homeWin ? state.homeResources : state.awayResources;
+      final fbWinnerArmyLoss2 = (fbWinnerArmy2 * (0.30 + _random.nextDouble() * 0.20)).round();
+      final fbWinnerResourceLoss2 = (fbWinnerResource2 * (0.20 + _random.nextDouble() * 0.20)).round();
+
       state = state.copyWith(
+        homeArmy: homeWin
+            ? (fbWinnerArmy2 - fbWinnerArmyLoss2).clamp(5, 200)
+            : fbLoserArmy2,
+        awayArmy: homeWin
+            ? fbLoserArmy2
+            : (fbWinnerArmy2 - fbWinnerArmyLoss2).clamp(5, 200),
+        homeResources: homeWin
+            ? (fbWinnerResource2 - fbWinnerResourceLoss2).clamp(10, 10000)
+            : fbLoserResource2,
+        awayResources: homeWin
+            ? fbLoserResource2
+            : (fbWinnerResource2 - fbWinnerResourceLoss2).clamp(10, 10000),
         isFinished: true,
         homeWin: homeWin,
         battleLogEntries: [

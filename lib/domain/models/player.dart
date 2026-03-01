@@ -468,60 +468,21 @@ class Player {
     // levelValue 4-5: 상승세 (3-7 시즌)
     // levelValue 6-7: 전성기 (7-14 시즌)
     // levelValue 8-9: 베테랑 (14-20 시즌)
-    // levelValue 10: 노장 (20+ 시즌)
-    switch (levelValue) {
-      case 1:
-        return 0;
-      case 2:
-        return 2;
-      case 3:
-        return 3;
-      case 4:
-        return 5;
-      case 5:
-        return 7;
-      case 6:
-        return 10;
-      case 7:
-        return 13;
-      case 8:
-        return 16;
-      case 9:
-        return 19;
-      case 10:
-        return 22;
-      default:
-        return 0;
-    }
+    // levelValue 10+: 노장 (20+ 시즌)
+    if (levelValue <= 1) return 0;
+    if (levelValue <= 3) return levelValue;        // 신인
+    if (levelValue <= 5) return 3 + (levelValue - 3) * 2; // 상승세
+    if (levelValue <= 7) return 7 + (levelValue - 5) * 3; // 전성기
+    if (levelValue <= 9) return 13 + (levelValue - 7) * 3; // 베테랑
+    return 19 + (levelValue - 9) * 2; // 노장 (10+)
   }
 
   /// levelValue를 기반으로 기본 경험치 계산 (하위 호환성)
   static int _defaultExperience(int levelValue) {
-    // 기존 레벨에 맞는 경험치 부여 (새 테이블 기준)
-    switch (levelValue) {
-      case 1:
-        return 0;
-      case 2:
-        return 200;
-      case 3:
-        return 500;
-      case 4:
-        return 1000;
-      case 5:
-        return 1800;
-      case 6:
-        return 3000;
-      case 7:
-        return 4500;
-      case 8:
-        return 6500;
-      case 9:
-        return 9000;
-      case 10:
-        return 12000;
-      default:
-        return 0;
-    }
+    // PlayerLevel enum의 requiredExp와 동기화
+    if (levelValue <= 1) return 0;
+    if (levelValue > 20) return 180000;
+    return PlayerLevel.values[levelValue - 1].requiredExp;
   }
 
   Race get race => Race.values[raceIndex];
