@@ -726,10 +726,10 @@ class BuildMatchup {
     if (a == BuildType.pvzForgeCannon && b == BuildType.zvpYabarwi) return 5;
 
     // PvP 특수 상성 (28쌍)
-    if (a == BuildType.pvpDarkAllIn && b == BuildType.pvp2GateDragoon) return 8;      // 다크더블 > 옵3겟 (15→8: 옵저버 타이밍에 따라 성패 갈림)
-    if (a == BuildType.pvp2GateDragoon && b == BuildType.pvpDarkAllIn) return -8;
-    if (a == BuildType.pvp4GateDragoon && b == BuildType.pvp1GateMulti) return 18;    // 3겟드라군 > 원겟멀티
-    if (a == BuildType.pvp1GateMulti && b == BuildType.pvp4GateDragoon) return -18;
+    if (a == BuildType.pvpDarkAllIn && b == BuildType.pvp2GateDragoon) return 5;      // 다크더블 > 옵3겟 (8→5: 70%초과 보정)
+    if (a == BuildType.pvp2GateDragoon && b == BuildType.pvpDarkAllIn) return -5;
+    if (a == BuildType.pvp4GateDragoon && b == BuildType.pvp1GateMulti) return 0;     // 3겟드라군 > 원겟멀티 (스타일 +25로 충분)
+    if (a == BuildType.pvp1GateMulti && b == BuildType.pvp4GateDragoon) return 0;
     if (a == BuildType.pvpZealotRush && b == BuildType.pvp1GateMulti) return 15;      // 센터99겟 > 원겟멀티
     if (a == BuildType.pvp1GateMulti && b == BuildType.pvpZealotRush) return -15;
     if (a == BuildType.pvp1GateRobo && b == BuildType.pvpDarkAllIn) return 20;        // 기어리버 > 다크더블

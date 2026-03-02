@@ -1442,7 +1442,7 @@ const _pvp4gateVsMulti = ScenarioScript(
         // 분기 A: 드라군 물량이 밀어냄
         ScriptBranch(
           id: 'dragoon_rush_wins',
-          baseProbability: 0.9,
+          baseProbability: 0.7,
           events: [
             ScriptEvent(
               text: '{home}, 드라군 물량으로 상대 앞마당을 밀어냅니다!',
@@ -1470,12 +1470,12 @@ const _pvp4gateVsMulti = ScenarioScript(
         // 분기 B: 멀티가 버텨내며 역전
         ScriptBranch(
           id: 'multi_holds',
-          baseProbability: 1.1,
+          baseProbability: 1.3,
           events: [
             ScriptEvent(
               text: '{away}, 드라군과 질럿으로 앞마당을 지켜냅니다!',
               owner: LogOwner.away,
-              homeArmy: -3, awayArmy: -1, favorsStat: 'defense',
+              homeArmy: -4, awayArmy: -1, favorsStat: 'defense',
               altText: '{away} 선수 수비 성공! 드라군을 잡아냅니다!',
             ),
             ScriptEvent(
@@ -1486,7 +1486,7 @@ const _pvp4gateVsMulti = ScenarioScript(
             ScriptEvent(
               text: '{away}, 게이트웨이가 추가로 돌아갑니다! 멀티 자원이 빛을 발합니다!',
               owner: LogOwner.away,
-              awayArmy: 5, awayResource: 15,
+              awayArmy: 7, awayResource: 20,
               altText: '{away} 선수 병력이 쏟아져 나옵니다! 멀티의 힘!',
             ),
             ScriptEvent(
@@ -1511,7 +1511,7 @@ const _pvp4gateVsMulti = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 멀티 자원으로 병력을 빠르게 보충합니다!',
           owner: LogOwner.away,
-          awayArmy: 4, awayResource: -20,
+          awayArmy: 5, awayResource: -15,
           altText: '{away}, 멀티의 자원이 빛을 발합니다! 병력 보충이 빠릅니다!',
         ),
         ScriptEvent(
@@ -1522,7 +1522,7 @@ const _pvp4gateVsMulti = ScenarioScript(
         ScriptEvent(
           text: '{away}, 드라군 편대가 전진합니다! 멀티의 힘!',
           owner: LogOwner.away,
-          awayArmy: 2, favorsStat: 'attack',
+          awayArmy: 3, awayResource: 10, favorsStat: 'attack',
           altText: '{away} 선수 멀티 자원으로 압도합니다!',
         ),
         ScriptEvent(

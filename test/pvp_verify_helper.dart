@@ -249,6 +249,8 @@ class BatchResult {
   List<BranchDetector> phase4 = [];
   int p2Unknown = 0;
   int p4Unknown = 0;
+  List<String> lastGameLog = [];
+  bool? lastGameHomeWin;
 
   int get total => homeWins + awayWins;
   double get homeWinRate => total > 0 ? homeWins / total * 100 : 0;
@@ -294,6 +296,19 @@ Future<BatchResult> runBatch({
 
     result.armyMargins.add(state.homeArmy - state.awayArmy);
     result.resourceMargins.add(state.homeResources - state.awayResources);
+
+    // 마지막 경기 로그 캡처
+    if (i == count - 1) {
+      result.lastGameLog = state.battleLogEntries.map((e) {
+        switch (e.owner) {
+          case LogOwner.home: return '[홈] ${e.text}';
+          case LogOwner.away: return '[어웨이] ${e.text}';
+          case LogOwner.clash: return '[교전] ${e.text}';
+          case LogOwner.system: return '[해설] ${e.text}';
+        }
+      }).toList();
+      result.lastGameHomeWin = won;
+    }
 
     final allText = state.battleLogEntries.map((e) => e.text).join(' ');
 
@@ -377,6 +392,10 @@ Future<BatchResult> runBatchBiDir({
   }
   combined.p2Unknown = fwd.p2Unknown + rev.p2Unknown;
   combined.p4Unknown = fwd.p4Unknown + rev.p4Unknown;
+
+  // 마지막 경기 로그 (정방향에서 가져옴)
+  combined.lastGameLog = fwd.lastGameLog;
+  combined.lastGameHomeWin = fwd.lastGameHomeWin;
 
   return combined;
 }
@@ -510,6 +529,18 @@ String generateFullReport({
     for (final e in allMaps) {
       buf.writeln('| ${e.key} | ${e.value.total} | ${e.value.homeWinRate.toStringAsFixed(1)}% |');
     }
+    buf.writeln('');
+  }
+
+  // 마지막 경기 로그 (동급 결과에서 가져오기)
+  if (mainResult.lastGameLog.isNotEmpty) {
+    final winner = mainResult.lastGameHomeWin == true ? '홈 승리' : '어웨이 승리';
+    buf.writeln('## 마지막 경기 로그 ($winner)\n');
+    buf.writeln('```');
+    for (final line in mainResult.lastGameLog) {
+      buf.writeln(line);
+    }
+    buf.writeln('```');
     buf.writeln('');
   }
 
