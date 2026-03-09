@@ -60,7 +60,7 @@ class _SeasonEndScreenState extends ConsumerState<SeasonEndScreen> {
       decoration: BoxDecoration(
         color: AppColors.cardBackground,
         border: Border(
-          bottom: BorderSide(color: AppColors.primary.withOpacity(0.3)),
+          bottom: BorderSide(color: AppColors.primary.withValues(alpha:0.3)),
         ),
       ),
       child: Row(
@@ -167,7 +167,7 @@ class _SeasonEndScreenState extends ConsumerState<SeasonEndScreen> {
               borderRadius: BorderRadius.circular(8.sp),
               boxShadow: [
                 BoxShadow(
-                  color: Color(team.colorValue).withOpacity(0.5),
+                  color: Color(team.colorValue).withValues(alpha:0.5),
                   blurRadius: 20,
                 ),
               ],
@@ -201,7 +201,7 @@ class _SeasonEndScreenState extends ConsumerState<SeasonEndScreen> {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 32.sp, vertical: 12.sp),
             decoration: BoxDecoration(
-              color: _getRankColor(rank).withOpacity(0.2),
+              color: _getRankColor(rank).withValues(alpha:0.2),
               borderRadius: BorderRadius.circular(24.sp),
               border: Border.all(color: _getRankColor(rank), width: 2),
             ),
@@ -244,7 +244,7 @@ class _SeasonEndScreenState extends ConsumerState<SeasonEndScreen> {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 16.sp, vertical: 8.sp),
               decoration: BoxDecoration(
-                color: Colors.green.withOpacity(0.2),
+                color: Colors.green.withValues(alpha:0.2),
                 borderRadius: BorderRadius.circular(4.sp),
                 border: Border.all(color: Colors.green),
               ),
@@ -314,7 +314,7 @@ class _SeasonEndScreenState extends ConsumerState<SeasonEndScreen> {
                   margin: EdgeInsets.only(bottom: 8.sp),
                   padding: EdgeInsets.all(8.sp),
                   decoration: BoxDecoration(
-                    color: isMyTeam ? AppColors.primary.withOpacity(0.2) : null,
+                    color: isMyTeam ? AppColors.primary.withValues(alpha:0.2) : null,
                     borderRadius: BorderRadius.circular(4.sp),
                     border: isMyTeam ? Border.all(color: AppColors.accent) : null,
                   ),
@@ -335,7 +335,7 @@ class _SeasonEndScreenState extends ConsumerState<SeasonEndScreen> {
                         width: 35.sp,
                         height: 25.sp,
                         decoration: BoxDecoration(
-                          color: Color(team.colorValue).withOpacity(0.2),
+                          color: Color(team.colorValue).withValues(alpha:0.2),
                           borderRadius: BorderRadius.circular(2.sp),
                         ),
                         child: Center(
@@ -418,7 +418,7 @@ class _SeasonEndScreenState extends ConsumerState<SeasonEndScreen> {
             child: Container(
               padding: EdgeInsets.all(16.sp),
               decoration: BoxDecoration(
-                color: AppColors.cardBackground.withOpacity(0.5),
+                color: AppColors.cardBackground.withValues(alpha:0.5),
                 borderRadius: BorderRadius.circular(8.sp),
               ),
               child: levelUpPlayers.isEmpty
@@ -449,7 +449,7 @@ class _SeasonEndScreenState extends ConsumerState<SeasonEndScreen> {
       decoration: BoxDecoration(
         color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(8.sp),
-        border: Border.all(color: Colors.green.withOpacity(0.5)),
+        border: Border.all(color: Colors.green.withValues(alpha:0.5)),
       ),
       child: Row(
         children: [
@@ -458,7 +458,7 @@ class _SeasonEndScreenState extends ConsumerState<SeasonEndScreen> {
             width: 36.sp,
             height: 36.sp,
             decoration: BoxDecoration(
-              color: _getRaceColor(player.race).withOpacity(0.2),
+              color: _getRaceColor(player.race).withValues(alpha:0.2),
               borderRadius: BorderRadius.circular(4.sp),
             ),
             child: Center(
@@ -590,9 +590,9 @@ class _SeasonEndScreenState extends ConsumerState<SeasonEndScreen> {
                         margin: EdgeInsets.only(bottom: 8.sp),
                         padding: EdgeInsets.all(8.sp),
                         decoration: BoxDecoration(
-                          color: Colors.red.withOpacity(0.1),
+                          color: Colors.red.withValues(alpha:0.1),
                           borderRadius: BorderRadius.circular(4.sp),
-                          border: Border.all(color: Colors.red.withOpacity(0.3)),
+                          border: Border.all(color: Colors.red.withValues(alpha:0.3)),
                         ),
                         child: Row(
                           children: [
@@ -600,7 +600,7 @@ class _SeasonEndScreenState extends ConsumerState<SeasonEndScreen> {
                               width: 24.sp,
                               height: 24.sp,
                               decoration: BoxDecoration(
-                                color: _getRaceColor(player.race).withOpacity(0.2),
+                                color: _getRaceColor(player.race).withValues(alpha:0.2),
                                 borderRadius: BorderRadius.circular(4.sp),
                               ),
                               child: Center(
@@ -700,9 +700,9 @@ class _SeasonEndScreenState extends ConsumerState<SeasonEndScreen> {
                         margin: EdgeInsets.only(bottom: 8.sp),
                         padding: EdgeInsets.all(8.sp),
                         decoration: BoxDecoration(
-                          color: Colors.amber.withOpacity(0.1),
+                          color: Colors.amber.withValues(alpha:0.1),
                           borderRadius: BorderRadius.circular(4.sp),
-                          border: Border.all(color: Colors.amber.withOpacity(0.3)),
+                          border: Border.all(color: Colors.amber.withValues(alpha:0.3)),
                         ),
                         child: Row(
                           children: [
@@ -710,7 +710,7 @@ class _SeasonEndScreenState extends ConsumerState<SeasonEndScreen> {
                               width: 24.sp,
                               height: 24.sp,
                               decoration: BoxDecoration(
-                                color: _getRaceColor(player.race).withOpacity(0.2),
+                                color: _getRaceColor(player.race).withValues(alpha:0.2),
                                 borderRadius: BorderRadius.circular(4.sp),
                               ),
                               child: Center(
@@ -851,7 +851,7 @@ class _SeasonEndScreenState extends ConsumerState<SeasonEndScreen> {
                   shape: BoxShape.circle,
                   color: index == _currentPage
                       ? AppColors.accent
-                      : Colors.grey.withOpacity(0.3),
+                      : Colors.grey.withValues(alpha:0.3),
                 ),
               );
             }),

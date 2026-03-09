@@ -93,7 +93,7 @@ class _PlayoffScheduleScreenState extends ConsumerState<PlayoffScheduleScreen> {
       decoration: BoxDecoration(
         color: AppColors.cardBackground,
         border: Border(
-          bottom: BorderSide(color: AppColors.primary.withOpacity(0.3)),
+          bottom: BorderSide(color: AppColors.primary.withValues(alpha:0.3)),
         ),
       ),
       child: Column(
@@ -121,7 +121,7 @@ class _PlayoffScheduleScreenState extends ConsumerState<PlayoffScheduleScreen> {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 12.sp, vertical: 4.sp),
               decoration: BoxDecoration(
-                color: Colors.orange.withOpacity(0.2),
+                color: Colors.orange.withValues(alpha:0.2),
                 borderRadius: BorderRadius.circular(4.sp),
                 border: Border.all(color: Colors.orange),
               ),
@@ -254,16 +254,16 @@ class _PlayoffScheduleScreenState extends ConsumerState<PlayoffScheduleScreen> {
     Color textColor;
 
     if (isCompleted) {
-      bgColor = Colors.green.withOpacity(0.2);
+      bgColor = Colors.green.withValues(alpha:0.2);
       borderColor = Colors.green;
       textColor = Colors.green;
     } else if (isCurrent) {
-      bgColor = isFinal ? Colors.amber.withOpacity(0.2) : Colors.blue.withOpacity(0.2);
+      bgColor = isFinal ? Colors.amber.withValues(alpha:0.2) : Colors.blue.withValues(alpha:0.2);
       borderColor = isFinal ? Colors.amber : Colors.blue;
       textColor = isFinal ? Colors.amber : Colors.blue;
     } else {
-      bgColor = Colors.grey.withOpacity(0.1);
-      borderColor = Colors.grey.withOpacity(0.3);
+      bgColor = Colors.grey.withValues(alpha:0.1);
+      borderColor = Colors.grey.withValues(alpha:0.3);
       textColor = Colors.grey;
     }
 
@@ -310,7 +310,7 @@ class _PlayoffScheduleScreenState extends ConsumerState<PlayoffScheduleScreen> {
       padding: EdgeInsets.symmetric(horizontal: 4.sp),
       child: Icon(
         Icons.arrow_forward,
-        color: isCompleted ? Colors.green : Colors.grey.withOpacity(0.5),
+        color: isCompleted ? Colors.green : Colors.grey.withValues(alpha:0.5),
         size: 20.sp,
       ),
     );
@@ -457,8 +457,8 @@ class _PlayoffScheduleScreenState extends ConsumerState<PlayoffScheduleScreen> {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Colors.amber.withOpacity(0.2),
-                Colors.orange.withOpacity(0.2),
+                Colors.amber.withValues(alpha:0.2),
+                Colors.orange.withValues(alpha:0.2),
               ],
             ),
             borderRadius: BorderRadius.circular(8.sp),
@@ -512,7 +512,7 @@ class _PlayoffScheduleScreenState extends ConsumerState<PlayoffScheduleScreen> {
                         margin: EdgeInsets.only(top: 4.sp),
                         padding: EdgeInsets.symmetric(horizontal: 12.sp, vertical: 4.sp),
                         decoration: BoxDecoration(
-                          color: Colors.amber.withOpacity(0.3),
+                          color: Colors.amber.withValues(alpha:0.3),
                           borderRadius: BorderRadius.circular(4.sp),
                         ),
                         child: Text(
@@ -554,7 +554,7 @@ class _PlayoffScheduleScreenState extends ConsumerState<PlayoffScheduleScreen> {
               borderRadius: BorderRadius.circular(20.sp),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.amber.withOpacity(0.5),
+                  color: Colors.amber.withValues(alpha:0.5),
                   blurRadius: 10,
                   spreadRadius: 2,
                 ),
@@ -595,9 +595,9 @@ class _PlayoffScheduleScreenState extends ConsumerState<PlayoffScheduleScreen> {
         width: compact ? 60.sp : 100.sp,
         padding: EdgeInsets.all(6.sp),
         decoration: BoxDecoration(
-          color: Colors.grey.withOpacity(0.1),
+          color: Colors.grey.withValues(alpha:0.1),
           borderRadius: BorderRadius.circular(4.sp),
-          border: Border.all(color: Colors.grey.withOpacity(0.3)),
+          border: Border.all(color: Colors.grey.withValues(alpha:0.3)),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -628,11 +628,11 @@ class _PlayoffScheduleScreenState extends ConsumerState<PlayoffScheduleScreen> {
     );
     final isPlayerTeam = team.id == gameState.playerTeam.id;
 
-    Color bgColor = Color(team.colorValue).withOpacity(0.2);
+    Color bgColor = Color(team.colorValue).withValues(alpha:0.2);
     Color borderColor = Color(team.colorValue);
 
     if (isWinner) {
-      bgColor = Colors.green.withOpacity(0.3);
+      bgColor = Colors.green.withValues(alpha:0.3);
       borderColor = Colors.green;
     } else if (isPlayerTeam) {
       borderColor = Colors.blue;
@@ -712,13 +712,13 @@ class _PlayoffScheduleScreenState extends ConsumerState<PlayoffScheduleScreen> {
           Container(
             width: 2,
             height: 15.sp,
-            color: result != null ? Colors.green : Colors.grey.withOpacity(0.3),
+            color: result != null ? Colors.green : Colors.grey.withValues(alpha:0.3),
           ),
           if (showScore && result != null)
             Container(
               padding: EdgeInsets.symmetric(horizontal: 6.sp, vertical: 2.sp),
               decoration: BoxDecoration(
-                color: Colors.green.withOpacity(0.2),
+                color: Colors.green.withValues(alpha:0.2),
                 borderRadius: BorderRadius.circular(4.sp),
               ),
               child: Text(
@@ -736,13 +736,13 @@ class _PlayoffScheduleScreenState extends ConsumerState<PlayoffScheduleScreen> {
               height: 8.sp,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.grey.withOpacity(0.3),
+                color: Colors.grey.withValues(alpha:0.3),
               ),
             ),
           Container(
             width: 2,
             height: 15.sp,
-            color: result != null ? Colors.green : Colors.grey.withOpacity(0.3),
+            color: result != null ? Colors.green : Colors.grey.withValues(alpha:0.3),
           ),
         ],
       ),
@@ -805,7 +805,7 @@ class _PlayoffScheduleScreenState extends ConsumerState<PlayoffScheduleScreen> {
             Container(
               padding: EdgeInsets.all(8.sp),
               decoration: BoxDecoration(
-                color: Colors.purple.withOpacity(0.2),
+                color: Colors.purple.withValues(alpha:0.2),
                 borderRadius: BorderRadius.circular(4.sp),
                 border: Border.all(color: Colors.purple),
               ),
@@ -841,7 +841,7 @@ class _PlayoffScheduleScreenState extends ConsumerState<PlayoffScheduleScreen> {
       padding: EdgeInsets.symmetric(vertical: 4.sp, horizontal: 8.sp),
       margin: EdgeInsets.only(bottom: 4.sp),
       decoration: BoxDecoration(
-        color: isHighlight ? Colors.purple.withOpacity(0.1) : null,
+        color: isHighlight ? Colors.purple.withValues(alpha:0.1) : null,
         borderRadius: BorderRadius.circular(4.sp),
       ),
       child: Row(
@@ -977,7 +977,7 @@ class _PlayoffScheduleScreenState extends ConsumerState<PlayoffScheduleScreen> {
       decoration: BoxDecoration(
         color: AppColors.cardBackground,
         border: Border(
-          top: BorderSide(color: AppColors.primary.withOpacity(0.3)),
+          top: BorderSide(color: AppColors.primary.withValues(alpha:0.3)),
         ),
       ),
       child: Row(
@@ -1020,7 +1020,7 @@ class _PlayoffScheduleScreenState extends ConsumerState<PlayoffScheduleScreen> {
                   Text(
                     subText,
                     style: TextStyle(
-                      color: Colors.white.withOpacity(0.7),
+                      color: Colors.white.withValues(alpha:0.7),
                       fontSize: 10.sp,
                     ),
                   ),
@@ -1145,8 +1145,6 @@ class _PlayoffScheduleScreenState extends ConsumerState<PlayoffScheduleScreen> {
     // 결과 다이얼로그 표시
     final winnerTeamId = homeScore > awayScore ? homeTeamId : awayTeamId;
     final winnerName = _getTeamName(winnerTeamId, gameState);
-    final loserName = homeScore > awayScore ? awayName : homeName;
-
     if (mounted) {
       await showDialog(
         context: context,
@@ -1190,7 +1188,7 @@ class _PlayoffScheduleScreenState extends ConsumerState<PlayoffScheduleScreen> {
               Container(
                 padding: EdgeInsets.all(12.sp),
                 decoration: BoxDecoration(
-                  color: Colors.green.withOpacity(0.2),
+                  color: Colors.green.withValues(alpha:0.2),
                   borderRadius: BorderRadius.circular(8.sp),
                   border: Border.all(color: Colors.green),
                 ),
@@ -1227,10 +1225,10 @@ class _PlayoffScheduleScreenState extends ConsumerState<PlayoffScheduleScreen> {
     return Container(
       padding: EdgeInsets.all(12.sp),
       decoration: BoxDecoration(
-        color: isWinner ? Colors.green.withOpacity(0.2) : Colors.grey.withOpacity(0.1),
+        color: isWinner ? Colors.green.withValues(alpha:0.2) : Colors.grey.withValues(alpha:0.1),
         borderRadius: BorderRadius.circular(8.sp),
         border: Border.all(
-          color: isWinner ? Colors.green : Colors.grey.withOpacity(0.3),
+          color: isWinner ? Colors.green : Colors.grey.withValues(alpha:0.3),
           width: isWinner ? 2 : 1,
         ),
       ),

@@ -186,7 +186,7 @@ class _SaveSlotCard extends StatelessWidget {
                   ),
                   decoration: BoxDecoration(
                     color: isEmpty
-                        ? AppTheme.textSecondary.withOpacity(0.3)
+                        ? AppTheme.textSecondary.withValues(alpha:0.3)
                         : AppTheme.primaryBlue,
                     borderRadius: BorderRadius.circular(4),
                   ),
@@ -292,7 +292,7 @@ class _InfoChip extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: AppTheme.primaryBlue.withOpacity(0.3),
+        color: AppTheme.primaryBlue.withValues(alpha:0.3),
         borderRadius: BorderRadius.circular(4),
       ),
       child: Row(

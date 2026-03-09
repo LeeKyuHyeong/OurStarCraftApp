@@ -201,7 +201,7 @@ class _TeamCard extends StatelessWidget {
           boxShadow: isSelected
               ? [
                   BoxShadow(
-                    color: teamColor.withOpacity(0.3),
+                    color: teamColor.withValues(alpha:0.3),
                     blurRadius: 12,
                     spreadRadius: 2,
                   ),
@@ -216,7 +216,7 @@ class _TeamCard extends StatelessWidget {
               width: 60,
               height: 60,
               decoration: BoxDecoration(
-                color: teamColor.withOpacity(0.2),
+                color: teamColor.withValues(alpha:0.2),
                 shape: BoxShape.circle,
                 border: Border.all(
                   color: teamColor,

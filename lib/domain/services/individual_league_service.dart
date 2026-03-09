@@ -553,39 +553,6 @@ class IndividualLeagueService {
     );
   }
 
-  /// PC방 예선 조 구성 계산 (8명 조 개수, 6명 조 개수)
-  /// 총 인원을 8명 조와 6명 조로 나눔
-  (int, int) _calculateGroupConfig(int totalPlayers) {
-    // 8x + 6y = totalPlayers 를 만족하는 (x, y) 찾기
-    // 8명 조를 최대한 많이 사용하되, 나머지는 6명 조로 채움
-
-    // 예시:
-    // 112명 = 8*8 + 6*8 = 64 + 48 (8명 조 8개, 6명 조 8개)
-    // 112명 = 8*14 + 6*0 = 112 (8명 조 14개)
-    // 96명 = 8*12 + 6*0 = 96 (8명 조 12개)
-    // 100명 = 8*8 + 6*6 = 64 + 36 (8명 조 8개, 6명 조 6개)
-
-    // 8명 조 위주로 배정, 나머지를 6명 조로
-    for (var groups8 = totalPlayers ~/ 8; groups8 >= 0; groups8--) {
-      final remaining = totalPlayers - (groups8 * 8);
-      if (remaining >= 0 && remaining % 6 == 0) {
-        final groups6 = remaining ~/ 6;
-        return (groups8, groups6);
-      }
-    }
-
-    // 6명 조로만 구성 가능한지 체크
-    if (totalPlayers % 6 == 0) {
-      return (0, totalPlayers ~/ 6);
-    }
-
-    // 완벽하게 나눠지지 않으면 최대한 8명 조로 채우고 나머지는 6명 조로
-    // (일부 조가 6명 미만일 수 있음 - 실제 상황에선 잘 안 일어남)
-    final groups8 = totalPlayers ~/ 8;
-    final remaining = totalPlayers - (groups8 * 8);
-    final groups6 = remaining > 0 ? 1 : 0; // 남은 인원으로 1개 조 구성
-    return (groups8, groups6);
-  }
 
   /// 선수들을 등급순으로 정렬
   List<String> _sortPlayersByGrade(List<String> playerIds, Map<String, Player> playerMap) {

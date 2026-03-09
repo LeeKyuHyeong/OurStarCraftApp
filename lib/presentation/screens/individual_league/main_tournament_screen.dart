@@ -217,7 +217,7 @@ class _MainTournamentScreenState extends ConsumerState<MainTournamentScreen> {
         padding: EdgeInsets.symmetric(horizontal: 12.sp, vertical: 8.sp),
         decoration: BoxDecoration(
           color: AppColors.cardBackground,
-          border: Border(bottom: BorderSide(color: AppColors.primary.withOpacity(0.3))),
+          border: Border(bottom: BorderSide(color: AppColors.primary.withValues(alpha:0.3))),
         ),
         child: Row(
           children: [
@@ -243,7 +243,7 @@ class _MainTournamentScreenState extends ConsumerState<MainTournamentScreen> {
       padding: EdgeInsets.symmetric(horizontal: 12.sp, vertical: 12.sp),
       decoration: BoxDecoration(
         color: AppColors.cardBackground,
-        border: Border(bottom: BorderSide(color: AppColors.primary.withOpacity(0.3))),
+        border: Border(bottom: BorderSide(color: AppColors.primary.withValues(alpha:0.3))),
       ),
       child: Column(
         children: [
@@ -286,7 +286,7 @@ class _MainTournamentScreenState extends ConsumerState<MainTournamentScreen> {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 12.sp, vertical: 4.sp),
               decoration: BoxDecoration(
-                color: Colors.orange.withOpacity(0.2),
+                color: Colors.orange.withValues(alpha:0.2),
                 borderRadius: BorderRadius.circular(4.sp),
                 border: Border.all(color: Colors.orange),
               ),
@@ -312,7 +312,7 @@ class _MainTournamentScreenState extends ConsumerState<MainTournamentScreen> {
     return Container(
       width: 60.sp, height: 40.sp,
       decoration: BoxDecoration(
-        color: Color(team.colorValue).withOpacity(0.2),
+        color: Color(team.colorValue).withValues(alpha:0.2),
         borderRadius: BorderRadius.circular(8.sp),
         border: Border.all(color: Color(team.colorValue)),
       ),
@@ -427,7 +427,7 @@ class _MainTournamentScreenState extends ConsumerState<MainTournamentScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.emoji_events, color: AppColors.accent.withOpacity(0.3), size: 32.sp),
+              Icon(Icons.emoji_events, color: AppColors.accent.withValues(alpha:0.3), size: 32.sp),
               SizedBox(height: 8.sp),
               Text(
                 '진행되지 않았습니다',
@@ -477,7 +477,7 @@ class _MainTournamentScreenState extends ConsumerState<MainTournamentScreen> {
       decoration: BoxDecoration(
         color: Colors.grey[850],
         borderRadius: BorderRadius.circular(6.sp),
-        border: Border.all(color: Colors.grey.withOpacity(0.3)),
+        border: Border.all(color: Colors.grey.withValues(alpha:0.3)),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -536,7 +536,7 @@ class _MainTournamentScreenState extends ConsumerState<MainTournamentScreen> {
           decoration: BoxDecoration(
             color: Colors.grey[900],
             borderRadius: BorderRadius.circular(4.sp),
-            border: Border.all(color: Colors.grey.withOpacity(0.5)),
+            border: Border.all(color: Colors.grey.withValues(alpha:0.5)),
           ),
           child: Center(
             child: Text(
@@ -602,7 +602,7 @@ class _MainTournamentScreenState extends ConsumerState<MainTournamentScreen> {
       decoration: BoxDecoration(
         color: Colors.grey[850],
         borderRadius: BorderRadius.circular(6.sp),
-        border: Border.all(color: Colors.grey.withOpacity(0.3)),
+        border: Border.all(color: Colors.grey.withValues(alpha:0.3)),
       ),
       padding: EdgeInsets.all(6.sp),
       child: Column(
@@ -611,7 +611,7 @@ class _MainTournamentScreenState extends ConsumerState<MainTournamentScreen> {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 6.sp, vertical: 2.sp),
             decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.3),
+              color: AppColors.primary.withValues(alpha:0.3),
               borderRadius: BorderRadius.circular(4.sp),
             ),
             child: Text(
@@ -711,7 +711,7 @@ class _MainTournamentScreenState extends ConsumerState<MainTournamentScreen> {
         color: Colors.grey[850],
         borderRadius: BorderRadius.circular(6.sp),
         border: (isMyP1 || isMyP2)
-            ? Border.all(color: Colors.blue.withOpacity(0.5))
+            ? Border.all(color: Colors.blue.withValues(alpha:0.5))
             : null,
       ),
       child: Column(
@@ -783,7 +783,7 @@ class _MainTournamentScreenState extends ConsumerState<MainTournamentScreen> {
       alignment: Alignment.center,
       padding: EdgeInsets.symmetric(horizontal: 2.sp),
       decoration: highlight ? BoxDecoration(
-        color: AppColors.accent.withOpacity(0.1),
+        color: AppColors.accent.withValues(alpha:0.1),
         borderRadius: BorderRadius.circular(2.sp),
       ) : null,
       child: Row(
@@ -1298,7 +1298,7 @@ class _MainTournamentScreenState extends ConsumerState<MainTournamentScreen> {
       decoration: BoxDecoration(
         color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(6.sp),
-        border: Border.all(color: Colors.grey.withOpacity(0.3)),
+        border: Border.all(color: Colors.grey.withValues(alpha:0.3)),
       ),
       padding: EdgeInsets.all(4.sp),
       child: Column(
@@ -1310,7 +1310,7 @@ class _MainTournamentScreenState extends ConsumerState<MainTournamentScreen> {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 6.sp, vertical: 2.sp),
                 decoration: BoxDecoration(
-                  color: AppColors.primary.withOpacity(0.3),
+                  color: AppColors.primary.withValues(alpha:0.3),
                   borderRadius: BorderRadius.circular(4.sp),
                 ),
                 child: Text(

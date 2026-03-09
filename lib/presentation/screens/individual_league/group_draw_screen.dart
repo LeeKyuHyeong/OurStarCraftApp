@@ -121,7 +121,7 @@ class _GroupDrawScreenState extends ConsumerState<GroupDrawScreen> {
       decoration: BoxDecoration(
         color: AppColors.cardBackground,
         border: Border(
-          bottom: BorderSide(color: AppColors.primary.withOpacity(0.3)),
+          bottom: BorderSide(color: AppColors.primary.withValues(alpha:0.3)),
         ),
       ),
       child: Row(
@@ -174,7 +174,7 @@ class _GroupDrawScreenState extends ConsumerState<GroupDrawScreen> {
         border: Border.all(
           color: isActiveGroup
               ? AppColors.accent
-              : _getGroupColor(groupIndex).withOpacity(0.5),
+              : _getGroupColor(groupIndex).withValues(alpha:0.5),
           width: isActiveGroup ? 2 : 1,
         ),
       ),
@@ -188,8 +188,8 @@ class _GroupDrawScreenState extends ConsumerState<GroupDrawScreen> {
             padding: EdgeInsets.symmetric(vertical: 2.sp),
             decoration: BoxDecoration(
               color: isActiveGroup
-                  ? AppColors.accent.withOpacity(0.3)
-                  : _getGroupColor(groupIndex).withOpacity(0.2),
+                  ? AppColors.accent.withValues(alpha:0.3)
+                  : _getGroupColor(groupIndex).withValues(alpha:0.2),
               borderRadius: BorderRadius.circular(2.sp),
             ),
             child: Center(
@@ -234,12 +234,12 @@ class _GroupDrawScreenState extends ConsumerState<GroupDrawScreen> {
       margin: EdgeInsets.only(bottom: 2.sp),
       decoration: BoxDecoration(
         color: isWaitingSlot
-            ? AppColors.accent.withOpacity(0.2)
+            ? AppColors.accent.withValues(alpha:0.2)
             : isPickerSlot
-                ? Colors.amber.withOpacity(0.15)
+                ? Colors.amber.withValues(alpha:0.15)
                 : isSeed
-                    ? AppColors.primary.withOpacity(0.15)
-                    : Colors.grey.withOpacity(0.1),
+                    ? AppColors.primary.withValues(alpha:0.15)
+                    : Colors.grey.withValues(alpha:0.1),
         borderRadius: BorderRadius.circular(2.sp),
         border: Border.all(
           color: isWaitingSlot
@@ -247,8 +247,8 @@ class _GroupDrawScreenState extends ConsumerState<GroupDrawScreen> {
               : isPickerSlot
                   ? Colors.amber
                   : isSeed
-                      ? AppColors.primary.withOpacity(0.4)
-                      : Colors.grey.withOpacity(0.2),
+                      ? AppColors.primary.withValues(alpha:0.4)
+                      : Colors.grey.withValues(alpha:0.2),
           width: isWaitingSlot ? 1.5 : isPickerSlot ? 1.5 : isSeed ? 1 : 0.5,
         ),
       ),
@@ -290,7 +290,7 @@ class _GroupDrawScreenState extends ConsumerState<GroupDrawScreen> {
                   : Text(
                       'empty',
                       style: TextStyle(
-                        color: Colors.grey.withOpacity(0.4),
+                        color: Colors.grey.withValues(alpha:0.4),
                         fontSize: 7.sp,
                         fontStyle: FontStyle.italic,
                       ),
@@ -361,7 +361,7 @@ class _GroupDrawScreenState extends ConsumerState<GroupDrawScreen> {
         border: Border.all(
           color: _isWaitingForPick
               ? AppColors.accent
-              : AppColors.accent.withOpacity(0.3),
+              : AppColors.accent.withValues(alpha:0.3),
           width: _isWaitingForPick ? 2 : 1,
         ),
       ),
@@ -449,17 +449,17 @@ class _GroupDrawScreenState extends ConsumerState<GroupDrawScreen> {
         padding: EdgeInsets.symmetric(horizontal: 6.sp, vertical: 3.sp),
         decoration: BoxDecoration(
           color: isAssigned
-              ? Colors.grey.withOpacity(0.2)
+              ? Colors.grey.withValues(alpha:0.2)
               : isTappable
-                  ? AppColors.accent.withOpacity(0.3)
-                  : AppColors.accent.withOpacity(0.15),
+                  ? AppColors.accent.withValues(alpha:0.3)
+                  : AppColors.accent.withValues(alpha:0.15),
           borderRadius: BorderRadius.circular(4.sp),
           border: Border.all(
             color: isAssigned
-                ? Colors.grey.withOpacity(0.3)
+                ? Colors.grey.withValues(alpha:0.3)
                 : isTappable
                     ? AppColors.accent
-                    : AppColors.accent.withOpacity(0.4),
+                    : AppColors.accent.withValues(alpha:0.4),
             width: isTappable ? 1.5 : 1,
           ),
         ),

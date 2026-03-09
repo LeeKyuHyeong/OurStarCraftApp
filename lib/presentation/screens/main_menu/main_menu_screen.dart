@@ -128,7 +128,7 @@ class _MainMenuScreenState extends ConsumerState<MainMenuScreen> {
               width: 50.sp,
               height: 50.sp,
               decoration: BoxDecoration(
-                color: teamColor.withOpacity(0.2),
+                color: teamColor.withValues(alpha:0.2),
                 borderRadius: BorderRadius.circular(8.sp),
                 border: Border.all(color: teamColor, width: 2),
               ),
@@ -232,7 +232,7 @@ class _MainMenuScreenState extends ConsumerState<MainMenuScreen> {
                     width: 32.sp,
                     height: 32.sp,
                     decoration: BoxDecoration(
-                      color: teamColor.withOpacity(0.2),
+                      color: teamColor.withValues(alpha:0.2),
                       borderRadius: BorderRadius.circular(4.sp),
                       border: Border.all(color: teamColor, width: 1.5),
                     ),
@@ -483,9 +483,9 @@ class _MainMenuScreenState extends ConsumerState<MainMenuScreen> {
       margin: EdgeInsets.only(bottom: 4.sp),
       padding: EdgeInsets.symmetric(horizontal: 4.sp, vertical: 6.sp),
       decoration: BoxDecoration(
-        color: isCurrentWeek ? Colors.amber.withOpacity(0.05) : const Color(0xFF1a1a2e),
+        color: isCurrentWeek ? Colors.amber.withValues(alpha:0.05) : const Color(0xFF1a1a2e),
         borderRadius: BorderRadius.circular(4.sp),
-        border: isCurrentWeek ? Border.all(color: Colors.amber.withOpacity(0.3), width: 1) : null,
+        border: isCurrentWeek ? Border.all(color: Colors.amber.withValues(alpha:0.3), width: 1) : null,
       ),
       child: Row(
         children: [
@@ -495,7 +495,7 @@ class _MainMenuScreenState extends ConsumerState<MainMenuScreen> {
             child: Container(
               decoration: currentStep == 0
                   ? BoxDecoration(
-                      color: Colors.amber.withOpacity(0.15),
+                      color: Colors.amber.withValues(alpha:0.15),
                       borderRadius: BorderRadius.circular(4.sp),
                       border: Border.all(color: Colors.amber, width: 1.5),
                     )
@@ -517,7 +517,7 @@ class _MainMenuScreenState extends ConsumerState<MainMenuScreen> {
             child: Container(
               decoration: currentStep == 1
                   ? BoxDecoration(
-                      color: Colors.amber.withOpacity(0.15),
+                      color: Colors.amber.withValues(alpha:0.15),
                       borderRadius: BorderRadius.circular(4.sp),
                       border: Border.all(color: Colors.amber, width: 1.5),
                     )
@@ -539,7 +539,7 @@ class _MainMenuScreenState extends ConsumerState<MainMenuScreen> {
             child: Container(
               decoration: currentStep == 2
                   ? BoxDecoration(
-                      color: Colors.amber.withOpacity(0.15),
+                      color: Colors.amber.withValues(alpha:0.15),
                       borderRadius: BorderRadius.circular(4.sp),
                       border: Border.all(color: Colors.amber, width: 1.5),
                     )
@@ -583,7 +583,7 @@ class _MainMenuScreenState extends ConsumerState<MainMenuScreen> {
               width: 24.sp,
               height: 24.sp,
               decoration: BoxDecoration(
-                color: teamColor.withOpacity(0.2),
+                color: teamColor.withValues(alpha:0.2),
                 borderRadius: BorderRadius.circular(4.sp),
                 border: Border.all(color: teamColor, width: 1),
               ),
@@ -640,11 +640,11 @@ class _MainMenuScreenState extends ConsumerState<MainMenuScreen> {
           child: Text(
             leagueName,
             style: TextStyle(
-              color: isCompleted ? Colors.amber.withOpacity(0.4) : Colors.amber,
+              color: isCompleted ? Colors.amber.withValues(alpha:0.4) : Colors.amber,
               fontSize: 10.sp,
               fontWeight: FontWeight.bold,
               decoration: hasLeagueData ? TextDecoration.underline : null,
-              decorationColor: Colors.amber.withOpacity(0.3),
+              decorationColor: Colors.amber.withValues(alpha:0.3),
             ),
             overflow: TextOverflow.ellipsis,
           ),

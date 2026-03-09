@@ -20,8 +20,6 @@ class _PracticeMatchScreenState extends ConsumerState<PracticeMatchScreen> {
   String? _selectedMyPlayerId;
   String? _selectedOpponentPlayerId;
   String _selectedMapId = '';
-  final bool _isSimulating = false;
-
   @override
   Widget build(BuildContext context) {
     final gameState = ref.watch(gameStateProvider);
@@ -92,7 +90,7 @@ class _PracticeMatchScreenState extends ConsumerState<PracticeMatchScreen> {
       decoration: BoxDecoration(
         color: AppColors.cardBackground,
         border: Border(
-          bottom: BorderSide(color: AppColors.primary.withOpacity(0.3)),
+          bottom: BorderSide(color: AppColors.primary.withValues(alpha:0.3)),
         ),
       ),
       child: Row(
@@ -131,7 +129,7 @@ class _PracticeMatchScreenState extends ConsumerState<PracticeMatchScreen> {
       width: 80.sp,
       height: 50.sp,
       decoration: BoxDecoration(
-        color: Color(team.colorValue).withOpacity(0.2),
+        color: Color(team.colorValue).withValues(alpha:0.2),
         borderRadius: BorderRadius.circular(8.sp),
         border: Border.all(color: Color(team.colorValue)),
       ),
@@ -408,7 +406,7 @@ class _PracticeMatchScreenState extends ConsumerState<PracticeMatchScreen> {
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 8.sp, vertical: 4.sp),
-        color: isSelected ? AppColors.accent.withOpacity(0.3) : null,
+        color: isSelected ? AppColors.accent.withValues(alpha:0.3) : null,
         child: Row(
           children: [
             if (isSelected)

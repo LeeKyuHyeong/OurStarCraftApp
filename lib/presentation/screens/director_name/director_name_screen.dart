@@ -84,7 +84,7 @@ class _DirectorNameScreenState extends ConsumerState<DirectorNameScreen> {
                         borderRadius: BorderRadius.circular(12.sp),
                         boxShadow: [
                           BoxShadow(
-                            color: Color(playerTeam.colorValue).withOpacity(0.3),
+                            color: Color(playerTeam.colorValue).withValues(alpha:0.3),
                             blurRadius: 20,
                             spreadRadius: 5,
                           ),
@@ -184,7 +184,7 @@ class _DirectorNameScreenState extends ConsumerState<DirectorNameScreen> {
       decoration: BoxDecoration(
         color: AppColors.cardBackground,
         border: Border(
-          bottom: BorderSide(color: AppColors.primary.withOpacity(0.3)),
+          bottom: BorderSide(color: AppColors.primary.withValues(alpha:0.3)),
         ),
       ),
       child: Row(

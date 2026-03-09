@@ -125,7 +125,7 @@ class _PlayerRankingScreenState extends ConsumerState<PlayerRankingScreen> {
       decoration: BoxDecoration(
         color: AppColors.cardBackground,
         border: Border(
-          bottom: BorderSide(color: AppColors.primary.withOpacity(0.3)),
+          bottom: BorderSide(color: AppColors.primary.withValues(alpha:0.3)),
         ),
       ),
       child: Row(
@@ -165,7 +165,7 @@ class _PlayerRankingScreenState extends ConsumerState<PlayerRankingScreen> {
             width: 60.sp,
             height: 60.sp,
             decoration: BoxDecoration(
-              color: _getTabColor().withOpacity(0.2),
+              color: _getTabColor().withValues(alpha:0.2),
               borderRadius: BorderRadius.circular(8.sp),
               border: Border.all(color: _getTabColor()),
             ),
@@ -253,7 +253,7 @@ class _PlayerRankingScreenState extends ConsumerState<PlayerRankingScreen> {
       decoration: BoxDecoration(
         color: AppColors.cardBackground,
         border: Border(
-          bottom: BorderSide(color: Colors.grey.withOpacity(0.3)),
+          bottom: BorderSide(color: Colors.grey.withValues(alpha:0.3)),
         ),
       ),
       child: Row(
@@ -288,7 +288,7 @@ class _PlayerRankingScreenState extends ConsumerState<PlayerRankingScreen> {
   Widget _buildPlayerList(List<Player> players) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.cardBackground.withOpacity(0.5),
+        color: AppColors.cardBackground.withValues(alpha:0.5),
       ),
       child: ListView.builder(
         itemCount: players.length,
@@ -308,9 +308,9 @@ class _PlayerRankingScreenState extends ConsumerState<PlayerRankingScreen> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.sp, vertical: 6.sp),
       decoration: BoxDecoration(
-        color: isHighlighted ? AppColors.primary.withOpacity(0.1) : null,
+        color: isHighlighted ? AppColors.primary.withValues(alpha:0.1) : null,
         border: Border(
-          bottom: BorderSide(color: Colors.grey.withOpacity(0.1)),
+          bottom: BorderSide(color: Colors.grey.withValues(alpha:0.1)),
         ),
       ),
       child: Row(

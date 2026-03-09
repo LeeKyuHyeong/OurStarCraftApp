@@ -77,7 +77,7 @@ class MatchResultRankingScreen extends ConsumerWidget {
       decoration: BoxDecoration(
         color: AppColors.cardBackground,
         border: Border(
-          bottom: BorderSide(color: AppColors.primary.withOpacity(0.3)),
+          bottom: BorderSide(color: AppColors.primary.withValues(alpha:0.3)),
         ),
       ),
       child: Row(
@@ -126,7 +126,7 @@ class MatchResultRankingScreen extends ConsumerWidget {
               borderRadius: BorderRadius.circular(12.sp),
               boxShadow: [
                 BoxShadow(
-                  color: Color(playerTeam.colorValue).withOpacity(0.5),
+                  color: Color(playerTeam.colorValue).withValues(alpha:0.5),
                   blurRadius: 20,
                   spreadRadius: 2,
                 ),
@@ -162,7 +162,7 @@ class MatchResultRankingScreen extends ConsumerWidget {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 24.sp, vertical: 8.sp),
             decoration: BoxDecoration(
-              color: _getRankColor(rank).withOpacity(0.2),
+              color: _getRankColor(rank).withValues(alpha:0.2),
               borderRadius: BorderRadius.circular(20.sp),
               border: Border.all(color: _getRankColor(rank)),
             ),
@@ -204,7 +204,7 @@ class MatchResultRankingScreen extends ConsumerWidget {
       margin: EdgeInsets.all(16.sp),
       padding: EdgeInsets.all(16.sp),
       decoration: BoxDecoration(
-        color: AppColors.cardBackground.withOpacity(0.5),
+        color: AppColors.cardBackground.withValues(alpha:0.5),
         borderRadius: BorderRadius.circular(12.sp),
       ),
       child: Column(
@@ -214,7 +214,7 @@ class MatchResultRankingScreen extends ConsumerWidget {
             padding: EdgeInsets.symmetric(vertical: 8.sp),
             decoration: BoxDecoration(
               border: Border(
-                bottom: BorderSide(color: Colors.grey.withOpacity(0.3)),
+                bottom: BorderSide(color: Colors.grey.withValues(alpha:0.3)),
               ),
             ),
             child: Row(
@@ -242,11 +242,11 @@ class MatchResultRankingScreen extends ConsumerWidget {
                 return Container(
                   padding: EdgeInsets.symmetric(vertical: 10.sp),
                   decoration: BoxDecoration(
-                    color: isMyTeam ? AppColors.primary.withOpacity(0.2) : null,
+                    color: isMyTeam ? AppColors.primary.withValues(alpha:0.2) : null,
                     border: isMyTeam
                         ? Border.all(color: AppColors.accent, width: 2)
                         : Border(
-                            bottom: BorderSide(color: Colors.grey.withOpacity(0.1)),
+                            bottom: BorderSide(color: Colors.grey.withValues(alpha:0.1)),
                           ),
                     borderRadius: isMyTeam ? BorderRadius.circular(4.sp) : null,
                   ),
@@ -273,7 +273,7 @@ class MatchResultRankingScreen extends ConsumerWidget {
                           width: 40.sp,
                           height: 28.sp,
                           decoration: BoxDecoration(
-                            color: Color(team.colorValue).withOpacity(0.2),
+                            color: Color(team.colorValue).withValues(alpha:0.2),
                             borderRadius: BorderRadius.circular(4.sp),
                           ),
                           child: Center(

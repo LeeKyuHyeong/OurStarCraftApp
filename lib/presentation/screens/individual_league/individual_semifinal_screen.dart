@@ -117,7 +117,7 @@ class _IndividualSemiFinalScreenState
         color: AppColors.cardBackground,
         border: Border(
             bottom:
-                BorderSide(color: AppColors.primary.withOpacity(0.3))),
+                BorderSide(color: AppColors.primary.withValues(alpha:0.3))),
       ),
       child: Column(
         children: [
@@ -165,7 +165,7 @@ class _IndividualSemiFinalScreenState
               padding: EdgeInsets.symmetric(
                   horizontal: 12.sp, vertical: 4.sp),
               decoration: BoxDecoration(
-                color: Colors.orange.withOpacity(0.2),
+                color: Colors.orange.withValues(alpha:0.2),
                 borderRadius: BorderRadius.circular(4.sp),
                 border: Border.all(color: Colors.orange),
               ),
@@ -194,7 +194,7 @@ class _IndividualSemiFinalScreenState
       width: 60.sp,
       height: 40.sp,
       decoration: BoxDecoration(
-        color: Color(team.colorValue).withOpacity(0.2),
+        color: Color(team.colorValue).withValues(alpha:0.2),
         borderRadius: BorderRadius.circular(8.sp),
         border: Border.all(color: Color(team.colorValue)),
       ),
@@ -313,7 +313,7 @@ class _IndividualSemiFinalScreenState
         color: Colors.grey[850],
         borderRadius: BorderRadius.circular(6.sp),
         border: (isMyP1 || isMyP2)
-            ? Border.all(color: Colors.blue.withOpacity(0.5))
+            ? Border.all(color: Colors.blue.withValues(alpha:0.5))
             : null,
       ),
       child: Column(

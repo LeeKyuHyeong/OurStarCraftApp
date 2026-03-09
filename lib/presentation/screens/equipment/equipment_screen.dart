@@ -132,7 +132,7 @@ class _EquipmentScreenState extends ConsumerState<EquipmentScreen> {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                           decoration: BoxDecoration(
-                            color: AppTheme.getGradeColor(player.grade.display).withOpacity(0.2),
+                            color: AppTheme.getGradeColor(player.grade.display).withValues(alpha:0.2),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Text(
@@ -178,7 +178,7 @@ class _EquipmentScreenState extends ConsumerState<EquipmentScreen> {
         // 헤더
         Container(
           padding: const EdgeInsets.all(12),
-          color: AppTheme.primaryBlue.withOpacity(0.3),
+          color: AppTheme.primaryBlue.withValues(alpha:0.3),
           child: const Row(
             children: [
               Icon(Icons.person, color: AppTheme.accentGreen, size: 18),
@@ -277,11 +277,11 @@ class _EquipmentScreenState extends ConsumerState<EquipmentScreen> {
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: isSelected
-              ? AppTheme.primaryBlue.withOpacity(0.3)
+              ? AppTheme.primaryBlue.withValues(alpha:0.3)
               : AppTheme.cardBackground,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: isSelected ? AppTheme.accentGreen : AppTheme.primaryBlue.withOpacity(0.3),
+            color: isSelected ? AppTheme.accentGreen : AppTheme.primaryBlue.withValues(alpha:0.3),
             width: isSelected ? 2 : 1,
           ),
         ),
@@ -397,7 +397,7 @@ class _EquipmentScreenState extends ConsumerState<EquipmentScreen> {
       decoration: BoxDecoration(
         color: AppTheme.cardBackground,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppTheme.accentGreen.withOpacity(0.3)),
+        border: Border.all(color: AppTheme.accentGreen.withValues(alpha:0.3)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -446,7 +446,7 @@ class _EquipmentScreenState extends ConsumerState<EquipmentScreen> {
         // 헤더
         Container(
           padding: const EdgeInsets.all(12),
-          color: AppTheme.primaryBlue.withOpacity(0.3),
+          color: AppTheme.primaryBlue.withValues(alpha:0.3),
           child: Row(
             children: [
               const Icon(Icons.inventory_2, color: AppTheme.textSecondary, size: 18),
@@ -470,7 +470,7 @@ class _EquipmentScreenState extends ConsumerState<EquipmentScreen> {
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: AppTheme.accentGreen.withOpacity(0.2),
+                      color: AppTheme.accentGreen.withValues(alpha:0.2),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Row(
@@ -503,7 +503,7 @@ class _EquipmentScreenState extends ConsumerState<EquipmentScreen> {
                       Icon(
                         Icons.inventory_2_outlined,
                         size: 40,
-                        color: AppTheme.textSecondary.withOpacity(0.5),
+                        color: AppTheme.textSecondary.withValues(alpha:0.5),
                       ),
                       const SizedBox(height: 8),
                       Text(
@@ -680,7 +680,7 @@ class _EquipmentScreenState extends ConsumerState<EquipmentScreen> {
       width: size + 8,
       height: size + 8,
       decoration: BoxDecoration(
-        color: color.withOpacity(0.2),
+        color: color.withValues(alpha:0.2),
         borderRadius: BorderRadius.circular(6),
       ),
       child: Icon(icon, size: size, color: color),

@@ -193,7 +193,7 @@ class _DualTournamentScreenState extends ConsumerState<DualTournamentScreen> {
       decoration: BoxDecoration(
         color: AppColors.cardBackground,
         border: Border(
-          bottom: BorderSide(color: AppColors.primary.withOpacity(0.3)),
+          bottom: BorderSide(color: AppColors.primary.withValues(alpha:0.3)),
         ),
       ),
       child: Row(
@@ -240,7 +240,7 @@ class _DualTournamentScreenState extends ConsumerState<DualTournamentScreen> {
       decoration: BoxDecoration(
         color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(8.sp),
-        border: Border.all(color: Colors.grey.withOpacity(0.3)),
+        border: Border.all(color: Colors.grey.withValues(alpha:0.3)),
       ),
       padding: EdgeInsets.all(6.sp),
       child: Column(
@@ -252,7 +252,7 @@ class _DualTournamentScreenState extends ConsumerState<DualTournamentScreen> {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 6.sp, vertical: 2.sp),
                 decoration: BoxDecoration(
-                  color: AppColors.primary.withOpacity(0.3),
+                  color: AppColors.primary.withValues(alpha:0.3),
                   borderRadius: BorderRadius.circular(4.sp),
                 ),
                 child: Text(
@@ -511,7 +511,7 @@ class _DualTournamentScreenState extends ConsumerState<DualTournamentScreen> {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 16.sp, vertical: 8.sp),
             decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.2),
+              color: AppColors.primary.withValues(alpha:0.2),
               borderRadius: BorderRadius.circular(4.sp),
             ),
             child: Text(

@@ -503,7 +503,7 @@ class _ShopScreenState extends ConsumerState<ShopScreen> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppTheme.accentGreen,
                       foregroundColor: Colors.black,
-                      disabledBackgroundColor: AppTheme.primaryBlue.withOpacity(0.5),
+                      disabledBackgroundColor: AppTheme.primaryBlue.withValues(alpha:0.5),
                       padding: const EdgeInsets.symmetric(vertical: 16),
                     ),
                     child: Text(
@@ -522,7 +522,7 @@ class _ShopScreenState extends ConsumerState<ShopScreen> {
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 16),
               decoration: BoxDecoration(
-                color: Colors.orange.withOpacity(0.2),
+                color: Colors.orange.withValues(alpha:0.2),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: const Text(
@@ -671,7 +671,7 @@ class _ShopScreenState extends ConsumerState<ShopScreen> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppTheme.accentGreen,
                     foregroundColor: Colors.black,
-                    disabledBackgroundColor: AppTheme.primaryBlue.withOpacity(0.5),
+                    disabledBackgroundColor: AppTheme.primaryBlue.withValues(alpha:0.5),
                     padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
                   child: Text(
@@ -711,8 +711,8 @@ class _ShopScreenState extends ConsumerState<ShopScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
           decoration: BoxDecoration(
             color: isPositive
-                ? AppTheme.accentGreen.withOpacity(0.15)
-                : Colors.red.withOpacity(0.15),
+                ? AppTheme.accentGreen.withValues(alpha:0.15)
+                : Colors.red.withValues(alpha:0.15),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Row(

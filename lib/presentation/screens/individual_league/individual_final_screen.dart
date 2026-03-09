@@ -118,7 +118,7 @@ class _IndividualFinalScreenState
         color: AppColors.cardBackground,
         border: Border(
             bottom:
-                BorderSide(color: AppColors.primary.withOpacity(0.3))),
+                BorderSide(color: AppColors.primary.withValues(alpha:0.3))),
       ),
       child: Column(
         children: [
@@ -174,7 +174,7 @@ class _IndividualFinalScreenState
               padding: EdgeInsets.symmetric(
                   horizontal: 12.sp, vertical: 4.sp),
               decoration: BoxDecoration(
-                color: Colors.orange.withOpacity(0.2),
+                color: Colors.orange.withValues(alpha:0.2),
                 borderRadius: BorderRadius.circular(4.sp),
                 border: Border.all(color: Colors.orange),
               ),
@@ -203,7 +203,7 @@ class _IndividualFinalScreenState
       width: 60.sp,
       height: 40.sp,
       decoration: BoxDecoration(
-        color: Color(team.colorValue).withOpacity(0.2),
+        color: Color(team.colorValue).withValues(alpha:0.2),
         borderRadius: BorderRadius.circular(8.sp),
         border: Border.all(color: Color(team.colorValue)),
       ),
@@ -280,7 +280,7 @@ class _IndividualFinalScreenState
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.emoji_events,
-                      color: Colors.amber.withOpacity(0.3), size: 60.sp),
+                      color: Colors.amber.withValues(alpha:0.3), size: 60.sp),
                   SizedBox(height: 8.sp),
                   Text(
                     'Start를 눌러 결승 진행',
@@ -336,12 +336,12 @@ class _IndividualFinalScreenState
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Colors.amber.withOpacity(0.1),
-                  Colors.orange.withOpacity(0.1),
+                  Colors.amber.withValues(alpha:0.1),
+                  Colors.orange.withValues(alpha:0.1),
                 ],
               ),
               borderRadius: BorderRadius.circular(8.sp),
-              border: Border.all(color: Colors.amber.withOpacity(0.5)),
+              border: Border.all(color: Colors.amber.withValues(alpha:0.5)),
             ),
             child: Column(
               children: [
@@ -456,7 +456,7 @@ class _IndividualFinalScreenState
         width: 100.sp,
         padding: EdgeInsets.all(12.sp),
         decoration: BoxDecoration(
-          color: Colors.grey.withOpacity(0.1),
+          color: Colors.grey.withValues(alpha:0.1),
           borderRadius: BorderRadius.circular(8.sp),
         ),
         child: Text('?',
@@ -470,11 +470,11 @@ class _IndividualFinalScreenState
       padding: EdgeInsets.all(12.sp),
       decoration: BoxDecoration(
         color: isWinner
-            ? Colors.amber.withOpacity(0.2)
-            : Colors.grey.withOpacity(0.1),
+            ? Colors.amber.withValues(alpha:0.2)
+            : Colors.grey.withValues(alpha:0.1),
         borderRadius: BorderRadius.circular(8.sp),
         border: Border.all(
-          color: isWinner ? Colors.amber : Colors.grey.withOpacity(0.3),
+          color: isWinner ? Colors.amber : Colors.grey.withValues(alpha:0.3),
           width: isWinner ? 2 : 1,
         ),
       ),
@@ -546,7 +546,7 @@ class _IndividualFinalScreenState
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(Icons.emoji_events,
-                            color: Colors.amber.withOpacity(0.2),
+                            color: Colors.amber.withValues(alpha:0.2),
                             size: 40.sp),
                         SizedBox(height: 8.sp),
                         Text(

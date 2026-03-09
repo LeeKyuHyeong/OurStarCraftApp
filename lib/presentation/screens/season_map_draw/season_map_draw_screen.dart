@@ -122,7 +122,7 @@ class _SeasonMapDrawScreenState extends ConsumerState<SeasonMapDrawScreen> {
       decoration: BoxDecoration(
         color: const Color(0xFF1a1a2e),
         border: Border(
-          bottom: BorderSide(color: Colors.amber.withOpacity(0.3), width: 1),
+          bottom: BorderSide(color: Colors.amber.withValues(alpha:0.3), width: 1),
         ),
       ),
       child: Row(
@@ -227,11 +227,11 @@ class _SeasonMapDrawScreenState extends ConsumerState<SeasonMapDrawScreen> {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Colors.amber.withOpacity(0.1),
-            Colors.amber.withOpacity(0.05),
+            Colors.amber.withValues(alpha:0.1),
+            Colors.amber.withValues(alpha:0.05),
           ],
         ),
-        border: Border.all(color: Colors.amber.withOpacity(0.5), width: 2),
+        border: Border.all(color: Colors.amber.withValues(alpha:0.5), width: 2),
         borderRadius: BorderRadius.circular(6.sp),
       ),
       child: Column(
@@ -318,7 +318,7 @@ class _SeasonMapDrawScreenState extends ConsumerState<SeasonMapDrawScreen> {
                           end: Alignment.bottomCenter,
                           colors: [
                             Colors.transparent,
-                            Colors.black.withOpacity(0.85),
+                            Colors.black.withValues(alpha:0.85),
                           ],
                         ),
                         borderRadius: BorderRadius.only(
