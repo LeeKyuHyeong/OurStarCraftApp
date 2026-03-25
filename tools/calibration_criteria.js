@@ -448,11 +448,12 @@ const IMPLIED_BUILDINGS = {
   '퀸즈네스트': ['레어', '스포닝풀'],
   '그레이터 스파이어': ['하이브', '스파이어', '레어', '스포닝풀', '퀸즈네스트'],
   // 테란: 상위 건물이 있으면 하위 테크 존재
-  '스타포트': ['팩토리', '배럭'],
-  '사이언스 퍼실리티': ['스타포트', '팩토리', '배럭'],
-  '팩토리': ['배럭'],
-  '아머리': ['팩토리', '배럭'],
+  '스타포트': ['팩토리', '배럭', '컨트롤타워', '아머리'],
+  '사이언스 퍼실리티': ['스타포트', '팩토리', '배럭', '컨트롤타워', '아머리'],
+  '팩토리': ['배럭', '머신샵', '아머리'],
+  '아머리': ['팩토리', '배럭', '머신샵'],
   '아카데미': ['배럭'],
+  '배럭': ['아카데미'],
   '컨트롤타워': ['스타포트', '팩토리', '배럭'],
   '머신샵': ['팩토리', '배럭'],
   // 프로토스: 상위 건물 → 하위 테크 존재
@@ -502,8 +503,14 @@ function checkTechTreeOrder(logs, matchup, isReversed) {
       }
 
       // 유닛 등장 감지 → 선행 건물 존재 여부 체크
+      // 한글 문자 범위 (유닛명 앞에 한글이 붙으면 별도 단어가 아닌 복합어로 간주하여 스킵)
+      const HANGUL_RE = /[\uAC00-\uD7AF\u1100-\u11FF\u3130-\u318F]/;
       for (const [unitName, requiredBuildings] of Object.entries(tree.units)) {
-        if (text.includes(unitName)) {
+        const idx = text.indexOf(unitName);
+        if (idx === -1) continue;
+        // 앞 글자가 한글이면 복합어(예: '리플레이스'에서 '레이스') → 스킵
+        if (idx > 0 && HANGUL_RE.test(text[idx - 1])) continue;
+        {
           for (const req of requiredBuildings) {
             if (!buildings.has(req)) {
               // 해처리/넥서스/커맨드센터는 기본 존재로 간주
@@ -592,15 +599,21 @@ function checkDeadPlayerAction(game) {
 
   const loserSide = game.homeWin ? 'away' : 'home';
   const violations = [];
+  // GG 선언 관련 텍스트는 패자의 정상적 마지막 행동이므로 예외 처리
+  const GG_PATTERNS = ['GG를 선언', 'GG', '패배를 인정'];
   for (let i = decisiveIdx + 1; i < logs.length; i++) {
     if (logs[i].owner === loserSide) {
-      violations.push({
-        rule: 'B19_DEAD_PLAYER_ACTION',
-        line: i + 1,
-        severity: 'error',
-        message: `결정적 이벤트 이후 패자(${loserSide}) 이벤트 발생`,
-        text: (logs[i].text || '').substring(0, 80),
-      });
+      const text = logs[i].text || '';
+      const isGG = GG_PATTERNS.some(p => text.includes(p));
+      if (!isGG) {
+        violations.push({
+          rule: 'B19_DEAD_PLAYER_ACTION',
+          line: i + 1,
+          severity: 'error',
+          message: `결정적 이벤트 이후 패자(${loserSide}) 이벤트 발생`,
+          text: text.substring(0, 80),
+        });
+      }
     }
   }
   return violations;

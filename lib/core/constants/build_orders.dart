@@ -4364,7 +4364,7 @@ class BuildOrderData {
       defenderArmy: -15,
     ),
     ClashEvent(
-      text: '저글링 서라운드! 상대 병력을 감쌉니다!',
+      text: '완벽한 서라운드! 상대 병력을 감쌉니다!',
       favorsStat: 'attack',
       attackerArmy: -6,
       defenderArmy: -10,
@@ -4376,7 +4376,7 @@ class BuildOrderData {
       defenderArmy: -3,
     ),
     ClashEvent(
-      text: '히드라 집중 사격! 정밀 포커싱 성공!',
+      text: '집중 사격! 정밀 포커싱 성공!',
       favorsStat: 'attack',
       attackerArmy: -5,
       defenderArmy: -12,
@@ -4417,7 +4417,7 @@ class BuildOrderData {
     ),
     // 추가 이벤트
     ClashEvent(
-      text: '마린 스플릿! 범위 공격 피해 최소화!',
+      text: '완벽한 스플릿! 범위 공격 피해 최소화!',
       favorsStat: 'control',
       attackerArmy: -3,
       defenderArmy: -10,
@@ -4580,7 +4580,7 @@ class BuildOrderData {
       defenderResource: -25,
     ),
     ClashEvent(
-      text: '이레디에이트! 뮤탈리스크가 연쇄 피해를 입습니다!',
+      text: '이레디에이트 작렬! 공중 유닛에 연쇄 피해!',
       favorsStat: 'strategy',
       attackerArmy: -5,
       defenderArmy: -8,
@@ -4598,7 +4598,7 @@ class BuildOrderData {
       defenderArmy: -5,
     ),
     ClashEvent(
-      text: '뮤탈리스크 컨트롤! SCV 초토화!',
+      text: '날카로운 견제! SCV 초토화!',
       favorsStat: 'harass',
       attackerArmy: -8,
       defenderArmy: -3,
@@ -4665,7 +4665,7 @@ class BuildOrderData {
       defenderArmy: -12,
     ),
     ClashEvent(
-      text: '뮤탈 컨트롤! 터렛 사각지대 공략!',
+      text: '날카로운 기동! 터렛 사각지대 공략!',
       favorsStat: 'harass',
       attackerArmy: -3,
       defenderArmy: -8,
@@ -4690,7 +4690,7 @@ class BuildOrderData {
       defenderArmy: -10,
     ),
     ClashEvent(
-      text: '저글링 돌진! 멀티를 동시에 노립니다!',
+      text: '물량 돌진! 멀티를 동시에 노립니다!',
       favorsStat: 'harass',
       attackerArmy: -5,
       defenderArmy: -5,
@@ -4722,7 +4722,7 @@ class BuildOrderData {
       defenderResource: -15,
     ),
     ClashEvent(
-      text: '오버로드 투하! 테란 본진 뒤치기!',
+      text: '공중 투하! 테란 본진 뒤치기!',
       favorsStat: 'harass',
       attackerArmy: -8,
       defenderArmy: -5,
@@ -4735,7 +4735,7 @@ class BuildOrderData {
       defenderArmy: -6,
     ),
     ClashEvent(
-      text: '오버로드 정찰! 테란 빌드 완벽 간파!',
+      text: '공중 정찰! 테란 빌드 완벽 간파!',
       favorsStat: 'scout',
       attackerArmy: -3,
       defenderArmy: -5,

@@ -2954,7 +2954,7 @@ const _tvzStandardVs1HatchAllin = ScenarioScript(
               awayResource: -30,
             ),
             ScriptEvent(
-              text: '{home}, 마린 메딕 탱크 조합으로 전진! 저그가 막기 어렵습니다!',
+              text: '{home}, 팩토리에서 시즈 탱크 생산! 마린 메딕과 합류해 전진합니다!',
               owner: LogOwner.home,
               homeArmy: 5, awayArmy: -3, favorsStat: 'attack',
               altText: '{home} 선수 총공격! 올인 실패한 저그를 밀어붙입니다!',

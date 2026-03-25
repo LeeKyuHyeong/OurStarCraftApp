@@ -1379,17 +1379,17 @@ class MatchSimulationService {
     // 장기전 (멀티/자원 고갈)
     if (lineCount >= 80) {
       final lateTexts = [
-        '${winner.name} 선수 멀티 파괴! ${loser.name} 선수 병력 수급이 불가능합니다!',
-        '${winner.name} 선수 결정적 한 방! ${loser.name} 선수 더 이상 버틸 수 없습니다!',
-        '${winner.name} 선수 자원줄 타격! ${loser.name} 선수 병력 보충이 안 되는 상황!',
+        '${winner.name} 선수 멀티 파괴! ${loser.name} 선수 본진이 무너집니다!',
+        '${winner.name} 선수 결정타! ${loser.name} 선수 더 이상 버틸 수 없습니다!',
+        '${winner.name} 선수 결정타! ${loser.name} 선수 병력 보충이 안 되는 상황!',
       ];
       return lateTexts[_random.nextInt(lateTexts.length)];
     }
 
     // 일반 중반 마무리
     final midTexts = [
-      '${winner.name} 선수 총공격! ${loser.name} 선수 본진이 위험합니다!',
-      '${winner.name} 선수 주력 교전 승리! ${loser.name} 선수 수비 라인이 무너졌습니다!',
+      '${winner.name} 선수 결정타! ${loser.name} 선수 본진이 무너집니다!',
+      '${winner.name} 선수 주력 교전에서 승리를 거둡니다! ${loser.name} 선수 수비 라인 붕괴!',
       '${winner.name} 선수 결정적 교전 승리! ${loser.name} 선수 막을 수가 없습니다!',
     ];
     return midTexts[_random.nextInt(midTexts.length)];
@@ -1444,7 +1444,7 @@ class MatchSimulationService {
     _InteractionRule(triggerPattern: RegExp(r'스파이어|뮤탈'), triggerRace: 'Z', reactorRace: 'T', reactions: [
       '{reactor} 선수 터렛 올리구요.',
       '{reactor} 선수 발키리 생산합니다.',
-      '{reactor} 선수 미사일 터렛 건설!',
+      '{reactor} 선수 터렛 건설!',
     ]),
     _InteractionRule(triggerPattern: RegExp(r'럴커'), triggerRace: 'Z', reactorRace: 'T', reactions: [
       '{reactor} 선수 사이언스 베슬 서두릅니다.',
