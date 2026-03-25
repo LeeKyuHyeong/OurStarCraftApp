@@ -886,11 +886,16 @@ const _tvzCheeseVsStandard = ScenarioScript(
           homeArmy: 2, homeResource: -5,
         ),
         ScriptEvent(
-          text: '{away} 선수 앞마당 해처리 건설합니다.',
+          text: '{away} 선수 스포닝풀 건설합니다.',
+          owner: LogOwner.away,
+          awayResource: -15,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 앞마당 해처리도 건설합니다.',
           owner: LogOwner.away,
           awayResource: -30,
           skipChance: 0.3,
-          altText: '{away}, 스포닝풀 건설합니다.',
+          altText: '{away}, 앞마당 확장! 해처리가 올라갑니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 마린이 모이고 있습니다.',
@@ -1089,6 +1094,12 @@ const _tvz111VsMacro = ScenarioScript(
       recoveryArmyPerLine: 1,
       recoveryResourcePerLine: 6,
       linearEvents: [
+        ScriptEvent(
+          text: '{away} 선수 이제 스포닝풀 건설합니다! 노풀 체제에서 전환!',
+          owner: LogOwner.away,
+          awayResource: -15,
+          altText: '{away}, 뒤늦게 스포닝풀이 올라갑니다!',
+        ),
         ScriptEvent(
           text: '{home} 선수 팩토리에 머신샵 부착! 스타포트까지! 111 체제입니다.',
           owner: LogOwner.home,
@@ -2591,6 +2602,12 @@ const _tvzDoubleVs3Hatch = ScenarioScript(
       name: 'army_buildup',
       startLine: 43,
       linearEvents: [
+        ScriptEvent(
+          text: '{away} 선수 스파이어 건설합니다! 뮤탈 준비!',
+          owner: LogOwner.away,
+          awayResource: -20,
+          altText: '{away}, 스파이어가 올라갑니다!',
+        ),
         ScriptEvent(
           text: '{home} 선수 시즈 탱크 생산! 사이언스 퍼실리티도 건설합니다!',
           owner: LogOwner.home,
