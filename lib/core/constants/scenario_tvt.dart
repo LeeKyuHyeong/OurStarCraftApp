@@ -680,6 +680,12 @@ const _tvtWraithVsRaxDouble = ScenarioScript(
           awayResource: -30,
         ),
         ScriptEvent(
+          text: '{away} 선수 팩토리 건설! 벌처를 준비합니다.',
+          owner: LogOwner.away,
+          awayResource: -15,
+          altText: '{away}, 팩토리가 올라갑니다!',
+        ),
+        ScriptEvent(
           text: '{home} 선수 스타포트 건설!',
           owner: LogOwner.home,
           homeResource: -25,
@@ -715,7 +721,7 @@ const _tvtWraithVsRaxDouble = ScenarioScript(
           altText: '{home} 선수 레이스 출격! 상대 SCV를 공격합니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 아머리 건설하려는데 레이스가 방해합니다!',
+          text: '{away} 선수 아머리 건설하려는데 공중 견제에 방해받습니다!',
           owner: LogOwner.away,
           awayResource: -10,
         ),
@@ -777,24 +783,24 @@ const _tvtWraithVsRaxDouble = ScenarioScript(
           baseProbability: 1.1,
           events: [
             ScriptEvent(
-              text: '{away} 선수 아머리를 본진과 앞마당에 나눠 짓습니다! 레이스를 피합니다!',
+              text: '{away} 선수 아머리를 본진과 앞마당에 나눠 짓습니다! 공중 견제를 피합니다!',
               owner: LogOwner.away,
               awayResource: -15, favorsStat: 'defense',
               altText: '{away}, 분산 건설! 아머리를 나눠서 짓습니다!',
             ),
             ScriptEvent(
-              text: '{away}, 골리앗 생산 시작! 레이스를 격추합니다!',
+              text: '{away}, 골리앗 생산 시작! 공중 유닛을 격추합니다!',
               owner: LogOwner.away,
               homeArmy: -3, awayArmy: 2,
-              altText: '{away} 선수 골리앗! 레이스를 잡습니다!',
+              altText: '{away} 선수 골리앗! 공중 유닛을 잡습니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 클로킹 레이스 침투! 하지만 골리앗이 대기 중!',
+              text: '{home} 선수 클로킹 레이스 침투! 하지만 대공 화력이 대기 중!',
               owner: LogOwner.home,
               homeArmy: -1,
             ),
             ScriptEvent(
-              text: '{away}, 레이스를 잡아냅니다! 하지만 SCV 피해가 좀 있습니다!',
+              text: '{away}, 공중 견제를 막아냅니다! 하지만 SCV 피해가 좀 있습니다!',
               owner: LogOwner.away,
               awayResource: -10,
               skipChance: 0.3,
@@ -832,7 +838,7 @@ const _tvtWraithVsRaxDouble = ScenarioScript(
           altText: '{home}, 컨트롤타워 완성! 드랍십이 가능합니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 엔지니어링 베이 건설! 터렛으로 레이스를 대비합니다!',
+          text: '{away} 선수 엔지니어링 베이 건설! 터렛으로 공중 유닛을 대비합니다!',
           owner: LogOwner.away,
           awayResource: -10,
           skipChance: 0.3,
@@ -976,10 +982,10 @@ const _tvt5facVsMineTriple = ScenarioScript(
           altText: '{away}, 마인 매설! 수비적으로 운영합니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 시즈 모드 연구 시작! 팩토리 5개 체제! 탱크 벌처 대량 생산!',
+          text: '{home} 선수 머신샵 부착! 시즈 모드 연구 시작! 팩토리 5개 체제! 탱크 벌처 대량 생산!',
           owner: LogOwner.home,
           homeArmy: 4, homeResource: -30,
-          altText: '{home}, 시즈 모드 연구와 5팩토리 풀가동! 병력이 쏟아져 나옵니다!',
+          altText: '{home}, 머신샵+시즈 연구! 5팩토리 풀가동! 병력이 쏟아져 나옵니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 세 번째 커맨드센터! 마인으로 시간을 벌면서!',
@@ -1525,7 +1531,6 @@ const _tvtAggressiveMirror = ScenarioScript(
           text: '{away} 선수도 아머리 건설! 골리앗 생산을 준비합니다!',
           owner: LogOwner.away,
           awayResource: -20,
-          skipChance: 0.3,
         ),
         ScriptEvent(
           text: '{home} 선수 스타포트 건설! 컨트롤타워도 올립니다!',
