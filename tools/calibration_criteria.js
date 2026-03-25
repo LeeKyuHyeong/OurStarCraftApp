@@ -37,8 +37,8 @@ const FORBIDDEN_WORDS = [
   '시타델',         // → '아둔'
 ];
 
-// '플릿' 단독 사용 금지 (플릿 비콘은 OK)
-const FLEET_SOLO_REGEX = /플릿(?!\s*비콘)/;
+// '플릿' 단독 사용 금지 (플릿 비콘은 OK, 스플릿은 제외)
+const FLEET_SOLO_REGEX = /(?<!스)플릿(?!\s*비콘)/;
 
 // 건물명 매핑: 잘못된 표기 → 올바른 표기
 const BUILDING_NAME_CORRECTIONS = {
@@ -243,10 +243,11 @@ const UNIT_MIN_LINE = {
 
 /**
  * 결정적 이벤트로 끝났는지 감지 (B17, C17에서 공용)
+ * system 뿐 아니라 home/away owner(GG 선언 등)도 체크
  */
 function isDecisiveEnding(logs) {
   const tail = logs.slice(-5);
-  return tail.some(l => l.owner === 'system' && DECISIVE_KEYWORDS.some(kw => (l.text || '').includes(kw)));
+  return tail.some(l => DECISIVE_KEYWORDS.some(kw => (l.text || '').includes(kw)));
 }
 
 // ============================================================
@@ -437,10 +438,13 @@ function checkSystemCommentaryRatio(logs) {
  * B-11. 테크트리 순서 검증
  * 유닛이 생산 가능 건물 없이 등장하는지 체크
  */
-function checkTechTreeOrder(logs, matchup) {
+function checkTechTreeOrder(logs, matchup, isReversed) {
   const violations = [];
   const races = MATCHUP_RACES[matchup];
   if (!races) return violations;
+
+  // isReversed 시 종족 매핑 스왑
+  const [homeRace, awayRace] = isReversed ? [races[1], races[0]] : [races[0], races[1]];
 
   // 각 측의 등장한 건물 추적
   const homeBuildings = new Set();
@@ -452,7 +456,7 @@ function checkTechTreeOrder(logs, matchup) {
 
     // home/away 이벤트에서만 체크
     if (log.owner === 'home' || log.owner === 'away') {
-      const race = log.owner === 'home' ? races[0] : races[1];
+      const race = log.owner === 'home' ? homeRace : awayRace;
       const buildings = log.owner === 'home' ? homeBuildings : awayBuildings;
       const tree = TECH_TREE[race];
       if (!tree) continue;
@@ -543,10 +547,10 @@ function checkDeadPlayerAction(game) {
   const logs = game.logs || [];
   if (logs.length < 3) return [];
 
-  // 뒤에서부터 결정적 system 이벤트 탐색
+  // 뒤에서부터 결정적 이벤트 탐색 (system + player owner 모두 체크)
   let decisiveIdx = -1;
   for (let i = logs.length - 1; i >= 0; i--) {
-    if (logs[i].owner === 'system' && DECISIVE_KEYWORDS.some(kw => (logs[i].text || '').includes(kw))) {
+    if (DECISIVE_KEYWORDS.some(kw => (logs[i].text || '').includes(kw))) {
       decisiveIdx = i;
       break;
     }
@@ -573,9 +577,10 @@ function checkDeadPlayerAction(game) {
  * B-20. 유닛 타이밍 검증
  * 고테크 유닛이 최소 라인 이전에 등장하면 위반
  */
-function checkUnitTiming(logs, matchup) {
+function checkUnitTiming(logs, matchup, isReversed) {
   const races = MATCHUP_RACES[matchup];
   if (!races) return [];
+  const [homeRace, awayRace] = isReversed ? [races[1], races[0]] : [races[0], races[1]];
   const violations = [];
 
   for (let i = 0; i < logs.length; i++) {
@@ -583,7 +588,7 @@ function checkUnitTiming(logs, matchup) {
     const text = log.text || '';
     if (log.owner !== 'home' && log.owner !== 'away') continue;
 
-    const race = log.owner === 'home' ? races[0] : races[1];
+    const race = log.owner === 'home' ? homeRace : awayRace;
     const minLines = UNIT_MIN_LINE[race];
     if (!minLines) continue;
 
@@ -607,9 +612,12 @@ function checkUnitTiming(logs, matchup) {
  * home/away 이벤트에서 다른 종족 유닛이 주체(주어)로 등장하면 위반
  * 주체 판별: 텍스트가 유닛명으로 시작하거나 유닛명+주격조사 패턴
  */
-function checkRaceUnitMismatch(logs, matchup) {
+function checkRaceUnitMismatch(logs, matchup, isReversed) {
   const races = MATCHUP_RACES[matchup];
   if (!races) return [];
+
+  // isReversed 시 종족 매핑 스왑
+  const [homeRace, awayRace] = isReversed ? [races[1], races[0]] : [races[0], races[1]];
 
   // 종족별 유닛 목록
   const raceUnits = {};
@@ -622,7 +630,7 @@ function checkRaceUnitMismatch(logs, matchup) {
     const log = logs[i];
     if (log.owner !== 'home' && log.owner !== 'away') continue;
     const text = log.text || '';
-    const ownerRace = log.owner === 'home' ? races[0] : races[1];
+    const ownerRace = log.owner === 'home' ? homeRace : awayRace;
     const ownUnits = raceUnits[ownerRace] || [];
 
     let found = false;
@@ -792,12 +800,13 @@ function checkDecisiveRate(games) {
 function validateSingleGame(game, matchup, gameIndex) {
   const violations = [];
   const logs = game.logs || [];
+  const isReversed = game.isReversed || false;
 
   // B-10: 시스템 해설 비율
   violations.push(...checkSystemCommentaryRatio(logs));
 
-  // B-11: 테크트리 순서
-  violations.push(...checkTechTreeOrder(logs, matchup));
+  // B-11: 테크트리 순서 (isReversed 반영)
+  violations.push(...checkTechTreeOrder(logs, matchup, isReversed));
 
   // B-12: 연속 중복
   violations.push(...checkConsecutiveDuplicates(logs));
@@ -808,11 +817,11 @@ function validateSingleGame(game, matchup, gameIndex) {
   // B-19: 게임 종료 후 패자 행동 금지
   violations.push(...checkDeadPlayerAction(game));
 
-  // B-20: 유닛 타이밍 검증
-  violations.push(...checkUnitTiming(logs, matchup));
+  // B-20: 유닛 타이밍 검증 (isReversed 반영)
+  violations.push(...checkUnitTiming(logs, matchup, isReversed));
 
-  // B-21: 종족 간 유닛 혼입 방지
-  violations.push(...checkRaceUnitMismatch(logs, matchup));
+  // B-21: 종족 간 유닛 혼입 방지 (isReversed 반영)
+  violations.push(...checkRaceUnitMismatch(logs, matchup, isReversed));
 
   // 줄 단위 검증
   for (let i = 0; i < logs.length; i++) {
