@@ -112,10 +112,10 @@ const _pvpDragoonNexusMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수 로보틱스 건설! 리버를 준비합니다!',
+              text: '{home} 선수 로보틱스 건설! 로보틱스 서포트 베이까지 이어갑니다!',
               owner: LogOwner.home,
               homeResource: -25, favorsStat: 'strategy',
-              altText: '{home}, 로보틱스! 셔틀 리버를 노리는 건가요?',
+              altText: '{home}, 로보틱스에 서포트 베이! 리버를 노리는 건가요?',
             ),
             ScriptEvent(
               text: '{away} 선수 아둔 건설! 질럿 발업을 준비합니다!',
@@ -124,7 +124,7 @@ const _pvpDragoonNexusMirror = ScenarioScript(
               altText: '{away}, 아둔! 하이 템플러를 준비하는 건가요?',
             ),
             ScriptEvent(
-              text: '{home}, 옵저버를 먼저 뽑을까 리버를 먼저 뽑을까?',
+              text: '{home}, 옵저버터리도 완성! 옵저버를 먼저 뽑을까 리버를 먼저 뽑을까?',
               owner: LogOwner.system,
               skipChance: 0.2,
             ),
@@ -147,12 +147,12 @@ const _pvpDragoonNexusMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수 로보틱스 건설!',
+              text: '{home} 선수 로보틱스에 서포트 베이 건설!',
               owner: LogOwner.home,
               homeResource: -25,
             ),
             ScriptEvent(
-              text: '{away} 선수도 로보틱스 건설! 셔틀 리버 경쟁!',
+              text: '{away} 선수도 로보틱스 서포트 베이 건설! 셔틀 리버 경쟁!',
               owner: LogOwner.away,
               awayResource: -25,
             ),
@@ -454,12 +454,12 @@ const _pvpDragoonVsNogate = ScenarioScript(
       startLine: 41,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 로보틱스 건설! 셔틀 리버를 준비합니다.',
+          text: '{home} 선수 로보틱스에 로보틱스 서포트 베이 건설! 셔틀 리버를 준비합니다.',
           owner: LogOwner.home,
           homeResource: -25,
         ),
         ScriptEvent(
-          text: '{away} 선수도 로보틱스 건설! 리버 경쟁!',
+          text: '{away} 선수도 로보틱스 서포트 베이 건설! 리버 경쟁!',
           owner: LogOwner.away,
           awayResource: -25,
         ),
@@ -573,10 +573,10 @@ const _pvpRoboVs2gateDragoon = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스 건설! 리버를 노립니다!',
+          text: '{home} 선수 로보틱스에 로보틱스 서포트 베이 건설! 리버를 노립니다!',
           owner: LogOwner.home,
           homeResource: -25,
-          altText: '{home}, 로보틱스가 올라갑니다! 셔틀 리버!',
+          altText: '{home}, 로보틱스 서포트 베이까지! 셔틀 리버!',
         ),
         ScriptEvent(
           text: '{away} 선수 게이트웨이 추가! 드라군을 빠르게 모읍니다!',
@@ -815,7 +815,7 @@ const _pvpDarkVsDragoon = ScenarioScript(
           altText: '{home}, 다크 2기 출발! 보이지 않는 칼!',
         ),
         ScriptEvent(
-          text: '{away} 선수 드라군을 뽑고 있습니다. 옵저버가 있을까요?',
+          text: '{away} 선수 로보틱스에 옵저버터리를 지었을까요? 드라군을 뽑고 있습니다.',
           owner: LogOwner.away,
           awayArmy: 3, awayResource: -15,
         ),
@@ -1187,13 +1187,13 @@ const _pvpRoboMirror = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스 건설! 셔틀 리버를 노립니다!',
+          text: '{home} 선수 로보틱스에 로보틱스 서포트 베이 건설! 셔틀 리버를 노립니다!',
           owner: LogOwner.home,
           homeResource: -25,
-          altText: '{home}, 로보틱스! 리버를 올립니다!',
+          altText: '{home}, 로보틱스 서포트 베이! 리버를 올립니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 로보틱스! 양쪽 리버 경쟁입니다!',
+          text: '{away} 선수도 로보틱스 서포트 베이! 양쪽 리버 경쟁입니다!',
           owner: LogOwner.away,
           awayResource: -25,
           altText: '{away}, 로보틱스! 셔틀 리버 경쟁입니다!',
@@ -1422,13 +1422,13 @@ const _pvp4gateVsMulti = ScenarioScript(
           altText: '{home} 선수 드라군 전진! 확장을 흔들어야 합니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 드라군이 아직 적습니다! 멀티 경제를 믿고 버팁니다!',
+          text: '{away} 선수 드라군이 아직 적습니다! 멀티 자원을 믿고 버팁니다!',
           owner: LogOwner.away,
           awayArmy: 3, awayResource: -15,
           altText: '{away}, 드라군 수가 부족합니다! 시간을 벌어야 해요!',
         ),
         ScriptEvent(
-          text: '4게이트 물량 vs 멀티 경제! 시간이 핵심입니다!',
+          text: '4게이트 물량 vs 멀티 확장! 시간이 핵심입니다!',
           owner: LogOwner.system,
           skipChance: 0.2,
         ),
@@ -1567,10 +1567,10 @@ const _pvpZealotRushVsReaver = ScenarioScript(
           altText: '{home}, 센터 게이트! 질럿을 빠르게 뽑겠다는 의도!',
         ),
         ScriptEvent(
-          text: '{away} 선수 로보틱스 건설! 리버를 준비합니다!',
+          text: '{away} 선수 로보틱스에 로보틱스 서포트 베이 건설! 리버를 준비합니다!',
           owner: LogOwner.away,
           awayResource: -25, awayArmy: 2,
-          altText: '{away}, 로보틱스! 셔틀 리버 빌드!',
+          altText: '{away}, 로보틱스 서포트 베이! 셔틀 리버 빌드!',
         ),
         ScriptEvent(
           text: '{home} 선수 질럿 생산 시작!',
@@ -1818,13 +1818,13 @@ const _pvpDarkMirror = ScenarioScript(
           skipChance: 0.3,
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스 건설! 옵저버와 리버를 준비합니다!',
+          text: '{home} 선수 로보틱스에 옵저버터리, 로보틱스 서포트 베이까지! 옵저버와 리버를 준비합니다!',
           owner: LogOwner.home,
           homeResource: -25,
-          altText: '{home}, 로보틱스! 다크 교환 이후 테크 전환!',
+          altText: '{home}, 로보틱스 서포트 베이에 옵저버터리까지! 다크 교환 이후 테크 전환!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 로보틱스! 셔틀 리버 경쟁!',
+          text: '{away} 선수도 로보틱스 서포트 베이에 옵저버터리! 셔틀 리버 경쟁!',
           owner: LogOwner.away,
           awayResource: -25,
         ),

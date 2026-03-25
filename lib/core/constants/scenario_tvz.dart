@@ -76,7 +76,7 @@ const _tvzBioVsMutal = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 마린 메딕 조합이 갖춰졌습니다!',
           owner: LogOwner.home,
-          homeArmy: 4, favorsStat: 'attack',
+          homeArmy: 3, favorsStat: 'attack',
           altText: '{home}, 마린 메딕 완성! 스팀팩까지 달렸습니다!',
         ),
       ],
@@ -101,8 +101,15 @@ const _tvzBioVsMutal = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 앞마당 저글링 깔아놓고 스파이어 올립니다!',
           owner: LogOwner.away,
-          awayArmy: 2, awayResource: -25,
+          awayArmy: 3, awayResource: -25,
           altText: '{away}, 스파이어가 올라가고 있습니다! 뮤탈 타이밍이 다가옵니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 팩토리 건설! 머신샵 부착까지 노리는 건가요?',
+          owner: LogOwner.home,
+          homeResource: -15,
+          skipChance: 0.3,
+          altText: '{home}, 팩토리에 머신샵! 시즈 탱크 테크를 올립니다!',
         ),
       ],
     ),
@@ -259,7 +266,7 @@ const _tvzBioVsMutal = ScenarioScript(
         ScriptEvent(
           text: '{away}, 뮤탈리스크로 견제하면서 저글링 물량을 모읍니다.',
           owner: LogOwner.away,
-          awayArmy: 4, awayResource: -15,
+          awayArmy: 5, awayResource: -15,
           altText: '{away} 선수 뮤탈 견제와 동시에 저글링 대량 생산!',
         ),
         ScriptEvent(
@@ -450,7 +457,7 @@ const _tvzBioVsMutal = ScenarioScript(
             ),
             ScriptEvent(
               text: '결정적인 순간입니다!',
-              owner: LogOwner.home,
+              owner: LogOwner.system,
               decisive: true,
             ),
           ],
@@ -522,7 +529,7 @@ const _tvzBioVsMutal = ScenarioScript(
             ),
             ScriptEvent(
               text: '양측 본진이 불타고 있습니다! 누가 먼저 무너질 것인가!',
-              owner: LogOwner.home,
+              owner: LogOwner.system,
               decisive: true,
             ),
           ],
@@ -571,10 +578,10 @@ const _tvzMechVsLurker = ScenarioScript(
           altText: '{away}, 앞마당 확장! 확장을 가져가려는 모습입니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 팩토리 건설! 메카닉 테크로 가는 건가요?',
+          text: '{home} 선수 팩토리 건설! 머신샵까지! 메카닉 테크로 가는 건가요?',
           owner: LogOwner.home,
           homeResource: -20,
-          altText: '{home}, 팩토리가 올라갑니다!',
+          altText: '{home}, 팩토리에 머신샵! 메카닉 테크입니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 스포닝풀 건설합니다.',
@@ -718,10 +725,10 @@ const _tvzMechVsLurker = ScenarioScript(
           altText: '{home}, 골리앗 물량이 쏟아져 나옵니다!',
         ),
         ScriptEvent(
-          text: '{away}, 디파일러 테크! 다크스웜 연구 들어갑니다!',
+          text: '{away}, 저글링 럴커 물량을 끝없이 뽑으면서 디파일러 테크! 다크스웜 연구 들어갑니다!',
           owner: LogOwner.away,
-          awayResource: -25,
-          altText: '{away} 선수 하이브 테크 올리면서 디파일러 준비!',
+          awayArmy: 5, awayResource: -25,
+          altText: '{away} 선수 물량 생산과 하이브 테크를 동시에! 디파일러 준비!',
         ),
         ScriptEvent(
           text: '{home} 선수 시즈 탱크 골리앗 조합으로 전진!',
@@ -884,7 +891,7 @@ const _tvzCheeseVsStandard = ScenarioScript(
         ),
         ScriptEvent(
           text: '{away} 선수 드론 생산에 집중하는 중인데... 발견할 수 있을까요?',
-          owner: LogOwner.system,
+          owner: LogOwner.away,
           skipChance: 0.2,
         ),
         ScriptEvent(
@@ -921,18 +928,18 @@ const _tvzCheeseVsStandard = ScenarioScript(
               homeArmy: -2,
             ),
             ScriptEvent(
-              text: '{away}, 써큰 콜로니 완성! 완벽한 대응입니다!',
+              text: '{away}, 성큰 완성! 완벽한 대응입니다!',
               owner: LogOwner.away,
               awayArmy: 3, awayResource: -15, favorsStat: 'defense',
-              altText: '{away} 선수 써큰 올리면서 마린을 잡아냅니다!',
+              altText: '{away} 선수 성큰 올리면서 마린을 잡아냅니다!',
             ),
             ScriptEvent(
-              text: '벙커 전략이 간파당했습니다! 테란 선수 위기!',
-              owner: LogOwner.system,
-            ),
-            ScriptEvent(
-              text: '{home} 선수 후퇴합니다... 자원 손실이 크겠는데요.',
+              text: '{away}, 벙커 전략을 간파합니다! 완벽한 대응!',
               owner: LogOwner.away,
+            ),
+            ScriptEvent(
+              text: '벙커 러시가 실패했습니다! 자원 손실이 크겠는데요.',
+              owner: LogOwner.system,
               homeArmy: -4, homeResource: -20,
               decisive: true,
             ),
@@ -972,7 +979,7 @@ const _tvzCheeseVsStandard = ScenarioScript(
             ),
             ScriptEvent(
               text: '벙커 압박이 거세집니다! 저그가 버틸 수 있을까요!',
-              owner: LogOwner.home,
+              owner: LogOwner.system,
               decisive: true,
             ),
           ],
@@ -1054,10 +1061,10 @@ const _tvz111VsMacro = ScenarioScript(
       recoveryResourcePerLine: 6,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 팩토리, 스타포트 순차 건설! 111 체제입니다.',
+          text: '{home} 선수 팩토리에 머신샵 부착! 스타포트까지! 111 체제입니다.',
           owner: LogOwner.home,
           homeResource: -25,
-          altText: '{home}, 원팩 원스타! 111 테크트리로 갑니다!',
+          altText: '{home}, 팩토리 머신샵 + 스타포트! 111 테크트리로 갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 3해처리 풀가동! 드론 30기 넘어갑니다!',
@@ -1171,7 +1178,7 @@ const _tvz111VsMacro = ScenarioScript(
           text: '{away}, 저글링 물량으로 막아냅니다! 수비 라인 구축!',
           owner: LogOwner.away,
           awayArmy: 2, homeArmy: -2, favorsStat: 'defense',
-          altText: '{away} 선수 저글링 써큰으로 탱크 푸시 저지!',
+          altText: '{away} 선수 저글링 성큰으로 탱크 푸시 저지!',
         ),
         ScriptEvent(
           text: '{home}, 탱크 시즈 모드! 앞마당을 포격합니다!',
@@ -1295,7 +1302,7 @@ const _tvzWraithVsMutal = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '{home} 선수 팩토리 건설! 테크를 서두르고 있습니다.',
+          text: '{home} 선수 팩토리에 머신샵 부착! 테크를 서두르고 있습니다.',
           owner: LogOwner.home,
           homeResource: -20,
           altText: '{home}, 팩토리가 올라갑니다! 빠른 테크!',
@@ -2055,10 +2062,10 @@ const _tvzValkyrieVsMutal = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '{home} 선수 팩토리 건설! 테크를 올립니다.',
+          text: '{home} 선수 팩토리에 머신샵 부착하면서 테크를 올립니다.',
           owner: LogOwner.home,
           homeResource: -20,
-          altText: '{home}, 팩토리가 올라갑니다!',
+          altText: '{home}, 팩토리 머신샵! 테크를 올립니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 저글링 생산하면서 레어 올립니다.',
@@ -2445,10 +2452,10 @@ const _tvzDoubleVs3Hatch = ScenarioScript(
           awayArmy: 3, awayResource: -10,
         ),
         ScriptEvent(
-          text: '{home} 선수 가스를 넣으면서 팩토리 건설! 탱크 테크를 올립니다.',
+          text: '{home} 선수 가스를 넣으면서 팩토리 건설! 머신샵 부착하고 탱크 테크를 올립니다.',
           owner: LogOwner.home,
           homeResource: -25,
-          altText: '{home}, 팩토리가 올라갑니다! 시즈 탱크 준비!',
+          altText: '{home}, 팩토리에 머신샵! 시즈 탱크 준비!',
         ),
         ScriptEvent(
           text: '양쪽 모두 내정에 집중하는 고요한 전개입니다.',
@@ -2546,7 +2553,7 @@ const _tvzDoubleVs3Hatch = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 저글링 뮤탈 럴커 조합! 3라인 생산입니다!',
           owner: LogOwner.away,
-          awayArmy: 6, awayResource: -25,
+          awayArmy: 8, awayResource: -25,
           altText: '{away}, 저글링 뮤탈 럴커 풀가동! 물량이 쏟아집니다!',
         ),
         ScriptEvent(
@@ -2609,7 +2616,7 @@ const _tvzDoubleVs3Hatch = ScenarioScript(
             ),
             ScriptEvent(
               text: '테란 한방이 들어갔습니다! 결정적인 순간!',
-              owner: LogOwner.home,
+              owner: LogOwner.system,
               decisive: true,
             ),
           ],
@@ -2826,7 +2833,7 @@ const _tvzStandardVs1HatchAllin = ScenarioScript(
               altText: '{home}, 정찰 성공! 럴커 올인을 읽었습니다!',
             ),
             ScriptEvent(
-              text: '{home}, 팩토리 건설! 시즈 탱크로 럴커를 잡겠다는 판단!',
+              text: '{home}, 팩토리에 머신샵 부착! 시즈 탱크로 럴커를 잡겠다는 판단!',
               owner: LogOwner.home,
               homeResource: -20, favorsStat: 'strategy',
             ),
@@ -2957,10 +2964,10 @@ const _tvzMechVsHive = ScenarioScript(
           altText: '{away}, 해처리부터 올립니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 가스를 일찍 넣으면서 팩토리 건설!',
+          text: '{home} 선수 가스를 일찍 넣으면서 팩토리에 머신샵까지!',
           owner: LogOwner.home,
           homeResource: -25,
-          altText: '{home}, 가스와 팩토리! 메카닉 테크입니다!',
+          altText: '{home}, 팩토리 머신샵! 메카닉 테크입니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 스포닝풀 건설합니다.',

@@ -36,13 +36,13 @@ const _zvz9poolVs9overpool = ScenarioScript(
           text: '{home} 선수 9드론에 스포닝풀 건설!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 9풀입니다! 저글링을 빨리 뽑으려는 의도!',
+          altText: '{home}, 9풀! 스포닝풀부터 올려 저글링을 빨리 뽑으려는 의도!',
         ),
         ScriptEvent(
-          text: '{away} 선수 9드론에 오버로드 먼저! 이후에 풀!',
+          text: '{away} 선수 9드론에 오버로드 먼저! 이후에 스포닝풀!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 9오버풀! 드론 한 기의 이점을 노립니다!',
+          altText: '{away}, 9오버풀 스포닝풀! 드론 한 기의 이점을 노립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링 생산 시작! 발업도 연구합니다!',
@@ -114,7 +114,7 @@ const _zvz9poolVs9overpool = ScenarioScript(
             ),
           ],
         ),
-        // 분기 B: 9오버풀 수비 성공 → 경제 우위
+        // 분기 B: 9오버풀 수비 성공 → 자원 우위
         ScriptBranch(
           id: 'defender_holds',
           baseProbability: 1.0,
@@ -347,7 +347,7 @@ const _zvz12hatchVs9pool = ScenarioScript(
           text: '{away} 선수 9드론에 스포닝풀 건설! 공격적입니다!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 9풀! 빠른 저글링으로 앞마당을 노립니다!',
+          altText: '{away}, 9풀! 스포닝풀 올리고 빠른 저글링으로 앞마당을 노립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 스포닝풀을 뒤늦게 올립니다.',
@@ -620,6 +620,7 @@ const _zvz4poolVs12hatch = ScenarioScript(
         ScriptEvent(
           text: '4풀 올인! 막을 수 있을까요?',
           owner: LogOwner.system,
+          skipChance: 0.3,
         ),
       ],
     ),
@@ -675,6 +676,7 @@ const _zvz4poolVs12hatch = ScenarioScript(
             ScriptEvent(
               text: '4풀이 막혔습니다! 드론 수 차이로 12앞 유리!',
               owner: LogOwner.system,
+              skipChance: 0.3,
             ),
           ],
         ),
@@ -1010,7 +1012,7 @@ const _zvz4poolVs9pool = ScenarioScript(
           text: '{home} 선수 드론 4기만에 스포닝풀 건설!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 4풀! 극초반 올인입니다!',
+          altText: '{home}, 4풀! 극초반 스포닝풀 올인입니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 드론을 뽑으면서 9드론에 풀을 올리려 합니다.',
@@ -1021,13 +1023,13 @@ const _zvz4poolVs9pool = ScenarioScript(
           text: '{home} 선수 저글링이 빠르게 나옵니다! 상대로 출발!',
           owner: LogOwner.home,
           homeArmy: 6, homeResource: -15,
-          altText: '{home}, 저글링이 달려갑니다! 풀이 완성되기 전에!',
+          altText: '{home}, 저글링이 달려갑니다! 스포닝풀 완성되기 전에!',
         ),
         ScriptEvent(
           text: '{away} 선수 9드론에 스포닝풀 건설! 저글링이 곧 나옵니다!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 9풀! 하지만 4풀 저글링이 먼저 도착할 수 있습니다!',
+          altText: '{away}, 9풀 스포닝풀! 하지만 4풀 저글링이 먼저 도착할 수 있습니다!',
         ),
       ],
     ),
@@ -1222,7 +1224,7 @@ const _zvz4poolVs3hatch = ScenarioScript(
           text: '{home} 선수 드론 4기만에 스포닝풀 건설!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 4풀! 극초반 러시입니다!',
+          altText: '{home}, 4풀! 극초반 스포닝풀 러시입니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 드론을 계속 뽑습니다. 앞마당을 노리는 모습!',
@@ -1329,7 +1331,7 @@ const _zvz4poolVs3hatch = ScenarioScript(
       ],
     ),
     // Phase 3: 후속 전개 (lines 31-52)
-    // 4풀 실패 시 3해처리의 경제력이 압도
+    // 4풀 실패 시 3해처리의 자원 확보가 압도
     // 목표: 전체 65-72% 홈(4풀) 승률 (3해처리는 풀이 가장 늦음)
     ScriptPhase(
       name: 'aftermath',
@@ -1447,13 +1449,13 @@ const _zvz9poolMirror = ScenarioScript(
           text: '{home} 선수 9드론에 스포닝풀 건설!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 9풀! 저글링 싸움 준비!',
+          altText: '{home}, 9풀 스포닝풀! 저글링 싸움 준비!',
         ),
         ScriptEvent(
           text: '{away} 선수도 9드론에 스포닝풀!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 9풀! 양쪽 다 공격적입니다!',
+          altText: '{away}, 9풀 스포닝풀! 양쪽 다 공격적입니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링 생산! 발업 연구 시작!',
@@ -1755,7 +1757,7 @@ const _zvz12poolVs3hatch = ScenarioScript(
           text: '{home} 선수 12드론에 스포닝풀 건설!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 12풀! 스탠다드한 오프닝입니다!',
+          altText: '{home}, 12풀 스포닝풀! 스탠다드한 오프닝입니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 앞마당 해처리를 올립니다! 풀 없이!',
@@ -1957,7 +1959,7 @@ const _zvz12poolVs3hatch = ScenarioScript(
               altText: '{away} 선수 뮤탈 견제! 드론을 물어뜯습니다!',
             ),
             ScriptEvent(
-              text: '3해처리의 경제력이 뮤탈 물량으로 전환되고 있습니다!',
+              text: '3해처리의 풍부한 자원이 뮤탈 물량으로 전환되고 있습니다!',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
@@ -2069,13 +2071,13 @@ const _zvz9overpoolMirror = ScenarioScript(
           text: '{home} 선수 9드론에 오버로드 먼저! 이후 스포닝풀!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 9오버풀! 오버로드를 먼저 올리고 풀을 짓습니다!',
+          altText: '{home}, 9오버풀! 오버로드를 먼저 올리고 스포닝풀을 짓습니다!',
         ),
         ScriptEvent(
           text: '{away} 선수도 9오버풀! 같은 빌드입니다!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 9오버풀! 미러 매치! 드론 수가 동일합니다!',
+          altText: '{away}, 9오버풀 스포닝풀! 미러 매치! 드론 수가 동일합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링 생산과 발업 연구 시작!',

@@ -1369,8 +1369,8 @@ class MatchSimulationService {
     final loserArmy = (state.homeArmy <= state.awayArmy) ? state.homeArmy : state.awayArmy;
     if (loserArmy <= 10) {
       final wipeTexts = [
-        '${loser.name} 선수 전 병력 소실!',
-        '${loser.name} 선수 남은 병력이 없습니다! 더 이상 막을 수 없는 상황!',
+        '${winner.name} 선수 총공격! ${loser.name} 선수 전 병력 소실!',
+        '${winner.name} 선수 압도적! ${loser.name} 선수 남은 병력이 없습니다!',
         '${winner.name} 선수 총공격! ${loser.name} 선수 병력 괴멸!',
       ];
       return wipeTexts[_random.nextInt(wipeTexts.length)];
@@ -1379,9 +1379,9 @@ class MatchSimulationService {
     // 장기전 (멀티/자원 고갈)
     if (lineCount >= 80) {
       final lateTexts = [
-        '${loser.name} 선수 멀티 괴멸! 병력 수급이 불가능합니다!',
+        '${winner.name} 선수 멀티 파괴! ${loser.name} 선수 병력 수급이 불가능합니다!',
         '${winner.name} 선수 결정적 한 방! ${loser.name} 선수 더 이상 버틸 수 없습니다!',
-        '자원이 고갈된 ${loser.name} 선수, 병력 보충이 안 되는 상황!',
+        '${winner.name} 선수 자원줄 타격! ${loser.name} 선수 병력 보충이 안 되는 상황!',
       ];
       return lateTexts[_random.nextInt(lateTexts.length)];
     }
@@ -1389,7 +1389,7 @@ class MatchSimulationService {
     // 일반 중반 마무리
     final midTexts = [
       '${winner.name} 선수 총공격! ${loser.name} 선수 본진이 위험합니다!',
-      '${loser.name} 선수 주력 병력 소실! 수비 라인이 무너졌습니다!',
+      '${winner.name} 선수 주력 교전 승리! ${loser.name} 선수 수비 라인이 무너졌습니다!',
       '${winner.name} 선수 결정적 교전 승리! ${loser.name} 선수 막을 수가 없습니다!',
     ];
     return midTexts[_random.nextInt(midTexts.length)];

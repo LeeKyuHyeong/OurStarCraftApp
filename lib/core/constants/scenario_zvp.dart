@@ -61,7 +61,7 @@ const _zvpHydraVsForge = ScenarioScript(
           text: '{home} 선수 가스를 넣으면서 히드라덴 준비합니다.',
           owner: LogOwner.home,
           homeResource: -20,
-          altText: '{home}, 가스 채취 시작! 히드라 테크를 올리려는 건가요?',
+          altText: '{home}, 가스 채취 시작! 히드라덴을 올리려는 건가요?',
         ),
         ScriptEvent(
           text: '{away} 선수 스타게이트 건설! 커세어를 준비합니다.',
@@ -468,6 +468,12 @@ const _zvpMutalVsForge = ScenarioScript(
       startLine: 41,
       linearEvents: [
         ScriptEvent(
+          text: '{home} 선수 히드라덴 건설! 지상 전력도 준비합니다!',
+          owner: LogOwner.home,
+          homeResource: -10,
+          altText: '{home}, 히드라덴이 올라갑니다! 복합 편성을 노립니다!',
+        ),
+        ScriptEvent(
           text: '{home} 선수 히드라를 추가 생산합니다! 뮤탈+히드라 조합!',
           owner: LogOwner.home,
           homeArmy: 4, homeResource: -20,
@@ -683,7 +689,7 @@ const _zvp9poolVsForge = ScenarioScript(
             ScriptEvent(
               text: '{away}, 질럿까지 나오면서 완벽한 수비!',
               owner: LogOwner.away,
-              awayArmy: 2, homeArmy: -2, favorsStat: 'defense',
+              awayArmy: 2, homeArmy: -1, favorsStat: 'defense',
             ),
             ScriptEvent(
               text: '캐논 수비 성공! 저그가 자원이 뒤처집니다!',
@@ -767,7 +773,7 @@ const _zvpCheeseVsCheese = ScenarioScript(
         // 분기 A: 저글링 물량 승리 (조건 없음 → 항상 eligible, 가중치로 선택)
         ScriptBranch(
           id: 'lings_overwhelm',
-          baseProbability: 0.7,
+          baseProbability: 1.0,
           events: [
             ScriptEvent(
               text: '{home}, 저글링 물량이 질럿을 압도합니다! 프로브를 향해 돌진!',
@@ -1060,7 +1066,7 @@ const _zvpScourgeDefiler = ScenarioScript(
           text: '{home} 선수 앞마당에 해처리를 올립니다.',
           owner: LogOwner.home,
           homeResource: -30,
-          altText: '{home}, 앞마당 해처리! 경제력을 챙깁니다.',
+          altText: '{home}, 앞마당 해처리! 자원을 확보합니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 앞마당 넥서스! 포지더블로 갑니다.',
@@ -1109,6 +1115,11 @@ const _zvpScourgeDefiler = ScenarioScript(
           owner: LogOwner.home,
           awayArmy: -2, homeArmy: -1, favorsStat: 'control',
           altText: '{home} 선수 스커지 자폭! 커세어가 격추됩니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 히드라덴 건설! 지상 병력도 갖춥니다.',
+          owner: LogOwner.home,
+          homeResource: -10,
         ),
         ScriptEvent(
           text: '{home} 선수 히드라도 함께 생산! 지상 압박도 가져갑니다.',
@@ -1201,7 +1212,7 @@ const _zvpScourgeDefiler = ScenarioScript(
         ScriptEvent(
           text: '{home}, 플레이그! 드라군 편대 위에 떨어집니다!',
           owner: LogOwner.home,
-          awayArmy: -5, favorsStat: 'strategy',
+          awayArmy: -4, favorsStat: 'strategy',
           altText: '{home} 선수 플레이그 명중! 드라군이 녹아내립니다!',
         ),
         ScriptEvent(
@@ -1212,7 +1223,7 @@ const _zvpScourgeDefiler = ScenarioScript(
         ScriptEvent(
           text: '{home}, 다크 스웜! 드라군의 공격이 무효화됩니다!',
           owner: LogOwner.home,
-          homeArmy: 2, favorsStat: 'strategy',
+          homeArmy: 1, favorsStat: 'strategy',
           altText: '{home} 선수 다크 스웜! 드라군이 히드라를 못 잡습니다!',
         ),
         ScriptEvent(
@@ -1526,7 +1537,7 @@ const _zvpStandardVs2Gate = ScenarioScript(
           text: '{home} 선수 앞마당 해처리를 건설합니다.',
           owner: LogOwner.home,
           homeResource: -30,
-          altText: '{home}, 12앞마당! 경제를 챙기는 빌드!',
+          altText: '{home}, 12앞마당! 자원을 챙기는 빌드!',
         ),
         ScriptEvent(
           text: '{away} 선수 프로브를 센터로 보냅니다!',
@@ -1596,7 +1607,7 @@ const _zvpStandardVs2Gate = ScenarioScript(
             ScriptEvent(
               text: '{home}, 저글링 추가 생산! 질럿을 하나씩 잡아냅니다!',
               owner: LogOwner.home,
-              homeArmy: 2, awayArmy: -2, favorsStat: 'control',
+              homeArmy: 1, awayArmy: -1, favorsStat: 'control',
             ),
             ScriptEvent(
               text: '성큰+저글링 수비 성공! 전진 2게이트를 막았습니다!',
@@ -1649,7 +1660,7 @@ const _zvpStandardVs2Gate = ScenarioScript(
             ScriptEvent(
               text: '{home} 선수 발업 저글링으로 역공! 프로토스 본진을 노립니다!',
               owner: LogOwner.home,
-              homeArmy: 3, awayArmy: -1, favorsStat: 'attack',
+              homeArmy: 2, awayArmy: -1, favorsStat: 'attack',
               altText: '{home}, 저글링 역공! 프로토스가 투자한 게 너무 많습니다!',
             ),
             ScriptEvent(
@@ -1720,7 +1731,7 @@ const _zvp3HatchVsCorsairReaver = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 해처리를 연달아 올립니다! 경제를 최대한 챙깁니다!',
+          text: '{home} 선수 해처리를 연달아 올립니다! 자원을 최대한 챙깁니다!',
           owner: LogOwner.home,
           homeResource: -30,
           altText: '{home}, 해처리가 빠르게 올라갑니다! 매크로 빌드!',
@@ -1734,7 +1745,7 @@ const _zvp3HatchVsCorsairReaver = ScenarioScript(
           text: '{home} 선수 3번째 해처리까지! 드론을 최대한 뽑습니다!',
           owner: LogOwner.home,
           homeResource: -25,
-          altText: '{home}, 3해처리! 경제력에서 앞서겠다는 의도!',
+          altText: '{home}, 3해처리! 자원에서 앞서겠다는 의도!',
         ),
         ScriptEvent(
           text: '{away} 선수 스타게이트 건설! 커세어를 준비합니다!',
@@ -1768,6 +1779,12 @@ const _zvp3HatchVsCorsairReaver = ScenarioScript(
           owner: LogOwner.away,
           awayArmy: 3, homeArmy: -1, favorsStat: 'harass',
           altText: '{away}, 커세어 기동! 오버로드가 떨어집니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 히드라덴 건설! 대공 유닛을 준비합니다!',
+          owner: LogOwner.home,
+          homeResource: -10,
+          altText: '{home}, 히드라덴이 올라갑니다! 커세어 대비!',
         ),
         ScriptEvent(
           text: '{home} 선수 히드라를 생산합니다! 커세어를 쫓아냅니다!',
@@ -1841,11 +1858,11 @@ const _zvp3HatchVsCorsairReaver = ScenarioScript(
             ScriptEvent(
               text: '{home}, 3해처리의 자원으로 히드라를 대량 생산합니다!',
               owner: LogOwner.home,
-              homeArmy: 5, homeResource: -20,
-              altText: '{home} 선수 히드라 물량! 경제력 차이가 나기 시작합니다!',
+              homeArmy: 4, homeResource: -20,
+              altText: '{home} 선수 히드라 물량! 일꾼 차이가 나기 시작합니다!',
             ),
             ScriptEvent(
-              text: '리버 드랍을 막아냈습니다! 3해처리의 경제력이 빛을 발합니다!',
+              text: '리버 드랍을 막아냈습니다! 3해처리의 자원 우위가 빛을 발합니다!',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
@@ -1945,7 +1962,7 @@ const _zvpHydraLurkerVsForge = ScenarioScript(
           text: '{home} 선수 앞마당에 해처리를 올립니다!',
           owner: LogOwner.home,
           homeResource: -30,
-          altText: '{home}, 앞마당 해처리! 경제를 챙기는 빌드!',
+          altText: '{home}, 앞마당 해처리! 확장을 챙기는 빌드!',
         ),
         ScriptEvent(
           text: '{away} 선수 앞마당 넥서스! 포지더블입니다!',
@@ -2327,22 +2344,22 @@ const _zvpCheeseVsForge = ScenarioScript(
       name: 'aftermath',
       startLine: 31,
       branches: [
-        // 분기 A: 러시 실패 후 경제 격차
+        // 분기 A: 러시 실패 후 자원 격차
         ScriptBranch(
           id: 'economy_gap',
           baseProbability: 1.5,
           events: [
             ScriptEvent(
-              text: '{home} 선수 드론이 4마리뿐입니다! 경제가 바닥!',
+              text: '{home} 선수 드론이 4마리뿐입니다! 일꾼이 바닥!',
               owner: LogOwner.home,
               homeResource: -10,
               altText: '{home}, 4풀의 대가! 드론이 너무 적습니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 넥서스에서 프로브를 계속 뽑습니다! 경제 격차!',
+              text: '{away} 선수 넥서스에서 프로브를 계속 뽑습니다! 일꾼 격차!',
               owner: LogOwner.away,
               awayResource: 20,
-              altText: '{away}, 프로브가 쌓입니다! 경제력 차이가 벌어집니다!',
+              altText: '{away}, 프로브가 쌓입니다! 자원 차이가 벌어집니다!',
             ),
             ScriptEvent(
               text: '{away}, 드라군을 생산하면서 압박합니다!',
@@ -2350,7 +2367,7 @@ const _zvpCheeseVsForge = ScenarioScript(
               awayArmy: 5, favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '4풀 실패! 경제 격차를 극복할 수 없습니다!',
+              text: '4풀 실패! 자원 격차를 극복할 수 없습니다!',
               owner: LogOwner.away,
               decisive: true,
             ),
