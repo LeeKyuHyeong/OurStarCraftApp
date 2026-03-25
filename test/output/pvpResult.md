@@ -1,4 +1,4 @@
-# PvP 보정 결과 (2차)
+# PvP 보정 결과 (2차 재실행)
 
 ## 최종 상태: PASS
 
@@ -16,8 +16,10 @@
 
 ### C17_DECISIVE_RATE (경고)
 - decisive 종료 비율 100.0% (검증 기준: 30~70%)
-- 1차 보정 시 0.0%였던 것이 100.0%로 반전됨
-- 원인: 1차 보정에서 B17 수정 시 모든 decisive 이벤트에 패자 병력 감소를 추가한 결과, 모든 경기가 decisive로 판정되는 상태
+- 원인: match_simulation_service.dart가 모든 경기 종료 시 'GG를 선언합니다' 텍스트를 추가
+- 'GG'가 DECISIVE_KEYWORDS에 포함되어 isDecisiveEnding()이 모든 경기에서 true 반환
+- scenario_pvp.dart 수정으로는 해결 불가 (시뮬레이션 서비스 레벨 이슈)
+- 수정 대상: match_simulation_service.dart 또는 calibration_criteria.js
 - 심각도: warn (에러 아님) - PASS 조건에 영향 없음
 
 ## 수정 파일
