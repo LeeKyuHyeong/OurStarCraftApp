@@ -1327,7 +1327,7 @@ class MatchSimulationService {
       if (winnerRace == Race.terran && loserRace == Race.zerg) {
         final texts = [
           '${winner.name} 선수, 마린으로 저글링 초토화 후 본진 입성!',
-          '${winner.name} 선수 마린 화력! ${loser.name} 선수 저글링이 녹습니다!',
+          '${winner.name} 선수 마린 화력! ${loser.name} 선수 저글링 전멸!',
           '${winner.name} 선수 공격에 ${loser.name} 선수 본진이 무너집니다!',
         ];
         return texts[_random.nextInt(texts.length)];
@@ -1335,7 +1335,7 @@ class MatchSimulationService {
       if (winnerRace == Race.zerg && loserRace == Race.terran) {
         final texts = [
           '${winner.name} 선수, 저글링으로 마린 초토화 후 본진 입성!',
-          '${winner.name} 선수 저글링 서라운드! ${loser.name} 선수 마린이 녹습니다!',
+          '${winner.name} 선수 저글링 서라운드! ${loser.name} 선수 마린 전멸!',
           '${winner.name} 선수 저글링 물량에 ${loser.name} 선수 수비 붕괴!',
         ];
         return texts[_random.nextInt(texts.length)];

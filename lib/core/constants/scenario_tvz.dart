@@ -717,7 +717,7 @@ const _tvzMechVsLurker = ScenarioScript(
               altText: '{away}, 럴커 매복! 완벽한 위치선정입니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 전진하는데... 럴커에 마린이 녹습니다!',
+              text: '{home} 선수 전진하는데... 럴커에 마린 전멸!',
               owner: LogOwner.home,
               homeArmy: -4, favorsStat: 'defense',
             ),
@@ -1276,9 +1276,14 @@ const _tvz111VsMacro = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수 하이브 완성! 울트라리스크가 나옵니다!',
+              text: '{away} 선수 하이브 완성! 울트라리스크 캐번 건설!',
               owner: LogOwner.away,
-              awayArmy: 8, awayResource: -30,
+              awayResource: -15,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 울트라리스크 생산! 최종 병기 등장!',
+              owner: LogOwner.away,
+              awayArmy: 8, awayResource: -15,
               altText: '{away}, 울트라 등장! 최종 병기!',
             ),
             ScriptEvent(
@@ -2864,7 +2869,7 @@ const _tvzStandardVs1HatchAllin = ScenarioScript(
               text: '{home} 선수 스캔이 없습니다! 럴커 위치를 모르는 상황!',
               owner: LogOwner.home,
               homeArmy: -3,
-              altText: '{home}, 디텍터가 부족합니다! 럴커에 마린이 녹아요!',
+              altText: '{home}, 디텍터가 부족합니다! 럴커에 마린 녹아요!',
             ),
             ScriptEvent(
               text: '{away}, 럴커가 입구에 자리잡습니다! 상대 보병을 녹여냅니다!',
