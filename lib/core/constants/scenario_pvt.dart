@@ -51,10 +51,10 @@ const _pvtDragoonExpandVsFactory = ScenarioScript(
           altText: '{home}, 사이버네틱스 코어가 올라갑니다! 드라군 준비!',
         ),
         ScriptEvent(
-          text: '{away} 선수 팩토리 건설합니다.',
+          text: '{away} 선수 팩토리 건설합니다. 머신샵도 붙입니다!',
           owner: LogOwner.away,
           awayArmy: 1, awayResource: -20,
-          altText: '{away}, 팩토리가 올라갑니다!',
+          altText: '{away}, 팩토리에 머신샵까지! 탱크 준비!',
         ),
         ScriptEvent(
           text: '{home} 선수 드라군 생산 시작! 사거리 업그레이드도 들어갑니다!',
@@ -102,10 +102,10 @@ const _pvtDragoonExpandVsFactory = ScenarioScript(
           altText: '{away} 선수 벌처 기동! 프로브 라인에 마인을 뿌립니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스 건설! 옵저버를 노리는 건가요?',
+          text: '{home} 선수 로보틱스 건설! 옵저버터리에 로보틱스 서포트 베이까지 올립니다!',
           owner: LogOwner.home,
           homeResource: -20,
-          altText: '{home}, 로보틱스가 올라갑니다! 리버가 될지 옵저버가 될지!',
+          altText: '{home}, 로보틱스에 로보틱스 서포트 베이, 옵저버터리까지 올립니다!',
         ),
         ScriptEvent(
           text: '양측 모두 내정을 다지면서 중반을 준비합니다.',
@@ -139,7 +139,7 @@ const _pvtDragoonExpandVsFactory = ScenarioScript(
               text: '{home}, 드라군 화력이 탱크 라인을 밀어냅니다!',
               owner: LogOwner.home,
               awayArmy: -2, favorsStat: 'attack',
-              altText: '{home} 선수 드라군 집중 포화! 탱크가 터지고 있습니다!',
+              altText: '{home} 선수 드라군이 집중 포화로 탱크를 부숩니다!',
             ),
             ScriptEvent(
               text: '프로토스 드라군 압박이 효과적입니다!',
@@ -159,7 +159,7 @@ const _pvtDragoonExpandVsFactory = ScenarioScript(
               text: '{away}, 벌처가 프로토스 멀티로 돌진합니다! 마인 투하!',
               owner: LogOwner.away,
               homeResource: -20, favorsStat: 'harass',
-              altText: '{away} 선수 벌처 기동! 프로브가 마인에 당합니다!',
+              altText: '{away} 선수 벌처가 기동! 마인으로 일꾼 라인을 타격합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 프로브 피해가 큽니다! 대응이 늦었어요!',
@@ -233,7 +233,7 @@ const _pvtDragoonExpandVsFactory = ScenarioScript(
           text: '{home}, 리버 스캐럽! SCV 라인에 떨어집니다!',
           owner: LogOwner.home,
           awayResource: -20, favorsStat: 'harass',
-          altText: '{home} 선수 스캐럽 명중! SCV가 날아갑니다!',
+          altText: '{home} 선수 스캐럽이 명중! 일꾼 라인을 초토화합니다!',
         ),
         ScriptEvent(
           text: '{away}, 급히 벌처를 돌려서 셔틀을 쫓습니다!',
@@ -265,10 +265,10 @@ const _pvtDragoonExpandVsFactory = ScenarioScript(
           baseProbability: 0.5,
           events: [
             ScriptEvent(
-              text: '{home} 선수 아비터 트리뷰널 건설! 아비터를 준비합니다!',
+              text: '{home} 선수 스타게이트 건설! 아비터 트리뷰널까지 올립니다!',
               owner: LogOwner.home,
               homeResource: -25, favorsStat: 'strategy',
-              altText: '{home}, 아비터 테크! 리콜 준비인가요?',
+              altText: '{home}, 스타게이트에 아비터 트리뷰널까지! 리콜 준비인가요?',
             ),
             ScriptEvent(
               text: '{home}, 아비터 등장! 스테이시스 필드 준비!',
@@ -337,10 +337,10 @@ const _pvtDragoonExpandVsFactory = ScenarioScript(
       startLine: 71,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 하이 템플러 합류! 사이오닉 스톰 준비!',
+          text: '{home} 선수 아둔에 템플러 아카이브 건설! 하이 템플러가 합류합니다!',
           owner: LogOwner.home,
           homeArmy: 4, homeResource: -25,
-          altText: '{home}, 하이 템플러가 나왔습니다! 스톰 연구 완료!',
+          altText: '{home}, 아둔에서 템플러 아카이브! 하이 템플러 합류!',
         ),
         ScriptEvent(
           text: '{away} 선수도 전 병력 결집! 최종 공격 준비!',
@@ -366,7 +366,7 @@ const _pvtDragoonExpandVsFactory = ScenarioScript(
               text: '{home}, 사이오닉 스톰! 바이오닉 병력이 녹아내립니다!',
               owner: LogOwner.home,
               awayArmy: -14, homeArmy: -5, favorsStat: 'strategy',
-              altText: '{home} 선수 스톰 투하! 마린 메딕이 순식간에 증발합니다!',
+              altText: '{home} 선수 스톰이 마린 메딕을 순식간에 증발시킵니다!',
             ),
             ScriptEvent(
               text: '스톰이 결정적이었습니다! 프로토스 승리!',
@@ -425,21 +425,22 @@ const _pvtReaverVsTiming = ScenarioScript(
           awayResource: -10,
         ),
         ScriptEvent(
-          text: '{home} 선수 사이버네틱스 코어 이후 로보틱스 건설!',
+          text: '{home} 선수 사이버네틱스 코어 이후 로보틱스 건설! 로보틱스 서포트 베이도 올립니다!',
           owner: LogOwner.home,
           homeResource: -25,
-          altText: '{home}, 로보틱스가 올라갑니다! 리버를 노리는 건가요?',
+          altText: '{home}, 사이버네틱스 코어 이후 로보틱스에 로보틱스 서포트 베이까지!',
         ),
         ScriptEvent(
-          text: '{away} 선수 팩토리 건설! 빠르게 테크를 올립니다.',
+          text: '{away} 선수 팩토리 건설! 머신샵도 붙입니다!',
           owner: LogOwner.away,
           awayResource: -20,
+          altText: '{away}, 팩토리에 머신샵! 빠르게 테크를 올립니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 리버 생산 시작! 셔틀도 올립니다!',
+          text: '{home} 선수 셔틀 생산 시작! 로보틱스 서포트 베이에서 준비 중!',
           owner: LogOwner.home,
           homeArmy: 2, homeResource: -25,
-          altText: '{home}, 셔틀과 리버를 동시에 준비합니다!',
+          altText: '{home}, 셔틀 생산 중! 서포트 베이가 가동됩니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리를 추가합니다! 병력을 빠르게 모으려는 의도!',
@@ -448,7 +449,7 @@ const _pvtReaverVsTiming = ScenarioScript(
           altText: '{away}, 팩토리 증설! 빠른 타이밍을 노리는 건가요?',
         ),
         ScriptEvent(
-          text: '{home} 선수 셔틀에 리버를 태웁니다!',
+          text: '{home} 선수 셔틀 완성! 리버를 태울 준비가 됐습니다!',
           owner: LogOwner.home,
           homeArmy: 2, homeResource: -15,
         ),
@@ -460,7 +461,7 @@ const _pvtReaverVsTiming = ScenarioScript(
       startLine: 17,
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 셔틀 리버 출격! SCV 라인으로 향합니다!',
+          text: '{home}, 셔틀에 리버를 태우고 출격! 테란 일꾼 라인으로 향합니다!',
           owner: LogOwner.home,
           favorsStat: 'harass',
           altText: '{home} 선수 셔틀 리버 투하! 테란 일꾼을 노립니다!',
@@ -469,7 +470,13 @@ const _pvtReaverVsTiming = ScenarioScript(
           text: '{away} 선수 병력을 모아서 전진합니다! 타이밍 공격!',
           owner: LogOwner.away,
           awayArmy: 2, awayResource: -20, favorsStat: 'attack',
-          altText: '{away}, 탱크 벌처 병력이 프로토스로 이동합니다!',
+          altText: '{away}, 벌처 편대가 프로토스로 이동합니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 아카데미에 엔지니어링 베이, 아머리까지! 업그레이드와 대공 준비!',
+          owner: LogOwner.away,
+          awayResource: -15,
+          altText: '{away}, 아카데미와 엔지니어링 베이, 아머리 건설! 골리앗도 대비합니다!',
         ),
         ScriptEvent(
           text: '양쪽 모두 공격적인 선택! 서로의 기지를 노리는 형국!',
@@ -489,10 +496,10 @@ const _pvtReaverVsTiming = ScenarioScript(
           baseProbability: 0.45,
           events: [
             ScriptEvent(
-              text: '{home}, 리버 스캐럽! SCV 5기가 한 번에 날아갑니다!',
+              text: '{home}, 리버 스캐럽이 일꾼 라인에 명중! 5기가 한 번에 날아갑니다!',
               owner: LogOwner.home,
               homeArmy: 2, awayResource: -25, favorsStat: 'harass',
-              altText: '{home} 선수 스캐럽 대박! SCV가 증발합니다!',
+              altText: '{home} 선수 스캐럽이 대박! 테란 일꾼을 초토화합니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 벌처를 돌려서 리버를 잡으려 합니다!',
@@ -525,10 +532,10 @@ const _pvtReaverVsTiming = ScenarioScript(
               favorsStat: 'defense',
             ),
             ScriptEvent(
-              text: '{away}, 셔틀 격추! 리버가 땅에 떨어집니다!',
+              text: '{away}, 골리앗이 셔틀을 격추합니다! 리버도 함께 떨어집니다!',
               owner: LogOwner.away,
               homeArmy: -2, favorsStat: 'defense',
-              altText: '{away} 선수 셔틀 폭사! 리버가 고립됐습니다!',
+              altText: '{away} 선수 골리앗이 셔틀을 잡아냅니다! 리버도 고립!',
             ),
             ScriptEvent(
               text: '{home} 선수 리버를 잃었습니다! 핵심 유닛 손실!',
@@ -562,16 +569,23 @@ const _pvtReaverVsTiming = ScenarioScript(
           altText: '{home}, 사업 드라군으로 탱크 사거리 밖에서 포격!',
         ),
         ScriptEvent(
-          text: '{away}, 탱크 시즈 포격! 드라군이 한 방에 터집니다!',
+          text: '{away}, 탱크가 시즈 포격! 한 방에 프로토스 병력을 날립니다!',
           owner: LogOwner.away,
           homeArmy: -3, awayArmy: -2, favorsStat: 'attack',
-          altText: '{away} 선수 탱크 포격! 드라군이 무너집니다!',
+          altText: '{away} 선수 탱크가 포격! 프로토스 전선을 무너뜨립니다!',
         ),
         ScriptEvent(
           text: '{home}, 질럿이 돌진! 탱크 뒤를 노립니다!',
           owner: LogOwner.home,
           awayArmy: -3, homeArmy: -1, favorsStat: 'control',
           altText: '{home} 선수 질럿 돌진! 탱크 라인 교란!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 아둔에 템플러 아카이브 건설! 스톰을 준비합니다!',
+          owner: LogOwner.home,
+          homeResource: -20,
+          skipChance: 0.3,
+          altText: '{home}, 아둔에서 템플러 아카이브까지! 하이 템플러 테크!',
         ),
         ScriptEvent(
           text: '양측 병력이 크게 소모되고 있습니다!',
@@ -634,7 +648,7 @@ const _pvtReaverVsTiming = ScenarioScript(
               text: '{home} 선수 리버로 저항하지만 물량 차이가 큽니다!',
               owner: LogOwner.home,
               awayArmy: -4, homeArmy: -3,
-              altText: '{home}, 리버 스캐럽으로 저항! 하지만 탱크가 너무 많아요!',
+              altText: '{home}, 리버가 스캐럽으로 저항! 하지만 물량 차이가 너무 커요!',
             ),
             ScriptEvent(
               text: '테란 물량이 프로토스를 압도하고 있습니다!',
@@ -680,10 +694,10 @@ const _pvtDarkVsStandard = ScenarioScript(
           homeResource: -15,
         ),
         ScriptEvent(
-          text: '{away} 선수 팩토리 건설합니다.',
+          text: '{away} 선수 팩토리 건설합니다. 머신샵도 붙입니다!',
           owner: LogOwner.away,
           awayResource: -20,
-          altText: '{away}, 팩토리가 올라갑니다!',
+          altText: '{away}, 팩토리에 머신샵! 탱크 준비!',
         ),
         ScriptEvent(
           text: '{home} 선수 아둔 건설! 다크 테크인가요?',
@@ -738,7 +752,7 @@ const _pvtDarkVsStandard = ScenarioScript(
               text: '{home}, 다크 템플러가 SCV를 베기 시작합니다! 디텍이 없어요!',
               owner: LogOwner.home,
               awayResource: -30, favorsStat: 'harass',
-              altText: '{home} 선수 다크 성공! SCV가 줄줄이 쓰러집니다!',
+              altText: '{home} 선수 다크가 성공! 테란 일꾼을 줄줄이 베어냅니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 아카데미도 없고 엔지니어링 베이도 없습니다! 디텍이 전무해요!',
@@ -801,9 +815,10 @@ const _pvtDarkVsStandard = ScenarioScript(
           altText: '{home}, 드라군 물량으로 전환합니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 시즈 탱크 생산! 화력을 올립니다.',
+          text: '{away} 선수 시즈 탱크 생산! 아머리도 올려서 골리앗도 준비합니다.',
           owner: LogOwner.away,
           awayArmy: 3, awayResource: -20,
+          altText: '{away}, 탱크와 아머리! 골리앗까지 대비합니다!',
         ),
         ScriptEvent(
           text: '{home}, 하이 템플러도 준비합니다! 스톰 연구!',
@@ -871,10 +886,10 @@ const _pvtDarkVsStandard = ScenarioScript(
           baseProbability: 0.5,
           events: [
             ScriptEvent(
-              text: '{away}, 탱크 포격! 드라군이 부서집니다!',
+              text: '{away}, 탱크가 포격! 프로토스 병력을 부숩니다!',
               owner: LogOwner.away,
               homeArmy: -10, awayArmy: -5, favorsStat: 'attack',
-              altText: '{away} 선수 시즈 화력으로 드라군을 날립니다!',
+              altText: '{away} 선수 탱크가 시즈 화력으로 프로토스를 날립니다!',
             ),
             ScriptEvent(
               text: '화력이 결정적! 테란이 밀어냅니다!',
@@ -964,7 +979,7 @@ const _pvtCheeseVsStandard = ScenarioScript(
               text: '{home}, 질럿이 SCV를 베기 시작합니다! 벙커가 완성되지 않았어요!',
               owner: LogOwner.home,
               awayResource: -10, favorsStat: 'attack',
-              altText: '{home} 선수 질럿이 들어갔습니다! SCV가 쓰러집니다!',
+              altText: '{home} 선수 질럿이 들어갔습니다! 일꾼을 베어냅니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 SCV 수리로 벙커를 살리려 하지만!',
@@ -1006,7 +1021,7 @@ const _pvtCheeseVsStandard = ScenarioScript(
               homeArmy: -3, awayArmy: 3, favorsStat: 'control',
             ),
             ScriptEvent(
-              text: '질럿 러시가 막혔습니다! 프로토스가 위기!',
+              text: '벙커가 지켜냈습니다! 프로토스 러시 실패!',
               owner: LogOwner.away,
               decisive: true,
             ),
@@ -1044,15 +1059,16 @@ const _pvtCarrierVsAnti = ScenarioScript(
           awayResource: -10,
         ),
         ScriptEvent(
-          text: '{home} 선수 앞마당 넥서스를 올립니다. 확장을 가져가네요.',
+          text: '{home} 선수 사이버네틱스 코어 건설 후 앞마당 넥서스를 올립니다.',
           owner: LogOwner.home,
           homeResource: -30,
-          altText: '{home}, 넥서스 건설! 확장을 가져가겠다는 모습!',
+          altText: '{home}, 사이버네틱스 코어에 넥서스까지! 확장을 가져가겠다는 모습!',
         ),
         ScriptEvent(
-          text: '{away} 선수 앞마당 커맨드센터 건설합니다.',
+          text: '{away} 선수 팩토리에 머신샵! 앞마당 커맨드센터도 건설합니다.',
           owner: LogOwner.away,
           awayResource: -30,
+          altText: '{away}, 팩토리 머신샵에 앞마당까지! 안정적인 운영!',
         ),
         ScriptEvent(
           text: '{home} 선수 스타게이트 건설! 공중 테크로 가는 건가요?',
@@ -1067,10 +1083,10 @@ const _pvtCarrierVsAnti = ScenarioScript(
           altText: '{away}, 아머리가 올라갑니다! 골리앗 대비인가요?',
         ),
         ScriptEvent(
-          text: '{home} 선수 플릿 비콘 건설! 캐리어를 준비합니다!',
+          text: '{home} 선수 플릿 비콘 건설! 공중 대형 유닛을 노리는 건가요?',
           owner: LogOwner.home,
           homeResource: -25,
-          altText: '{home}, 플릿 비콘! 캐리어 테크입니다!',
+          altText: '{home}, 플릿 비콘! 최상위 공중 테크입니다!',
         ),
       ],
     ),
@@ -1082,21 +1098,38 @@ const _pvtCarrierVsAnti = ScenarioScript(
       recoveryResourcePerLine: 8,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 캐리어 생산 시작! 인터셉터를 채우고 있습니다.',
+          text: '{home} 선수 스타게이트에서 생산 중! 인터셉터를 채우고 있습니다.',
           owner: LogOwner.home,
-          homeArmy: 3, homeResource: -30,
-          altText: '{home}, 캐리어가 나옵니다! 인터셉터 충전 중!',
+          homeArmy: 2, homeResource: -20,
+          altText: '{home}, 스타게이트 가동! 공중 유닛 생산 중!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 엔지니어링 베이 건설! 업그레이드를 준비합니다.',
+          owner: LogOwner.away,
+          awayArmy: 1, awayResource: -15,
+          altText: '{away}, 엔지니어링 베이! 방어 태세 강화!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 드라군 추가 생산하면서 아둔에 템플러 아카이브까지 올립니다!',
+          owner: LogOwner.home,
+          homeArmy: 2, homeResource: -20,
+          altText: '{home}, 아둔에서 템플러 아카이브! 다중 테크!',
         ),
         ScriptEvent(
           text: '{away} 선수 골리앗 대량 생산! 대공 준비를 합니다.',
           owner: LogOwner.away,
           awayArmy: 3, awayResource: -25,
-          altText: '{away}, 골리앗이 쏟아져 나옵니다! 캐리어에 대비!',
+          altText: '{away}, 골리앗이 쏟아져 나옵니다! 대공 대비!',
         ),
         ScriptEvent(
-          text: '{home}, 드라군과 캐리어 복합 편성! 하이 템플러도 준비!',
+          text: '양측 후반 테크가 갖추어지고 있습니다.',
+          owner: LogOwner.system,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 캐리어 생산 시작! 인터셉터 충전 중!',
           owner: LogOwner.home,
-          homeArmy: 3, homeResource: -20,
+          homeArmy: 3, homeResource: -30,
+          altText: '{home}, 캐리어가 나옵니다! 공중 대형 유닛!',
         ),
         ScriptEvent(
           text: '{away} 선수 시즈 탱크도 추가 생산! 지상 화력을 올립니다.',
@@ -1131,7 +1164,7 @@ const _pvtCarrierVsAnti = ScenarioScript(
               awayArmy: -3, homeArmy: -2,
             ),
             ScriptEvent(
-              text: '{home}, 하이 템플러 스톰까지! 골리앗이 녹아내립니다!',
+              text: '{home}, 하이 템플러가 스톰 투하! 테란 병력을 녹여냅니다!',
               owner: LogOwner.home,
               awayArmy: -4, homeArmy: -1, favorsStat: 'strategy',
               altText: '{home} 선수 스톰+캐리어! 이중 화력에 테란이 무너집니다!',
@@ -1151,7 +1184,7 @@ const _pvtCarrierVsAnti = ScenarioScript(
               text: '{away}, 골리앗 편대가 캐리어를 집중 포화! 대공 화력이 강합니다!',
               owner: LogOwner.away,
               homeArmy: -3, awayArmy: 2, favorsStat: 'defense',
-              altText: '{away} 선수 골리앗 집중 사격! 캐리어가 흔들립니다!',
+              altText: '{away} 선수 골리앗이 집중 사격! 대공 화력으로 압도합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 캐리어 1기가 격추됩니다! 인터셉터도 손실!',
@@ -1202,10 +1235,10 @@ const _pvt5gatePush = ScenarioScript(
           awayResource: -10,
         ),
         ScriptEvent(
-          text: '{home} 선수 게이트웨이를 계속 추가합니다!',
+          text: '{home} 선수 사이버네틱스 코어 건설 후 게이트웨이를 계속 추가합니다!',
           owner: LogOwner.home,
           homeResource: -30,
-          altText: '{home}, 게이트웨이가 빠르게 늘어납니다!',
+          altText: '{home}, 사이버네틱스 코어에 게이트웨이가 빠르게 늘어납니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 앞마당 확장합니다.',
@@ -1219,7 +1252,7 @@ const _pvt5gatePush = ScenarioScript(
           altText: '{home}, 5게이트 완성! 드라군이 물밀듯이 나옵니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 팩토리 가동! 탱크 생산 시작.',
+          text: '{away} 선수 팩토리에 머신샵! 탱크 생산 시작.',
           owner: LogOwner.away,
           awayArmy: 3, awayResource: -20,
         ),
@@ -1240,7 +1273,7 @@ const _pvt5gatePush = ScenarioScript(
           text: '{away} 선수 시즈 탱크가 아직 2기뿐입니다! 시간이 부족해요!',
           owner: LogOwner.away,
           awayArmy: 2, awayResource: -15,
-          altText: '{away}, 탱크가 모이기 전에 드라군이 도착합니다!',
+          altText: '{away}, 탱크가 모이기 전에 공격당합니다!',
         ),
         ScriptEvent(
           text: '5게이트 타이밍이 절묘합니다! 탱크가 모이기 전!',
@@ -1288,10 +1321,10 @@ const _pvt5gatePush = ScenarioScript(
           baseProbability: 0.55,
           events: [
             ScriptEvent(
-              text: '{away}, 시즈 탱크 시즈 모드! 드라군이 녹기 시작합니다!',
+              text: '{away}, 시즈 탱크가 시즈 모드! 프로토스 병력을 녹입니다!',
               owner: LogOwner.away,
               homeArmy: -5, favorsStat: 'defense',
-              altText: '{away} 선수 탱크 포격! 드라군이 한 방에 터집니다!',
+              altText: '{away} 선수 탱크가 포격! 프로토스 전선을 부숩니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 드라군이 녹고 있습니다! 시즈 화력이 너무 강해요!',
@@ -1405,7 +1438,7 @@ const _pvtCheeseVsCheese = ScenarioScript(
               altText: '{home} 선수 질럿 컨트롤! 마린을 순식간에 정리!',
             ),
             ScriptEvent(
-              text: '{away} 선수 SCV로 수리하려 하지만 질럿이 너무 강합니다!',
+              text: '{away} 선수 SCV로 수리하려 하지만 SCV가 너무 빨리 녹습니다!',
               owner: LogOwner.away,
               awayArmy: -2, awayResource: -10,
             ),
@@ -1493,10 +1526,10 @@ const _pvtReaverVsBbs = ScenarioScript(
           altText: '{away}, 마린이 빠르게 쌓이고 있습니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스 건설!',
+          text: '{home} 선수 로보틱스 건설! 로보틱스 서포트 베이도 올립니다!',
           owner: LogOwner.home,
           homeResource: -20,
-          altText: '{home}, 로보틱스가 올라갑니다! 리버 준비!',
+          altText: '{home}, 로보틱스에 로보틱스 서포트 베이 건설! 셔틀 준비!',
         ),
         ScriptEvent(
           text: '{away}, SCV까지 끌고 프로토스 앞마당으로 진격합니다!',
@@ -1561,7 +1594,7 @@ const _pvtReaverVsBbs = ScenarioScript(
               text: '{home}, 셔틀 리버가 테란 본진으로! 스캐럽 투하!',
               owner: LogOwner.home,
               awayResource: -25, favorsStat: 'harass',
-              altText: '{home} 선수 스캐럽! SCV가 날아갑니다!',
+              altText: '{home} 선수 스캐럽이 명중! 테란 일꾼을 날려버립니다!',
             ),
             ScriptEvent(
               text: 'BBS를 막고 리버 역습! 프로토스가 판을 뒤집습니다!',
@@ -1643,10 +1676,10 @@ const _pvtMineTriple = ScenarioScript(
           altText: '{home}, 게이트웨이가 올라갑니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 팩토리 건설합니다.',
+          text: '{away} 선수 팩토리에 머신샵! 탱크 준비도 합니다.',
           owner: LogOwner.away,
           awayResource: -20,
-          altText: '{away}, 팩토리가 올라갑니다!',
+          altText: '{away}, 팩토리에 머신샵까지! 탱크 대비!',
         ),
         ScriptEvent(
           text: '{home} 선수 사이버네틱스 코어 건설! 드라군 준비!',
@@ -1692,10 +1725,10 @@ const _pvtMineTriple = ScenarioScript(
           homeArmy: 3, homeResource: -15,
         ),
         ScriptEvent(
-          text: '{home}, 로보틱스 건설! 옵저버를 준비합니다.',
+          text: '{home}, 로보틱스 건설! 옵저버터리도 올립니다!',
           owner: LogOwner.home,
           homeResource: -20,
-          altText: '{home} 선수 로보틱스! 옵저버로 마인을 잡으려는 의도!',
+          altText: '{home} 선수 로보틱스에 옵저버터리! 옵저버로 마인을 잡으려는 의도!',
         ),
         ScriptEvent(
           text: '{away} 선수 세 번째 커맨드센터에서 자원이 들어옵니다! 시즈 탱크 추가 생산!',
@@ -1782,10 +1815,10 @@ const _pvtMineTriple = ScenarioScript(
       recoveryResourcePerLine: 8,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 템플러 아카이브 건설! 하이 템플러를 준비합니다!',
+          text: '{home} 선수 아둔에 템플러 아카이브 건설! 하이 템플러를 준비합니다!',
           owner: LogOwner.home,
           homeResource: -25,
-          altText: '{home}, 하이 템플러 테크! 스톰 연구 시작!',
+          altText: '{home}, 아둔에서 템플러 아카이브까지! 스톰 연구 시작!',
         ),
         ScriptEvent(
           text: '{away} 선수 아머리 건설! 업그레이드를 올립니다!',
@@ -1851,10 +1884,10 @@ const _pvtMineTriple = ScenarioScript(
           baseProbability: 0.5,
           events: [
             ScriptEvent(
-              text: '{away}, 시즈 탱크 집중 포격! 드라군이 한 방에 날아갑니다!',
+              text: '{away}, 시즈 탱크가 집중 포격! 프로토스 병력을 날려버립니다!',
               owner: LogOwner.away,
               homeArmy: -6, favorsStat: 'attack',
-              altText: '{away} 선수 탱크 포격! 드라군 편대가 무너집니다!',
+              altText: '{away} 선수 탱크가 포격! 프로토스 전선을 무너뜨립니다!',
             ),
             ScriptEvent(
               text: '{away}, 골리앗까지 합류! 지상 화력이 압도적입니다!',
@@ -1912,16 +1945,16 @@ const _pvt11up8facVsExpand = ScenarioScript(
           homeResource: -20,
         ),
         ScriptEvent(
-          text: '{away} 선수 가스 채취! 팩토리 건설합니다!',
+          text: '{away} 선수 가스 채취! 팩토리에 머신샵까지 건설합니다!',
           owner: LogOwner.away,
           awayResource: -20,
-          altText: '{away}, 팩토리가 올라갑니다!',
+          altText: '{away}, 팩토리에 머신샵! 탱크 준비!',
         ),
         ScriptEvent(
           text: '{home} 선수 사이버네틱스 코어 건설! 드라군 사거리 업그레이드!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 사업 시작! 드라군 준비!',
+          altText: '{home}, 사이버네틱스 코어! 사업 시작! 드라군 준비!',
         ),
         ScriptEvent(
           text: '{away} 선수 앞마당 커맨드센터! 아머리 건설도 시작합니다!',
@@ -1969,10 +2002,10 @@ const _pvt11up8facVsExpand = ScenarioScript(
           altText: '{away} 선수 벌처 기동! 마인으로 시간 벌기!',
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스 건설! 옵저버 생산!',
+          text: '{home} 선수 로보틱스에 옵저버터리 건설! 옵저버 생산!',
           owner: LogOwner.home,
           homeResource: -20,
-          altText: '{home}, 로보틱스! 옵저버로 마인 대비!',
+          altText: '{home}, 로보틱스에 옵저버터리! 옵저버로 마인 대비!',
         ),
         ScriptEvent(
           text: '양측 모두 후반 대전을 준비하고 있습니다.',
@@ -1995,7 +2028,7 @@ const _pvt11up8facVsExpand = ScenarioScript(
               text: '{home}, 사업 완료 드라군 편대가 전진합니다!',
               owner: LogOwner.home,
               homeArmy: 3, favorsStat: 'attack',
-              altText: '{home} 선수 드라군 푸시! 탱크가 모이기 전에!',
+              altText: '{home} 선수 드라군이 푸시! 테란 병력이 모이기 전에!',
             ),
             ScriptEvent(
               text: '{away} 선수 시즈 탱크가 아직 부족합니다! 벌처로 시간을 벌어야!',
@@ -2052,10 +2085,10 @@ const _pvt11up8facVsExpand = ScenarioScript(
       startLine: 45,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 템플러 아카이브 건설! 하이 템플러를 준비합니다!',
+          text: '{home} 선수 아둔에 템플러 아카이브 건설! 하이 템플러를 준비합니다!',
           owner: LogOwner.home,
           homeResource: -25,
-          altText: '{home}, 하이 템플러 테크! 스톰으로 물량을 상대하려 합니다!',
+          altText: '{home}, 아둔에서 템플러 아카이브까지! 스톰으로 물량을 상대하려 합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 8팩토리 풀가동! 탱크가 끝없이 나옵니다!',
@@ -2087,7 +2120,7 @@ const _pvt11up8facVsExpand = ScenarioScript(
               text: '{home}, 사이오닉 스톰! 메카닉 사이로 떨어집니다!',
               owner: LogOwner.home,
               awayArmy: -8, homeArmy: -3, favorsStat: 'strategy',
-              altText: '{home} 선수 스톰 투하! 벌처가 녹아내립니다!',
+              altText: '{home} 선수 스톰이 투하! 테란 메카닉을 녹여냅니다!',
             ),
             ScriptEvent(
               text: '스톰이 결정적! 프로토스가 밀어냅니다!',
@@ -2101,10 +2134,10 @@ const _pvt11up8facVsExpand = ScenarioScript(
           baseProbability: 0.5,
           events: [
             ScriptEvent(
-              text: '{away}, 시즈 탱크 일제 포격! 드라군이 부서집니다!',
+              text: '{away}, 시즈 탱크가 일제 포격! 프로토스 병력을 부숩니다!',
               owner: LogOwner.away,
               homeArmy: -10, awayArmy: -5, favorsStat: 'attack',
-              altText: '{away} 선수 업그레이드된 탱크 화력! 드라군이 견디지 못합니다!',
+              altText: '{away} 선수 탱크가 업그레이드된 화력으로 프로토스를 압도합니다!',
             ),
             ScriptEvent(
               text: '업그레이드된 화력이 결정적! 테란이 밀어냅니다!',
@@ -2162,10 +2195,10 @@ const _pvtFdTerran = ScenarioScript(
           altText: '{home}, 사이버네틱스 코어! 드라군 준비!',
         ),
         ScriptEvent(
-          text: '{away} 선수 팩토리 건설! 벌처를 뽑으면서 앞마당을 올립니다!',
+          text: '{away} 선수 팩토리에 머신샵 건설! 벌처를 뽑으면서 앞마당을 올립니다!',
           owner: LogOwner.away,
           awayResource: -20,
-          altText: '{away}, 팩토리에 앞마당까지! FD테란 오프닝!',
+          altText: '{away}, 팩토리 머신샵에 앞마당까지! FD테란 오프닝!',
         ),
         ScriptEvent(
           text: '{home} 선수 드라군 생산 시작! 사거리 업그레이드!',
@@ -2189,10 +2222,10 @@ const _pvtFdTerran = ScenarioScript(
       recoveryResourcePerLine: 6,
       linearEvents: [
         ScriptEvent(
-          text: '{away} 선수 벌처 생산하면서 스타포트 건설!',
+          text: '{away} 선수 벌처 생산하면서 스타포트에 컨트롤타워 건설!',
           owner: LogOwner.away,
           awayArmy: 2, awayResource: -20,
-          altText: '{away}, 스타포트가 올라갑니다! 드랍십 준비!',
+          altText: '{away}, 스타포트에 컨트롤타워! 드랍십 준비!',
         ),
         ScriptEvent(
           text: '{home} 선수 앞마당 넥서스 건설!',
@@ -2208,10 +2241,10 @@ const _pvtFdTerran = ScenarioScript(
           altText: '{away} 선수 마인 매설! 프로토스 이동을 제한!',
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스 건설! 옵저버를 준비합니다.',
+          text: '{home} 선수 로보틱스 건설! 옵저버터리에 로보틱스 서포트 베이도 올립니다!',
           owner: LogOwner.home,
           homeResource: -20,
-          altText: '{home}, 로보틱스! 옵저버로 시야 확보!',
+          altText: '{home}, 로보틱스에 옵저버터리, 로보틱스 서포트 베이 건설! 옵저버 생산!',
         ),
         ScriptEvent(
           text: '양측 모두 내정을 다지면서 중반을 준비합니다.',
@@ -2234,7 +2267,7 @@ const _pvtFdTerran = ScenarioScript(
               text: '{away}, 벌처가 프로토스 멀티로 돌진! 마인 투하!',
               owner: LogOwner.away,
               homeResource: -20, favorsStat: 'harass',
-              altText: '{away} 선수 벌처 기동! 프로브가 마인에 당합니다!',
+              altText: '{away} 선수 벌처가 기동! 마인으로 일꾼 라인을 타격합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 프로브 피해! 대응이 늦었습니다!',
@@ -2313,7 +2346,7 @@ const _pvtFdTerran = ScenarioScript(
           owner: LogOwner.home,
           awayResource: -15, favorsStat: 'harass',
           skipChance: 0.3,
-          altText: '{home} 선수 스캐럽 대박! SCV가 날아갑니다!',
+          altText: '{home} 선수 스캐럽이 대박! 테란 일꾼을 초토화합니다!',
         ),
         ScriptEvent(
           text: '양측 견제가 동시에 진행됩니다! 멀티태스킹 대결!',
@@ -2333,10 +2366,10 @@ const _pvtFdTerran = ScenarioScript(
           baseProbability: 0.5,
           events: [
             ScriptEvent(
-              text: '{home} 선수 아비터 트리뷰널 건설! 아비터를 준비합니다!',
+              text: '{home} 선수 스타게이트 건설! 아둔에 템플러 아카이브, 아비터 트리뷰널까지 올립니다!',
               owner: LogOwner.home,
               homeResource: -25,
-              altText: '{home}, 아비터 테크! 리콜을 노리는 건가요?',
+              altText: '{home}, 스타게이트에 아비터 트리뷰널! 리콜을 노리는 건가요?',
             ),
             ScriptEvent(
               text: '{home}, 아비터 등장! 리콜로 테란 본진에 병력을 떨어뜨립니다!',
@@ -2367,10 +2400,10 @@ const _pvtFdTerran = ScenarioScript(
           baseProbability: 0.5,
           events: [
             ScriptEvent(
-              text: '{away} 선수 사이언스 퍼실리티 건설! 사이언스 베슬 생산!',
+              text: '{away} 선수 사이언스 퍼실리티 건설! 사이언스베슬 생산!',
               owner: LogOwner.away,
               awayResource: -25,
-              altText: '{away}, 베슬이 나옵니다! EMP 준비!',
+              altText: '{away}, 사이언스 퍼실리티에서 사이언스베슬이 나옵니다! EMP 준비!',
             ),
             ScriptEvent(
               text: '{away}, 시즈 탱크 라인 전진! 베슬과 함께!',
