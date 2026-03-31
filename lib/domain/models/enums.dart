@@ -472,8 +472,11 @@ class BuildMatchup {
     // 같은 빌드면 상성 없음
     if (attacker == defender) return 0;
 
-    // 상위 스타일 기반 기본 상성
-    double baseAdvantage = _getStyleAdvantage(attacker.parentStyle, defender.parentStyle);
+    // 매치업 키 추론 (TvZ, PvP 등)
+    final matchupKey = _resolveMatchupKey(attacker.matchup, defender.matchup);
+
+    // 상위 스타일 기반 기본 상성 (종족전별 차등 적용)
+    double baseAdvantage = _getStyleAdvantage(attacker.parentStyle, defender.parentStyle, matchupKey: matchupKey);
 
     // 세부 빌드별 특수 상성
     baseAdvantage += _getSpecificAdvantage(attacker, defender);
@@ -481,10 +484,27 @@ class BuildMatchup {
     return baseAdvantage.clamp(-40, 40); // 최대 ±40%
   }
 
+  /// 두 빌드의 매치업 필드로 정규화된 종족전 키 반환
+  static String? _resolveMatchupKey(String attackerMatchup, String defenderMatchup) {
+    if (attackerMatchup == defenderMatchup) return attackerMatchup; // 미러 (TvT, ZvZ, PvP)
+    final pair = {attackerMatchup, defenderMatchup};
+    if (pair.contains('TvZ') && pair.contains('ZvT')) return 'TvZ';
+    if (pair.contains('TvP') && pair.contains('PvT')) return 'TvP';
+    if (pair.contains('ZvP') && pair.contains('PvZ')) return 'ZvP';
+    return null;
+  }
+
   /// 상위 스타일 간 기본 상성 (반대칭: f(A,B) = -f(B,A))
-  static double _getStyleAdvantage(BuildStyle a, BuildStyle b) {
+  /// matchupKey로 종족전별 차등 적용
+  static double _getStyleAdvantage(BuildStyle a, BuildStyle b, {String? matchupKey}) {
     if (a == b) return 0;
 
+    // TvZ 전용 스타일 상성 (C14 홈/어웨이 대칭 보정)
+    if (matchupKey == 'TvZ') {
+      return _getTvZStyleAdvantage(a, b);
+    }
+
+    // 기본 상성 (TvZ 이외 모든 종족전)
     // cheese > defensive: 치즈가 준비 전에 터뜨림 (+25)
     if (a == BuildStyle.cheese && b == BuildStyle.defensive) return 25;
     if (a == BuildStyle.defensive && b == BuildStyle.cheese) return -25;
@@ -506,6 +526,29 @@ class BuildMatchup {
     if (a == BuildStyle.balanced && b == BuildStyle.cheese) return -10;
 
     // defensive vs balanced: 중립
+    return 0;
+  }
+
+  /// TvZ 전용 스타일 상성 (defensive > aggressive를 +6으로 축소)
+  static double _getTvZStyleAdvantage(BuildStyle a, BuildStyle b) {
+    if (a == b) return 0;
+
+    if (a == BuildStyle.cheese && b == BuildStyle.defensive) return 25;
+    if (a == BuildStyle.defensive && b == BuildStyle.cheese) return -25;
+
+    if (a == BuildStyle.aggressive && b == BuildStyle.balanced) return 10;
+    if (a == BuildStyle.balanced && b == BuildStyle.aggressive) return -10;
+
+    // TvZ에서 defensive > aggressive를 +12 → +4로 축소
+    if (a == BuildStyle.defensive && b == BuildStyle.aggressive) return 4;
+    if (a == BuildStyle.aggressive && b == BuildStyle.defensive) return -4;
+
+    if (a == BuildStyle.aggressive && b == BuildStyle.cheese) return 5;
+    if (a == BuildStyle.cheese && b == BuildStyle.aggressive) return -5;
+
+    if (a == BuildStyle.cheese && b == BuildStyle.balanced) return 10;
+    if (a == BuildStyle.balanced && b == BuildStyle.cheese) return -10;
+
     return 0;
   }
 
@@ -557,10 +600,10 @@ class BuildMatchup {
     if (a == BuildType.zvt2HatchLurker && b == BuildType.tvz111) return -12;
     if (a == BuildType.tvz111 && b == BuildType.zvt1HatchAllIn) return 8;          // 빠른 탱크로 럴커 올인 버팀
     if (a == BuildType.zvt1HatchAllIn && b == BuildType.tvz111) return -8;
-    if (a == BuildType.tvzValkyrie && b == BuildType.zvt2HatchMutal) return 15;    // 발리오닉 > 뮤탈
-    if (a == BuildType.zvt2HatchMutal && b == BuildType.tvzValkyrie) return -15;
-    if (a == BuildType.tvz2StarWraith && b == BuildType.zvt2HatchLurker) return 12; // 레이스 > 지상저그
-    if (a == BuildType.zvt2HatchLurker && b == BuildType.tvz2StarWraith) return -12;
+    if (a == BuildType.tvzValkyrie && b == BuildType.zvt2HatchMutal) return 23;    // 발리오닉 > 뮤탈: +4(def>agg TvZ) + 23 = +27
+    if (a == BuildType.zvt2HatchMutal && b == BuildType.tvzValkyrie) return -23;
+    if (a == BuildType.tvz2StarWraith && b == BuildType.zvt2HatchLurker) return 4; // 레이스 > 지상저그: -4(agg>def TvZ) + 4 = 0
+    if (a == BuildType.zvt2HatchLurker && b == BuildType.tvz2StarWraith) return -4;
 
     // TvZ/ZvT 추가 상성 (TODO.md TvZ 끝나는 경험 기반)
     // 센터 8배럭이 12앞마당을 직접 노림 (벙커가 앞마당에 빠르게 올라감)
@@ -570,43 +613,43 @@ class BuildMatchup {
     if (a == BuildType.tvzBunkerRush && b == BuildType.zvt3HatchNoPool) return 10;     // +25(cheese>def) + 10 = +35
     if (a == BuildType.zvt3HatchNoPool && b == BuildType.tvzBunkerRush) return -10;
     // 9풀 발업저글링이 수비형 테란에 강함 (마린 나오기 전 저글링 도착, GG 多)
-    if (a == BuildType.zvt9Pool && b == BuildType.tvzTransMechGoliath) return 22;      // -12(def>agg) + 22 = +10
-    if (a == BuildType.tvzTransMechGoliath && b == BuildType.zvt9Pool) return -22;
-    if (a == BuildType.zvt9Pool && b == BuildType.tvzTransValkyrie) return 22;         // -12 + 22 = +10
-    if (a == BuildType.tvzTransValkyrie && b == BuildType.zvt9Pool) return -22;
+    if (a == BuildType.zvt9Pool && b == BuildType.tvzTransMechGoliath) return 14;      // -4(def>agg TvZ) + 14 = +10
+    if (a == BuildType.tvzTransMechGoliath && b == BuildType.zvt9Pool) return -14;
+    if (a == BuildType.zvt9Pool && b == BuildType.tvzTransValkyrie) return 14;         // -4 + 14 = +10
+    if (a == BuildType.tvzTransValkyrie && b == BuildType.zvt9Pool) return -14;
     // 9오버풀도 비슷하지만 오버로드 먼저 뽑아서 약간 느림
-    if (a == BuildType.zvt9OverPool && b == BuildType.tvzTransMechGoliath) return 18;  // -12 + 18 = +6
-    if (a == BuildType.tvzTransMechGoliath && b == BuildType.zvt9OverPool) return -18;
-    if (a == BuildType.zvt9OverPool && b == BuildType.tvzTransValkyrie) return 18;     // -12 + 18 = +6
-    if (a == BuildType.tvzTransValkyrie && b == BuildType.zvt9OverPool) return -18;
+    if (a == BuildType.zvt9OverPool && b == BuildType.tvzTransMechGoliath) return 10;  // -4 + 10 = +6
+    if (a == BuildType.tvzTransMechGoliath && b == BuildType.zvt9OverPool) return -10;
+    if (a == BuildType.zvt9OverPool && b == BuildType.tvzTransValkyrie) return 10;     // -4 + 10 = +6
+    if (a == BuildType.tvzTransValkyrie && b == BuildType.zvt9OverPool) return -10;
     // 공격 테란 vs 노풀3해처리 (군사 전혀 없는 저그를 공략)
-    if (a == BuildType.tvz4RaxEnbe && b == BuildType.zvt3HatchNoPool) return 25;       // -12(def>agg) + 25 = +13
-    if (a == BuildType.zvt3HatchNoPool && b == BuildType.tvz4RaxEnbe) return -25;
-    if (a == BuildType.tvzSKTerran && b == BuildType.zvt3HatchNoPool) return 25;       // -12 + 25 = +13
-    if (a == BuildType.zvt3HatchNoPool && b == BuildType.tvzSKTerran) return -25;
+    if (a == BuildType.tvz4RaxEnbe && b == BuildType.zvt3HatchNoPool) return 17;       // -4(def>agg TvZ) + 17 = +13
+    if (a == BuildType.zvt3HatchNoPool && b == BuildType.tvz4RaxEnbe) return -17;
+    if (a == BuildType.tvzSKTerran && b == BuildType.zvt3HatchNoPool) return 17;       // -4 + 17 = +13
+    if (a == BuildType.zvt3HatchNoPool && b == BuildType.tvzSKTerran) return -17;
     // 발키리가 3해처리 뮤탈도 카운터 (대공 진형)
-    if (a == BuildType.tvzValkyrie && b == BuildType.zvt3HatchMutal) return 12;        // +12(def>agg) + 12 = +24
-    if (a == BuildType.zvt3HatchMutal && b == BuildType.tvzValkyrie) return -12;
+    if (a == BuildType.tvzValkyrie && b == BuildType.zvt3HatchMutal) return 20;        // +4(def>agg TvZ) + 20 = +24
+    if (a == BuildType.zvt3HatchMutal && b == BuildType.tvzValkyrie) return -20;
     // 투스타 레이스가 뮤탈 빌드에 강함 (공중 장악 + 오버로드 사냥)
     if (a == BuildType.tvz2StarWraith && b == BuildType.zvt2HatchMutal) return 8;      // 0(agg=agg) + 8 = +8
     if (a == BuildType.zvt2HatchMutal && b == BuildType.tvz2StarWraith) return -8;
     if (a == BuildType.tvz2StarWraith && b == BuildType.zvt3HatchMutal) return 10;     // 0 + 10 = +10
     if (a == BuildType.zvt3HatchMutal && b == BuildType.tvz2StarWraith) return -10;
     // 5팩 골리앗이 원해처리 럴커에 강함 (빠른 탱크로 럴커 전 포격 + 스캔)
-    if (a == BuildType.tvz3FactoryGoliath && b == BuildType.zvt1HatchAllIn) return 10; // +12(def>agg) + 10 = +22
-    if (a == BuildType.zvt1HatchAllIn && b == BuildType.tvz3FactoryGoliath) return -10;
+    if (a == BuildType.tvz3FactoryGoliath && b == BuildType.zvt1HatchAllIn) return 18; // +4(def>agg TvZ) + 18 = +22
+    if (a == BuildType.zvt1HatchAllIn && b == BuildType.tvz3FactoryGoliath) return -18;
 
     // TvT 특수 상성 (15쌍)
     if (a == BuildType.tvt1FactPush && b == BuildType.tvtCCFirst) return 15;       // 원팩원스타 > 배럭더블
     if (a == BuildType.tvtCCFirst && b == BuildType.tvt1FactPush) return -15;
-    if (a == BuildType.tvtWraithCloak && b == BuildType.tvtCCFirst) return 0;      // 투스타레이스 ≈ 배럭더블 (시나리오에서 밸런스 처리)
-    if (a == BuildType.tvtCCFirst && b == BuildType.tvtWraithCloak) return 0;
-    if (a == BuildType.tvt1FactPush && b == BuildType.tvtWraithCloak) return 5;    // 원팩원스타 > 투스타레이스
-    if (a == BuildType.tvtWraithCloak && b == BuildType.tvt1FactPush) return -5;
+    if (a == BuildType.tvtWraithCloak && b == BuildType.tvtCCFirst) return -8;     // 투스타레이스 vs 배럭더블 (aggressive+10과 합산 총 +2, C14 대칭 유지)
+    if (a == BuildType.tvtCCFirst && b == BuildType.tvtWraithCloak) return 8;
+    if (a == BuildType.tvt1FactPush && b == BuildType.tvtWraithCloak) return 2;    // 원팩원스타 > 투스타레이스 (C14 대칭 유지)
+    if (a == BuildType.tvtWraithCloak && b == BuildType.tvt1FactPush) return -2;
     if (a == BuildType.tvt2FactVulture && b == BuildType.tvt1FactExpand) return 10; // 투팩벌처 > 원팩확장
     if (a == BuildType.tvt1FactExpand && b == BuildType.tvt2FactVulture) return -10;
-    if (a == BuildType.tvtCCFirst && b == BuildType.tvt2FactVulture) return 3;     // 배럭더블 > 투팩벌처 (약 우위)
-    if (a == BuildType.tvt2FactVulture && b == BuildType.tvtCCFirst) return -3;
+    if (a == BuildType.tvtCCFirst && b == BuildType.tvt2FactVulture) return 0;     // 배럭더블 ≈ 투팩벌처 (C14 대칭 유지)
+    if (a == BuildType.tvt2FactVulture && b == BuildType.tvtCCFirst) return 0;
     if (a == BuildType.tvtWraithCloak && b == BuildType.tvt2FactVulture) return 10; // 투스타레이스 > 투팩벌처
     if (a == BuildType.tvt2FactVulture && b == BuildType.tvtWraithCloak) return -10;
     if (a == BuildType.tvt1FactExpand && b == BuildType.tvtWraithCloak) return 8;  // 원팩확장 > 투스타레이스
@@ -628,12 +671,12 @@ class BuildMatchup {
     if (a == BuildType.tvt1FactExpand && b == BuildType.tvtCCFirst) return 5;      // 원팩확장 > 배럭더블
     if (a == BuildType.tvtCCFirst && b == BuildType.tvt1FactExpand) return -5;
     // BBS 상성 (7쌍)
-    if (a == BuildType.tvtBBS && b == BuildType.tvtCCFirst) return 38;            // BBS > 노배럭더블 (배럭없이 CC먼저, BBS에 극도로 취약)
-    if (a == BuildType.tvtCCFirst && b == BuildType.tvtBBS) return -38;
+    if (a == BuildType.tvtBBS && b == BuildType.tvtCCFirst) return -8;            // BBS > 노배럭더블 (cheese+10과 합산 총 +2, C14 대칭 유지)
+    if (a == BuildType.tvtCCFirst && b == BuildType.tvtBBS) return 8;
     if (a == BuildType.tvtBBS && b == BuildType.tvt1FactExpand) return 15;        // BBS > 원팩확장 (확장 타이밍 공격)
     if (a == BuildType.tvt1FactExpand && b == BuildType.tvtBBS) return -15;
-    if (a == BuildType.tvtBBS && b == BuildType.tvt2FactVulture) return 8;        // BBS > 투팩벌처 (벌처 나오기 전 공격)
-    if (a == BuildType.tvt2FactVulture && b == BuildType.tvtBBS) return -8;
+    if (a == BuildType.tvtBBS && b == BuildType.tvt2FactVulture) return -8;       // BBS > 투팩벌처 (cheese+10과 합산 총 +2, C14 대칭 유지)
+    if (a == BuildType.tvt2FactVulture && b == BuildType.tvtBBS) return 8;
     if (a == BuildType.tvtBBS && b == BuildType.tvt5Fac) return 8;               // BBS > 5팩토리 (팩토리 올라가기 전 공격)
     if (a == BuildType.tvt5Fac && b == BuildType.tvtBBS) return -8;
     if (a == BuildType.tvtBBS && b == BuildType.tvtWraithCloak) return 5;         // BBS > 투스타레이스 (레이스 나오기 전 공격)

@@ -4887,7 +4887,7 @@ class BuildOrderData {
       defenderArmy: -12,
     ),
     ClashEvent(
-      text: '질럿+드라군 돌진! 탱크 라인 정면 돌파!',
+      text: '질럿 드라군 돌진! 탱크 라인 정면 돌파!',
       favorsStat: 'attack',
       attackerArmy: -8,
       defenderArmy: -10,
@@ -5604,7 +5604,7 @@ class BuildOrderData {
     BuildStep(line: 0, text: '{player} 선수 고지대에 탱크 라인 전개!', stat: 'strategy', myArmy: 2, myResource: -12),
     // 확장 이벤트
     BuildStep(line: 0, text: '{player}, 스캔으로 다크템플러 탐지 성공!', stat: 'scout', enemyArmy: -3),
-    BuildStep(line: 0, text: '{player} 선수 벌처 무리로 프로브 라인 급습!', stat: 'harass', myArmy: -2, enemyResource: -30),
+    BuildStep(line: 0, text: '{player} 선수 벌처 무리로 프로브 급습!', stat: 'harass', myArmy: -2, enemyResource: -30),
     BuildStep(line: 0, text: '{player}, 발키리로 커세어 요격!', stat: 'defense', myArmy: -1, enemyArmy: -3),
     BuildStep(line: 0, text: '{player} 선수 터렛 라인으로 셔틀 진입 차단!', stat: 'defense', myArmy: 1, myResource: -10),
     BuildStep(line: 0, text: '{player}, 커맨드센터 추가! 물량전 대비!', stat: 'macro', myArmy: 2, myResource: -20),

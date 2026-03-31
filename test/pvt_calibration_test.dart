@@ -55,7 +55,7 @@ void main() {
   ];
 
   test('PvT 전체 시나리오 보정용 JSON 로그 내보내기', () async {
-    const gamesPerScenario = 100;
+    const gamesPerScenario = 200;
     final allGames = <Map<String, dynamic>>[];
     final branchStats = <String, int>{};
 

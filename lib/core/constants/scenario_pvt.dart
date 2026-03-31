@@ -95,17 +95,17 @@ const _pvtDragoonExpandVsFactory = ScenarioScript(
           homeArmy: 3, homeResource: -15,
         ),
         ScriptEvent(
-          text: '{away}, 벌처가 프로브 라인을 노립니다! 마인 매설!',
+          text: '{away}, 벌처가 프로브를 노립니다! 마인 매설!',
           owner: LogOwner.away,
           homeResource: -10, favorsStat: 'harass',
           skipChance: 0.3,
-          altText: '{away} 선수 벌처 기동! 프로브 라인에 마인을 뿌립니다!',
+          altText: '{away} 선수 벌처 기동! 일꾼 사이에 마인을 뿌립니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스 건설! 옵저버터리에 로보틱스 서포트 베이까지 올립니다!',
+          text: '{home} 선수 로보틱스 건설! 옵저버터리에 서포트 베이까지 올립니다!',
           owner: LogOwner.home,
           homeResource: -20,
-          altText: '{home}, 로보틱스에 로보틱스 서포트 베이, 옵저버터리까지 올립니다!',
+          altText: '{home}, 로보틱스에 서포트 베이, 옵저버터리까지 올립니다!',
         ),
         ScriptEvent(
           text: '양측 모두 내정을 다지면서 중반을 준비합니다.',
@@ -230,7 +230,7 @@ const _pvtDragoonExpandVsFactory = ScenarioScript(
           skipChance: 0.3,
         ),
         ScriptEvent(
-          text: '{home}, 리버 스캐럽! SCV 라인에 떨어집니다!',
+          text: '{home}, 리버 스캐럽! SCV 사이에 떨어집니다!',
           owner: LogOwner.home,
           awayResource: -20, favorsStat: 'harass',
           altText: '{home} 선수 스캐럽이 명중! 일꾼 라인을 초토화합니다!',
@@ -425,10 +425,10 @@ const _pvtReaverVsTiming = ScenarioScript(
           awayResource: -10,
         ),
         ScriptEvent(
-          text: '{home} 선수 사이버네틱스 코어 이후 로보틱스 건설! 로보틱스 서포트 베이도 올립니다!',
+          text: '{home} 선수 사이버네틱스 코어 이후 로보틱스 건설! 서포트 베이도 올립니다!',
           owner: LogOwner.home,
           homeResource: -25,
-          altText: '{home}, 사이버네틱스 코어 이후 로보틱스에 로보틱스 서포트 베이까지!',
+          altText: '{home}, 사이버네틱스 코어 이후 로보틱스에 서포트 베이까지!',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리 건설! 머신샵도 붙입니다!',
@@ -437,7 +437,7 @@ const _pvtReaverVsTiming = ScenarioScript(
           altText: '{away}, 팩토리에 머신샵! 빠르게 테크를 올립니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 셔틀 생산 시작! 로보틱스 서포트 베이에서 준비 중!',
+          text: '{home} 선수 셔틀 생산 시작! 서포트 베이에서 준비 중!',
           owner: LogOwner.home,
           homeArmy: 2, homeResource: -25,
           altText: '{home}, 셔틀 생산 중! 서포트 베이가 가동됩니다!',
@@ -869,7 +869,7 @@ const _pvtDarkVsStandard = ScenarioScript(
           baseProbability: 0.5,
           events: [
             ScriptEvent(
-              text: '{home}, 스톰! 탱크+벌처 편대에 떨어집니다!',
+              text: '{home}, 스톰! 탱크 벌처 편대에 떨어집니다!',
               owner: LogOwner.home,
               awayArmy: -12, homeArmy: -5, favorsStat: 'strategy',
               altText: '{home} 선수 스톰 명중! 메카닉 병력에 엄청난 피해!',
@@ -1167,7 +1167,7 @@ const _pvtCarrierVsAnti = ScenarioScript(
               text: '{home}, 하이 템플러가 스톰 투하! 테란 병력을 녹여냅니다!',
               owner: LogOwner.home,
               awayArmy: -4, homeArmy: -1, favorsStat: 'strategy',
-              altText: '{home} 선수 스톰+캐리어! 이중 화력에 테란이 무너집니다!',
+              altText: '{home} 선수 스톰에 캐리어! 이중 화력에 테란이 무너집니다!',
             ),
             ScriptEvent(
               text: '캐리어가 전장을 지배하고 있습니다!',
@@ -1526,10 +1526,10 @@ const _pvtReaverVsBbs = ScenarioScript(
           altText: '{away}, 마린이 빠르게 쌓이고 있습니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스 건설! 로보틱스 서포트 베이도 올립니다!',
+          text: '{home} 선수 로보틱스 건설! 서포트 베이도 올립니다!',
           owner: LogOwner.home,
           homeResource: -20,
-          altText: '{home}, 로보틱스에 로보틱스 서포트 베이 건설! 셔틀 준비!',
+          altText: '{home}, 로보틱스에 서포트 베이 건설! 셔틀 준비!',
         ),
         ScriptEvent(
           text: '{away}, SCV까지 끌고 프로토스 앞마당으로 진격합니다!',
@@ -2241,10 +2241,10 @@ const _pvtFdTerran = ScenarioScript(
           altText: '{away} 선수 마인 매설! 프로토스 이동을 제한!',
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스 건설! 옵저버터리에 로보틱스 서포트 베이도 올립니다!',
+          text: '{home} 선수 로보틱스 건설! 옵저버터리에 서포트 베이도 올립니다!',
           owner: LogOwner.home,
           homeResource: -20,
-          altText: '{home}, 로보틱스에 옵저버터리, 로보틱스 서포트 베이 건설! 옵저버 생산!',
+          altText: '{home}, 로보틱스에 옵저버터리, 서포트 베이 건설! 옵저버 생산!',
         ),
         ScriptEvent(
           text: '양측 모두 내정을 다지면서 중반을 준비합니다.',
@@ -2342,7 +2342,7 @@ const _pvtFdTerran = ScenarioScript(
           altText: '{away} 선수 탱크가 프로토스 멀티에 내려갑니다!',
         ),
         ScriptEvent(
-          text: '{home}, 리버 스캐럽! SCV 라인에 명중!',
+          text: '{home}, 리버 스캐럽! SCV에 명중!',
           owner: LogOwner.home,
           awayResource: -15, favorsStat: 'harass',
           skipChance: 0.3,

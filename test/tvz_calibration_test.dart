@@ -37,6 +37,7 @@ void main() {
     terrainComplexity: 5,
     airAccessibility: 6,
     centerImportance: 5,
+    matchup: RaceMatchup(tvzTerranWinRate: 50, zvpZergWinRate: 50, pvtProtossWinRate: 50),
   );
 
   // 시나리오별 빌드 조합 (scenario_tvz.dart에서 추출)
@@ -55,7 +56,7 @@ void main() {
   ];
 
   test('TvZ 전체 시나리오 보정용 JSON 로그 내보내기', () async {
-    const gamesPerScenario = 100;
+    const gamesPerScenario = 200;
     final allGames = <Map<String, dynamic>>[];
     final branchStats = <String, int>{};
 

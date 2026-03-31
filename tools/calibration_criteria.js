@@ -35,10 +35,21 @@ const FORBIDDEN_WORDS = [
   '포토캐논',       // → '캐논'
   '로보틱스 퍼실리티', // → '로보틱스'
   '시타델',         // → '아둔'
+  'SCV 라인',       // → 'SCV를', '일꾼을' 등
+  '프로브 라인',    // → '프로브를', '일꾼을' 등
+  '드론 라인',      // → '드론을', '일꾼을' 등
+  '로보틱스 서포트 베이', // → '서포트 베이'
 ];
 
 // '플릿' 단독 사용 금지 (플릿 비콘은 OK, 스플릿은 제외)
 const FLEET_SOLO_REGEX = /(?<!스)플릿(?!\s*비콘)/;
+
+// 해설 텍스트 내 '+' 연결 금지 (한글+한글, 한글+영문 등)
+// 주석이나 description이 아닌 text/altText 필드의 로그 텍스트에 적용
+const PLUS_CONNECTOR_REGEX = /[\uAC00-\uD7A3]\+[\uAC00-\uD7A3A-Za-z]/;
+
+// '~전의 핵심!' 패턴 금지 (정보 전달 톤 → 해설 톤으로)
+const CORE_INFO_REGEX = /[가-힣]+전의 핵심/;
 
 // 건물명 매핑: 잘못된 표기 → 올바른 표기
 const BUILDING_NAME_CORRECTIONS = {
@@ -54,6 +65,7 @@ const BUILDING_NAME_CORRECTIONS = {
   '로보틱스 퍼실리티': '로보틱스',
   '시타델 오브 아둔': '아둔',
   '시타델': '아둔',
+  '로보틱스 서포트 베이': '서포트 베이',
   // 저그
   '스포닝 풀': '스포닝풀',
   '히드라리스크 덴': '히드라덴',
@@ -124,7 +136,6 @@ const TECH_TREE = {
       '아비터 트리뷰널': ['스타게이트', '템플러 아카이브'],
       '쉴드 배터리': ['게이트웨이'],
       '어시밀레이터': [],
-      '로보틱스 서포트 베이': ['로보틱스'],
       '서포트 베이': ['로보틱스'],
       '옵저버터리': ['로보틱스'],
     },
@@ -137,7 +148,7 @@ const TECH_TREE = {
       '아칸': ['게이트웨이', '템플러 아카이브'],
       '다크 아칸': ['게이트웨이', '템플러 아카이브'],
       '셔틀': ['로보틱스'],
-      '리버': ['로보틱스', '로보틱스 서포트 베이'],
+      '리버': ['로보틱스', '서포트 베이'],
       '옵저버': ['로보틱스', '옵저버터리'],
       '커세어': ['스타게이트'],
       '스카우트': ['스타게이트'],
@@ -277,6 +288,24 @@ function checkForbiddenWords(text, lineNum) {
       line: lineNum,
       severity: 'error',
       message: `'플릿' 단독 사용 (→ '플릿 비콘' 사용)`,
+      text: text.substring(0, 80),
+    });
+  }
+  if (PLUS_CONNECTOR_REGEX.test(text)) {
+    violations.push({
+      rule: 'A1_FORBIDDEN_WORD',
+      line: lineNum,
+      severity: 'error',
+      message: `텍스트 내 '+' 연결 사용 금지 (해설체로 변경 필요)`,
+      text: text.substring(0, 80),
+    });
+  }
+  if (CORE_INFO_REGEX.test(text)) {
+    violations.push({
+      rule: 'A1_FORBIDDEN_WORD',
+      line: lineNum,
+      severity: 'error',
+      message: `'~전의 핵심' 정보 전달 톤 금지 (해설 톤으로 변경 필요)`,
       text: text.substring(0, 80),
     });
   }
