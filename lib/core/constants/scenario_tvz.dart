@@ -176,7 +176,7 @@ const _tvzBioVsMutal = ScenarioScript(
               altText: '{away} 선수 뮤탈이 떴습니다! 절묘한 타이밍이구요!',
             ),
             ScriptEvent(
-              text: '{away} 뮤탈이 바로 SCV 라인을 노립니다!',
+              text: '{away} 뮤탈이 바로 SCV를 노립니다!',
               owner: LogOwner.away,
               homeResource: -20, favorsStat: 'harass',
               altText: '{away}, 뮤탈리스크 컨트롤! 일꾼 라인 초토화!',
@@ -474,7 +474,7 @@ const _tvzBioVsMutal = ScenarioScript(
             ),
             ScriptEvent(
               text: '결정적인 순간입니다! GG!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -510,7 +510,7 @@ const _tvzBioVsMutal = ScenarioScript(
             ),
             ScriptEvent(
               text: '다크스웜이 전장을 뒤덮었습니다! GG!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -546,7 +546,7 @@ const _tvzBioVsMutal = ScenarioScript(
             ),
             ScriptEvent(
               text: '양측 본진이 불타고 있습니다! GG!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -829,7 +829,7 @@ const _tvzMechVsLurker = ScenarioScript(
             ),
             ScriptEvent(
               text: '메카닉 화력이 저그를 밀어냅니다! GG!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -845,7 +845,7 @@ const _tvzMechVsLurker = ScenarioScript(
             ),
             ScriptEvent(
               text: '저그 물량이 메카닉을 압도합니다! GG!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -972,7 +972,7 @@ const _tvzCheeseVsStandard = ScenarioScript(
             ),
             ScriptEvent(
               text: '벙커 러시가 실패했습니다! GG!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               homeArmy: -4, homeResource: -20,
               decisive: true,
             ),
@@ -1013,7 +1013,7 @@ const _tvzCheeseVsStandard = ScenarioScript(
             ),
             ScriptEvent(
               text: '벙커 압박이 거세집니다! GG!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -1266,7 +1266,7 @@ const _tvz111VsMacro = ScenarioScript(
             ),
             ScriptEvent(
               text: '테란의 멀티 공격이 효과를 보고 있습니다! GG!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -1299,7 +1299,7 @@ const _tvz111VsMacro = ScenarioScript(
             ),
             ScriptEvent(
               text: '저그의 물량이 승부를 가르고 있습니다! GG!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -1451,7 +1451,7 @@ const _tvzWraithVsMutal = ScenarioScript(
               altText: '{home}, 레이스가 열세입니다! 뮤탈 물량에 밀려요!',
             ),
             ScriptEvent(
-              text: '{away}, 뮤탈이 바로 SCV 라인을 물어뜯습니다!',
+              text: '{away}, 뮤탈이 바로 SCV를 물어뜯습니다!',
               owner: LogOwner.away,
               homeResource: -15, favorsStat: 'harass',
               altText: '{away} 선수 뮤탈 기동! 일꾼부터 노립니다!',
@@ -1477,7 +1477,7 @@ const _tvzWraithVsMutal = ScenarioScript(
           altText: '{home}, 레이스 3기째 나옵니다! 공중 화력이 강해지고 있어요!',
         ),
         ScriptEvent(
-          text: '{away}, 뮤탈리스크로 SCV 라인을 물어뜯습니다!',
+          text: '{away}, 뮤탈리스크로 SCV를 물어뜯습니다!',
           owner: LogOwner.away,
           homeResource: -20, favorsStat: 'harass',
           altText: '{away} 선수 뮤짤! 일꾼 라인이 초토화!',
@@ -1533,7 +1533,7 @@ const _tvzWraithVsMutal = ScenarioScript(
               awayArmy: -2,
             ),
             ScriptEvent(
-              text: '레이스+지상 복합 편성! 테란의 전환이 빛나는 순간입니다!',
+              text: '레이스와 지상 복합 편성! 테란의 전환이 빛나는 순간입니다!',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
@@ -1616,11 +1616,11 @@ const _tvzWraithVsMutal = ScenarioScript(
             ScriptEvent(
               text: '{home} 선수 레이스가 뮤탈을 제압했습니다! 제공권 장악!',
               owner: LogOwner.home,
-              awayArmy: -2,
+              homeArmy: 5, awayArmy: -8,
             ),
             ScriptEvent(
               text: '제공권을 장악합니다! GG!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -1632,11 +1632,12 @@ const _tvzWraithVsMutal = ScenarioScript(
             ScriptEvent(
               text: '{away}, 뮤탈 물량이 레이스를 압도합니다! 저그의 하늘!',
               owner: LogOwner.away,
-              homeArmy: -2,
+              awayArmy: 5, homeArmy: -8,
             ),
             ScriptEvent(
               text: '공중 유닛 물량이 제공권을 차지합니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
+              decisive: true,
             ),
           ],
         ),
@@ -1797,7 +1798,7 @@ const _tvzCheeseVsCheese = ScenarioScript(
             ),
             ScriptEvent(
               text: '벙커 압박이 성공했습니다! GG!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -1826,7 +1827,7 @@ const _tvzCheeseVsCheese = ScenarioScript(
             ),
             ScriptEvent(
               text: '본진이 무너졌습니다! GG!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -2033,7 +2034,7 @@ const _tvz9poolVsStandard = ScenarioScript(
             ),
             ScriptEvent(
               text: '초반 올인 이후 자원 차이가 결정적입니다! GG!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -2061,7 +2062,7 @@ const _tvz9poolVsStandard = ScenarioScript(
             ),
             ScriptEvent(
               text: '초반 러시의 효과가 중반까지 이어집니다! GG!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -2200,14 +2201,14 @@ const _tvzValkyrieVsMutal = ScenarioScript(
             ScriptEvent(
               text: '{home}, 발키리 스플래시 데미지! 뭉쳐있던 뮤탈에 큰 피해!',
               owner: LogOwner.home,
-              awayArmy: -5, favorsStat: 'defense',
+              awayArmy: -3, favorsStat: 'defense',
               altText: '{home} 선수 발키리가 범위 공격! 공중 유닛을 한꺼번에 쓸어냅니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 뮤탈 산개! 하지만 이미 3기가 빠졌습니다!',
+              text: '{away} 선수 뮤탈 산개! 하지만 피해가 있었습니다!',
               owner: LogOwner.away,
-              awayArmy: -2,
-              altText: '{away}, 뮤탈을 빼지만 피해가 큽니다!',
+              awayArmy: -1,
+              altText: '{away}, 뮤탈을 빼지만 피해가 있네요!',
             ),
             ScriptEvent(
               text: '발키리 대공이 빛나는 순간입니다! 뮤탈이 자유롭게 움직이지 못합니다.',
@@ -2224,13 +2225,13 @@ const _tvzValkyrieVsMutal = ScenarioScript(
             ScriptEvent(
               text: '{away} 선수 발키리를 확인하고 뮤탈을 다른 곳으로 빼줍니다!',
               owner: LogOwner.away,
-              favorsStat: 'strategy',
+              awayArmy: 2, favorsStat: 'strategy',
               altText: '{away}, 발키리를 피해서 앞마당 쪽으로 뮤탈 기동!',
             ),
             ScriptEvent(
               text: '{away}, 뮤탈이 발키리 없는 앞마당 SCV를 물어뜯습니다!',
               owner: LogOwner.away,
-              homeResource: -20, favorsStat: 'harass',
+              homeResource: -20, homeArmy: -2, favorsStat: 'harass',
               altText: '{away} 선수 뮤짤! 앞마당이 비어있어요!',
             ),
             ScriptEvent(
@@ -2258,25 +2259,25 @@ const _tvzValkyrieVsMutal = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 발키리 추가 생산! 골리앗도 섞어줍니다!',
           owner: LogOwner.home,
-          homeArmy: 4, homeResource: -25,
+          homeArmy: 3, homeResource: -25,
           altText: '{home}, 발키리 골리앗 조합! 대공 화력이 엄청납니다!',
         ),
         ScriptEvent(
           text: '{away}, 뮤탈로는 정면 교전이 불리합니다. 저글링 물량을 늘립니다.',
           owner: LogOwner.away,
-          awayArmy: 4, awayResource: -15,
+          awayArmy: 5, awayResource: -15,
           altText: '{away} 선수 뮤탈 대신 지상 물량으로 전환!',
         ),
         ScriptEvent(
           text: '{home}, 바이오닉과 발키리 복합 편성으로 전진합니다!',
           owner: LogOwner.home,
-          homeArmy: 3, favorsStat: 'attack',
+          homeArmy: 2, favorsStat: 'attack',
           altText: '{home} 선수 마린 메딕 발키리 출진! 저그 앞마당을 노립니다!',
         ),
         ScriptEvent(
           text: '{away}, 뮤탈이 후방에서 견제하면서 저글링이 정면에서 막습니다!',
           owner: LogOwner.away,
-          homeArmy: -2, awayArmy: -3, favorsStat: 'control',
+          homeArmy: -3, awayArmy: -2, favorsStat: 'control',
           altText: '{away} 선수 뮤탈 견제와 저글링 수비 동시에!',
         ),
         ScriptEvent(
@@ -2299,18 +2300,18 @@ const _tvzValkyrieVsMutal = ScenarioScript(
             ScriptEvent(
               text: '{home} 선수 발키리 3기! 하늘을 완전히 장악합니다!',
               owner: LogOwner.home,
-              homeArmy: 3, homeResource: -20, favorsStat: 'defense',
+              homeArmy: 2, homeResource: -20, favorsStat: 'defense',
               altText: '{home}, 발키리 편대가 하늘을 지배합니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 뮤탈이 더 이상 견제를 나가지 못합니다!',
               owner: LogOwner.away,
-              awayArmy: -2,
+              awayArmy: -1,
             ),
             ScriptEvent(
               text: '{home}, 안전하게 확장하면서 화력을 키워갑니다!',
               owner: LogOwner.home,
-              homeArmy: 3, homeResource: 15,
+              homeArmy: 2, homeResource: 15,
               altText: '{home} 선수 발키리 덕에 안정적! 멀티까지!',
             ),
             ScriptEvent(
@@ -2328,13 +2329,13 @@ const _tvzValkyrieVsMutal = ScenarioScript(
             ScriptEvent(
               text: '{away} 선수 뮤탈이 막히니까 럴커로 전환합니다!',
               owner: LogOwner.away,
-              awayArmy: 4, awayResource: -25, favorsStat: 'strategy',
+              awayArmy: 5, awayResource: -25, favorsStat: 'strategy',
               altText: '{away}, 히드라덴 건설! 럴커로 노선 변경!',
             ),
             ScriptEvent(
               text: '{away}, 럴커가 앞마당 입구에 포진! 발키리로는 못 잡습니다!',
               owner: LogOwner.away,
-              awayArmy: 3, favorsStat: 'defense',
+              awayArmy: 3, homeArmy: -2, favorsStat: 'defense',
               altText: '{away} 선수 럴커 매복! 지상에서 막겠다는 의도!',
             ),
             ScriptEvent(
@@ -2375,13 +2376,13 @@ const _tvzValkyrieVsMutal = ScenarioScript(
         ScriptEvent(
           text: '{home}, 발키리가 뮤탈을 잡고 마린이 저글링을 잡습니다! 체계적인 전투!',
           owner: LogOwner.home,
-          awayArmy: -20, homeArmy: -10, favorsStat: 'attack',
+          awayArmy: -5, homeArmy: -5,
           altText: '{home} 선수 발키리 대공 + 바이오닉 지상! 역할 분담이 완벽합니다!',
         ),
         ScriptEvent(
           text: '{away}, 럴커가 마린을 녹이고 저글링이 탱크를 덮칩니다!',
           owner: LogOwner.away,
-          homeArmy: -18, awayArmy: -8, favorsStat: 'control',
+          homeArmy: -5, awayArmy: -5,
           altText: '{away} 선수 럴커 저글링 합동! 바이오닉이 녹아내립니다!',
         ),
       ],
@@ -2398,11 +2399,11 @@ const _tvzValkyrieVsMutal = ScenarioScript(
             ScriptEvent(
               text: '{home} 선수 발키리 탱크 복합이 저그를 제압합니다!',
               owner: LogOwner.home,
-              awayArmy: -3,
+              homeArmy: 15,
             ),
             ScriptEvent(
               text: '복합 편성의 위력! 승리를 거둡니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -2414,11 +2415,11 @@ const _tvzValkyrieVsMutal = ScenarioScript(
             ScriptEvent(
               text: '{away}, 럴커 저글링 물량이 테란 전선을 무너뜨립니다!',
               owner: LogOwner.away,
-              homeArmy: -3,
+              awayArmy: 15,
             ),
             ScriptEvent(
               text: '물량이 상대를 압도합니다! GG!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -2560,7 +2561,7 @@ const _tvzDoubleVs3Hatch = ScenarioScript(
               favorsStat: 'strategy',
             ),
             ScriptEvent(
-              text: 'TvZ의 핵심! 가스를 주느냐 마느냐가 승부를 결정합니다!',
+              text: '가스를 주느냐 마느냐가 승부를 결정합니다! 긴장되는 순간이네요!',
               owner: LogOwner.system,
               skipChance: 0.2,
             ),
@@ -2685,7 +2686,7 @@ const _tvzDoubleVs3Hatch = ScenarioScript(
             ),
             ScriptEvent(
               text: '한방이 들어갔습니다! GG!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -2720,7 +2721,7 @@ const _tvzDoubleVs3Hatch = ScenarioScript(
             ),
             ScriptEvent(
               text: '다크스웜이 한방을 막아냈습니다! GG!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -2753,7 +2754,7 @@ const _tvzDoubleVs3Hatch = ScenarioScript(
             ),
             ScriptEvent(
               text: '양측 병력이 크게 소모됩니다! GG!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -2884,7 +2885,7 @@ const _tvzStandardVs1HatchAllin = ScenarioScript(
             ),
             ScriptEvent(
               text: '올인이 성공하고 있습니다! GG!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
               skipChance: 0.15,
             ),
@@ -2961,7 +2962,7 @@ const _tvzStandardVs1HatchAllin = ScenarioScript(
             ),
             ScriptEvent(
               text: '올인 실패 후 자원 차이가 결정적입니다! GG!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -2990,12 +2991,13 @@ const _tvzStandardVs1HatchAllin = ScenarioScript(
             ScriptEvent(
               text: '{away}, 스파이어에서 뮤탈까지 추가! 530 전환으로 마무리합니다!',
               owner: LogOwner.away,
-              awayArmy: 4, awayResource: -20, homeResource: -15, favorsStat: 'harass',
+              awayArmy: 6, awayResource: -20, homeArmy: -5, homeResource: -15, favorsStat: 'harass',
               altText: '{away} 선수 스파이어 완성! 럴커에 뮤탈까지!',
             ),
             ScriptEvent(
-              text: '원해처리 올인 성공!',
-              owner: LogOwner.system,
+              text: '원해처리 올인 성공! GG!',
+              owner: LogOwner.away,
+              decisive: true,
             ),
           ],
         ),
@@ -3266,7 +3268,7 @@ const _tvzMechVsHive = ScenarioScript(
             ),
             ScriptEvent(
               text: '메카닉 물량이 확장을 무너뜨립니다! GG!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
@@ -3302,7 +3304,7 @@ const _tvzMechVsHive = ScenarioScript(
             ),
             ScriptEvent(
               text: '최종 병기 총공격! GG!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
@@ -3331,7 +3333,7 @@ const _tvzMechVsHive = ScenarioScript(
             ),
             ScriptEvent(
               text: '재건 속도 대결! GG!',
-              owner: LogOwner.system,
+              owner: LogOwner.away,
               decisive: true,
             ),
           ],
