@@ -2,12 +2,85 @@ import 'dart:math';
 import '../../domain/services/match_simulation_service.dart';
 import '../../domain/models/models.dart';
 
-part 'scenario_tvz.dart';
-part 'scenario_pvt.dart';
-part 'scenario_zvp.dart';
-part 'scenario_tvt.dart';
-part 'scenario_zvz.dart';
-part 'scenario_pvp.dart';
+// TvZ (11 scenarios)
+part 'scenarios/tvz/bio_vs_mutal.dart';
+part 'scenarios/tvz/mech_vs_lurker.dart';
+part 'scenarios/tvz/cheese_vs_standard.dart';
+part 'scenarios/tvz/111_vs_macro.dart';
+part 'scenarios/tvz/wraith_vs_mutal.dart';
+part 'scenarios/tvz/cheese_vs_cheese.dart';
+part 'scenarios/tvz/9pool_vs_standard.dart';
+part 'scenarios/tvz/valkyrie_vs_mutal.dart';
+part 'scenarios/tvz/double_vs_3hatch.dart';
+part 'scenarios/tvz/standard_vs_1hatch_allin.dart';
+part 'scenarios/tvz/mech_vs_hive.dart';
+
+// TvT (16 scenarios)
+part 'scenarios/tvt/rax_double_vs_fac_double.dart';
+part 'scenarios/tvt/bbs_vs_double.dart';
+part 'scenarios/tvt/wraith_vs_rax_double.dart';
+part 'scenarios/tvt/5fac_vs_mine_triple.dart';
+part 'scenarios/tvt/bbs_vs_tech.dart';
+part 'scenarios/tvt/aggressive_mirror.dart';
+part 'scenarios/tvt/cc_first_vs_1fac_expand.dart';
+part 'scenarios/tvt/twofac_vs_1fac_expand.dart';
+part 'scenarios/tvt/1fac_push_vs_5fac.dart';
+part 'scenarios/tvt/bbs_mirror.dart';
+part 'scenarios/tvt/1fac_push_mirror.dart';
+part 'scenarios/tvt/wraith_mirror.dart';
+part 'scenarios/tvt/5fac_mirror.dart';
+part 'scenarios/tvt/cc_first_mirror.dart';
+part 'scenarios/tvt/2fac_vulture_mirror.dart';
+part 'scenarios/tvt/1fac_expand_mirror.dart';
+
+// PvT (11 scenarios)
+part 'scenarios/pvt/dragoon_expand_vs_factory.dart';
+part 'scenarios/pvt/reaver_vs_timing.dart';
+part 'scenarios/pvt/dark_vs_standard.dart';
+part 'scenarios/pvt/cheese_vs_standard.dart';
+part 'scenarios/pvt/carrier_vs_anti.dart';
+part 'scenarios/pvt/5gate_push.dart';
+part 'scenarios/pvt/cheese_vs_cheese.dart';
+part 'scenarios/pvt/reaver_vs_bbs.dart';
+part 'scenarios/pvt/mine_triple.dart';
+part 'scenarios/pvt/11up_8fac_vs_expand.dart';
+part 'scenarios/pvt/fd_terran.dart';
+
+// PvP (10 scenarios)
+part 'scenarios/pvp/dragoon_nexus_mirror.dart';
+part 'scenarios/pvp/dragoon_vs_nogate.dart';
+part 'scenarios/pvp/robo_vs_2gate_dragoon.dart';
+part 'scenarios/pvp/dark_vs_dragoon.dart';
+part 'scenarios/pvp/zealot_rush.dart';
+part 'scenarios/pvp/dark_vs_zealot_rush.dart';
+part 'scenarios/pvp/robo_mirror.dart';
+part 'scenarios/pvp/4gate_vs_multi.dart';
+part 'scenarios/pvp/zealot_rush_vs_reaver.dart';
+part 'scenarios/pvp/dark_mirror.dart';
+
+// ZvP (11 scenarios)
+part 'scenarios/zvp/hydra_vs_forge.dart';
+part 'scenarios/zvp/mutal_vs_forge.dart';
+part 'scenarios/zvp/9pool_vs_forge.dart';
+part 'scenarios/zvp/cheese_vs_cheese.dart';
+part 'scenarios/zvp/mukerji_vs_corsair_reaver.dart';
+part 'scenarios/zvp/scourge_defiler.dart';
+part 'scenarios/zvp/973_hydra_rush.dart';
+part 'scenarios/zvp/standard_vs_2gate.dart';
+part 'scenarios/zvp/3hatch_vs_corsair_reaver.dart';
+part 'scenarios/zvp/hydra_lurker_vs_forge.dart';
+part 'scenarios/zvp/cheese_vs_forge.dart';
+
+// ZvZ (9 scenarios)
+part 'scenarios/zvz/9pool_vs_9overpool.dart';
+part 'scenarios/zvz/12hatch_vs_9pool.dart';
+part 'scenarios/zvz/4pool_vs_12hatch.dart';
+part 'scenarios/zvz/3hatch_mirror.dart';
+part 'scenarios/zvz/4pool_vs_9pool.dart';
+part 'scenarios/zvz/4pool_vs_3hatch.dart';
+part 'scenarios/zvz/9pool_mirror.dart';
+part 'scenarios/zvz/12pool_vs_3hatch.dart';
+part 'scenarios/zvz/9overpool_mirror.dart';
 
 // ============================================================
 // 시나리오 스크립트 데이터 클래스
@@ -191,7 +264,7 @@ class ScenarioScriptData {
   };
 
   static const List<ScenarioScript> _allScripts = [
-    // TvZ (scenario_tvz.dart)
+    // TvZ (scenarios/tvz/)
     _tvzBioVsMutal,
     _tvzMechVsLurker,
     _tvzCheeseVsStandard,
@@ -203,31 +276,7 @@ class ScenarioScriptData {
     _tvzDoubleVs3Hatch,
     _tvzStandardVs1HatchAllin,
     _tvzMechVsHive,
-    // PvT (scenario_pvt.dart)
-    _pvtDragoonExpandVsFactory,
-    _pvtReaverVsTiming,
-    _pvtDarkVsStandard,
-    _pvtCheeseVsStandard,
-    _pvtCarrierVsAnti,
-    _pvt5gatePush,
-    _pvtCheeseVsCheese,
-    _pvtReaverVsBbs,
-    _pvtMineTriple,
-    _pvt11up8facVsExpand,
-    _pvtFdTerran,
-    // ZvP (scenario_zvp.dart)
-    _zvpHydraVsForge,
-    _zvpMutalVsForge,
-    _zvp9poolVsForge,
-    _zvpCheeseVsCheese,
-    _zvpMukerjiVsCorsairReaver,
-    _zvpScourgeDefiler,
-    _zvp973HydraRush,
-    _zvpStandardVs2Gate,
-    _zvp3HatchVsCorsairReaver,
-    _zvpHydraLurkerVsForge,
-    _zvpCheeseVsForge,
-    // TvT (scenario_tvt.dart)
+    // TvT (scenarios/tvt/)
     _tvtRaxDoubleVsFacDouble,
     _tvtBbsVsDouble,
     _tvtWraithVsRaxDouble,
@@ -244,7 +293,42 @@ class ScenarioScriptData {
     _tvtCcFirstMirror,
     _tvt2facVultureMirror,
     _tvt1facExpandMirror,
-    // ZvZ (scenario_zvz.dart)
+    // PvT (scenarios/pvt/)
+    _pvtDragoonExpandVsFactory,
+    _pvtReaverVsTiming,
+    _pvtDarkVsStandard,
+    _pvtCheeseVsStandard,
+    _pvtCarrierVsAnti,
+    _pvt5gatePush,
+    _pvtCheeseVsCheese,
+    _pvtReaverVsBbs,
+    _pvtMineTriple,
+    _pvt11up8facVsExpand,
+    _pvtFdTerran,
+    // PvP (scenarios/pvp/)
+    _pvpDragoonNexusMirror,
+    _pvpDragoonVsNogate,
+    _pvpRoboVs2gateDragoon,
+    _pvpDarkVsDragoon,
+    _pvpZealotRush,
+    _pvpDarkVsZealotRush,
+    _pvpRoboMirror,
+    _pvp4gateVsMulti,
+    _pvpZealotRushVsReaver,
+    _pvpDarkMirror,
+    // ZvP (scenarios/zvp/)
+    _zvpHydraVsForge,
+    _zvpMutalVsForge,
+    _zvp9poolVsForge,
+    _zvpCheeseVsCheese,
+    _zvpMukerjiVsCorsairReaver,
+    _zvpScourgeDefiler,
+    _zvp973HydraRush,
+    _zvpStandardVs2Gate,
+    _zvp3HatchVsCorsairReaver,
+    _zvpHydraLurkerVsForge,
+    _zvpCheeseVsForge,
+    // ZvZ (scenarios/zvz/)
     _zvz9poolVs9overpool,
     _zvz12hatchVs9pool,
     _zvz4poolVs12hatch,

@@ -25,10 +25,13 @@ flutter analyze
 flutter test
 
 # 단일 테스트 파일 실행
-flutter test test/pvp_all_scenarios_100games_test.dart
+flutter test test/pvp/scenarios_100games_test.dart
 
 # 이름으로 특정 테스트만 실행
-flutter test -n "PvP S1:" test/pvp_all_scenarios_100games_test.dart
+flutter test -n "PvP S1:" test/pvp/scenarios_100games_test.dart
+
+# 1경기 테스트 (빌드 ID 변경하여 사용)
+flutter test test/tvz/single_test.dart
 ```
 
 ## Architecture
@@ -173,9 +176,11 @@ team_data.dart                 # 팀 초기 데이터
 
 ## 테스트
 
-종족전별 시나리오 검증 테스트 (test/ 폴더):
-- `tvt_scenarios_100games_test.dart`, `tvz_scenarios_100games_test.dart`, `pvt_all_scenarios_100games_test.dart`, `pvp_all_scenarios_100games_test.dart`, `zvp_scenario_100games_test.dart`, `zvz_scenario_100games_test.dart`
-- 테스트 출력: `test/output/` 디렉토리에 마크다운 통계 리포트 생성
+종족전별 테스트 (test/{matchup}/ 폴더):
+- `test/{matchup}/scenarios_100games_test.dart` - 100경기 통계 검증
+- `test/{matchup}/calibration_test.dart` - 보정 루프용 JSON 로그 내보내기
+- `test/{matchup}/single_test.dart` - 1경기 로그 확인 (빌드 ID 변경하여 사용)
+- 테스트 출력: `test/output/{matchup}/` 디렉토리에 마크다운/JSON 리포트 생성
 - 테스트 패턴: 동일 능력치(~700) + 100% 컨디션 선수로 균형 시나리오 검증, `forcedHomeBuildId`/`forcedAwayBuildId`로 빌드 고정
 
 ### 보정 기준
@@ -291,13 +296,12 @@ ScenarioScript
 
 ```
 1. 시뮬레이션 실행
-   - 해당 종족전 테스트 실행 (flutter test test/{matchup}_scenarios_100games_test.dart)
-   - 로그를 JSON으로 내보내기 (tools/export_log_helper.dart 사용)
-   - 출력: test/output/{matchup}_log.json
+   - 해당 종족전 보정 테스트 실행 (flutter test test/{matchup}/calibration_test.dart)
+   - 출력: test/output/{matchup}/log.json
 
 2. 검증 기준 체크
-   - node tools/calibration_criteria.js test/output/{matchup}_log.json
-   - 출력: test/output/{matchup}_log_result.md (PASS/FAIL + 위반 목록)
+   - node tools/calibration_criteria.js test/output/{matchup}/log.json
+   - 출력: test/output/{matchup}/log_result.md (PASS/FAIL + 위반 목록)
 
 3. 위반 항목 자동 수정
    - 에러(error) 항목: 반드시 수정
@@ -305,7 +309,8 @@ ScenarioScript
    - A계층(텍스트): 동일 유형은 일괄 치환 허용 (예: 금지어 전체 교체)
    - B/C계층(구조/밸런스): 한 라운드에 최대 2항목만 수정
    - 이전 라운드에서 PASS였던 항목이 FAIL로 바뀌면 즉시 롤백하고 보고
-   - 수정 대상 파일: scenario_{matchup}.dart, build_orders.dart
+   - 수정 대상 파일: lib/core/constants/scenarios/{matchup}/ 내 파일들
+   - build_orders.dart는 공유 파일이므로 동시 수정 금지
    - 수정 후 flutter analyze로 린트 검사
 
 4. 반복 (최대 5회)
@@ -313,7 +318,7 @@ ScenarioScript
    - 5회 반복 후에도 FAIL이면 남은 위반 목록과 함께 종료
 
 5. 결과 파일 생성
-   - test/output/{matchup}Result.md에 최종 리포트 저장
+   - test/output/{matchup}/result.md에 최종 리포트 저장
    - 각 반복의 에러/경고 수 변화 추이 포함
 ```
 
