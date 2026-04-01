@@ -3662,14 +3662,17 @@ class MatchSimulationService {
 
     // winRate 기반 종합 데미지 보정 (시나리오 이벤트에도 적용)
     // 피해(음수)에만 적용 → 빌드업(양수)은 영향 없음
+    // reversed일 때는 modifier를 반전 (홈/어웨이 위치가 바뀌므로)
     final scenarioWinBias = (winRate - 0.5) * 2.0;
     if (scenarioWinBias.abs() > 0.01) {
       final sFavoredMod = 1.0 - scenarioWinBias * 0.3;
       final sUnfavoredMod = 1.0 + scenarioWinBias * 0.3;
-      if (homeArmyChange < 0) homeArmyChange = (homeArmyChange * sFavoredMod).round();
-      if (awayArmyChange < 0) awayArmyChange = (awayArmyChange * sUnfavoredMod).round();
-      if (homeResourceChange < 0) homeResourceChange = (homeResourceChange * sFavoredMod).round();
-      if (awayResourceChange < 0) awayResourceChange = (awayResourceChange * sUnfavoredMod).round();
+      final homeModifier = reversed ? sUnfavoredMod : sFavoredMod;
+      final awayModifier = reversed ? sFavoredMod : sUnfavoredMod;
+      if (homeArmyChange < 0) homeArmyChange = (homeArmyChange * homeModifier).round();
+      if (awayArmyChange < 0) awayArmyChange = (awayArmyChange * awayModifier).round();
+      if (homeResourceChange < 0) homeResourceChange = (homeResourceChange * homeModifier).round();
+      if (awayResourceChange < 0) awayResourceChange = (awayResourceChange * awayModifier).round();
     }
 
     // 상태 업데이트
