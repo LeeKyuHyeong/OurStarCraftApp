@@ -1,14 +1,19 @@
 part of '../../scenario_scripts.dart';
 
 // ----------------------------------------------------------
-// 5. 캐리어 빌드 vs 안티 캐리어 (후반 대결)
+// 7. 캐리어 빌드 vs 안티 캐리어 (후반 대결)
 // ----------------------------------------------------------
 const _pvtCarrierVsAnti = ScenarioScript(
   id: 'pvt_carrier_vs_anti',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_carrier', 'pvt_trans_5gate_carrier', 'pvt_trans_reaver_carrier'],
-  awayBuildIds: ['tvp_anti_carrier', 'tvp_1fac_gosu',
-                 'tvp_trans_anti_carrier', 'tvp_trans_upgrade'],
+  homeBuildIds: [
+    'pvt_carrier',
+    'pvt_trans_5gate_carrier', 'pvt_trans_reaver_carrier',
+  ],
+  awayBuildIds: [
+    'tvp_anti_carrier', 'tvp_1fac_gosu',
+    'tvp_trans_anti_carrier', 'tvp_trans_upgrade',
+  ],
   description: '캐리어 빌드 vs 안티 캐리어 후반 대결',
   phases: [
     // Phase 0: 오프닝 (lines 1-16)
@@ -175,4 +180,3 @@ const _pvtCarrierVsAnti = ScenarioScript(
     ),
   ],
 );
-

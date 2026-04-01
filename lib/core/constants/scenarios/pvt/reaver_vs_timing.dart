@@ -1,16 +1,20 @@
 part of '../../scenario_scripts.dart';
 
 // ----------------------------------------------------------
-// 2. 리버 셔틀 vs 타이밍 러시 (공격적 대결)
+// 6. 리버 셔틀 vs 타이밍 러시 (공격적 대결 + 트랜지션 분기)
 // ----------------------------------------------------------
 const _pvtReaverVsTiming = ScenarioScript(
   id: 'pvt_reaver_vs_timing',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_reaver_shuttle', 'pvt_proxy_dark',
-                 'pvt_trans_reaver_push', 'pvt_trans_reaver_arbiter', 'pvt_trans_reaver_carrier'],
-  awayBuildIds: ['tvp_fake_double', 'tvp_1fac_drop', 'tvp_5fac_timing',
-                 'tvp_trans_timing_push', 'tvp_trans_5fac_mass'],
-  description: '리버 셔틀 vs 타이밍 러시',
+  homeBuildIds: [
+    'pvt_reaver_shuttle', 'pvt_proxy_dark',
+    'pvt_trans_reaver_push', 'pvt_trans_reaver_arbiter', 'pvt_trans_reaver_carrier',
+  ],
+  awayBuildIds: [
+    'tvp_fake_double', 'tvp_1fac_drop', 'tvp_5fac_timing',
+    'tvp_trans_timing_push', 'tvp_trans_5fac_mass',
+  ],
+  description: '리버 셔틀 vs 타이밍 러시 (트랜지션 분기)',
   phases: [
     // Phase 0: 오프닝 (lines 1-16)
     ScriptPhase(
@@ -93,7 +97,7 @@ const _pvtReaverVsTiming = ScenarioScript(
       name: 'shuttle_survival',
       startLine: 27,
       branches: [
-        // 분기 A: 셔틀 리버 성공 (무조건 eligible, 확률 보정)
+        // 분기 A: 셔틀 리버 성공
         ScriptBranch(
           id: 'reaver_harass_success',
           baseProbability: 0.50,
@@ -197,7 +201,7 @@ const _pvtReaverVsTiming = ScenarioScript(
         ),
       ],
     ),
-    // Phase 4: 결전 (lines 53-70)
+    // Phase 4: 결전 - 트랜지션 분기 (lines 53-70)
     ScriptPhase(
       name: 'decisive_battle',
       startLine: 53,
@@ -231,7 +235,66 @@ const _pvtReaverVsTiming = ScenarioScript(
             ),
           ],
         ),
-        // 분기 B: 테란 물량 압박
+        // 분기 B: 아비터 리콜 (리버 아비터 트랜지션)
+        ScriptBranch(
+          id: 'protoss_arbiter_recall',
+          conditionHomeBuildIds: ['pvt_trans_reaver_arbiter'],
+          baseProbability: 0.5,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 아비터가 나왔습니다! 리콜 준비!',
+              owner: LogOwner.home,
+              homeArmy: 4, homeResource: -25, favorsStat: 'sense',
+              altText: '{home}, 아비터 등장! 리콜로 판을 뒤집으려 합니다!',
+            ),
+            ScriptEvent(
+              text: '{home}, 리콜! 테란 본진에 병력이 떨어집니다!',
+              owner: LogOwner.home,
+              awayResource: -20, favorsStat: 'sense',
+              altText: '{home} 선수 리콜 투하! 테란 본진이 위험합니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 본진 수비가 급합니다! 병력을 돌립니다!',
+              owner: LogOwner.away,
+              awayArmy: -4, homeArmy: -2,
+            ),
+            ScriptEvent(
+              text: '아비터 리콜이 판을 뒤집습니다!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        // 분기 C: 캐리어 전환 (리버 캐리어 트랜지션)
+        ScriptBranch(
+          id: 'protoss_carrier_finish',
+          conditionHomeBuildIds: ['pvt_trans_reaver_carrier'],
+          baseProbability: 0.5,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 스타게이트에서 캐리어 생산! 인터셉터가 쏟아집니다!',
+              owner: LogOwner.home,
+              homeArmy: 5, homeResource: -30, favorsStat: 'macro',
+              altText: '{home}, 캐리어 편대! 공중에서 화력을 퍼붓습니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 골리앗으로 대응하지만 수가 부족합니다!',
+              owner: LogOwner.away,
+              awayArmy: -3, homeArmy: -2,
+            ),
+            ScriptEvent(
+              text: '{home}, 캐리어 인터셉터가 테란 병력을 녹입니다!',
+              owner: LogOwner.home,
+              awayArmy: -5, favorsStat: 'macro',
+            ),
+            ScriptEvent(
+              text: '캐리어가 전장을 지배합니다!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        // 분기 D: 테란 물량 압박
         ScriptBranch(
           id: 'terran_mass_push',
           baseProbability: 0.5,
@@ -264,4 +327,3 @@ const _pvtReaverVsTiming = ScenarioScript(
     ),
   ],
 );
-

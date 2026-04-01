@@ -1,16 +1,30 @@
 part of '../../scenario_scripts.dart';
 
 // ----------------------------------------------------------
-// 9. 배럭더블 vs 노풀 3해처리 (후반 매크로전)
+// 5. 스탠다드 T vs 노풀 3해처리 (오프닝 매칭 + 트랜지션 분기)
+// 기존: double_vs_3hatch, 111_vs_macro 통합
 // ----------------------------------------------------------
-const _tvzDoubleVs3Hatch = ScenarioScript(
-  id: 'tvz_double_vs_3hatch',
+const _tvzStandardVs3Hatch = ScenarioScript(
+  id: 'tvz_standard_vs_3hatch',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_sk'],
-  awayBuildIds: ['zvt_3hatch_nopool'],
-  description: '배럭더블 vs 노풀 3해처리 매크로전',
+  homeBuildIds: [
+    // 기본 빌드
+    'tvz_sk', 'tvz_4rax_enbe', 'tvz_111',
+    'tvz_3fac_goliath', 'tvz_valkyrie', 'tvz_2star_wraith',
+    // 트랜지션 빌드
+    'tvz_trans_bionic_push', 'tvz_trans_mech_goliath',
+    'tvz_trans_111_balance', 'tvz_trans_valkyrie',
+    'tvz_trans_wraith', 'tvz_trans_enbe_push',
+  ],
+  awayBuildIds: [
+    'zvt_3hatch_nopool',
+    'zvt_trans_ultra_hive',
+  ],
+  description: '스탠다드 테란 vs 노풀 3해처리 매크로전',
   phases: [
-    // Phase 0: 오프닝 (lines 1-16)
+    // ============================================================
+    // Phase 0: 3해처리 오프닝 (lines 1-16)
+    // ============================================================
     ScriptPhase(
       name: 'opening',
       startLine: 1,
@@ -25,12 +39,6 @@ const _tvzDoubleVs3Hatch = ScenarioScript(
           owner: LogOwner.away,
           awayResource: -30,
           altText: '{away}, 해처리부터 올립니다!',
-        ),
-        ScriptEvent(
-          text: '{home} 선수 앞마당 커맨드센터 건설! 배럭더블로 가는 모습입니다.',
-          owner: LogOwner.home,
-          homeResource: -10,
-          altText: '{home}, 커맨드센터에 배럭 추가! 배럭더블 확장입니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 세 번째 해처리까지! 노풀로 3해처리입니다!',
@@ -49,7 +57,11 @@ const _tvzDoubleVs3Hatch = ScenarioScript(
           awayResource: 15,
           altText: '{away}, 드론 풀가동! 노풀이라 수비 유닛이 없습니다!',
         ),
-        // 마린 압박: 노풀이라 수비 유닛이 없음 → 드론으로 막아야 함
+        ScriptEvent(
+          text: '{home} 선수 가스 채취를 시작합니다.',
+          owner: LogOwner.home,
+          homeResource: -5,
+        ),
         ScriptEvent(
           text: '{home} 선수 마린을 모아서 앞마당을 찌릅니다! 노풀이라 수비 유닛이 없어요!',
           owner: LogOwner.home,
@@ -62,15 +74,11 @@ const _tvzDoubleVs3Hatch = ScenarioScript(
           awayResource: -10, favorsStat: 'defense',
           altText: '{away}, 드론으로 마린을 둘러쌉니다! 일꾼 피해가 나오고 있어요!',
         ),
-        ScriptEvent(
-          text: '{home} 선수 아카데미 건설합니다.',
-          owner: LogOwner.home,
-          homeResource: -15,
-          skipChance: 0.3,
-        ),
       ],
     ),
-    // Phase 1: 마린 압박 결과 + 확장 경쟁 (lines 17-28)
+    // ============================================================
+    // Phase 1: 마린 압박 + 내정 확장 (lines 17-28)
+    // ============================================================
     ScriptPhase(
       name: 'macro_buildup',
       startLine: 17,
@@ -84,40 +92,196 @@ const _tvzDoubleVs3Hatch = ScenarioScript(
           altText: '{away}, 이제야 스포닝풀이 올라갑니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 저글링과 성큰으로 마린을 밀어냅니다! 드론 피해는 있었지만 확장 이득이 큽니다.',
+          text: '{away} 선수 저글링과 성큰으로 마린을 밀어냅니다!',
           owner: LogOwner.away,
           awayArmy: 3, homeArmy: -1, awayResource: -10, favorsStat: 'defense',
           altText: '{away}, 성큰 완성! 마린 압박은 막았지만 자원을 쓸 수밖에 없었죠.',
         ),
         ScriptEvent(
-          text: '{home} 선수 가스를 넣으면서 팩토리 건설! 머신샵 부착하고 탱크 테크를 올립니다.',
+          text: '{home} 선수 테크를 올리기 시작합니다.',
           owner: LogOwner.home,
           homeResource: -25,
-          altText: '{home}, 팩토리에 머신샵! 시즈 탱크 준비!',
+          altText: '{home}, 가스를 넣으면서 테크 건설 시작!',
         ),
         ScriptEvent(
-          text: '양쪽 모두 확장에 집중하는 고요한 전개입니다.',
+          text: '{away} 선수 3해처리 풀가동! 드론 30기 넘어갑니다!',
+          owner: LogOwner.away,
+          awayArmy: 2, awayResource: 25,
+          altText: '{away}, 해처리 3개에서 드론이 쏟아져 나옵니다!',
+        ),
+        ScriptEvent(
+          text: '자원 차이가 벌어지고 있습니다. 테란이 빨리 움직여야 할 텐데요.',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
       ],
     ),
-    // Phase 2: 뮤탈 등장 + 테란 대응 - 분기 (lines 29-42)
+    // ============================================================
+    // Phase 2: 트랜지션 분기 (lines 29-42)
+    // ============================================================
     ScriptPhase(
-      name: 'mutal_timing',
+      name: 'transition_branch',
       startLine: 29,
       branches: [
-        // 분기 A: 뮤탈 등장 + 테란 터렛 대비
+        // ----- 분기 A: 바이오닉 압박 -----
         ScriptBranch(
-          id: 'mutal_turret',
+          id: 'bionic_pressure',
           baseProbability: 1.0,
+          conditionHomeBuildIds: [
+            'tvz_sk', 'tvz_4rax_enbe',
+            'tvz_trans_bionic_push', 'tvz_trans_enbe_push',
+          ],
           events: [
+            ScriptEvent(
+              text: '{home} 선수 배럭 추가! 아카데미에 스팀팩 연구까지!',
+              owner: LogOwner.home,
+              homeArmy: 3, homeResource: -15,
+              altText: '{home}, 바이오닉 체제 완성! 스팀팩까지!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 마린 메딕 편대가 전진합니다! 3해처리를 안 주겠다는 의지!',
+              owner: LogOwner.home,
+              homeArmy: 2, favorsStat: 'attack',
+              altText: '{home}, 마린 메딕이 앞마당을 압박합니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 저글링으로 막지만 마린 메딕 스팀팩에 녹습니다!',
+              owner: LogOwner.away,
+              awayArmy: -2, homeArmy: -1, favorsStat: 'defense',
+              altText: '{away}, 저글링이 스팀팩 마린에 맞서지만 힘듭니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 성큰 추가 건설! 레어 진화도 시작합니다.',
+              owner: LogOwner.away,
+              awayResource: -20, awayArmy: 2,
+              altText: '{away}, 성큰을 더 지으면서 레어를 올립니다!',
+            ),
+            ScriptEvent(
+              text: '노풀 3해처리의 약점이 드러납니다! 초반 수비 유닛이 부족했죠!',
+              owner: LogOwner.system,
+              skipChance: 0.3,
+            ),
+          ],
+        ),
+        // ----- 분기 B: 111 레이스 정찰 -----
+        ScriptBranch(
+          id: 'one_one_one_scout',
+          baseProbability: 1.0,
+          conditionHomeBuildIds: [
+            'tvz_111', 'tvz_trans_111_balance',
+          ],
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 팩토리에 머신샵 부착! 스타포트까지! 111 체제입니다.',
+              owner: LogOwner.home,
+              homeResource: -25,
+              altText: '{home}, 팩토리 머신샵 + 스타포트! 111 테크트리로 갑니다!',
+            ),
+            ScriptEvent(
+              text: '{home}, 레이스 생산! 정찰 나갑니다!',
+              owner: LogOwner.home,
+              homeArmy: 2, homeResource: -15, favorsStat: 'scout',
+            ),
+            ScriptEvent(
+              text: '{home}, 레이스가 오버로드를 발견! 격추합니다!',
+              owner: LogOwner.home,
+              awayArmy: -2, favorsStat: 'harass',
+              altText: '{home} 선수 레이스로 오버로드 저격!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 오버로드 피해! 서플라이가 막히는데요!',
+              owner: LogOwner.away,
+              awayResource: -15,
+            ),
+            ScriptEvent(
+              text: '오버로드 손실이 뼈아픕니다. 저그 자원에 타격이 가는데요.',
+              owner: LogOwner.system,
+              skipChance: 0.3,
+            ),
+          ],
+        ),
+        // ----- 분기 C: 메카닉 빌드업 -----
+        ScriptBranch(
+          id: 'mech_buildup',
+          baseProbability: 1.0,
+          conditionHomeBuildIds: [
+            'tvz_3fac_goliath', 'tvz_trans_mech_goliath',
+            'tvz_valkyrie', 'tvz_trans_valkyrie',
+          ],
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 팩토리 증설! 본격적인 메카닉 체제입니다.',
+              owner: LogOwner.home,
+              homeArmy: 3, homeResource: -25,
+              altText: '{home}, 팩토리 2개째 올라갑니다! 메카닉 가동!',
+            ),
+            ScriptEvent(
+              text: '{home}, 아머리 건설! 골리앗 생산 시작!',
+              owner: LogOwner.home,
+              homeArmy: 3, homeResource: -20,
+            ),
             ScriptEvent(
               text: '{away} 선수 레어 진화에 스파이어 건설! 3해처리 물량이 뒷받침됩니다!',
               owner: LogOwner.away,
               awayResource: -25, favorsStat: 'macro',
               altText: '{away}, 레어에서 스파이어까지! 뮤탈 준비에 들어갑니다!',
             ),
+            ScriptEvent(
+              text: '{away}, 뮤탈리스크 등장! 3해처리라 물량이 두텁습니다!',
+              owner: LogOwner.away,
+              awayArmy: 5, awayResource: -20, favorsStat: 'strategy',
+              altText: '{away} 선수 뮤탈이 나옵니다! 3해처리의 물량이 빛나네요!',
+            ),
+            ScriptEvent(
+              text: '3해처리의 물량이 빛나는 순간입니다!',
+              owner: LogOwner.system,
+              skipChance: 0.3,
+            ),
+          ],
+        ),
+        // ----- 분기 D: 레이스 빌드업 -----
+        ScriptBranch(
+          id: 'wraith_buildup',
+          baseProbability: 1.0,
+          conditionHomeBuildIds: [
+            'tvz_2star_wraith', 'tvz_trans_wraith',
+          ],
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 스타포트 건설! 레이스를 노립니다!',
+              owner: LogOwner.home,
+              homeResource: -25,
+              altText: '{home}, 스타포트가 올라갑니다!',
+            ),
+            ScriptEvent(
+              text: '{home}, 클로킹 레이스가 저그 본진으로 침투합니다!',
+              owner: LogOwner.home,
+              homeArmy: 2, homeResource: -20, favorsStat: 'harass',
+              altText: '{home} 선수 클로킹! 레이스가 보이지 않습니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 오버로드 격추! 서플라이가 막히는데요!',
+              owner: LogOwner.home,
+              awayArmy: -2, awayResource: -15, favorsStat: 'harass',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 대공이 없습니다! 드론이 당하고 있어요!',
+              owner: LogOwner.away,
+              awayResource: -20,
+              altText: '{away}, 오버로드도 빠지고 드론도 당합니다!',
+            ),
+            ScriptEvent(
+              text: '레이스 견제가 효과적입니다! 3해처리의 약점이 드러나네요.',
+              owner: LogOwner.system,
+              skipChance: 0.3,
+            ),
+          ],
+        ),
+        // ----- 분기 E: 폴백 일반 전개 -----
+        ScriptBranch(
+          id: 'generic_transition',
+          baseProbability: 1.0,
+          events: [
             ScriptEvent(
               text: '{home} 선수 정찰로 스파이어를 확인합니다! 터렛을 미리 건설해두는군요!',
               owner: LogOwner.home,
@@ -136,48 +300,12 @@ const _tvzDoubleVs3Hatch = ScenarioScript(
               awayArmy: 3, homeResource: -10, favorsStat: 'harass',
             ),
             ScriptEvent(
-              text: '3해처리의 물량이 빛나는 순간입니다! 저글링과 뮤탈이 쏟아지네요!',
-              owner: LogOwner.system,
-              skipChance: 0.3,
-            ),
-          ],
-        ),
-        // 분기 B: 테란 압박 지속 + 저그 레어 늦어짐
-        ScriptBranch(
-          id: 'terran_pressure_delay',
-          baseProbability: 1.0,
-          events: [
-            ScriptEvent(
-              text: '{home} 선수 마린 메딕 편대가 전진합니다! 3해처리를 안 주겠다는 의지!',
+              text: '{home} 선수 병력을 모아서 전진 준비합니다!',
               owner: LogOwner.home,
-              homeArmy: 3, favorsStat: 'attack',
-              altText: '{home}, 마린 메딕이 앞마당을 압박합니다!',
+              homeArmy: 3, homeResource: -15,
             ),
             ScriptEvent(
-              text: '{away} 선수 저글링으로 막지만 마린 메딕 스팀팩에 녹습니다!',
-              owner: LogOwner.away,
-              awayArmy: -2, homeArmy: -1, favorsStat: 'defense',
-              altText: '{away}, 저글링이 스팀팩 마린에 맞서지만 힘듭니다!',
-            ),
-            ScriptEvent(
-              text: '{away} 선수 성큰 추가 건설! 레어 진화도 시작합니다.',
-              owner: LogOwner.away,
-              awayResource: -20, awayArmy: 2,
-              altText: '{away}, 성큰을 더 지으면서 레어를 올립니다!',
-            ),
-            ScriptEvent(
-              text: '{away} 선수 레어에서 스파이어 건설! 늦었지만 뮤탈을 준비합니다!',
-              owner: LogOwner.away,
-              awayResource: -15,
-              altText: '{away}, 스파이어가 뒤늦게 올라갑니다! 테란 압박에 밀렸죠!',
-            ),
-            ScriptEvent(
-              text: '{home} 선수 마린 압박으로 저그의 테크를 지연시킵니다!',
-              owner: LogOwner.home,
-              favorsStat: 'strategy',
-            ),
-            ScriptEvent(
-              text: '노풀 3해처리의 약점이 드러납니다! 초반 수비 유닛이 부족했죠!',
+              text: '중반 전개가 본격화됩니다!',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
@@ -185,16 +313,18 @@ const _tvzDoubleVs3Hatch = ScenarioScript(
         ),
       ],
     ),
-    // Phase 3: 럴커 + 베슬 빌드업 (lines 43-58)
+    // ============================================================
+    // Phase 3: 럴커 베슬 빌드업 (lines 43-58)
+    // ============================================================
     ScriptPhase(
       name: 'army_buildup',
       startLine: 43,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 시즈 탱크 생산! 스타포트에 컨트롤타워까지!',
+          text: '{home} 선수 스타포트에 컨트롤타워! 사이언스 퍼실리티까지 올립니다!',
           owner: LogOwner.home,
           homeArmy: 4, homeResource: -30,
-          altText: '{home}, 스타포트에 컨트롤타워! 탱크 생산에 베슬 테크 준비!',
+          altText: '{home}, 스타포트 컨트롤타워에 사이언스 퍼실리티! 고급 테크!',
         ),
         ScriptEvent(
           text: '{away} 선수 히드라덴에서 럴커 변태! 저글링 뮤탈 럴커 조합입니다!',
@@ -226,14 +356,16 @@ const _tvzDoubleVs3Hatch = ScenarioScript(
           skipChance: 0.2,
         ),
         ScriptEvent(
-          text: '{home} 선수 탱크 베슬 바이오닉이 모입니다! 한방 준비!',
+          text: '{home} 선수 한방 병력이 모이고 있습니다!',
           owner: LogOwner.home,
           homeArmy: 4, homeResource: -15, favorsStat: 'macro',
           altText: '{home}, 한방 병력이 완성되어 갑니다!',
         ),
       ],
     ),
-    // Phase 4: 스커지 vs 베슬 + 확장 전쟁 - 분기 (lines 59-74)
+    // ============================================================
+    // Phase 4: 스커지 vs 베슬 + 확장 전쟁 (lines 59-74)
+    // ============================================================
     ScriptPhase(
       name: 'vessel_scourge',
       startLine: 59,
@@ -329,7 +461,9 @@ const _tvzDoubleVs3Hatch = ScenarioScript(
         ),
       ],
     ),
-    // Phase 5: 결전 - 분기 (lines 75-90)
+    // ============================================================
+    // Phase 5: 결전 (lines 75-90)
+    // ============================================================
     ScriptPhase(
       name: 'decisive_clash',
       startLine: 75,
@@ -405,10 +539,10 @@ const _tvzDoubleVs3Hatch = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{home}, 탱크가 포격합니다! 저그 물량을 쓸어내지만 끝이 없습니다!',
+              text: '{home}, 화력을 집중합니다! 저그 물량을 쓸어내지만 끝이 없습니다!',
               owner: LogOwner.home,
               awayArmy: -6, homeArmy: -4, favorsStat: 'attack',
-              altText: '{home} 선수 탱크 화력! 하지만 저그 물량이 끝이 없습니다!',
+              altText: '{home} 선수 화력 집중! 하지만 저그 물량이 끝이 없습니다!',
             ),
             ScriptEvent(
               text: '{away}, 뮤탈이 후방을 물어뜯으면서 정면에서도 밀어붙입니다!',
@@ -432,4 +566,3 @@ const _tvzDoubleVs3Hatch = ScenarioScript(
     ),
   ],
 );
-

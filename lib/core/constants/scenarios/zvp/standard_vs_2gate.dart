@@ -1,14 +1,19 @@
 part of '../../scenario_scripts.dart';
 
 // ----------------------------------------------------------
-// 8. 12앞/12풀 vs 전진 2게이트 (스탠다드 vs 공격형)
+// 6. Z 스탠다드 vs 2게이트 질럿 (확장 - Z 트랜지션 분기 추가)
 // ----------------------------------------------------------
 const _zvpStandardVs2Gate = ScenarioScript(
   id: 'zvp_standard_vs_2gate',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_12hatch', 'zvp_12pool'],
+  homeBuildIds: [
+    'zvp_12hatch', 'zvp_12pool', 'zvp_3hatch_nopool',
+    'zvp_3hatch_hydra', 'zvp_2hatch_mutal',
+    'zvp_trans_5hatch_hydra', 'zvp_trans_mutal_hydra',
+    'zvp_trans_hydra_lurker',
+  ],
   awayBuildIds: ['pvz_2gate_zealot'],
-  description: '12앞마당 vs 전진 2게이트 질럿 압박',
+  description: 'Z 스탠다드 vs 전진 2게이트 질럿 압박',
   phases: [
     // Phase 0: 오프닝 (lines 1-12)
     ScriptPhase(
@@ -19,7 +24,7 @@ const _zvpStandardVs2Gate = ScenarioScript(
           text: '{home} 선수 앞마당 해처리를 건설합니다.',
           owner: LogOwner.home,
           homeResource: -30,
-          altText: '{home}, 12앞마당! 자원을 챙기는 빌드!',
+          altText: '{home}, 앞마당 해처리! 자원을 챙기는 빌드!',
         ),
         ScriptEvent(
           text: '{away} 선수 프로브를 센터로 보냅니다!',
@@ -75,7 +80,7 @@ const _zvpStandardVs2Gate = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수 앞마당에 성큰 콜로니를 세웁니다! 드론도 동원!',
+              text: '{home} 선수 앞마당에 성큰을 세웁니다! 드론도 동원!',
               owner: LogOwner.home,
               homeArmy: 2, homeResource: -15, favorsStat: 'defense',
               altText: '{home}, 성큰! 드론까지 동원해서 막아봅니다!',
@@ -129,12 +134,75 @@ const _zvpStandardVs2Gate = ScenarioScript(
         ),
       ],
     ),
-    // Phase 3: 후속 전개 - 분기 (lines 37-50)
+    // Phase 3: Z 트랜지션 분기 (lines 37-52)
     ScriptPhase(
-      name: 'aftermath',
+      name: 'zerg_transition',
       startLine: 37,
       branches: [
-        // 분기 A: 방어 성공 후 역공
+        // 분기 A: 히드라 전환
+        ScriptBranch(
+          id: 'hydra_transition',
+          conditionHomeBuildIds: [
+            'zvp_3hatch_hydra', 'zvp_trans_5hatch_hydra',
+            'zvp_trans_hydra_lurker',
+          ],
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 히드라덴 건설! 히드라로 전환합니다!',
+              owner: LogOwner.home,
+              homeArmy: 4, homeResource: -20,
+              altText: '{home}, 히드라덴! 지상 전력을 강화합니다!',
+            ),
+            ScriptEvent(
+              text: '{home}, 히드라가 질럿을 잡아냅니다! 사거리 차이!',
+              owner: LogOwner.home,
+              awayArmy: -3, homeArmy: -1, favorsStat: 'attack',
+              altText: '{home} 선수 히드라 사거리! 질럿이 접근하기 어렵습니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 2게이트 질럿만으로는 히드라를 상대할 수 없습니다!',
+              owner: LogOwner.away,
+              awayArmy: -2,
+            ),
+            ScriptEvent(
+              text: '히드라가 합류하면서 전세가 역전됩니다!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        // 분기 B: 뮤탈 전환
+        ScriptBranch(
+          id: 'mutal_transition',
+          conditionHomeBuildIds: ['zvp_2hatch_mutal', 'zvp_trans_mutal_hydra'],
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 레어에서 스파이어를 올립니다! 뮤탈리스크를 택했습니다!',
+              owner: LogOwner.home,
+              homeResource: -25,
+              altText: '{home}, 스파이어! 뮤탈리스크로 전환!',
+            ),
+            ScriptEvent(
+              text: '{home}, 뮤탈리스크가 프로토스 본진을 견제합니다!',
+              owner: LogOwner.home,
+              homeArmy: 4, awayResource: -10, favorsStat: 'harass',
+              altText: '{home} 선수 뮤탈 견제! 프로브를 노립니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 질럿이 앞마당에 묶여 있어서 본진 수비가 어렵습니다!',
+              owner: LogOwner.away,
+              awayResource: -5,
+            ),
+            ScriptEvent(
+              text: '뮤탈 견제가 프로토스 본진을 흔들고 있습니다!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        // 분기 C: 방어 성공 후 역공 (폴백)
         ScriptBranch(
           id: 'zerg_counterattack',
           baseProbability: 1.0,
@@ -163,7 +231,7 @@ const _zvpStandardVs2Gate = ScenarioScript(
             ),
           ],
         ),
-        // 분기 B: 질럿 피해 후 소모전
+        // 분기 D: 질럿 피해 후 소모전 (폴백)
         ScriptBranch(
           id: 'attrition_battle',
           baseProbability: 1.0,
@@ -180,7 +248,7 @@ const _zvpStandardVs2Gate = ScenarioScript(
               homeArmy: 2, awayArmy: -1, favorsStat: 'defense',
             ),
             ScriptEvent(
-              text: '{home}, 히드라덴을 올리기 시작합니다! 버틸 수 있을까요?',
+              text: '{home}, 테크를 올리기 시작합니다! 버틸 수 있을까요?',
               owner: LogOwner.home,
               homeResource: -20,
             ),
@@ -195,4 +263,3 @@ const _zvpStandardVs2Gate = ScenarioScript(
     ),
   ],
 );
-

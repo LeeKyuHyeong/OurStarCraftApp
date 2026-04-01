@@ -2,17 +2,13 @@ import 'dart:math';
 import '../../domain/services/match_simulation_service.dart';
 import '../../domain/models/models.dart';
 
-// TvZ (11 scenarios)
-part 'scenarios/tvz/bio_vs_mutal.dart';
-part 'scenarios/tvz/mech_vs_lurker.dart';
-part 'scenarios/tvz/cheese_vs_standard.dart';
-part 'scenarios/tvz/111_vs_macro.dart';
-part 'scenarios/tvz/wraith_vs_mutal.dart';
+// TvZ (7 scenarios - 오프닝 매칭 + 트랜지션 분기 구조)
 part 'scenarios/tvz/cheese_vs_cheese.dart';
+part 'scenarios/tvz/cheese_vs_standard.dart';
+part 'scenarios/tvz/cheese_vs_greedy.dart';
 part 'scenarios/tvz/9pool_vs_standard.dart';
-part 'scenarios/tvz/valkyrie_vs_mutal.dart';
-part 'scenarios/tvz/double_vs_3hatch.dart';
-part 'scenarios/tvz/standard_vs_1hatch_allin.dart';
+part 'scenarios/tvz/standard_vs_standard.dart';
+part 'scenarios/tvz/standard_vs_3hatch.dart';
 part 'scenarios/tvz/mech_vs_hive.dart';
 
 // TvT (16 scenarios)
@@ -33,18 +29,14 @@ part 'scenarios/tvt/cc_first_mirror.dart';
 part 'scenarios/tvt/2fac_vulture_mirror.dart';
 part 'scenarios/tvt/1fac_expand_mirror.dart';
 
-// PvT (11 scenarios)
-part 'scenarios/pvt/dragoon_expand_vs_factory.dart';
-part 'scenarios/pvt/reaver_vs_timing.dart';
-part 'scenarios/pvt/dark_vs_standard.dart';
-part 'scenarios/pvt/cheese_vs_standard.dart';
-part 'scenarios/pvt/carrier_vs_anti.dart';
-part 'scenarios/pvt/5gate_push.dart';
+// PvT (7 scenarios)
 part 'scenarios/pvt/cheese_vs_cheese.dart';
 part 'scenarios/pvt/reaver_vs_bbs.dart';
-part 'scenarios/pvt/mine_triple.dart';
-part 'scenarios/pvt/11up_8fac_vs_expand.dart';
-part 'scenarios/pvt/fd_terran.dart';
+part 'scenarios/pvt/cheese_vs_standard.dart';
+part 'scenarios/pvt/standard_vs_standard.dart';
+part 'scenarios/pvt/dark_vs_standard.dart';
+part 'scenarios/pvt/reaver_vs_timing.dart';
+part 'scenarios/pvt/carrier_vs_anti.dart';
 
 // PvP (10 scenarios)
 part 'scenarios/pvp/dragoon_nexus_mirror.dart';
@@ -58,18 +50,13 @@ part 'scenarios/pvp/4gate_vs_multi.dart';
 part 'scenarios/pvp/zealot_rush_vs_reaver.dart';
 part 'scenarios/pvp/dark_mirror.dart';
 
-// ZvP (11 scenarios)
-part 'scenarios/zvp/hydra_vs_forge.dart';
-part 'scenarios/zvp/mutal_vs_forge.dart';
-part 'scenarios/zvp/9pool_vs_forge.dart';
+// ZvP (6 scenarios)
 part 'scenarios/zvp/cheese_vs_cheese.dart';
-part 'scenarios/zvp/mukerji_vs_corsair_reaver.dart';
-part 'scenarios/zvp/scourge_defiler.dart';
-part 'scenarios/zvp/973_hydra_rush.dart';
-part 'scenarios/zvp/standard_vs_2gate.dart';
-part 'scenarios/zvp/3hatch_vs_corsair_reaver.dart';
-part 'scenarios/zvp/hydra_lurker_vs_forge.dart';
 part 'scenarios/zvp/cheese_vs_forge.dart';
+part 'scenarios/zvp/9pool_vs_standard.dart';
+part 'scenarios/zvp/standard_vs_forge.dart';
+part 'scenarios/zvp/standard_vs_corsair_reaver.dart';
+part 'scenarios/zvp/standard_vs_2gate.dart';
 
 // ZvZ (9 scenarios)
 part 'scenarios/zvz/9pool_vs_9overpool.dart';
@@ -146,12 +133,19 @@ class ScriptBranch {
   final double baseProbability;
   final List<ScriptEvent> events;
 
+  /// 빌드 ID 기반 분기 조건 (트랜지션 분기용)
+  /// 설정 시 해당 빌드 ID와 매칭되는 경우에만 이 분기가 후보에 포함됨
+  final List<String>? conditionHomeBuildIds;
+  final List<String>? conditionAwayBuildIds;
+
   const ScriptBranch({
     required this.id,
     this.conditionStat,
     this.homeStatMustBeHigher = true,
     this.baseProbability = 1.0,
     required this.events,
+    this.conditionHomeBuildIds,
+    this.conditionAwayBuildIds,
   });
 }
 
@@ -264,17 +258,13 @@ class ScenarioScriptData {
   };
 
   static const List<ScenarioScript> _allScripts = [
-    // TvZ (scenarios/tvz/)
-    _tvzBioVsMutal,
-    _tvzMechVsLurker,
-    _tvzCheeseVsStandard,
-    _tvz111VsMacro,
-    _tvzWraithVsMutal,
+    // TvZ (scenarios/tvz/) - 7 scenarios
     _tvzCheeseVsCheese,
+    _tvzCheeseVsStandard,
+    _tvzCheeseVsGreedy,
     _tvz9poolVsStandard,
-    _tvzValkyrieVsMutal,
-    _tvzDoubleVs3Hatch,
-    _tvzStandardVs1HatchAllin,
+    _tvzStandardVsStandard,
+    _tvzStandardVs3Hatch,
     _tvzMechVsHive,
     // TvT (scenarios/tvt/)
     _tvtRaxDoubleVsFacDouble,
@@ -294,17 +284,13 @@ class ScenarioScriptData {
     _tvt2facVultureMirror,
     _tvt1facExpandMirror,
     // PvT (scenarios/pvt/)
-    _pvtDragoonExpandVsFactory,
-    _pvtReaverVsTiming,
-    _pvtDarkVsStandard,
-    _pvtCheeseVsStandard,
-    _pvtCarrierVsAnti,
-    _pvt5gatePush,
     _pvtCheeseVsCheese,
     _pvtReaverVsBbs,
-    _pvtMineTriple,
-    _pvt11up8facVsExpand,
-    _pvtFdTerran,
+    _pvtCheeseVsStandard,
+    _pvtStandardVsStandard,
+    _pvtDarkVsStandard,
+    _pvtReaverVsTiming,
+    _pvtCarrierVsAnti,
     // PvP (scenarios/pvp/)
     _pvpDragoonNexusMirror,
     _pvpDragoonVsNogate,
@@ -317,17 +303,12 @@ class ScenarioScriptData {
     _pvpZealotRushVsReaver,
     _pvpDarkMirror,
     // ZvP (scenarios/zvp/)
-    _zvpHydraVsForge,
-    _zvpMutalVsForge,
-    _zvp9poolVsForge,
     _zvpCheeseVsCheese,
-    _zvpMukerjiVsCorsairReaver,
-    _zvpScourgeDefiler,
-    _zvp973HydraRush,
-    _zvpStandardVs2Gate,
-    _zvp3HatchVsCorsairReaver,
-    _zvpHydraLurkerVsForge,
     _zvpCheeseVsForge,
+    _zvp9poolVsStandard,
+    _zvpStandardVsForge,
+    _zvpStandardVsCorsairReaver,
+    _zvpStandardVs2Gate,
     // ZvZ (scenarios/zvz/)
     _zvz9poolVs9overpool,
     _zvz12hatchVs9pool,

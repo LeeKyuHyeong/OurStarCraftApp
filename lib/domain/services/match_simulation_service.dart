@@ -578,6 +578,8 @@ class MatchSimulationService {
           map: map,
           usedTexts: usedTexts,
           winRate: winRate,
+          homeBuildType: homeBuildType,
+          awayBuildType: awayBuildType,
         );
 
         if (scriptResult != null) {
@@ -3519,6 +3521,8 @@ class MatchSimulationService {
     required GameMap map,
     required Map<String, int> usedTexts,
     required double winRate,
+    BuildType? homeBuildType,
+    BuildType? awayBuildType,
   }) {
     // 모든 페이즈 소진 시 null 반환
     if (phaseIndex >= script.phases.length) return null;
@@ -3547,6 +3551,8 @@ class MatchSimulationService {
           homeStats: homeStats,
           awayStats: awayStats,
           reversed: reversed,
+          homeBuildType: homeBuildType,
+          awayBuildType: awayBuildType,
         );
         activeEvents = branch.events;
       } else {
@@ -3700,10 +3706,42 @@ class MatchSimulationService {
     required PlayerStats homeStats,
     required PlayerStats awayStats,
     required bool reversed,
+    BuildType? homeBuildType,
+    BuildType? awayBuildType,
   }) {
-    // conditionStat 조건에 맞는 분기 필터링
+    // 1단계: 빌드 ID 기반 필터링 (트랜지션 분기)
+    final actualHomeId = reversed ? awayBuildType?.id : homeBuildType?.id;
+    final actualAwayId = reversed ? homeBuildType?.id : awayBuildType?.id;
+
+    var candidates = branches.toList();
+    final hasBuildCondition = branches.any((b) =>
+      b.conditionHomeBuildIds != null || b.conditionAwayBuildIds != null);
+
+    if (hasBuildCondition && (actualHomeId != null || actualAwayId != null)) {
+      final buildMatched = <ScriptBranch>[];
+      final noCondition = <ScriptBranch>[];
+      for (final branch in candidates) {
+        final hasHomeCond = branch.conditionHomeBuildIds != null;
+        final hasAwayCond = branch.conditionAwayBuildIds != null;
+        if (!hasHomeCond && !hasAwayCond) {
+          noCondition.add(branch);
+          continue;
+        }
+        final homeMatch = !hasHomeCond ||
+          (actualHomeId != null && branch.conditionHomeBuildIds!.contains(actualHomeId));
+        final awayMatch = !hasAwayCond ||
+          (actualAwayId != null && branch.conditionAwayBuildIds!.contains(actualAwayId));
+        if (homeMatch && awayMatch) {
+          buildMatched.add(branch);
+        }
+      }
+      // 빌드 매칭된 분기가 있으면 우선, 없으면 조건 없는 분기 포함
+      candidates = buildMatched.isNotEmpty ? buildMatched : noCondition;
+    }
+
+    // 2단계: conditionStat 조건 필터링 (기존 로직)
     final eligible = <ScriptBranch>[];
-    for (final branch in branches) {
+    for (final branch in candidates) {
       if (branch.conditionStat != null) {
         final homeStat = _getStatValue(reversed ? awayStats : homeStats, branch.conditionStat);
         final awayStat = _getStatValue(reversed ? homeStats : awayStats, branch.conditionStat);
@@ -3718,7 +3756,7 @@ class MatchSimulationService {
 
     if (eligible.isEmpty) {
       // 조건 미충족 시 baseProbability로 가중 랜덤
-      return _weightedBranchSelect(branches);
+      return _weightedBranchSelect(candidates.isNotEmpty ? candidates : branches);
     }
     if (eligible.length == 1) return eligible.first;
     return _weightedBranchSelect(eligible);

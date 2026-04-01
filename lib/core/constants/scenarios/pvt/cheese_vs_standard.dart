@@ -1,14 +1,19 @@
 part of '../../scenario_scripts.dart';
 
 // ----------------------------------------------------------
-// 4. 센터 게이트 vs 스탠다드 (치즈)
+// 3. 센터 게이트 vs 스탠다드 테란 전체 (치즈 vs 스탠다드)
 // ----------------------------------------------------------
 const _pvtCheeseVsStandard = ScenarioScript(
   id: 'pvt_cheese_vs_standard',
   matchup: 'PvT',
   homeBuildIds: ['pvt_proxy_gate', 'pvt_2gate_zealot'],
-  awayBuildIds: ['tvp_double', 'tvp_rax_double', 'tvp_fd',
-                 'tvp_trans_tank_defense', 'tvp_trans_upgrade', 'tvp_trans_bio_mech'],
+  awayBuildIds: [
+    'tvp_double', 'tvp_rax_double', 'tvp_fd',
+    'tvp_fake_double', 'tvp_1fac_drop', 'tvp_5fac_timing',
+    'tvp_1fac_gosu', 'tvp_mine_triple', 'tvp_11up_8fac', 'tvp_anti_carrier',
+    'tvp_trans_tank_defense', 'tvp_trans_upgrade', 'tvp_trans_bio_mech',
+    'tvp_trans_timing_push', 'tvp_trans_5fac_mass', 'tvp_trans_anti_carrier',
+  ],
   description: '센터 게이트 질럿 러시 vs 스탠다드 테란',
   phases: [
     // Phase 0: 오프닝 (lines 1-12)
@@ -63,11 +68,12 @@ const _pvtCheeseVsStandard = ScenarioScript(
         ),
       ],
     ),
-    // Phase 2: 수비 여부 - 분기 (lines 19-30)
+    // Phase 2: 러시 결과 - 분기 (lines 19-32)
     ScriptPhase(
       name: 'rush_result',
       startLine: 19,
       branches: [
+        // 분기 A: 질럿 러시 성공
         ScriptBranch(
           id: 'zealot_rush_success',
           baseProbability: 0.45,
@@ -95,6 +101,7 @@ const _pvtCheeseVsStandard = ScenarioScript(
             ),
           ],
         ),
+        // 분기 B: 테란 수비 성공 → 트랜지션 분기
         ScriptBranch(
           id: 'terran_defense_success',
           conditionStat: 'defense',
@@ -128,4 +135,3 @@ const _pvtCheeseVsStandard = ScenarioScript(
     ),
   ],
 );
-

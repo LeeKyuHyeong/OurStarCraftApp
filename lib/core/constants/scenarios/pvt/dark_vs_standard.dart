@@ -1,14 +1,19 @@
 part of '../../scenario_scripts.dart';
 
 // ----------------------------------------------------------
-// 3. 다크 템플러 vs 스탠다드 (기습 빌드)
+// 5. 다크 템플러 vs 스탠다드 테란 전체 (기습 빌드)
 // ----------------------------------------------------------
 const _pvtDarkVsStandard = ScenarioScript(
   id: 'pvt_dark_vs_standard',
   matchup: 'PvT',
   homeBuildIds: ['pvt_dark_swing', 'pvt_proxy_dark'],
-  awayBuildIds: ['tvp_double', 'tvp_rax_double', 'tvp_fd',
-                 'tvp_trans_tank_defense', 'tvp_trans_upgrade'],
+  awayBuildIds: [
+    'tvp_double', 'tvp_rax_double', 'tvp_fd',
+    'tvp_fake_double', 'tvp_1fac_drop', 'tvp_5fac_timing',
+    'tvp_1fac_gosu', 'tvp_mine_triple', 'tvp_11up_8fac', 'tvp_anti_carrier',
+    'tvp_trans_tank_defense', 'tvp_trans_upgrade', 'tvp_trans_bio_mech',
+    'tvp_trans_timing_push', 'tvp_trans_5fac_mass', 'tvp_trans_anti_carrier',
+  ],
   description: '다크 템플러 기습 vs 스탠다드 테란',
   phases: [
     // Phase 0: 오프닝 (lines 1-14)
@@ -240,4 +245,3 @@ const _pvtDarkVsStandard = ScenarioScript(
     ),
   ],
 );
-
