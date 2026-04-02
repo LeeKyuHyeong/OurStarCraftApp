@@ -8,7 +8,7 @@ const _zvp5droneVsArchon = ScenarioScript(
   matchup: 'ZvP',
   homeBuildIds: ['zvp_5drone'],
   awayBuildIds: ['pvz_trans_archon'],
-  description: '9투 올인 저글링 vs 하이템플러+아콘 조합',
+  description: '9투 올인 저글링 vs 하이템플러와 아콘 조합',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
     ScriptPhase(
@@ -141,7 +141,7 @@ const _zvp5droneVsArchon = ScenarioScript(
               altText: '{away} 선수 스톰! 저글링이 한 번에 전멸합니다!',
             ),
             ScriptEvent(
-              text: '하이템플러+아콘! 저글링을 완전히 제압합니다!',
+              text: '하이템플러와 아콘! 저글링을 완전히 제압합니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

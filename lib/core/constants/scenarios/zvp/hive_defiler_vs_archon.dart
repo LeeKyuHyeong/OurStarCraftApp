@@ -1,7 +1,7 @@
 part of '../../scenario_scripts.dart';
 
 // ----------------------------------------------------------
-// 하이브 디파일러 vs 아콘 질럿: 울트라+디파일러 vs 아콘+질럿
+// 하이브 디파일러 vs 아콘 질럿: 울트라+디파일러 vs 아콘과 질럿
 // ----------------------------------------------------------
 const _zvpHiveDefilerVsArchon = ScenarioScript(
   id: 'zvp_hive_defiler_vs_archon',
@@ -106,7 +106,7 @@ const _zvpHiveDefilerVsArchon = ScenarioScript(
           favorsStat: 'attack',
         ),
         ScriptEvent(
-          text: '{home} 선수 울트라리스크 동굴을 건설합니다!',
+          text: '{home} 선수 울트라리스크 캐번을 건설합니다!',
           owner: LogOwner.home,
           homeResource: -15,
           skipChance: 0.3,
@@ -176,7 +176,7 @@ const _zvpHiveDefilerVsArchon = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '{home} 선수 디파일러가 나오기 전에 병력이 소진되었습니다!',
+              text: '{home} 선수 디파일러 마운드의 디파일러가 나오기 전에 병력이 소진되었습니다!',
               owner: LogOwner.home,
               homeArmy: -3,
               homeResource: -20,

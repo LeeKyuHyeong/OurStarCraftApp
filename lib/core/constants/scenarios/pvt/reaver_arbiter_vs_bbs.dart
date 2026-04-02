@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _pvtReaverArbiterVsBbs = ScenarioScript(
   id: 'pvt_reaver_arbiter_vs_bbs',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_reaver_arbiter'],
+  homeBuildIds: ['pvt_trans_reaver_arbiter', 'pvt_1gate_expand', 'pvt_reaver_shuttle'],
   awayBuildIds: ['tvp_bbs'],
   description: '리버 아비터 풀테크 vs BBS 마린 러시 — 초반 생존이 관건',
   phases: [
@@ -79,10 +79,10 @@ const _pvtReaverArbiterVsBbs = ScenarioScript(
           skipChance: 0.2,
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스를 올리기 시작합니다! 리버를 향한 첫걸음!',
+          text: '{home} 선수 로보틱스와 서포트 베이를 올리기 시작합니다! 공성 빌드를 향한 첫걸음!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, BBS를 막으면서 로보틱스를 건설합니다!',
+          altText: '{home}, BBS를 막으면서 로보틱스와 서포트 베이를 건설합니다!',
         ),
         ScriptEvent(
           text: 'BBS를 버텼다면 테크 차이가 게임을 결정할 겁니다!',
@@ -167,7 +167,7 @@ const _pvtReaverArbiterVsBbs = ScenarioScript(
           conditionStat: 'attack',
           events: [
             ScriptEvent(
-              text: '{away} 선수 BBS 피해가 컸습니다! 프로토스 프로브가 많이 죽었어요!',
+              text: '{away} 선수 BBS 피해가 컸습니다! 프로토스 상대 일꾼이 많이 죽었어요!',
               owner: LogOwner.away,
               homeResource: -25,
               awayArmy: 3,

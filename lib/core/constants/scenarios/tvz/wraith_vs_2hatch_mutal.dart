@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _tvzWraithVs2hatchMutal = ScenarioScript(
   id: 'tvz_wraith_vs_2hatch_mutal',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_wraith'],
-  awayBuildIds: ['zvt_trans_2hatch_mutal'],
+  homeBuildIds: ['tvz_trans_wraith', 'tvz_2star_wraith'],
+  awayBuildIds: ['zvt_trans_2hatch_mutal', 'zvt_2hatch_mutal'],
   description: '레이스 클로킹 vs 2해처리 빠른 뮤탈리스크',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -21,10 +21,10 @@ const _tvzWraithVs2hatchMutal = ScenarioScript(
           homeResource: -10,
         ),
         ScriptEvent(
-          text: '{away} 선수 앞마당 해처리를 올립니다! 2해처리 뮤탈!',
+          text: '{away} 선수 앞마당 해처리를 올립니다! 2해처리 체제!',
           owner: LogOwner.away,
           awayResource: -30,
-          altText: '{away}, 2해처리 체제! 뮤탈을 빠르게 뽑을 준비입니다!',
+          altText: '{away}, 해처리부터 올립니다! 빠른 확장이네요.',
         ),
         ScriptEvent(
           text: '{home} 선수 팩토리를 건설합니다! 스타포트를 향한 테크!',
@@ -35,7 +35,7 @@ const _tvzWraithVs2hatchMutal = ScenarioScript(
           text: '{away} 선수 스포닝풀 건설 후 가스를 빠르게 넣습니다.',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 가스를 서둘러 넣습니다! 뮤탈이 빠르겠네요!',
+          altText: '{away}, 가스를 서둘러 넣습니다! 공중 유닛을 서두르는군요!',
         ),
         ScriptEvent(
           text: '양쪽 모두 공중 유닛을 준비합니다! 하늘의 주인은 누구?',

@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvtReaverCarrierVsTimingPush = ScenarioScript(
   id: 'pvt_reaver_carrier_vs_timing_push',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_reaver_carrier'],
-  awayBuildIds: ['tvp_trans_timing_push'],
+  homeBuildIds: ['pvt_trans_reaver_carrier', 'pvt_reaver_shuttle', 'pvt_carrier'],
+  awayBuildIds: ['tvp_trans_timing_push', 'tvp_fake_double', 'tvp_1fac_drop'],
   description: '리버 셔틀 + 캐리어 전환 vs 중반 타이밍 어택 — 생존 후 역전',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -27,7 +27,7 @@ const _pvtReaverCarrierVsTimingPush = ScenarioScript(
           awayResource: -20,
         ),
         ScriptEvent(
-          text: '{home} 선수 사이버네틱스 코어 건설! 로보틱스까지 계획하고 있겠죠.',
+          text: '{home} 선수 사이버네틱스 코어 건설! 로보틱스와 서포트 베이까지 계획하고 있겠죠.',
           owner: LogOwner.home,
           homeResource: -15,
         ),
@@ -77,7 +77,7 @@ const _pvtReaverCarrierVsTimingPush = ScenarioScript(
           homeArmy: -3,
           awayArmy: -1,
           favorsStat: 'attack',
-          altText: '{away}, 탱크 시즈! 드라군이 사정거리 밖에서 녹습니다!',
+          altText: '{away}, 탱크가 시즈 포격! 상대 병력이 사정거리 밖에서 녹습니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 로보틱스에서 리버가 나옵니다! 수비에 투입합니다!',

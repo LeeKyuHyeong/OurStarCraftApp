@@ -7,7 +7,7 @@ const _pvtProxyGateVsAntiCarrier = ScenarioScript(
   id: 'pvt_proxy_gate_vs_anti_carrier',
   matchup: 'PvT',
   homeBuildIds: ['pvt_proxy_gate'],
-  awayBuildIds: ['tvp_trans_anti_carrier'],
+  awayBuildIds: ['tvp_trans_anti_carrier', 'tvp_anti_carrier'],
   description: '프록시 게이트 질럿 러시 vs 골리앗 대공형',
   phases: [
     // Phase 0: 오프닝 (lines 1-10)
@@ -61,7 +61,7 @@ const _pvtProxyGateVsAntiCarrier = ScenarioScript(
           owner: LogOwner.home,
           homeArmy: 1,
           favorsStat: 'attack',
-          altText: '{home}, 질럿 돌진! 골리앗이 나오기 전에 끝내야 합니다!',
+          altText: '{home}, 질럿 돌진! 골리앗 나오기 전에 끝내야 합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린 2기로 막습니다! 아머리에 투자해서 마린이 적어요!',
@@ -148,7 +148,7 @@ const _pvtProxyGateVsAntiCarrier = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '골리앗이 나오기 전에 끝장입니다!',
+              text: '골리앗 나오기 전에 끝장입니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(

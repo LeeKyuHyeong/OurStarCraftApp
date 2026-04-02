@@ -61,14 +61,14 @@ const _zvpYabarwiVsProxyGate = ScenarioScript(
           altText: '{away}, 질럿이 드론을 베어냅니다! 일꾼 피해!',
         ),
         ScriptEvent(
-          text: '{home} 선수 저글링+드론으로 질럿을 감싸 안습니다!',
+          text: '{home} 선수 저글링과 드론으로 질럿을 감싸 안습니다!',
           owner: LogOwner.home,
           homeArmy: 3,
           awayArmy: -2,
           favorsStat: 'control',
         ),
         ScriptEvent(
-          text: '{home} 선수 히드라덴을 올립니다! 히드라리스크+럴커 체제를 준비!',
+          text: '{home} 선수 히드라덴을 올립니다! 히드라리스크와 럴커 체제를 준비!',
           owner: LogOwner.home,
           homeResource: -10,
           altText: '{home}, 히드라덴 건설! 럴커를 만들 준비에 들어갑니다!',
@@ -151,7 +151,7 @@ const _zvpYabarwiVsProxyGate = ScenarioScript(
               awayResource: -10,
             ),
             ScriptEvent(
-              text: '럴커+저글링의 다면 공격! 프록시 올인 실패의 대가입니다! GG!',
+              text: '럴커와 저글링의 다면 공격! 프록시 올인 실패의 대가입니다! GG!',
               owner: LogOwner.home,
               decisive: true,
             ),

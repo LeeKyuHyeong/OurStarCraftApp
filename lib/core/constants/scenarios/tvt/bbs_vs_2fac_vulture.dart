@@ -35,7 +35,7 @@ const _tvtBbsVs2facVulture = ScenarioScript(
           text: '{away} 선수 팩토리 2개 건설! 투팩 벌처입니다!',
           owner: LogOwner.away,
           awayResource: -20,
-          altText: '{away}, 투팩! 벌처 물량으로 승부합니다!',
+          altText: '{away}, 팩토리 두 개! 투팩 벌처로 승부합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 본진에도 배럭 건설! BBS입니다!',
@@ -95,7 +95,7 @@ const _tvtBbsVs2facVulture = ScenarioScript(
               altText: '{away}, 투팩 벌처로 마린 격퇴!',
             ),
             ScriptEvent(
-              text: '{home} 선수 마린이 녹고 있습니다! 벌처를 못 잡아요!',
+              text: '{home} 선수 마린이 녹고 있습니다! 기동력을 따라잡지 못해요!',
               owner: LogOwner.home,
               homeArmy: -2,
             ),

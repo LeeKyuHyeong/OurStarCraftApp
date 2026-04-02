@@ -8,7 +8,7 @@ const _zvp4poolVsArchon = ScenarioScript(
   matchup: 'ZvP',
   homeBuildIds: ['zvp_4pool'],
   awayBuildIds: ['pvz_trans_archon'],
-  description: '4풀 저글링 올인 vs 하이템플러+아콘 조합',
+  description: '4풀 저글링 올인 vs 하이템플러와 아콘 조합',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
     ScriptPhase(
@@ -141,7 +141,7 @@ const _zvp4poolVsArchon = ScenarioScript(
               altText: '{away} 선수 하이템플러 합류! 사이오닉 스톰!',
             ),
             ScriptEvent(
-              text: '하이템플러+아콘 합류! 저글링을 전멸시킵니다!',
+              text: '하이템플러와 아콘 합류! 저글링을 전멸시킵니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

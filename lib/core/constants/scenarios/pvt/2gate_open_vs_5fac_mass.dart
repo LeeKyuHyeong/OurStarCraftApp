@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvt2gateOpenVs5facMass = ScenarioScript(
   id: 'pvt_2gate_open_vs_5fac_mass',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_2gate_open'],
-  awayBuildIds: ['tvp_trans_5fac_mass'],
+  homeBuildIds: ['pvt_2gate_open', 'pvt_2gate_zealot'],
+  awayBuildIds: ['tvp_trans_5fac_mass', 'tvp_5fac_timing', 'tvp_11up_8fac'],
   description: '투게이트 질럿 초반 압박 vs 5팩토리 물량 빌드업',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)

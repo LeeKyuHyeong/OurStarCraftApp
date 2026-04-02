@@ -126,7 +126,7 @@ const _zvpMutalHydraVsProxyGate = ScenarioScript(
               text: '{home} 선수 뮤탈리스크가 프로브를 견제합니다! 일꾼이 줄어듭니다!',
               owner: LogOwner.home,
               awayResource: -15, favorsStat: 'harass',
-              altText: '{home}, 뮤탈 견제! 프로브가 녹습니다!',
+              altText: '{home}, 뮤탈이 프로브를 사냥합니다! 일꾼이 녹아요!',
             ),
             ScriptEvent(
               text: '{home}, 히드라 편대가 전진합니다! 뮤탈과 동시 공격!',

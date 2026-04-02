@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvt5gateArbiterVsTimingPush = ScenarioScript(
   id: 'pvt_5gate_arbiter_vs_timing_push',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_5gate_arbiter'],
-  awayBuildIds: ['tvp_trans_timing_push'],
+  homeBuildIds: ['pvt_trans_5gate_arbiter', 'pvt_1gate_expand', 'pvt_1gate_obs'],
+  awayBuildIds: ['tvp_trans_timing_push', 'tvp_fake_double', 'tvp_1fac_drop'],
   description: '5게이트 아비터 vs 타이밍 푸시 — 수비 후 리콜 역습',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -143,7 +143,7 @@ const _pvt5gateArbiterVsTimingPush = ScenarioScript(
               text: '{home}, 스톰이 터집니다! 테란 병력이 녹아내리고 있어요!',
               owner: LogOwner.home,
               awayArmy: -8, homeArmy: -1, favorsStat: 'strategy',
-              altText: '{home} 선수 사이오닉 스톰! 마린 메딕이 순식간에!',
+              altText: '{home} 선수 사이오닉 스톰! 상대 병력이 순식간에!',
             ),
             ScriptEvent(
               text: '{away} 선수 본진 수비와 전선 유지를 동시에 할 수 없습니다!',

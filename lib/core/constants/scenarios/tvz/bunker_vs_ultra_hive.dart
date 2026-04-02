@@ -7,7 +7,7 @@ const _tvzBunkerVsUltraHive = ScenarioScript(
   id: 'tvz_bunker_vs_ultra_hive',
   matchup: 'TvZ',
   homeBuildIds: ['tvz_bunker'],
-  awayBuildIds: ['zvt_trans_ultra_hive'],
+  awayBuildIds: ['zvt_trans_ultra_hive', 'zvt_3hatch_nopool'],
   description: '벙커 러시 vs 울트라 하이브 — 초반 올인 vs 최후반 빌드',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -150,7 +150,7 @@ const _tvzBunkerVsUltraHive = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '울트라 전에 끝냈습니다! 벙커 러시 성공! GG!',
+              text: '하이브 테크 전에 끝냈습니다! 벙커 러시 성공! GG!',
               owner: LogOwner.home,
               decisive: true,
             ),

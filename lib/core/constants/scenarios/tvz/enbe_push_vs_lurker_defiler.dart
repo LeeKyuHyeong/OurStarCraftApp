@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _tvzEnbePushVsLurkerDefiler = ScenarioScript(
   id: 'tvz_enbe_push_vs_lurker_defiler',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_enbe_push'],
-  awayBuildIds: ['zvt_trans_lurker_defiler'],
+  homeBuildIds: ['tvz_trans_enbe_push', 'tvz_4rax_enbe'],
+  awayBuildIds: ['zvt_trans_lurker_defiler', 'zvt_2hatch_lurker'],
   description: '선엔베 4배럭 마린 vs 럴커 디파일러 다크스웜',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -97,7 +97,7 @@ const _tvzEnbePushVsLurkerDefiler = ScenarioScript(
           text: '{away} 선수 하이브를 준비합니다! 디파일러까지 가려 하구요.',
           owner: LogOwner.away,
           awayResource: -25,
-          altText: '{away}, 하이브 건설! 디파일러 다크스웜이 나오면 마린은 끝입니다.',
+          altText: '{away} 선수 하이브 건설! 디파일러가 나오면 테란 보병은 끝입니다.',
         ),
         ScriptEvent(
           text: '{home}, 럴커 진지 앞에서 스캔! 마린이 돌격합니다!',
@@ -108,7 +108,7 @@ const _tvzEnbePushVsLurkerDefiler = ScenarioScript(
           text: '{away} 선수 럴커를 추가하면서 디파일러를 기다립니다!',
           owner: LogOwner.away,
           awayArmy: 3, homeArmy: -2, favorsStat: 'defense',
-          altText: '{away}, 럴커 추가 배치! 마린이 다가오면 스파인!',
+          altText: '{away} 선수 럴커가 추가 배치됩니다! 테란 보병이 접근하면 스파인!',
         ),
       ],
     ),
@@ -154,7 +154,7 @@ const _tvzEnbePushVsLurkerDefiler = ScenarioScript(
               text: '{away}, 디파일러가 등장합니다! 다크스웜을 뿌립니다!',
               owner: LogOwner.away,
               awayArmy: 4, favorsStat: 'strategy',
-              altText: '{away} 선수 다크스웜! 마린의 사격이 완전히 봉쇄됩니다!',
+              altText: '{away} 선수 디파일러가 다크스웜을 뿌립니다! 테란 사격이 완전히 봉쇄!',
             ),
             ScriptEvent(
               text: '{home} 선수 마린이 다크스웜 안에서 사격이 안 됩니다!',
@@ -167,7 +167,7 @@ const _tvzEnbePushVsLurkerDefiler = ScenarioScript(
               awayArmy: 3, homeArmy: -3, favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '다크스웜 앞에서 마린은 무력! GG!',
+              text: '디파일러가 전장을 장악합니다! 테란이 무력화! GG!',
               owner: LogOwner.away,
               decisive: true,
             ),

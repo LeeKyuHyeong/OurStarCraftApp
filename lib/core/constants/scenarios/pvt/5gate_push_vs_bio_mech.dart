@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvt5gatePushVsBioMech = ScenarioScript(
   id: 'pvt_5gate_push_vs_bio_mech',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_5gate_push'],
-  awayBuildIds: ['tvp_trans_bio_mech'],
+  homeBuildIds: ['pvt_trans_5gate_push', 'pvt_1gate_expand'],
+  awayBuildIds: ['tvp_trans_bio_mech', 'tvp_rax_double'],
   description: '5게이트 드라군+질럿 vs 바이오 메카닉 복합 편성',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -180,7 +180,7 @@ const _pvt5gatePushVsBioMech = ScenarioScript(
               awayArmy: 3,
               homeArmy: -5,
               favorsStat: 'attack',
-              altText: '{away}, 탱크 직격! 드라군이 뭉쳐서 피해가 큽니다!',
+              altText: '{away}, 탱크가 직격! 상대 병력이 뭉쳐서 피해가 큽니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 질럿이 마린에 막힙니다! 스팀팩 화력에 밀립니다!',

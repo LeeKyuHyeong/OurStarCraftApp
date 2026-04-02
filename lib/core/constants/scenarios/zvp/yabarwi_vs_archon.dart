@@ -1,14 +1,14 @@
 part of '../../scenario_scripts.dart';
 
 // ----------------------------------------------------------
-// 야바위 vs 아콘: 다면 기만 공격 vs 아콘+스톰 방어
+// 야바위 vs 아콘: 다면 기만 공격 vs 아콘과 스톰 방어
 // ----------------------------------------------------------
 const _zvpYabarwiVsArchon = ScenarioScript(
   id: 'zvp_yabarwi_vs_archon',
   matchup: 'ZvP',
   homeBuildIds: ['zvp_trans_yabarwi'],
   awayBuildIds: ['pvz_trans_archon'],
-  description: '야바위 다면 기만 공격 vs 아콘+질럿+스톰 방어 — 분산 vs 집중',
+  description: '야바위 다면 기만 공격 vs 아콘과 질럿+스톰 방어 — 분산 vs 집중',
   phases: [
     // Phase 0: opening (lines 1-11)
     ScriptPhase(
@@ -22,10 +22,10 @@ const _zvpYabarwiVsArchon = ScenarioScript(
           altText: '{home}, 앞마당 해처리 건설! 드론 생산 집중!',
         ),
         ScriptEvent(
-          text: '{away} 선수 아둔을 건설합니다! 하이 템플러 준비!',
+          text: '{away} 선수 게이트웨이 뒤에 아둔을 건설합니다! 하이 템플러 준비!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 아둔 건설! 템플러 아카이브로 이어집니다!',
+          altText: '{away}, 게이트웨이와 아둔 건설! 템플러 아카이브로 이어집니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 히드라덴을 올립니다. 럴커를 만들 준비!',
@@ -41,7 +41,7 @@ const _zvpYabarwiVsArchon = ScenarioScript(
           favorsStat: 'strategy',
         ),
         ScriptEvent(
-          text: '프로토스가 하이 템플러+아콘 체제를 준비합니다! 강력한 후반 병력!',
+          text: '프로토스가 하이 템플러와 아콘 체제를 준비합니다! 강력한 후반 병력!',
           owner: LogOwner.system,
         ),
       ],
@@ -82,7 +82,7 @@ const _zvpYabarwiVsArchon = ScenarioScript(
           skipChance: 0.25,
         ),
         ScriptEvent(
-          text: '야바위 전술이 시작됩니다! 아콘+스톰이 이걸 막아낼 수 있을까!',
+          text: '야바위 전술이 시작됩니다! 아콘과 스톰이 이걸 막아낼 수 있을까!',
           owner: LogOwner.system,
         ),
       ],
@@ -95,7 +95,7 @@ const _zvpYabarwiVsArchon = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{away} 선수 아콘+질럿 편대를 이끌고 진군합니다.',
+          text: '{away} 선수 아콘과 질럿 편대를 이끌고 진군합니다.',
           owner: LogOwner.away,
           awayArmy: 3,
           awayResource: -10,
@@ -103,7 +103,7 @@ const _zvpYabarwiVsArchon = ScenarioScript(
           altText: '{away}, 아콘이 선봉에 섭니다! 결전 병력 출발!',
         ),
         ScriptEvent(
-          text: '{home} 선수 3방향에서 동시에 저글링+럴커를 투입합니다!',
+          text: '{home} 선수 3방향에서 동시에 저글링과 럴커를 투입합니다!',
           owner: LogOwner.home,
           homeArmy: 4,
           favorsStat: 'strategy',
@@ -152,7 +152,7 @@ const _zvpYabarwiVsArchon = ScenarioScript(
               awayResource: -10,
             ),
             ScriptEvent(
-              text: '야바위의 다면 공격이 아콘+스톰을 분산시킵니다! GG!',
+              text: '야바위의 다면 공격이 아콘과 스톰을 분산시킵니다! GG!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -184,7 +184,7 @@ const _zvpYabarwiVsArchon = ScenarioScript(
               homeResource: -15,
             ),
             ScriptEvent(
-              text: '아콘+스톰의 범위 공격! 야바위가 통하지 않았습니다! GG!',
+              text: '아콘과 스톰의 범위 공격! 야바위가 통하지 않았습니다! GG!',
               owner: LogOwner.away,
               decisive: true,
             ),

@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _tvzBionicPushVsUltraHive = ScenarioScript(
   id: 'tvz_bionic_push_vs_ultra_hive',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_bionic_push'],
-  awayBuildIds: ['zvt_trans_ultra_hive'],
+  homeBuildIds: ['tvz_trans_bionic_push', 'tvz_sk'],
+  awayBuildIds: ['zvt_trans_ultra_hive', 'zvt_3hatch_nopool'],
   description: '바이오닉 푸시 vs 울트라리스크 하이브 후반 체제',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -38,9 +38,10 @@ const _tvzBionicPushVsUltraHive = ScenarioScript(
           altText: '{away}, 일꾼 생산에 올인합니다! 후반을 노리는 거죠.',
         ),
         ScriptEvent(
-          text: '{home} 선수 아카데미 건설! 빠른 스팀팩을 노리네요.',
+          text: '{home} 선수 팩토리 건설하고 아카데미도 올립니다! 스팀팩을 노리네요.',
           owner: LogOwner.home,
           homeResource: -15,
+          altText: '{home}, 팩토리와 아카데미! 바이오닉 체제를 서둘러 갖춥니다!',
         ),
       ],
     ),
@@ -91,13 +92,13 @@ const _tvzBionicPushVsUltraHive = ScenarioScript(
           text: '{home} 선수 마린 메딕 시즈탱크! 바이오닉 풀셋으로 출발합니다!',
           owner: LogOwner.home,
           homeArmy: 5, homeResource: -15, favorsStat: 'attack',
-          altText: '{home}, 바이오닉 부대가 진격합니다! 울트라 나오기 전에!',
+          altText: '{home}, 바이오닉 부대가 진격합니다! 하이브 완성 전에!',
         ),
         ScriptEvent(
           text: '{away} 선수 하이브가 올라가고 있습니다! 거의 다 됐어요!',
           owner: LogOwner.away,
           awayResource: -25,
-          altText: '{away}, 하이브 건설 중! 울트라리스크까지 얼마 안 남았습니다!',
+          altText: '{away}, 하이브 건설 중! 최종 테크까지 얼마 안 남았습니다!',
         ),
         ScriptEvent(
           text: '{home}, 저그 앞마당 앞에서 시즈모드! 압박을 가합니다!',
@@ -108,7 +109,7 @@ const _tvzBionicPushVsUltraHive = ScenarioScript(
           text: '{away} 선수 저글링과 성큰으로 어떻게든 시간을 법니다!',
           owner: LogOwner.away,
           awayArmy: 2, homeArmy: -1, favorsStat: 'defense',
-          altText: '{away}, 성큰과 저글링으로 버팁니다! 울트라만 나오면!',
+          altText: '{away}, 성큰과 저글링으로 버팁니다! 조금만 더 버티면!',
         ),
         ScriptEvent(
           text: '울트라리스크가 나오느냐, 바이오닉이 먼저 뚫느냐! 시간 싸움입니다!',
@@ -127,10 +128,10 @@ const _tvzBionicPushVsUltraHive = ScenarioScript(
           conditionStat: 'attack',
           events: [
             ScriptEvent(
-              text: '{home}, 바이오닉이 앞마당을 돌파합니다! 울트라가 안 나왔어요!',
+              text: '{home} 선수 바이오닉이 앞마당을 돌파합니다! 하이브가 완성되기 전이에요!',
               owner: LogOwner.home,
               homeArmy: 4, awayArmy: -4, favorsStat: 'attack',
-              altText: '{home} 선수 앞마당 해처리 파괴! 울트라 전에 끝냅니다!',
+              altText: '{home} 선수 앞마당 해처리 파괴! 하이브 테크 전에 끝냅니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 하이브가 아직 완성되지 않았습니다! 시간이 부족해요!',
@@ -143,7 +144,7 @@ const _tvzBionicPushVsUltraHive = ScenarioScript(
               homeArmy: 2, awayArmy: -3, favorsStat: 'control',
             ),
             ScriptEvent(
-              text: '울트라 나오기 전에 바이오닉 푸시 성공! GG!',
+              text: '바이오닉 푸시 타이밍 적중! 저그가 버티지 못합니다! GG!',
               owner: LogOwner.home,
               decisive: true,
             ),

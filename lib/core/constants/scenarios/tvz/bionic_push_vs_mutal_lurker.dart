@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _tvzBionicPushVsMutalLurker = ScenarioScript(
   id: 'tvz_bionic_push_vs_mutal_lurker',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_bionic_push'],
-  awayBuildIds: ['zvt_trans_mutal_lurker'],
+  homeBuildIds: ['tvz_trans_bionic_push', 'tvz_sk'],
+  awayBuildIds: ['zvt_trans_mutal_lurker', 'zvt_12pool', 'zvt_9pool'],
   description: '바이오닉 푸시 vs 뮤탈리스크 견제 + 럴커 전환',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -37,10 +37,10 @@ const _tvzBionicPushVsMutalLurker = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '{home} 선수 아카데미 건설하면서 스팀팩을 준비합니다.',
+          text: '{home} 선수 팩토리 건설합니다! 아카데미도 올리면서 스팀팩을 준비하구요.',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 아카데미가 올라갑니다! 바이오닉 준비구요.',
+          altText: '{home}, 팩토리와 아카데미가 올라갑니다! 바이오닉 준비구요.',
         ),
       ],
     ),
@@ -123,10 +123,10 @@ const _tvzBionicPushVsMutalLurker = ScenarioScript(
           conditionStat: 'attack',
           events: [
             ScriptEvent(
-              text: '{home}, 럴커가 나오기 전에 앞마당을 밀어버립니다!',
+              text: '{home} 선수 바이오닉이 앞마당을 밀어버립니다! 타이밍 적중!',
               owner: LogOwner.home,
               homeArmy: 4, awayArmy: -3, favorsStat: 'attack',
-              altText: '{home} 선수 바이오닉 타이밍 적중! 럴커 전환 전에 돌파!',
+              altText: '{home} 선수 바이오닉 타이밍 적중! 저그 전환 전에 돌파!',
             ),
             ScriptEvent(
               text: '{away} 선수 뮤탈리스크만으로는 바이오닉을 못 막습니다!',
@@ -139,7 +139,7 @@ const _tvzBionicPushVsMutalLurker = ScenarioScript(
               homeArmy: 2, awayArmy: -3, favorsStat: 'control',
             ),
             ScriptEvent(
-              text: '럴커 전환 전에 바이오닉 푸시 성공! GG!',
+              text: '바이오닉 푸시 타이밍 성공! 저그가 버티지 못합니다! GG!',
               owner: LogOwner.home,
               decisive: true,
             ),

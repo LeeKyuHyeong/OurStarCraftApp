@@ -8,7 +8,7 @@ const _zvpMukerjiVsDragoonPush = ScenarioScript(
   matchup: 'ZvP',
   homeBuildIds: ['zvp_trans_mukerji'],
   awayBuildIds: ['pvz_trans_dragoon_push'],
-  description: '뮤탈+저글링 vs 드라군 타이밍 푸시 — 견제와 정면의 대결',
+  description: '뮤탈과 저글링 vs 드라군 타이밍 푸시 — 견제와 정면의 대결',
   phases: [
     // Phase 0: opening (lines 1-11)
     ScriptPhase(
@@ -120,7 +120,7 @@ const _zvpMukerjiVsDragoonPush = ScenarioScript(
           favorsStat: 'harass',
         ),
         ScriptEvent(
-          text: '뮤탈+저글링의 협공! 드라군이 양쪽에서 공격받고 있습니다!',
+          text: '뮤탈과 저글링의 협공! 드라군이 양쪽에서 공격받고 있습니다!',
           owner: LogOwner.system,
         ),
       ],
@@ -155,7 +155,7 @@ const _zvpMukerjiVsDragoonPush = ScenarioScript(
               awayArmy: -5,
             ),
             ScriptEvent(
-              text: '뮤탈+저글링의 다면 공격에 드라군 푸시가 무너집니다! GG!',
+              text: '뮤탈과 저글링의 다면 공격에 드라군 푸시가 무너집니다! GG!',
               owner: LogOwner.home,
               decisive: true,
             ),

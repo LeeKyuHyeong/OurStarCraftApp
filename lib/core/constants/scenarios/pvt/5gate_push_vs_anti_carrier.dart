@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvt5gatePushVsAntiCarrier = ScenarioScript(
   id: 'pvt_5gate_push_vs_anti_carrier',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_5gate_push'],
-  awayBuildIds: ['tvp_trans_anti_carrier'],
+  homeBuildIds: ['pvt_trans_5gate_push', 'pvt_1gate_expand'],
+  awayBuildIds: ['tvp_trans_anti_carrier', 'tvp_anti_carrier'],
   description: '5게이트 지상 푸시 vs 골리앗 대공 편성',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -181,7 +181,7 @@ const _pvt5gatePushVsAntiCarrier = ScenarioScript(
               awayArmy: 4,
               homeArmy: -4,
               favorsStat: 'defense',
-              altText: '{away}, 골리앗 탱크 합동 사격! 드라군이 녹습니다!',
+              altText: '{away}, 골리앗이 탱크와 합동 사격! 상대 병력이 녹습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 질럿이 탱크에 달라붙지만 골리앗이 막습니다!',

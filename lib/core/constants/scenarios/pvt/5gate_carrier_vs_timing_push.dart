@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvt5gateCarrierVsTimingPush = ScenarioScript(
   id: 'pvt_5gate_carrier_vs_timing_push',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_5gate_carrier'],
-  awayBuildIds: ['tvp_trans_timing_push'],
+  homeBuildIds: ['pvt_trans_5gate_carrier', 'pvt_1gate_expand', 'pvt_carrier'],
+  awayBuildIds: ['tvp_trans_timing_push', 'tvp_fake_double', 'tvp_1fac_drop'],
   description: '5게이트 캐리어 vs 타이밍 푸시 — 캐리어 전 치명적 방어 국면',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -106,7 +106,7 @@ const _pvt5gateCarrierVsTimingPush = ScenarioScript(
           altText: '{away}, 병력 재정비! 2차 공격을 준비합니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 더블 스타게이트에서 캐리어 생산 시작!',
+          text: '{home} 선수 더블 스타게이트에서 주력 함선 생산 시작!',
           owner: LogOwner.home,
           homeArmy: 3, homeResource: -30,
           altText: '{home}, 캐리어 생산 돌입! 인터셉터를 채워야 합니다!',
@@ -138,7 +138,7 @@ const _pvt5gateCarrierVsTimingPush = ScenarioScript(
               text: '{home}, 캐리어가 테란 병력 위를 날아갑니다! 탱크가 공중을 못 치죠!',
               owner: LogOwner.home,
               awayArmy: -6, homeArmy: -1, favorsStat: 'attack',
-              altText: '{home} 선수 캐리어 인터셉터가 쏟아집니다! 탱크가 무용지물!',
+              altText: '{home} 선수 캐리어 인터셉터가 쏟아집니다! 캐리어가 앞세운 인터셉터! 탱크는 무용지물!',
             ),
             ScriptEvent(
               text: '{away} 선수 대공 유닛이 부족합니다! 캐리어를 막을 수 없습니다!',
@@ -157,7 +157,7 @@ const _pvt5gateCarrierVsTimingPush = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수 2차 타이밍 공격! 캐리어가 나오기 전에 밀어야 합니다!',
+              text: '{away} 선수 2차 타이밍 공격! 캐리어 완성 전에 밀어야 합니다!',
               owner: LogOwner.away,
               awayArmy: 5, favorsStat: 'attack',
               altText: '{away}, 지금 밀어야 합니다! 캐리어 전에 끝내야 해요!',

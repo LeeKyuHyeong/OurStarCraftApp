@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvtReaverPushVsBioMech = ScenarioScript(
   id: 'pvt_reaver_push_vs_bio_mech',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_reaver_push'],
-  awayBuildIds: ['tvp_trans_bio_mech'],
+  homeBuildIds: ['pvt_trans_reaver_push', 'pvt_reaver_shuttle', 'pvt_proxy_dark'],
+  awayBuildIds: ['tvp_trans_bio_mech', 'tvp_rax_double'],
   description: '리버 셔틀 푸시 vs 바이오 메카닉 — 마린 뭉치에 스캐럽 한 방',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -29,10 +29,10 @@ const _pvtReaverPushVsBioMech = ScenarioScript(
           altText: '{away}, 마린과 팩토리를 동시에! 바이오 메카닉 빌드입니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스를 빠르게 올립니다!',
+          text: '{home} 선수 로보틱스와 서포트 베이를 빠르게 올립니다!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 로보틱스 건설 시작! 리버를 노리는 빌드이군요!',
+          altText: '{home}, 로보틱스와 서포트 베이 건설 시작! 공성 빌드이군요!',
         ),
         ScriptEvent(
           text: '{away} 선수 시즈탱크와 마린을 같이 모읍니다.',
@@ -42,7 +42,7 @@ const _pvtReaverPushVsBioMech = ScenarioScript(
           favorsStat: 'macro',
         ),
         ScriptEvent(
-          text: '바이오 메카닉의 복합 병력 vs 리버 셔틀 견제! 흥미로운 조합이네요!',
+          text: '바이오 메카닉의 복합 병력 vs 로보틱스 셔틀 견제! 흥미로운 조합이네요!',
           owner: LogOwner.system,
         ),
       ],

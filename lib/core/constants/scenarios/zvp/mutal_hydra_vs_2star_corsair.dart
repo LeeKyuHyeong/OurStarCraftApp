@@ -127,7 +127,7 @@ const _zvpMutalHydraVs2starCorsair = ScenarioScript(
               text: '{home} 선수 뮤탈과 스커지로 커세어를 전멸시킵니다!',
               owner: LogOwner.home,
               awayArmy: -4, favorsStat: 'control',
-              altText: '{home}, 뮤탈+스커지! 커세어가 전부 격추됩니다!',
+              altText: '{home}, 뮤탈과 스커지! 커세어가 전부 격추됩니다!',
             ),
             ScriptEvent(
               text: '{home}, 뮤탈이 프로브를 견제합니다! 히드라가 지상을 밀어붙입니다!',

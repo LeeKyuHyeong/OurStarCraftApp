@@ -7,7 +7,7 @@ const _tvz4raxEnbeVsLurkerDefiler = ScenarioScript(
   id: 'tvz_4rax_enbe_vs_lurker_defiler',
   matchup: 'TvZ',
   homeBuildIds: ['tvz_4rax_enbe'],
-  awayBuildIds: ['zvt_trans_lurker_defiler'],
+  awayBuildIds: ['zvt_trans_lurker_defiler', 'zvt_2hatch_lurker'],
   description: '선엔베 4배럭 타이밍 vs 럴커 디파일러 수비',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -130,7 +130,7 @@ const _tvz4raxEnbeVsLurkerDefiler = ScenarioScript(
               homeArmy: 3,
               awayArmy: -4,
               favorsStat: 'attack',
-              altText: '{home}, 럴커가 버로우하기 전에 돌격! 히드라가 녹습니다!',
+              altText: '{home} 선수 마린이 버로우 전에 돌격! 저그 병력을 녹입니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 럴커가 늦었습니다! 히드라만으로는 마린을 못 막아요!',
@@ -146,7 +146,7 @@ const _tvz4raxEnbeVsLurkerDefiler = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '럴커가 나오기 전에 밀었습니다! 4배럭 타이밍 성공! GG!',
+              text: '저그 테크업 전에 밀었습니다! 4배럭 타이밍 성공! GG!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -172,14 +172,14 @@ const _tvz4raxEnbeVsLurkerDefiler = ScenarioScript(
               homeResource: -10,
             ),
             ScriptEvent(
-              text: '{away} 선수 디파일러가 합류합니다! 다크스웜이 깔립니다!',
+              text: '{away} 선수 하이브 완성! 디파일러가 합류합니다! 다크스웜이 깔립니다!',
               owner: LogOwner.away,
               awayArmy: 3,
               homeArmy: -3,
               favorsStat: 'strategy',
             ),
             ScriptEvent(
-              text: '다크스웜에 마린이 무력화! 럴커 디파일러 조합의 승리! GG!',
+              text: '디파일러가 전장을 장악합니다! 저그 조합의 승리! GG!',
               owner: LogOwner.away,
               decisive: true,
             ),

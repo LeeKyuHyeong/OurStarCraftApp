@@ -103,20 +103,20 @@ const _zvpYabarwiVsForgeExpand = ScenarioScript(
           altText: '{home}, 3해처리 체제! 물량으로 밀어붙일 준비!',
         ),
         ScriptEvent(
-          text: '{away} 선수 드라군+질럿을 생산하며 센터로 이동합니다.',
+          text: '{away} 선수 사이버네틱스 코어에서 나온 드라군과 게이트웨이에서 질럿을 생산하며 센터로 이동합니다.',
           owner: LogOwner.away,
           awayArmy: 4,
           awayResource: -10,
           favorsStat: 'attack',
         ),
         ScriptEvent(
-          text: '{home} 선수 저글링+럴커를 양쪽에서 동시 투입합니다!',
+          text: '{home} 선수 저글링과 럴커를 양쪽에서 동시 투입합니다!',
           owner: LogOwner.home,
           homeArmy: 4,
           favorsStat: 'strategy',
         ),
         ScriptEvent(
-          text: '다면 공격 vs 캐논+병력 방어! 프로토스 방어선의 한계가 시험됩니다!',
+          text: '다면 공격 vs 캐논과 병력 방어! 프로토스 방어선의 한계가 시험됩니다!',
           owner: LogOwner.system,
         ),
       ],
@@ -137,7 +137,7 @@ const _zvpYabarwiVsForgeExpand = ScenarioScript(
               homeArmy: 4,
               awayArmy: -4,
               favorsStat: 'strategy',
-              altText: '{home}, 럴커가 캐논을 우회합니다! 프로브가 위험!',
+              altText: '{home}, 럴커가 캐논을 우회하여 일꾼을 위협합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 저글링이 반대편에서 넥서스를 때립니다!',
@@ -172,7 +172,7 @@ const _zvpYabarwiVsForgeExpand = ScenarioScript(
               altText: '{away}, 캐논 배치가 완벽합니다! 럴커가 접근하질 못해요!',
             ),
             ScriptEvent(
-              text: '{away} 선수 드라군+질럿이 저글링을 막아내며 반격합니다!',
+              text: '{away} 선수 드라군과 질럿이 저글링을 막아내며 반격합니다!',
               owner: LogOwner.away,
               awayArmy: 4,
               homeArmy: -4,

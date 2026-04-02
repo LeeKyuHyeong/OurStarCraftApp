@@ -1,13 +1,13 @@
 part of '../../scenario_scripts.dart';
 
 // ----------------------------------------------------------
-// 레이스 vs 뮤탈 럴커 — 클로킹 vs 공중+지상 이중 위협
+// 레이스 vs 뮤탈 럴커 — 클로킹 vs 공중과 지상 이중 위협
 // ----------------------------------------------------------
 const _tvzWraithVsMutalLurker = ScenarioScript(
   id: 'tvz_wraith_vs_mutal_lurker',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_wraith'],
-  awayBuildIds: ['zvt_trans_mutal_lurker'],
+  homeBuildIds: ['tvz_trans_wraith', 'tvz_2star_wraith'],
+  awayBuildIds: ['zvt_trans_mutal_lurker', 'zvt_12pool', 'zvt_9pool'],
   description: '레이스 클로킹 견제 vs 뮤탈리스크 럴커 이중 위협',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -24,7 +24,7 @@ const _tvzWraithVsMutalLurker = ScenarioScript(
           text: '{away} 선수 앞마당 해처리를 올립니다.',
           owner: LogOwner.away,
           awayResource: -30,
-          altText: '{away}, 앞마당부터 확장! 뮤탈+럴커를 준비합니다.',
+          altText: '{away}, 앞마당부터 확장! 뮤탈과 럴커를 준비합니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 팩토리 건설! 스타포트 레이스를 향합니다!',
@@ -76,7 +76,7 @@ const _tvzWraithVsMutalLurker = ScenarioScript(
           favorsStat: 'macro',
         ),
         ScriptEvent(
-          text: '뮤탈+럴커 조합! 공중과 지상 양면 위협입니다!',
+          text: '뮤탈과 럴커 조합! 공중과 지상 양면 위협입니다!',
           owner: LogOwner.system,
         ),
       ],
@@ -162,7 +162,7 @@ const _tvzWraithVsMutalLurker = ScenarioScript(
               owner: LogOwner.away,
               homeArmy: -3,
               favorsStat: 'control',
-              altText: '{away}, 뮤탈+스포어 콜로니가 레이스를 잡아냅니다!',
+              altText: '{away}, 뮤탈과 스포어 콜로니가 레이스를 잡아냅니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 럴커가 테란 앞마당을 뚫습니다! 지상 붕괴!',
@@ -178,7 +178,7 @@ const _tvzWraithVsMutalLurker = ScenarioScript(
               homeResource: -20,
             ),
             ScriptEvent(
-              text: '뮤탈+럴커 이중 위협! 레이스만으로는 감당 불가! GG!',
+              text: '뮤탈과 럴커 이중 위협! 레이스만으로는 감당 불가! GG!',
               owner: LogOwner.away,
               decisive: true,
             ),

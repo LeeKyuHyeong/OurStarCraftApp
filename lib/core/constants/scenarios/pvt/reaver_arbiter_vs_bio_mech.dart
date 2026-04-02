@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvtReaverArbiterVsBioMech = ScenarioScript(
   id: 'pvt_reaver_arbiter_vs_bio_mech',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_reaver_arbiter'],
-  awayBuildIds: ['tvp_trans_bio_mech'],
+  homeBuildIds: ['pvt_trans_reaver_arbiter', 'pvt_1gate_expand', 'pvt_reaver_shuttle'],
+  awayBuildIds: ['tvp_trans_bio_mech', 'tvp_rax_double'],
   description: '리버 아비터 vs 바이오 메카닉 — 스톰으로 바이오를 녹이고 리콜로 찌른다',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -27,10 +27,10 @@ const _pvtReaverArbiterVsBioMech = ScenarioScript(
           altText: '{away}, 배럭과 팩토리! 복합 병력을 준비하는군요!',
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스를 건설합니다. 리버 아비터 빌드입니다.',
+          text: '{home} 선수 로보틱스와 서포트 베이를 건설합니다. 로보 아비터 빌드입니다.',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 로보틱스가 올라갑니다!',
+          altText: '{home}, 로보틱스와 서포트 베이가 올라갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린과 시즈탱크를 동시에 생산합니다.',

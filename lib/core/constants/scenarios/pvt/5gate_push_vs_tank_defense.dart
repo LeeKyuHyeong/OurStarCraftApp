@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvt5gatePushVsTankDefense = ScenarioScript(
   id: 'pvt_5gate_push_vs_tank_defense',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_5gate_push'],
-  awayBuildIds: ['tvp_trans_tank_defense'],
+  homeBuildIds: ['pvt_trans_5gate_push', 'pvt_1gate_expand'],
+  awayBuildIds: ['tvp_trans_tank_defense', 'tvp_double', 'tvp_mine_triple', 'tvp_fd'],
   description: '5게이트 드라군+질럿 푸시 vs 탱크 시즈 방어',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -180,7 +180,7 @@ const _pvt5gatePushVsTankDefense = ScenarioScript(
               awayArmy: 3,
               homeArmy: -5,
               favorsStat: 'defense',
-              altText: '{away}, 탱크 포격! 드라군이 몰려 있다가 한 방에 녹습니다!',
+              altText: '{away}, 탱크가 포격합니다! 상대 병력이 몰려 있다가 한 방에 녹습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 질럿이 탱크에 접근하지만 마린이 막습니다!',

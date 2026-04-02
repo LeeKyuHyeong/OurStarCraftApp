@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvt5gateArbiterVsBioMech = ScenarioScript(
   id: 'pvt_5gate_arbiter_vs_bio_mech',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_5gate_arbiter'],
-  awayBuildIds: ['tvp_trans_bio_mech'],
+  homeBuildIds: ['pvt_trans_5gate_arbiter', 'pvt_1gate_expand', 'pvt_1gate_obs'],
+  awayBuildIds: ['tvp_trans_bio_mech', 'tvp_rax_double'],
   description: '5게이트 아비터 vs 바이오 메카닉 — 스톰으로 바이오 제압, 리콜로 메카닉 우회',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -133,7 +133,7 @@ const _pvt5gateArbiterVsBioMech = ScenarioScript(
               text: '{home} 선수 스톰이 마린 메딕 위에 떨어집니다! 바이오닉이 증발!',
               owner: LogOwner.home,
               awayArmy: -8, homeArmy: -1, favorsStat: 'strategy',
-              altText: '{home}, 스톰 투하! 마린 메딕이 순식간에 녹아내립니다!',
+              altText: '{home}, 스톰 투하! 상대 병력이 순식간에 녹아내립니다!',
             ),
             ScriptEvent(
               text: '{home}, 아비터 리콜! 탱크 라인 뒤로 병력 투하!',

@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _tvzEnbePushVs4pool = ScenarioScript(
   id: 'tvz_enbe_push_vs_4pool',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_enbe_push'],
+  homeBuildIds: ['tvz_trans_enbe_push', 'tvz_4rax_enbe'],
   awayBuildIds: ['zvt_4pool'],
   description: '선엔베 4배럭 타이밍 vs 4풀 저글링 러시',
   phases: [
@@ -90,10 +90,10 @@ const _tvzEnbePushVs4pool = ScenarioScript(
           text: '{home} 선수 마린 공격력 업그레이드 완료! 화력이 올라갑니다!',
           owner: LogOwner.home,
           homeArmy: 3, favorsStat: 'attack',
-          altText: '{home}, +1 공격력! 저글링이 더 빨리 잡히기 시작합니다!',
+          altText: '{home}, +1 공격력! 마린이 더 효율적으로 전투합니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 저글링을 추가로 보내지만 업그레이드 마린이 강합니다.',
+          text: '{away} 선수 저글링을 추가로 보내지만 업그레이드 완료한 테란을 뚫기 어렵습니다.',
           owner: LogOwner.away,
           awayArmy: 1, awayResource: -10,
         ),

@@ -8,7 +8,7 @@ const _zvpMukerjiVsCorsair = ScenarioScript(
   matchup: 'ZvP',
   homeBuildIds: ['zvp_trans_mukerji'],
   awayBuildIds: ['pvz_trans_corsair'],
-  description: '뮤탈+저글링 vs 커세어+지상 — 오버로드 사냥 vs 저글링 런바이',
+  description: '뮤탈과 저글링 vs 커세어+지상 — 오버로드 사냥 vs 저글링 런바이',
   phases: [
     // Phase 0: opening (lines 1-11)
     ScriptPhase(
@@ -98,7 +98,7 @@ const _zvpMukerjiVsCorsair = ScenarioScript(
           owner: LogOwner.home,
           awayResource: -15,
           favorsStat: 'harass',
-          altText: '{home}, 뮤탈리스크 기습! 프로브가 잡힙니다!',
+          altText: '{home}, 뮤탈리스크가 기습합니다! 일꾼 피해가 심각합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 커세어가 뮤탈리스크를 추격합니다!',
@@ -131,7 +131,7 @@ const _zvpMukerjiVsCorsair = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수 뮤탈+저글링 동시 투입! 프로토스가 양쪽을 못 막습니다!',
+              text: '{home} 선수 뮤탈과 저글링 동시 투입! 프로토스가 양쪽을 못 막습니다!',
               owner: LogOwner.home,
               homeArmy: 5,
               awayArmy: -4,
@@ -171,7 +171,7 @@ const _zvpMukerjiVsCorsair = ScenarioScript(
               altText: '{away}, 커세어 집중 공격! 뮤탈리스크가 전멸합니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 드라군이 저글링을 막아내며 반격합니다!',
+              text: '{away} 선수 사이버네틱스 코어의 드라군이 저글링을 막아내며 반격합니다!',
               owner: LogOwner.away,
               awayArmy: 4,
               homeArmy: -4,
@@ -184,7 +184,7 @@ const _zvpMukerjiVsCorsair = ScenarioScript(
               homeResource: -15,
             ),
             ScriptEvent(
-              text: '커세어+드라군 조합이 뮤커지를 완벽히 봉쇄합니다! GG!',
+              text: '커세어와 드라군 조합이 뮤커지를 완벽히 봉쇄합니다! GG!',
               owner: LogOwner.away,
               decisive: true,
             ),

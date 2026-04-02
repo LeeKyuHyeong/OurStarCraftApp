@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _zvp5hatchHydraVsDragoonPush = ScenarioScript(
   id: 'zvp_5hatch_hydra_vs_dragoon_push',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_5hatch_hydra'],
-  awayBuildIds: ['pvz_trans_dragoon_push'],
+  homeBuildIds: ['zvp_trans_5hatch_hydra', 'zvp_12hatch'],
+  awayBuildIds: ['pvz_trans_dragoon_push', 'pvz_2gate_zealot'],
   description: '5해처리 히드라 물량 vs 2게이트 드라군 푸시',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -131,7 +131,7 @@ const _zvp5hatchHydraVsDragoonPush = ScenarioScript(
               text: '{home} 선수 히드라 물량이 드라군을 압도합니다! 숫자가 다릅니다!',
               owner: LogOwner.home,
               homeArmy: 3, awayArmy: -5, favorsStat: 'attack',
-              altText: '{home}, 히드라 물량! 드라군이 녹아내립니다!',
+              altText: '{home}, 히드라 물량! 드라군을 녹여버립니다!',
             ),
             ScriptEvent(
               text: '{home}, 히드라 편대가 프로토스 앞마당을 공격합니다!',

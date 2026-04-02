@@ -1,14 +1,14 @@
 part of '../../scenario_scripts.dart';
 
 // ----------------------------------------------------------
-// 뮤커지 vs 포지 확장: 다방면 뮤탈+저글링 견제 vs 캐논 라인 수비
+// 뮤커지 vs 포지 확장: 다방면 뮤탈과 저글링 견제 vs 캐논 라인 수비
 // ----------------------------------------------------------
 const _zvpMukerjiVsForgeExpand = ScenarioScript(
   id: 'zvp_mukerji_vs_forge_expand',
   matchup: 'ZvP',
   homeBuildIds: ['zvp_trans_mukerji'],
   awayBuildIds: ['pvz_trans_forge_expand'],
-  description: '뮤탈+저글링 다방면 견제 vs 포지 확장 캐논 수비 — 견제전의 교과서',
+  description: '뮤탈과 저글링 다방면 견제 vs 포지 확장 캐논 수비 — 견제전의 교과서',
   phases: [
     // Phase 0: opening (lines 1-11)
     ScriptPhase(
@@ -66,7 +66,7 @@ const _zvpMukerjiVsForgeExpand = ScenarioScript(
           owner: LogOwner.home,
           awayResource: -15,
           favorsStat: 'harass',
-          altText: '{home}, 뮤탈리스크 본진 기습! 프로브가 잡힙니다!',
+          altText: '{home}, 뮤탈리스크가 본진을 기습합니다! 일꾼 피해가 큽니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 캐논을 본진에도 추가 건설합니다.',
@@ -102,14 +102,14 @@ const _zvpMukerjiVsForgeExpand = ScenarioScript(
           altText: '{home}, 3해처리 체제! 물량전 준비!',
         ),
         ScriptEvent(
-          text: '{away} 선수 드라군+질럿 병력을 모아 센터로 이동합니다.',
+          text: '{away} 선수 사이버네틱스 코어에서 나온 드라군과 질럿 병력을 모아 센터로 이동합니다.',
           owner: LogOwner.away,
           awayArmy: 4,
           awayResource: -10,
           favorsStat: 'attack',
         ),
         ScriptEvent(
-          text: '{home} 선수 뮤탈리스크+저글링을 양쪽에서 동시에 투입합니다!',
+          text: '{home} 선수 뮤탈리스크와 저글링을 양쪽에서 동시에 투입합니다!',
           owner: LogOwner.home,
           homeArmy: 4,
           awayResource: -10,
@@ -172,7 +172,7 @@ const _zvpMukerjiVsForgeExpand = ScenarioScript(
               altText: '{away}, 캐논 배치가 완벽합니다! 뮤탈리스크가 들어올 틈이 없어요!',
             ),
             ScriptEvent(
-              text: '{away} 선수 드라군+질럿이 저그 앞마당으로 진격합니다!',
+              text: '{away} 선수 드라군과 게이트웨이의 질럿이 저그 앞마당으로 진격합니다!',
               owner: LogOwner.away,
               awayArmy: 5,
               homeArmy: -4,

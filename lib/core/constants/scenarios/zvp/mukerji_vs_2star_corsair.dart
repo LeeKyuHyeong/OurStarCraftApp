@@ -8,7 +8,7 @@ const _zvpMukerjiVs2starCorsair = ScenarioScript(
   matchup: 'ZvP',
   homeBuildIds: ['zvp_trans_mukerji'],
   awayBuildIds: ['pvz_2star_corsair'],
-  description: '뮤탈+저글링 vs 더블 스타게이트 커세어 — 공중 제공권 다툼',
+  description: '뮤탈과 저글링 vs 더블 스타게이트 커세어 — 공중 제공권 다툼',
   phases: [
     // Phase 0: opening (lines 1-11)
     ScriptPhase(
@@ -155,7 +155,7 @@ const _zvpMukerjiVs2starCorsair = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '공중+지상 동시 공격! 프로토스가 GG를 선언합니다!',
+              text: '공중과 지상 동시 공격! 프로토스가 GG를 선언합니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -175,7 +175,7 @@ const _zvpMukerjiVs2starCorsair = ScenarioScript(
               altText: '{away}, 커세어 뉴트론 플레어! 뮤탈리스크가 녹아내립니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 지상 병력도 합류! 드라군이 저글링을 막아냅니다!',
+              text: '{away} 선수 지상 병력도 합류! 사이버네틱스 코어의 드라군이 저글링을 막아냅니다!',
               owner: LogOwner.away,
               awayArmy: 4,
               homeArmy: -4,

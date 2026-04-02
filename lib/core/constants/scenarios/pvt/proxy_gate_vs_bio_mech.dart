@@ -7,7 +7,7 @@ const _pvtProxyGateVsBioMech = ScenarioScript(
   id: 'pvt_proxy_gate_vs_bio_mech',
   matchup: 'PvT',
   homeBuildIds: ['pvt_proxy_gate'],
-  awayBuildIds: ['tvp_trans_bio_mech'],
+  awayBuildIds: ['tvp_trans_bio_mech', 'tvp_rax_double'],
   description: '프록시 게이트 질럿 러시 vs 바이오 메카닉 수비형',
   phases: [
     // Phase 0: 오프닝 (lines 1-10)
@@ -140,10 +140,10 @@ const _pvtProxyGateVsBioMech = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '{away} 선수 벙커가 완성되지 못합니다! 질럿이 본진을 휩씁니다!',
+              text: '{away} 선수 벙커가 완성되지 못합니다! 상대 병력이 본진을 휩씁니다!',
               owner: LogOwner.away,
               awayResource: -25,
-              altText: '{away}, 벙커 건설 실패! SCV가 잡혀나갑니다!',
+              altText: '{away}, 벙커 건설 실패! 질럿에게 SCV를 잡혀냅니다!',
             ),
             ScriptEvent(
               text: '{home}, 질럿이 팩토리까지 공격합니다!',
@@ -178,7 +178,7 @@ const _pvtProxyGateVsBioMech = ScenarioScript(
               owner: LogOwner.away,
               awayArmy: 4,
               favorsStat: 'defense',
-              altText: '{away}, 벙커에 마린 가득! 질럿이 접근 못 합니다!',
+              altText: '{away}, 벙커에 마린 가득! 상대 병력이 접근 못 합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 질럿이 손실됩니다! 벙커를 깨지 못해요!',

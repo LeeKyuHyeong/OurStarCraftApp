@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _tvz111BalanceVsLurkerDefiler = ScenarioScript(
   id: 'tvz_111_balance_vs_lurker_defiler',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_111_balance'],
-  awayBuildIds: ['zvt_trans_lurker_defiler'],
+  homeBuildIds: ['tvz_trans_111_balance', 'tvz_111'],
+  awayBuildIds: ['zvt_trans_lurker_defiler', 'zvt_2hatch_lurker'],
   description: '111 밸런스 vs 럴커 디파일러 — 벌처 견제+사이언스 베슬 vs 럴커+다크스웜',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -131,7 +131,7 @@ const _tvz111BalanceVsLurkerDefiler = ScenarioScript(
           conditionStat: 'strategy',
           events: [
             ScriptEvent(
-              text: '{home} 선수 사이언스 베슬이 디파일러에 이래디에이트! 디파일러가 녹습니다!',
+              text: '{home} 선수 사이언스베슬이 이래디에이트를 적중시킵니다! 저그 핵심 유닛을 잡아요!',
               owner: LogOwner.home,
               awayArmy: -3,
               favorsStat: 'strategy',
@@ -167,7 +167,7 @@ const _tvz111BalanceVsLurkerDefiler = ScenarioScript(
               owner: LogOwner.away,
               homeArmy: -2,
               favorsStat: 'strategy',
-              altText: '{away}, 다크스웜! 시즈탱크가 쏘지 못합니다!',
+              altText: '{away} 선수 다크스웜이 테란 라인을 덮습니다! 포격이 멈춰요!',
             ),
             ScriptEvent(
               text: '{away} 선수 럴커가 다크스웜 아래에서 시즈탱크를 녹입니다!',
@@ -183,7 +183,7 @@ const _tvz111BalanceVsLurkerDefiler = ScenarioScript(
               homeResource: -15,
             ),
             ScriptEvent(
-              text: '다크스웜+럴커 조합이 111 빌드를 무너뜨립니다! GG!',
+              text: '다크스웜과 럴커 조합이 111 빌드를 무너뜨립니다! GG!',
               owner: LogOwner.away,
               decisive: true,
             ),

@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvt2gateOpenVsUpgrade = ScenarioScript(
   id: 'pvt_2gate_open_vs_upgrade',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_2gate_open'],
-  awayBuildIds: ['tvp_trans_upgrade'],
+  homeBuildIds: ['pvt_2gate_open', 'pvt_2gate_zealot'],
+  awayBuildIds: ['tvp_trans_upgrade', 'tvp_1fac_gosu'],
   description: '투게이트 질럿 압박 vs 업그레이드 운영 — 초반 피해가 핵심',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)

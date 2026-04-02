@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _tvzValkyrieVsMutalUltra = ScenarioScript(
   id: 'tvz_valkyrie_vs_mutal_ultra',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_valkyrie'],
-  awayBuildIds: ['zvt_trans_mutal_ultra'],
+  homeBuildIds: ['tvz_trans_valkyrie', 'tvz_valkyrie'],
+  awayBuildIds: ['zvt_trans_mutal_ultra', 'zvt_9overpool', 'zvt_3hatch_mutal'],
   description: '발키리 스플래시 대공 vs 뮤탈리스크 울트라리스크 전환',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -133,7 +133,7 @@ const _tvzValkyrieVsMutalUltra = ScenarioScript(
               homeArmy: 3,
               awayArmy: -4,
               favorsStat: 'control',
-              altText: '{home}, 발키리 스플래시에 뮤탈이 전멸합니다!',
+              altText: '{home}, 발키리가 뮤탈 편대를 전멸시킵니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 마린 메딕으로 지상군도 확보합니다!',
@@ -165,7 +165,7 @@ const _tvzValkyrieVsMutalUltra = ScenarioScript(
               awayArmy: 6,
               awayResource: -25,
               favorsStat: 'macro',
-              altText: '{away}, 울트라리스크가 나왔습니다! 마린이 녹습니다!',
+              altText: '{away} 선수 울트라리스크가 나왔습니다! 테란 보병이 녹습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 발키리로는 울트라를 잡을 수 없습니다!',

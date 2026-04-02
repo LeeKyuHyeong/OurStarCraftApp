@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _tvzValkyrieVsLurkerDefiler = ScenarioScript(
   id: 'tvz_valkyrie_vs_lurker_defiler',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_valkyrie'],
-  awayBuildIds: ['zvt_trans_lurker_defiler'],
+  homeBuildIds: ['tvz_trans_valkyrie', 'tvz_valkyrie'],
+  awayBuildIds: ['zvt_trans_lurker_defiler', 'zvt_2hatch_lurker'],
   description: '발키리 대공 투자 vs 럴커 디파일러 지상 압박',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -105,7 +105,7 @@ const _tvzValkyrieVsLurkerDefiler = ScenarioScript(
           homeArmy: 1,
         ),
         ScriptEvent(
-          text: '{away} 선수 디파일러 준비! 다크스웜을 연구합니다!',
+          text: '{away} 선수 하이브 완성! 디파일러 준비! 다크스웜을 연구합니다!',
           owner: LogOwner.away,
           awayResource: -15,
           favorsStat: 'strategy',

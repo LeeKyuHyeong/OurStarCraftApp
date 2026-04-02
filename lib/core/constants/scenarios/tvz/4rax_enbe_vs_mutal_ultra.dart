@@ -7,7 +7,7 @@ const _tvz4raxEnbeVsMutalUltra = ScenarioScript(
   id: 'tvz_4rax_enbe_vs_mutal_ultra',
   matchup: 'TvZ',
   homeBuildIds: ['tvz_4rax_enbe'],
-  awayBuildIds: ['zvt_trans_mutal_ultra'],
+  awayBuildIds: ['zvt_trans_mutal_ultra', 'zvt_9overpool', 'zvt_3hatch_mutal'],
   description: '선엔베 4배럭 타이밍 vs 뮤탈 울트라 매크로',
   phases: [
     // Phase 0: opening (lines 1-11)

@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _pvtReaverPushVsBbs = ScenarioScript(
   id: 'pvt_reaver_push_vs_bbs',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_reaver_push'],
+  homeBuildIds: ['pvt_trans_reaver_push', 'pvt_reaver_shuttle', 'pvt_proxy_dark'],
   awayBuildIds: ['tvp_bbs'],
   description: '리버 셔틀 푸시 vs BBS 마린 러시 — 초반 생존 후 견제전',
   phases: [
@@ -76,10 +76,10 @@ const _pvtReaverPushVsBbs = ScenarioScript(
           skipChance: 0.3,
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스 건설을 시작합니다! 리버를 노리는 빌드!',
+          text: '{home} 선수 로보틱스와 서포트 베이 건설을 시작합니다! 공성 빌드!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 로보틱스가 올라갑니다! 리버가 나올 준비를 하네요!',
+          altText: '{home}, 로보틱스와 서포트 베이가 올라갑니다! 셔틀이 나올 준비를 하네요!',
         ),
         ScriptEvent(
           text: 'BBS를 버텨낸다면 리버 셔틀이 게임을 뒤집을 수 있습니다!',
@@ -115,7 +115,7 @@ const _pvtReaverPushVsBbs = ScenarioScript(
           skipChance: 0.2,
         ),
         ScriptEvent(
-          text: '리버 셔틀이 테란 일꾼 라인을 노리고 있습니다! 큰 전환점이 될 수 있죠!',
+          text: '리버 셔틀이 테란 미네랄 라인을 노리고 있습니다! 큰 전환점이 될 수 있죠!',
           owner: LogOwner.system,
         ),
       ],
@@ -131,15 +131,15 @@ const _pvtReaverPushVsBbs = ScenarioScript(
           conditionStat: 'harass',
           events: [
             ScriptEvent(
-              text: '{home} 선수 리버 스캐럽이 SCV 라인에 명중합니다!',
+              text: '{home} 선수 리버 스캐럽이 미네랄 라인에 명중합니다!',
               owner: LogOwner.home,
               homeArmy: 2,
               awayResource: -30,
               favorsStat: 'harass',
-              altText: '{home}, 스캐럽 한 방에 SCV가 4기 날아갑니다!',
+              altText: '{home}, 리버가 스캐럽 한 방! SCV 4기를 날려보냅니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 마린을 돌리지만 셔틀이 빠르게 리버를 회수합니다!',
+              text: '{away} 선수 마린이 셔틀을 쫓지만 속도 차이로 잡지 못합니다!',
               owner: LogOwner.away,
               awayArmy: -1,
             ),

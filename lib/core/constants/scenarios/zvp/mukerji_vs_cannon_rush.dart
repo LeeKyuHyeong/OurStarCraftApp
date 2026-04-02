@@ -1,14 +1,14 @@
 part of '../../scenario_scripts.dart';
 
 // ----------------------------------------------------------
-// 뮤커지 vs 캐논 러시: 캐논 파괴 후 뮤탈+저글링 지배
+// 뮤커지 vs 캐논 러시: 캐논 파괴 후 뮤탈과 저글링 지배
 // ----------------------------------------------------------
 const _zvpMukerjiVsCannonRush = ScenarioScript(
   id: 'zvp_mukerji_vs_cannon_rush',
   matchup: 'ZvP',
   homeBuildIds: ['zvp_trans_mukerji'],
   awayBuildIds: ['pvz_cannon_rush'],
-  description: '뮤탈+저글링 조합 vs 캐논 러시 — 캐논 파괴 후 맵 장악',
+  description: '뮤탈과 저글링 조합 vs 캐논 러시 — 캐논 파괴 후 맵 장악',
   phases: [
     // Phase 0: opening (lines 1-11)
     ScriptPhase(
@@ -151,7 +151,7 @@ const _zvpMukerjiVsCannonRush = ScenarioScript(
               awayResource: -10,
             ),
             ScriptEvent(
-              text: '뮤탈+저글링의 다방면 공격! 캐논 러시의 대가를 치릅니다! GG!',
+              text: '뮤탈과 저글링의 다방면 공격! 캐논 러시의 대가를 치릅니다! GG!',
               owner: LogOwner.home,
               decisive: true,
             ),

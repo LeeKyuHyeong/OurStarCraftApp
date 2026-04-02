@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvtReaverCarrierVsBioMech = ScenarioScript(
   id: 'pvt_reaver_carrier_vs_bio_mech',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_reaver_carrier'],
-  awayBuildIds: ['tvp_trans_bio_mech'],
+  homeBuildIds: ['pvt_trans_reaver_carrier', 'pvt_reaver_shuttle', 'pvt_carrier'],
+  awayBuildIds: ['tvp_trans_bio_mech', 'tvp_rax_double'],
   description: '리버 셔틀 + 캐리어 전환 vs 마린 탱크 골리앗 — 분산 공격 vs 복합 편성',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -58,11 +58,11 @@ const _pvtReaverCarrierVsBioMech = ScenarioScript(
       recoveryResourcePerLine: 8,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 로보틱스에서 셔틀과 리버를 뽑습니다!',
+          text: '{home} 선수 로보틱스와 서포트 베이에서 셔틀과 리버를 뽑습니다!',
           owner: LogOwner.home,
           homeArmy: 3,
           homeResource: -20,
-          altText: '{home}, 리버 셔틀 조합 완성! 테란 뒤를 노립니다!',
+          altText: '{home}, 서포트 베이 완성! 리버 셔틀 조합으로 테란 뒤를 노립니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린 메딕 시즈탱크 조합으로 전진합니다!',

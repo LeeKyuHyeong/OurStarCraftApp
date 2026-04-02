@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _tvzValkyrieVs4pool = ScenarioScript(
   id: 'tvz_valkyrie_vs_4pool',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_valkyrie'],
+  homeBuildIds: ['tvz_trans_valkyrie', 'tvz_valkyrie'],
   awayBuildIds: ['zvt_4pool'],
   description: '발키리 대공 빌드 vs 4풀 저글링 러시',
   phases: [
@@ -143,7 +143,7 @@ const _tvzValkyrieVs4pool = ScenarioScript(
               awayResource: -15,
             ),
             ScriptEvent(
-              text: '{home} 선수 마린 부대가 저그 본진으로! 드론이 남아있지 않습니다!',
+              text: '{home} 선수 마린 부대가 저그 본진으로! 저그 일꾼이 남아있지 않습니다!',
               owner: LogOwner.home,
               homeArmy: 3,
               awayArmy: -2,

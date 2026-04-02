@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _zvp5hatchHydraVsArchon = ScenarioScript(
   id: 'zvp_5hatch_hydra_vs_archon',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_5hatch_hydra'],
-  awayBuildIds: ['pvz_trans_archon'],
+  homeBuildIds: ['zvp_trans_5hatch_hydra', 'zvp_12hatch'],
+  awayBuildIds: ['pvz_trans_archon', 'pvz_corsair_reaver'],
   description: '5해처리 히드라 물량 vs 하이 템플러 아콘 합체',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -158,7 +158,7 @@ const _zvp5hatchHydraVsArchon = ScenarioScript(
               text: '{away} 선수 스톰이 히드라 편대에 떨어집니다! 대참사!',
               owner: LogOwner.away,
               homeArmy: -6, favorsStat: 'strategy',
-              altText: '{away}, 스톰 투하! 히드라가 녹아내립니다!',
+              altText: '{away}, 스톰이 저그 병력을 녹여버립니다!',
             ),
             ScriptEvent(
               text: '{away}, 아콘이 남은 히드라를 범위 공격으로 정리합니다!',
@@ -171,7 +171,7 @@ const _zvp5hatchHydraVsArchon = ScenarioScript(
               homeArmy: -2,
             ),
             ScriptEvent(
-              text: '스톰과 아콘의 조합! 히드라의 천적입니다!',
+              text: '아콘이 앞장서고 스톰이 뒤를 받칩니다! 프로토스의 완벽한 수비! GG!',
               owner: LogOwner.away,
               decisive: true,
             ),

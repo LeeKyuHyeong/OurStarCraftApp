@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _tvzMechGoliathVsMutalLurker = ScenarioScript(
   id: 'tvz_mech_goliath_vs_mutal_lurker',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_mech_goliath'],
-  awayBuildIds: ['zvt_trans_mutal_lurker'],
+  homeBuildIds: ['tvz_trans_mech_goliath', 'tvz_3fac_goliath'],
+  awayBuildIds: ['zvt_trans_mutal_lurker', 'zvt_12pool', 'zvt_9pool'],
   description: '메카닉 골리앗 vs 뮤탈 럴커 — 골리앗 대공+시즈탱크 대지 vs 균형잡힌 저그',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -40,12 +40,12 @@ const _tvzMechGoliathVsMutalLurker = ScenarioScript(
           altText: '{away}, 뮤탈과 럴커를 동시에 준비하는 빌드입니다!',
         ),
         ScriptEvent(
-          text: '테란은 메카닉, 저그는 뮤탈+럴커 투트랙을 준비합니다.',
+          text: '테란은 메카닉, 저그는 뮤탈과 럴커 투트랙을 준비합니다.',
           owner: LogOwner.system,
         ),
       ],
     ),
-    // Phase 1: 뮤탈+럴커 전개 (lines 12-21)
+    // Phase 1: 뮤탈과 럴커 전개 (lines 12-21)
     ScriptPhase(
       name: 'mid_game',
       startLine: 12,
@@ -99,7 +99,7 @@ const _tvzMechGoliathVsMutalLurker = ScenarioScript(
           homeArmy: 3,
           homeResource: -15,
           favorsStat: 'strategy',
-          altText: '{home}, 메카닉 조합이 완성됩니다! 골리앗+시즈탱크!',
+          altText: '{home}, 메카닉 조합이 완성됩니다! 골리앗과 시즈탱크!',
         ),
         ScriptEvent(
           text: '{away} 선수 뮤탈리스크로 시즈탱크를 견제하면서 럴커로 전진합니다!',
@@ -116,7 +116,7 @@ const _tvzMechGoliathVsMutalLurker = ScenarioScript(
           favorsStat: 'defense',
         ),
         ScriptEvent(
-          text: '골리앗과 시즈탱크가 뮤탈+럴커를 동시에 상대할 수 있을지가 관건!',
+          text: '골리앗과 시즈탱크가 뮤탈과 럴커를 동시에 상대할 수 있을지가 관건!',
           owner: LogOwner.system,
         ),
       ],
@@ -153,7 +153,7 @@ const _tvzMechGoliathVsMutalLurker = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '골리앗+시즈탱크 조합이 뮤탈+럴커를 완벽히 제압했습니다! GG!',
+              text: '골리앗과 시즈탱크 조합이 뮤탈과 럴커를 완벽히 제압했습니다! GG!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -186,7 +186,7 @@ const _tvzMechGoliathVsMutalLurker = ScenarioScript(
               homeResource: -10,
             ),
             ScriptEvent(
-              text: '뮤탈+럴커 양면 공격에 메카닉이 무너집니다! GG!',
+              text: '뮤탈과 럴커 양면 공격에 메카닉이 무너집니다! GG!',
               owner: LogOwner.away,
               decisive: true,
             ),

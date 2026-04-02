@@ -1,13 +1,13 @@
 part of '../../scenario_scripts.dart';
 
 // ----------------------------------------------------------
-// 선엔베 푸시 vs 뮤탈 럴커 (업그레이드 마린 vs 뮤탈+럴커)
+// 선엔베 푸시 vs 뮤탈 럴커 (업그레이드 마린 vs 뮤탈과 럴커)
 // ----------------------------------------------------------
 const _tvzEnbePushVsMutalLurker = ScenarioScript(
   id: 'tvz_enbe_push_vs_mutal_lurker',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_enbe_push'],
-  awayBuildIds: ['zvt_trans_mutal_lurker'],
+  homeBuildIds: ['tvz_trans_enbe_push', 'tvz_4rax_enbe'],
+  awayBuildIds: ['zvt_trans_mutal_lurker', 'zvt_12pool', 'zvt_9pool'],
   description: '선엔베 4배럭 마린 vs 뮤탈리스크 견제 + 럴커 전환',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -123,10 +123,10 @@ const _tvzEnbePushVsMutalLurker = ScenarioScript(
           conditionStat: 'attack',
           events: [
             ScriptEvent(
-              text: '{home}, 럴커가 나오기 전에 마린이 앞마당을 돌파합니다!',
+              text: '{home} 선수 마린이 앞마당을 돌파합니다! 타이밍 적중!',
               owner: LogOwner.home,
               homeArmy: 4, awayArmy: -3, favorsStat: 'attack',
-              altText: '{home} 선수 +1 마린 물량 돌파! 럴커 전환 전에 끝냅니다!',
+              altText: '{home} 선수 +1 마린 물량 돌파! 저그 전환 전에 끝냅니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 뮤탈리스크만으로는 마린 물량을 감당 못 합니다!',
@@ -139,7 +139,7 @@ const _tvzEnbePushVsMutalLurker = ScenarioScript(
               homeArmy: 2, awayArmy: -3, favorsStat: 'control',
             ),
             ScriptEvent(
-              text: '선엔베 푸시로 럴커 전환 전에 돌파! GG!',
+              text: '선엔베 푸시 타이밍 적중! 저그가 무너집니다! GG!',
               owner: LogOwner.home,
               decisive: true,
             ),

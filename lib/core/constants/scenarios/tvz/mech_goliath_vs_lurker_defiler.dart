@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _tvzMechGoliathVsLurkerDefiler = ScenarioScript(
   id: 'tvz_mech_goliath_vs_lurker_defiler',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_mech_goliath'],
-  awayBuildIds: ['zvt_trans_lurker_defiler'],
+  homeBuildIds: ['tvz_trans_mech_goliath', 'tvz_3fac_goliath'],
+  awayBuildIds: ['zvt_trans_lurker_defiler', 'zvt_2hatch_lurker'],
   description: '메카닉 골리앗 vs 럴커 디파일러 — 시즈탱크 포격 vs 다크스웜 장기전',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -32,10 +32,15 @@ const _tvzMechGoliathVsLurkerDefiler = ScenarioScript(
           homeResource: -10,
         ),
         ScriptEvent(
-          text: '{away} 선수 히드라덴을 건설합니다! 히드라리스크 체제!',
+          text: '{home} 선수 아머리 건설! 스타포트도 올리면서 메카닉 풀테크를 준비합니다.',
+          owner: LogOwner.home,
+          homeResource: -15,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 스포닝풀에 이어 히드라덴을 건설합니다! 히드라리스크 체제!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 히드라덴이 올라갑니다!',
+          altText: '{away}, 스포닝풀 완성 후 히드라덴이 올라갑니다!',
         ),
         ScriptEvent(
           text: '양측 모두 중반을 위한 테크를 올리고 있습니다.',
@@ -96,10 +101,10 @@ const _tvzMechGoliathVsLurkerDefiler = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{away} 선수 퀸즈네스트 건설! 디파일러를 준비합니다!',
+          text: '{away} 선수 퀸즈네스트에 하이브까지! 디파일러를 준비합니다!',
           owner: LogOwner.away,
           awayResource: -20,
-          altText: '{away}, 하이브 테크로! 디파일러가 나온다면 게임이 달라집니다!',
+          altText: '{away}, 하이브 테크로 올라갑니다! 디파일러가 곧 나오겠네요!',
         ),
         ScriptEvent(
           text: '{home} 선수 시즈탱크와 골리앗으로 전진합니다!',
@@ -169,7 +174,7 @@ const _tvzMechGoliathVsLurkerDefiler = ScenarioScript(
               awayArmy: 2,
               homeArmy: -2,
               favorsStat: 'defense',
-              altText: '{away}, 다크스웜+럴커 조합이 철벽입니다!',
+              altText: '{away}, 다크스웜과 럴커 조합이 철벽입니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 시즈탱크 포격이 다크스웜에 막힙니다!',

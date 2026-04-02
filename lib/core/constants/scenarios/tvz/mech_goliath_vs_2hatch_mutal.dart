@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _tvzMechGoliathVs2hatchMutal = ScenarioScript(
   id: 'tvz_mech_goliath_vs_2hatch_mutal',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_mech_goliath'],
-  awayBuildIds: ['zvt_trans_2hatch_mutal'],
+  homeBuildIds: ['tvz_trans_mech_goliath', 'tvz_3fac_goliath'],
+  awayBuildIds: ['zvt_trans_2hatch_mutal', 'zvt_2hatch_mutal'],
   description: '메카닉 골리앗 vs 2해처리 뮤탈 — 골리앗 사거리 업 타이밍 vs 빠른 뮤탈 견제',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -128,7 +128,7 @@ const _tvzMechGoliathVs2hatchMutal = ScenarioScript(
           conditionStat: 'defense',
           events: [
             ScriptEvent(
-              text: '{home} 선수 골리앗 사거리 업 완료! 뮤탈리스크가 접근을 못 합니다!',
+              text: '{home} 선수 골리앗이 사거리 업 완료! 뮤탈리스크를 접근 전에 격추합니다!',
               owner: LogOwner.home,
               homeArmy: 3,
               awayArmy: -4,

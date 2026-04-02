@@ -772,8 +772,16 @@ function checkWinRate(games, matchup) {
 }
 
 /**
- * C-14. 홈/어웨이 반전 차이 검증
+ * C-14. 홈/어웨이 위치 편향 검증
  * 정방향/역방향 게임이 모두 있을 때만 체크
+ *
+ * 측정 대상: "홈 위치 자체가 유리한가?" (위치 편향)
+ * 정방향 홈 승률 + 역방향 홈 승률의 평균이 50%에서 벗어나면 위치 편향
+ *
+ * 예: 정방향 홈(T) 56%, 역방향 홈(Z) 44% → 평균 50% → 위치 편향 0%p ✓
+ *     (T가 강한 것이지 홈이 유리한 게 아님)
+ * 예: 정방향 홈(T) 56%, 역방향 홈(Z) 50% → 평균 53% → 위치 편향 3%p ✗
+ *     (홈 위치 자체가 유리)
  */
 function checkHomeAwaySymmetry(games) {
   const normal = games.filter(g => !g.isReversed);
@@ -783,13 +791,16 @@ function checkHomeAwaySymmetry(games) {
 
   const normalWinRate = normal.filter(g => g.homeWin).length / normal.length;
   const reversedWinRate = reversed.filter(g => g.homeWin).length / reversed.length;
-  const diff = Math.abs(normalWinRate - reversedWinRate);
 
-  if (diff > 0.05) {
+  // 위치 편향 = 평균 홈 승률이 50%에서 벗어난 정도
+  const avgHomeWinRate = (normalWinRate + reversedWinRate) / 2;
+  const positionBias = Math.abs(avgHomeWinRate - 0.5);
+
+  if (positionBias > 0.05) {
     return [{
       rule: 'C14_HOME_AWAY_SYMMETRY',
       severity: 'error',
-      message: `홈/어웨이 반전 승률 차이 ${(diff * 100).toFixed(1)}%p (허용: ±5%p) [정방향: ${(normalWinRate * 100).toFixed(1)}%, 역방향: ${(reversedWinRate * 100).toFixed(1)}%]`,
+      message: `홈 위치 편향 ${(positionBias * 100).toFixed(1)}%p (허용: ±5%p) [정방향 홈: ${(normalWinRate * 100).toFixed(1)}%, 역방향 홈: ${(reversedWinRate * 100).toFixed(1)}%, 평균: ${(avgHomeWinRate * 100).toFixed(1)}%]`,
     }];
   }
   return [];

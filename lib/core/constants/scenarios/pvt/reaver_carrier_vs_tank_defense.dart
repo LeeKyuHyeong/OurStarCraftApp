@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvtReaverCarrierVsTankDefense = ScenarioScript(
   id: 'pvt_reaver_carrier_vs_tank_defense',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_reaver_carrier'],
-  awayBuildIds: ['tvp_trans_tank_defense'],
+  homeBuildIds: ['pvt_trans_reaver_carrier', 'pvt_reaver_shuttle', 'pvt_carrier'],
+  awayBuildIds: ['tvp_trans_tank_defense', 'tvp_double', 'tvp_mine_triple', 'tvp_fd'],
   description: '리버 셔틀 + 캐리어 전환 vs 시즈탱크 터틀 수비 — 공중으로 우회하는 전략',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -27,10 +27,10 @@ const _pvtReaverCarrierVsTankDefense = ScenarioScript(
           altText: '{away}, 배럭에 이어 팩토리를 올립니다. 시즈탱크를 노리는 빌드죠.',
         ),
         ScriptEvent(
-          text: '{home} 선수 사이버네틱스 코어에 이어 로보틱스까지! 리버를 준비합니다!',
+          text: '{home} 선수 사이버네틱스 코어에 이어 로보틱스와 서포트 베이까지! 공성 유닛을 준비합니다!',
           owner: LogOwner.home,
           homeResource: -20,
-          altText: '{home}, 사이버네틱스 코어와 로보틱스를 연달아 올립니다!',
+          altText: '{home}, 사이버네틱스 코어와 로보틱스, 서포트 베이를 연달아 올립니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리에서 시즈탱크를 생산합니다! 수비적인 운영이네요.',
@@ -206,7 +206,7 @@ const _pvtReaverCarrierVsTankDefense = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{away} 선수 시즈탱크 라인이 프로토스 본진까지 도달합니다! 캐리어는 늦었습니다!',
+              text: '{away} 선수 시즈탱크 라인이 프로토스 본진까지 도달합니다! 적 함대는 늦었습니다!',
               owner: LogOwner.away,
               awayArmy: 25,
               homeArmy: -15,

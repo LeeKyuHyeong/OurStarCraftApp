@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _tvzMechGoliathVs4pool = ScenarioScript(
   id: 'tvz_mech_goliath_vs_4pool',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_mech_goliath'],
+  homeBuildIds: ['tvz_trans_mech_goliath', 'tvz_3fac_goliath'],
   awayBuildIds: ['zvt_4pool'],
   description: '메카닉 골리앗 vs 4풀 — 팩토리 지연 위기 vs 극초반 올인',
   phases: [
@@ -27,7 +27,7 @@ const _tvzMechGoliathVs4pool = ScenarioScript(
           altText: '{away}, 4풀을 올립니다! 극초반 올인이네요!',
         ),
         ScriptEvent(
-          text: '{home} 선수 팩토리를 위한 가스를 넣으려 하지만... 이 타이밍에 저글링이 올 수 있습니다.',
+          text: '{home} 선수 팩토리를 위한 가스를 넣으려 합니다. 초반 러시가 올 수도 있는데요.',
           owner: LogOwner.home,
           homeResource: -5,
         ),

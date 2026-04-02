@@ -153,7 +153,7 @@ const _zvpMutalHydraVsCorsair = ScenarioScript(
               text: '{away} 선수 하이 템플러 합류! 스톰이 히드라를 강타합니다!',
               owner: LogOwner.away,
               homeArmy: -5, favorsStat: 'strategy',
-              altText: '{away}, 스톰 투하! 히드라가 녹아내립니다!',
+              altText: '{away}, 스톰이 저그 병력을 녹여버립니다!',
             ),
             ScriptEvent(
               text: '{away}, 커세어가 뮤탈을 쫓아내고 드라군이 전진합니다!',

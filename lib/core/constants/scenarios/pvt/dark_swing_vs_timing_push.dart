@@ -7,7 +7,7 @@ const _pvtDarkSwingVsTimingPush = ScenarioScript(
   id: 'pvt_dark_swing_vs_timing_push',
   matchup: 'PvT',
   homeBuildIds: ['pvt_dark_swing'],
-  awayBuildIds: ['tvp_trans_timing_push'],
+  awayBuildIds: ['tvp_trans_timing_push', 'tvp_fake_double', 'tvp_1fac_drop'],
   description: '다크 스윙 vs 타이밍 푸시 테란',
   phases: [
     // Phase 0: 오프닝 (lines 1-10)
@@ -131,7 +131,7 @@ const _pvtDarkSwingVsTimingPush = ScenarioScript(
               owner: LogOwner.home,
               awayResource: -25,
               favorsStat: 'harass',
-              altText: '{home}, 다크 성공! SCV가 잡혀나갑니다!',
+              altText: '{home}, 다크 성공! 다크가 SCV를 잡아냅니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 타이밍 푸시를 포기하고 본진으로 돌아갑니다!',
@@ -184,7 +184,7 @@ const _pvtDarkSwingVsTimingPush = ScenarioScript(
               owner: LogOwner.away,
               awayArmy: 5,
               favorsStat: 'attack',
-              altText: '{away}, 탱크 시즈! 드라군이 접근할 수 없습니다!',
+              altText: '{away}, 탱크가 시즈 포격! 상대 병력이 접근할 수 없습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 드라군이 탱크 화력에 녹아내립니다!',

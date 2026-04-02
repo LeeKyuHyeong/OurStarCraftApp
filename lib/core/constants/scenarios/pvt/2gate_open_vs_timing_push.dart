@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvt2gateOpenVsTimingPush = ScenarioScript(
   id: 'pvt_2gate_open_vs_timing_push',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_2gate_open'],
-  awayBuildIds: ['tvp_trans_timing_push'],
+  homeBuildIds: ['pvt_2gate_open', 'pvt_2gate_zealot'],
+  awayBuildIds: ['tvp_trans_timing_push', 'tvp_fake_double', 'tvp_1fac_drop'],
   description: '투게이트 질럿 vs 타이밍 푸시 — 양쪽 공격 대결',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -176,12 +176,12 @@ const _pvt2gateOpenVsTimingPush = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수 시즈 포격이 드라군을 직격합니다!',
+              text: '{away} 선수 시즈 포격이 상대 병력을 직격합니다!',
               owner: LogOwner.away,
               awayArmy: 2,
               homeArmy: -4,
               favorsStat: 'attack',
-              altText: '{away}, 탱크 포격! 드라군이 한 방에 녹습니다!',
+              altText: '{away}, 탱크가 포격합니다! 상대 병력이 한 방에 녹습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 드라군이 부족합니다! 아직 물량이 모이지 않았습니다!',

@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _tvzWraithVs4pool = ScenarioScript(
   id: 'tvz_wraith_vs_4pool',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_wraith'],
+  homeBuildIds: ['tvz_trans_wraith', 'tvz_2star_wraith'],
   awayBuildIds: ['zvt_4pool'],
   description: '레이스 클로킹 빌드 vs 4풀 저글링 러시',
   phases: [

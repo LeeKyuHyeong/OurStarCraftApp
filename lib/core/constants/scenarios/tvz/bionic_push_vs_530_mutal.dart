@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _tvzBionicPushVs530Mutal = ScenarioScript(
   id: 'tvz_bionic_push_vs_530_mutal',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_bionic_push'],
-  awayBuildIds: ['zvt_trans_530_mutal'],
+  homeBuildIds: ['tvz_trans_bionic_push', 'tvz_sk'],
+  awayBuildIds: ['zvt_trans_530_mutal', 'zvt_1hatch_allin'],
   description: '바이오닉 푸시 vs 1해처리 럴커 타이밍 (530)',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -27,7 +27,7 @@ const _tvzBionicPushVs530Mutal = ScenarioScript(
           altText: '{away}, 앞마당을 안 가져가고 1해처리로 갑니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 마린 생산 시작합니다.',
+          text: '{home} 선수 마린 생산 시작합니다. 팩토리도 건설 중이구요.',
           owner: LogOwner.home,
           homeArmy: 2, homeResource: -5,
         ),
@@ -90,7 +90,7 @@ const _tvzBionicPushVs530Mutal = ScenarioScript(
           text: '{away}, 럴커가 테란 앞마당 앞에 바로우합니다!',
           owner: LogOwner.away,
           awayArmy: 2, homeArmy: -1, favorsStat: 'attack',
-          altText: '{away} 선수 럴커 바로우! 마린이 다가가기 어렵습니다!',
+          altText: '{away} 선수 럴커가 바로우합니다! 테란 보병이 접근하기 어렵네요!',
         ),
         ScriptEvent(
           text: '{home} 선수 스캔으로 럴커 위치를 잡습니다!',
@@ -138,7 +138,7 @@ const _tvzBionicPushVs530Mutal = ScenarioScript(
               homeArmy: 2, awayArmy: -2, favorsStat: 'control',
             ),
             ScriptEvent(
-              text: '럴커 타이밍을 막고 역공! GG!',
+              text: '저그 타이밍을 막고 역공 성공! GG!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -153,7 +153,7 @@ const _tvzBionicPushVs530Mutal = ScenarioScript(
               text: '{away}, 럴커가 마린 부대를 갈아버립니다! 스파인이 작렬!',
               owner: LogOwner.away,
               awayArmy: 3, homeArmy: -4, favorsStat: 'attack',
-              altText: '{away} 선수 럴커 스파인에 마린이 녹아내립니다!',
+              altText: '{away} 선수 럴커가 스파인으로 테란 보병을 녹여냅니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 바이오닉이 럴커 앞에서 무력합니다!',

@@ -160,7 +160,7 @@ const _zvp5hatchHydraVsCorsair = ScenarioScript(
               text: '{away}, 하이 템플러 합류! 스톰이 히드라를 강타합니다!',
               owner: LogOwner.away,
               homeArmy: -5, favorsStat: 'strategy',
-              altText: '{away} 선수 스톰 투하! 히드라가 녹아내립니다!',
+              altText: '{away} 선수 스톰이 저그 병력을 녹여버립니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 병력 보충이 안 됩니다! 보급과 자원이 부족!',

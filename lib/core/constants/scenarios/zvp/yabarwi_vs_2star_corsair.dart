@@ -102,7 +102,7 @@ const _zvpYabarwiVs2starCorsair = ScenarioScript(
           altText: '{home}, 럴커 다수 배치! 어디에 럴커가 있는지 알 수 없습니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 커세어+드라군 편대를 구성합니다.',
+          text: '{away} 선수 커세어와 드라군 편대를 구성합니다.',
           owner: LogOwner.away,
           awayArmy: 3,
           awayResource: -10,
@@ -135,7 +135,7 @@ const _zvpYabarwiVs2starCorsair = ScenarioScript(
               homeArmy: 4,
               awayArmy: -5,
               favorsStat: 'attack',
-              altText: '{home}, 럴커 돌파! 드라군이 럴커를 잡지 못합니다!',
+              altText: '{home}, 럴커 돌파! 사이버네틱스 코어의 드라군이 럴커를 잡지 못합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 저글링이 뒤에서 프로브를 잡아냅니다!',

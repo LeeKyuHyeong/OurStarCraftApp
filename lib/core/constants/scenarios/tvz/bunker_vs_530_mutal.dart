@@ -7,7 +7,7 @@ const _tvzBunkerVs530Mutal = ScenarioScript(
   id: 'tvz_bunker_vs_530_mutal',
   matchup: 'TvZ',
   homeBuildIds: ['tvz_bunker'],
-  awayBuildIds: ['zvt_trans_530_mutal'],
+  awayBuildIds: ['zvt_trans_530_mutal', 'zvt_1hatch_allin'],
   description: '벙커 러시 vs 1해처리 럴커 — 양쪽 공격적 타이밍 대결',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -66,7 +66,7 @@ const _tvzBunkerVs530Mutal = ScenarioScript(
           altText: '{away}, 히드라리스크가 나오기 시작합니다! 빠른 타이밍이네요!',
         ),
         ScriptEvent(
-          text: '{home} 선수 벙커 건설 중! 저글링이 달려듭니다!',
+          text: '{home} 선수 벙커 건설 중! SCV가 저그 공격을 버팁니다!',
           owner: LogOwner.home,
           homeResource: -5,
           homeArmy: -1,
@@ -165,7 +165,7 @@ const _tvzBunkerVs530Mutal = ScenarioScript(
               awayArmy: 4,
               homeArmy: -2,
               favorsStat: 'attack',
-              altText: '{away}, 럴커가 벙커 앞에서 버로우합니다! 마린이 녹아요!',
+              altText: '{away} 선수 럴커가 벙커 앞에서 버로우합니다! 스파인 작렬!',
             ),
             ScriptEvent(
               text: '{home} 선수 마린이 럴커 스파인에 전멸합니다!',

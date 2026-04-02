@@ -139,7 +139,7 @@ const _zvpHiveDefilerVsProxyGate = ScenarioScript(
               altText: '{home}, 성큰 화력이 질럿을 녹이고 있습니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 하이브를 올리며 디파일러를 준비합니다!',
+              text: '{home} 선수 하이브를 올리며 디파일러 마운드를 건설하여 디파일러를 준비합니다!',
               owner: LogOwner.home,
               homeResource: -20,
               homeArmy: 2,

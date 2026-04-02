@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvtReaverPushVsUpgrade = ScenarioScript(
   id: 'pvt_reaver_push_vs_upgrade',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_reaver_push'],
-  awayBuildIds: ['tvp_trans_upgrade'],
+  homeBuildIds: ['pvt_trans_reaver_push', 'pvt_reaver_shuttle', 'pvt_proxy_dark'],
+  awayBuildIds: ['tvp_trans_upgrade', 'tvp_1fac_gosu'],
   description: '리버 셔틀 푸시 vs 더블 업그레이드 — SCV 킬로 자원 차단',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -16,7 +16,7 @@ const _pvtReaverPushVsUpgrade = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 게이트웨이 이후 로보틱스를 건설합니다.',
+          text: '{home} 선수 게이트웨이 이후 로보틱스와 서포트 베이를 건설합니다.',
           owner: LogOwner.home,
           homeResource: -20,
         ),
@@ -66,10 +66,10 @@ const _pvtReaverPushVsUpgrade = ScenarioScript(
           awayResource: -20,
         ),
         ScriptEvent(
-          text: '{home} 선수 셔틀이 테란 확장 기지 일꾼 라인을 노립니다!',
+          text: '{home} 선수 셔틀이 테란 확장 기지 SCV를 노립니다!',
           owner: LogOwner.home,
           favorsStat: 'harass',
-          altText: '{home}, 셔틀이 멀티 일꾼 라인으로 향합니다!',
+          altText: '{home}, 셔틀이 멀티 미네랄 라인으로 향합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 터렛을 건설하지만 셔틀이 빨라서 따라잡기 힘듭니다!',
@@ -91,7 +91,7 @@ const _pvtReaverPushVsUpgrade = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 리버 스캐럽이 SCV 라인에 떨어집니다!',
+          text: '{home} 선수 리버 스캐럽이 미네랄 라인에 떨어집니다!',
           owner: LogOwner.home,
           awayResource: -25,
           favorsStat: 'harass',

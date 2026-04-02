@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvt5gateArbiterVsUpgrade = ScenarioScript(
   id: 'pvt_5gate_arbiter_vs_upgrade',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_5gate_arbiter'],
-  awayBuildIds: ['tvp_trans_upgrade'],
+  homeBuildIds: ['pvt_trans_5gate_arbiter', 'pvt_1gate_expand', 'pvt_1gate_obs'],
+  awayBuildIds: ['tvp_trans_upgrade', 'tvp_1fac_gosu'],
   description: '5게이트 아비터 vs 더블 업그레이드 — 후반 테크 대결',
   phases: [
     // Phase 0: opening (lines 1-11)

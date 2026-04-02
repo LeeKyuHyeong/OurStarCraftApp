@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _pvt2gateOpenVsBbs = ScenarioScript(
   id: 'pvt_2gate_open_vs_bbs',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_2gate_open'],
+  homeBuildIds: ['pvt_2gate_open', 'pvt_2gate_zealot'],
   awayBuildIds: ['tvp_bbs'],
   description: '투게이트 질럿 오프닝 vs BBS 마린 러시 — 초반 공격 대결',
   phases: [
@@ -145,7 +145,7 @@ const _pvt2gateOpenVsBbs = ScenarioScript(
               homeArmy: 3,
               awayArmy: -4,
               favorsStat: 'control',
-              altText: '{home}, 드라군 사격! 마린이 녹습니다!',
+              altText: '{home}, 드라군 사격! 상대 병력이 녹습니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 마린이 줄어듭니다! 벙커 없이는 버틸 수 없습니다!',
@@ -179,12 +179,12 @@ const _pvt2gateOpenVsBbs = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수 마린 화력이 질럿을 녹입니다! 체력이 낮은 질럿이 쓰러집니다!',
+              text: '{away} 선수 마린 화력이 질럿을 녹입니다! 체력이 낮은 상대 병력이 쓰러집니다!',
               owner: LogOwner.away,
               awayArmy: 2,
               homeArmy: -4,
               favorsStat: 'control',
-              altText: '{away}, 마린 집중사격! 질럿이 접근 전에 녹습니다!',
+              altText: '{away}, 마린 집중사격! 상대 병력이 접근 전에 녹습니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 벙커를 완성합니다! 프로토스 진입로를 막습니다!',

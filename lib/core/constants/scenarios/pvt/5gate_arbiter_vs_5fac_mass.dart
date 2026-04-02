@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvt5gateArbiterVs5facMass = ScenarioScript(
   id: 'pvt_5gate_arbiter_vs_5fac_mass',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_5gate_arbiter'],
-  awayBuildIds: ['tvp_trans_5fac_mass'],
+  homeBuildIds: ['pvt_trans_5gate_arbiter', 'pvt_1gate_expand', 'pvt_1gate_obs'],
+  awayBuildIds: ['tvp_trans_5fac_mass', 'tvp_5fac_timing', 'tvp_11up_8fac'],
   description: '5게이트 아비터 vs 5팩토리 물량 — 리콜 일꾼 급습 vs 탱크 물량',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -129,7 +129,7 @@ const _pvt5gateArbiterVs5facMass = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수 아비터 리콜! 테란 일꾼 라인에 병력 투하!',
+              text: '{home} 선수 아비터 리콜! 테란 미네랄 라인에 병력 투하!',
               owner: LogOwner.home,
               homeArmy: 3, awayResource: -30, favorsStat: 'sense',
               altText: '{home}, 리콜! 테란 일꾼을 노립니다! 자원줄을 끊어야죠!',

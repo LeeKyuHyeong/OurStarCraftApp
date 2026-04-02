@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _tvzValkyrieVs2hatchMutal = ScenarioScript(
   id: 'tvz_valkyrie_vs_2hatch_mutal',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_valkyrie'],
-  awayBuildIds: ['zvt_trans_2hatch_mutal'],
+  homeBuildIds: ['tvz_trans_valkyrie', 'tvz_valkyrie'],
+  awayBuildIds: ['zvt_trans_2hatch_mutal', 'zvt_2hatch_mutal'],
   description: '발키리 스플래시 대공 vs 2해처리 빠른 뮤탈리스크',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -21,7 +21,7 @@ const _tvzValkyrieVs2hatchMutal = ScenarioScript(
           homeResource: -10,
         ),
         ScriptEvent(
-          text: '{away} 선수 앞마당에 해처리를 올립니다! 2해처리 뮤탈 빌드!',
+          text: '{away} 선수 앞마당에 해처리를 올립니다! 2해처리 체제!',
           owner: LogOwner.away,
           awayResource: -30,
           altText: '{away}, 해처리부터 올립니다! 빠른 확장이네요.',
@@ -35,7 +35,7 @@ const _tvzValkyrieVs2hatchMutal = ScenarioScript(
           text: '{away} 선수 스포닝풀 건설 후 가스를 넣습니다.',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 가스를 빨리 넣습니다! 뮤탈을 서두르는군요.',
+          altText: '{away}, 가스를 빨리 넣습니다! 공중 유닛을 서두르는군요.',
         ),
         ScriptEvent(
           text: '양쪽 모두 테크를 서두르고 있습니다! 누가 먼저 완성할까요?',
@@ -59,7 +59,7 @@ const _tvzValkyrieVs2hatchMutal = ScenarioScript(
           text: '{home} 선수 스타포트 건설! 컨트롤타워를 붙입니다!',
           owner: LogOwner.home,
           homeResource: -20,
-          altText: '{home}, 스타포트에 컨트롤타워! 발키리 생산 준비!',
+          altText: '{home}, 스타포트에 컨트롤타워! 대공 유닛 생산 준비!',
         ),
         ScriptEvent(
           text: '{away} 선수 스파이어 완성! 뮤탈리스크 생산 시작!',
@@ -69,15 +69,13 @@ const _tvzValkyrieVs2hatchMutal = ScenarioScript(
           favorsStat: 'macro',
         ),
         ScriptEvent(
-          text: '{home} 선수 발키리 첫 기체 생산 완료!',
-          owner: LogOwner.home,
-          homeArmy: 3,
-          homeResource: -20,
-          favorsStat: 'strategy',
-          altText: '{home}, 발키리가 나왔습니다! 대공 준비 완료!',
+          text: '{away} 선수 뮤탈리스크 편대가 출격합니다!',
+          owner: LogOwner.away,
+          homeResource: -5,
+          favorsStat: 'harass',
         ),
         ScriptEvent(
-          text: '뮤탈이 먼저 나왔지만 발키리도 곧 합류합니다!',
+          text: '뮤탈이 먼저 나왔습니다! 테란의 대공 유닛이 곧 합류할 텐데요.',
           owner: LogOwner.system,
         ),
       ],
@@ -110,7 +108,7 @@ const _tvzValkyrieVs2hatchMutal = ScenarioScript(
           skipChance: 0.3,
         ),
         ScriptEvent(
-          text: '발키리 스플래시가 뮤탈 뭉침을 노립니다! 공중전의 핵심!',
+          text: '발키리 스플래시가 뮤탈 뭉침을 노립니다! 공중 싸움이 관건이네요!',
           owner: LogOwner.system,
         ),
       ],

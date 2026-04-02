@@ -62,7 +62,7 @@ const _zvz3hatchNopoolMirror = ScenarioScript(
         ScriptEvent(
           text: '양쪽 모두 자원을 극대화하는 모습입니다. 후반전이 기대되네요.',
           owner: LogOwner.system,
-          skipChance: 0.5,
+          skipChance: 0.6,
         ),
       ],
     ),
@@ -176,7 +176,7 @@ const _zvz3hatchNopoolMirror = ScenarioScript(
             ScriptEvent(
               text: '뮤탈 vs 뮤탈! 3해처리 미러 결전입니다!',
               owner: LogOwner.system,
-              skipChance: 0.4,
+              skipChance: 0.5,
             ),
             ScriptEvent(
               text: '{home}, 뮤탈 집중 공격! 상대 뮤탈이 떨어집니다!',
@@ -204,7 +204,7 @@ const _zvz3hatchNopoolMirror = ScenarioScript(
             ScriptEvent(
               text: '뮤탈 vs 뮤탈! 3해처리 미러 결전입니다!',
               owner: LogOwner.system,
-              skipChance: 0.4,
+              skipChance: 0.5,
             ),
             ScriptEvent(
               text: '{away}, 뮤탈 집중 공격! 상대 뮤탈이 떨어집니다!',

@@ -7,7 +7,7 @@ const _pvtDarkSwingVs5facMass = ScenarioScript(
   id: 'pvt_dark_swing_vs_5fac_mass',
   matchup: 'PvT',
   homeBuildIds: ['pvt_dark_swing'],
-  awayBuildIds: ['tvp_trans_5fac_mass'],
+  awayBuildIds: ['tvp_trans_5fac_mass', 'tvp_5fac_timing', 'tvp_11up_8fac'],
   description: '다크 스윙 vs 5팩토리 물량 테란',
   phases: [
     // Phase 0: 오프닝 (lines 1-10)
@@ -95,7 +95,7 @@ const _pvtDarkSwingVs5facMass = ScenarioScript(
           awayArmy: 2,
         ),
         ScriptEvent(
-          text: '{home}, 다크가 SCV 라인에 도착합니다!',
+          text: '{home}, 다크가 미네랄 라인에 도착합니다!',
           owner: LogOwner.home,
           favorsStat: 'harass',
         ),
@@ -122,7 +122,7 @@ const _pvtDarkSwingVs5facMass = ScenarioScript(
               owner: LogOwner.home,
               awayResource: -30,
               favorsStat: 'harass',
-              altText: '{home}, 다크 대활약! SCV가 한 기씩 쓰러집니다!',
+              altText: '{home}, 다크 대활약! 다크가 SCV를 한 기씩 쓰러뜨립니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 벌처가 다크를 쫓지만 보이지 않아요!',

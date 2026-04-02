@@ -8,7 +8,7 @@ const _zvpHydraLurkerVsArchon = ScenarioScript(
   matchup: 'ZvP',
   homeBuildIds: ['zvp_trans_hydra_lurker'],
   awayBuildIds: ['pvz_trans_archon'],
-  description: '히드라 럴커 vs 아콘+질럿 — 범위 공격 대결, 사이오닉 스톰과 럴커 매몰의 승부',
+  description: '히드라 럴커 vs 아콘과 질럿 — 범위 공격 대결, 사이오닉 스톰과 럴커 매몰의 승부',
   phases: [
     // Phase 0: opening (lines 1-11)
     ScriptPhase(

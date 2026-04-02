@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _zvp5hatchHydraVsForgeExpand = ScenarioScript(
   id: 'zvp_5hatch_hydra_vs_forge_expand',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_5hatch_hydra'],
-  awayBuildIds: ['pvz_trans_forge_expand'],
+  homeBuildIds: ['zvp_trans_5hatch_hydra', 'zvp_12hatch'],
+  awayBuildIds: ['pvz_trans_forge_expand', 'pvz_forge_cannon'],
   description: '5해처리 히드라 타이밍 vs 포지 더블 캐논 수비',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -36,7 +36,7 @@ const _zvp5hatchHydraVsForgeExpand = ScenarioScript(
           text: '{away} 선수 앞마당 넥서스 건설! 캐논과 게이트웨이로 입구를 막습니다!',
           owner: LogOwner.away,
           awayResource: -30,
-          altText: '{away}, 넥서스와 캐논! 입구를 봉쇄합니다!',
+          altText: '{away}, 넥서스! 게이트웨이와 캐논으로 입구를 봉쇄합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 스포닝풀과 가스를 올립니다.',
@@ -78,7 +78,7 @@ const _zvp5hatchHydraVsForgeExpand = ScenarioScript(
           text: '{away} 선수 사이버네틱스 코어에서 스타게이트를 올립니다! 커세어!',
           owner: LogOwner.away,
           awayResource: -25,
-          altText: '{away}, 스타게이트! 커세어로 오버로드를 사냥합니다!',
+          altText: '{away}, 사이버네틱스 코어에서 스타게이트! 커세어로 오버로드를 사냥합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 히드라리스크 대량 생산 시작!',
@@ -165,7 +165,7 @@ const _zvp5hatchHydraVsForgeExpand = ScenarioScript(
               text: '{away}, 하이 템플러 합류! 스톰이 히드라를 강타합니다!',
               owner: LogOwner.away,
               homeArmy: -5, favorsStat: 'strategy',
-              altText: '{away} 선수 스톰 투하! 히드라가 전멸합니다!',
+              altText: '{away} 선수 스톰 투하! 저그 병력을 전멸시킵니다!',
             ),
             ScriptEvent(
               text: '{away}, 드라군 질럿 한방 병력으로 역공합니다!',

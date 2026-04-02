@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _tvzEnbePushVsUltraHive = ScenarioScript(
   id: 'tvz_enbe_push_vs_ultra_hive',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_enbe_push'],
-  awayBuildIds: ['zvt_trans_ultra_hive'],
+  homeBuildIds: ['tvz_trans_enbe_push', 'tvz_4rax_enbe'],
+  awayBuildIds: ['zvt_trans_ultra_hive', 'zvt_3hatch_nopool'],
   description: '선엔베 4배럭 마린 타이밍 vs 울트라리스크 하이브 후반 체제',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -143,7 +143,7 @@ const _tvzEnbePushVsUltraHive = ScenarioScript(
               homeArmy: 2, awayArmy: -3, favorsStat: 'control',
             ),
             ScriptEvent(
-              text: '울트라 나오기 전에 선엔베 푸시 성공! GG!',
+              text: '선엔베 푸시 타이밍 성공! 저그가 무너집니다! GG!',
               owner: LogOwner.home,
               decisive: true,
             ),

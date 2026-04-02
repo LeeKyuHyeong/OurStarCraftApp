@@ -114,7 +114,7 @@ const _zvpHiveDefilerVsCorsair = ScenarioScript(
           skipChance: 0.3,
         ),
         ScriptEvent(
-          text: '디파일러가 나오면 플레이그와 다크 스웜 동시 운용이 가능합니다!',
+          text: '디파일러 마운드의 디파일러가 나오면 플레이그와 다크 스웜 동시 운용이 가능합니다!',
           owner: LogOwner.system,
         ),
       ],
@@ -175,7 +175,7 @@ const _zvpHiveDefilerVsCorsair = ScenarioScript(
               awayArmy: 3,
               homeArmy: -3,
               favorsStat: 'attack',
-              altText: '{away}, 드라군과 질럿이 저그 진영으로 밀려옵니다!',
+              altText: '{away}, 사이버네틱스 코어에서 나온 드라군과 게이트웨이의 질럿이 저그 진영으로 밀려옵니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 디파일러가 나오기 전에 앞마당이 무너졌습니다!',

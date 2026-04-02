@@ -7,7 +7,7 @@ const _tvzBunkerVs2hatchMutal = ScenarioScript(
   id: 'tvz_bunker_vs_2hatch_mutal',
   matchup: 'TvZ',
   homeBuildIds: ['tvz_bunker'],
-  awayBuildIds: ['zvt_trans_2hatch_mutal'],
+  awayBuildIds: ['zvt_trans_2hatch_mutal', 'zvt_2hatch_mutal'],
   description: '벙커 러시 vs 2해처리 뮤탈리스크 — 초반 공세 vs 빠른 뮤탈',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -149,7 +149,7 @@ const _tvzBunkerVs2hatchMutal = ScenarioScript(
               altText: '{home}, 앞마당 해처리를 때리고 있습니다! 저그가 무너지네요!',
             ),
             ScriptEvent(
-              text: '벙커 러시 성공! 뮤탈이 나오기 전에 끝냈습니다! GG!',
+              text: '벙커 러시 성공! 저그가 버티지 못합니다! GG!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -166,7 +166,7 @@ const _tvzBunkerVs2hatchMutal = ScenarioScript(
               awayArmy: 2,
               homeArmy: -3,
               favorsStat: 'defense',
-              altText: '{away}, 벙커 건설을 막았습니다! 마린이 녹고 있어요!',
+              altText: '{away} 선수 저글링이 벙커 건설을 막았습니다! 테란 보병이 녹아요!',
             ),
             ScriptEvent(
               text: '{away} 선수 스파이어 완성! 뮤탈리스크가 나옵니다!',

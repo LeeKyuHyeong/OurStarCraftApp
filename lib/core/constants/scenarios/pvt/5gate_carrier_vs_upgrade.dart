@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvt5gateCarrierVsUpgrade = ScenarioScript(
   id: 'pvt_5gate_carrier_vs_upgrade',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_5gate_carrier'],
-  awayBuildIds: ['tvp_trans_upgrade'],
+  homeBuildIds: ['pvt_trans_5gate_carrier', 'pvt_1gate_expand', 'pvt_carrier'],
+  awayBuildIds: ['tvp_trans_upgrade', 'tvp_1fac_gosu'],
   description: '5게이트 캐리어 vs 더블 업그레이드 — 후반 공중 vs 업그레이드 지상',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -96,7 +96,7 @@ const _pvt5gateCarrierVsUpgrade = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 더블 스타게이트에서 캐리어 생산!',
+          text: '{home} 선수 더블 스타게이트에서 주력 함선 생산!',
           owner: LogOwner.home,
           homeArmy: 4, homeResource: -30,
           altText: '{home}, 캐리어가 나옵니다! 인터셉터를 채우는 중!',
@@ -161,7 +161,7 @@ const _pvt5gateCarrierVsUpgrade = ScenarioScript(
               text: '{away} 선수 3-3 풀업 마린 골리앗이 대공 사격! 집중 화력!',
               owner: LogOwner.away,
               homeArmy: -4, awayArmy: 2, favorsStat: 'macro',
-              altText: '{away}, 풀업 병력의 대공! 캐리어가 녹습니다!',
+              altText: '{away}, 풀업 병력의 대공! 골리앗이 집중 사격! 적 함대가 녹습니다!',
             ),
             ScriptEvent(
               text: '{away}, 캐리어 1기 격추! 골리앗 사거리 업그레이드가 빛납니다!',

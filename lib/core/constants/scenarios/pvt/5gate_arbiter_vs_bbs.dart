@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _pvt5gateArbiterVsBbs = ScenarioScript(
   id: 'pvt_5gate_arbiter_vs_bbs',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_5gate_arbiter'],
+  homeBuildIds: ['pvt_trans_5gate_arbiter', 'pvt_1gate_expand', 'pvt_1gate_obs'],
   awayBuildIds: ['tvp_bbs'],
   description: '5게이트 아비터 vs BBS 마린 러시 — 초반 수비 후 스톰+리콜',
   phases: [
@@ -146,7 +146,7 @@ const _pvt5gateArbiterVsBbs = ScenarioScript(
               altText: '{home} 선수 리콜 투하! 테란 본진이 아수라장!',
             ),
             ScriptEvent(
-              text: '{home}, 하이 템플러 스톰까지! 마린이 녹아내립니다!',
+              text: '{home}, 하이 템플러 스톰까지! 상대 병력이 녹아내립니다!',
               owner: LogOwner.home,
               awayArmy: -8, homeArmy: -2, favorsStat: 'attack',
             ),

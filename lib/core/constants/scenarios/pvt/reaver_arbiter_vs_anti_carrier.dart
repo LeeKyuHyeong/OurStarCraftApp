@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvtReaverArbiterVsAntiCarrier = ScenarioScript(
   id: 'pvt_reaver_arbiter_vs_anti_carrier',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_reaver_arbiter'],
-  awayBuildIds: ['tvp_trans_anti_carrier'],
+  homeBuildIds: ['pvt_trans_reaver_arbiter', 'pvt_1gate_expand', 'pvt_reaver_shuttle'],
+  awayBuildIds: ['tvp_trans_anti_carrier', 'tvp_anti_carrier'],
   description: '리버 아비터 vs 골리앗 대공 — 아비터가 골리앗 진형을 뚫을 수 있을까',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -16,7 +16,7 @@ const _pvtReaverArbiterVsAntiCarrier = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 게이트웨이에서 드라군을 생산합니다.',
+          text: '{home} 선수 사이버네틱스 코어 완성 후 드라군을 생산합니다.',
           owner: LogOwner.home,
           homeArmy: 2,
           homeResource: -10,
@@ -29,7 +29,7 @@ const _pvtReaverArbiterVsAntiCarrier = ScenarioScript(
           altText: '{away}, 골리앗이 나옵니다! 공중 유닛을 경계하는군요!',
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스를 건설합니다.',
+          text: '{home} 선수 로보틱스를 건설합니다. 서포트 베이도 바로 올리겠죠.',
           owner: LogOwner.home,
           homeResource: -15,
         ),
@@ -139,7 +139,7 @@ const _pvtReaverArbiterVsAntiCarrier = ScenarioScript(
               altText: '{home}, 스테이시스! 골리앗 절반이 꼼짝 못 합니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 리콜! 드라군이 테란 일꾼 라인에 나타납니다!',
+              text: '{home} 선수 리콜! 드라군이 테란 미네랄 라인에 나타납니다!',
               owner: LogOwner.home,
               homeArmy: 4,
               awayResource: -25,

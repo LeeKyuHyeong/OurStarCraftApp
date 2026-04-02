@@ -64,7 +64,7 @@ const _pvp4gateVsMulti = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 드라군이 아직 적습니다! 멀티 자원을 믿고 버팁니다!',
           owner: LogOwner.away,
-          awayArmy: 5, awayResource: -15,
+          awayArmy: 6, awayResource: -15,
           altText: '{away}, 드라군 수가 부족합니다! 시간을 벌어야 해요!',
         ),
         ScriptEvent(

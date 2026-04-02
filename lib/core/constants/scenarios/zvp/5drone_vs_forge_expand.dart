@@ -36,7 +36,7 @@ const _zvp5droneVsForgeExpand = ScenarioScript(
           text: '{away} 선수 앞마당에 캐논을 올리기 시작합니다!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 캐논 건설! 저글링이 오기 전에 완성해야 합니다!',
+          altText: '{away}, 캐논 건설을 서두릅니다! 빨리 완성해야 합니다!',
         ),
         ScriptEvent(
           text: '포지 확장 vs 저글링 올인! ZvP 클래식 구도!',
@@ -144,7 +144,7 @@ const _zvp5droneVsForgeExpand = ScenarioScript(
               text: '{away}, 캐논과 질럿으로 저글링을 전부 잡아냅니다!',
               owner: LogOwner.away,
               homeArmy: -5, awayArmy: 3, favorsStat: 'defense',
-              altText: '{away} 선수 완벽한 수비! 캐논+질럿 방어선!',
+              altText: '{away} 선수 완벽한 수비! 캐논과 질럿 방어선!',
             ),
             ScriptEvent(
               text: '포지 확장 수비 성공! 드론이 부족한 저그를 압도합니다!',

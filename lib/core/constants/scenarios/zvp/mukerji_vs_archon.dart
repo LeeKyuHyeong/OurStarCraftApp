@@ -1,14 +1,14 @@
 part of '../../scenario_scripts.dart';
 
 // ----------------------------------------------------------
-// 뮤커지 vs 아콘: 뮤탈 견제 + 크래클링 vs 아콘+질럿+스톰
+// 뮤커지 vs 아콘: 뮤탈 견제 + 크래클링 vs 아콘과 질럿+스톰
 // ----------------------------------------------------------
 const _zvpMukerjiVsArchon = ScenarioScript(
   id: 'zvp_mukerji_vs_archon',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_mukerji'],
-  awayBuildIds: ['pvz_trans_archon'],
-  description: '뮤탈+크래클링 vs 아콘+질럿+사이오닉 스톰 — 견제 vs 한방',
+  homeBuildIds: ['zvp_trans_mukerji', 'zvp_mukerji'],
+  awayBuildIds: ['pvz_trans_archon', 'pvz_corsair_reaver'],
+  description: '뮤탈+크래클링 vs 아콘과 질럿+사이오닉 스톰 — 견제 vs 한방',
   phases: [
     // Phase 0: opening (lines 1-11)
     ScriptPhase(
@@ -25,16 +25,17 @@ const _zvpMukerjiVsArchon = ScenarioScript(
           text: '{away} 선수 게이트웨이 뒤로 아둔을 건설합니다!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 아둔 건설! 하이 템플러를 준비합니다!',
+          altText: '{away}, 게이트웨이 뒤에 아둔 건설! 하이 템플러를 준비합니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 레어 업그레이드 후 스파이어를 올립니다.',
+          text: '{home} 선수 스포닝풀에서 저글링 생산 후 레어 업그레이드! 스파이어를 올립니다.',
           owner: LogOwner.home,
           homeResource: -10,
           favorsStat: 'macro',
+          altText: '{home}, 스포닝풀 완성 후 레어와 스파이어를 올립니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 템플러 아카이브까지 건설! 아콘+스톰 체제!',
+          text: '{away} 선수 템플러 아카이브까지 건설! 아콘과 스톰 체제!',
           owner: LogOwner.away,
           awayResource: -15,
           awayArmy: 2,
@@ -96,7 +97,7 @@ const _zvpMukerjiVsArchon = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{away} 선수 아콘+질럿 편대를 이끌고 저그 진영으로 이동합니다!',
+          text: '{away} 선수 아콘과 질럿 편대를 이끌고 저그 진영으로 이동합니다!',
           owner: LogOwner.away,
           awayArmy: 4,
           awayResource: -10,
@@ -118,7 +119,7 @@ const _zvpMukerjiVsArchon = ScenarioScript(
           skipChance: 0.3,
         ),
         ScriptEvent(
-          text: '아콘+스톰 vs 뮤탈+크래클링! 대규모 교전이 임박합니다!',
+          text: '아콘 스톰 조합 vs 뮤탈 크래클링 조합! 대규모 교전이 임박합니다!',
           owner: LogOwner.system,
         ),
       ],
@@ -154,7 +155,7 @@ const _zvpMukerjiVsArchon = ScenarioScript(
               awayArmy: -3,
             ),
             ScriptEvent(
-              text: '뮤탈+크래클링의 속도전! 프로토스 병력이 무너집니다! GG!',
+              text: '뮤탈과 크래클링의 속도전! 프로토스 병력이 무너집니다! GG!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -186,7 +187,7 @@ const _zvpMukerjiVsArchon = ScenarioScript(
               homeResource: -15,
             ),
             ScriptEvent(
-              text: '아콘+스톰 한방 병력의 위력! 저그가 무너집니다! GG!',
+              text: '아콘과 사이오닉 스톰, 한방 병력의 위력! 저그가 무너집니다! GG!',
               owner: LogOwner.away,
               decisive: true,
             ),

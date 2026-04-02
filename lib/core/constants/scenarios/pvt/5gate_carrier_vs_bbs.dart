@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _pvt5gateCarrierVsBbs = ScenarioScript(
   id: 'pvt_5gate_carrier_vs_bbs',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_5gate_carrier'],
+  homeBuildIds: ['pvt_trans_5gate_carrier', 'pvt_1gate_expand', 'pvt_carrier'],
   awayBuildIds: ['tvp_bbs'],
   description: '5게이트 캐리어 vs BBS 마린 러시 — 초반 수비 후 캐리어 지배',
   phases: [
@@ -156,7 +156,7 @@ const _pvt5gateCarrierVsBbs = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수 캐리어가 나오기 전에 총공격! 탱크와 마린이 전진!',
+              text: '{away} 선수 캐리어 완성 전에 총공격! 탱크와 마린이 전진!',
               owner: LogOwner.away,
               awayArmy: 4, favorsStat: 'attack',
               altText: '{away}, 캐리어 전에 승부! 남은 병력으로 총공격!',

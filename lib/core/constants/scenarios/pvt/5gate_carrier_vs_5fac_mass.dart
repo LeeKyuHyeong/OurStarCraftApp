@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvt5gateCarrierVs5facMass = ScenarioScript(
   id: 'pvt_5gate_carrier_vs_5fac_mass',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_5gate_carrier'],
-  awayBuildIds: ['tvp_trans_5fac_mass'],
+  homeBuildIds: ['pvt_trans_5gate_carrier', 'pvt_1gate_expand', 'pvt_carrier'],
+  awayBuildIds: ['tvp_trans_5fac_mass', 'tvp_5fac_timing', 'tvp_11up_8fac'],
   description: '5게이트 캐리어 vs 5팩토리 물량 — 공중 편대 vs 지상 물량',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -95,7 +95,7 @@ const _pvt5gateCarrierVs5facMass = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 더블 스타게이트에서 캐리어 생산 시작!',
+          text: '{home} 선수 더블 스타게이트에서 주력 함선 생산 시작!',
           owner: LogOwner.home,
           homeArmy: 4, homeResource: -30,
           altText: '{home}, 캐리어가 나옵니다! 인터셉터를 채우는 중!',
@@ -160,7 +160,7 @@ const _pvt5gateCarrierVs5facMass = ScenarioScript(
               text: '{away} 선수 골리앗 편대가 캐리어를 집중 공격! 대공 화력 집중!',
               owner: LogOwner.away,
               homeArmy: -4, favorsStat: 'defense',
-              altText: '{away}, 골리앗이 캐리어를 노립니다! 집중 포화!',
+              altText: '{away}, 골리앗이 공중 함대를 노립니다! 집중 포화!',
             ),
             ScriptEvent(
               text: '{away}, 탱크 물량이 프로토스 앞마당을 시즈로 밀어냅니다!',

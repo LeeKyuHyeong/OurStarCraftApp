@@ -95,7 +95,7 @@ const _zvpYabarwiVsCannonRush = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 히드라리스크+럴커 편대를 구성합니다!',
+          text: '{home} 선수 히드라리스크와 럴커 편대를 구성합니다!',
           owner: LogOwner.home,
           homeArmy: 5,
           homeResource: -15,

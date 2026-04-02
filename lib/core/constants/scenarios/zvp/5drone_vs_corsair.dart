@@ -30,10 +30,10 @@ const _zvp5droneVsCorsair = ScenarioScript(
           text: '{home} 선수 저글링이 부화합니다! 발업까지 연구!',
           owner: LogOwner.home,
           homeArmy: 5, homeResource: -15,
-          altText: '{home}, 저글링+발업! 프로토스 본진을 급습합니다!',
+          altText: '{home}, 저글링 발업! 프로토스 본진을 급습합니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 질럿을 생산하면서 커세어 테크를 올립니다.',
+          text: '{away} 선수 게이트웨이에서 질럿을 생산하면서 커세어 테크를 올립니다.',
           owner: LogOwner.away,
           awayArmy: 2, awayResource: -10,
           altText: '{away}, 질럿 수비! 스타게이트까지 시간을 벌어야 합니다!',

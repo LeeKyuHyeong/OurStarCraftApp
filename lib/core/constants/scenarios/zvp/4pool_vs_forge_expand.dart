@@ -7,7 +7,7 @@ const _zvp4poolVsForgeExpand = ScenarioScript(
   id: 'zvp_4pool_vs_forge_expand',
   matchup: 'ZvP',
   homeBuildIds: ['zvp_4pool'],
-  awayBuildIds: ['pvz_trans_forge_expand'],
+  awayBuildIds: ['pvz_trans_forge_expand', 'pvz_forge_cannon'],
   description: '4풀 저글링 러시 vs 포지 확장 캐논 방어',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -36,7 +36,7 @@ const _zvp4poolVsForgeExpand = ScenarioScript(
           text: '{away} 선수 앞마당에 캐논을 건설합니다! 제때 완성될까요?',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 캐논 건설! 저글링이 오기 전에 완성해야 합니다!',
+          altText: '{away}, 캐논 건설을 서두릅니다! 입구를 막아야 해요!',
         ),
         ScriptEvent(
           text: '4풀 vs 포지 확장! ZvP 클래식 대결입니다!',
@@ -143,10 +143,10 @@ const _zvp4poolVsForgeExpand = ScenarioScript(
               text: '{away}, 캐논과 질럿이 저글링을 전부 잡아냅니다!',
               owner: LogOwner.away,
               homeArmy: -5, awayArmy: 3, favorsStat: 'defense',
-              altText: '{away} 선수 완벽한 수비! 캐논+질럿 조합!',
+              altText: '{away} 선수 완벽한 수비! 캐논과 질럿 조합!',
             ),
             ScriptEvent(
-              text: '포지 확장 수비 성공! 드론이 없는 저그를 압도합니다!',
+              text: '포지 확장 수비 성공! 프로토스의 병력이 저그를 압도합니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

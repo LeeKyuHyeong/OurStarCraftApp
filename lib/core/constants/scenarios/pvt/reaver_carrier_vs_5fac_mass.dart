@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvtReaverCarrierVs5facMass = ScenarioScript(
   id: 'pvt_reaver_carrier_vs_5fac_mass',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_reaver_carrier'],
-  awayBuildIds: ['tvp_trans_5fac_mass'],
+  homeBuildIds: ['pvt_trans_reaver_carrier', 'pvt_reaver_shuttle', 'pvt_carrier'],
+  awayBuildIds: ['tvp_trans_5fac_mass', 'tvp_5fac_timing', 'tvp_11up_8fac'],
   description: '리버 셔틀 + 캐리어 전환 vs 5팩토리 물량 — 공중 제공권 vs 지상 물량',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -27,7 +27,7 @@ const _pvtReaverCarrierVs5facMass = ScenarioScript(
           altText: '{away}, 빠르게 팩토리를 올립니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 드라군을 생산하면서 로보틱스를 준비합니다.',
+          text: '{home} 선수 드라군을 생산하면서 로보틱스와 서포트 베이를 준비합니다.',
           owner: LogOwner.home,
           homeArmy: 2,
           homeResource: -20,
@@ -205,7 +205,7 @@ const _pvtReaverCarrierVs5facMass = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{away} 선수 탱크 물량이 프로토스를 밀어냅니다! 캐리어는 끝내 나오지 못했습니다!',
+              text: '{away} 선수 탱크 물량이 프로토스를 밀어냅니다! 적 함대는 끝내 나오지 못했습니다!',
               owner: LogOwner.away,
               awayArmy: 25,
               homeArmy: -15,

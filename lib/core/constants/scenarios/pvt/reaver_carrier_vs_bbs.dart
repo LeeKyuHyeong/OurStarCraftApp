@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _pvtReaverCarrierVsBbs = ScenarioScript(
   id: 'pvt_reaver_carrier_vs_bbs',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_reaver_carrier'],
+  homeBuildIds: ['pvt_trans_reaver_carrier', 'pvt_reaver_shuttle', 'pvt_carrier'],
   awayBuildIds: ['tvp_bbs'],
   description: '리버 셔틀 + 캐리어 전환 vs BBS 마린 러시 — 초반 생존이 관건',
   phases: [
@@ -102,10 +102,10 @@ const _pvtReaverCarrierVsBbs = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 로보틱스 건설! 리버를 준비합니다!',
+          text: '{home} 선수 로보틱스와 서포트 베이 건설! 리버를 준비합니다!',
           owner: LogOwner.home,
           homeResource: -20,
-          altText: '{home}, 로보틱스가 올라갑니다! 리버 생산을 향한 첫걸음!',
+          altText: '{home}, 로보틱스와 서포트 베이가 올라갑니다! 리버 생산을 향한 첫걸음!',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리를 올립니다. 뒤늦게 테크를 전환하네요.',
@@ -207,7 +207,7 @@ const _pvtReaverCarrierVsBbs = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{away} 선수 마린 물량으로 프로토스 본진을 짓밟습니다! 캐리어는 꿈도 못 꿨습니다!',
+              text: '{away} 선수 마린 물량으로 프로토스 본진을 짓밟습니다! 적 함대는 꿈도 못 꿨습니다!',
               owner: LogOwner.away,
               awayArmy: 25,
               homeArmy: -15,

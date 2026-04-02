@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvtReaverPushVsAntiCarrier = ScenarioScript(
   id: 'pvt_reaver_push_vs_anti_carrier',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_reaver_push'],
-  awayBuildIds: ['tvp_trans_anti_carrier'],
+  homeBuildIds: ['pvt_trans_reaver_push', 'pvt_reaver_shuttle', 'pvt_proxy_dark'],
+  awayBuildIds: ['tvp_trans_anti_carrier', 'tvp_anti_carrier'],
   description: '리버 셔틀 푸시 vs 골리앗 대공 — 지상전 승부',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -16,7 +16,7 @@ const _pvtReaverPushVsAntiCarrier = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 게이트웨이 이후 로보틱스를 건설합니다.',
+          text: '{home} 선수 게이트웨이 이후 로보틱스와 서포트 베이를 건설합니다.',
           owner: LogOwner.home,
           homeResource: -20,
         ),
@@ -106,7 +106,7 @@ const _pvtReaverPushVsAntiCarrier = ScenarioScript(
           awayArmy: 2,
           homeArmy: -1,
           favorsStat: 'attack',
-          altText: '{away}, 골리앗과 드라군의 사거리 싸움이 시작됩니다!',
+          altText: '{away}, 골리앗이 상대와 사거리 싸움이 시작됩니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 드라군이 리버를 보호하면서 밀어냅니다.',

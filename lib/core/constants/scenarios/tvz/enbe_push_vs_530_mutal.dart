@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _tvzEnbePushVs530Mutal = ScenarioScript(
   id: 'tvz_enbe_push_vs_530_mutal',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_enbe_push'],
-  awayBuildIds: ['zvt_trans_530_mutal'],
+  homeBuildIds: ['tvz_trans_enbe_push', 'tvz_4rax_enbe'],
+  awayBuildIds: ['zvt_trans_530_mutal', 'zvt_1hatch_allin'],
   description: '선엔베 4배럭 타이밍 vs 1해처리 럴커 타이밍 (530)',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -90,7 +90,7 @@ const _tvzEnbePushVs530Mutal = ScenarioScript(
           text: '{away}, 럴커가 테란 앞마당 근처에 바로우합니다!',
           owner: LogOwner.away,
           awayArmy: 2, homeArmy: -1, favorsStat: 'attack',
-          altText: '{away} 선수 럴커 바로우! 마린이 접근하기 어렵습니다!',
+          altText: '{away} 선수 럴커가 바로우합니다! 테란 보병이 접근하기 어렵네요!',
         ),
         ScriptEvent(
           text: '{home} 선수 4배럭에서 마린이 계속 나옵니다! 물량으로 밀어야 해요.',

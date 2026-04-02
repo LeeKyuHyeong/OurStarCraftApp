@@ -7,7 +7,7 @@ const _pvtDarkSwingVsBioMech = ScenarioScript(
   id: 'pvt_dark_swing_vs_bio_mech',
   matchup: 'PvT',
   homeBuildIds: ['pvt_dark_swing'],
-  awayBuildIds: ['tvp_trans_bio_mech'],
+  awayBuildIds: ['tvp_trans_bio_mech', 'tvp_rax_double'],
   description: '다크 스윙 vs 바이오 메카닉 테란',
   phases: [
     // Phase 0: 오프닝 (lines 1-10)
@@ -95,7 +95,7 @@ const _pvtDarkSwingVsBioMech = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 다크가 SCV 라인에 접근합니다!',
+          text: '{home} 선수 다크가 미네랄 라인에 접근합니다!',
           owner: LogOwner.home,
           favorsStat: 'harass',
         ),

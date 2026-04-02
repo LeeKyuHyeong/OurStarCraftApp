@@ -1,13 +1,13 @@
 part of '../../scenario_scripts.dart';
 
 // ----------------------------------------------------------
-// 히드라 럴커 vs 포지 확장: 럴커 장악 vs 캐논+드라군 수비
+// 히드라 럴커 vs 포지 확장: 럴커 장악 vs 캐논과 드라군 수비
 // ----------------------------------------------------------
 const _zvpHydraLurkerVsForgeExpand = ScenarioScript(
   id: 'zvp_hydra_lurker_vs_forge_expand',
   matchup: 'ZvP',
   homeBuildIds: ['zvp_trans_hydra_lurker'],
-  awayBuildIds: ['pvz_trans_forge_expand'],
+  awayBuildIds: ['pvz_trans_forge_expand', 'pvz_forge_cannon'],
   description: '히드라 럴커 vs 포지 확장 — 럴커 장악력과 옵저버 감지가 승부를 가르는 구도',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -27,10 +27,11 @@ const _zvpHydraLurkerVsForgeExpand = ScenarioScript(
           altText: '{away}, 포지가 올라갑니다! 포지 확장 빌드로 가는군요!',
         ),
         ScriptEvent(
-          text: '{away} 선수 넥서스 확장! 캐논 2기로 입구를 막습니다!',
+          text: '{away} 선수 넥서스 확장! 게이트웨이와 캐논 2기로 입구를 막습니다!',
           owner: LogOwner.away,
           awayResource: -35,
           awayArmy: 2,
+          altText: '{away}, 넥서스를 올리며 게이트웨이와 캐논으로 입구를 봉쇄합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 스포닝풀 완성 후 히드라덴 건설을 서두릅니다.',
@@ -61,18 +62,18 @@ const _zvpHydraLurkerVsForgeExpand = ScenarioScript(
           altText: '{home}, 히드라리스크가 모이고 있습니다! 캐논 사거리 밖에서 공격 가능해요!',
         ),
         ScriptEvent(
-          text: '{away} 선수 게이트웨이에서 드라군을 생산합니다! 캐논만으론 부족하죠!',
+          text: '{away} 선수 사이버네틱스 코어에서 드라군을 생산합니다! 캐논만으론 부족하죠!',
           owner: LogOwner.away,
           awayArmy: 3,
           awayResource: -15,
           favorsStat: 'defense',
         ),
         ScriptEvent(
-          text: '{away} 선수 로보틱스 건설! 옵저버를 뽑아야 럴커를 잡습니다!',
+          text: '{away} 선수 로보틱스와 옵저버터리 건설! 옵저버를 뽑아야 럴커를 잡습니다!',
           owner: LogOwner.away,
           awayResource: -20,
           favorsStat: 'scout',
-          altText: '{away}, 로보틱스가 올라갑니다! 옵저버 생산이 급하네요!',
+          altText: '{away}, 로보틱스와 옵저버터리가 올라갑니다! 옵저버 생산이 급하네요!',
         ),
         ScriptEvent(
           text: '{home} 선수 레어 업그레이드 시작! 럴커 진화를 노립니다!',
@@ -151,7 +152,7 @@ const _zvpHydraLurkerVsForgeExpand = ScenarioScript(
               awayResource: -20,
             ),
             ScriptEvent(
-              text: '옵저버 격추! 럴커가 보이지 않습니다! 저그의 장악입니다! GG!',
+              text: '히드라가 옵저버를 격추합니다! 럴커 위치를 파악할 수 없어요! GG!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -178,7 +179,7 @@ const _zvpHydraLurkerVsForgeExpand = ScenarioScript(
               favorsStat: 'macro',
             ),
             ScriptEvent(
-              text: '{home} 선수 럴커가 정리당하고 히드라만으로는 캐논+드라군을 못 뚫습니다!',
+              text: '{home} 선수 럴커가 정리당하고 히드라만으로는 캐논과 드라군을 못 뚫습니다!',
               owner: LogOwner.home,
               homeArmy: -3,
               homeResource: -20,

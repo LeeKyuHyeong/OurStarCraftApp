@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _pvt5gatePushVsBbs = ScenarioScript(
   id: 'pvt_5gate_push_vs_bbs',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_5gate_push'],
+  homeBuildIds: ['pvt_trans_5gate_push', 'pvt_1gate_expand'],
   awayBuildIds: ['tvp_bbs'],
   description: '5게이트 타이밍 푸시 vs BBS 마린 러시',
   phases: [
@@ -181,7 +181,7 @@ const _pvt5gatePushVsBbs = ScenarioScript(
               awayArmy: 2,
               homeResource: -30,
               favorsStat: 'attack',
-              altText: '{away}, BBS 피해가 심각합니다! 프로브가 많이 죽었습니다!',
+              altText: '{away}, BBS 피해가 심각합니다! 상대 일꾼이 많이 죽었습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 5게이트를 올려도 자원이 없어 유닛을 뽑지 못합니다!',

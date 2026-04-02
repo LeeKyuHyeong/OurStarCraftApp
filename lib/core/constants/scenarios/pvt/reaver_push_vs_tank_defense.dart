@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvtReaverPushVsTankDefense = ScenarioScript(
   id: 'pvt_reaver_push_vs_tank_defense',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_reaver_push'],
-  awayBuildIds: ['tvp_trans_tank_defense'],
+  homeBuildIds: ['pvt_trans_reaver_push', 'pvt_reaver_shuttle', 'pvt_proxy_dark'],
+  awayBuildIds: ['tvp_trans_tank_defense', 'tvp_double', 'tvp_mine_triple', 'tvp_fd'],
   description: '리버 셔틀 푸시 vs 시즈탱크 수비 — 드랍 우회 vs 철벽 라인',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -28,7 +28,7 @@ const _pvtReaverPushVsTankDefense = ScenarioScript(
           awayArmy: 2,
         ),
         ScriptEvent(
-          text: '{home} 선수 서포트 베이 건설! 리버 생산 준비가 끝났습니다.',
+          text: '{home} 선수 서포트 베이 건설! 공성 유닛 생산 준비가 끝났습니다.',
           owner: LogOwner.home,
           homeResource: -10,
           skipChance: 0.2,
@@ -87,7 +87,7 @@ const _pvtReaverPushVsTankDefense = ScenarioScript(
         ),
       ],
     ),
-    // Phase 2: 일꾼 라인 공격 (lines 22-29)
+    // Phase 2: 미네랄 라인 공격 (lines 22-29)
     ScriptPhase(
       name: 'late_setup',
       startLine: 22,
@@ -95,7 +95,7 @@ const _pvtReaverPushVsTankDefense = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 리버가 테란 본진 일꾼 라인에 스캐럽을 발사합니다!',
+          text: '{home} 선수 리버가 테란 본진 미네랄 라인에 스캐럽을 발사합니다!',
           owner: LogOwner.home,
           awayResource: -25,
           favorsStat: 'harass',
@@ -131,12 +131,12 @@ const _pvtReaverPushVsTankDefense = ScenarioScript(
           conditionStat: 'harass',
           events: [
             ScriptEvent(
-              text: '{home} 선수 스캐럽이 또다시 SCV 라인에 명중합니다!',
+              text: '{home} 선수 스캐럽이 또다시 미네랄 라인에 명중합니다!',
               owner: LogOwner.home,
               awayResource: -30,
               homeArmy: 2,
               favorsStat: 'harass',
-              altText: '{home}, 스캐럽 연속 명중! SCV가 녹아내립니다!',
+              altText: '{home}, 스캐럽 연속 명중! 리버가 SCV를 녹여냅니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 자원이 끊기면서 탱크 추가 생산이 불가능합니다!',

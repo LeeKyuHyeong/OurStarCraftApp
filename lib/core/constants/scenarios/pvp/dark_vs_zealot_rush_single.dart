@@ -58,7 +58,7 @@ const _pvpDarkVsZealotRushSingle = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 질럿 1기로 막으면서 다크를 기다립니다!',
           owner: LogOwner.home,
-          homeArmy: 2,
+          homeArmy: 3,
           altText: '{home}, 질럿 한 기로 시간을 벌어야 합니다!',
         ),
         ScriptEvent(

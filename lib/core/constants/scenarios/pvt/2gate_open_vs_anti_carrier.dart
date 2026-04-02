@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvt2gateOpenVsAntiCarrier = ScenarioScript(
   id: 'pvt_2gate_open_vs_anti_carrier',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_2gate_open'],
-  awayBuildIds: ['tvp_trans_anti_carrier'],
+  homeBuildIds: ['pvt_2gate_open', 'pvt_2gate_zealot'],
+  awayBuildIds: ['tvp_trans_anti_carrier', 'tvp_anti_carrier'],
   description: '투게이트 질럿 공격 vs 골리앗 대공 편성',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -62,7 +62,7 @@ const _pvt2gateOpenVsAntiCarrier = ScenarioScript(
           owner: LogOwner.home,
           homeArmy: 1,
           favorsStat: 'attack',
-          altText: '{home}, 질럿 돌격! 골리앗이 나오기 전에 피해를 줘야 합니다!',
+          altText: '{home}, 질럿 돌격! 골리앗 나오기 전에 피해를 줘야 합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린과 벙커로 방어합니다! 골리앗 생산까지 버텨야 합니다!',

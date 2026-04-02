@@ -104,7 +104,7 @@ const _zvp5droneVsProxyGate = ScenarioScript(
           text: '{home} 선수 발업 저글링의 속도로 프로브를 계속 추격합니다!',
           owner: LogOwner.home,
           awayResource: -10, favorsStat: 'harass',
-          altText: '{home}, 프로브가 도망가지만 발업 저글링이 따라잡습니다!',
+          altText: '{home}, 저글링이 일꾼을 추격합니다! 발업이라 도망칠 수 없어요!',
         ),
         ScriptEvent(
           text: '양쪽 일꾼이 거의 남지 않았습니다! 건물 경쟁!',

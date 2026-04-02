@@ -46,7 +46,7 @@ const _pvp1gateRoboMirror = ScenarioScript(
           awayArmy: 2, awayResource: -10,
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스 건설! 리버를 노립니다!',
+          text: '{home} 선수 로보틱스 건설! 테크를 올립니다!',
           owner: LogOwner.home,
           homeResource: -20,
           altText: '{home}, 로보틱스! 원게이트 로보 빌드입니다!',
@@ -104,7 +104,7 @@ const _pvp1gateRoboMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 리버가 프로브 라인에 착지! 스캐럽!',
+              text: '{home}, 리버가 프로브에 착지! 스캐럽!',
               owner: LogOwner.home,
               awayResource: -25, favorsStat: 'harass',
               altText: '{home} 선수 리버 투하! 프로브가 날아갑니다!',
@@ -133,7 +133,7 @@ const _pvp1gateRoboMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 리버가 프로브 라인에 투하! 스캐럽 명중!',
+              text: '{away}, 리버가 프로브에 투하! 스캐럽 명중!',
               owner: LogOwner.away,
               homeResource: -25, favorsStat: 'harass',
               altText: '{away} 선수 리버 투하! 프로브를 쓸어냅니다!',

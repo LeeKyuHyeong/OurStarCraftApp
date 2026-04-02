@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _zvpMutalHydraVsForgeExpand = ScenarioScript(
   id: 'zvp_mutal_hydra_vs_forge_expand',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_mutal_hydra'],
-  awayBuildIds: ['pvz_trans_forge_expand'],
+  homeBuildIds: ['zvp_trans_mutal_hydra', 'zvp_2hatch_mutal'],
+  awayBuildIds: ['pvz_trans_forge_expand', 'pvz_forge_cannon'],
   description: '뮤탈 프로브 견제 + 히드라 타이밍 vs 포지 더블 수비',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -33,10 +33,10 @@ const _zvpMutalHydraVsForgeExpand = ScenarioScript(
           altText: '{home}, 앞마당 해처리! 확장을 가져갑니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수 앞마당 넥서스를 건설합니다! 캐논으로 입구를 막습니다!',
+          text: '{away} 선수 앞마당 넥서스를 건설합니다! 게이트웨이와 캐논으로 입구를 막습니다!',
           owner: LogOwner.away,
           awayResource: -30,
-          altText: '{away}, 넥서스 건설! 캐논과 게이트웨이로 봉쇄!',
+          altText: '{away}, 넥서스 건설! 게이트웨이와 캐논으로 봉쇄!',
         ),
         ScriptEvent(
           text: '{home} 선수 스포닝풀과 가스를 넣으면서 레어를 향합니다.',
@@ -44,7 +44,7 @@ const _zvpMutalHydraVsForgeExpand = ScenarioScript(
           homeResource: -25,
         ),
         ScriptEvent(
-          text: '국룰 포지더블! 저그는 뮤탈과 히드라를 선택했습니다!',
+          text: '국룰 포지더블! 저그는 공중 견제와 히드라를 선택했습니다!',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
@@ -61,19 +61,19 @@ const _zvpMutalHydraVsForgeExpand = ScenarioScript(
           text: '{home} 선수 스파이어 완성! 뮤탈리스크를 생산합니다!',
           owner: LogOwner.home,
           homeArmy: 4, homeResource: -25,
-          altText: '{home}, 뮤탈리스크! 프로브를 견제하러 갑니다!',
+          altText: '{home}, 스파이어에서 뮤탈리스크 생산! 프로브를 견제하러 갑니다!',
         ),
         ScriptEvent(
           text: '{home}, 뮤탈이 프로토스 본진 프로브를 물어뜯습니다!',
           owner: LogOwner.home,
           awayResource: -15, favorsStat: 'harass',
-          altText: '{home} 선수 뮤탈 견제! 프로브가 줄어듭니다!',
+          altText: '{home} 선수 뮤탈이 프로브를 물어뜯습니다! 일꾼이 줄어들어요!',
         ),
         ScriptEvent(
-          text: '{away} 선수 스타게이트에서 커세어를 생산합니다! 뮤탈 대응!',
+          text: '{away} 선수 사이버네틱스 코어에서 스타게이트로! 커세어를 생산합니다! 뮤탈 대응!',
           owner: LogOwner.away,
           awayArmy: 3, awayResource: -20,
-          altText: '{away}, 커세어! 뮤탈을 잡아야 합니다!',
+          altText: '{away}, 사이버네틱스 코어 뒤로 스타게이트! 커세어로 뮤탈을 잡아야 합니다!',
         ),
         ScriptEvent(
           text: '{away}, 커세어로 오버로드를 사냥합니다!',
@@ -163,7 +163,7 @@ const _zvpMutalHydraVsForgeExpand = ScenarioScript(
               altText: '{away}, 스톰! 히드라 편대가 녹아내립니다!',
             ),
             ScriptEvent(
-              text: '{away}, 커세어가 뮤탈을 쫓아냅니다! 질럿 드라군이 역공!',
+              text: '{away}, 커세어가 뮤탈을 쫓아냅니다! 질럿과 드라군이 역공합니다!',
               owner: LogOwner.away,
               homeArmy: -3, awayArmy: 2, favorsStat: 'attack',
             ),

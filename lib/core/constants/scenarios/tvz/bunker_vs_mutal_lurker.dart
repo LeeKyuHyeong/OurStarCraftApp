@@ -7,7 +7,7 @@ const _tvzBunkerVsMutalLurker = ScenarioScript(
   id: 'tvz_bunker_vs_mutal_lurker',
   matchup: 'TvZ',
   homeBuildIds: ['tvz_bunker'],
-  awayBuildIds: ['zvt_trans_mutal_lurker'],
+  awayBuildIds: ['zvt_trans_mutal_lurker', 'zvt_12pool', 'zvt_9pool'],
   description: '벙커 러시 vs 뮤탈 럴커 — 초반 올인 vs 밸런스 조합',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -145,7 +145,7 @@ const _tvzBunkerVsMutalLurker = ScenarioScript(
               altText: '{home}, 앞마당 해처리가 무너집니다!',
             ),
             ScriptEvent(
-              text: '뮤탈이 나오기 전에 끝냈습니다! GG!',
+              text: '벙커 러시로 저그를 무너뜨렸습니다! GG!',
               owner: LogOwner.home,
               decisive: true,
             ),

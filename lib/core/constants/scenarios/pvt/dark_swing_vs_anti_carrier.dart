@@ -7,7 +7,7 @@ const _pvtDarkSwingVsAntiCarrier = ScenarioScript(
   id: 'pvt_dark_swing_vs_anti_carrier',
   matchup: 'PvT',
   homeBuildIds: ['pvt_dark_swing'],
-  awayBuildIds: ['tvp_trans_anti_carrier'],
+  awayBuildIds: ['tvp_trans_anti_carrier', 'tvp_anti_carrier'],
   description: '다크 스윙 vs 골리앗 대공형 테란',
   phases: [
     // Phase 0: 오프닝 (lines 1-10)
@@ -96,7 +96,7 @@ const _pvtDarkSwingVsAntiCarrier = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 다크가 SCV 라인에 도착합니다!',
+          text: '{home} 선수 다크가 미네랄 라인에 도착합니다!',
           owner: LogOwner.home,
           favorsStat: 'harass',
         ),
@@ -109,7 +109,7 @@ const _pvtDarkSwingVsAntiCarrier = ScenarioScript(
           text: '{home}, 다크가 잠입합니다! 골리앗으로는 안 보여요!',
           owner: LogOwner.home,
           favorsStat: 'harass',
-          altText: '{home} 선수 다크가 일꾼 라인으로!',
+          altText: '{home} 선수 다크가 미네랄 라인으로!',
         ),
         ScriptEvent(
           text: '{away} 선수 골리앗을 추가 생산합니다!',

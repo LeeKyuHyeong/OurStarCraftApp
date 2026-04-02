@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _tvzValkyrieVs530Mutal = ScenarioScript(
   id: 'tvz_valkyrie_vs_530_mutal',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_valkyrie'],
-  awayBuildIds: ['zvt_trans_530_mutal'],
+  homeBuildIds: ['tvz_trans_valkyrie', 'tvz_valkyrie'],
+  awayBuildIds: ['zvt_trans_530_mutal', 'zvt_1hatch_allin'],
   description: '발키리 대공 vs 1해처리 럴커 타이밍 공격',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -149,7 +149,7 @@ const _tvzValkyrieVs530Mutal = ScenarioScript(
               awayResource: -10,
             ),
             ScriptEvent(
-              text: '럴커 타이밍 실패! 테란이 버텨냈습니다! GG!',
+              text: '저그 타이밍 실패! 테란이 버텨냈습니다! GG!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -166,7 +166,7 @@ const _tvzValkyrieVs530Mutal = ScenarioScript(
               awayArmy: 3,
               homeArmy: -4,
               favorsStat: 'attack',
-              altText: '{away}, 럴커 스파인에 마린이 녹습니다!',
+              altText: '{away} 선수 럴커가 스파인으로 테란 보병을 녹여냅니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 발키리가 하늘에서 지켜볼 수밖에 없습니다!',

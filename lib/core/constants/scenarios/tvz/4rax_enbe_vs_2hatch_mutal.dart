@@ -7,7 +7,7 @@ const _tvz4raxEnbeVs2hatchMutal = ScenarioScript(
   id: 'tvz_4rax_enbe_vs_2hatch_mutal',
   matchup: 'TvZ',
   homeBuildIds: ['tvz_4rax_enbe'],
-  awayBuildIds: ['zvt_trans_2hatch_mutal'],
+  awayBuildIds: ['zvt_trans_2hatch_mutal', 'zvt_2hatch_mutal'],
   description: '선엔베 4배럭 타이밍 vs 2해처리 뮤탈리스크',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -144,7 +144,7 @@ const _tvz4raxEnbeVs2hatchMutal = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '4배럭 타이밍 성공! 뮤탈이 돌아오기 전에 끝냈습니다! GG!',
+              text: '4배럭 타이밍 성공! 마린 물량 앞에 저그가 무너집니다! GG!',
               owner: LogOwner.home,
               decisive: true,
             ),

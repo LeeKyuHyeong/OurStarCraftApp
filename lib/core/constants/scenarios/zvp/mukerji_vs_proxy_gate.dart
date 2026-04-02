@@ -1,14 +1,14 @@
 part of '../../scenario_scripts.dart';
 
 // ----------------------------------------------------------
-// 뮤커지 vs 프록시 게이트: 뮤탈+저글링 vs 질럿 러시
+// 뮤커지 vs 프록시 게이트: 뮤탈과 저글링 vs 질럿 러시
 // ----------------------------------------------------------
 const _zvpMukerjiVsProxyGate = ScenarioScript(
   id: 'zvp_mukerji_vs_proxy_gate',
   matchup: 'ZvP',
   homeBuildIds: ['zvp_trans_mukerji'],
   awayBuildIds: ['pvz_proxy_gate'],
-  description: '뮤탈+저글링 조합 vs 프록시 질럿 러시 — 초반 수비 후 뮤탈 역습',
+  description: '뮤탈과 저글링 조합 vs 프록시 질럿 러시 — 초반 수비 후 뮤탈 역습',
   phases: [
     // Phase 0: opening (lines 1-11)
     ScriptPhase(
@@ -136,7 +136,7 @@ const _zvpMukerjiVsProxyGate = ScenarioScript(
               owner: LogOwner.home,
               awayResource: -25,
               favorsStat: 'harass',
-              altText: '{home}, 뮤탈리스크 견제! 프로브가 녹아내립니다!',
+              altText: '{home}, 뮤탈리스크가 프로브를 사냥합니다! 일꾼이 녹아내려요!',
             ),
             ScriptEvent(
               text: '{away} 선수 대공 유닛이 없습니다! 프록시에 자원을 다 썼어요!',
@@ -152,7 +152,7 @@ const _zvpMukerjiVsProxyGate = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '뮤탈+저글링의 협공! 프록시 올인 실패로 프로토스가 무너집니다!',
+              text: '뮤탈과 저글링의 협공! 프록시 올인 실패로 프로토스가 무너집니다!',
               owner: LogOwner.home,
               decisive: true,
             ),

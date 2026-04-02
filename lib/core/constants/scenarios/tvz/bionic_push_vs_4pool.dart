@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _tvzBionicPushVs4pool = ScenarioScript(
   id: 'tvz_bionic_push_vs_4pool',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_bionic_push'],
+  homeBuildIds: ['tvz_trans_bionic_push', 'tvz_sk'],
   awayBuildIds: ['zvt_4pool'],
   description: '바이오닉 푸시 vs 4풀 극초반 저글링 러시',
   phases: [

@@ -107,7 +107,7 @@ const _zvpHydraLurkerVsCorsair = ScenarioScript(
           favorsStat: 'scout',
         ),
         ScriptEvent(
-          text: '{away} 선수 지상 병력을 집결시킵니다. 드라군과 질럿이 전진해요.',
+          text: '{away} 선수 지상 병력을 집결시킵니다. 사이버네틱스 코어에서 나온 드라군과 질럿이 전진해요.',
           owner: LogOwner.away,
           awayArmy: 3,
           awayResource: -15,

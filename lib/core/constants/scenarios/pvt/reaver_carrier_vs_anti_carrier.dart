@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvtReaverCarrierVsAntiCarrier = ScenarioScript(
   id: 'pvt_reaver_carrier_vs_anti_carrier',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_reaver_carrier'],
-  awayBuildIds: ['tvp_trans_anti_carrier'],
+  homeBuildIds: ['pvt_trans_reaver_carrier', 'pvt_reaver_shuttle', 'pvt_carrier'],
+  awayBuildIds: ['tvp_trans_anti_carrier', 'tvp_anti_carrier'],
   description: '리버 셔틀 + 캐리어 전환 vs 골리앗 대공 특화 — 하드 카운터 대결',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -27,10 +27,10 @@ const _pvtReaverCarrierVsAntiCarrier = ScenarioScript(
           altText: '{away}, 배럭과 팩토리를 올리며 안정적으로 시작합니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스를 건설합니다! 리버를 빨리 꺼내겠다는 거죠.',
+          text: '{home} 선수 로보틱스와 서포트 베이를 건설합니다! 공성 유닛을 빨리 꺼내겠다는 거죠.',
           owner: LogOwner.home,
           homeResource: -20,
-          altText: '{home}, 로보틱스 건설! 리버 셔틀 빌드를 가져갑니다.',
+          altText: '{home}, 로보틱스와 서포트 베이 건설! 로보 셔틀 빌드를 가져갑니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 아머리를 일찍 올립니다! 골리앗 사정거리 업그레이드를 노리네요!',
@@ -121,7 +121,7 @@ const _pvtReaverCarrierVsAntiCarrier = ScenarioScript(
           owner: LogOwner.away,
           awayArmy: 3,
           awayResource: -15,
-          altText: '{away}, 골리앗 물량이 쌓입니다! 이 대공 화력 앞에 캐리어가 버틸 수 있을까요?',
+          altText: '{away}, 골리앗 물량이 쌓입니다! 골리앗이 쌓이는 대공 화력 앞에 적 함대가 버틸 수 있을까요?',
         ),
         ScriptEvent(
           text: '골리앗 레인지 업! 캐리어에 대한 완벽한 카운터가 준비되었습니다!',
@@ -186,7 +186,7 @@ const _pvtReaverCarrierVsAntiCarrier = ScenarioScript(
               awayArmy: 3,
               homeArmy: -5,
               favorsStat: 'control',
-              altText: '{away}, 골리앗 레인지 업! 캐리어가 접근하기도 전에 격추당합니다!',
+              altText: '{away}, 골리앗 레인지 업! 골리앗이 대공 사격! 적 함대가 접근하기도 전에 격추당합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 캐리어가 한 기씩 떨어집니다! 인터셉터가 사출되기도 전에!',
@@ -210,7 +210,7 @@ const _pvtReaverCarrierVsAntiCarrier = ScenarioScript(
               awayArmy: 25,
               homeArmy: -15,
               decisive: true,
-              altText: '{away}, 골리앗 대공의 완벽한 승리! 캐리어가 하늘에서 추락합니다!',
+              altText: '{away}, 골리앗 대공의 완벽한 승리! 골리앗이 완벽한 승리! 적 함대가 하늘에서 추락합니다!',
             ),
           ],
         ),

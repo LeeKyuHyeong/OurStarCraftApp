@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvt5gatePushVsTimingPush = ScenarioScript(
   id: 'pvt_5gate_push_vs_timing_push',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_5gate_push'],
-  awayBuildIds: ['tvp_trans_timing_push'],
+  homeBuildIds: ['pvt_trans_5gate_push', 'pvt_1gate_expand'],
+  awayBuildIds: ['tvp_trans_timing_push', 'tvp_fake_double', 'tvp_1fac_drop'],
   description: '5게이트 타이밍 vs 마린 탱크 타이밍 — 정면 충돌',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -181,7 +181,7 @@ const _pvt5gatePushVsTimingPush = ScenarioScript(
               awayArmy: 3,
               homeArmy: -5,
               favorsStat: 'attack',
-              altText: '{away}, 탱크 포격! 드라군이 뭉쳐 있다가 녹습니다!',
+              altText: '{away}, 탱크가 포격합니다! 상대 병력이 뭉쳐 있다가 녹습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 질럿이 마린에 막힙니다! 스팀팩 마린 화력!',

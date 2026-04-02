@@ -148,19 +148,19 @@ const _zvz9poolMirrorSingle = ScenarioScript(
       recoveryResourcePerLine: 5,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 저글링을 줄이고 스파이어를 올리려 합니다!',
+          text: '{home} 선수 레어를 올리면서 스파이어를 준비합니다!',
           owner: LogOwner.home,
           homeResource: -25,
           altText: '{home}, 스파이어 건설! 위험한 타이밍!',
         ),
         ScriptEvent(
-          text: '{away} 선수 앞마당 해처리를 올리면서 성큰을 깔아놓습니다!',
+          text: '{away} 선수도 레어를 올리면서 스파이어를 준비합니다!',
           owner: LogOwner.away,
-          awayResource: -30, awayArmy: 2,
-          altText: '{away}, 앞마당 선택! 성큰으로 수비하면서 확장!',
+          awayResource: -25,
+          altText: '{away}, 스파이어 건설! 뮤탈 경쟁 시작!',
         ),
         ScriptEvent(
-          text: '스파이어를 가려는 쪽은 저글링을 아끼며 수비합니다!',
+          text: '스파이어를 올리는 순간이 서로에게 가장 위험한 타이밍입니다!',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
@@ -170,10 +170,10 @@ const _zvz9poolMirrorSingle = ScenarioScript(
           homeArmy: 2, homeResource: -15,
         ),
         ScriptEvent(
-          text: '{away} 선수도 레어를 올리면서 스파이어를 준비합니다!',
+          text: '{away} 선수도 성큰을 깔면서 수비 태세를 갖춥니다!',
           owner: LogOwner.away,
-          awayResource: -25,
-          altText: '{away}, 스파이어 건설! 뮤탈 경쟁 시작!',
+          awayArmy: 2, awayResource: -15,
+          altText: '{away}, 성큰으로 수비하면서 뮤탈 준비!',
         ),
       ],
     ),

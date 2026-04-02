@@ -75,7 +75,7 @@ const _pvp1gateRoboVs2gateDragoon = ScenarioScript(
         ScriptEvent(
           text: '{away}, 드라군 편대가 전진합니다! 테크 전에 밀어야 합니다!',
           owner: LogOwner.away,
-          awayArmy: 3, favorsStat: 'attack',
+          awayArmy: 4, favorsStat: 'attack',
           altText: '{away} 선수 드라군 전진! 상대 테크가 완성되기 전에!',
         ),
         ScriptEvent(

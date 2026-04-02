@@ -61,9 +61,9 @@ const _pvpDragoonVsNogate = ScenarioScript(
           altText: '{home} 선수 질럿이 프로브를 베기 시작합니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 프로브로 질럿을 막으려 합니다!',
+          text: '{away} 선수 프로브와 질럿으로 질럿을 막으려 합니다!',
           owner: LogOwner.away,
-          awayArmy: 1,
+          awayArmy: 4,
         ),
         ScriptEvent(
           text: '{home} 선수 드라군도 바로 출발! 압박을 이어갑니다!',

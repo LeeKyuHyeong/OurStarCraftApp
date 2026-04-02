@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _zvp973HydraVsForgeExpand = ScenarioScript(
   id: 'zvp_973_hydra_vs_forge_expand',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_973_hydra'],
-  awayBuildIds: ['pvz_trans_forge_expand'],
+  homeBuildIds: ['zvp_trans_973_hydra', 'zvp_973_hydra', 'zvp_9pool'],
+  awayBuildIds: ['pvz_trans_forge_expand', 'pvz_forge_cannon'],
   description: '973 히드라 vs 포지 확장 — 히드라 타이밍으로 캐논 라인을 돌파한다',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -16,10 +16,10 @@ const _zvp973HydraVsForgeExpand = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 9풀로 스포닝풀을 올립니다! 973 히드라 빌드!',
+          text: '{home} 선수 9풀로 스포닝풀을 올립니다! 공격적인 오프닝!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 9풀 오프닝! 빠른 히드라를 준비합니다.',
+          altText: '{home}, 9풀 오프닝! 공격적인 빌드를 준비합니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 포지를 올리고 앞마당 넥서스를 건설합니다.',
@@ -28,7 +28,7 @@ const _zvp973HydraVsForgeExpand = ScenarioScript(
           altText: '{away}, 포지 확장! 캐논으로 앞마당을 지키며 확장합니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수 캐논 2기를 세워 앞마당을 안전하게 지킵니다.',
+          text: '{away} 선수 캐논 2기를 세우고 게이트웨이를 올려 앞마당을 지킵니다.',
           owner: LogOwner.away,
           awayArmy: 2,
           awayResource: -10,
@@ -41,7 +41,7 @@ const _zvp973HydraVsForgeExpand = ScenarioScript(
           favorsStat: 'macro',
         ),
         ScriptEvent(
-          text: '973 히드라 타이밍 vs 포지 확장! 공격과 수비의 대결입니다.',
+          text: '타이밍 어택 vs 포지 확장! 공격과 수비의 대결입니다.',
           owner: LogOwner.system,
         ),
       ],
@@ -75,11 +75,11 @@ const _zvp973HydraVsForgeExpand = ScenarioScript(
           favorsStat: 'attack',
         ),
         ScriptEvent(
-          text: '{away} 선수 게이트웨이를 추가하며 드라군 생산을 시작합니다.',
+          text: '{away} 선수 사이버네틱스 코어에서 드라군 생산을 시작합니다.',
           owner: LogOwner.away,
           awayArmy: 2,
           awayResource: -15,
-          skipChance: 0.3,
+          altText: '{away}, 사이버네틱스 코어에서 드라군! 캐논과 함께 수비합니다.',
         ),
         ScriptEvent(
           text: '히드라 타이밍 어택! 캐논 라인을 뚫을 수 있을까요?',
@@ -111,7 +111,7 @@ const _zvp973HydraVsForgeExpand = ScenarioScript(
           skipChance: 0.2,
         ),
         ScriptEvent(
-          text: '{away} 선수 커세어를 생산해서 오버로드를 사냥합니다!',
+          text: '{away} 선수 스타게이트에서 커세어를 생산해서 오버로드를 사냥합니다!',
           owner: LogOwner.away,
           awayArmy: 1,
           homeResource: -10,

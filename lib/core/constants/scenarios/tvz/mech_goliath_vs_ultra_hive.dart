@@ -1,13 +1,13 @@
 part of '../../scenario_scripts.dart';
 
 // ----------------------------------------------------------
-// 메카닉 골리앗 vs 울트라 하이브: 시즈탱크 라인 vs 울트라+디파일러
+// 메카닉 골리앗 vs 울트라 하이브: 시즈탱크 라인 vs 울트라와 디파일러
 // ----------------------------------------------------------
 const _tvzMechGoliathVsUltraHive = ScenarioScript(
   id: 'tvz_mech_goliath_vs_ultra_hive',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_mech_goliath'],
-  awayBuildIds: ['zvt_trans_ultra_hive'],
+  homeBuildIds: ['tvz_trans_mech_goliath', 'tvz_3fac_goliath'],
+  awayBuildIds: ['zvt_trans_ultra_hive', 'zvt_3hatch_nopool'],
   description: '메카닉 골리앗 vs 울트라 하이브 — 시즈탱크 스플래시 vs 울트라 돌진',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -27,13 +27,12 @@ const _tvzMechGoliathVsUltraHive = ScenarioScript(
           altText: '{away}, 앞마당 확장하면서 장기전을 준비합니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 팩토리 완성! 시즈탱크 생산을 시작합니다.',
+          text: '{home} 선수 팩토리 완성! 머신샵을 붙이면서 메카닉 체제를 갖춥니다.',
           owner: LogOwner.home,
-          homeArmy: 2,
           homeResource: -15,
         ),
         ScriptEvent(
-          text: '{away} 선수 저글링으로 정찰하면서 3번째 해처리를 노립니다.',
+          text: '{away} 선수 스포닝풀 건설하고 저글링으로 정찰합니다. 3번째 해처리도 노리구요.',
           owner: LogOwner.away,
           awayArmy: 2,
           awayResource: -20,
@@ -72,13 +71,13 @@ const _tvzMechGoliathVsUltraHive = ScenarioScript(
           skipChance: 0.3,
         ),
         ScriptEvent(
-          text: '{away} 선수 하이브 건설! 울트라리스크 둥지를 올립니다!',
+          text: '{away} 선수 하이브 건설을 시작합니다! 최종 테크를 노리는군요!',
           owner: LogOwner.away,
           awayResource: -25,
-          altText: '{away}, 하이브가 올라갑니다! 울트라리스크가 곧 나옵니다!',
+          altText: '{away}, 하이브가 올라갑니다! 후반을 준비하고 있습니다!',
         ),
         ScriptEvent(
-          text: '테란이 먼저 밀어야 합니다! 울트라리스크가 나오면 상황이 달라집니다!',
+          text: '테란이 먼저 밀어야 합니다! 하이브가 완성되면 상황이 달라집니다!',
           owner: LogOwner.system,
         ),
       ],
@@ -91,11 +90,31 @@ const _tvzMechGoliathVsUltraHive = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 시즈탱크+골리앗으로 전진을 시작합니다!',
+          text: '{home} 선수 시즈탱크와 골리앗으로 전진을 시작합니다!',
           owner: LogOwner.home,
           homeArmy: 2,
           homeResource: -10,
           favorsStat: 'attack',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 저글링과 성큰으로 시간을 벌면서 하이브 테크를 완성합니다!',
+          owner: LogOwner.away,
+          awayArmy: 2,
+          awayResource: -10,
+          favorsStat: 'defense',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 시즈모드를 전개합니다! 저그 앞마당을 포격!',
+          owner: LogOwner.home,
+          homeArmy: 1,
+          awayArmy: -1,
+          favorsStat: 'control',
+          altText: '{home}, 시즈탱크 라인이 전개됩니다! 포격 개시!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 디파일러 마운드를 건설합니다! 다크스웜을 준비하구요!',
+          owner: LogOwner.away,
+          awayResource: -15,
         ),
         ScriptEvent(
           text: '{away} 선수 울트라리스크가 등장합니다! 디파일러도 합류!',

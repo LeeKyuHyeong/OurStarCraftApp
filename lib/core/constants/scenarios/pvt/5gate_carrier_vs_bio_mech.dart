@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvt5gateCarrierVsBioMech = ScenarioScript(
   id: 'pvt_5gate_carrier_vs_bio_mech',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_5gate_carrier'],
-  awayBuildIds: ['tvp_trans_bio_mech'],
+  homeBuildIds: ['pvt_trans_5gate_carrier', 'pvt_1gate_expand', 'pvt_carrier'],
+  awayBuildIds: ['tvp_trans_bio_mech', 'tvp_rax_double'],
   description: '5게이트 캐리어 vs 바이오 메카닉 — 캐리어 vs 골리앗 대공',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -96,7 +96,7 @@ const _pvt5gateCarrierVsBioMech = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 더블 스타게이트에서 캐리어 생산!',
+          text: '{home} 선수 더블 스타게이트에서 주력 함선 생산!',
           owner: LogOwner.home,
           homeArmy: 4, homeResource: -30,
           altText: '{home}, 캐리어 생산 돌입! 인터셉터를 채웁니다!',
@@ -160,7 +160,7 @@ const _pvt5gateCarrierVsBioMech = ScenarioScript(
               text: '{away} 선수 골리앗 편대가 캐리어에 집중 화력! 사거리 업그레이드!',
               owner: LogOwner.away,
               homeArmy: -4, favorsStat: 'defense',
-              altText: '{away}, 골리앗 집중 사격! 캐리어가 버티지 못합니다!',
+              altText: '{away}, 골리앗 집중 사격! 골리앗이 집중 사격! 적 함대가 버티지 못합니다!',
             ),
             ScriptEvent(
               text: '{away}, 탱크 시즈 포격으로 드라군도 정리합니다!',

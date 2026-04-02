@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _tvzWraithVsLurkerDefiler = ScenarioScript(
   id: 'tvz_wraith_vs_lurker_defiler',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_wraith'],
-  awayBuildIds: ['zvt_trans_lurker_defiler'],
+  homeBuildIds: ['tvz_trans_wraith', 'tvz_2star_wraith'],
+  awayBuildIds: ['zvt_trans_lurker_defiler', 'zvt_2hatch_lurker'],
   description: '레이스 클로킹 견제 vs 럴커 디파일러 지상 방어',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -106,7 +106,7 @@ const _tvzWraithVsLurkerDefiler = ScenarioScript(
           favorsStat: 'attack',
         ),
         ScriptEvent(
-          text: '{away} 선수 디파일러를 준비합니다! 다크스웜 연구!',
+          text: '{away} 선수 하이브 올리고 디파일러를 준비합니다! 다크스웜 연구!',
           owner: LogOwner.away,
           awayResource: -15,
           favorsStat: 'strategy',
@@ -166,7 +166,7 @@ const _tvzWraithVsLurkerDefiler = ScenarioScript(
               awayArmy: 4,
               homeArmy: -3,
               favorsStat: 'attack',
-              altText: '{away}, 다크스웜 아래 럴커! 마린이 아무것도 할 수 없어요!',
+              altText: '{away} 선수 디파일러가 다크스웜을 뿌립니다! 테란 보병이 무력화!',
             ),
             ScriptEvent(
               text: '{home} 선수 지상이 뚫렸습니다! 레이스만으로는 부족!',

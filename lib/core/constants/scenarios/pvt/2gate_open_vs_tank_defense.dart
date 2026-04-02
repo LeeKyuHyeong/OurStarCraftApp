@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvt2gateOpenVsTankDefense = ScenarioScript(
   id: 'pvt_2gate_open_vs_tank_defense',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_2gate_open'],
-  awayBuildIds: ['tvp_trans_tank_defense'],
+  homeBuildIds: ['pvt_2gate_open', 'pvt_2gate_zealot'],
+  awayBuildIds: ['tvp_trans_tank_defense', 'tvp_double', 'tvp_mine_triple', 'tvp_fd'],
   description: '투게이트 질럿 압박 vs 탱크 수비 운영',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)

@@ -127,7 +127,7 @@ const _zvpMutalHydraVsCannonRush = ScenarioScript(
               text: '{home} 선수 뮤탈이 프로브를 물어뜯습니다! 대공이 없습니다!',
               owner: LogOwner.home,
               awayResource: -20, favorsStat: 'harass',
-              altText: '{home}, 뮤탈 견제! 프로브가 전멸합니다!',
+              altText: '{home}, 뮤탈이 프로브를 사냥합니다! 일꾼이 전멸해요!',
             ),
             ScriptEvent(
               text: '{home}, 히드라가 전진합니다! 지상도 장악!',

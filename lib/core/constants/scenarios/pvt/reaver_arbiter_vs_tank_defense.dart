@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvtReaverArbiterVsTankDefense = ScenarioScript(
   id: 'pvt_reaver_arbiter_vs_tank_defense',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_reaver_arbiter'],
-  awayBuildIds: ['tvp_trans_tank_defense'],
+  homeBuildIds: ['pvt_trans_reaver_arbiter', 'pvt_1gate_expand', 'pvt_reaver_shuttle'],
+  awayBuildIds: ['tvp_trans_tank_defense', 'tvp_double', 'tvp_mine_triple', 'tvp_fd'],
   description: '리버 아비터 vs 시즈탱크 수비 — 리콜로 시즈 라인 뒤를 찌른다',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -28,10 +28,10 @@ const _pvtReaverArbiterVsTankDefense = ScenarioScript(
           altText: '{away}, 시즈탱크 생산! 수비적인 진형을 갖추려 하네요!',
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스를 건설합니다. 리버를 준비하는군요.',
+          text: '{home} 선수 로보틱스와 서포트 베이를 건설합니다. 공성 유닛을 준비하는군요.',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 로보틱스가 올라갑니다!',
+          altText: '{home}, 로보틱스와 서포트 베이가 올라갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 벙커와 시즈탱크로 앞마당 라인을 구축합니다.',
@@ -54,7 +54,7 @@ const _pvtReaverArbiterVsTankDefense = ScenarioScript(
       recoveryResourcePerLine: 8,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 셔틀 리버가 출발합니다! 일꾼 라인을 노립니다!',
+          text: '{home} 선수 셔틀 리버가 출발합니다! SCV를 노립니다!',
           owner: LogOwner.home,
           homeArmy: 4,
           homeResource: -20,
@@ -65,7 +65,7 @@ const _pvtReaverArbiterVsTankDefense = ScenarioScript(
           owner: LogOwner.home,
           awayResource: -20,
           favorsStat: 'harass',
-          altText: '{home}, 스캐럽 명중! SCV가 날아갑니다!',
+          altText: '{home}, 리버가 스캐럽 명중! SCV를 날려보냅니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 터렛을 올리고 마린을 배치합니다.',
@@ -136,7 +136,7 @@ const _pvtReaverArbiterVsTankDefense = ScenarioScript(
               homeArmy: 5,
               awayResource: -20,
               favorsStat: 'strategy',
-              altText: '{home}, 리콜! 드라군 대부대가 테란 일꾼 라인에 나타납니다!',
+              altText: '{home}, 리콜! 드라군 대부대가 테란 미네랄 라인에 나타납니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 시즈탱크가 언시즈하고 돌아오지만 늦었습니다!',

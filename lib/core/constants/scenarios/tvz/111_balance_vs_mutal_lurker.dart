@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _tvz111BalanceVsMutalLurker = ScenarioScript(
   id: 'tvz_111_balance_vs_mutal_lurker',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_111_balance'],
-  awayBuildIds: ['zvt_trans_mutal_lurker'],
+  homeBuildIds: ['tvz_trans_111_balance', 'tvz_111'],
+  awayBuildIds: ['zvt_trans_mutal_lurker', 'zvt_12pool', 'zvt_9pool'],
   description: '111 밸런스 vs 뮤탈 럴커 — 레이스 대공+마인 대지 vs 뮤탈 견제+럴커 진지',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -38,7 +38,7 @@ const _tvz111BalanceVsMutalLurker = ScenarioScript(
           owner: LogOwner.away,
           awayResource: -25,
           favorsStat: 'strategy',
-          altText: '{away}, 뮤탈+럴커 투트랙을 준비하는 빌드입니다!',
+          altText: '{away}, 뮤탈과 럴커 투트랙을 준비하는 빌드입니다!',
         ),
         ScriptEvent(
           text: '레이스가 저그 빌드를 확인하러 갑니다!',
@@ -79,7 +79,7 @@ const _tvz111BalanceVsMutalLurker = ScenarioScript(
           awayArmy: 3,
           awayResource: -15,
           favorsStat: 'strategy',
-          altText: '{away}, 럴커까지 합류! 공중+지상 양면 공격입니다!',
+          altText: '{away}, 럴커까지 합류! 공중과 지상 양면 공격입니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 시즈탱크를 배치하면서 양면 방어를 시도합니다!',
@@ -188,7 +188,7 @@ const _tvz111BalanceVsMutalLurker = ScenarioScript(
               homeResource: -15,
             ),
             ScriptEvent(
-              text: '뮤탈+럴커 양면 공격이 111 빌드를 압도합니다! GG!',
+              text: '뮤탈과 럴커 양면 공격이 111 빌드를 압도합니다! GG!',
               owner: LogOwner.away,
               decisive: true,
             ),

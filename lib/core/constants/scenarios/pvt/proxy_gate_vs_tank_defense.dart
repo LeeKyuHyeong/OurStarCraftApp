@@ -7,7 +7,7 @@ const _pvtProxyGateVsTankDefense = ScenarioScript(
   id: 'pvt_proxy_gate_vs_tank_defense',
   matchup: 'PvT',
   homeBuildIds: ['pvt_proxy_gate'],
-  awayBuildIds: ['tvp_trans_tank_defense'],
+  awayBuildIds: ['tvp_trans_tank_defense', 'tvp_double', 'tvp_mine_triple', 'tvp_fd'],
   description: '프록시 게이트 질럿 러시 vs 탱크 수비형 테란',
   phases: [
     // Phase 0: 오프닝 (lines 1-10)
@@ -75,7 +75,7 @@ const _pvtProxyGateVsTankDefense = ScenarioScript(
           owner: LogOwner.home,
           awayArmy: -1,
           favorsStat: 'control',
-          altText: '{home} 선수 질럿 돌진! 마린이 한 기 잡힙니다!',
+          altText: '{home} 선수 질럿 돌진! 상대 병력 한 기를 잡습니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 벙커를 올리려 합니다! SCV가 달려갑니다!',
@@ -179,7 +179,7 @@ const _pvtProxyGateVsTankDefense = ScenarioScript(
               owner: LogOwner.away,
               awayArmy: 4,
               favorsStat: 'defense',
-              altText: '{away}, 벙커에 마린 투입! 질럿이 막힙니다!',
+              altText: '{away}, 벙커에 마린 투입! 상대 병력이 막힙니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 질럿이 벙커를 깨지 못합니다! SCV 수리까지!',

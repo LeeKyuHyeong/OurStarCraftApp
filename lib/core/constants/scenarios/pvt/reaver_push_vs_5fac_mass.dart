@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvtReaverPushVs5facMass = ScenarioScript(
   id: 'pvt_reaver_push_vs_5fac_mass',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_reaver_push'],
-  awayBuildIds: ['tvp_trans_5fac_mass'],
+  homeBuildIds: ['pvt_trans_reaver_push', 'pvt_reaver_shuttle', 'pvt_proxy_dark'],
+  awayBuildIds: ['tvp_trans_5fac_mass', 'tvp_5fac_timing', 'tvp_11up_8fac'],
   description: '리버 셔틀 푸시 vs 5팩토리 매스 — 견제로 물량 빌드업 저지',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -27,10 +27,10 @@ const _pvtReaverPushVs5facMass = ScenarioScript(
           altText: '{away}, 팩토리가 줄줄이 올라갑니다! 5팩토리 매스 빌드!',
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스를 건설합니다. 리버를 준비하는군요.',
+          text: '{home} 선수 로보틱스와 서포트 베이를 건설합니다. 공성 유닛을 준비하는군요.',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 로보틱스가 올라갑니다!',
+          altText: '{home}, 로보틱스와 서포트 베이가 올라갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 커맨드센터를 확장합니다. 자원이 많이 필요한 빌드이니까요.',
@@ -69,10 +69,10 @@ const _pvtReaverPushVs5facMass = ScenarioScript(
           text: '{home} 선수 셔틀이 팩토리 밀집 지역 뒤편으로 진입합니다!',
           owner: LogOwner.home,
           favorsStat: 'harass',
-          altText: '{home}, 셔틀이 팩토리 뒤쪽 일꾼 라인을 노립니다!',
+          altText: '{home}, 셔틀이 팩토리 뒤쪽 SCV를 노립니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 스캐럽이 SCV 라인에 떨어집니다! 자원 채취가 줄어들겠네요!',
+          text: '{home} 선수 스캐럽이 미네랄 라인에 떨어집니다! 자원 채취가 줄어들겠네요!',
           owner: LogOwner.home,
           awayResource: -20,
           favorsStat: 'harass',

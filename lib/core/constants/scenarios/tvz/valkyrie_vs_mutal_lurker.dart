@@ -1,13 +1,13 @@
 part of '../../scenario_scripts.dart';
 
 // ----------------------------------------------------------
-// 발키리 대공 vs 뮤탈 럴커 — 대공 vs 공중+지상 분산
+// 발키리 대공 vs 뮤탈 럴커 — 대공 vs 공중과 지상 분산
 // ----------------------------------------------------------
 const _tvzValkyrieVsMutalLurker = ScenarioScript(
   id: 'tvz_valkyrie_vs_mutal_lurker',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_valkyrie'],
-  awayBuildIds: ['zvt_trans_mutal_lurker'],
+  homeBuildIds: ['tvz_trans_valkyrie', 'tvz_valkyrie'],
+  awayBuildIds: ['zvt_trans_mutal_lurker', 'zvt_12pool', 'zvt_9pool'],
   description: '발키리 대공 vs 뮤탈리스크 럴커 분산 운영',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -138,7 +138,7 @@ const _tvzValkyrieVsMutalLurker = ScenarioScript(
               homeArmy: 2,
               awayArmy: -3,
               favorsStat: 'sense',
-              altText: '{home}, 디텍팅에 시즈 모드! 럴커가 터집니다!',
+              altText: '{home} 선수 시즈탱크가 포격합니다! 저그 병력이 터지네요!',
             ),
             ScriptEvent(
               text: '{away} 선수 공중도 지상도 막혔습니다! 병력이 소진됐어요!',
@@ -147,7 +147,7 @@ const _tvzValkyrieVsMutalLurker = ScenarioScript(
               awayResource: -15,
             ),
             ScriptEvent(
-              text: '공중과 지상 모두 제압! 발키리+시즈 조합이 빛납니다! GG!',
+              text: '공중과 지상 모두 제압! 발키리와 시즈 조합이 빛납니다! GG!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -180,7 +180,7 @@ const _tvzValkyrieVsMutalLurker = ScenarioScript(
               favorsStat: 'control',
             ),
             ScriptEvent(
-              text: '뮤탈+럴커 양면 작전 성공! 대응이 불가능했습니다! GG!',
+              text: '뮤탈과 럴커 양면 작전 성공! 대응이 불가능했습니다! GG!',
               owner: LogOwner.away,
               decisive: true,
             ),

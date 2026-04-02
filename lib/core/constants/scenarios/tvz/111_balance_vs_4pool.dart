@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _tvz111BalanceVs4pool = ScenarioScript(
   id: 'tvz_111_balance_vs_4pool',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_111_balance'],
+  homeBuildIds: ['tvz_trans_111_balance', 'tvz_111'],
   awayBuildIds: ['zvt_4pool'],
   description: '111 밸런스 vs 4풀 — 레이스 정찰로 치즈 발견 가능 vs 극초반 올인',
   phases: [
@@ -133,10 +133,10 @@ const _tvz111BalanceVs4pool = ScenarioScript(
               homeArmy: 3,
               awayArmy: -3,
               favorsStat: 'control',
-              altText: '{home}, 벌처 스플래시에 저글링이 녹습니다!',
+              altText: '{home} 선수 벌처가 저글링을 스플래시로 녹입니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 마린+벌처로 저그 본진을 역습합니다!',
+              text: '{home} 선수 마린과 벌처로 저그 본진을 역습합니다!',
               owner: LogOwner.home,
               homeArmy: 2,
               awayArmy: -2,

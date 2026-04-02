@@ -115,7 +115,7 @@ const _zvzPoolFirstVs12hatch = ScenarioScript(
             ScriptEvent(
               text: '{away}, 스포닝풀이 완성됩니다! 저글링으로 반격!',
               owner: LogOwner.away,
-              awayArmy: 8, awayResource: -10, favorsStat: 'defense',
+              awayArmy: 10, awayResource: -10, favorsStat: 'defense',
             ),
             ScriptEvent(
               text: '4풀이 막혔습니다! 드론 수 차이로 12앞마당 유리!',

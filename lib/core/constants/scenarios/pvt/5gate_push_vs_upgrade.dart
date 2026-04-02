@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvt5gatePushVsUpgrade = ScenarioScript(
   id: 'pvt_5gate_push_vs_upgrade',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_5gate_push'],
-  awayBuildIds: ['tvp_trans_upgrade'],
+  homeBuildIds: ['pvt_trans_5gate_push', 'pvt_1gate_expand'],
+  awayBuildIds: ['tvp_trans_upgrade', 'tvp_1fac_gosu'],
   description: '5게이트 타이밍 푸시 vs 업그레이드 운영 — 타이밍 대 후반 파워',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)

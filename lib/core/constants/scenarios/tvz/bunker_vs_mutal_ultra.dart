@@ -7,7 +7,7 @@ const _tvzBunkerVsMutalUltra = ScenarioScript(
   id: 'tvz_bunker_vs_mutal_ultra',
   matchup: 'TvZ',
   homeBuildIds: ['tvz_bunker'],
-  awayBuildIds: ['zvt_trans_mutal_ultra'],
+  awayBuildIds: ['zvt_trans_mutal_ultra', 'zvt_9overpool', 'zvt_3hatch_mutal'],
   description: '벙커 러시 vs 뮤탈 울트라 — 초반 올인 vs 장기전',
   phases: [
     // Phase 0: opening (lines 1-11)

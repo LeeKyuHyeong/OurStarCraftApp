@@ -7,7 +7,7 @@ const _pvtProxyGateVsUpgrade = ScenarioScript(
   id: 'pvt_proxy_gate_vs_upgrade',
   matchup: 'PvT',
   homeBuildIds: ['pvt_proxy_gate'],
-  awayBuildIds: ['tvp_trans_upgrade'],
+  awayBuildIds: ['tvp_trans_upgrade', 'tvp_1fac_gosu'],
   description: '프록시 게이트 질럿 러시 vs 더블 업그레이드 테란',
   phases: [
     // Phase 0: 오프닝 (lines 1-10)
@@ -170,7 +170,7 @@ const _pvtProxyGateVsUpgrade = ScenarioScript(
               owner: LogOwner.away,
               awayArmy: 4,
               favorsStat: 'defense',
-              altText: '{away}, 벙커 방어 성공! 질럿이 막힙니다!',
+              altText: '{away}, 벙커 방어 성공! 상대 병력이 막힙니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 질럿이 벙커를 깨지 못하고 손실만 납니다!',

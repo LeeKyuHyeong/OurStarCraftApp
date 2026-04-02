@@ -7,7 +7,7 @@ const _pvtProxyGateVsTimingPush = ScenarioScript(
   id: 'pvt_proxy_gate_vs_timing_push',
   matchup: 'PvT',
   homeBuildIds: ['pvt_proxy_gate'],
-  awayBuildIds: ['tvp_trans_timing_push'],
+  awayBuildIds: ['tvp_trans_timing_push', 'tvp_fake_double', 'tvp_1fac_drop'],
   description: '프록시 게이트 질럿 러시 vs 타이밍 푸시',
   phases: [
     // Phase 0: 오프닝 (lines 1-10)
@@ -133,7 +133,7 @@ const _pvtProxyGateVsTimingPush = ScenarioScript(
               owner: LogOwner.home,
               awayResource: -30,
               favorsStat: 'attack',
-              altText: '{home}, 질럿 난무! SCV가 녹아내립니다!',
+              altText: '{home}, 질럿 난무! 질럿이 SCV를 녹여냅니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 타이밍 공격을 준비할 수 없습니다! 자원이 끊겼어요!',
@@ -166,7 +166,7 @@ const _pvtProxyGateVsTimingPush = ScenarioScript(
               owner: LogOwner.away,
               homeArmy: -4,
               favorsStat: 'control',
-              altText: '{away}, 벌처 마이크로! 질럿이 쫓아가지 못합니다!',
+              altText: '{away}, 벌처 마이크로! 상대 병력이 쫓아가지 못합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 질럿 러시가 실패합니다! 남은 병력이 없어요!',

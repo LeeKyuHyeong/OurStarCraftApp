@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _tvzMechGoliathVs530Mutal = ScenarioScript(
   id: 'tvz_mech_goliath_vs_530_mutal',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_mech_goliath'],
-  awayBuildIds: ['zvt_trans_530_mutal'],
+  homeBuildIds: ['tvz_trans_mech_goliath', 'tvz_3fac_goliath'],
+  awayBuildIds: ['zvt_trans_530_mutal', 'zvt_1hatch_allin'],
   description: '메카닉 골리앗 vs 1해처리 럴커 타이밍 — 팩토리 증설 vs 럴커 속공',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -153,7 +153,7 @@ const _tvzMechGoliathVs530Mutal = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '럴커 타이밍을 버텨냈습니다! 메카닉 전진 성공! GG!',
+              text: '저그 타이밍을 버텨냈습니다! 메카닉 전진 성공! GG!',
               owner: LogOwner.home,
               decisive: true,
             ),

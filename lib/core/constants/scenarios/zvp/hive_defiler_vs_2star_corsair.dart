@@ -170,14 +170,14 @@ const _zvpHiveDefilerVs2starCorsair = ScenarioScript(
               altText: '{away}, 오버로드가 전부 격추됩니다! 시야가 완전히 사라졌네요!',
             ),
             ScriptEvent(
-              text: '{away} 선수 하이템플러를 합류시킵니다! 사이오닉 스톰!',
+              text: '{away} 선수 게이트웨이와 템플러 아카이브를 거친 하이템플러가 합류합니다! 사이오닉 스톰!',
               owner: LogOwner.away,
               awayArmy: 3,
               homeArmy: -3,
               favorsStat: 'strategy',
             ),
             ScriptEvent(
-              text: '{home} 선수 디파일러가 나오기 전에 병력이 녹아버렸습니다!',
+              text: '{home} 선수 디파일러 마운드의 디파일러가 나오기 전에 병력이 녹아버렸습니다!',
               owner: LogOwner.home,
               homeArmy: -3,
               homeResource: -20,

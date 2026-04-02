@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvtReaverCarrierVsUpgrade = ScenarioScript(
   id: 'pvt_reaver_carrier_vs_upgrade',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_reaver_carrier'],
-  awayBuildIds: ['tvp_trans_upgrade'],
+  homeBuildIds: ['pvt_trans_reaver_carrier', 'pvt_reaver_shuttle', 'pvt_carrier'],
+  awayBuildIds: ['tvp_trans_upgrade', 'tvp_1fac_gosu'],
   description: '리버 셔틀 + 캐리어 전환 vs 더블 업그레이드 매크로 — 후반 결전',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -57,11 +57,11 @@ const _pvtReaverCarrierVsUpgrade = ScenarioScript(
       recoveryResourcePerLine: 8,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 로보틱스에서 리버와 셔틀을 생산합니다!',
+          text: '{home} 선수 로보틱스와 서포트 베이에서 리버와 셔틀을 생산합니다!',
           owner: LogOwner.home,
           homeArmy: 3,
           homeResource: -20,
-          altText: '{home}, 리버 셔틀 조합을 꺼냅니다! 견제에 나서겠죠.',
+          altText: '{home}, 서포트 베이 완성! 리버 셔틀 조합을 꺼냅니다! 견제에 나서겠죠.',
         ),
         ScriptEvent(
           text: '{away} 선수 +1 공격 업그레이드가 완료됩니다! 마린 화력이 올라갑니다!',

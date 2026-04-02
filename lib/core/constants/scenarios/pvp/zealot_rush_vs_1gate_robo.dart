@@ -45,7 +45,7 @@ const _pvpZealotRushVs1gateRobo = ScenarioScript(
           text: '{away} 선수 로보틱스 건설! 테크를 올립니다!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 로보틱스! 리버를 노립니다!',
+          altText: '{away}, 로보틱스! 테크를 올립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 추가 질럿! 공격 준비!',
@@ -75,7 +75,7 @@ const _pvpZealotRushVs1gateRobo = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 드라군과 질럿으로 막습니다! 리버까지 버텨야!',
           owner: LogOwner.away,
-          awayArmy: 2, awayResource: -15,
+          awayArmy: 3, awayResource: -15,
           altText: '{away}, 수비! 리버가 나올 때까지!',
         ),
         ScriptEvent(

@@ -8,7 +8,7 @@ const _zvp4poolVsDragoonPush = ScenarioScript(
   matchup: 'ZvP',
   homeBuildIds: ['zvp_4pool'],
   awayBuildIds: ['pvz_trans_dragoon_push'],
-  description: '4풀 저글링 러시 vs 질럿+드라군 푸쉬',
+  description: '4풀 저글링 러시 vs 질럿과 드라군 푸쉬',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
     ScriptPhase(
@@ -90,7 +90,7 @@ const _zvp4poolVsDragoonPush = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 추가 저글링을 보내지만 질럿+드라군 조합에 막힙니다!',
+          text: '{home} 선수 추가 저글링을 보내지만 질럿과 드라군 조합에 막힙니다!',
           owner: LogOwner.home,
           homeArmy: 2, homeResource: -10,
           altText: '{home}, 저글링 추가! 하지만 돌파가 어렵습니다!',

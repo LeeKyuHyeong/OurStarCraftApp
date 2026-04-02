@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvt5gateArbiterVsTankDefense = ScenarioScript(
   id: 'pvt_5gate_arbiter_vs_tank_defense',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_5gate_arbiter'],
-  awayBuildIds: ['tvp_trans_tank_defense'],
+  homeBuildIds: ['pvt_trans_5gate_arbiter', 'pvt_1gate_expand', 'pvt_1gate_obs'],
+  awayBuildIds: ['tvp_trans_tank_defense', 'tvp_double', 'tvp_mine_triple', 'tvp_fd'],
   description: '5게이트 아비터 vs 탱크 터틀 — 리콜로 방어선 우회',
   phases: [
     // Phase 0: opening (lines 1-11)

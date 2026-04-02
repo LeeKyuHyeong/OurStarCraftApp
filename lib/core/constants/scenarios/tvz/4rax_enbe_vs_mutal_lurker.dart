@@ -7,7 +7,7 @@ const _tvz4raxEnbeVsMutalLurker = ScenarioScript(
   id: 'tvz_4rax_enbe_vs_mutal_lurker',
   matchup: 'TvZ',
   homeBuildIds: ['tvz_4rax_enbe'],
-  awayBuildIds: ['zvt_trans_mutal_lurker'],
+  awayBuildIds: ['zvt_trans_mutal_lurker', 'zvt_12pool', 'zvt_9pool'],
   description: '선엔베 4배럭 타이밍 vs 뮤탈 럴커 밸런스 조합',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -136,7 +136,7 @@ const _tvz4raxEnbeVsMutalLurker = ScenarioScript(
               owner: LogOwner.away,
               awayArmy: -2,
               awayResource: -15,
-              altText: '{away}, 럴커 수가 부족합니다! 마린이 밀고 들어옵니다!',
+              altText: '{away} 선수 럴커가 아직 부족합니다! 테란 보병을 못 막아요!',
             ),
             ScriptEvent(
               text: '{home} 선수 앞마당을 밀고 본진까지 압박합니다!',

@@ -76,7 +76,7 @@ const _zvpYabarwiVsDragoonPush = ScenarioScript(
           favorsStat: 'defense',
         ),
         ScriptEvent(
-          text: '{home} 선수 히드라리스크+럴커를 앞마당에 배치합니다!',
+          text: '{home} 선수 히드라리스크와 럴커를 앞마당에 배치합니다!',
           owner: LogOwner.home,
           homeArmy: 4,
           homeResource: -15,
@@ -138,7 +138,7 @@ const _zvpYabarwiVsDragoonPush = ScenarioScript(
               homeArmy: 4,
               awayArmy: -5,
               favorsStat: 'attack',
-              altText: '{home}, 럴커의 스파인 공격! 드라군이 녹아내립니다!',
+              altText: '{home}, 럴커의 스파인 공격! 드라군을 녹여버립니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 저글링이 프로토스 넥서스를 때립니다!',

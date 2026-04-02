@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvt5gatePushVs5facMass = ScenarioScript(
   id: 'pvt_5gate_push_vs_5fac_mass',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_5gate_push'],
-  awayBuildIds: ['tvp_trans_5fac_mass'],
+  homeBuildIds: ['pvt_trans_5gate_push', 'pvt_1gate_expand'],
+  awayBuildIds: ['tvp_trans_5fac_mass', 'tvp_5fac_timing', 'tvp_11up_8fac'],
   description: '5게이트 드라군+질럿 vs 5팩토리 메카닉 물량 — PvT 정석 대결',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -110,7 +110,7 @@ const _pvt5gatePushVs5facMass = ScenarioScript(
           altText: '{away}, 탱크 벌처 라인! 5팩의 물량이 대단합니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 전군 전진! 탱크가 더 모이기 전에 가야 합니다!',
+          text: '{home} 선수 전군 전진! 드라군이 전진합니다! 상대 병력이 더 모이기 전에 가야 합니다!',
           owner: LogOwner.home,
           favorsStat: 'attack',
           altText: '{home}, 전군 전진! 5게이트 타이밍!',
@@ -176,12 +176,12 @@ const _pvt5gatePushVs5facMass = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수 시즈 탱크 집중 포격! 드라군이 접근도 못 합니다!',
+              text: '{away} 선수 시즈 탱크 집중 포격! 상대 병력이 접근도 못 합니다!',
               owner: LogOwner.away,
               awayArmy: 4,
               homeArmy: -5,
               favorsStat: 'defense',
-              altText: '{away}, 탱크 포격! 드라군이 사정거리 밖에서 녹습니다!',
+              altText: '{away}, 탱크가 포격합니다! 상대 병력이 사정거리 밖에서 녹습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 질럿이 마인에 걸립니다! 접근 자체가 어렵습니다!',

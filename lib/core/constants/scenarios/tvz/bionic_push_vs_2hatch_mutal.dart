@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _tvzBionicPushVs2hatchMutal = ScenarioScript(
   id: 'tvz_bionic_push_vs_2hatch_mutal',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_bionic_push'],
-  awayBuildIds: ['zvt_trans_2hatch_mutal'],
+  homeBuildIds: ['tvz_trans_bionic_push', 'tvz_sk'],
+  awayBuildIds: ['zvt_trans_2hatch_mutal', 'zvt_2hatch_mutal'],
   description: '바이오닉 타이밍 vs 2해처리 빠른 뮤탈리스크',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -30,6 +30,12 @@ const _tvzBionicPushVs2hatchMutal = ScenarioScript(
           text: '{home} 선수 마린 생산 시작!',
           owner: LogOwner.home,
           homeArmy: 2, homeResource: -5,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 팩토리 건설 준비! 머신샵까지 붙일 계획이네요.',
+          owner: LogOwner.home,
+          homeResource: -10,
+          altText: '{home}, 팩토리가 올라갑니다! 머신샵도 곧 건설하구요.',
         ),
         ScriptEvent(
           text: '{away} 선수 스포닝풀 건설합니다.',
@@ -126,7 +132,7 @@ const _tvzBionicPushVs2hatchMutal = ScenarioScript(
               text: '{home}, 스팀팩 마린이 뮤탈리스크를 격추합니다!',
               owner: LogOwner.home,
               homeArmy: 2, awayArmy: -4, favorsStat: 'control',
-              altText: '{home} 선수 마린 집중사격! 뮤탈리스크가 떨어집니다!',
+              altText: '{home} 선수 마린이 집중사격! 뮤탈리스크를 떨어뜨립니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 뮤탈리스크를 잃고 지상 병력이 부족합니다!',
@@ -154,7 +160,7 @@ const _tvzBionicPushVs2hatchMutal = ScenarioScript(
               text: '{away}, 뮤탈리스크 견제로 테란 자원이 고갈됩니다!',
               owner: LogOwner.away,
               homeResource: -25, favorsStat: 'harass',
-              altText: '{away} 선수 뮤탈 견제가 대성공! SCV가 거의 남지 않았어요!',
+              altText: '{away} 선수 뮤탈리스크가 SCV를 잡아냅니다! 테란 일꾼이 거의 없어요!',
             ),
             ScriptEvent(
               text: '{home} 선수 바이오닉 푸시가 힘을 잃습니다. 자원이 부족해요.',

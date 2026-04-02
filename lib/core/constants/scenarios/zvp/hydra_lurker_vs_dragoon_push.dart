@@ -72,7 +72,7 @@ const _zvpHydraLurkerVsDragoonPush = ScenarioScript(
           owner: LogOwner.away,
           awayResource: -15,
           favorsStat: 'scout',
-          altText: '{away}, 옵저버 생산! 럴커가 나올 것을 대비합니다!',
+          altText: '{away}, 옵저버터리에서 옵저버 생산! 럴커가 나올 것을 대비합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 레어 업그레이드 시작! 럴커 진화를 준비합니다!',
@@ -136,7 +136,7 @@ const _zvpHydraLurkerVsDragoonPush = ScenarioScript(
               homeArmy: 3,
               awayArmy: -5,
               favorsStat: 'control',
-              altText: '{home}, 럴커 매몰에 드라군이 녹아내립니다! 위치 선정이 완벽해요!',
+              altText: '{home}, 럴커 매몰에 드라군을 녹여버립니다! 위치 선정이 완벽해요!',
             ),
             ScriptEvent(
               text: '{away} 선수 옵저버가 히드라리스크에 격추됩니다! 럴커가 안 보여요!',

@@ -7,7 +7,7 @@ const _pvtDarkSwingVsUpgrade = ScenarioScript(
   id: 'pvt_dark_swing_vs_upgrade',
   matchup: 'PvT',
   homeBuildIds: ['pvt_dark_swing'],
-  awayBuildIds: ['tvp_trans_upgrade'],
+  awayBuildIds: ['tvp_trans_upgrade', 'tvp_1fac_gosu'],
   description: '다크 스윙 vs 더블 업그레이드 테란',
   phases: [
     // Phase 0: 오프닝 (lines 1-10)
@@ -73,7 +73,7 @@ const _pvtDarkSwingVsUpgrade = ScenarioScript(
           text: '{home}, 다크가 은밀하게 접근합니다! 앞마당을 노립니다!',
           owner: LogOwner.home,
           favorsStat: 'harass',
-          altText: '{home} 선수 다크가 앞마당 SCV 라인으로!',
+          altText: '{home} 선수 다크가 앞마당 미네랄 라인으로!',
         ),
         ScriptEvent(
           text: '더블 빌드라 자원은 많지만 스캔을 아껴야 합니다!',

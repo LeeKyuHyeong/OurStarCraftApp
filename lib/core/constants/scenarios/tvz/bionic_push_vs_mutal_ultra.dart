@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _tvzBionicPushVsMutalUltra = ScenarioScript(
   id: 'tvz_bionic_push_vs_mutal_ultra',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_bionic_push'],
-  awayBuildIds: ['zvt_trans_mutal_ultra'],
+  homeBuildIds: ['tvz_trans_bionic_push', 'tvz_sk'],
+  awayBuildIds: ['zvt_trans_mutal_ultra', 'zvt_9overpool', 'zvt_3hatch_mutal'],
   description: '바이오닉 푸시 vs 뮤탈리스크 → 울트라리스크 전환',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -38,9 +38,10 @@ const _tvzBionicPushVsMutalUltra = ScenarioScript(
           altText: '{away}, 드론 생산에 집중하면서 스포닝풀을 올리구요.',
         ),
         ScriptEvent(
-          text: '{home} 선수 아카데미 건설! 스팀팩 연구를 준비하네요.',
+          text: '{home} 선수 팩토리와 아카데미 건설! 스팀팩 연구를 준비하네요.',
           owner: LogOwner.home,
           homeResource: -15,
+          altText: '{home}, 팩토리와 아카데미가 올라갑니다! 바이오닉 준비!',
         ),
       ],
     ),
@@ -161,10 +162,10 @@ const _tvzBionicPushVsMutalUltra = ScenarioScript(
           conditionStat: 'macro',
           events: [
             ScriptEvent(
-              text: '{away}, 울트라리스크가 등장합니다! 마린이 녹기 시작해요!',
+              text: '{away} 선수 울트라리스크가 등장합니다! 테란 보병이 녹기 시작해요!',
               owner: LogOwner.away,
               awayArmy: 6, homeArmy: -4, favorsStat: 'macro',
-              altText: '{away} 선수 울트라리스크 합류! 마린 메딕이 순식간에 녹습니다!',
+              altText: '{away} 선수 울트라리스크가 합류합니다! 테란 보병이 순식간에 녹습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 마린이 울트라리스크 앞에서 무력합니다!',

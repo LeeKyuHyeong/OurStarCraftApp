@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvtReaverArbiterVsUpgrade = ScenarioScript(
   id: 'pvt_reaver_arbiter_vs_upgrade',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_reaver_arbiter'],
-  awayBuildIds: ['tvp_trans_upgrade'],
+  homeBuildIds: ['pvt_trans_reaver_arbiter', 'pvt_1gate_expand', 'pvt_reaver_shuttle'],
+  awayBuildIds: ['tvp_trans_upgrade', 'tvp_1fac_gosu'],
   description: '리버 아비터 vs 더블 업그레이드 — 풀테크 vs 업그레이드 물량',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -16,7 +16,7 @@ const _pvtReaverArbiterVsUpgrade = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 게이트웨이에서 드라군을 생산합니다.',
+          text: '{home} 선수 사이버네틱스 코어 완성 후 드라군을 생산합니다.',
           owner: LogOwner.home,
           homeArmy: 2,
           homeResource: -10,
@@ -28,10 +28,10 @@ const _pvtReaverArbiterVsUpgrade = ScenarioScript(
           altText: '{away}, 엔지니어링 베이! 더블 업그레이드를 노립니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스를 건설하고 넥서스를 확장합니다.',
+          text: '{home} 선수 로보틱스와 서포트 베이를 건설하고 넥서스를 확장합니다.',
           owner: LogOwner.home,
           homeResource: -25,
-          altText: '{home}, 로보틱스와 넥서스 확장을 동시에! 매크로 빌드!',
+          altText: '{home}, 로보틱스, 서포트 베이와 넥서스 확장을 동시에! 매크로 빌드!',
         ),
         ScriptEvent(
           text: '{away} 선수 아머리를 올리면서 1-1 업그레이드를 시작합니다.',
@@ -134,7 +134,7 @@ const _pvtReaverArbiterVsUpgrade = ScenarioScript(
               homeArmy: 2,
               awayArmy: -5,
               favorsStat: 'strategy',
-              altText: '{home}, 스톰 한 방에 마린이 녹아내립니다!',
+              altText: '{home}, 스톰 한 방에 상대 병력이 녹아내립니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 아비터 리콜로 테란 확장 기지를 공격합니다!',

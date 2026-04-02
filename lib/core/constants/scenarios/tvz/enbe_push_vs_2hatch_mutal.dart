@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _tvzEnbePushVs2hatchMutal = ScenarioScript(
   id: 'tvz_enbe_push_vs_2hatch_mutal',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_enbe_push'],
-  awayBuildIds: ['zvt_trans_2hatch_mutal'],
+  homeBuildIds: ['tvz_trans_enbe_push', 'tvz_4rax_enbe'],
+  awayBuildIds: ['zvt_trans_2hatch_mutal', 'zvt_2hatch_mutal'],
   description: '선엔베 업그레이드 마린 vs 2해처리 빠른 뮤탈리스크',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -126,7 +126,7 @@ const _tvzEnbePushVs2hatchMutal = ScenarioScript(
               text: '{home}, +1 마린이 뮤탈리스크를 잡아냅니다! 업그레이드 차이!',
               owner: LogOwner.home,
               homeArmy: 3, awayArmy: -4, favorsStat: 'attack',
-              altText: '{home} 선수 업그레이드 마린! 뮤탈리스크가 녹습니다!',
+              altText: '{home} 선수 마린이 업그레이드 화력으로 뮤탈리스크를 녹입니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 뮤탈리스크를 잃고 지상 병력도 부족합니다!',

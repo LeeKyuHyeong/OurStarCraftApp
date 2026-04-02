@@ -62,7 +62,7 @@ const _pvtProxyGateVsBbs = ScenarioScript(
           owner: LogOwner.home,
           homeArmy: 1,
           favorsStat: 'attack',
-          altText: '{home}, 질럿 투입! 마린이 나오기 전에 피해를 줘야 합니다!',
+          altText: '{home}, 질럿 투입! 상대 병력 나오기 전에 피해를 줘야 합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린 3기 생산! SCV와 함께 프로토스 본진으로!',
@@ -141,7 +141,7 @@ const _pvtProxyGateVsBbs = ScenarioScript(
               owner: LogOwner.home,
               awayResource: -30,
               favorsStat: 'attack',
-              altText: '{home}, 질럿 컨트롤! SCV가 전멸합니다!',
+              altText: '{home}, 질럿 컨트롤! 질럿이 SCV를 전멸시킵니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 마린이 돌아오지만 일꾼이 이미 없습니다!',
@@ -155,7 +155,7 @@ const _pvtProxyGateVsBbs = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '프록시 게이트 성공! 테란 본진이 무너집니다!',
+              text: '프록시 게이트 성공! 테란이 더 이상 버틸 수 없습니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
@@ -164,7 +164,7 @@ const _pvtProxyGateVsBbs = ScenarioScript(
               homeArmy: 20,
               awayArmy: -15,
               decisive: true,
-              altText: '{home}, 커맨드센터가 무너집니다! 질럿 러시 대성공!',
+              altText: '{home}, 질럿 러시 대성공! 테란이 GG!',
             ),
           ],
         ),

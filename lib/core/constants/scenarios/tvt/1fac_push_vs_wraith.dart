@@ -87,7 +87,7 @@ const _tvt1facPushVsWraith = ScenarioScript(
           text: '{home} 선수 엔지니어링 베이 건설! 터렛으로 대공!',
           owner: LogOwner.home,
           homeResource: -25,
-          altText: '{home}, 터렛 건설! 레이스를 막아야 합니다!',
+          altText: '{home}, 터렛 건설! 대공 수비!',
         ),
         ScriptEvent(
           text: '{away} 선수 레이스 추가 생산! 견제를 이어갑니다!',
@@ -129,10 +129,10 @@ const _tvt1facPushVsWraith = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 골리앗으로 레이스를 격추합니다! 대공 성공!',
+              text: '{home}, 골리앗 대공 사격! 하늘의 위협을 격추합니다!',
               owner: LogOwner.home,
               awayArmy: -2, favorsStat: 'defense',
-              altText: '{home} 선수 골리앗 화력! 레이스가 떨어집니다!',
+              altText: '{home} 선수 골리앗 화력! 공중 유닛이 떨어집니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 레이스가 녹았습니다! 견제 효과가 줄어듭니다!',
@@ -194,6 +194,12 @@ const _tvt1facPushVsWraith = ScenarioScript(
           skipChance: 0.2,
         ),
         ScriptEvent(
+          text: '{home} 선수 스타포트 건설! 컨트롤타워를 올립니다!',
+          owner: LogOwner.home,
+          homeResource: -20,
+          altText: '{home}, 스타포트에 컨트롤타워! 드랍십을 노립니다!',
+        ),
+        ScriptEvent(
           text: '{home} 선수 드랍십으로 뒤쪽을 노립니다!',
           owner: LogOwner.home,
           favorsStat: 'harass',
@@ -235,7 +241,7 @@ const _tvt1facPushVsWraith = ScenarioScript(
               altText: '{home} 선수 골리앗 화력 추가! 압도적입니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 지상 화력으로 레이스 빌드를 꺾습니다!',
+              text: '{home} 선수 지상 화력으로 공중 빌드를 꺾습니다!',
               owner: LogOwner.home,
               decisive: true,
               altText: '{home} 선수 원팩 푸시 성공! 상대 병력을 압도합니다!',

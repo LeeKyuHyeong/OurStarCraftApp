@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _tvzWraithVs530Mutal = ScenarioScript(
   id: 'tvz_wraith_vs_530_mutal',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_wraith'],
-  awayBuildIds: ['zvt_trans_530_mutal'],
+  homeBuildIds: ['tvz_trans_wraith', 'tvz_2star_wraith'],
+  awayBuildIds: ['zvt_trans_530_mutal', 'zvt_1hatch_allin'],
   description: '레이스 클로킹 견제 vs 1해처리 럴커 타이밍 공격',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -129,7 +129,7 @@ const _tvzWraithVs530Mutal = ScenarioScript(
               owner: LogOwner.home,
               awayResource: -25,
               favorsStat: 'harass',
-              altText: '{home}, 드론이 전멸! 1해처리에서 일꾼을 잃으면 끝입니다!',
+              altText: '{home} 선수 레이스가 저그 일꾼을 전멸시킵니다! 1해처리라 치명적!',
             ),
             ScriptEvent(
               text: '{away} 선수 럴커가 앞마당을 밀었지만 후속이 없습니다!',
@@ -157,12 +157,12 @@ const _tvzWraithVs530Mutal = ScenarioScript(
           conditionStat: 'attack',
           events: [
             ScriptEvent(
-              text: '{away} 선수 럴커가 테란 본진까지 뚫었습니다! 마린이 전멸!',
+              text: '{away} 선수 럴커가 테란 본진까지 뚫었습니다! 지상군이 전멸!',
               owner: LogOwner.away,
               awayArmy: 4,
               homeArmy: -4,
               favorsStat: 'attack',
-              altText: '{away}, 럴커 스파인에 마린이 녹습니다! 지상이 붕괴!',
+              altText: '{away} 선수 럴커가 스파인으로 지상군을 녹입니다! 테란이 붕괴!',
             ),
             ScriptEvent(
               text: '{home} 선수 레이스 견제가 효과가 있었지만 본진이 위험!',

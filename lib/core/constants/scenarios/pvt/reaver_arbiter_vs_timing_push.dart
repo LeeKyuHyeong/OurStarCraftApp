@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvtReaverArbiterVsTimingPush = ScenarioScript(
   id: 'pvt_reaver_arbiter_vs_timing_push',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_reaver_arbiter'],
-  awayBuildIds: ['tvp_trans_timing_push'],
+  homeBuildIds: ['pvt_trans_reaver_arbiter', 'pvt_1gate_expand', 'pvt_reaver_shuttle'],
+  awayBuildIds: ['tvp_trans_timing_push', 'tvp_fake_double', 'tvp_1fac_drop'],
   description: '리버 아비터 vs 타이밍 공격 — 리버로 시간 벌고 리콜로 마무리',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -29,7 +29,7 @@ const _pvtReaverArbiterVsTimingPush = ScenarioScript(
           altText: '{away}, 타이밍 공격을 준비하고 있습니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스를 건설합니다! 리버 아비터 빌드의 시작!',
+          text: '{home} 선수 로보틱스와 서포트 베이를 건설합니다! 로보 아비터 빌드의 시작!',
           owner: LogOwner.home,
           homeResource: -15,
         ),

@@ -109,7 +109,7 @@ const _zvp973HydraVs2starCorsair = ScenarioScript(
           skipChance: 0.2,
         ),
         ScriptEvent(
-          text: '{away} 선수 질럿과 캐논으로 수비를 준비합니다.',
+          text: '{away} 선수 게이트웨이의 질럿과 캐논으로 수비를 준비합니다.',
           owner: LogOwner.away,
           awayArmy: 2,
           awayResource: -10,

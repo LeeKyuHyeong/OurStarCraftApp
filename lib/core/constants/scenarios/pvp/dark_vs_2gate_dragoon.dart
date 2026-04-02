@@ -62,9 +62,9 @@ const _pvpDarkVs2gateDragoon = ScenarioScript(
           altText: '{home}, 다크 2기 출발! 보이지 않는 칼!',
         ),
         ScriptEvent(
-          text: '{away} 선수 드라군을 뽑고 있습니다. 옵저버가 있을까요?',
+          text: '{away} 선수 드라군을 뽑고 있습니다. 디텍이 있을까요?',
           owner: LogOwner.away,
-          awayArmy: 4, awayResource: -15,
+          awayArmy: 6, awayResource: -15,
         ),
         ScriptEvent(
           text: '다크 템플러가 접근합니다! 디텍 여부가 관건!',
@@ -111,10 +111,10 @@ const _pvpDarkVs2gateDragoon = ScenarioScript(
           baseProbability: 1.45,
           events: [
             ScriptEvent(
-              text: '{away} 선수 로보틱스에서 옵저버가 나옵니다! 다크가 보여요!',
+              text: '{away} 선수 로보틱스에 옵저버터리까지 건설! 디텍 준비 완료!',
               owner: LogOwner.away,
               awayArmy: 2, favorsStat: 'scout',
-              altText: '{away}, 옵저버 있습니다! 다크를 포착!',
+              altText: '{away}, 로보틱스와 옵저버터리! 옵저버가 나옵니다! 다크가 보여요!',
             ),
             ScriptEvent(
               text: '{away}, 드라군이 다크를 집중 사격! 격파!',

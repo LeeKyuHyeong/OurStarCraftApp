@@ -7,7 +7,7 @@ const _tvzBunkerVsLurkerDefiler = ScenarioScript(
   id: 'tvz_bunker_vs_lurker_defiler',
   matchup: 'TvZ',
   homeBuildIds: ['tvz_bunker'],
-  awayBuildIds: ['zvt_trans_lurker_defiler'],
+  awayBuildIds: ['zvt_trans_lurker_defiler', 'zvt_2hatch_lurker'],
   description: '벙커 러시 vs 럴커 디파일러 — 초반 올인 vs 수비 매크로',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -147,7 +147,7 @@ const _tvzBunkerVsLurkerDefiler = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '럴커가 나오기 전에 끝냈습니다! 벙커 러시 성공! GG!',
+              text: '벙커 러시 성공! 저그 테크업 전에 끝냈습니다! GG!',
               owner: LogOwner.home,
               decisive: true,
             ),

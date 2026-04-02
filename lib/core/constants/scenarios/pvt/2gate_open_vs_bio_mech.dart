@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvt2gateOpenVsBioMech = ScenarioScript(
   id: 'pvt_2gate_open_vs_bio_mech',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_2gate_open'],
-  awayBuildIds: ['tvp_trans_bio_mech'],
+  homeBuildIds: ['pvt_2gate_open', 'pvt_2gate_zealot'],
+  awayBuildIds: ['tvp_trans_bio_mech', 'tvp_rax_double'],
   description: '투게이트 질럿→드라군 vs 바이오 메카닉 복합 편성',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -144,7 +144,7 @@ const _pvt2gateOpenVsBioMech = ScenarioScript(
               altText: '{home}, 드라군 컨트롤! 골리앗을 집중 공격합니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 탱크 포격이 드라군에 맞지 않습니다! 분산 컨트롤이 좋습니다!',
+              text: '{away} 선수 탱크 포격이 상대 병력에 맞지 않습니다! 분산 컨트롤이 좋습니다!',
               owner: LogOwner.away,
               awayArmy: -2,
             ),
@@ -174,7 +174,7 @@ const _pvt2gateOpenVsBioMech = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수 탱크 시즈 포격! 드라군이 모여 있는 곳에 직격합니다!',
+              text: '{away} 선수 탱크가 시즈 포격! 상대 병력이 모여 있는 곳에 직격합니다!',
               owner: LogOwner.away,
               awayArmy: 3,
               homeArmy: -4,

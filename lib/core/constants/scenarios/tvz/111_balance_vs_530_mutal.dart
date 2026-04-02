@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _tvz111BalanceVs530Mutal = ScenarioScript(
   id: 'tvz_111_balance_vs_530_mutal',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_111_balance'],
-  awayBuildIds: ['zvt_trans_530_mutal'],
+  homeBuildIds: ['tvz_trans_111_balance', 'tvz_111'],
+  awayBuildIds: ['zvt_trans_530_mutal', 'zvt_1hatch_allin'],
   description: '111 밸런스 vs 1해처리 럴커 — 벌처 마인 필드 vs 빠른 럴커 공격',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -138,7 +138,7 @@ const _tvz111BalanceVs530Mutal = ScenarioScript(
               owner: LogOwner.home,
               awayArmy: -3,
               favorsStat: 'control',
-              altText: '{home}, 마인 필드에 럴커가 걸렸습니다!',
+              altText: '{home} 선수 마인이 저그 병력을 연쇄 폭파합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 시즈탱크가 히드라리스크를 포격합니다!',

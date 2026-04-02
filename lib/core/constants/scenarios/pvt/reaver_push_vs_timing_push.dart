@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvtReaverPushVsTimingPush = ScenarioScript(
   id: 'pvt_reaver_push_vs_timing_push',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_reaver_push'],
-  awayBuildIds: ['tvp_trans_timing_push'],
+  homeBuildIds: ['pvt_trans_reaver_push', 'pvt_reaver_shuttle', 'pvt_proxy_dark'],
+  awayBuildIds: ['tvp_trans_timing_push', 'tvp_fake_double', 'tvp_1fac_drop'],
   description: '리버 셔틀 푸시 vs 타이밍 공격 — 견제로 타이밍을 늦춰라',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -16,23 +16,34 @@ const _pvtReaverPushVsTimingPush = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 게이트웨이에서 드라군을 생산합니다.',
+          text: '{home} 선수 게이트웨이 건설 후 사이버네틱스 코어를 올립니다.',
+          owner: LogOwner.home,
+          homeResource: -15,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 배럭에서 마린을 생산하고 팩토리를 건설합니다.',
+          owner: LogOwner.away,
+          awayArmy: 1,
+          awayResource: -15,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 사이버네틱스 코어에서 드라군을 생산합니다.',
           owner: LogOwner.home,
           homeArmy: 2,
           homeResource: -10,
+          altText: '{home}, 드라군 생산! 초반 방어 병력을 확보합니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리에서 벌처를 뽑으면서 타이밍을 준비합니다.',
           owner: LogOwner.away,
           awayArmy: 2,
           awayResource: -10,
-          altText: '{away}, 벌처가 나오면서 정찰을 돌리고 있습니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스 건설! 리버를 빠르게 확보하려 합니다!',
+          text: '{home} 선수 로보틱스와 서포트 베이 건설! 셔틀을 빠르게 확보하려 합니다!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 로보틱스가 올라갑니다! 빠른 리버 빌드!',
+          altText: '{home}, 로보틱스와 서포트 베이가 올라갑니다! 빠른 셔틀 빌드!',
         ),
         ScriptEvent(
           text: '{away} 선수 아카데미 건설 후 마린 메딕 생산을 시작합니다.',

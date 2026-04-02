@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _tvz111BalanceVs2hatchMutal = ScenarioScript(
   id: 'tvz_111_balance_vs_2hatch_mutal',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_111_balance'],
-  awayBuildIds: ['zvt_trans_2hatch_mutal'],
+  homeBuildIds: ['tvz_trans_111_balance', 'tvz_111'],
+  awayBuildIds: ['zvt_trans_2hatch_mutal', 'zvt_2hatch_mutal'],
   description: '111 밸런스 vs 2해처리 뮤탈 — 레이스+터렛 대공 vs 빠른 뮤탈 물량',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -117,7 +117,7 @@ const _tvz111BalanceVs2hatchMutal = ScenarioScript(
           altText: '{away}, 뮤탈리스크 견제가 쉬지 않습니다!',
         ),
         ScriptEvent(
-          text: '테란이 마인+터렛으로 버텨낼 수 있을지가 관건입니다!',
+          text: '테란이 마인과 터렛으로 버텨낼 수 있을지가 관건입니다!',
           owner: LogOwner.system,
         ),
       ],
@@ -133,7 +133,7 @@ const _tvz111BalanceVs2hatchMutal = ScenarioScript(
           conditionStat: 'defense',
           events: [
             ScriptEvent(
-              text: '{home} 선수 터렛+레이스로 뮤탈리스크를 요격합니다!',
+              text: '{home} 선수 터렛과 레이스로 뮤탈리스크를 요격합니다!',
               owner: LogOwner.home,
               homeArmy: 2,
               awayArmy: -4,

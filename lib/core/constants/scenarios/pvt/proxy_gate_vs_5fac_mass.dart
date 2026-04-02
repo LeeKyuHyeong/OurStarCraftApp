@@ -7,7 +7,7 @@ const _pvtProxyGateVs5facMass = ScenarioScript(
   id: 'pvt_proxy_gate_vs_5fac_mass',
   matchup: 'PvT',
   homeBuildIds: ['pvt_proxy_gate'],
-  awayBuildIds: ['tvp_trans_5fac_mass'],
+  awayBuildIds: ['tvp_trans_5fac_mass', 'tvp_5fac_timing', 'tvp_11up_8fac'],
   description: '프록시 게이트 질럿 러시 vs 5팩토리 물량',
   phases: [
     // Phase 0: 오프닝 (lines 1-10)

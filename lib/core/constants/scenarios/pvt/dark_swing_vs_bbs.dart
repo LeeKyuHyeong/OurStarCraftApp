@@ -144,7 +144,7 @@ const _pvtDarkSwingVsBbs = ScenarioScript(
               owner: LogOwner.home,
               awayResource: -25,
               favorsStat: 'harass',
-              altText: '{home} 선수 다크 난무! SCV가 녹아내립니다!',
+              altText: '{home} 선수 다크 난무! 다크가 SCV를 녹아내립니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 마린을 빼서 본진으로 돌리지만 보이지 않습니다!',
@@ -177,7 +177,7 @@ const _pvtDarkSwingVsBbs = ScenarioScript(
               owner: LogOwner.away,
               homeResource: -30,
               favorsStat: 'attack',
-              altText: '{away}, 마린 러시! 프로브가 전멸합니다!',
+              altText: '{away}, 마린 러시! 상대 일꾼이 전멸합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 다크가 나올 시간이 없습니다! 템플러 아카이브가 아직!',

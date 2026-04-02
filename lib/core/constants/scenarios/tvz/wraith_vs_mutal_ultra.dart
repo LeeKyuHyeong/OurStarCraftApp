@@ -1,13 +1,13 @@
 part of '../../scenario_scripts.dart';
 
 // ----------------------------------------------------------
-// 레이스 공중 vs 뮤탈 울트라 — 클로킹 견제 vs 공중+지상 전환
+// 레이스 공중 vs 뮤탈 울트라 — 클로킹 견제 vs 공중과 지상 전환
 // ----------------------------------------------------------
 const _tvzWraithVsMutalUltra = ScenarioScript(
   id: 'tvz_wraith_vs_mutal_ultra',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_wraith'],
-  awayBuildIds: ['zvt_trans_mutal_ultra'],
+  homeBuildIds: ['tvz_trans_wraith', 'tvz_2star_wraith'],
+  awayBuildIds: ['zvt_trans_mutal_ultra', 'zvt_9overpool', 'zvt_3hatch_mutal'],
   description: '레이스 클로킹 견제 vs 뮤탈리스크 울트라리스크 전환',
   phases: [
     // Phase 0: opening (lines 1-11)

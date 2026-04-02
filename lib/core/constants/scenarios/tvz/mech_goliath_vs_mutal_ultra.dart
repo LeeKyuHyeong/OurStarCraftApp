@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _tvzMechGoliathVsMutalUltra = ScenarioScript(
   id: 'tvz_mech_goliath_vs_mutal_ultra',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_mech_goliath'],
-  awayBuildIds: ['zvt_trans_mutal_ultra'],
+  homeBuildIds: ['tvz_trans_mech_goliath', 'tvz_3fac_goliath'],
+  awayBuildIds: ['zvt_trans_mutal_ultra', 'zvt_9overpool', 'zvt_3hatch_mutal'],
   description: '메카닉 골리앗 vs 뮤탈 울트라 — 골리앗 사거리 업 vs 뮤탈+울트라 조합',
   phases: [
     // Phase 0: opening (lines 1-11)

@@ -7,7 +7,7 @@ const _pvtDarkSwingVsTankDefense = ScenarioScript(
   id: 'pvt_dark_swing_vs_tank_defense',
   matchup: 'PvT',
   homeBuildIds: ['pvt_dark_swing'],
-  awayBuildIds: ['tvp_trans_tank_defense'],
+  awayBuildIds: ['tvp_trans_tank_defense', 'tvp_double', 'tvp_mine_triple', 'tvp_fd'],
   description: '다크 스윙 vs 탱크 수비형 테란',
   phases: [
     // Phase 0: 오프닝 (lines 1-10)
@@ -102,10 +102,10 @@ const _pvtDarkSwingVsTankDefense = ScenarioScript(
           altText: '터렛이 있다면 다크가 보입니다! 없다면 대참사!',
         ),
         ScriptEvent(
-          text: '{home}, 다크가 SCV 라인에 접근합니다!',
+          text: '{home}, 다크가 미네랄 라인에 접근합니다!',
           owner: LogOwner.home,
           favorsStat: 'harass',
-          altText: '{home} 선수 다크가 일꾼 라인을 노립니다!',
+          altText: '{home} 선수 다크가 SCV를 노립니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 방어 진형을 갖추고 있습니다!',

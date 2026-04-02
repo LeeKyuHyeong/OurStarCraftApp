@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvt5gateArbiterVsAntiCarrier = ScenarioScript(
   id: 'pvt_5gate_arbiter_vs_anti_carrier',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_5gate_arbiter'],
-  awayBuildIds: ['tvp_trans_anti_carrier'],
+  homeBuildIds: ['pvt_trans_5gate_arbiter', 'pvt_1gate_expand', 'pvt_1gate_obs'],
+  awayBuildIds: ['tvp_trans_anti_carrier', 'tvp_anti_carrier'],
   description: '5게이트 아비터 vs 골리앗 대공 — 스테이시스+리콜 vs 골리앗 편대',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -131,7 +131,7 @@ const _pvt5gateArbiterVsAntiCarrier = ScenarioScript(
               text: '{home} 선수 아비터 스테이시스! 골리앗 편대 절반이 얼어붙습니다!',
               owner: LogOwner.home,
               awayArmy: -4, favorsStat: 'sense',
-              altText: '{home}, 스테이시스 필드! 골리앗이 멈춥니다!',
+              altText: '{home}, 스테이시스 필드! 아비터가 스테이시스! 상대 병력을 멈춥니다!',
             ),
             ScriptEvent(
               text: '{home}, 얼어붙지 않은 병력에 스톰! 그리고 드라군 돌격!',

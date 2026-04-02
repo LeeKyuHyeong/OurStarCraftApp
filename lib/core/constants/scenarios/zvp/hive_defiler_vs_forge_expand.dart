@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _zvpHiveDefilerVsForgeExpand = ScenarioScript(
   id: 'zvp_hive_defiler_vs_forge_expand',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_hive_defiler'],
-  awayBuildIds: ['pvz_trans_forge_expand'],
+  homeBuildIds: ['zvp_trans_hive_defiler', 'zvp_scourge_defiler'],
+  awayBuildIds: ['pvz_trans_forge_expand', 'pvz_forge_cannon'],
   description: '하이브 디파일러 vs 포지 확장 — 다크 스웜 vs 사이오닉 스톰, 클래식 후반전',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -33,11 +33,12 @@ const _zvpHiveDefilerVsForgeExpand = ScenarioScript(
           homeResource: -15,
         ),
         ScriptEvent(
-          text: '{away} 선수 캐논을 세우며 앞마당을 안전하게 확보합니다.',
+          text: '{away} 선수 캐논을 세우고 게이트웨이와 사이버네틱스 코어를 올리며 앞마당을 확보합니다.',
           owner: LogOwner.away,
           awayArmy: 2,
           awayResource: -10,
           favorsStat: 'defense',
+          altText: '{away}, 게이트웨이와 사이버네틱스 코어! 캐논과 함께 앞마당을 지킵니다.',
         ),
         ScriptEvent(
           text: '양측 모두 확장을 선택했습니다! 장기전이 예상됩니다.',
@@ -60,7 +61,7 @@ const _zvpHiveDefilerVsForgeExpand = ScenarioScript(
           altText: '{home}, 3해처리 체제! 자원이 풍부해지겠네요.',
         ),
         ScriptEvent(
-          text: '{away} 선수 커세어를 생산하며 오버로드 사냥을 시작합니다!',
+          text: '{away} 선수 스타게이트에서 커세어를 생산하며 오버로드 사냥을 시작합니다!',
           owner: LogOwner.away,
           awayArmy: 2,
           awayResource: -15,
@@ -93,11 +94,11 @@ const _zvpHiveDefilerVsForgeExpand = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 하이브를 완성하고 디파일러를 생산합니다!',
+          text: '{home} 선수 하이브를 완성하고 디파일러 마운드에서 디파일러를 생산합니다!',
           owner: LogOwner.home,
           homeArmy: 3,
           homeResource: -25,
-          altText: '{home}, 디파일러가 나왔습니다! 다크 스웜 준비 완료!',
+          altText: '{home}, 디파일러 마운드 완성! 디파일러가 나왔습니다! 다크 스웜 준비 완료!',
         ),
         ScriptEvent(
           text: '{away} 선수 하이템플러를 생산합니다! 사이오닉 스톰 준비!',
@@ -107,11 +108,17 @@ const _zvpHiveDefilerVsForgeExpand = ScenarioScript(
           favorsStat: 'strategy',
         ),
         ScriptEvent(
-          text: '{home} 선수 울트라리스크를 생산합니다! 저글링과 함께 돌격 준비!',
+          text: '{home} 선수 4번째 해처리를 올리며 순환 병력을 늘립니다.',
           owner: LogOwner.home,
-          homeArmy: 4,
+          homeResource: 15,
+          skipChance: 0.2,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 퀸즈네스트와 하이브 업그레이드를 준비합니다! 최종 테크를 향해 달립니다!',
+          owner: LogOwner.home,
+          homeArmy: 2,
           homeResource: -20,
-          skipChance: 0.3,
+          altText: '{home}, 하이브 테크! 최종 병기를 향해 올라가는군요!',
         ),
         ScriptEvent(
           text: '다크 스웜 vs 사이오닉 스톰! ZvP 후반전의 꽃이 피려 합니다!',
@@ -130,7 +137,7 @@ const _zvpHiveDefilerVsForgeExpand = ScenarioScript(
           conditionStat: 'strategy',
           events: [
             ScriptEvent(
-              text: '{home} 선수 다크 스웜을 넓게 깔아줍니다! 드라군이 사격 불가!',
+              text: '{home} 선수 디파일러가 다크 스웜을 넓게 깔아줍니다! 원거리 공격이 무력화됩니다!',
               owner: LogOwner.home,
               homeArmy: 4,
               awayArmy: -2,
@@ -138,7 +145,7 @@ const _zvpHiveDefilerVsForgeExpand = ScenarioScript(
               altText: '{home}, 다크 스웜! 프로토스 원거리 유닛이 무력화됩니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 울트라리스크와 저글링이 프로토스 진영을 돌파합니다!',
+              text: '{home} 선수 울트라리스크 캐번에서 울트라리스크가 출격! 저글링과 프로토스 진영을 돌파합니다!',
               owner: LogOwner.home,
               homeArmy: 3,
               awayArmy: -3,
@@ -168,7 +175,7 @@ const _zvpHiveDefilerVsForgeExpand = ScenarioScript(
               awayArmy: 2,
               homeArmy: -5,
               favorsStat: 'strategy',
-              altText: '{away}, 스톰! 저글링이 한 방에 녹아버렸습니다!',
+              altText: '{away}, 스톰 투하! 저그 병력이 한 방에 녹아버렸습니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 드라군과 질럿이 다크 스웜 밖에서 포지션을 잡습니다!',
@@ -178,7 +185,7 @@ const _zvpHiveDefilerVsForgeExpand = ScenarioScript(
               favorsStat: 'control',
             ),
             ScriptEvent(
-              text: '{home} 선수 울트라리스크가 고립됩니다! 지원 병력이 없습니다!',
+              text: '{home} 선수 대형 유닛이 고립됩니다! 지원 병력이 없습니다!',
               owner: LogOwner.home,
               homeArmy: -3,
               homeResource: -20,

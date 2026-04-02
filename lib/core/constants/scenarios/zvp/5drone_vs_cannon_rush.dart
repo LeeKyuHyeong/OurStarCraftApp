@@ -30,7 +30,7 @@ const _zvp5droneVsCannonRush = ScenarioScript(
           text: '{home} 선수 저글링이 부화합니다! 발업도 연구!',
           owner: LogOwner.home,
           homeArmy: 5, homeResource: -15,
-          altText: '{home}, 저글링+발업! 캐논이 완성되기 전에 잡아야 합니다!',
+          altText: '{home}, 저글링 발업! 캐논이 완성되기 전에 잡아야 합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 전진 캐논을 건설합니다! 저그 앞마당 근처!',
@@ -104,7 +104,7 @@ const _zvp5droneVsCannonRush = ScenarioScript(
           text: '{home}, 저글링이 프로토스 본진까지 진입합니다!',
           owner: LogOwner.home,
           awayResource: -10, favorsStat: 'harass',
-          altText: '{home} 선수 본진 침투! 프로브가 도망갑니다!',
+          altText: '{home} 선수 본진 침투! 저글링이 일꾼을 몰아세웁니다!',
         ),
         ScriptEvent(
           text: '{away}, 캐논을 저그 본진 근처에 추가로 올립니다!',

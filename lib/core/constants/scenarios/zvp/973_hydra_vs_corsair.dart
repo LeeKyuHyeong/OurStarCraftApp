@@ -22,9 +22,10 @@ const _zvp973HydraVsCorsair = ScenarioScript(
           altText: '{home}, 973 빌드! 빠른 히드라를 노리는군요.',
         ),
         ScriptEvent(
-          text: '{away} 선수 스타게이트를 건설합니다! 커세어를 준비합니다.',
+          text: '{away} 선수 게이트웨이와 사이버네틱스 코어를 올리고 스타게이트를 건설합니다! 커세어를 준비합니다.',
           owner: LogOwner.away,
           awayResource: -20,
+          altText: '{away}, 게이트웨이 뒤로 스타게이트가 올라갑니다! 커세어 빌드!',
         ),
         ScriptEvent(
           text: '{home} 선수 히드라덴을 건설하며 히드라 타이밍을 노립니다.',
@@ -37,7 +38,7 @@ const _zvp973HydraVsCorsair = ScenarioScript(
           owner: LogOwner.away,
           awayArmy: 2,
           awayResource: -15,
-          altText: '{away}, 커세어와 함께 드라군을 생산합니다.',
+          altText: '{away}, 커세어와 함께 사이버네틱스 코어에서 드라군을 생산합니다.',
         ),
         ScriptEvent(
           text: '커세어 빌드업이 완성되기 전에 히드라가 들어갈 수 있을까요?',
@@ -75,12 +76,12 @@ const _zvp973HydraVsCorsair = ScenarioScript(
           favorsStat: 'attack',
         ),
         ScriptEvent(
-          text: '{away} 선수 드라군과 질럿으로 수비 라인을 형성합니다.',
+          text: '{away} 선수 드라군과 게이트웨이의 질럿으로 수비 라인을 형성합니다.',
           owner: LogOwner.away,
           awayArmy: 3,
           awayResource: -15,
           favorsStat: 'defense',
-          altText: '{away}, 드라군이 앞마당 앞에 진을 칩니다!',
+          altText: '{away}, 질럿과 드라군이 앞마당 앞에 진을 칩니다!',
         ),
         ScriptEvent(
           text: '히드라 타이밍! 커세어 빌드가 완성되기 전에 끝낼 수 있을까요?',
@@ -189,7 +190,7 @@ const _zvp973HydraVsCorsair = ScenarioScript(
               homeResource: -15,
             ),
             ScriptEvent(
-              text: '타이밍 어택 실패! 커세어+지상군이 완성됩니다! GG!',
+              text: '타이밍 어택 실패! 커세어와 지상군이 완성됩니다! GG!',
               owner: LogOwner.away,
               decisive: true,
             ),

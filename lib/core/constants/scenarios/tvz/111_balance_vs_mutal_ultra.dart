@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _tvz111BalanceVsMutalUltra = ScenarioScript(
   id: 'tvz_111_balance_vs_mutal_ultra',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_111_balance'],
-  awayBuildIds: ['zvt_trans_mutal_ultra'],
+  homeBuildIds: ['tvz_trans_111_balance', 'tvz_111'],
+  awayBuildIds: ['zvt_trans_mutal_ultra', 'zvt_9overpool', 'zvt_3hatch_mutal'],
   description: '111 밸런스 vs 뮤탈 울트라 — 레이스 정찰+벌처 마인 vs 뮤탈 견제+울트라 돌진',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -138,7 +138,7 @@ const _tvz111BalanceVsMutalUltra = ScenarioScript(
               owner: LogOwner.home,
               awayArmy: -4,
               favorsStat: 'strategy',
-              altText: '{home}, 마인 필드에 울트라리스크가 걸렸습니다!',
+              altText: '{home} 선수 마인이 저그 돌진 병력을 연쇄 폭파합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 시즈탱크 포격으로 남은 저글링을 정리합니다!',
@@ -154,7 +154,7 @@ const _tvz111BalanceVsMutalUltra = ScenarioScript(
               awayResource: -15,
             ),
             ScriptEvent(
-              text: '마인+시즈탱크 조합이 울트라를 저지했습니다! GG!',
+              text: '마인과 시즈탱크 조합이 울트라를 저지했습니다! GG!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -187,7 +187,7 @@ const _tvz111BalanceVsMutalUltra = ScenarioScript(
               homeResource: -20,
             ),
             ScriptEvent(
-              text: '울트라+뮤탈 양면 공격에 111 빌드가 무너집니다! GG!',
+              text: '울트라와 뮤탈 양면 공격에 111 빌드가 무너집니다! GG!',
               owner: LogOwner.away,
               decisive: true,
             ),

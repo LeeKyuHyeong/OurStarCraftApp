@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _tvzBionicPushVsLurkerDefiler = ScenarioScript(
   id: 'tvz_bionic_push_vs_lurker_defiler',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_bionic_push'],
-  awayBuildIds: ['zvt_trans_lurker_defiler'],
+  homeBuildIds: ['tvz_trans_bionic_push', 'tvz_sk'],
+  awayBuildIds: ['zvt_trans_lurker_defiler', 'zvt_2hatch_lurker'],
   description: '바이오닉 푸시 vs 럴커 디파일러 다크스웜 수비',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
@@ -27,7 +27,7 @@ const _tvzBionicPushVsLurkerDefiler = ScenarioScript(
           altText: '{away}, 해처리부터 올리면서 드론 생산에 집중합니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 마린 생산! 아카데미도 건설하구요.',
+          text: '{home} 선수 마린 생산! 팩토리와 아카데미도 건설하구요.',
           owner: LogOwner.home,
           homeArmy: 2, homeResource: -15,
         ),
@@ -126,7 +126,7 @@ const _tvzBionicPushVsLurkerDefiler = ScenarioScript(
           conditionStat: 'attack',
           events: [
             ScriptEvent(
-              text: '{home}, 사이언스 베슬 이래디에이트! 럴커가 녹습니다!',
+              text: '{home} 선수 사이언스베슬이 이래디에이트를 적중시킵니다! 저그 라인이 녹습니다!',
               owner: LogOwner.home,
               homeArmy: 3, awayArmy: -4, favorsStat: 'control',
               altText: '{home} 선수 이래디에이트로 럴커 진지를 무력화합니다!',
@@ -142,7 +142,7 @@ const _tvzBionicPushVsLurkerDefiler = ScenarioScript(
               homeArmy: 2, awayArmy: -2, favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '럴커 라인 돌파 성공! GG!',
+              text: '저그 방어선 돌파 성공! GG!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -157,7 +157,7 @@ const _tvzBionicPushVsLurkerDefiler = ScenarioScript(
               text: '{away}, 디파일러가 등장합니다! 다크스웜을 뿌립니다!',
               owner: LogOwner.away,
               awayArmy: 4, favorsStat: 'strategy',
-              altText: '{away} 선수 다크스웜! 마린의 사격이 완전히 차단됩니다!',
+              altText: '{away} 선수 디파일러가 다크스웜을 뿌립니다! 테란 사격이 차단!',
             ),
             ScriptEvent(
               text: '{home} 선수 마린이 다크스웜 안에서 아무것도 못 합니다!',

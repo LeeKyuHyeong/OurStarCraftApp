@@ -169,7 +169,7 @@ const _zvz9poolVs9overpool = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수도 스파이어를 올립니다! 뮤탈 경쟁!',
           owner: LogOwner.away,
-          awayResource: -25,
+          awayArmy: 2, awayResource: -25,
           altText: '{away}, 스파이어 건설! 뮤탈 타이밍 경쟁이 시작됩니다!',
         ),
       ],

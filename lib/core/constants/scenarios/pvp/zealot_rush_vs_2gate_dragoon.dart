@@ -45,7 +45,7 @@ const _pvpZealotRushVs2gateDragoon = ScenarioScript(
           text: '{home} 선수 질럿 생산 시작! 빠르게 돌진해야 합니다!',
           owner: LogOwner.home,
           homeArmy: 3, homeResource: -10,
-          altText: '{home}, 질럿이 나옵니다! 드라군 전에 끝내야 해요!',
+          altText: '{home}, 질럿이 나옵니다! 상대 테크 전에 끝내야 해요!',
         ),
       ],
     ),
@@ -58,7 +58,7 @@ const _pvpZealotRushVs2gateDragoon = ScenarioScript(
           text: '{home}, 질럿 3기가 상대 진영으로 돌진합니다!',
           owner: LogOwner.home,
           homeArmy: 2, favorsStat: 'attack',
-          altText: '{home} 선수 질럿 러시! 드라군이 나오기 전에!',
+          altText: '{home} 선수 질럿 러시! 상대 화력이 갖춰지기 전에!',
         ),
         ScriptEvent(
           text: '{away} 선수 질럿으로 막으면서 드라군 생산을 기다립니다!',
@@ -97,7 +97,7 @@ const _pvpZealotRushVs2gateDragoon = ScenarioScript(
               homeArmy: 2, awayResource: -10, favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '질럿 러시 성공! 드라군이 나오기 전에 무너집니다!',
+              text: '질럿 러시 성공! 상대 테크가 갖춰지기 전에 무너집니다!',
               owner: LogOwner.home,
               awayArmy: -10,
               decisive: true,
@@ -115,7 +115,7 @@ const _pvpZealotRushVs2gateDragoon = ScenarioScript(
               altText: '{away} 선수 드라군이 나옵니다! 질럿을 잡습니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 질럿이 드라군에 녹습니다! 사정거리 차이!',
+              text: '{home} 선수 질럿이 상대 화력에 녹습니다! 사정거리 차이!',
               owner: LogOwner.home,
               homeArmy: -3,
             ),

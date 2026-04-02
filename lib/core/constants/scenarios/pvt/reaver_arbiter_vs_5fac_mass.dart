@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvtReaverArbiterVs5facMass = ScenarioScript(
   id: 'pvt_reaver_arbiter_vs_5fac_mass',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_reaver_arbiter'],
-  awayBuildIds: ['tvp_trans_5fac_mass'],
+  homeBuildIds: ['pvt_trans_reaver_arbiter', 'pvt_1gate_expand', 'pvt_reaver_shuttle'],
+  awayBuildIds: ['tvp_trans_5fac_mass', 'tvp_5fac_timing', 'tvp_11up_8fac'],
   description: '리버 아비터 vs 5팩토리 매스 — 리콜로 물량 뒤를 찌르고 스테이시스로 분리',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -16,7 +16,7 @@ const _pvtReaverArbiterVs5facMass = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 게이트웨이에서 드라군을 생산하고 넥서스를 확장합니다.',
+          text: '{home} 선수 사이버네틱스 코어에서 드라군을 생산하고 넥서스를 확장합니다.',
           owner: LogOwner.home,
           homeArmy: 2,
           homeResource: -25,
@@ -28,7 +28,7 @@ const _pvtReaverArbiterVs5facMass = ScenarioScript(
           altText: '{away}, 팩토리가 줄줄이! 5팩토리 매스입니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스를 건설합니다.',
+          text: '{home} 선수 로보틱스를 건설합니다. 서포트 베이도 이어서 올리겠죠.',
           owner: LogOwner.home,
           homeResource: -15,
         ),

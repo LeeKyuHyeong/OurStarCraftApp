@@ -7,7 +7,7 @@ const _tvz4raxEnbeVs530Mutal = ScenarioScript(
   id: 'tvz_4rax_enbe_vs_530_mutal',
   matchup: 'TvZ',
   homeBuildIds: ['tvz_4rax_enbe'],
-  awayBuildIds: ['zvt_trans_530_mutal'],
+  awayBuildIds: ['zvt_trans_530_mutal', 'zvt_1hatch_allin'],
   description: '선엔베 4배럭 vs 1해처리 럴커 — 양쪽 타이밍 공격',
   phases: [
     // Phase 0: opening (lines 1-11)

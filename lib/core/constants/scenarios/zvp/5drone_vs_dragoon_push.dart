@@ -8,7 +8,7 @@ const _zvp5droneVsDragoonPush = ScenarioScript(
   matchup: 'ZvP',
   homeBuildIds: ['zvp_5drone'],
   awayBuildIds: ['pvz_trans_dragoon_push'],
-  description: '9투 올인 저글링 vs 질럿+드라군 러쉬',
+  description: '9투 올인 저글링 vs 질럿과 드라군 러쉬',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
     ScriptPhase(
@@ -90,7 +90,7 @@ const _zvp5droneVsDragoonPush = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 저글링을 계속 보내지만 질럿+드라군에 막힙니다!',
+          text: '{home} 선수 저글링을 계속 보내지만 질럿과 드라군에 막힙니다!',
           owner: LogOwner.home,
           homeArmy: 2, homeResource: -10,
           altText: '{home}, 저글링 추가! 돌파구를 찾으려 합니다!',
@@ -140,7 +140,7 @@ const _zvp5droneVsDragoonPush = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 드라군+질럿이 저글링을 전멸시키고 저그 본진으로 진격합니다!',
+              text: '{away}, 드라군과 질럿이 저글링을 전멸시키고 저그 본진으로 진격합니다!',
               owner: LogOwner.away,
               homeArmy: -5, awayArmy: 3, favorsStat: 'attack',
               altText: '{away} 선수 역공! 드론이 없는 저그를 밀어냅니다!',

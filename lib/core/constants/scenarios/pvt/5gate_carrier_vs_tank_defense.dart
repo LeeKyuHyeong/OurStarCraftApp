@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _pvt5gateCarrierVsTankDefense = ScenarioScript(
   id: 'pvt_5gate_carrier_vs_tank_defense',
   matchup: 'PvT',
-  homeBuildIds: ['pvt_trans_5gate_carrier'],
-  awayBuildIds: ['tvp_trans_tank_defense'],
+  homeBuildIds: ['pvt_trans_5gate_carrier', 'pvt_1gate_expand', 'pvt_carrier'],
+  awayBuildIds: ['tvp_trans_tank_defense', 'tvp_double', 'tvp_mine_triple', 'tvp_fd'],
   description: '5게이트 캐리어 vs 탱크 터틀 — 공중에서 방어선을 우회',
   phases: [
     // Phase 0: opening (lines 1-11)
@@ -160,7 +160,7 @@ const _pvt5gateCarrierVsTankDefense = ScenarioScript(
               text: '{away} 선수 골리앗 편대가 캐리어를 집중 포화합니다!',
               owner: LogOwner.away,
               homeArmy: -4, favorsStat: 'defense',
-              altText: '{away}, 골리앗 집중 사격! 캐리어가 위험합니다!',
+              altText: '{away}, 골리앗 집중 사격! 골리앗이 집중 사격! 적 함대가 위험합니다!',
             ),
             ScriptEvent(
               text: '{away}, 캐리어 1기 격추! 인터셉터도 쓸려 나갑니다!',
