@@ -95,7 +95,7 @@ const _tvt2facVultureMirror = ScenarioScript(
           text: '{away} 선수도 상대 앞마당을 벌처로 찌릅니다! 맞견제!',
           owner: LogOwner.away,
           favorsStat: 'harass',
-          altText: '{away}, 맞견제! 벌처로 상대 일꾼 라인을 노립니다!',
+          altText: '{away}, 맞견제! 벌처로 상대 일꾼을 노립니다!',
           skipChance: 0.3,
         ),
         ScriptEvent(
@@ -131,7 +131,7 @@ const _tvt2facVultureMirror = ScenarioScript(
               text: '{home}, 벌처로 상대 앞마당 SCV에 피해를 입힙니다!',
               owner: LogOwner.home,
               awayResource: -20, favorsStat: 'harass',
-              altText: '{home} 선수 SCV 견제 성공! 일꾼이 쓰러집니다!',
+              altText: '{home} 선수 SCV 견제 성공! 일꾼을 솎아냅니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 벌처 손실이 큽니다! 탱크로 빨리 전환해야 합니다!',
@@ -160,7 +160,7 @@ const _tvt2facVultureMirror = ScenarioScript(
               text: '{away}, 상대 앞마당으로 침투합니다! SCV 대량 학살!',
               owner: LogOwner.away,
               homeResource: -20, favorsStat: 'harass',
-              altText: '{away} 선수 앞마당 침투! SCV가 쓰러집니다!',
+              altText: '{away} 선수 앞마당 침투! SCV를 잡아냅니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 벌처를 잃고 앞마당 SCV까지 피해! 상당히 밀립니다!',
@@ -274,7 +274,8 @@ const _tvt2facVultureMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수가 결정적인 한 방을 날립니다!',
+              text: '{home} 선수 벌처 컨트롤 차이! 속업 타이밍에서 앞섭니다!',
+              altText: '{home} 선수 마인 활용이 적절합니다! 상대 벌처를 잡아냅니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -285,7 +286,8 @@ const _tvt2facVultureMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수가 결정적인 한 방을 날립니다!',
+              text: '{away} 선수 벌처 기동으로 상대 SCV를 학살합니다!',
+              altText: '{away} 선수 마인 매설로 맵을 장악! 상대 이동을 봉쇄합니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

@@ -103,7 +103,7 @@ const _pvp4gateVsMulti = ScenarioScript(
             ScriptEvent(
               text: '4게이트 타이밍! 멀티가 자리잡기 전에 밀어냅니다!',
               owner: LogOwner.home,
-              awayArmy: -10,
+              awayArmy: -8,
               decisive: true,
             ),
           ],
@@ -127,7 +127,7 @@ const _pvp4gateVsMulti = ScenarioScript(
             ScriptEvent(
               text: '{away}, 게이트웨이가 추가로 돌아갑니다! 멀티 자원이 빛을 발합니다!',
               owner: LogOwner.away,
-              awayArmy: 10, awayResource: 30,
+              awayArmy: 12, awayResource: 35,
               altText: '{away} 선수 병력이 쏟아져 나옵니다! 멀티의 힘!',
             ),
             ScriptEvent(
@@ -152,24 +152,25 @@ const _pvp4gateVsMulti = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 멀티 자원으로 병력을 빠르게 보충합니다!',
           owner: LogOwner.away,
-          awayArmy: 7, awayResource: -15,
+          awayArmy: 5, awayResource: -15,
           altText: '{away}, 멀티의 자원이 빛을 발합니다! 병력 보충이 빠릅니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수도 병력을 모읍니다. 하지만 자원이 부족합니다.',
+          text: '{home} 선수도 병력을 모읍니다! 아직 포기할 수 없습니다!',
           owner: LogOwner.home,
-          homeArmy: 1, homeResource: -20,
+          homeArmy: 3, homeResource: -20,
+          altText: '{home}, 게이트웨이에서 드라군이 나옵니다!',
         ),
         ScriptEvent(
           text: '{away}, 드라군 편대가 전진합니다! 멀티의 힘!',
           owner: LogOwner.away,
-          awayArmy: 4, awayResource: 10, favorsStat: 'attack',
+          awayArmy: 3, awayResource: 10, favorsStat: 'attack',
           altText: '{away} 선수 멀티 자원으로 압도합니다!',
         ),
         ScriptEvent(
           text: '멀티가 살아남으면서 자원 차이가 결정적입니다!',
           owner: LogOwner.away,
-          homeArmy: -15,
+          homeArmy: -10,
           decisive: true,
         ),
       ],

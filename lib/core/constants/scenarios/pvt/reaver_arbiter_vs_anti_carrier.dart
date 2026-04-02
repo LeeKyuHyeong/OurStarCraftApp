@@ -1,0 +1,195 @@
+part of '../../scenario_scripts.dart';
+
+// ----------------------------------------------------------
+// 리버 아비터 vs 골리앗 대공: 스테이시스 + 리콜 vs 골리앗 진형
+// ----------------------------------------------------------
+const _pvtReaverArbiterVsAntiCarrier = ScenarioScript(
+  id: 'pvt_reaver_arbiter_vs_anti_carrier',
+  matchup: 'PvT',
+  homeBuildIds: ['pvt_trans_reaver_arbiter'],
+  awayBuildIds: ['tvp_trans_anti_carrier'],
+  description: '리버 아비터 vs 골리앗 대공 — 아비터가 골리앗 진형을 뚫을 수 있을까',
+  phases: [
+    // Phase 0: opening (lines 1-11)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 게이트웨이에서 드라군을 생산합니다.',
+          owner: LogOwner.home,
+          homeArmy: 2,
+          homeResource: -10,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 팩토리에서 골리앗을 생산합니다! 대공 빌드!',
+          owner: LogOwner.away,
+          awayArmy: 2,
+          awayResource: -15,
+          altText: '{away}, 골리앗이 나옵니다! 공중 유닛을 경계하는군요!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 로보틱스를 건설합니다.',
+          owner: LogOwner.home,
+          homeResource: -15,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 아머리를 올려 골리앗 사거리 업그레이드를 준비합니다.',
+          owner: LogOwner.away,
+          awayResource: -15,
+          altText: '{away}, 아머리! 골리앗 레인지 업을 노리고 있습니다!',
+        ),
+        ScriptEvent(
+          text: '골리앗 대공 빌드! 아비터가 안전하게 접근할 수 있을까요!',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 1: 리버 견제 + 테크 업 (lines 12-21)
+    ScriptPhase(
+      name: 'mid_game',
+      startLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 셔틀 리버가 출발합니다!',
+          owner: LogOwner.home,
+          homeArmy: 4,
+          homeResource: -20,
+          favorsStat: 'harass',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 골리앗이 셔틀을 쫓습니다! 사거리가 깁니다!',
+          owner: LogOwner.away,
+          awayArmy: 2,
+          homeArmy: -1,
+          favorsStat: 'defense',
+          altText: '{away}, 골리앗 미사일이 셔틀을 쫓아갑니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 셔틀을 빠르게 빼고 다른 방향으로 접근합니다!',
+          owner: LogOwner.home,
+          favorsStat: 'control',
+          skipChance: 0.2,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 템플러 아카이브와 아비터 트리뷰널을 건설합니다!',
+          owner: LogOwner.home,
+          homeResource: -20,
+          altText: '{home}, 아비터 트리뷰널까지! 풀테크를 올립니다!',
+        ),
+        ScriptEvent(
+          text: '골리앗이 많으면 아비터도 위험합니다! 접근 각도가 중요하겠네요!',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 2: 아비터 + 전략 전개 (lines 22-29)
+    ScriptPhase(
+      name: 'late_setup',
+      startLine: 22,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 10,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 아비터가 완성됩니다! 골리앗을 피해 이동합니다!',
+          owner: LogOwner.home,
+          homeArmy: 3,
+          homeResource: -15,
+          favorsStat: 'strategy',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 골리앗 대부대가 진형을 갖추고 전진합니다!',
+          owner: LogOwner.away,
+          awayArmy: 4,
+          awayResource: -15,
+          favorsStat: 'attack',
+          altText: '{away}, 골리앗이 줄을 지어 전진합니다! 대공 화력이 무시무시!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 하이 템플러를 합류시킵니다. 스톰이 핵심!',
+          owner: LogOwner.home,
+          homeArmy: 2,
+          homeResource: -10,
+          skipChance: 0.3,
+        ),
+        ScriptEvent(
+          text: '골리앗 진형에 아비터가 정면 접근하면 위험합니다! 우회가 필요하죠!',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 3: 결전 (lines 30+)
+    ScriptPhase(
+      name: 'decisive_battle',
+      startLine: 30,
+      branches: [
+        ScriptBranch(
+          id: 'home_wins',
+          baseProbability: 1.0,
+          conditionStat: 'strategy',
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 아비터 스테이시스로 골리앗 전열을 얼립니다!',
+              owner: LogOwner.home,
+              awayArmy: -4,
+              homeArmy: 2,
+              favorsStat: 'strategy',
+              altText: '{home}, 스테이시스! 골리앗 절반이 꼼짝 못 합니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 리콜! 드라군이 테란 일꾼 라인에 나타납니다!',
+              owner: LogOwner.home,
+              homeArmy: 4,
+              awayResource: -25,
+              favorsStat: 'strategy',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 골리앗이 얼어붙어 대응이 불가능합니다!',
+              owner: LogOwner.away,
+              awayArmy: -2,
+            ),
+            ScriptEvent(
+              text: '스테이시스와 리콜 콤보! 골리앗이 손도 못 씁니다! GG!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_wins',
+          baseProbability: 1.0,
+          conditionStat: 'defense',
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 골리앗이 아비터를 집중 사격합니다!',
+              owner: LogOwner.away,
+              homeArmy: -4,
+              awayArmy: 2,
+              favorsStat: 'defense',
+              altText: '{away}, 골리앗 미사일에 아비터가 순식간에 격추됩니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 아비터를 잃었습니다! 리콜이 불가능해요!',
+              owner: LogOwner.home,
+              homeArmy: -2,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 골리앗과 시즈탱크가 함께 전진합니다!',
+              owner: LogOwner.away,
+              awayArmy: 4,
+              homeArmy: -3,
+              favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '대공 빌드가 아비터를 완벽히 막았습니다! GG!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);

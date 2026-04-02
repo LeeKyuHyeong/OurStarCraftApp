@@ -240,7 +240,8 @@ const _tvt5facMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수가 결정적인 한 방을 날립니다!',
+              text: '{home} 선수 시야 확보 성공! 측면 탱크 포격으로 상대 라인을 무너뜨립니다!',
+              altText: '{home} 선수 벌처 마인으로 상대 벌처를 잡고 탱크로 밀어냅니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -251,7 +252,8 @@ const _tvt5facMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수가 결정적인 한 방을 날립니다!',
+              text: '{away} 선수 측면 포격! 시야가 끊긴 상대 탱크를 직격합니다!',
+              altText: '{away} 선수 마인으로 상대 벌처를 제거! 시야 없는 탱크를 포격합니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

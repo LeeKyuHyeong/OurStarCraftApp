@@ -40,13 +40,13 @@ const _tvtWraithMirror = ScenarioScript(
           text: '{home} 선수 스타포트 건설! 그리고 2번째 스타포트도!',
           owner: LogOwner.home,
           homeResource: -50,
-          altText: '{home}, 투스타포트! 레이스를 대량 생산하겠다는 의도!',
+          altText: '{home}, 투스타포트! 대량 생산 체제에 들어가겠다는 의도!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 투스타포트! 레이스 대량 생산!',
+          text: '{away} 선수도 투스타포트! 공중 유닛 대량 생산!',
           owner: LogOwner.away,
           awayResource: -50,
-          altText: '{away}, 투스타포트! 양쪽 투스타 레이스 미러입니다!',
+          altText: '{away}, 투스타포트! 양쪽 투스타 미러입니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 레이스 생산 시작! 클로킹 연구도 시작!',
@@ -122,7 +122,7 @@ const _tvtWraithMirror = ScenarioScript(
               text: '{home}, 클로킹 완성! 레이스가 투명해집니다! 상대 진영 침투!',
               owner: LogOwner.home,
               awayResource: -20, favorsStat: 'harass',
-              altText: '{home} 선수 클로킹 레이스 침투! SCV가 쓰러집니다!',
+              altText: '{home} 선수 클로킹 레이스 침투! SCV를 잡아냅니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 디텍이 늦습니다! SCV가 녹고 있어요!',
@@ -154,12 +154,12 @@ const _tvtWraithMirror = ScenarioScript(
               altText: '{away} 선수 클로킹 레이스! SCV를 노립니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 디텍이 없습니다! SCV가 쓰러지고 있어요!',
+              text: '{home} 선수 디텍이 없습니다! SCV가 녹고 있어요!',
               owner: LogOwner.home,
               homeArmy: -2, homeResource: -10,
             ),
             ScriptEvent(
-              text: '{away}, 클로킹 레이스로 SCV 학살! 상대 경제가 무너집니다!',
+              text: '{away}, 클로킹 레이스로 SCV 학살! 상대 자원줄이 무너집니다!',
               owner: LogOwner.away,
               homeResource: -15, favorsStat: 'harass',
               altText: '{away} 선수 레이스 학살! 상대 일꾼이 녹습니다!',
@@ -293,7 +293,8 @@ const _tvtWraithMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수가 결정적인 한 방을 날립니다!',
+              text: '{home} 선수 레이스 컨트롤 승리! 공중전에서 앞섭니다!',
+              altText: '{home} 선수 골리앗 전환이 빠릅니다! 지상에서 밀어냅니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -304,7 +305,8 @@ const _tvtWraithMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수가 결정적인 한 방을 날립니다!',
+              text: '{away} 선수 레이스 수싸움에서 승리! 상대 공중 전력을 괴멸시킵니다!',
+              altText: '{away} 선수 클로킹 레이스로 상대 SCV를 학살! 자원 격차를 벌립니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

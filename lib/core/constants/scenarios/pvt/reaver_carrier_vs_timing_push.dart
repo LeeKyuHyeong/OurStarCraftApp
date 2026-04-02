@@ -1,0 +1,221 @@
+part of '../../scenario_scripts.dart';
+
+// ----------------------------------------------------------
+// 리버 캐리어 vs 타이밍 푸시
+// ----------------------------------------------------------
+const _pvtReaverCarrierVsTimingPush = ScenarioScript(
+  id: 'pvt_reaver_carrier_vs_timing_push',
+  matchup: 'PvT',
+  homeBuildIds: ['pvt_trans_reaver_carrier'],
+  awayBuildIds: ['tvp_trans_timing_push'],
+  description: '리버 셔틀 + 캐리어 전환 vs 중반 타이밍 어택 — 생존 후 역전',
+  phases: [
+    // Phase 0: 오프닝 (lines 1-11)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 게이트웨이 건설 후 가스를 올립니다.',
+          owner: LogOwner.home,
+          homeResource: -15,
+          altText: '{home}, 게이트웨이에 이어 가스 채취를 시작합니다.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 배럭에 이어 팩토리를 빠르게 올립니다!',
+          owner: LogOwner.away,
+          awayResource: -20,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 사이버네틱스 코어 건설! 로보틱스까지 계획하고 있겠죠.',
+          owner: LogOwner.home,
+          homeResource: -15,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 아카데미까지 올립니다! 메딕을 준비하는 모습이네요.',
+          owner: LogOwner.away,
+          awayResource: -15,
+          altText: '{away}, 아카데미 건설! 바이오닉 타이밍을 노리고 있습니다!',
+        ),
+        ScriptEvent(
+          text: '테란이 아카데미를 빨리 올렸습니다! 타이밍 공격이 올 수 있겠네요.',
+          owner: LogOwner.system,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 드라군 생산을 시작합니다. 앞마당 넥서스도 건설하구요.',
+          owner: LogOwner.home,
+          homeArmy: 2,
+          homeResource: -30,
+        ),
+      ],
+    ),
+    // Phase 1: 타이밍 어택 방어 (lines 12-21)
+    ScriptPhase(
+      name: 'mid_game',
+      startLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
+      linearEvents: [
+        ScriptEvent(
+          text: '{away} 선수 마린 메딕 시즈탱크 조합으로 전진합니다! 타이밍 어택입니다!',
+          owner: LogOwner.away,
+          awayArmy: 5,
+          awayResource: -15,
+          favorsStat: 'attack',
+          altText: '{away}, 병력을 모아서 밀어붙입니다! 완벽한 타이밍!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 드라군과 질럿으로 방어선을 구축합니다!',
+          owner: LogOwner.home,
+          homeArmy: 3,
+          homeResource: -10,
+          favorsStat: 'defense',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 시즈탱크가 시즈 모드! 프로토스 앞마당을 포격합니다!',
+          owner: LogOwner.away,
+          homeArmy: -3,
+          awayArmy: -1,
+          favorsStat: 'attack',
+          altText: '{away}, 탱크 시즈! 드라군이 사정거리 밖에서 녹습니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 로보틱스에서 리버가 나옵니다! 수비에 투입합니다!',
+          owner: LogOwner.home,
+          homeArmy: 3,
+          homeResource: -15,
+          favorsStat: 'defense',
+          skipChance: 0.2,
+        ),
+        ScriptEvent(
+          text: '타이밍 공격이 들어왔습니다! 프로토스가 막아내야 캐리어 전환이 가능합니다!',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 2: 리버 반격 + 캐리어 준비 (lines 22-29)
+    ScriptPhase(
+      name: 'late_setup',
+      startLine: 22,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 10,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 리버 스카랩이 마린 메딕 뭉치를 강타합니다!',
+          owner: LogOwner.home,
+          awayArmy: -4,
+          homeArmy: 2,
+          favorsStat: 'control',
+          altText: '{home}, 리버 스카랩 명중! 마린이 한꺼번에 날아갑니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 병력이 많이 줄었습니다. 후속 병력을 기다려야 합니다.',
+          owner: LogOwner.away,
+          awayResource: -10,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 이 틈을 놓치지 않고 스타게이트를 건설합니다!',
+          owner: LogOwner.home,
+          homeResource: -25,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 플릿 비콘까지! 캐리어 생산을 준비합니다!',
+          owner: LogOwner.home,
+          homeResource: -25,
+          homeArmy: 2,
+          altText: '{home}, 플릿 비콘 건설! 캐리어로 가겠다는 의지입니다!',
+        ),
+        ScriptEvent(
+          text: '타이밍 어택을 막아냈습니다! 이제 프로토스의 시간이 올 수 있습니다!',
+          owner: LogOwner.system,
+          skipChance: 0.3,
+        ),
+      ],
+    ),
+    // Phase 3: 결전 (lines 30+)
+    ScriptPhase(
+      name: 'decisive_battle',
+      startLine: 30,
+      branches: [
+        // 분기 A: 캐리어 완성 후 역전 → 홈 승리
+        ScriptBranch(
+          id: 'home_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 캐리어 2기가 전선에 합류합니다! 인터셉터를 가득 채웠습니다!',
+              owner: LogOwner.home,
+              homeArmy: 5,
+              favorsStat: 'macro',
+              altText: '{home}, 캐리어 편대 출격! 인터셉터가 하늘을 뒤덮습니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 리버도 셔틀로 측면을 공격합니다! 양면 작전!',
+              owner: LogOwner.home,
+              awayResource: -20,
+              favorsStat: 'harass',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 대공 병력이 부족합니다! 타이밍 어택에 자원을 다 쏟았어요!',
+              owner: LogOwner.away,
+              awayArmy: -4,
+              homeArmy: 2,
+            ),
+            ScriptEvent(
+              text: '타이밍을 놓친 테란! 캐리어 앞에 무력합니다!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 캐리어 함대가 테란 기지를 압도합니다! 역전 승리!',
+              owner: LogOwner.home,
+              homeArmy: 25,
+              awayArmy: -15,
+              decisive: true,
+              altText: '{home}, 캐리어가 하늘에서 쏟아집니다! 테란은 답이 없습니다!',
+            ),
+          ],
+        ),
+        // 분기 B: 타이밍 피해 누적 → 어웨이 승리
+        ScriptBranch(
+          id: 'away_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 2차 공격을 시작합니다! 시즈탱크가 추가 합류!',
+              owner: LogOwner.away,
+              awayArmy: 5,
+              homeArmy: -3,
+              favorsStat: 'attack',
+              altText: '{away}, 추가 병력으로 다시 밀어붙입니다! 프로토스가 회복할 틈을 주지 않습니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 캐리어가 아직 나오지 않았습니다! 시간이 모자랍니다!',
+              owner: LogOwner.home,
+              homeArmy: -2,
+              homeResource: -10,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 시즈탱크 포격이 넥서스를 직격합니다!',
+              owner: LogOwner.away,
+              homeResource: -30,
+              homeArmy: -2,
+              favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '타이밍 공격의 피해가 너무 컸습니다! 프로토스가 회복 불가능합니다!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 마린 탱크 조합으로 밀어냅니다! 캐리어 전환은 꿈으로 끝납니다!',
+              owner: LogOwner.away,
+              awayArmy: 25,
+              homeArmy: -15,
+              decisive: true,
+              altText: '{away}, 타이밍 어택 완벽 성공! 프로토스를 박살냅니다!',
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);

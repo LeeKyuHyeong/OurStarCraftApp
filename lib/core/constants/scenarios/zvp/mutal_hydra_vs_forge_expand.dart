@@ -1,0 +1,185 @@
+part of '../../scenario_scripts.dart';
+
+// ----------------------------------------------------------
+// ZvP: 뮤탈 히드라 vs 포지 더블
+// ----------------------------------------------------------
+const _zvpMutalHydraVsForgeExpand = ScenarioScript(
+  id: 'zvp_mutal_hydra_vs_forge_expand',
+  matchup: 'ZvP',
+  homeBuildIds: ['zvp_trans_mutal_hydra'],
+  awayBuildIds: ['pvz_trans_forge_expand'],
+  description: '뮤탈 프로브 견제 + 히드라 타이밍 vs 포지 더블 수비',
+  phases: [
+    // Phase 0: 오프닝 (lines 1-11)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 해처리에서 드론을 뽑기 시작합니다.',
+          owner: LogOwner.home,
+          homeResource: -5,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 포지를 먼저 건설합니다!',
+          owner: LogOwner.away,
+          awayResource: -15,
+          altText: '{away}, 포지 건설! 포지더블입니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 앞마당 해처리를 올립니다.',
+          owner: LogOwner.home,
+          homeResource: -30,
+          altText: '{home}, 앞마당 해처리! 확장을 가져갑니다.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 앞마당 넥서스를 건설합니다! 캐논으로 입구를 막습니다!',
+          owner: LogOwner.away,
+          awayResource: -30,
+          altText: '{away}, 넥서스 건설! 캐논과 게이트웨이로 봉쇄!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 스포닝풀과 가스를 넣으면서 레어를 향합니다.',
+          owner: LogOwner.home,
+          homeResource: -25,
+        ),
+        ScriptEvent(
+          text: '국룰 포지더블! 저그는 뮤탈과 히드라를 선택했습니다!',
+          owner: LogOwner.system,
+          skipChance: 0.3,
+        ),
+      ],
+    ),
+    // Phase 1: 뮤탈 견제 (lines 12-21)
+    ScriptPhase(
+      name: 'mid_game',
+      startLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 스파이어 완성! 뮤탈리스크를 생산합니다!',
+          owner: LogOwner.home,
+          homeArmy: 4, homeResource: -25,
+          altText: '{home}, 뮤탈리스크! 프로브를 견제하러 갑니다!',
+        ),
+        ScriptEvent(
+          text: '{home}, 뮤탈이 프로토스 본진 프로브를 물어뜯습니다!',
+          owner: LogOwner.home,
+          awayResource: -15, favorsStat: 'harass',
+          altText: '{home} 선수 뮤탈 견제! 프로브가 줄어듭니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 스타게이트에서 커세어를 생산합니다! 뮤탈 대응!',
+          owner: LogOwner.away,
+          awayArmy: 3, awayResource: -20,
+          altText: '{away}, 커세어! 뮤탈을 잡아야 합니다!',
+        ),
+        ScriptEvent(
+          text: '{away}, 커세어로 오버로드를 사냥합니다!',
+          owner: LogOwner.away,
+          homeArmy: -1, homeResource: -10, favorsStat: 'harass',
+        ),
+        ScriptEvent(
+          text: '뮤탈 vs 커세어! 오버로드 vs 프로브! 견제전이 치열합니다!',
+          owner: LogOwner.system,
+          skipChance: 0.2,
+        ),
+      ],
+    ),
+    // Phase 2: 히드라 타이밍 (lines 22-29)
+    ScriptPhase(
+      name: 'late_setup',
+      startLine: 22,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 10,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 히드라덴 건설! 히드라 생산 시작!',
+          owner: LogOwner.home,
+          homeArmy: 4, homeResource: -20,
+          altText: '{home}, 히드라덴! 뮤탈과 히드라를 함께 운용합니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 뮤탈로 커세어를 유인하면서 히드라가 전진합니다!',
+          owner: LogOwner.home,
+          homeArmy: 3, favorsStat: 'strategy',
+          altText: '{home}, 뮤탈 유인! 히드라가 캐논 라인을 노립니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 아둔에서 템플러 아카이브를 건설합니다! 스톰 준비!',
+          owner: LogOwner.away,
+          awayResource: -25,
+          altText: '{away}, 템플러 아카이브! 스톰으로 히드라를 막아야 합니다!',
+        ),
+        ScriptEvent(
+          text: '히드라 타이밍이냐 스톰 완성이냐! 시간과의 싸움!',
+          owner: LogOwner.system,
+          skipChance: 0.3,
+        ),
+      ],
+    ),
+    // Phase 3: 결전 (lines 30+)
+    ScriptPhase(
+      name: 'decisive_battle',
+      startLine: 30,
+      branches: [
+        ScriptBranch(
+          id: 'home_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 뮤탈이 하이 템플러를 잡습니다! 스톰 위협 제거!',
+              owner: LogOwner.home,
+              awayArmy: -3, favorsStat: 'control',
+              altText: '{home}, 뮤탈이 하이 템플러를 사냥합니다!',
+            ),
+            ScriptEvent(
+              text: '{home}, 히드라가 캐논 라인을 무너뜨립니다!',
+              owner: LogOwner.home,
+              awayArmy: -4, favorsStat: 'attack',
+              altText: '{home} 선수 히드라 화력! 캐논이 녹아내립니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 스톰 없이 히드라를 막을 수 없습니다!',
+              owner: LogOwner.away,
+              awayArmy: -2,
+            ),
+            ScriptEvent(
+              text: '뮤탈이 스톰을 차단하고 히드라가 돌파! 저그의 승리!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 하이 템플러가 합류합니다! 스톰 투하!',
+              owner: LogOwner.away,
+              homeArmy: -5, favorsStat: 'strategy',
+              altText: '{away}, 스톰! 히드라 편대가 녹아내립니다!',
+            ),
+            ScriptEvent(
+              text: '{away}, 커세어가 뮤탈을 쫓아냅니다! 질럿 드라군이 역공!',
+              owner: LogOwner.away,
+              homeArmy: -3, awayArmy: 2, favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 뮤탈과 히드라 모두 큰 피해를 입었습니다!',
+              owner: LogOwner.home,
+              homeArmy: -2,
+            ),
+            ScriptEvent(
+              text: '스톰이 히드라를 전멸! 포지 더블의 수비가 성공합니다!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);

@@ -1,0 +1,190 @@
+part of '../../scenario_scripts.dart';
+
+// ----------------------------------------------------------
+// 리버 푸시 vs 더블 업그레이드: SCV 킬로 업그레이드 자원 차단
+// ----------------------------------------------------------
+const _pvtReaverPushVsUpgrade = ScenarioScript(
+  id: 'pvt_reaver_push_vs_upgrade',
+  matchup: 'PvT',
+  homeBuildIds: ['pvt_trans_reaver_push'],
+  awayBuildIds: ['tvp_trans_upgrade'],
+  description: '리버 셔틀 푸시 vs 더블 업그레이드 — SCV 킬로 자원 차단',
+  phases: [
+    // Phase 0: opening (lines 1-11)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 게이트웨이 이후 로보틱스를 건설합니다.',
+          owner: LogOwner.home,
+          homeResource: -20,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 엔지니어링 베이를 올립니다! 업그레이드 빌드입니다!',
+          owner: LogOwner.away,
+          awayResource: -15,
+          altText: '{away}, 엔지니어링 베이가 올라갑니다! 더블 업그레이드를 노리는군요!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 드라군 생산을 시작하면서 정찰을 보냅니다.',
+          owner: LogOwner.home,
+          homeArmy: 2,
+          homeResource: -10,
+          skipChance: 0.2,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 아머리도 건설합니다! 공방 업그레이드를 동시에 올릴 준비!',
+          owner: LogOwner.away,
+          awayResource: -15,
+          altText: '{away}, 아머리까지! 후반 병력 질에 투자하는 겁니다!',
+        ),
+        ScriptEvent(
+          text: '테란이 업그레이드에 투자하고 있습니다. 프로토스가 그 시간을 줄까요.',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 1: 리버 셔틀 출격 (lines 12-21)
+    ScriptPhase(
+      name: 'mid_game',
+      startLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 셔틀에 리버를 태워 출발합니다!',
+          owner: LogOwner.home,
+          homeArmy: 4,
+          homeResource: -20,
+          favorsStat: 'harass',
+          altText: '{home}, 리버 셔틀이 이륙합니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 1-1 업그레이드를 시작합니다! 시간이 필요합니다!',
+          owner: LogOwner.away,
+          awayResource: -20,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 셔틀이 테란 확장 기지 일꾼 라인을 노립니다!',
+          owner: LogOwner.home,
+          favorsStat: 'harass',
+          altText: '{home}, 셔틀이 멀티 일꾼 라인으로 향합니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 터렛을 건설하지만 셔틀이 빨라서 따라잡기 힘듭니다!',
+          owner: LogOwner.away,
+          awayResource: -10,
+          skipChance: 0.3,
+        ),
+        ScriptEvent(
+          text: '업그레이드 완성 전에 자원을 끊을 수 있느냐! 시간 싸움입니다!',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 2: 자원 전쟁 (lines 22-29)
+    ScriptPhase(
+      name: 'late_setup',
+      startLine: 22,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 10,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 리버 스캐럽이 SCV 라인에 떨어집니다!',
+          owner: LogOwner.home,
+          awayResource: -25,
+          favorsStat: 'harass',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 자원 채취량이 눈에 띄게 줄었습니다.',
+          owner: LogOwner.away,
+          awayResource: -10,
+          altText: '{away}, SCV 손실이 커서 자원이 부족해지고 있어요.',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 드라군을 추가 생산하면서 정면 압박도 준비합니다.',
+          owner: LogOwner.home,
+          homeArmy: 3,
+          homeResource: -15,
+          favorsStat: 'macro',
+        ),
+        ScriptEvent(
+          text: '업그레이드가 완성되기 전에 게임이 끝날 수도 있겠습니다!',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 3: 결전 (lines 30+)
+    ScriptPhase(
+      name: 'decisive_battle',
+      startLine: 30,
+      branches: [
+        ScriptBranch(
+          id: 'home_wins',
+          baseProbability: 1.0,
+          conditionStat: 'harass',
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 리버 견제가 계속됩니다! SCV가 거의 남지 않았어요!',
+              owner: LogOwner.home,
+              awayResource: -30,
+              homeArmy: 2,
+              favorsStat: 'harass',
+              altText: '{home}, 스캐럽 한 방 한 방이 치명적입니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 업그레이드는 완료했지만 병력을 뽑을 자원이 없습니다!',
+              owner: LogOwner.away,
+              awayArmy: -2,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 드라군 대부대가 밀고 들어갑니다!',
+              owner: LogOwner.home,
+              homeArmy: 4,
+              awayArmy: -3,
+              favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '자원이 말라버린 테란! 업그레이드가 무색합니다! GG!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_wins',
+          baseProbability: 1.0,
+          conditionStat: 'macro',
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 2-2 업그레이드 완료! 마린 메딕의 전투력이 급상승합니다!',
+              owner: LogOwner.away,
+              awayArmy: 5,
+              awayResource: -15,
+              favorsStat: 'macro',
+              altText: '{away}, 업그레이드 완료! 마린 한 기 한 기가 강해졌습니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 드라군이 업그레이드된 마린에게 밀립니다!',
+              owner: LogOwner.home,
+              homeArmy: -3,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 업그레이드 병력이 넥서스까지 밀고 갑니다!',
+              owner: LogOwner.away,
+              awayArmy: 3,
+              homeArmy: -2,
+              favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '업그레이드 차이가 압도적입니다! 프로토스가 무너집니다! GG!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);

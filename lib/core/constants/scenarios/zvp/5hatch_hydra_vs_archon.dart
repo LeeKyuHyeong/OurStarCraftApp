@@ -1,0 +1,183 @@
+part of '../../scenario_scripts.dart';
+
+// ----------------------------------------------------------
+// ZvP: 5해처리 히드라 vs 아콘 + 질럿
+// ----------------------------------------------------------
+const _zvp5hatchHydraVsArchon = ScenarioScript(
+  id: 'zvp_5hatch_hydra_vs_archon',
+  matchup: 'ZvP',
+  homeBuildIds: ['zvp_trans_5hatch_hydra'],
+  awayBuildIds: ['pvz_trans_archon'],
+  description: '5해처리 히드라 물량 vs 하이 템플러 아콘 합체',
+  phases: [
+    // Phase 0: 오프닝 (lines 1-11)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 해처리에서 드론을 뽑습니다.',
+          owner: LogOwner.home,
+          homeResource: -5,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 파일런 건설 후 게이트웨이를 올립니다.',
+          owner: LogOwner.away,
+          awayResource: -20,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 앞마당 해처리를 건설합니다.',
+          owner: LogOwner.home,
+          homeResource: -30,
+          altText: '{home}, 앞마당 해처리! 자원을 챙깁니다.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 사이버네틱스 코어 완성! 아둔을 향합니다!',
+          owner: LogOwner.away,
+          awayResource: -20,
+          altText: '{away}, 사이버네틱스 코어 완성! 테크를 올립니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 스포닝풀과 가스를 넣으면서 테크를 준비합니다.',
+          owner: LogOwner.home,
+          homeResource: -20,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 아둔에서 템플러 아카이브 건설! 하이 템플러를 준비합니다!',
+          owner: LogOwner.away,
+          awayResource: -25,
+          altText: '{away}, 템플러 아카이브! 아콘을 향한 테크!',
+        ),
+      ],
+    ),
+    // Phase 1: 히드라 생산 vs 아콘 준비 (lines 12-21)
+    ScriptPhase(
+      name: 'mid_game',
+      startLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 히드라덴 건설! 히드라리스크 생산 시작!',
+          owner: LogOwner.home,
+          homeArmy: 3, homeResource: -20,
+          altText: '{home}, 히드라덴! 히드라를 뽑기 시작합니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 해처리를 추가합니다! 물량을 늘립니다!',
+          owner: LogOwner.home,
+          homeResource: -30,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 하이 템플러 2기 생산! 아콘 합체를 준비합니다!',
+          owner: LogOwner.away,
+          awayArmy: 3, awayResource: -25, favorsStat: 'strategy',
+          altText: '{away}, 하이 템플러! 아콘으로 합체할까요?',
+        ),
+        ScriptEvent(
+          text: '{away}, 하이 템플러가 아콘으로 합체합니다! 강력한 화력!',
+          owner: LogOwner.away,
+          awayArmy: 3,
+          altText: '{away} 선수 아콘 합체! 범위 공격이 위협적입니다!',
+        ),
+        ScriptEvent(
+          text: '아콘의 범위 공격은 히드라에게 치명적입니다! 스톰 전에 밀어야 합니다!',
+          owner: LogOwner.system,
+          skipChance: 0.2,
+        ),
+      ],
+    ),
+    // Phase 2: 타이밍 공격 (lines 22-29)
+    ScriptPhase(
+      name: 'late_setup',
+      startLine: 22,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 10,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 5해처리에서 히드라를 쏟아냅니다! 지금 밀어야 합니다!',
+          owner: LogOwner.home,
+          homeArmy: 6, homeResource: -30, favorsStat: 'macro',
+          altText: '{home}, 히드라 대량 생산! 타이밍 공격!',
+        ),
+        ScriptEvent(
+          text: '{home}, 히드라 편대가 프로토스 진지를 향해 전진합니다!',
+          owner: LogOwner.home,
+          homeArmy: 2, favorsStat: 'attack',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 아콘과 질럿으로 방어진을 구축합니다!',
+          owner: LogOwner.away,
+          awayArmy: 3, awayResource: -15,
+          altText: '{away}, 아콘 앞에 질럿 벽! 수비 태세!',
+        ),
+        ScriptEvent(
+          text: '스톰이 완성되면 히드라에게 악몽입니다! 시간과의 싸움!',
+          owner: LogOwner.system,
+          skipChance: 0.3,
+        ),
+      ],
+    ),
+    // Phase 3: 결전 (lines 30+)
+    ScriptPhase(
+      name: 'decisive_battle',
+      startLine: 30,
+      branches: [
+        ScriptBranch(
+          id: 'home_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 히드라 물량으로 아콘을 집중 사격합니다!',
+              owner: LogOwner.home,
+              awayArmy: -4, homeArmy: -2, favorsStat: 'attack',
+              altText: '{home}, 히드라 집중 사격! 아콘이 무너집니다!',
+            ),
+            ScriptEvent(
+              text: '{home}, 질럿까지 쓸어버립니다! 히드라 물량이 압도적!',
+              owner: LogOwner.home,
+              awayArmy: -3, favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 스톰을 쓰지만 히드라 분산으로 피해가 적습니다!',
+              owner: LogOwner.away,
+              homeArmy: -2, favorsStat: 'control',
+            ),
+            ScriptEvent(
+              text: '스톰 완성 전에 히드라가 밀어붙였습니다! 타이밍 승리!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 스톰이 히드라 편대에 떨어집니다! 대참사!',
+              owner: LogOwner.away,
+              homeArmy: -6, favorsStat: 'strategy',
+              altText: '{away}, 스톰 투하! 히드라가 녹아내립니다!',
+            ),
+            ScriptEvent(
+              text: '{away}, 아콘이 남은 히드라를 범위 공격으로 정리합니다!',
+              owner: LogOwner.away,
+              homeArmy: -3, favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 병력이 전멸합니다! 스톰이 너무 강했습니다!',
+              owner: LogOwner.home,
+              homeArmy: -2,
+            ),
+            ScriptEvent(
+              text: '스톰과 아콘의 조합! 히드라의 천적입니다!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);

@@ -1,0 +1,218 @@
+part of '../../scenario_scripts.dart';
+
+// ----------------------------------------------------------
+// 리버 캐리어 vs 더블 업그레이드 매크로
+// ----------------------------------------------------------
+const _pvtReaverCarrierVsUpgrade = ScenarioScript(
+  id: 'pvt_reaver_carrier_vs_upgrade',
+  matchup: 'PvT',
+  homeBuildIds: ['pvt_trans_reaver_carrier'],
+  awayBuildIds: ['tvp_trans_upgrade'],
+  description: '리버 셔틀 + 캐리어 전환 vs 더블 업그레이드 매크로 — 후반 결전',
+  phases: [
+    // Phase 0: 오프닝 (lines 1-11)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 게이트웨이에서 질럿을 생산합니다. 안정적인 시작입니다.',
+          owner: LogOwner.home,
+          homeResource: -15,
+          homeArmy: 1,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 배럭에 이어 팩토리를 건설합니다.',
+          owner: LogOwner.away,
+          awayResource: -20,
+          altText: '{away}, 팩토리까지 올리면서 테크를 탑니다.',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 사이버네틱스 코어 건설! 드라군 생산을 준비하네요.',
+          owner: LogOwner.home,
+          homeResource: -15,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 엔지니어링 베이를 건설합니다! 업그레이드에 투자하는군요!',
+          owner: LogOwner.away,
+          awayResource: -15,
+          altText: '{away}, 엔지니어링 베이! 더블 업그레이드를 노리고 있습니다!',
+        ),
+        ScriptEvent(
+          text: '테란이 업그레이드에 투자합니다! 후반을 바라보는 빌드네요.',
+          owner: LogOwner.system,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 넥서스를 건설합니다. 자원 확보에 나서구요.',
+          owner: LogOwner.home,
+          homeResource: -30,
+        ),
+      ],
+    ),
+    // Phase 1: 리버 견제 vs 업그레이드 진행 (lines 12-21)
+    ScriptPhase(
+      name: 'mid_game',
+      startLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 로보틱스에서 리버와 셔틀을 생산합니다!',
+          owner: LogOwner.home,
+          homeArmy: 3,
+          homeResource: -20,
+          altText: '{home}, 리버 셔틀 조합을 꺼냅니다! 견제에 나서겠죠.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 +1 공격 업그레이드가 완료됩니다! 마린 화력이 올라갑니다!',
+          owner: LogOwner.away,
+          awayArmy: 2,
+          awayResource: -15,
+          favorsStat: 'macro',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 리버를 셔틀에 태워 테란 앞마당을 습격합니다!',
+          owner: LogOwner.home,
+          awayResource: -15,
+          favorsStat: 'harass',
+          altText: '{home}, 리버 셔틀이 테란 확장을 급습합니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 마린으로 리버를 잡으려 하지만 셔틀이 빠릅니다!',
+          owner: LogOwner.away,
+          homeArmy: -1,
+          favorsStat: 'control',
+          skipChance: 0.25,
+        ),
+        ScriptEvent(
+          text: '양쪽 다 후반을 준비하면서 중반 견제전이 이어집니다.',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 2: 캐리어 전환 vs 풀 업그레이드 (lines 22-29)
+    ScriptPhase(
+      name: 'late_setup',
+      startLine: 22,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 10,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 스타게이트 2개를 올립니다! 캐리어 전환을 시작합니다!',
+          owner: LogOwner.home,
+          homeResource: -25,
+          altText: '{home}, 스타게이트를 연달아 건설! 캐리어 시대를 열겠다는 겁니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 +2 공격 업그레이드에 아머리까지! 골리앗 생산도 시작합니다!',
+          owner: LogOwner.away,
+          awayArmy: 3,
+          awayResource: -20,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 플릿 비콘 완성! 캐리어 생산에 돌입합니다!',
+          owner: LogOwner.home,
+          homeArmy: 3,
+          homeResource: -30,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 사이언스 퍼실리티까지 올립니다! 사이언스 베슬을 준비하네요!',
+          owner: LogOwner.away,
+          awayResource: -15,
+          altText: '{away}, 사이언스 퍼실리티! EMP를 노리고 있습니다!',
+          skipChance: 0.3,
+        ),
+        ScriptEvent(
+          text: '양쪽 모두 최종 병력 조합을 갖춰가고 있습니다! 대규모 결전이 예상됩니다!',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 3: 결전 (lines 30+)
+    ScriptPhase(
+      name: 'decisive_battle',
+      startLine: 30,
+      branches: [
+        // 분기 A: 캐리어 함대 vs 업그레이드 부대 → 홈 승리
+        ScriptBranch(
+          id: 'home_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 캐리어 3기가 전선에 등장합니다! 인터셉터가 쏟아지기 시작합니다!',
+              owner: LogOwner.home,
+              homeArmy: 5,
+              awayArmy: -2,
+              favorsStat: 'macro',
+              altText: '{home}, 캐리어 편대! 인터셉터 구름이 내려앉습니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 리버까지 지상에서 동시 공격! 양면 압박입니다!',
+              owner: LogOwner.home,
+              awayArmy: -3,
+              awayResource: -20,
+              favorsStat: 'harass',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 업그레이드된 마린이 쏘지만 캐리어 실드가 단단합니다!',
+              owner: LogOwner.away,
+              awayArmy: -2,
+              homeArmy: 1,
+            ),
+            ScriptEvent(
+              text: '업그레이드의 힘이 캐리어 실드를 뚫지 못합니다!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 캐리어 함대가 테란 진영을 덮습니다! 업그레이드로도 답이 없습니다!',
+              owner: LogOwner.home,
+              homeArmy: 25,
+              awayArmy: -15,
+              decisive: true,
+              altText: '{home}, 캐리어 물량의 압도! 테란 진영이 무너집니다!',
+            ),
+          ],
+        ),
+        // 분기 B: 풀업 마린 + 골리앗 → 어웨이 승리
+        ScriptBranch(
+          id: 'away_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 풀업 마린과 골리앗이 캐리어를 집중 사격합니다!',
+              owner: LogOwner.away,
+              awayArmy: 4,
+              homeArmy: -3,
+              favorsStat: 'control',
+              altText: '{away}, 업그레이드 완료된 마린! 캐리어 실드를 깎아냅니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 사이언스 베슬의 EMP! 캐리어 실드가 사라집니다!',
+              owner: LogOwner.away,
+              homeArmy: -3,
+              favorsStat: 'strategy',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 실드 없는 캐리어가 순식간에 격추됩니다!',
+              owner: LogOwner.home,
+              homeArmy: -4,
+              awayArmy: 2,
+            ),
+            ScriptEvent(
+              text: 'EMP가 판을 뒤집었습니다! 캐리어의 실드 없이는 종이 비행기입니다!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 풀업 병력이 프로토스를 짓밟습니다! 업그레이드의 힘!',
+              owner: LogOwner.away,
+              awayArmy: 25,
+              homeArmy: -15,
+              decisive: true,
+              altText: '{away}, 더블 업그레이드의 가치! 프로토스를 압도합니다!',
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);

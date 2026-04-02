@@ -1,35 +1,37 @@
 part of '../../scenario_scripts.dart';
 
 // ----------------------------------------------------------
-// 1. 배럭 더블 vs 팩토리 더블 (가장 대표적인 TvT)
+// 1. 배럭 더블 vs 투팩 벌처
+// 투팩이 팩토리 선행으로 병력 빠르게 압박, 배럭더블이 수비 후 자원 우위로 역전
+// 수비 성공/실패에 따라 중반 전개가 완전히 달라지는 분기 구조
 // ----------------------------------------------------------
 const _tvtRaxDoubleVsFacDouble = ScenarioScript(
   id: 'tvt_rax_double_vs_fac_double',
   matchup: 'TvT',
   homeBuildIds: ['tvt_cc_first'],
   awayBuildIds: ['tvt_2fac_vulture'],
-  description: '배럭 더블 vs 팩토리 더블 밸런스전',
+  description: '배럭 더블 vs 투팩 벌처 밸런스전',
   phases: [
-    // Phase 0: 오프닝 (lines 1-16)
+    // Phase 0: 오프닝 (lines 1-13)
     ScriptPhase(
       name: 'opening',
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 배럭 건설합니다.',
+          text: '{home} 선수 배럭을 건설합니다.',
           owner: LogOwner.home,
           homeResource: -10,
         ),
         ScriptEvent(
-          text: '{away} 선수 배럭 건설합니다.',
+          text: '{away} 선수도 배럭을 올립니다.',
           owner: LogOwner.away,
           awayResource: -10,
         ),
         ScriptEvent(
-          text: '{home} 선수 마린을 뽑으면서 SCV 정찰을 보냅니다.',
+          text: '{home} 선수 SCV 정찰을 보냅니다!',
           owner: LogOwner.home,
           homeResource: -3,
-          altText: '{home}, SCV 정찰! 상대 빌드를 확인합니다!',
+          altText: '{home}, SCV가 상대 본진으로 향합니다!',
           skipChance: 0.3,
         ),
         ScriptEvent(
@@ -38,315 +40,248 @@ const _tvtRaxDoubleVsFacDouble = ScenarioScript(
           awayResource: -5,
         ),
         ScriptEvent(
-          text: '{home} 선수 앞마당에 커맨드센터를 건설합니다!',
+          text: '{home} 선수 앞마당에 커맨드센터를 건설합니다! 빠른 확장!',
           owner: LogOwner.home,
           homeResource: -30,
-          altText: '{home}, 빠른 앞마당! 확장을 가져가겠다는 의도!',
+          altText: '{home}, 앞마당 커맨드센터! 자원 우위를 가져가겠다는 의도!',
         ),
         ScriptEvent(
-          text: '{away} 선수 팩토리 건설합니다. 머신샵도 바로 붙입니다!',
+          text: '{away} 선수 팩토리 건설! 머신샵도 바로 붙입니다!',
           owner: LogOwner.away,
           awayResource: -20,
-          altText: '{away}, 팩토리에 머신샵! 빠른 테크!',
+          altText: '{away}, 팩토리에 머신샵! 빠른 메카닉 테크!',
         ),
         ScriptEvent(
-          text: '{home} 선수도 팩토리 건설! 머신샵 부착합니다.',
+          text: '{away} 선수 두 번째 팩토리 건설! 투팩 체제입니다!',
+          owner: LogOwner.away,
+          awayResource: -15,
+          altText: '{away}, 투팩! 병력 생산을 두 배로 가져갑니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수도 팩토리를 올립니다. 머신샵 부착!',
           owner: LogOwner.home,
           homeResource: -20,
         ),
         ScriptEvent(
-          text: '{away} 선수 벌처 생산 시작!',
+          text: '{away} 선수 벌처 생산 시작! 팩토리가 먼저 올라간 만큼 병력도 빠릅니다!',
           owner: LogOwner.away,
-          awayArmy: 2, awayResource: -10,
-          altText: '{away}, 첫 벌처가 나옵니다!',
-        ),
-      ],
-    ),
-    // Phase 1: 벌처 싸움 (lines 17-28)
-    ScriptPhase(
-      name: 'vulture_battle',
-      startLine: 17,
-      recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 6,
-      linearEvents: [
-        ScriptEvent(
-          text: '{away}, 벌처가 상대 앞마당을 정찰합니다! SCV를 노리는데요!',
-          owner: LogOwner.away,
-          favorsStat: 'harass',
-          altText: '{away} 선수 벌처 기동! 앞마당 SCV를 노립니다!',
+          awayArmy: 3,
+          awayResource: -10,
+          altText:
+              '{away}, 벌처가 나옵니다! 배럭더블보다 팩토리가 빨랐으니 당연한 속도 차이!',
         ),
         ScriptEvent(
-          text: '{home} 선수 벙커 건설로 앞마당을 방어합니다!',
-          owner: LogOwner.home,
-          homeArmy: 2, homeResource: -15,
-          altText: '{home}, 앞마당에 벙커! 벌처를 막아냅니다!',
-        ),
-        ScriptEvent(
-          text: '{home} 선수도 벌처 생산! 벌처 속업 연구 시작!',
-          owner: LogOwner.home,
-          homeArmy: 3, homeResource: -15,
-          altText: '{home}, 벌처 나옵니다! 속업까지!',
-        ),
-        ScriptEvent(
-          text: '{away}, 벌처 속업 완료! 속도가 빠릅니다!',
-          owner: LogOwner.away,
-          awayArmy: 3, favorsStat: 'control',
-          altText: '{away} 선수 벌처 속업! 기동력이 올라갑니다!',
-        ),
-        ScriptEvent(
-          text: '양측 벌처가 센터에서 마주칩니다! 벌처 싸움의 시작!',
-          owner: LogOwner.system,
-          skipChance: 0.2,
-        ),
-      ],
-    ),
-    // Phase 2: 벌처 교전 결과 - 분기 (lines 29-42)
-    ScriptPhase(
-      name: 'vulture_clash',
-      startLine: 29,
-      branches: [
-        // 분기 A: 홈 벌처 우세
-        ScriptBranch(
-          id: 'home_vulture_win',
-          baseProbability: 1.0,
-          events: [
-            ScriptEvent(
-              text: '{home}, 벌처 컨트롤이 좋습니다! 상대 벌처를 잡아냅니다!',
-              owner: LogOwner.home,
-              awayArmy: -3, homeArmy: -1, favorsStat: 'control',
-              altText: '{home} 선수 벌처 컨트롤 차이! 상대 벌처를 격파!',
-            ),
-            ScriptEvent(
-              text: '{away} 선수 벌처 피해가 큽니다! 시즈 탱크를 기다려야 합니다!',
-              owner: LogOwner.away,
-              awayArmy: -2,
-            ),
-            ScriptEvent(
-              text: '{home}, 벌처로 상대 SCV를 괴롭힙니다!',
-              owner: LogOwner.home,
-              awayResource: -15, favorsStat: 'harass',
-            ),
-            ScriptEvent(
-              text: '벌처 싸움에서 크게 밀리는 순간 패배와 직결! 컨트롤에 신경써야 합니다!',
-              owner: LogOwner.system,
-              skipChance: 0.3,
-            ),
-          ],
-        ),
-        // 분기 B: 어웨이 벌처 우세
-        ScriptBranch(
-          id: 'away_vulture_win',
-          baseProbability: 1.0,
-          events: [
-            ScriptEvent(
-              text: '{away}, 벌처 컨트롤! 속도 차이로 상대 벌처를 따라잡습니다!',
-              owner: LogOwner.away,
-              homeArmy: -3, awayArmy: -1, favorsStat: 'control',
-              altText: '{away} 선수 벌처가 상대 벌처를 잡아냅니다!',
-            ),
-            ScriptEvent(
-              text: '{home} 선수 벌처를 잃고 후퇴! 앞마당 벙커에 의지합니다!',
-              owner: LogOwner.home,
-              homeArmy: -2,
-            ),
-            ScriptEvent(
-              text: '{away}, 벌처로 상대 SCV를 노립니다!',
-              owner: LogOwner.away,
-              homeResource: -15, favorsStat: 'harass',
-              altText: '{away} 선수 벌처 견제! 상대 일꾼을 공격!',
-            ),
-            ScriptEvent(
-              text: '벌처 싸움에서 크게 밀리면 패배 직결! 벌처 컨트롤이 테테전의 메인 이벤트!',
-              owner: LogOwner.system,
-              skipChance: 0.3,
-            ),
-          ],
-        ),
-      ],
-    ),
-    // Phase 3: 탱크 대치 (lines 43-58)
-    ScriptPhase(
-      name: 'tank_standoff',
-      startLine: 43,
-      recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 8,
-      linearEvents: [
-        ScriptEvent(
-          text: '{home} 선수 머신샵 부착! 시즈 모드 연구 시작!',
-          owner: LogOwner.home,
-          homeResource: -15,
-          altText: '{home}, 머신샵에서 시즈 연구! 탱크가 본격 가동!',
-        ),
-        ScriptEvent(
-          text: '{away} 선수도 머신샵 부착! 탱크 생산 시작!',
-          owner: LogOwner.away,
-          awayResource: -15,
-        ),
-        ScriptEvent(
-          text: '{home} 선수 시즈 탱크 생산 시작!',
-          owner: LogOwner.home,
-          homeArmy: 3, homeResource: -20,
-          altText: '{home}, 탱크가 나옵니다!',
-        ),
-        ScriptEvent(
-          text: '{away} 선수도 시즈 탱크! 라인을 유지하면서 배치합니다.',
-          owner: LogOwner.away,
-          awayArmy: 3, awayResource: -20,
-        ),
-        ScriptEvent(
-          text: '양측 시즈 탱크 배치 완료! 라인 대치가 시작됩니다!',
-          owner: LogOwner.system,
-          skipChance: 0.2,
-        ),
-        ScriptEvent(
-          text: '{home} 선수 아머리 건설! 업그레이드를 준비합니다!',
-          owner: LogOwner.home,
-          homeResource: -15,
-        ),
-        ScriptEvent(
-          text: '{home} 선수 스타포트 건설! 컨트롤타워도 올립니다!',
-          owner: LogOwner.home,
-          homeResource: -25,
-          altText: '{home}, 스타포트 건설 후 컨트롤타워! 드랍십을 노립니다!',
-        ),
-        ScriptEvent(
-          text: '{away} 선수 아머리 건설! 골리앗도 준비합니다!',
-          owner: LogOwner.away,
-          awayArmy: 2, awayResource: -20,
-          altText: '{away}, 아머리가 올라갑니다! 골리앗 생산 준비!',
-        ),
-        ScriptEvent(
-          text: '{home} 선수 드랍십 생산! 견제를 노리는 건가요?',
-          owner: LogOwner.home,
-          homeArmy: 2, homeResource: -15,
-          altText: '{home}, 드랍십이 나옵니다! 상대 후방을 노릴 준비!',
-        ),
-        ScriptEvent(
-          text: '{away} 선수 벌처로 시야 확보! 상대 드랍 경로를 감시합니다!',
-          owner: LogOwner.away,
-          favorsStat: 'scout',
-          altText: '{away}, 시야 싸움! 벌처로 드랍을 경계합니다!',
-          skipChance: 0.4,
-        ),
-        ScriptEvent(
-          text: '탱크, 골리앗, 드랍십! 후반 집중력 싸움이 시작됩니다!',
+          text: '투팩 빌드! 병력이 상대보다 빠르게 쏟아집니다!',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
       ],
     ),
-    // Phase 4: 드랍 + 후반 전환 - 분기 (lines 59-74)
+    // Phase 1: 투팩 pressure (lines 14-21)
     ScriptPhase(
-      name: 'drop_transition',
-      startLine: 59,
-      branches: [
-        // 분기 A: 드랍 성공
-        ScriptBranch(
-          id: 'drop_success',
-          baseProbability: 1.0,
-          events: [
-            ScriptEvent(
-              text: '{home}, 드랍십 출격! 상대 확장기지에 탱크를 내립니다!',
-              owner: LogOwner.home,
-              awayResource: -15, favorsStat: 'strategy',
-              altText: '{home} 선수 탱크 드랍! 상대 확장기지가 위험합니다!',
-            ),
-            ScriptEvent(
-              text: '{away} 선수 확장기지가 박살나고 있습니다! 병력을 돌려야 해요!',
-              owner: LogOwner.away,
-              awayArmy: -2, awayResource: -10,
-            ),
-            ScriptEvent(
-              text: '{home}, 상대 확장기지를 타격하면서 정면 전진! 멀티포인트 공격!',
-              owner: LogOwner.home,
-              homeArmy: 2, awayArmy: -2, favorsStat: 'attack',
-              altText: '{home} 선수 드랍과 정면 동시 공격! 수비가 갈립니다!',
-            ),
-            ScriptEvent(
-              text: '상대 확장기지 타격 + 정면 전진! 승리로 직결됩니다!',
-              owner: LogOwner.system,
-              skipChance: 0.3,
-            ),
-          ],
-        ),
-        // 분기 B: 정면 돌파
-        ScriptBranch(
-          id: 'frontal_break',
-          baseProbability: 1.0,
-          events: [
-            ScriptEvent(
-              text: '{away} 선수 탱크 골리앗 라인을 밀어냅니다!',
-              owner: LogOwner.away,
-              awayArmy: 2, awayResource: -15, favorsStat: 'attack',
-              altText: '{away}, 탱크 골리앗 전진! 라인을 밀어붙입니다!',
-            ),
-            ScriptEvent(
-              text: '{away}, 시즈 포격! 유지하던 라인을 파괴합니다!',
-              owner: LogOwner.away,
-              homeArmy: -2, homeResource: -10, favorsStat: 'attack',
-              altText: '{away} 선수 탱크 화력! 상대 라인이 무너집니다!',
-            ),
-            ScriptEvent(
-              text: '{home} 선수 라인이 밀립니다! 병력이 피해를 받고 있어요!',
-              owner: LogOwner.home,
-              homeArmy: -2,
-            ),
-            ScriptEvent(
-              text: '라인을 파괴하며 전진! 승리로 직결됩니다!',
-              owner: LogOwner.system,
-              skipChance: 0.3,
-            ),
-          ],
-        ),
-      ],
-    ),
-    // Phase 5: 결전 (lines 75-85)
-    ScriptPhase(
-      name: 'decisive_battle',
-      startLine: 75,
+      name: 'twofac_pressure',
+      startLine: 14,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 탱크, 골리앗, 드랍십 총동원! 집중력 싸움!',
-          owner: LogOwner.home,
-          homeArmy: 5, homeResource: -25,
-          altText: '{home}, 탱크 골리앗 벌처 총출동! 마지막 결전!',
-        ),
-        ScriptEvent(
-          text: '{away} 선수도 탱크 골리앗 전 병력 결집! 최종 교전!',
+          text: '{away} 선수 벌처 3기와 시즈 탱크 1기로 전진합니다!',
           owner: LogOwner.away,
-          awayArmy: 5, awayResource: -25,
+          awayArmy: 3,
+          favorsStat: 'attack',
+          altText: '{away}, 투팩 병력이 상대 앞마당을 향합니다! 탱크까지 동행!',
         ),
         ScriptEvent(
-          text: '양측 탱크 골리앗 라인이 정면 충돌합니다! 집중력 싸움!',
+          text: '{home} 선수 앞마당 벙커! 마린과 벌처로 막아봅니다!',
+          owner: LogOwner.home,
+          homeArmy: 2,
+          homeResource: -10,
+          altText: '{home}, 급하게 벙커를 올립니다! 마린이 들어갑니다!',
+        ),
+        ScriptEvent(
+          text: '투팩 병력이 압도적입니다! 배럭더블이 버텨야 합니다!',
           owner: LogOwner.system,
         ),
         ScriptEvent(
-          text: '{home}, 시즈 포격! 상대 탱크가 터집니다!',
-          owner: LogOwner.home,
-          awayArmy: -5, homeArmy: -5, favorsStat: 'attack',
-          altText: '{home} 선수 시즈 화력! 상대 병력이 무너집니다!',
+          text: '{away} 선수 시즈 탱크 포격! 벙커가 녹고 있습니다!',
+          owner: LogOwner.away,
+          homeArmy: -2,
+          favorsStat: 'attack',
+          altText: '{away}, 시즈 포격이 벙커를 직격합니다!',
         ),
         ScriptEvent(
-          text: '{away}, 골리앗 집중 포화! 반격합니다!',
-          owner: LogOwner.away,
-          homeArmy: -5, awayArmy: -5, favorsStat: 'defense',
-          altText: '{away} 선수 골리앗 화력으로 맞섭니다!',
+          text: '{home} 선수 팩토리에서 탱크가 겨우 나옵니다! 하지만 시즈 연구가 아직입니다!',
+          owner: LogOwner.home,
+          homeArmy: 2,
+          homeResource: -10,
+          altText: '{home}, 첫 탱크가 나왔지만 시즈 모드가 없습니다!',
         ),
       ],
     ),
-    // Phase 6: 결전 판정 - 분기 (lines 86+)
+    // Phase 2: 수비 결과 분기 (lines 22-29)
+    ScriptPhase(
+      name: 'defense_result',
+      startLine: 22,
+      branches: [
+        // 분기 A: 투팩 공격 성공 — 다양한 피해 양상
+        ScriptBranch(
+          id: 'twofac_damage',
+          conditionStat: 'attack',
+          homeStatMustBeHigher: false,
+          baseProbability: 1.0,
+          events: [
+            // 벌처 우회 → SCV 피해 (altText로 변주)
+            ScriptEvent(
+              text: '{away} 선수 벌처 우회! SCV를 잡아냅니다!',
+              owner: LogOwner.away,
+              homeResource: -20, homeArmy: -2, awayArmy: 2,
+              favorsStat: 'harass',
+              altText: '{away}, 탱크 포격 사이로 벌처가 SCV를 급습합니다!',
+            ),
+            // SCV 피해 심화 (altText: 커맨드센터 띄우기)
+            ScriptEvent(
+              text: '{home} 선수 SCV 피해가 심각합니다! 앞마당 일꾼이 거의 없습니다!',
+              owner: LogOwner.home,
+              homeResource: -15, homeArmy: -1,
+              altText: '{home} 선수 커맨드센터를 띄웁니다! 파괴는 면했지만 가동이 멈춥니다!',
+            ),
+            // 벙커 파괴 (altText: 본진까지 침투)
+            ScriptEvent(
+              text: '{away} 선수 탱크 추가 포격! 상대 벙커가 무너집니다!',
+              owner: LogOwner.away,
+              homeArmy: -3, awayArmy: 2,
+              altText: '{away}, 벙커를 밀고 본진까지 병력이 올라갑니다!',
+            ),
+            // 마무리 해설 (altText로 변주)
+            ScriptEvent(
+              text: '투팩 공격이 큰 피해를 줬습니다! 배럭더블의 병력이 거의 없습니다!',
+              owner: LogOwner.system,
+              altText: '꾸역꾸역 막고 있지만 힘들어보입니다! 투팩의 압박이 거셉니다!',
+            ),
+          ],
+        ),
+        // 분기 B: 배럭더블 수비 성공 — 다양한 수비 양상
+        ScriptBranch(
+          id: 'double_defense',
+          conditionStat: 'defense',
+          homeStatMustBeHigher: true,
+          baseProbability: 1.0,
+          events: [
+            // 벙커+탱크로 벌처 격파 (altText: 마인으로 벌처 잡기)
+            ScriptEvent(
+              text: '{home} 선수 벙커 수리! 벌처를 잡아냅니다!',
+              owner: LogOwner.home,
+              awayArmy: -4, homeArmy: 2,
+              favorsStat: 'defense',
+              altText: '{home}, 마인이 벌처를 잡습니다! 투팩 공격이 꺾입니다!',
+            ),
+            // 투팩 측 피해 (altText: 탱크 후퇴)
+            ScriptEvent(
+              text: '{away} 선수 벌처 피해가 큽니다! 탱크까지 잃습니다!',
+              owner: LogOwner.away,
+              awayArmy: -3,
+              altText: '{away}, 벌처를 잃고 탱크만 남습니다! 후퇴를 고민합니다!',
+            ),
+            // 경제 가동 (altText: SCV 복구)
+            ScriptEvent(
+              text: '{home} 선수 앞마당이 본격 가동됩니다! 자원 순환이 시작됩니다!',
+              owner: LogOwner.home,
+              homeResource: 30, homeArmy: 2,
+              altText: '{home}, SCV를 뽑으며 복구합니다! 앞마당이 정상 가동!',
+            ),
+            ScriptEvent(
+              text: '배럭더블 수비 성공! 투팩 측은 병력을 많이 잃었습니다!',
+              owner: LogOwner.system,
+              altText: '투팩 공격이 막혔습니다! 이제 자원 차이가 벌어지기 시작합니다!',
+            ),
+          ],
+        ),
+      ],
+    ),
+    // Phase 3: 중반 분기 - 투팩 마무리 vs 배럭더블 확장 (lines 30-37)
+    ScriptPhase(
+      name: 'post_defense',
+      startLine: 30,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 6,
+      branches: [
+        // 분기 A: 투팩이 데미지 줬을 때 — 압박 지속, 끝내기
+        ScriptBranch(
+          id: 'twofac_finish',
+          conditionStat: 'attack',
+          homeStatMustBeHigher: false,
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 탱크 추가 생산! 시즈 포격을 이어갑니다!',
+              owner: LogOwner.away,
+              awayArmy: 4, awayResource: -15,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 시즈 연구 완료! 하지만 병력이 너무 적습니다...',
+              owner: LogOwner.home,
+              homeArmy: 1, homeResource: -10,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 투팩 물량으로 앞마당까지 밀어냅니다! 탱크가 시즈 걸고 포격!',
+              owner: LogOwner.away,
+              awayArmy: 3, homeArmy: -3,
+              favorsStat: 'attack',
+              altText: '{away}, 투팩의 생산력! 탱크 벌처가 끊임없이 나옵니다!',
+            ),
+            ScriptEvent(
+              text: '투팩이 끝내기를 노립니다! 배럭더블은 벙커도 없고 병력도 없습니다!',
+              owner: LogOwner.system,
+            ),
+          ],
+        ),
+        // 분기 B: 배럭더블 수비 성공 후 — 확장
+        ScriptBranch(
+          id: 'double_expand',
+          conditionStat: 'macro',
+          homeStatMustBeHigher: true,
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 시즈 연구 완료! 팩토리를 추가합니다! 3팩, 4팩!',
+              owner: LogOwner.home,
+              homeArmy: 3,
+              homeResource: -20,
+              altText: '{home}, 더블 자원으로 팩토리가 쭉쭉 늘어납니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 뒤늦게 앞마당 확장... 자원이 부족합니다!',
+              owner: LogOwner.away,
+              awayResource: -20,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 탱크가 쏟아집니다! 더블 자원의 힘!',
+              owner: LogOwner.home,
+              homeArmy: 3,
+              homeResource: -15,
+              altText: '{home}, 4팩에서 탱크 벌처가 끊임없이!',
+            ),
+            ScriptEvent(
+              text:
+                  '배럭더블의 자원 우위가 빛을 발합니다! 물량 차이가 나기 시작하네요!',
+              owner: LogOwner.system,
+            ),
+          ],
+        ),
+      ],
+    ),
+    // Phase 4: 결전 판정 (lines 38+)
     ScriptPhase(
       name: 'decisive_outcome',
-      startLine: 86,
+      startLine: 38,
       branches: [
         ScriptBranch(
           id: 'home_wins_decisive',
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수가 결정적인 한 방을 날립니다!',
+              text: '{home} 선수 더블 자원의 힘! 탱크 물량으로 상대를 압도합니다!',
               owner: LogOwner.home,
               decisive: true,
+              altText: '{home} 선수 수비 후 팩토리 물량! 상대가 더 이상 밀 수 없습니다!',
             ),
           ],
         ),
@@ -355,9 +290,10 @@ const _tvtRaxDoubleVsFacDouble = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수가 결정적인 한 방을 날립니다!',
+              text: '{away} 선수 투팩 시즈 포격! 상대 앞마당을 완전히 밀어냅니다!',
               owner: LogOwner.away,
               decisive: true,
+              altText: '{away} 선수 투팩 물량으로 끝까지 밀어냅니다! 배럭더블이 버티질 못합니다!',
             ),
           ],
         ),
@@ -365,4 +301,3 @@ const _tvtRaxDoubleVsFacDouble = ScenarioScript(
     ),
   ],
 );
-

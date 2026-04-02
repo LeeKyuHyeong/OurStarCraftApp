@@ -1,0 +1,214 @@
+part of '../../scenario_scripts.dart';
+
+// ----------------------------------------------------------
+// 프록시 게이트 질럿 러시 vs BBS 마린 러시 - 치즈 대결
+// ----------------------------------------------------------
+const _pvtProxyGateVsBbs = ScenarioScript(
+  id: 'pvt_proxy_gate_vs_bbs',
+  matchup: 'PvT',
+  homeBuildIds: ['pvt_proxy_gate'],
+  awayBuildIds: ['tvp_bbs'],
+  description: '프록시 게이트 질럿 러시 vs BBS 마린 러시',
+  phases: [
+    // Phase 0: 오프닝 (lines 1-10)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 프로브를 센터로 보냅니다!',
+          owner: LogOwner.home,
+          homeResource: -5,
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 SCV를 센터로 보내고 있습니다!',
+          owner: LogOwner.away,
+          awayResource: -5,
+          altText: '{away}, SCV 정찰 출발!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 상대 본진 근처에 게이트웨이 건설!',
+          owner: LogOwner.home,
+          homeResource: -15,
+          altText: '{home}, 프록시 게이트웨이! 아주 공격적입니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 본진에 배럭 2개를 동시에 올립니다! BBS!',
+          owner: LogOwner.away,
+          awayResource: -20,
+          altText: '{away}, 더블 배럭! 마린 올인을 준비합니다!',
+        ),
+        ScriptEvent(
+          text: '양쪽 모두 공격적인 빌드! 누가 먼저 도착하느냐가 승부처!',
+          owner: LogOwner.system,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 질럿 생산 시작! 프록시라 이동 거리가 짧습니다!',
+          owner: LogOwner.home,
+          homeArmy: 2,
+          homeResource: -10,
+        ),
+      ],
+    ),
+    // Phase 1: 초반 충돌 (lines 12-18)
+    ScriptPhase(
+      name: 'early_clash',
+      startLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 질럿이 테란 본진으로 달려갑니다!',
+          owner: LogOwner.home,
+          homeArmy: 1,
+          favorsStat: 'attack',
+          altText: '{home}, 질럿 투입! 마린이 나오기 전에 피해를 줘야 합니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 마린 3기 생산! SCV와 함께 프로토스 본진으로!',
+          owner: LogOwner.away,
+          awayArmy: 3,
+          awayResource: -10,
+        ),
+        ScriptEvent(
+          text: '{home}, 질럿이 SCV를 잡기 시작합니다! 일꾼 피해!',
+          owner: LogOwner.home,
+          awayResource: -15,
+          favorsStat: 'attack',
+          altText: '{home} 선수 질럿이 SCV를 하나둘 베어냅니다!',
+        ),
+        ScriptEvent(
+          text: '{away}, 마린이 프로토스 본진에 도착! 프로브를 노립니다!',
+          owner: LogOwner.away,
+          homeResource: -15,
+          favorsStat: 'attack',
+        ),
+        ScriptEvent(
+          text: '양쪽 본진이 동시에 공격받고 있습니다! 치킨 레이스!',
+          owner: LogOwner.system,
+          skipChance: 0.2,
+        ),
+      ],
+    ),
+    // Phase 2: 본진 공방 (lines 22-28)
+    ScriptPhase(
+      name: 'base_race',
+      startLine: 22,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 10,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 질럿 추가 생산! 프록시라 바로 합류합니다!',
+          owner: LogOwner.home,
+          homeArmy: 3,
+          homeResource: -10,
+          altText: '{home}, 질럿이 계속 나옵니다! 프록시 게이트웨이의 위력!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 마린이 프로브를 잡아냅니다! 프로토스 일꾼이 줄고 있어요!',
+          owner: LogOwner.away,
+          homeResource: -20,
+          awayArmy: 2,
+          favorsStat: 'harass',
+        ),
+        ScriptEvent(
+          text: '{home}, 질럿이 배럭을 공격합니다! 마린 생산을 끊으려 합니다!',
+          owner: LogOwner.home,
+          awayArmy: -2,
+          favorsStat: 'attack',
+          altText: '{home} 선수 건물을 노립니다! 마린 보급을 차단!',
+        ),
+        ScriptEvent(
+          text: '양쪽 다 피해가 심각합니다! 먼저 무너지는 쪽이 지는 겁니다!',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 3: 결전 (lines 30-40)
+    ScriptPhase(
+      name: 'decisive_battle',
+      startLine: 30,
+      branches: [
+        // 분기 A: 질럿이 테란 본진 초토화
+        ScriptBranch(
+          id: 'home_wins',
+          conditionStat: 'attack',
+          homeStatMustBeHigher: true,
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 질럿이 SCV를 전부 잡아냅니다!',
+              owner: LogOwner.home,
+              awayResource: -30,
+              favorsStat: 'attack',
+              altText: '{home}, 질럿 컨트롤! SCV가 전멸합니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 마린이 돌아오지만 일꾼이 이미 없습니다!',
+              owner: LogOwner.away,
+              awayArmy: -3,
+            ),
+            ScriptEvent(
+              text: '{home}, 질럿이 배럭까지 부수고 있습니다!',
+              owner: LogOwner.home,
+              awayArmy: -5,
+              favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '프록시 게이트 성공! 테란 본진이 무너집니다!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 질럿이 커맨드센터를 파괴합니다! GG!',
+              owner: LogOwner.home,
+              homeArmy: 20,
+              awayArmy: -15,
+              decisive: true,
+              altText: '{home}, 커맨드센터가 무너집니다! 질럿 러시 대성공!',
+            ),
+          ],
+        ),
+        // 분기 B: 마린이 프로토스 본진 초토화
+        ScriptBranch(
+          id: 'away_wins',
+          conditionStat: 'defense',
+          homeStatMustBeHigher: false,
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 마린이 프로브를 전멸시킵니다!',
+              owner: LogOwner.away,
+              homeResource: -30,
+              favorsStat: 'attack',
+              altText: '{away}, 마린이 프로브를 쓸어냅니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 본진에 병력이 없습니다! 질럿은 전부 테란 진영!',
+              owner: LogOwner.home,
+              homeArmy: -3,
+            ),
+            ScriptEvent(
+              text: '{away}, SCV 수리로 마린을 지키면서 질럿을 막아냅니다!',
+              owner: LogOwner.away,
+              homeArmy: -4,
+              favorsStat: 'defense',
+              altText: '{away} 선수 마린 마이크로! 질럿을 하나씩 잡아냅니다!',
+            ),
+            ScriptEvent(
+              text: 'BBS가 프로토스 본진을 먼저 무너뜨립니다!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 넥서스를 파괴! 프로토스가 GG!',
+              owner: LogOwner.away,
+              awayArmy: 20,
+              homeArmy: -15,
+              decisive: true,
+              altText: '{away}, 넥서스가 무너집니다! BBS 완승!',
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);

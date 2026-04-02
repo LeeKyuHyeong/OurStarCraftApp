@@ -1,0 +1,197 @@
+part of '../../scenario_scripts.dart';
+
+// ----------------------------------------------------------
+// 리버 푸시 vs 바이오 메카닉: 마린 뭉치에 스캐럽
+// ----------------------------------------------------------
+const _pvtReaverPushVsBioMech = ScenarioScript(
+  id: 'pvt_reaver_push_vs_bio_mech',
+  matchup: 'PvT',
+  homeBuildIds: ['pvt_trans_reaver_push'],
+  awayBuildIds: ['tvp_trans_bio_mech'],
+  description: '리버 셔틀 푸시 vs 바이오 메카닉 — 마린 뭉치에 스캐럽 한 방',
+  phases: [
+    // Phase 0: opening (lines 1-11)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 게이트웨이에서 질럿을 생산합니다.',
+          owner: LogOwner.home,
+          homeArmy: 1,
+          homeResource: -10,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 배럭에서 마린을 생산하고 팩토리도 건설합니다.',
+          owner: LogOwner.away,
+          awayArmy: 2,
+          awayResource: -20,
+          altText: '{away}, 마린과 팩토리를 동시에! 바이오 메카닉 빌드입니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 로보틱스를 빠르게 올립니다!',
+          owner: LogOwner.home,
+          homeResource: -15,
+          altText: '{home}, 로보틱스 건설 시작! 리버를 노리는 빌드이군요!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 시즈탱크와 마린을 같이 모읍니다.',
+          owner: LogOwner.away,
+          awayArmy: 2,
+          awayResource: -15,
+          favorsStat: 'macro',
+        ),
+        ScriptEvent(
+          text: '바이오 메카닉의 복합 병력 vs 리버 셔틀 견제! 흥미로운 조합이네요!',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 1: 셔틀 리버 견제 (lines 12-21)
+    ScriptPhase(
+      name: 'mid_game',
+      startLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 셔틀 리버가 이륙합니다!',
+          owner: LogOwner.home,
+          homeArmy: 4,
+          homeResource: -20,
+          favorsStat: 'harass',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 마린 메딕 부대를 앞에 배치하고 탱크는 뒤에서 지원합니다.',
+          owner: LogOwner.away,
+          awayArmy: 3,
+          awayResource: -15,
+          altText: '{away}, 마린이 앞에, 시즈탱크가 뒤에! 전형적인 바이오 메카닉 진형!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 셔틀이 마린 뭉치 뒤편으로 접근합니다!',
+          owner: LogOwner.home,
+          favorsStat: 'control',
+          skipChance: 0.2,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 리버를 내려놓고 스캐럽을 발사합니다!',
+          owner: LogOwner.home,
+          awayArmy: -2,
+          awayResource: -10,
+          favorsStat: 'harass',
+          altText: '{home}, 리버가 마린 뭉치 옆에서 스캐럽을 쏩니다!',
+        ),
+        ScriptEvent(
+          text: '마린이 뭉쳐있으면 스캐럽 한 방에 녹습니다! 산개가 중요하죠!',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 2: 교전 확대 (lines 22-29)
+    ScriptPhase(
+      name: 'late_setup',
+      startLine: 22,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 10,
+      linearEvents: [
+        ScriptEvent(
+          text: '{away} 선수 골리앗을 추가합니다! 셔틀을 잡을 수 있는 유닛이죠!',
+          owner: LogOwner.away,
+          awayArmy: 3,
+          awayResource: -15,
+          favorsStat: 'macro',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 드라군 부대를 모아서 정면 압박을 준비합니다.',
+          owner: LogOwner.home,
+          homeArmy: 3,
+          homeResource: -15,
+          altText: '{home}, 드라군이 상당히 모였습니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 시즈탱크를 시즈 모드로 전환합니다!',
+          owner: LogOwner.away,
+          awayArmy: 1,
+          favorsStat: 'strategy',
+          skipChance: 0.3,
+        ),
+        ScriptEvent(
+          text: '복합 병력 대 리버 셔틀! 셔틀 생존이 게임을 가릅니다!',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 3: 결전 (lines 30+)
+    ScriptPhase(
+      name: 'decisive_battle',
+      startLine: 30,
+      branches: [
+        ScriptBranch(
+          id: 'home_wins',
+          baseProbability: 1.0,
+          conditionStat: 'control',
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 스캐럽이 마린 뭉치 한가운데에 명중합니다!',
+              owner: LogOwner.home,
+              homeArmy: 2,
+              awayArmy: -5,
+              favorsStat: 'control',
+              altText: '{home}, 스캐럽 한 방에 마린이 7기 사라집니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 바이오 병력이 순식간에 증발합니다!',
+              owner: LogOwner.away,
+              awayArmy: -2,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 드라군이 남은 탱크를 정리합니다!',
+              owner: LogOwner.home,
+              homeArmy: 3,
+              awayArmy: -2,
+              favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '스캐럽 한 방이 승부를 갈랐습니다! GG!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_wins',
+          baseProbability: 1.0,
+          conditionStat: 'attack',
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 골리앗이 셔틀을 격추합니다!',
+              owner: LogOwner.away,
+              homeArmy: -4,
+              awayArmy: 2,
+              favorsStat: 'attack',
+              altText: '{away}, 골리앗 미사일에 셔틀이 추락합니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 리버를 잃고 드라군만 남았습니다!',
+              owner: LogOwner.home,
+              homeArmy: -2,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 시즈탱크와 마린이 동시에 전진합니다!',
+              owner: LogOwner.away,
+              awayArmy: 4,
+              homeArmy: -3,
+              favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '복합 병력에 밀려 프로토스가 무너집니다! GG!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);

@@ -1,0 +1,179 @@
+part of '../../scenario_scripts.dart';
+
+// ----------------------------------------------------------
+// ZvP: 뮤탈 히드라 vs 캐논 러시
+// ----------------------------------------------------------
+const _zvpMutalHydraVsCannonRush = ScenarioScript(
+  id: 'zvp_mutal_hydra_vs_cannon_rush',
+  matchup: 'ZvP',
+  homeBuildIds: ['zvp_trans_mutal_hydra'],
+  awayBuildIds: ['pvz_cannon_rush'],
+  description: '뮤탈리스크 히드라 vs 전진 캐논 러시',
+  phases: [
+    // Phase 0: 오프닝 (lines 1-11)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 해처리에서 드론을 뽑습니다.',
+          owner: LogOwner.home,
+          homeResource: -5,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 포지를 건설합니다! 캐논 러시?',
+          owner: LogOwner.away,
+          awayResource: -15,
+          altText: '{away}, 포지 건설! 전진 캐논을 노리는 걸까요?',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 프로브가 저그 앞마당으로 접근합니다!',
+          owner: LogOwner.away,
+          awayResource: -5,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 앞마당 해처리를 건설합니다.',
+          owner: LogOwner.home,
+          homeResource: -30,
+          altText: '{home}, 앞마당 해처리! 확장을 가져갑니다.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 전진 파일런! 캐논을 세울 준비를 합니다!',
+          owner: LogOwner.away,
+          awayResource: -15,
+          altText: '{away}, 전진 파일런! 캐논 러시입니다!',
+        ),
+      ],
+    ),
+    // Phase 1: 캐논 공방 (lines 12-21)
+    ScriptPhase(
+      name: 'mid_game',
+      startLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
+      linearEvents: [
+        ScriptEvent(
+          text: '{away} 선수 캐논 건설! 앞마당 해처리를 겨냥합니다!',
+          owner: LogOwner.away,
+          awayArmy: 3, awayResource: -20,
+          altText: '{away}, 캐논이 올라갑니다! 해처리가 위험!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 드론으로 프로브를 쫓습니다! 캐논 건설을 방해!',
+          owner: LogOwner.home,
+          homeResource: -5, favorsStat: 'scout',
+          altText: '{home}, 드론 동원! 프로브를 쫓아냅니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 스포닝풀 완성! 저글링으로 프로브를 잡습니다!',
+          owner: LogOwner.home,
+          homeArmy: 2, homeResource: -10, favorsStat: 'control',
+        ),
+        ScriptEvent(
+          text: '캐논 러시를 막으면 뮤탈이 자유롭게 날아다닙니다!',
+          owner: LogOwner.system,
+          skipChance: 0.2,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 가스를 올리면서 스파이어를 준비합니다!',
+          owner: LogOwner.home,
+          homeResource: -20,
+          altText: '{home}, 가스 채취! 뮤탈을 향한 테크!',
+        ),
+      ],
+    ),
+    // Phase 2: 뮤탈 전환 (lines 22-29)
+    ScriptPhase(
+      name: 'late_setup',
+      startLine: 22,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 10,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 레어에서 스파이어를 올립니다! 뮤탈리스크!',
+          owner: LogOwner.home,
+          homeResource: -25,
+          altText: '{home}, 스파이어! 뮤탈리스크를 준비합니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 뮤탈리스크 3기 완성! 출격합니다!',
+          owner: LogOwner.home,
+          homeArmy: 4, homeResource: -20, favorsStat: 'harass',
+          altText: '{home}, 뮤탈 3기! 프로브를 사냥하러 갑니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 캐논 실패 후 본진에서 재건합니다.',
+          owner: LogOwner.away,
+          awayResource: -25,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 히드라덴도 건설합니다! 지상군도 준비!',
+          owner: LogOwner.home,
+          homeArmy: 3, homeResource: -20,
+          altText: '{home}, 히드라덴! 뮤탈과 히드라를 함께 운용!',
+        ),
+      ],
+    ),
+    // Phase 3: 결전 (lines 30+)
+    ScriptPhase(
+      name: 'decisive_battle',
+      startLine: 30,
+      branches: [
+        ScriptBranch(
+          id: 'home_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 뮤탈이 프로브를 물어뜯습니다! 대공이 없습니다!',
+              owner: LogOwner.home,
+              awayResource: -20, favorsStat: 'harass',
+              altText: '{home}, 뮤탈 견제! 프로브가 전멸합니다!',
+            ),
+            ScriptEvent(
+              text: '{home}, 히드라가 전진합니다! 지상도 장악!',
+              owner: LogOwner.home,
+              homeArmy: 3, awayArmy: -4, favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 캐논만으로는 뮤탈과 히드라를 막을 수 없습니다!',
+              owner: LogOwner.away,
+              awayArmy: -2,
+            ),
+            ScriptEvent(
+              text: '캐논 러시 실패! 뮤탈이 하늘을 지배합니다!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 캐논이 앞마당 해처리를 파괴합니다!',
+              owner: LogOwner.away,
+              homeResource: -20, homeArmy: -2, favorsStat: 'attack',
+              altText: '{away}, 캐논 화력! 해처리가 무너집니다!',
+            ),
+            ScriptEvent(
+              text: '{away}, 캐논을 본진 입구까지 확장합니다!',
+              owner: LogOwner.away,
+              awayArmy: 3, homeArmy: -2,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 뮤탈 전환이 너무 늦었습니다! 자원이 없습니다!',
+              owner: LogOwner.home,
+              homeArmy: -2,
+            ),
+            ScriptEvent(
+              text: '캐논 러시가 저그를 봉쇄합니다! 캐논 승리!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);

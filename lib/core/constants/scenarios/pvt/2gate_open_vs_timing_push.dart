@@ -1,0 +1,215 @@
+part of '../../scenario_scripts.dart';
+
+// ----------------------------------------------------------
+// 투게이트 질럿 오프닝 vs 타이밍 푸시
+// ----------------------------------------------------------
+const _pvt2gateOpenVsTimingPush = ScenarioScript(
+  id: 'pvt_2gate_open_vs_timing_push',
+  matchup: 'PvT',
+  homeBuildIds: ['pvt_2gate_open'],
+  awayBuildIds: ['tvp_trans_timing_push'],
+  description: '투게이트 질럿 vs 타이밍 푸시 — 양쪽 공격 대결',
+  phases: [
+    // Phase 0: 오프닝 (lines 1-11)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 게이트웨이를 건설합니다!',
+          owner: LogOwner.home,
+          homeResource: -15,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 배럭과 가스를 올립니다.',
+          owner: LogOwner.away,
+          awayResource: -15,
+          altText: '{away}, 배럭 건설 후 빠르게 가스!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 두 번째 게이트웨이! 투게이트로 갑니다!',
+          owner: LogOwner.home,
+          homeResource: -15,
+          altText: '{home}, 투게이트 확정!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 팩토리 건설! 머신샵을 붙이고 시즈 모드를 연구합니다!',
+          owner: LogOwner.away,
+          awayResource: -20,
+        ),
+        ScriptEvent(
+          text: '양쪽 다 공격적인 빌드입니다! 누가 먼저 타이밍을 잡느냐가 관건이죠!',
+          owner: LogOwner.system,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 질럿이 전진합니다!',
+          owner: LogOwner.home,
+          homeArmy: 3,
+          homeResource: -10,
+        ),
+      ],
+    ),
+    // Phase 1: 중반 교전 (lines 12-21)
+    ScriptPhase(
+      name: 'mid_game',
+      startLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 질럿으로 테란 앞마당을 찔러봅니다!',
+          owner: LogOwner.home,
+          homeArmy: 1,
+          favorsStat: 'attack',
+          altText: '{home}, 질럿 포크! 일꾼을 노립니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 마린과 벌처로 질럿을 방어합니다!',
+          owner: LogOwner.away,
+          awayArmy: 2,
+          homeArmy: -2,
+          favorsStat: 'defense',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 사이버네틱스 코어를 올리면서 드라군 전환합니다!',
+          owner: LogOwner.home,
+          homeResource: -15,
+          altText: '{home}, 사이버네틱스 코어 건설! 드라군이 필요합니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 시즈 탱크와 마린을 모아 전진 준비합니다!',
+          owner: LogOwner.away,
+          awayArmy: 3,
+          awayResource: -15,
+          favorsStat: 'attack',
+        ),
+        ScriptEvent(
+          text: '테란 타이밍 푸시가 다가옵니다! 프로토스가 드라군을 모을 수 있을까요?',
+          owner: LogOwner.system,
+          skipChance: 0.2,
+        ),
+      ],
+    ),
+    // Phase 2: 타이밍 충돌 준비 (lines 22-29)
+    ScriptPhase(
+      name: 'late_setup',
+      startLine: 22,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 10,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 드라군이 나오기 시작합니다! 파일런 앞에 배치!',
+          owner: LogOwner.home,
+          homeArmy: 3,
+          homeResource: -10,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 시즈 탱크 2기와 마린 부대가 전진합니다!',
+          owner: LogOwner.away,
+          awayArmy: 2,
+          awayResource: -10,
+          altText: '{away}, 마린 탱크 푸시! 프로토스 앞마당을 노립니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 넥서스를 올리고 있습니다! 타이밍이 빠듯합니다!',
+          owner: LogOwner.home,
+          homeResource: -30,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 시즈 모드 전환! 포격 준비 완료!',
+          owner: LogOwner.away,
+          favorsStat: 'attack',
+          skipChance: 0.3,
+        ),
+        ScriptEvent(
+          text: '결전의 순간이 다가옵니다! 양쪽 병력이 맞붙을 준비를 하고 있습니다!',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 3: 결전 (lines 30+)
+    ScriptPhase(
+      name: 'decisive_battle',
+      startLine: 30,
+      branches: [
+        ScriptBranch(
+          id: 'home_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 드라군이 탱크 사정거리 밖에서 사격합니다!',
+              owner: LogOwner.home,
+              homeArmy: 3,
+              awayArmy: -3,
+              favorsStat: 'control',
+              altText: '{home}, 드라군 사정거리! 탱크를 하나씩 잡아냅니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 탱크 포격이 빗나갑니다! 드라군 컨트롤이 좋습니다!',
+              owner: LogOwner.away,
+              awayArmy: -2,
+              homeArmy: -1,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 질럿이 측면에서 마린을 덮칩니다!',
+              owner: LogOwner.home,
+              homeArmy: 2,
+              awayArmy: -4,
+              favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '프로토스가 타이밍 푸시를 막아냈습니다! 역전의 기회!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 드라군 대군으로 밀고 들어갑니다! 테란이 무너집니다!',
+              owner: LogOwner.home,
+              homeArmy: 25,
+              awayArmy: -15,
+              decisive: true,
+              altText: '{home} 선수 타이밍 푸시를 역이용! 역공으로 승리합니다!',
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 시즈 포격이 드라군을 직격합니다!',
+              owner: LogOwner.away,
+              awayArmy: 2,
+              homeArmy: -4,
+              favorsStat: 'attack',
+              altText: '{away}, 탱크 포격! 드라군이 한 방에 녹습니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 드라군이 부족합니다! 아직 물량이 모이지 않았습니다!',
+              owner: LogOwner.home,
+              homeArmy: -3,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 마린이 앞으로 전진합니다! 넥서스를 노립니다!',
+              owner: LogOwner.away,
+              awayArmy: 3,
+              homeResource: -20,
+              favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '타이밍 푸시가 성공합니다! 프로토스가 확장을 지키지 못합니다!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 탱크 마린 물량으로 프로토스를 밀어냅니다!',
+              owner: LogOwner.away,
+              awayArmy: 25,
+              homeArmy: -15,
+              decisive: true,
+              altText: '{away} 선수 타이밍 푸시 성공! 프로토스를 압도합니다!',
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);

@@ -352,7 +352,8 @@ const _tvt1facExpandMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수가 결정적인 한 방을 날립니다!',
+              text: '{home} 선수 드랍 견제 성공! 상대 생산시설을 타격합니다!',
+              altText: '{home} 선수 탱크 라인 집중력 싸움에서 한 수 위입니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -363,7 +364,8 @@ const _tvt1facExpandMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수가 결정적인 한 방을 날립니다!',
+              text: '{away} 선수 드랍십 기습! 상대 팩토리를 타격합니다!',
+              altText: '{away} 선수 정면 교전에서 탱크 화력이 앞섭니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

@@ -1,0 +1,215 @@
+part of '../../scenario_scripts.dart';
+
+// ----------------------------------------------------------
+// 다크 스윙 vs 탱크 수비형 테란 - 디텍션 싸움
+// ----------------------------------------------------------
+const _pvtDarkSwingVsTankDefense = ScenarioScript(
+  id: 'pvt_dark_swing_vs_tank_defense',
+  matchup: 'PvT',
+  homeBuildIds: ['pvt_dark_swing'],
+  awayBuildIds: ['tvp_trans_tank_defense'],
+  description: '다크 스윙 vs 탱크 수비형 테란',
+  phases: [
+    // Phase 0: 오프닝 (lines 1-10)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 게이트웨이를 건설합니다!',
+          owner: LogOwner.home,
+          homeResource: -15,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 배럭 건설 후 가스를 올립니다! 안정적인 오프닝!',
+          owner: LogOwner.away,
+          awayResource: -15,
+          altText: '{away}, 배럭 가스! 수비형 빌드를 준비합니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 사이버네틱스 코어에 이어 아둔을 올립니다!',
+          owner: LogOwner.home,
+          homeResource: -20,
+          altText: '{home}, 아둔! 다크 테크 루트입니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 팩토리를 올립니다! 머신샵까지! 탱크 준비!',
+          owner: LogOwner.away,
+          awayResource: -20,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 템플러 아카이브 건설!',
+          owner: LogOwner.home,
+          homeResource: -20,
+          altText: '{home}, 템플러 아카이브가 올라갑니다!',
+        ),
+      ],
+    ),
+    // Phase 1: 다크 투입 (lines 12-20)
+    ScriptPhase(
+      name: 'dark_deploy',
+      startLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 다크 템플러 2기 생산! 은밀하게 접근합니다!',
+          owner: LogOwner.home,
+          homeArmy: 3,
+          homeResource: -20,
+          altText: '{home}, 다크 2기! 수비형 테란에 잠입합니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 벙커를 세우고 시즈 탱크를 배치합니다!',
+          owner: LogOwner.away,
+          awayArmy: 4,
+          awayResource: -15,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 엔지니어링 베이가 있습니다! 터렛을 올릴까요?',
+          owner: LogOwner.away,
+          awayResource: -10,
+          favorsStat: 'scout',
+          altText: '{away}, 엔지니어링 베이! 터렛으로 디텍이 가능합니다!',
+        ),
+        ScriptEvent(
+          text: '수비형 테란의 디텍 능력이 핵심입니다! 스캔이냐 터렛이냐!',
+          owner: LogOwner.system,
+        ),
+        ScriptEvent(
+          text: '{home}, 다크 템플러가 테란 진영에 접근합니다!',
+          owner: LogOwner.home,
+          favorsStat: 'harass',
+          skipChance: 0.2,
+        ),
+      ],
+    ),
+    // Phase 2: 디텍 여부 (lines 22-28)
+    ScriptPhase(
+      name: 'detection_phase',
+      startLine: 22,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 10,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 다크가 테란 앞마당에 도착합니다!',
+          owner: LogOwner.home,
+          favorsStat: 'harass',
+        ),
+        ScriptEvent(
+          text: '{away} 선수가 디텍을 준비했을까요? 스캔 에너지가 관건!',
+          owner: LogOwner.system,
+          altText: '터렛이 있다면 다크가 보입니다! 없다면 대참사!',
+        ),
+        ScriptEvent(
+          text: '{home}, 다크가 SCV 라인에 접근합니다!',
+          owner: LogOwner.home,
+          favorsStat: 'harass',
+          altText: '{home} 선수 다크가 일꾼 라인을 노립니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 방어 진형을 갖추고 있습니다!',
+          owner: LogOwner.away,
+          awayArmy: 2,
+        ),
+      ],
+    ),
+    // Phase 3: 결전 (lines 30-40)
+    ScriptPhase(
+      name: 'decisive_battle',
+      startLine: 30,
+      branches: [
+        // 분기 A: 다크 성공 - 디텍 부재
+        ScriptBranch(
+          id: 'home_wins',
+          conditionStat: 'harass',
+          homeStatMustBeHigher: true,
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 다크가 터렛 사각지대로 잠입합니다!',
+              owner: LogOwner.home,
+              favorsStat: 'harass',
+              altText: '{home}, 다크가 터렛을 피해서 들어갑니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 스캔 에너지가 부족합니다! 다크가 안 보여요!',
+              owner: LogOwner.away,
+              awayResource: -25,
+            ),
+            ScriptEvent(
+              text: '{home}, 다크가 SCV를 줄줄이 베어냅니다! 엄청난 피해!',
+              owner: LogOwner.home,
+              awayResource: -25,
+              favorsStat: 'harass',
+              altText: '{home} 선수 다크 대활약! 테란 일꾼이 붕괴합니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 탱크가 있어도 보이지 않으면 무용지물!',
+              owner: LogOwner.away,
+              awayArmy: -3,
+            ),
+            ScriptEvent(
+              text: '수비형이지만 디텍이 뚫렸습니다! 다크의 활약이 대단합니다!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 다크가 일꾼을 전멸시킵니다! 테란이 GG!',
+              owner: LogOwner.home,
+              homeArmy: 20,
+              awayArmy: -15,
+              decisive: true,
+              altText: '{home}, 다크 스윙 대성공! 수비형 테란을 무너뜨렸습니다!',
+            ),
+          ],
+        ),
+        // 분기 B: 디텍 성공 → 탱크 방어 → 역전
+        ScriptBranch(
+          id: 'away_wins',
+          conditionStat: 'scout',
+          homeStatMustBeHigher: false,
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 터렛에 다크가 잡힙니다! 디텍 성공!',
+              owner: LogOwner.away,
+              favorsStat: 'scout',
+              altText: '{away}, 터렛이 다크를 포착합니다! 완벽한 디텍!',
+            ),
+            ScriptEvent(
+              text: '{away}, 마린이 다크를 집중 사격! 격파합니다!',
+              owner: LogOwner.away,
+              homeArmy: -4,
+              favorsStat: 'defense',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 다크가 잡혔습니다! 투자한 테크가 무의미해졌어요!',
+              owner: LogOwner.home,
+              homeResource: -15,
+              homeArmy: -2,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 시즈 탱크를 앞세워 전진합니다!',
+              owner: LogOwner.away,
+              awayArmy: 6,
+              awayResource: -15,
+              altText: '{away}, 탱크 시즈! 프로토스를 밀어냅니다!',
+            ),
+            ScriptEvent(
+              text: '다크가 막히고 프로토스에 남은 게 없습니다!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 탱크 화력으로 프로토스를 밀어냅니다! GG!',
+              owner: LogOwner.away,
+              awayArmy: 20,
+              homeArmy: -15,
+              decisive: true,
+              altText: '{away}, 디텍 성공 후 탱크 역전! 다크를 완벽히 막아냈습니다!',
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);

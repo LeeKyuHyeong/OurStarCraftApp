@@ -222,7 +222,7 @@ const _tvtCcFirstVs1facExpand = ScenarioScript(
               text: '{home}, 벌처로 상대 후방을 견제합니다! SCV를 노립니다!',
               owner: LogOwner.home,
               awayResource: -15, favorsStat: 'harass',
-              altText: '{home} 선수 벌처 견제! 상대 일꾼 라인을 공격!',
+              altText: '{home} 선수 벌처 견제! 상대 일꾼을 공격!',
             ),
             ScriptEvent(
               text: '{away} 선수 벌처를 막느라 병력이 분산됩니다!',
@@ -317,9 +317,10 @@ const _tvtCcFirstVs1facExpand = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수가 결정적인 한 방을 날립니다!',
+              text: '{home} 선수 더블 자원 우위! 탱크 물량으로 상대를 압도합니다!',
               owner: LogOwner.home,
               decisive: true,
+              altText: '{home} 선수 벌처 견제로 상대 확장 가동을 늦추며 승기를 잡습니다!',
             ),
           ],
         ),
@@ -328,9 +329,10 @@ const _tvtCcFirstVs1facExpand = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수가 결정적인 한 방을 날립니다!',
+              text: '{away} 선수 원팩 테크 우위! 탱크 시즈로 라인을 뚫습니다!',
               owner: LogOwner.away,
               decisive: true,
+              altText: '{away} 선수 확장 자원이 뒤늦게 가동되며 물량 역전에 성공합니다!',
             ),
           ],
         ),

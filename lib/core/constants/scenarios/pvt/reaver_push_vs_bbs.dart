@@ -1,0 +1,196 @@
+part of '../../scenario_scripts.dart';
+
+// ----------------------------------------------------------
+// 리버 푸시 vs BBS: 셔틀 리버 견제 vs 마린 러시
+// ----------------------------------------------------------
+const _pvtReaverPushVsBbs = ScenarioScript(
+  id: 'pvt_reaver_push_vs_bbs',
+  matchup: 'PvT',
+  homeBuildIds: ['pvt_trans_reaver_push'],
+  awayBuildIds: ['tvp_bbs'],
+  description: '리버 셔틀 푸시 vs BBS 마린 러시 — 초반 생존 후 견제전',
+  phases: [
+    // Phase 0: opening (lines 1-11)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 게이트웨이를 건설합니다.',
+          owner: LogOwner.home,
+          homeResource: -15,
+          altText: '{home}, 게이트웨이가 올라갑니다.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 배럭 두 개를 연달아 건설합니다! BBS입니다!',
+          owner: LogOwner.away,
+          awayResource: -20,
+          altText: '{away}, 배럭이 두 개! 빠른 마린 생산을 노리는군요!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 사이버네틱스 코어 건설을 시작합니다.',
+          owner: LogOwner.home,
+          homeResource: -10,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 마린 4기가 프로토스 진영으로 이동합니다!',
+          owner: LogOwner.away,
+          awayArmy: 4,
+          awayResource: -10,
+          favorsStat: 'attack',
+        ),
+        ScriptEvent(
+          text: '테란이 빠른 마린으로 압박을 걸어옵니다! 프로토스가 버틸 수 있을까요!',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 1: BBS 공격 수비 (lines 12-21)
+    ScriptPhase(
+      name: 'mid_game',
+      startLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 질럿 한 기로 입구를 막습니다!',
+          owner: LogOwner.home,
+          homeArmy: 2,
+          homeResource: -10,
+          favorsStat: 'defense',
+          altText: '{home}, 질럿이 입구에서 마린을 상대합니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 마린을 집중시켜 질럿을 잡으려 합니다!',
+          owner: LogOwner.away,
+          awayArmy: 1,
+          homeArmy: -1,
+          favorsStat: 'control',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 프로브를 동원해서 마린을 견제합니다!',
+          owner: LogOwner.home,
+          homeResource: -10,
+          awayArmy: -1,
+          favorsStat: 'control',
+          skipChance: 0.3,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 로보틱스 건설을 시작합니다! 리버를 노리는 빌드!',
+          owner: LogOwner.home,
+          homeResource: -15,
+          altText: '{home}, 로보틱스가 올라갑니다! 리버가 나올 준비를 하네요!',
+        ),
+        ScriptEvent(
+          text: 'BBS를 버텨낸다면 리버 셔틀이 게임을 뒤집을 수 있습니다!',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 2: 리버 셔틀 준비 (lines 22-29)
+    ScriptPhase(
+      name: 'late_setup',
+      startLine: 22,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 10,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 셔틀 생산 완료! 리버를 태워서 출발합니다!',
+          owner: LogOwner.home,
+          homeArmy: 4,
+          homeResource: -20,
+          favorsStat: 'harass',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 추가 마린을 생산하지만 터렛이 없습니다!',
+          owner: LogOwner.away,
+          awayArmy: 2,
+          awayResource: -10,
+          altText: '{away}, 마린은 늘어나지만 대공 방어가 없어요!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 셔틀이 테란 본진 뒤편으로 진입합니다!',
+          owner: LogOwner.home,
+          favorsStat: 'harass',
+          skipChance: 0.2,
+        ),
+        ScriptEvent(
+          text: '리버 셔틀이 테란 일꾼 라인을 노리고 있습니다! 큰 전환점이 될 수 있죠!',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 3: 결전 (lines 30+)
+    ScriptPhase(
+      name: 'decisive_battle',
+      startLine: 30,
+      branches: [
+        ScriptBranch(
+          id: 'home_wins',
+          baseProbability: 1.0,
+          conditionStat: 'harass',
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 리버 스캐럽이 SCV 라인에 명중합니다!',
+              owner: LogOwner.home,
+              homeArmy: 2,
+              awayResource: -30,
+              favorsStat: 'harass',
+              altText: '{home}, 스캐럽 한 방에 SCV가 4기 날아갑니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 마린을 돌리지만 셔틀이 빠르게 리버를 회수합니다!',
+              owner: LogOwner.away,
+              awayArmy: -1,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 두 번째 스캐럽까지! 테란 자원 라인이 초토화됩니다!',
+              owner: LogOwner.home,
+              homeArmy: 1,
+              awayResource: -25,
+              favorsStat: 'control',
+            ),
+            ScriptEvent(
+              text: '리버 견제가 완벽했습니다! BBS의 후유증까지 겹쳐 GG!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_wins',
+          baseProbability: 1.0,
+          conditionStat: 'attack',
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 BBS 이후 추가 마린이 쏟아져 나옵니다!',
+              owner: LogOwner.away,
+              awayArmy: 4,
+              awayResource: -15,
+              favorsStat: 'attack',
+              altText: '{away}, 마린 물량이 엄청납니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 리버가 나오기 전에 밀리고 있습니다!',
+              owner: LogOwner.home,
+              homeArmy: -3,
+              homeResource: -15,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 마린이 넥서스까지 도달합니다!',
+              owner: LogOwner.away,
+              awayArmy: 2,
+              homeArmy: -2,
+              favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '마린 물량에 프로토스가 무너집니다! GG!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);

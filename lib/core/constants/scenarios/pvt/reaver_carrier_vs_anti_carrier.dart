@@ -1,0 +1,220 @@
+part of '../../scenario_scripts.dart';
+
+// ----------------------------------------------------------
+// 리버 캐리어 vs 골리앗 대공 특화 (하드 카운터)
+// ----------------------------------------------------------
+const _pvtReaverCarrierVsAntiCarrier = ScenarioScript(
+  id: 'pvt_reaver_carrier_vs_anti_carrier',
+  matchup: 'PvT',
+  homeBuildIds: ['pvt_trans_reaver_carrier'],
+  awayBuildIds: ['tvp_trans_anti_carrier'],
+  description: '리버 셔틀 + 캐리어 전환 vs 골리앗 대공 특화 — 하드 카운터 대결',
+  phases: [
+    // Phase 0: 오프닝 (lines 1-11)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 게이트웨이와 사이버네틱스 코어를 건설합니다.',
+          owner: LogOwner.home,
+          homeResource: -15,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 배럭 팩토리를 올립니다. 기본적인 테크 트리죠.',
+          owner: LogOwner.away,
+          awayResource: -20,
+          altText: '{away}, 배럭과 팩토리를 올리며 안정적으로 시작합니다.',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 로보틱스를 건설합니다! 리버를 빨리 꺼내겠다는 거죠.',
+          owner: LogOwner.home,
+          homeResource: -20,
+          altText: '{home}, 로보틱스 건설! 리버 셔틀 빌드를 가져갑니다.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 아머리를 일찍 올립니다! 골리앗 사정거리 업그레이드를 노리네요!',
+          owner: LogOwner.away,
+          awayResource: -15,
+        ),
+        ScriptEvent(
+          text: '아머리를 빨리 올렸습니다! 대공 준비가 빠르네요. 캐리어를 예상한 걸까요?',
+          owner: LogOwner.system,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 드라군을 뽑으며 앞마당 넥서스를 건설합니다.',
+          owner: LogOwner.home,
+          homeArmy: 2,
+          homeResource: -30,
+        ),
+      ],
+    ),
+    // Phase 1: 리버 견제 vs 골리앗 대량 생산 (lines 12-21)
+    ScriptPhase(
+      name: 'mid_game',
+      startLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 리버 셔틀이 출격합니다! 테란 확장을 급습합니다!',
+          owner: LogOwner.home,
+          homeArmy: 3,
+          homeResource: -20,
+          favorsStat: 'harass',
+          altText: '{home}, 리버 셔틀 출격! 테란 일꾼을 노립니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 팩토리에서 골리앗을 생산합니다! 대공에 올인합니다!',
+          owner: LogOwner.away,
+          awayArmy: 4,
+          awayResource: -15,
+          favorsStat: 'macro',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 스카랩이 터렛 주변 일꾼을 강타합니다! 피해가 큽니다!',
+          owner: LogOwner.home,
+          awayResource: -20,
+          favorsStat: 'harass',
+          altText: '{home}, 리버 스카랩 명중! 일꾼과 건물에 큰 피해!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 골리앗 사정거리 업그레이드가 완료됩니다! 대공 사거리가 늘었습니다!',
+          owner: LogOwner.away,
+          awayArmy: 2,
+          favorsStat: 'strategy',
+          skipChance: 0.2,
+        ),
+        ScriptEvent(
+          text: '골리앗 레인지 업그레이드! 캐리어에게는 치명적인 업그레이드죠.',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 2: 캐리어 전환 vs 골리앗 물량 (lines 22-29)
+    ScriptPhase(
+      name: 'late_setup',
+      startLine: 22,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 10,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 스타게이트 2개를 건설합니다! 캐리어로 전환!',
+          owner: LogOwner.home,
+          homeResource: -25,
+          altText: '{home}, 스타게이트가 올라갑니다! 과연 캐리어가 통할까요?',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 팩토리 3개에서 골리앗을 쏟아냅니다! 대공 특화입니다!',
+          owner: LogOwner.away,
+          awayArmy: 5,
+          awayResource: -20,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 플릿 비콘 완성! 캐리어를 뽑기 시작합니다!',
+          owner: LogOwner.home,
+          homeArmy: 3,
+          homeResource: -30,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 골리앗이 10기를 넘었습니다! 대공 화력이 장난이 아닙니다!',
+          owner: LogOwner.away,
+          awayArmy: 3,
+          awayResource: -15,
+          altText: '{away}, 골리앗 물량이 쌓입니다! 이 대공 화력 앞에 캐리어가 버틸 수 있을까요?',
+        ),
+        ScriptEvent(
+          text: '골리앗 레인지 업! 캐리어에 대한 완벽한 카운터가 준비되었습니다!',
+          owner: LogOwner.system,
+          skipChance: 0.25,
+        ),
+      ],
+    ),
+    // Phase 3: 결전 (lines 30+)
+    ScriptPhase(
+      name: 'decisive_battle',
+      startLine: 30,
+      branches: [
+        // 분기 A: 리버로 골리앗을 잡고 캐리어 돌파 → 홈 승리
+        ScriptBranch(
+          id: 'home_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 리버를 셔틀에 태워 골리앗 대열 뒤를 공격합니다! 스카랩 명중!',
+              owner: LogOwner.home,
+              awayArmy: -4,
+              homeArmy: 2,
+              favorsStat: 'harass',
+              altText: '{home}, 리버가 골리앗 뒤를 급습합니다! 대공 진형이 무너집니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 골리앗이 줄어든 틈을 노려 캐리어를 투입합니다!',
+              owner: LogOwner.home,
+              homeArmy: 5,
+              awayArmy: -2,
+              favorsStat: 'strategy',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 골리앗이 리버에 신경 쓰는 사이 캐리어에 당합니다!',
+              owner: LogOwner.away,
+              awayArmy: -3,
+              homeArmy: 2,
+            ),
+            ScriptEvent(
+              text: '리버가 골리앗을 처리했습니다! 이제 캐리어를 막을 수단이 없습니다!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 리버와 캐리어의 협공! 골리앗을 잡고 나니 테란은 무방비!',
+              owner: LogOwner.home,
+              homeArmy: 25,
+              awayArmy: -15,
+              decisive: true,
+              altText: '{home}, 양면 작전 성공! 골리앗 없는 테란을 캐리어가 유린합니다!',
+            ),
+          ],
+        ),
+        // 분기 B: 골리앗이 캐리어를 격추 → 어웨이 승리
+        ScriptBranch(
+          id: 'away_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 골리앗이 캐리어를 집중 사격합니다! 사거리가 엄청납니다!',
+              owner: LogOwner.away,
+              awayArmy: 3,
+              homeArmy: -5,
+              favorsStat: 'control',
+              altText: '{away}, 골리앗 레인지 업! 캐리어가 접근하기도 전에 격추당합니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 캐리어가 한 기씩 떨어집니다! 인터셉터가 사출되기도 전에!',
+              owner: LogOwner.home,
+              homeArmy: -3,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 골리앗이 리버 셔틀까지 사격합니다! 대공 화력이 압도적!',
+              owner: LogOwner.away,
+              homeArmy: -3,
+              awayArmy: 3,
+              favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '완벽한 카운터입니다! 골리앗 레인지 업 앞에 캐리어는 무력합니다!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 골리앗이 캐리어를 전멸시킵니다! 하드 카운터의 위력!',
+              owner: LogOwner.away,
+              awayArmy: 25,
+              homeArmy: -15,
+              decisive: true,
+              altText: '{away}, 골리앗 대공의 완벽한 승리! 캐리어가 하늘에서 추락합니다!',
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);

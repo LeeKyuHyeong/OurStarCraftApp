@@ -35,7 +35,7 @@ const _tvtBbsMirror = ScenarioScript(
           text: '{away} 선수도 센터에 배럭! 본진 배럭도 건설!',
           owner: LogOwner.away,
           awayResource: -20,
-          altText: '{away}, BBS! 양쪽 다 BBS입니다!',
+          altText: '{away}, 센터 배럭! BBS! 양쪽 다 BBS입니다!',
         ),
         ScriptEvent(
           text: '양쪽 BBS! 센터 배럭 치즈 미러가 나왔습니다!',
@@ -108,7 +108,7 @@ const _tvtBbsMirror = ScenarioScript(
               text: '{away} 선수 벙커가 아직 짓는 중! 마린으로 공격하지만 벙커 화력이 세요!',
               owner: LogOwner.away,
               awayArmy: -2, homeArmy: -1,
-              altText: '{away}, 벙커 완성이 늦습니다! 마린이 쓰러지고 있어요!',
+              altText: '{away}, 벙커 완성이 늦습니다! 마린이 녹고 있어요!',
             ),
             ScriptEvent(
               text: '{home}, SCV 수리! 벙커가 안 무너집니다!',
@@ -250,7 +250,8 @@ const _tvtBbsMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수가 결정적인 한 방을 날립니다!',
+              text: '{home} 선수 센터 벙커전 승리! 마린 컨트롤 차이가 결정적입니다!',
+              altText: '{home} 선수 추가 마린이 합류하며 상대 벙커를 무너뜨립니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -261,7 +262,8 @@ const _tvtBbsMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수가 결정적인 한 방을 날립니다!',
+              text: '{away} 선수 센터 벙커전 승리! 마린 수싸움에서 앞섭니다!',
+              altText: '{away} 선수 SCV 수리 타이밍이 적절했습니다! 벙커를 사수합니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

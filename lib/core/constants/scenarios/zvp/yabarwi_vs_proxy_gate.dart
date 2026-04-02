@@ -1,0 +1,196 @@
+part of '../../scenario_scripts.dart';
+
+// ----------------------------------------------------------
+// 야바위 vs 프록시 게이트: 기만 전술 vs 질럿 러시 — 럴커 방어
+// ----------------------------------------------------------
+const _zvpYabarwiVsProxyGate = ScenarioScript(
+  id: 'zvp_yabarwi_vs_proxy_gate',
+  matchup: 'ZvP',
+  homeBuildIds: ['zvp_trans_yabarwi'],
+  awayBuildIds: ['pvz_proxy_gate'],
+  description: '야바위 기만 전술 vs 프록시 질럿 러시 — 럴커로 수비 후 역공',
+  phases: [
+    // Phase 0: opening (lines 1-11)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 앞마당 해처리를 건설하며 드론을 돌립니다.',
+          owner: LogOwner.home,
+          homeResource: 10,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 프로브를 센터 근처로 보냅니다! 게이트웨이가 올라갑니다!',
+          owner: LogOwner.away,
+          awayResource: -15,
+          altText: '{away}, 프록시 게이트웨이 건설! 질럿 러시 준비!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 저글링으로 정찰에 나섭니다. 프록시를 찾아야 합니다!',
+          owner: LogOwner.home,
+          homeArmy: 1,
+          favorsStat: 'scout',
+          skipChance: 0.3,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 질럿 2기 생산! 저그 앞마당으로 돌진합니다!',
+          owner: LogOwner.away,
+          awayArmy: 3,
+          awayResource: -10,
+          favorsStat: 'attack',
+        ),
+        ScriptEvent(
+          text: '프록시 질럿이 출발합니다! 저그가 막아낼 수 있을까요!',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 1: 질럿 수비 (lines 12-21)
+    ScriptPhase(
+      name: 'mid_game',
+      startLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
+      linearEvents: [
+        ScriptEvent(
+          text: '{away} 선수 질럿이 저그 앞마당에 도착! 드론을 공격합니다!',
+          owner: LogOwner.away,
+          homeResource: -15,
+          favorsStat: 'attack',
+          altText: '{away}, 질럿이 드론을 베어냅니다! 일꾼 피해!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 저글링+드론으로 질럿을 감싸 안습니다!',
+          owner: LogOwner.home,
+          homeArmy: 3,
+          awayArmy: -2,
+          favorsStat: 'control',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 히드라덴을 올립니다! 히드라리스크+럴커 체제를 준비!',
+          owner: LogOwner.home,
+          homeResource: -10,
+          altText: '{home}, 히드라덴 건설! 럴커를 만들 준비에 들어갑니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 성큰을 세워 앞마당을 방어합니다.',
+          owner: LogOwner.home,
+          homeArmy: 2,
+          homeResource: -10,
+          skipChance: 0.25,
+        ),
+        ScriptEvent(
+          text: '질럿 러시를 버텨내면 럴커가 나옵니다! 참을 수 있느냐가 관건!',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 2: 럴커 전환 + 기만전 (lines 22-29)
+    ScriptPhase(
+      name: 'late_setup',
+      startLine: 22,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 10,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 럴커가 완성됩니다! 앞마당에 배치!',
+          owner: LogOwner.home,
+          homeArmy: 5,
+          homeResource: -10,
+          favorsStat: 'strategy',
+          altText: '{home}, 럴커 등장! 지상 병력은 접근이 불가합니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 저글링을 여러 방향으로 보내 가짜 공격을 펼칩니다!',
+          owner: LogOwner.home,
+          homeArmy: 2,
+          favorsStat: 'harass',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 질럿을 추가하지만 럴커 앞에서 녹아내립니다!',
+          owner: LogOwner.away,
+          awayArmy: -3,
+          awayResource: -10,
+        ),
+        ScriptEvent(
+          text: '럴커가 수비를 완성했습니다! 이제 반격 차례!',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 3: 결전 (lines 30+)
+    ScriptPhase(
+      name: 'decisive_battle',
+      startLine: 30,
+      branches: [
+        ScriptBranch(
+          id: 'home_wins',
+          conditionStat: 'strategy',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 저글링이 여러 방향에서 동시에 돌격합니다!',
+              owner: LogOwner.home,
+              homeArmy: 4,
+              awayResource: -15,
+              favorsStat: 'harass',
+              altText: '{home}, 야바위 전술! 어디가 진짜 공격인지 모릅니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 럴커가 프로토스 앞마당으로 진군합니다!',
+              owner: LogOwner.home,
+              homeArmy: 3,
+              awayArmy: -4,
+              favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 옵저버 없이 럴커를 잡을 수가 없습니다!',
+              owner: LogOwner.away,
+              awayArmy: -4,
+              awayResource: -10,
+            ),
+            ScriptEvent(
+              text: '럴커+저글링의 다면 공격! 프록시 올인 실패의 대가입니다! GG!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_wins',
+          conditionStat: 'attack',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 질럿이 럴커 나오기 전에 앞마당을 초토화합니다!',
+              owner: LogOwner.away,
+              awayArmy: 4,
+              homeArmy: -4,
+              favorsStat: 'attack',
+              altText: '{away}, 질럿 물량! 럴커 전에 승부를 봅니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 드론 피해가 너무 큽니다! 럴커를 뽑을 자원이 부족!',
+              owner: LogOwner.home,
+              homeResource: -25,
+              homeArmy: -3,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 추가 질럿이 해처리를 파괴합니다!',
+              owner: LogOwner.away,
+              awayArmy: 3,
+              homeArmy: -3,
+              favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '프록시 질럿의 초반 압박이 저그를 무너뜨립니다! GG!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);

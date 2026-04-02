@@ -1,0 +1,196 @@
+part of '../../scenario_scripts.dart';
+
+// ----------------------------------------------------------
+// 히드라 럴커 vs 포지 확장: 럴커 장악 vs 캐논+드라군 수비
+// ----------------------------------------------------------
+const _zvpHydraLurkerVsForgeExpand = ScenarioScript(
+  id: 'zvp_hydra_lurker_vs_forge_expand',
+  matchup: 'ZvP',
+  homeBuildIds: ['zvp_trans_hydra_lurker'],
+  awayBuildIds: ['pvz_trans_forge_expand'],
+  description: '히드라 럴커 vs 포지 확장 — 럴커 장악력과 옵저버 감지가 승부를 가르는 구도',
+  phases: [
+    // Phase 0: opening (lines 1-11)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 해처리에서 드론을 뽑으며 앞마당을 올립니다.',
+          owner: LogOwner.home,
+          homeResource: -20,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 포지 먼저 건설합니다! 캐논으로 방어하며 확장하는 빌드입니다!',
+          owner: LogOwner.away,
+          awayResource: -15,
+          altText: '{away}, 포지가 올라갑니다! 포지 확장 빌드로 가는군요!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 넥서스 확장! 캐논 2기로 입구를 막습니다!',
+          owner: LogOwner.away,
+          awayResource: -35,
+          awayArmy: 2,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 스포닝풀 완성 후 히드라덴 건설을 서두릅니다.',
+          owner: LogOwner.home,
+          homeResource: -20,
+          favorsStat: 'strategy',
+          altText: '{home}, 히드라덴을 올립니다! 캐논을 상대하려면 히드라가 필요하죠!',
+        ),
+        ScriptEvent(
+          text: '포지 확장의 캐논 라인! 히드라리스크로 뚫을 수 있을까요?',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 1: 히드라 압박과 캐논 수비 (lines 12-21)
+    ScriptPhase(
+      name: 'mid_game',
+      startLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 히드라리스크 생산 시작! 사거리로 캐논 밖에서 때립니다!',
+          owner: LogOwner.home,
+          homeArmy: 4,
+          homeResource: -15,
+          favorsStat: 'attack',
+          altText: '{home}, 히드라리스크가 모이고 있습니다! 캐논 사거리 밖에서 공격 가능해요!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 게이트웨이에서 드라군을 생산합니다! 캐논만으론 부족하죠!',
+          owner: LogOwner.away,
+          awayArmy: 3,
+          awayResource: -15,
+          favorsStat: 'defense',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 로보틱스 건설! 옵저버를 뽑아야 럴커를 잡습니다!',
+          owner: LogOwner.away,
+          awayResource: -20,
+          favorsStat: 'scout',
+          altText: '{away}, 로보틱스가 올라갑니다! 옵저버 생산이 급하네요!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 레어 업그레이드 시작! 럴커 진화를 노립니다!',
+          owner: LogOwner.home,
+          homeResource: -20,
+          skipChance: 0.2,
+        ),
+        ScriptEvent(
+          text: '캐논 라인 뒤에서 드라군이 합류합니다! 럴커가 나올 때까지 버틸 수 있을까?',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 2: 럴커 전개와 옵저버 경쟁 (lines 22-29)
+    ScriptPhase(
+      name: 'late_setup',
+      startLine: 22,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 10,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 럴커 진화 완료! 프로토스 확장기지 앞에 매몰합니다!',
+          owner: LogOwner.home,
+          homeArmy: 4,
+          homeResource: -15,
+          favorsStat: 'control',
+          altText: '{home}, 럴커가 매몰됩니다! 확장기지 진입로를 차단해요!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 옵저버를 전방으로 보냅니다! 럴커를 찾아야 합니다!',
+          owner: LogOwner.away,
+          awayResource: -10,
+          favorsStat: 'scout',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 히드라리스크로 옵저버 사냥을 시도합니다!',
+          owner: LogOwner.home,
+          homeArmy: 1,
+          favorsStat: 'sense',
+          altText: '{home}, 히드라가 옵저버를 노립니다! 격추하면 럴커가 무적이에요!',
+        ),
+        ScriptEvent(
+          text: '옵저버 생존 여부가 이 경기의 핵심입니다! 럴커를 볼 수 있느냐 없느냐!',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 3: 결전 (lines 30+)
+    ScriptPhase(
+      name: 'decisive_battle',
+      startLine: 30,
+      branches: [
+        ScriptBranch(
+          id: 'home_wins',
+          baseProbability: 1.0,
+          conditionStat: 'control',
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 히드라리스크가 옵저버를 격추합니다! 럴커가 안 보여요!',
+              owner: LogOwner.home,
+              homeArmy: 2,
+              favorsStat: 'sense',
+              altText: '{home}, 옵저버 격추! 이제 럴커 위치를 알 수 없습니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 럴커 가시가 드라군 부대를 관통합니다!',
+              owner: LogOwner.home,
+              homeArmy: 3,
+              awayArmy: -5,
+              favorsStat: 'control',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 캐논 뒤로 후퇴하지만 럴커가 캐논 사거리 밖에서 공격합니다!',
+              owner: LogOwner.away,
+              awayArmy: -3,
+              awayResource: -20,
+            ),
+            ScriptEvent(
+              text: '옵저버 격추! 럴커가 보이지 않습니다! 저그의 장악입니다! GG!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_wins',
+          baseProbability: 1.0,
+          conditionStat: 'defense',
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 옵저버가 럴커를 정확히 포착합니다! 드라군 집중 사격!',
+              owner: LogOwner.away,
+              awayArmy: 3,
+              homeArmy: -4,
+              favorsStat: 'defense',
+              altText: '{away}, 옵저버가 럴커 위치를 밝힙니다! 드라군이 정리해요!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 캐논 라인 뒤에서 안전하게 병력을 모읍니다.',
+              owner: LogOwner.away,
+              awayArmy: 3,
+              awayResource: -15,
+              favorsStat: 'macro',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 럴커가 정리당하고 히드라만으로는 캐논+드라군을 못 뚫습니다!',
+              owner: LogOwner.home,
+              homeArmy: -3,
+              homeResource: -20,
+            ),
+            ScriptEvent(
+              text: '옵저버 감지 + 캐논 수비! 포지 확장이 럴커를 막아냈습니다! GG!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);

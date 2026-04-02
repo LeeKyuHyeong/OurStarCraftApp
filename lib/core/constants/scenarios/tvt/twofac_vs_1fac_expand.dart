@@ -113,7 +113,7 @@ const _tvtTwofacVs1facExpand = ScenarioScript(
               text: '{home}, 벌처가 마인을 피해 돌아서 SCV에 침투합니다!',
               owner: LogOwner.home,
               awayResource: -15, favorsStat: 'harass+control',
-              altText: '{home} 선수 벌처 우회 침투! SCV가 쓰러집니다!',
+              altText: '{home} 선수 벌처 우회 침투! SCV를 잡아냅니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 SCV 피해가 큽니다! 앞마당 가동이 흔들립니다!',
@@ -121,7 +121,7 @@ const _tvtTwofacVs1facExpand = ScenarioScript(
               awayResource: -10,
             ),
             ScriptEvent(
-              text: '{home}, 추가 벌처까지 합류! 상대 일꾼 라인을 계속 괴롭힙니다!',
+              text: '{home}, 추가 벌처까지 합류! 상대 일꾼을 계속 괴롭힙니다!',
               owner: LogOwner.home,
               homeArmy: 2, awayResource: -5, favorsStat: 'harass',
               altText: '{home} 선수 벌처 추가! 견제가 이어집니다!',
@@ -316,9 +316,10 @@ const _tvtTwofacVs1facExpand = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수가 결정적인 한 방을 날립니다!',
+              text: '{home} 선수 투팩 벌처 견제 성공! 상대 일꾼을 초토화합니다!',
               owner: LogOwner.home,
               decisive: true,
+              altText: '{home} 선수 벌처 물량으로 맵을 장악하며 밀어냅니다!',
             ),
           ],
         ),
@@ -327,9 +328,10 @@ const _tvtTwofacVs1facExpand = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수가 결정적인 한 방을 날립니다!',
+              text: '{away} 선수 확장 자원이 본격 가동! 물량으로 역전합니다!',
               owner: LogOwner.away,
               decisive: true,
+              altText: '{away} 선수 마인과 탱크로 벌처 견제를 막아내고 반격합니다!',
             ),
           ],
         ),

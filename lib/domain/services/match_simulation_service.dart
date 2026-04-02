@@ -593,18 +593,28 @@ class MatchSimulationService {
             await Future.delayed(Duration(milliseconds: getIntervalMs()));
 
             // 승패 체크
-            if (scriptResult.decisive) {
-              // decisive 이벤트의 주체가 승자 (winRate 보정 적용)
-              // 시나리오 소유자에게 +15% 보정 → 동급이면 소유자 65% 승리
-              // 핵심: home/away 평균 = (winRate+0.15 + winRate-0.15)/2 = winRate
-              // → 시나리오 방향성은 유지하되 전체 승률은 정확히 winRate와 일치
+            // decisiveWeight로 시나리오별 decisive 종료 비율 제어
+            // > 1.0: 항상 decisive 종료 (기본값), < 1.0: 확률적으로 무시하여 경기 계속
+            final effectiveDecisive = scriptResult.decisive &&
+                (scenarioScript!.decisiveWeight >= 1.0 ||
+                 _random.nextDouble() < scenarioScript.decisiveWeight);
+            if (effectiveDecisive) {
+              // decisive 이벤트: 시나리오 방향성(scenarioBoost) + 누적 병력 상태(armyBonus) 종합
+              // scenarioBoost: 이벤트 주체에게 +15% 기본 보정
+              // armyBonus: 병력 비율에 따라 ±40% 추가 보정 (누적 상태 반영)
+              // → 병력이 많은 쪽 + 시나리오 주체가 일치하면 ~90%+ 승리
+              // → 병력이 적은데 시나리오 주체인 경우 역전 가능하지만 낮은 확률
               bool? decisiveWinner;
               if (scriptResult.entry != null) {
                 const scenarioBoost = 0.15;
+                final totalArmy = state.homeArmy + state.awayArmy;
+                final armyBonus = totalArmy > 10
+                    ? (state.homeArmy - state.awayArmy) / totalArmy * 0.4
+                    : 0.0;
                 if (scriptResult.entry!.owner == LogOwner.home) {
-                  decisiveWinner = _random.nextDouble() < (winRate + scenarioBoost).clamp(0.05, 0.95);
+                  decisiveWinner = _random.nextDouble() < (winRate + scenarioBoost + armyBonus).clamp(0.05, 0.95);
                 } else if (scriptResult.entry!.owner == LogOwner.away) {
-                  decisiveWinner = _random.nextDouble() < (winRate - scenarioBoost).clamp(0.05, 0.95);
+                  decisiveWinner = _random.nextDouble() < (winRate - scenarioBoost + armyBonus).clamp(0.05, 0.95);
                 } else {
                   // system/clash: 병력 우세 + winRate 종합
                   final armyDiff = state.homeArmy - state.awayArmy;
@@ -613,7 +623,6 @@ class MatchSimulationService {
                   } else if (armyDiff < -15) {
                     decisiveWinner = false;
                   } else {
-                    final armyBonus = armyDiff / 100;
                     decisiveWinner = _random.nextDouble() < (winRate + armyBonus).clamp(0.05, 0.95);
                   }
                 }
@@ -1114,7 +1123,9 @@ class MatchSimulationService {
       }
 
       // ZvZ 스커지로 뮤탈 격추 보장: 양측 뮤탈 등장 후 40~60라인에 1회 강제 삽입
-      if (isZvZ && !zvzScourgeShown && lineCount >= 40 && lineCount <= 60 &&
+      // 시나리오 실행 중에는 스킵 (시나리오가 자체적으로 전개를 제어)
+      if (isZvZ && !zvzScourgeShown && scenarioScript == null &&
+          lineCount >= 40 && lineCount <= 60 &&
           homeUnitTagsFull.contains('뮤탈') && awayUnitTagsFull.contains('뮤탈')) {
         final isHomeTurn = _random.nextBool();
         final player = isHomeTurn ? homePlayer : awayPlayer;
@@ -1216,13 +1227,6 @@ class MatchSimulationService {
       lineCount: lineCount,
     );
 
-    final endingCommentary = _getEndingCommentary(
-      winner: winner,
-      state: state,
-      lineCount: lineCount,
-      isLongGame: isLongGame,
-    );
-
     // 경기 종료 시 패배자 병력/자원 소진 + 승리자 전투 비용 반영
     final loserArmy = _random.nextInt(10); // 0~9
     final loserResource = _random.nextInt(30); // 0~29
@@ -1232,7 +1236,8 @@ class MatchSimulationService {
     final winnerArmyLoss = (winnerArmy * (0.30 + _random.nextDouble() * 0.20)).round();
     final winnerResourceLoss = (winnerResource * (0.20 + _random.nextDouble() * 0.20)).round();
 
-    state = state.copyWith(
+    // 코멘터리가 최종 병력/자원 값을 기반으로 판단하도록 먼저 계산
+    final adjustedState = state.copyWith(
       homeArmy: isHomeWinner
           ? (winnerArmy - winnerArmyLoss).clamp(5, 200)
           : loserArmy,
@@ -1245,6 +1250,16 @@ class MatchSimulationService {
       awayResources: isHomeWinner
           ? loserResource
           : (winnerResource - winnerResourceLoss).clamp(10, 10000),
+    );
+
+    final endingCommentary = _getEndingCommentary(
+      winner: winner,
+      state: adjustedState,
+      lineCount: lineCount,
+      isLongGame: isLongGame,
+    );
+
+    state = adjustedState.copyWith(
       isFinished: true,
       homeWin: isHomeWinner,
       battleLogEntries: [
@@ -1282,14 +1297,26 @@ class MatchSimulationService {
       return longGameTexts[_random.nextInt(longGameTexts.length)];
     }
 
+    // 승리 유형 판별: 자원이 더 많으면 수비/경제형, 병력이 압도적이면 공격형
+    final isHomeWinner = state.homeArmy > state.awayArmy;
+    final winnerRes = isHomeWinner ? state.homeResources : state.awayResources;
+    final loserRes = isHomeWinner ? state.awayResources : state.homeResources;
+    final isDefensiveWin = winnerRes > loserRes * 1.5; // 자원 50% 이상 우위 → 수비형
+
     // 빠른 승리 (40줄 이하)
     if (lineCount <= 40) {
-      final quickTexts = [
-        '${winner.name} 선수, 공격적인 빌드가 먹혔습니다!',
-        '빠른 경기! ${winner.name} 선수가 일찍 승기를 잡았네요.',
-        '${winner.name} 선수, 초반 운영이 완벽했습니다!',
-      ];
-      return quickTexts[_random.nextInt(quickTexts.length)];
+      final texts = isDefensiveWin
+          ? [
+              '${winner.name} 선수, 극강의 수비력을 보여줍니다!',
+              '${winner.name} 선수의 판단이 한 수 위였습니다!',
+              '${winner.name} 선수, 상대 공격을 버텨내고 역전합니다!',
+            ]
+          : [
+              '${winner.name} 선수, 공격적인 빌드가 먹혔습니다!',
+              '빠른 경기! ${winner.name} 선수가 일찍 승기를 잡았네요.',
+              '${winner.name} 선수, 초반 공세가 결정적이었습니다!',
+            ];
+      return texts[_random.nextInt(texts.length)];
     }
 
     // 접전 (병력 차 적음)
@@ -1304,12 +1331,17 @@ class MatchSimulationService {
     }
 
     // 일반적 마무리
-    final normalTexts = [
-      '${winner.name} 선수는 역시 끝낼 수 있을 때 끝내버리죠.',
-      '${winner.name} 선수, 깔끔한 마무리입니다!',
-      '${winner.name} 선수의 경기 운영이 한 수 위였습니다.',
-      '대단한 경기력! ${winner.name} 선수 승리 가져갑니다.',
-    ];
+    final normalTexts = isDefensiveWin
+        ? [
+            '${winner.name} 선수의 경기 운영이 한 수 위였습니다.',
+            '${winner.name} 선수, 안정적인 운영으로 승리를 가져갑니다!',
+            '${winner.name} 선수, 수비 후 반격이 완벽했습니다!',
+          ]
+        : [
+            '${winner.name} 선수는 역시 끝낼 수 있을 때 끝내버리죠.',
+            '${winner.name} 선수, 깔끔한 마무리입니다!',
+            '대단한 경기력! ${winner.name} 선수 승리 가져갑니다.',
+          ];
     return normalTexts[_random.nextInt(normalTexts.length)];
   }
 
@@ -1358,12 +1390,21 @@ class MatchSimulationService {
         return texts[_random.nextInt(texts.length)];
       }
 
-      // 범용 초반 마무리
-      final earlyTexts = [
-        '${winner.name} 선수, ${loser.name} 선수 본진 초토화!',
-        '${winner.name} 선수 공격에 ${loser.name} 선수 본진이 무너집니다!',
-        '${winner.name} 선수, 초반 공격 성공! ${loser.name} 선수 수비 실패!',
-      ];
+      // 범용 초반 마무리 - 자원 기반 공격형/수비형 구분
+      final isWinnerHome = state.homeArmy > state.awayArmy;
+      final winRes = isWinnerHome ? state.homeResources : state.awayResources;
+      final losRes = isWinnerHome ? state.awayResources : state.homeResources;
+      final earlyTexts = winRes > losRes * 1.5
+          ? [
+              '${winner.name} 선수, 상대 공격을 막아내고 반격! ${loser.name} 선수 무너집니다!',
+              '${winner.name} 선수 결정타! ${loser.name} 선수 더 이상 버틸 수 없습니다!',
+              '${winner.name} 선수, 수비 후 물량 역전! ${loser.name} 선수를 밀어냅니다!',
+            ]
+          : [
+              '${winner.name} 선수, ${loser.name} 선수 본진 초토화!',
+              '${winner.name} 선수 공격에 ${loser.name} 선수 본진이 무너집니다!',
+              '${winner.name} 선수, 공세 성공! ${loser.name} 선수 수비 실패!',
+            ];
       return earlyTexts[_random.nextInt(earlyTexts.length)];
     }
 
@@ -3553,6 +3594,7 @@ class MatchSimulationService {
           reversed: reversed,
           homeBuildType: homeBuildType,
           awayBuildType: awayBuildType,
+          state: state,
         );
         activeEvents = branch.events;
       } else {
@@ -3708,6 +3750,7 @@ class MatchSimulationService {
     required bool reversed,
     BuildType? homeBuildType,
     BuildType? awayBuildType,
+    SimulationState? state,
   }) {
     // 1단계: 빌드 ID 기반 필터링 (트랜지션 분기)
     final actualHomeId = reversed ? awayBuildType?.id : homeBuildType?.id;
@@ -3746,7 +3789,8 @@ class MatchSimulationService {
         final homeStat = _getStatValue(reversed ? awayStats : homeStats, branch.conditionStat);
         final awayStat = _getStatValue(reversed ? homeStats : awayStats, branch.conditionStat);
         final homeHigher = homeStat > awayStat;
-        if (branch.homeStatMustBeHigher == homeHigher) {
+        // 동일 능력치면 양쪽 분기 모두 eligible → baseProbability/army로 결정
+        if (homeStat == awayStat || branch.homeStatMustBeHigher == homeHigher) {
           eligible.add(branch);
         }
       } else {
@@ -3759,6 +3803,16 @@ class MatchSimulationService {
       return _weightedBranchSelect(candidates.isNotEmpty ? candidates : branches);
     }
     if (eligible.length == 1) return eligible.first;
+
+    // 병력 기반 분기 가중 선택
+    if (eligible.length > 1 && state != null) {
+      final hasDecisive = eligible.any((b) => b.events.any((e) => e.decisive));
+      if (hasDecisive) {
+        return _armyBiasedBranchSelect(eligible, state, reversed);
+      }
+      // non-decisive 분기: 부드러운 army 영향 (이전 분기 결과 반영)
+      return _armyInfluencedBranchSelect(eligible, state, reversed);
+    }
     return _weightedBranchSelect(eligible);
   }
 
@@ -3768,6 +3822,107 @@ class MatchSimulationService {
     for (final branch in branches) {
       roll -= branch.baseProbability;
       if (roll <= 0) return branch;
+    }
+    return branches.last;
+  }
+
+  /// 병력 기반 decisive 분기 선택
+  /// 누적된 병력 상태에 따라 해당 진영의 decisive 분기를 가중 선택
+  ScriptBranch _armyBiasedBranchSelect(
+    List<ScriptBranch> branches,
+    SimulationState state,
+    bool reversed,
+  ) {
+    final homeArmy = state.homeArmy;
+    final awayArmy = state.awayArmy;
+    final totalArmy = homeArmy + awayArmy;
+
+    // 병력이 거의 없으면 기본 가중치 사용
+    if (totalArmy <= 10) return _weightedBranchSelect(branches);
+
+    // 병력 비율 계산 (스크립트 기준: reversed면 실제 home/away가 반전)
+    final scriptHomeArmy = reversed ? awayArmy : homeArmy;
+    final homeRatio = scriptHomeArmy / totalArmy; // 0.0 ~ 1.0
+
+    // 가중치 적용: 병력 비율의 제곱으로 차이를 증폭
+    // 예: 80 vs 30 → homeRatio 0.727 → 제곱 0.529 vs 0.075 → 정규화 87:13
+    // 압도적 차이(>70%)면 확정 선택 → 텍스트/결과 불일치 방지
+    if (homeRatio > 0.70) {
+      // 홈 병력 압도 → 홈 decisive 확정
+      final homeBranch = branches.where((b) =>
+        b.events.any((e) => e.decisive && e.owner == LogOwner.home)).firstOrNull;
+      if (homeBranch != null) return homeBranch;
+    } else if (homeRatio < 0.30) {
+      // 어웨이 병력 압도 → 어웨이 decisive 확정
+      final awayBranch = branches.where((b) =>
+        b.events.any((e) => e.decisive && e.owner == LogOwner.away)).firstOrNull;
+      if (awayBranch != null) return awayBranch;
+    }
+
+    final adjustedWeights = <double>[];
+    for (final branch in branches) {
+      final decisiveEvent = branch.events.where((e) => e.decisive).firstOrNull;
+      if (decisiveEvent != null) {
+        final isHomeBranch = decisiveEvent.owner == LogOwner.home;
+        // 비율 제곱으로 차이 증폭
+        final ratio = isHomeBranch ? homeRatio : (1 - homeRatio);
+        adjustedWeights.add(ratio * ratio);
+      } else {
+        adjustedWeights.add(branch.baseProbability);
+      }
+    }
+
+    // 가중 랜덤 선택
+    final totalWeight = adjustedWeights.fold(0.0, (sum, w) => sum + w);
+    var roll = _random.nextDouble() * totalWeight;
+    for (int i = 0; i < branches.length; i++) {
+      roll -= adjustedWeights[i];
+      if (roll <= 0) return branches[i];
+    }
+    return branches.last;
+  }
+
+  /// non-decisive 분기: 이벤트의 army 흐름 방향과 현재 병력 상태를 부드럽게 반영
+  /// 이전 분기에서 한쪽이 이득을 봤으면 → 그 흐름에 맞는 후속 분기가 높은 확률로 선택
+  ScriptBranch _armyInfluencedBranchSelect(
+    List<ScriptBranch> branches,
+    SimulationState state,
+    bool reversed,
+  ) {
+    final totalArmy = state.homeArmy + state.awayArmy;
+    if (totalArmy <= 10) return _weightedBranchSelect(branches);
+
+    final scriptHomeArmy = reversed ? state.awayArmy : state.homeArmy;
+    final homeRatio = scriptHomeArmy / totalArmy; // 0.0 ~ 1.0
+
+    final adjustedWeights = <double>[];
+    for (final branch in branches) {
+      // 분기 이벤트의 순 병력 방향 계산: 양수=홈 유리, 음수=어웨이 유리
+      int netHomeImpact = 0;
+      for (final event in branch.events) {
+        netHomeImpact += event.homeArmy - event.awayArmy;
+      }
+
+      // 분기 방향과 현재 병력 상태를 블렌드
+      // 홈 유리 분기(양수) + 홈 병력 많음 → 높은 가중치
+      double armyPreference;
+      if (netHomeImpact > 0) {
+        armyPreference = homeRatio;
+      } else if (netHomeImpact < 0) {
+        armyPreference = 1 - homeRatio;
+      } else {
+        armyPreference = 0.5;
+      }
+
+      // 50% baseProbability + 50% army preference (부드러운 영향)
+      adjustedWeights.add(branch.baseProbability * 0.5 + armyPreference * 0.5);
+    }
+
+    final totalWeight = adjustedWeights.fold(0.0, (sum, w) => sum + w);
+    var roll = _random.nextDouble() * totalWeight;
+    for (int i = 0; i < branches.length; i++) {
+      roll -= adjustedWeights[i];
+      if (roll <= 0) return branches[i];
     }
     return branches.last;
   }

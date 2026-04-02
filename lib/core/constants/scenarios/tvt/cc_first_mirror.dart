@@ -124,7 +124,7 @@ const _tvtCcFirstMirror = ScenarioScript(
               text: '{home}, 벌처로 상대 앞마당 SCV를 괴롭힙니다!',
               owner: LogOwner.home,
               awayResource: -15, favorsStat: 'harass',
-              altText: '{home} 선수 벌처 견제! SCV가 쓰러집니다!',
+              altText: '{home} 선수 벌처 견제! SCV를 잡아냅니다!',
             ),
             ScriptEvent(
               text: '벌처 싸움에서 밀리면 맵 컨트롤을 잃습니다! 집중해야 할 순간이네요!',
@@ -154,7 +154,7 @@ const _tvtCcFirstMirror = ScenarioScript(
               text: '{away}, 상대 앞마당으로 침투합니다! SCV 견제!',
               owner: LogOwner.away,
               homeResource: -15, favorsStat: 'harass',
-              altText: '{away} 선수 벌처 침투! SCV가 쓰러집니다!',
+              altText: '{away} 선수 벌처 침투! SCV를 솎아냅니다!',
             ),
             ScriptEvent(
               text: '벌처 컨트롤에서 밀린 쪽이 SCV 피해! 자원 격차가 벌어집니다!',
@@ -378,7 +378,8 @@ const _tvtCcFirstMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수가 결정적인 한 방을 날립니다!',
+              text: '{home} 선수 벌처 컨트롤 차이! 상대 SCV를 솎아냅니다!',
+              altText: '{home} 선수 드랍 견제 성공! 상대 생산시설을 타격합니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -389,7 +390,8 @@ const _tvtCcFirstMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수가 결정적인 한 방을 날립니다!',
+              text: '{away} 선수 벌처 컨트롤 승리! 맵 장악으로 밀어냅니다!',
+              altText: '{away} 선수 드랍십 기습! 상대 후방을 초토화합니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

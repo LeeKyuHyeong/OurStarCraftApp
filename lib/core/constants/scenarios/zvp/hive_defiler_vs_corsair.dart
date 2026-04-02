@@ -1,0 +1,196 @@
+part of '../../scenario_scripts.dart';
+
+// ----------------------------------------------------------
+// 하이브 디파일러 vs 커세어 지상군: 플레이그 + 다크 스웜 콤보
+// ----------------------------------------------------------
+const _zvpHiveDefilerVsCorsair = ScenarioScript(
+  id: 'zvp_hive_defiler_vs_corsair',
+  matchup: 'ZvP',
+  homeBuildIds: ['zvp_trans_hive_defiler'],
+  awayBuildIds: ['pvz_trans_corsair'],
+  description: '하이브 디파일러 vs 커세어 지상군 — 플레이그로 커세어를, 다크 스웜으로 지상군을',
+  phases: [
+    // Phase 0: opening (lines 1-11)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 앞마당 해처리를 올리며 일꾼을 늘려갑니다.',
+          owner: LogOwner.home,
+          homeResource: -30,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 스타게이트를 건설합니다! 커세어 빌드입니다.',
+          owner: LogOwner.away,
+          awayResource: -20,
+          altText: '{away}, 스타게이트가 올라갑니다! 커세어를 준비하는 모습이네요.',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 스포닝풀을 올리고 레어로 전환합니다.',
+          owner: LogOwner.home,
+          homeResource: -15,
+          favorsStat: 'macro',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 커세어 첫 기가 생산됩니다! 저그 진영으로 출격!',
+          owner: LogOwner.away,
+          awayArmy: 2,
+          awayResource: -10,
+          favorsStat: 'harass',
+        ),
+        ScriptEvent(
+          text: '프로토스가 커세어를 선택했습니다. 오버로드 사냥이 시작되겠네요.',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 1: 커세어 견제 + 지상 전개 (lines 12-21)
+    ScriptPhase(
+      name: 'mid_game',
+      startLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
+      linearEvents: [
+        ScriptEvent(
+          text: '{away} 선수 커세어로 오버로드를 사냥합니다!',
+          owner: LogOwner.away,
+          awayArmy: 1,
+          homeResource: -10,
+          favorsStat: 'harass',
+          altText: '{away}, 커세어가 오버로드를 하나씩 잡아갑니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 지상군으로 질럿과 드라군을 모으고 있습니다.',
+          owner: LogOwner.away,
+          awayArmy: 3,
+          awayResource: -15,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 히드라리스크를 생산하며 커세어에 대응합니다!',
+          owner: LogOwner.home,
+          homeArmy: 3,
+          homeResource: -15,
+          favorsStat: 'defense',
+          skipChance: 0.2,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 스파이어를 올려 스커지를 준비합니다.',
+          owner: LogOwner.home,
+          homeResource: -15,
+          favorsStat: 'macro',
+          altText: '{home}, 스파이어가 완성되면 스커지로 커세어를 잡을 수 있습니다.',
+        ),
+        ScriptEvent(
+          text: '커세어의 시야 장악 vs 저그의 히드라 수비! 균형이 팽팽합니다.',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 2: 하이브 전환 (lines 22-29)
+    ScriptPhase(
+      name: 'late_setup',
+      startLine: 22,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 10,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 하이브를 건설합니다! 디파일러 준비!',
+          owner: LogOwner.home,
+          homeResource: -25,
+          altText: '{home}, 하이브가 올라갑니다! 디파일러가 곧 나옵니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 커세어와 함께 지상 병력을 전진시킵니다!',
+          owner: LogOwner.away,
+          awayArmy: 2,
+          awayResource: -10,
+          favorsStat: 'attack',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 퀸즈네스트를 건설하며 디파일러 테크를 완성합니다.',
+          owner: LogOwner.home,
+          homeResource: -15,
+          skipChance: 0.3,
+        ),
+        ScriptEvent(
+          text: '디파일러가 나오면 플레이그와 다크 스웜 동시 운용이 가능합니다!',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 3: 결전 (lines 30+)
+    ScriptPhase(
+      name: 'decisive_battle',
+      startLine: 30,
+      branches: [
+        ScriptBranch(
+          id: 'home_wins',
+          baseProbability: 1.0,
+          conditionStat: 'strategy',
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 디파일러가 플레이그를 커세어에 사용합니다!',
+              owner: LogOwner.home,
+              homeArmy: 2,
+              awayArmy: -3,
+              favorsStat: 'strategy',
+              altText: '{home}, 플레이그! 커세어 편대의 체력이 녹아내립니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 다크 스웜을 깔고 저글링이 돌진합니다!',
+              owner: LogOwner.home,
+              homeArmy: 4,
+              awayArmy: -2,
+              favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 드라군이 다크 스웜 안에서 사격이 안 됩니다!',
+              owner: LogOwner.away,
+              awayArmy: -3,
+              awayResource: -15,
+            ),
+            ScriptEvent(
+              text: '플레이그와 다크 스웜의 콤보! 프로토스가 무너집니다! GG!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_wins',
+          baseProbability: 1.0,
+          conditionStat: 'harass',
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 커세어가 완벽하게 시야를 장악합니다!',
+              owner: LogOwner.away,
+              awayArmy: 2,
+              homeArmy: -1,
+              favorsStat: 'harass',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 지상군이 저그 앞마당을 공격합니다! 드라군 화력이 강합니다!',
+              owner: LogOwner.away,
+              awayArmy: 3,
+              homeArmy: -3,
+              favorsStat: 'attack',
+              altText: '{away}, 드라군과 질럿이 저그 진영으로 밀려옵니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 디파일러가 나오기 전에 앞마당이 무너졌습니다!',
+              owner: LogOwner.home,
+              homeArmy: -2,
+              homeResource: -25,
+            ),
+            ScriptEvent(
+              text: '커세어의 시야 장악이 결정적이었습니다! 프로토스 승리! GG!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);

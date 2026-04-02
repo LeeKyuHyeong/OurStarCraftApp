@@ -1,0 +1,190 @@
+part of '../../scenario_scripts.dart';
+
+// ----------------------------------------------------------
+// ZvP: 5해처리 히드라 vs 프록시 게이트웨이
+// ----------------------------------------------------------
+const _zvp5hatchHydraVsProxyGate = ScenarioScript(
+  id: 'zvp_5hatch_hydra_vs_proxy_gate',
+  matchup: 'ZvP',
+  homeBuildIds: ['zvp_trans_5hatch_hydra'],
+  awayBuildIds: ['pvz_proxy_gate'],
+  description: '5해처리 히드라 매크로 vs 프록시 게이트 질럿 러시',
+  phases: [
+    // Phase 0: 오프닝 (lines 1-11)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 해처리에서 드론을 생산합니다.',
+          owner: LogOwner.home,
+          homeResource: -5,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 프로브를 저그 본진 근처로 보냅니다!',
+          owner: LogOwner.away,
+          awayResource: -5,
+          altText: '{away}, 프로브가 빠르게 이동합니다! 전진 건물?',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 전진 파일런! 프록시 게이트웨이를 건설합니다!',
+          owner: LogOwner.away,
+          awayResource: -25,
+          altText: '{away}, 전진 파일런에 게이트웨이! 프록시입니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 앞마당 해처리를 올립니다.',
+          owner: LogOwner.home,
+          homeResource: -30,
+          altText: '{home}, 앞마당 해처리! 매크로를 챙깁니다.',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 스포닝풀 건설합니다.',
+          owner: LogOwner.home,
+          homeResource: -15,
+        ),
+        ScriptEvent(
+          text: '프록시 게이트웨이가 완성되면 질럿이 빠르게 도착합니다!',
+          owner: LogOwner.system,
+          skipChance: 0.3,
+        ),
+      ],
+    ),
+    // Phase 1: 질럿 러시 공방 (lines 12-21)
+    ScriptPhase(
+      name: 'mid_game',
+      startLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
+      linearEvents: [
+        ScriptEvent(
+          text: '{away} 선수 질럿 2기가 저그 앞마당에 도착합니다!',
+          owner: LogOwner.away,
+          awayArmy: 4, favorsStat: 'attack',
+          altText: '{away}, 질럿 2기! 앞마당 해처리를 노립니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 저글링으로 방어합니다! 드론도 동원!',
+          owner: LogOwner.home,
+          homeArmy: 2, homeResource: -10, favorsStat: 'defense',
+          altText: '{home}, 저글링과 드론 총동원! 앞마당을 지킵니다!',
+        ),
+        ScriptEvent(
+          text: '{away}, 질럿 추가 생산! 계속 압박합니다!',
+          owner: LogOwner.away,
+          awayArmy: 2, awayResource: -15,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 성큰 건설을 시작합니다! 수비를 강화합니다!',
+          owner: LogOwner.home,
+          homeArmy: 2, homeResource: -15, favorsStat: 'defense',
+          altText: '{home}, 성큰이 올라갑니다! 질럿을 막아야 합니다!',
+        ),
+        ScriptEvent(
+          text: '프록시 질럿 러시! 성큰 완성이 관건입니다!',
+          owner: LogOwner.system,
+          skipChance: 0.2,
+        ),
+      ],
+    ),
+    // Phase 2: 히드라 전환 (lines 22-29)
+    ScriptPhase(
+      name: 'late_setup',
+      startLine: 22,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 10,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 성큰으로 질럿을 막아냅니다! 히드라덴 건설!',
+          owner: LogOwner.home,
+          homeArmy: 3, homeResource: -20,
+          altText: '{home}, 성큰 수비 성공! 히드라덴을 올립니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 해처리를 추가로 올립니다! 5해처리 체제!',
+          owner: LogOwner.home,
+          homeResource: -30,
+          altText: '{home}, 해처리 추가! 물량을 준비합니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 프록시가 들켜서 본진으로 전환합니다! 넥서스 건설!',
+          owner: LogOwner.away,
+          awayResource: -30,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 히드라리스크 대량 생산 시작! 속업 사업 연구!',
+          owner: LogOwner.home,
+          homeArmy: 5, homeResource: -25, favorsStat: 'macro',
+          altText: '{home}, 히드라가 쏟아집니다! 업그레이드도 진행!',
+        ),
+        ScriptEvent(
+          text: '프록시 실패 후 프로토스가 뒤처진 상황입니다!',
+          owner: LogOwner.system,
+          skipChance: 0.3,
+        ),
+      ],
+    ),
+    // Phase 3: 결전 (lines 30+)
+    ScriptPhase(
+      name: 'decisive_battle',
+      startLine: 30,
+      branches: [
+        ScriptBranch(
+          id: 'home_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 히드라 편대가 프로토스 앞마당으로 진격합니다!',
+              owner: LogOwner.home,
+              homeArmy: 4, favorsStat: 'attack',
+              altText: '{home}, 히드라 행군! 앞마당을 노립니다!',
+            ),
+            ScriptEvent(
+              text: '{home}, 히드라가 캐논과 질럿을 녹입니다! 물량이 압도적!',
+              owner: LogOwner.home,
+              awayArmy: -5, favorsStat: 'attack',
+              altText: '{home} 선수 히드라 화력! 프로토스 방어선이 무너집니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 드라군으로 방어하지만 숫자가 부족합니다!',
+              owner: LogOwner.away,
+              awayArmy: -2, homeArmy: -1,
+            ),
+            ScriptEvent(
+              text: '5해처리 히드라의 물량이 프로토스를 압도합니다!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 프록시 질럿이 성큰 완성 전에 앞마당을 파괴합니다!',
+              owner: LogOwner.away,
+              homeArmy: -3, awayArmy: 2, favorsStat: 'attack',
+              altText: '{away}, 질럿이 앞마당 해처리를 부숩니다!',
+            ),
+            ScriptEvent(
+              text: '{away}, 질럿이 드론까지 추격합니다! 저그 자원이 바닥!',
+              owner: LogOwner.away,
+              homeResource: -20, favorsStat: 'harass',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 복구를 시도하지만 드론 피해가 너무 큽니다!',
+              owner: LogOwner.home,
+              homeArmy: -2,
+            ),
+            ScriptEvent(
+              text: '프록시 질럿이 저그의 확장을 완전히 차단했습니다!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);

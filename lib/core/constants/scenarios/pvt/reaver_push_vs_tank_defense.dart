@@ -1,0 +1,195 @@
+part of '../../scenario_scripts.dart';
+
+// ----------------------------------------------------------
+// 리버 푸시 vs 탱크 수비: 셔틀 드랍으로 시즈라인 우회
+// ----------------------------------------------------------
+const _pvtReaverPushVsTankDefense = ScenarioScript(
+  id: 'pvt_reaver_push_vs_tank_defense',
+  matchup: 'PvT',
+  homeBuildIds: ['pvt_trans_reaver_push'],
+  awayBuildIds: ['tvp_trans_tank_defense'],
+  description: '리버 셔틀 푸시 vs 시즈탱크 수비 — 드랍 우회 vs 철벽 라인',
+  phases: [
+    // Phase 0: opening (lines 1-11)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 게이트웨이 이후 로보틱스를 빠르게 건설합니다.',
+          owner: LogOwner.home,
+          homeResource: -20,
+          altText: '{home}, 로보틱스가 빠르게 올라갑니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 팩토리에서 시즈탱크 생산을 시작합니다.',
+          owner: LogOwner.away,
+          awayResource: -20,
+          awayArmy: 2,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 서포트 베이 건설! 리버 생산 준비가 끝났습니다.',
+          owner: LogOwner.home,
+          homeResource: -10,
+          skipChance: 0.2,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 앞마당에 벙커와 시즈탱크를 배치합니다.',
+          owner: LogOwner.away,
+          awayArmy: 3,
+          awayResource: -15,
+          favorsStat: 'defense',
+          altText: '{away}, 시즈탱크가 앞마당에 자리를 잡습니다!',
+        ),
+        ScriptEvent(
+          text: '테란이 수비 진형을 갖추고 있습니다. 프로토스는 셔틀로 우회할 수 있을까요.',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 1: 리버 셔틀 견제 시작 (lines 12-21)
+    ScriptPhase(
+      name: 'mid_game',
+      startLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 셔틀에 리버를 태웁니다! 스피드 업그레이드도 완료!',
+          owner: LogOwner.home,
+          homeArmy: 4,
+          homeResource: -20,
+          favorsStat: 'harass',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 터렛을 본진에 추가 건설합니다.',
+          owner: LogOwner.away,
+          awayResource: -10,
+          awayArmy: 1,
+          altText: '{away}, 본진 터렛을 올리기 시작하네요.',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 셔틀이 시즈 라인을 피해 측면으로 진입합니다!',
+          owner: LogOwner.home,
+          favorsStat: 'control',
+          altText: '{home}, 셔틀이 측면 클리프에서 리버를 내립니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 시즈탱크를 추가 생산하며 라인을 넓힙니다.',
+          owner: LogOwner.away,
+          awayArmy: 2,
+          awayResource: -15,
+          skipChance: 0.3,
+        ),
+        ScriptEvent(
+          text: '셔틀 리버가 시즈 라인을 우회할 수 있느냐가 핵심이겠네요!',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 2: 일꾼 라인 공격 (lines 22-29)
+    ScriptPhase(
+      name: 'late_setup',
+      startLine: 22,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 10,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 리버가 테란 본진 일꾼 라인에 스캐럽을 발사합니다!',
+          owner: LogOwner.home,
+          awayResource: -25,
+          favorsStat: 'harass',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 SCV가 피해를 입었습니다! 마린을 급히 돌립니다!',
+          owner: LogOwner.away,
+          awayArmy: -1,
+          awayResource: -10,
+          altText: '{away}, SCV가 날아갔습니다! 마린이 뒤늦게 달려옵니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 드라군 부대도 앞에서 압박을 시작합니다.',
+          owner: LogOwner.home,
+          homeArmy: 3,
+          homeResource: -15,
+          favorsStat: 'attack',
+        ),
+        ScriptEvent(
+          text: '리버 견제와 정면 드라군 압박! 양면 작전이 시작됩니다!',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 3: 결전 (lines 30+)
+    ScriptPhase(
+      name: 'decisive_battle',
+      startLine: 30,
+      branches: [
+        ScriptBranch(
+          id: 'home_wins',
+          baseProbability: 1.0,
+          conditionStat: 'harass',
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 스캐럽이 또다시 SCV 라인에 명중합니다!',
+              owner: LogOwner.home,
+              awayResource: -30,
+              homeArmy: 2,
+              favorsStat: 'harass',
+              altText: '{home}, 스캐럽 연속 명중! SCV가 녹아내립니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 자원이 끊기면서 탱크 추가 생산이 불가능합니다!',
+              owner: LogOwner.away,
+              awayArmy: -2,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 드라군이 시즈 라인을 돌파합니다!',
+              owner: LogOwner.home,
+              homeArmy: 3,
+              awayArmy: -3,
+              favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '리버 견제로 자원이 말라버렸습니다! 시즈 라인이 무너지며 GG!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_wins',
+          baseProbability: 1.0,
+          conditionStat: 'defense',
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 터렛이 셔틀을 정확히 잡아냅니다!',
+              owner: LogOwner.away,
+              homeArmy: -4,
+              awayArmy: 1,
+              favorsStat: 'defense',
+              altText: '{away}, 터렛 화력에 셔틀이 격추됩니다! 리버도 함께!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 리버를 잃었습니다! 핵심 전력이 사라졌어요!',
+              owner: LogOwner.home,
+              homeArmy: -2,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 시즈탱크가 전진합니다! 드라군을 하나씩 잡아냅니다!',
+              owner: LogOwner.away,
+              awayArmy: 3,
+              homeArmy: -3,
+              favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '시즈탱크 라인이 프로토스를 밀어냅니다! GG!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);

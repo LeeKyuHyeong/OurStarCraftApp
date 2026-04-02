@@ -1,0 +1,218 @@
+part of '../../scenario_scripts.dart';
+
+// ----------------------------------------------------------
+// 투게이트 질럿 오프닝 vs 안티 캐리어
+// ----------------------------------------------------------
+const _pvt2gateOpenVsAntiCarrier = ScenarioScript(
+  id: 'pvt_2gate_open_vs_anti_carrier',
+  matchup: 'PvT',
+  homeBuildIds: ['pvt_2gate_open'],
+  awayBuildIds: ['tvp_trans_anti_carrier'],
+  description: '투게이트 질럿 공격 vs 골리앗 대공 편성',
+  phases: [
+    // Phase 0: 오프닝 (lines 1-11)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 게이트웨이를 올립니다!',
+          owner: LogOwner.home,
+          homeResource: -15,
+          altText: '{home}, 첫 게이트웨이 건설!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 배럭 건설 후 팩토리를 준비합니다.',
+          owner: LogOwner.away,
+          awayResource: -15,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 두 번째 게이트웨이! 투게이트 질럿입니다!',
+          owner: LogOwner.home,
+          homeResource: -15,
+          altText: '{home}, 투게이트! 질럿 압박을 가합니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 팩토리에서 아머리를 올립니다! 골리앗을 준비하네요!',
+          owner: LogOwner.away,
+          awayResource: -20,
+          altText: '{away}, 아머리 건설! 골리앗 생산을 노립니다!',
+        ),
+        ScriptEvent(
+          text: '골리앗은 대공에 강하지만 질럿 상대로도 쓸만합니다! 어떻게 될까요?',
+          owner: LogOwner.system,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 질럿이 전진합니다!',
+          owner: LogOwner.home,
+          homeArmy: 3,
+          homeResource: -10,
+        ),
+      ],
+    ),
+    // Phase 1: 질럿 vs 초기 방어 (lines 12-21)
+    ScriptPhase(
+      name: 'mid_game',
+      startLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 질럿이 테란 앞마당을 공격합니다!',
+          owner: LogOwner.home,
+          homeArmy: 1,
+          favorsStat: 'attack',
+          altText: '{home}, 질럿 돌격! 골리앗이 나오기 전에 피해를 줘야 합니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 마린과 벙커로 방어합니다! 골리앗 생산까지 버텨야 합니다!',
+          owner: LogOwner.away,
+          awayArmy: 2,
+          homeArmy: -1,
+          awayResource: -10,
+          favorsStat: 'defense',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 첫 골리앗이 나옵니다! 지상 화력도 만만치 않습니다!',
+          owner: LogOwner.away,
+          awayArmy: 2,
+          altText: '{away}, 골리앗 합류! 질럿 상대로도 강합니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 질럿으로 일꾼을 잡으려 합니다!',
+          owner: LogOwner.home,
+          awayResource: -10,
+          favorsStat: 'harass',
+          skipChance: 0.2,
+        ),
+        ScriptEvent(
+          text: '골리앗은 대공 특화지만 지상 전투력도 있습니다! 질럿만으로 될까요?',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 2: 드라군 전환 vs 골리앗 물량 (lines 22-29)
+    ScriptPhase(
+      name: 'late_setup',
+      startLine: 22,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 10,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 사이버네틱스 코어를 올립니다! 드라군 전환!',
+          owner: LogOwner.home,
+          homeResource: -15,
+          altText: '{home}, 드라군으로 전환합니다! 질럿만으로는 부족합니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 골리앗을 추가 생산합니다! 아머리 업그레이드도 진행!',
+          owner: LogOwner.away,
+          awayArmy: 3,
+          awayResource: -15,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 넥서스를 올립니다! 드라군 물량을 모아야 합니다!',
+          owner: LogOwner.home,
+          homeArmy: 2,
+          homeResource: -30,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 커맨드센터를 건설합니다! 골리앗 추가 생산을 위해!',
+          owner: LogOwner.away,
+          awayResource: -30,
+          altText: '{away}, 확장! 골리앗 물량을 더 뽑겠다는 겁니다!',
+        ),
+        ScriptEvent(
+          text: '드라군 vs 골리앗! 사정거리 싸움이 될 겁니다!',
+          owner: LogOwner.system,
+          skipChance: 0.3,
+        ),
+      ],
+    ),
+    // Phase 3: 결전 (lines 30+)
+    ScriptPhase(
+      name: 'decisive_battle',
+      startLine: 30,
+      branches: [
+        ScriptBranch(
+          id: 'home_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 드라군 사정거리가 골리앗보다 깁니다! 먼저 사격합니다!',
+              owner: LogOwner.home,
+              homeArmy: 4,
+              awayArmy: -3,
+              favorsStat: 'control',
+              altText: '{home}, 드라군 사거리 차이! 골리앗을 먼저 맞힙니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 골리앗이 하나씩 녹습니다! 접근하기도 전에 맞습니다!',
+              owner: LogOwner.away,
+              awayArmy: -3,
+              homeArmy: -1,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 질럿도 합류합니다! 근접전에서 마무리합니다!',
+              owner: LogOwner.home,
+              homeArmy: 3,
+              awayArmy: -4,
+              favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '드라군의 사거리가 결정적이었습니다! 골리앗이 밀립니다!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 드라군 질럿으로 테란을 압도합니다!',
+              owner: LogOwner.home,
+              homeArmy: 25,
+              awayArmy: -15,
+              decisive: true,
+              altText: '{home} 선수 투게이트 드라군의 힘! 골리앗 편성을 꺾습니다!',
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 골리앗 물량이 두텁습니다! 탱크까지 섞어서 전진합니다!',
+              owner: LogOwner.away,
+              awayArmy: 4,
+              homeArmy: -3,
+              favorsStat: 'macro',
+              altText: '{away}, 골리앗에 탱크까지! 복합 편성이 강력합니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 드라군이 탱크 포격에 맞습니다! 한 방이 아픕니다!',
+              owner: LogOwner.home,
+              homeArmy: -4,
+              awayArmy: -1,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 골리앗이 전진합니다! 드라군을 밀어냅니다!',
+              owner: LogOwner.away,
+              awayArmy: 3,
+              homeArmy: -3,
+              favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '골리앗의 물량이 프로토스를 압도합니다!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 골리앗 대군으로 프로토스를 제압합니다!',
+              owner: LogOwner.away,
+              awayArmy: 25,
+              homeArmy: -15,
+              decisive: true,
+              altText: '{away} 선수 골리앗 물량! 프로토스를 밀어냅니다!',
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);

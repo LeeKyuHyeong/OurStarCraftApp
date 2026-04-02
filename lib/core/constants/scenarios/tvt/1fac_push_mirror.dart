@@ -274,7 +274,8 @@ const _tvt1facPushMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수가 결정적인 한 방을 날립니다!',
+              text: '{home} 선수 탱크 시야 확보! 선제 시즈 포격으로 상대 탱크를 격파합니다!',
+              altText: '{home} 선수 드랍 견제 성공! 상대 후방을 초토화합니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -285,7 +286,8 @@ const _tvt1facPushMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수가 결정적인 한 방을 날립니다!',
+              text: '{away} 선수 벌처 시야로 상대 탱크 위치를 포착! 선제 포격 성공!',
+              altText: '{away} 선수 탱크 드랍으로 상대 본진을 기습합니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

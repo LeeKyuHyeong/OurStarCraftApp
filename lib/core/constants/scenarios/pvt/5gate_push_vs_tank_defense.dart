@@ -1,0 +1,214 @@
+part of '../../scenario_scripts.dart';
+
+// ----------------------------------------------------------
+// 5게이트 푸시 vs 탱크 수비
+// ----------------------------------------------------------
+const _pvt5gatePushVsTankDefense = ScenarioScript(
+  id: 'pvt_5gate_push_vs_tank_defense',
+  matchup: 'PvT',
+  homeBuildIds: ['pvt_trans_5gate_push'],
+  awayBuildIds: ['tvp_trans_tank_defense'],
+  description: '5게이트 드라군+질럿 푸시 vs 탱크 시즈 방어',
+  phases: [
+    // Phase 0: 오프닝 (lines 1-11)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 게이트웨이와 사이버네틱스 코어를 올립니다!',
+          owner: LogOwner.home,
+          homeResource: -20,
+          altText: '{home}, 게이트웨이에 사이버네틱스 코어! 드라군 준비!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 배럭과 팩토리를 건설합니다.',
+          owner: LogOwner.away,
+          awayResource: -20,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 드라군 생산 시작! 게이트웨이를 추가합니다!',
+          owner: LogOwner.home,
+          homeArmy: 2,
+          homeResource: -15,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 머신샵에서 시즈 모드 연구! 탱크 수비를 준비합니다!',
+          owner: LogOwner.away,
+          awayResource: -15,
+          altText: '{away}, 시즈 모드 연구! 탱크가 자리 잡으면 뚫기 어렵습니다!',
+        ),
+        ScriptEvent(
+          text: '프로토스 5게이트 vs 테란 탱크 수비! 고전적인 대결 구도입니다!',
+          owner: LogOwner.system,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 게이트웨이를 3개까지 올렸습니다!',
+          owner: LogOwner.home,
+          homeResource: -15,
+        ),
+      ],
+    ),
+    // Phase 1: 5게이트 빌드업 (lines 12-21)
+    ScriptPhase(
+      name: 'mid_game',
+      startLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 아둔을 올립니다! 질럿 스피드 연구!',
+          owner: LogOwner.home,
+          homeResource: -15,
+          altText: '{home}, 아둔 건설! 스피드 질럿을 준비합니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 시즈 탱크가 앞마당에 자리 잡습니다!',
+          owner: LogOwner.away,
+          awayArmy: 3,
+          awayResource: -15,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 4번째, 5번째 게이트웨이까지! 5게이트 완성!',
+          owner: LogOwner.home,
+          homeResource: -20,
+          altText: '{home}, 5게이트 완성! 병력 생산 속도가 빨라집니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 벙커를 세우고 터렛도 올립니다! 수비가 단단합니다!',
+          owner: LogOwner.away,
+          awayArmy: 1,
+          awayResource: -15,
+          favorsStat: 'defense',
+        ),
+        ScriptEvent(
+          text: '탱크 시즈 라인을 5게이트 물량으로 뚫을 수 있을까요?',
+          owner: LogOwner.system,
+          skipChance: 0.2,
+        ),
+      ],
+    ),
+    // Phase 2: 5게이트 물량 집결 (lines 22-29)
+    ScriptPhase(
+      name: 'late_setup',
+      startLine: 22,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 10,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 5게이트에서 드라군과 질럿이 쏟아집니다!',
+          owner: LogOwner.home,
+          homeArmy: 5,
+          homeResource: -20,
+          favorsStat: 'macro',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 추가 탱크를 생산합니다! 시즈 라인을 강화합니다!',
+          owner: LogOwner.away,
+          awayArmy: 3,
+          awayResource: -15,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 스피드 질럿 연구 완료! 질럿이 빨라졌습니다!',
+          owner: LogOwner.home,
+          homeArmy: 2,
+        ),
+        ScriptEvent(
+          text: '{away} 선수 커맨드센터를 올립니다! 탱크로 버티면서 확장!',
+          owner: LogOwner.away,
+          awayResource: -30,
+          altText: '{away}, 확장! 탱크 수비를 믿고 자원을 확보합니다!',
+        ),
+        ScriptEvent(
+          text: '5게이트 물량이 모였습니다! 돌파할 수 있을지 지켜봅시다!',
+          owner: LogOwner.system,
+          skipChance: 0.3,
+        ),
+      ],
+    ),
+    // Phase 3: 결전 (lines 30+)
+    ScriptPhase(
+      name: 'decisive_battle',
+      startLine: 30,
+      branches: [
+        ScriptBranch(
+          id: 'home_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 스피드 질럿이 측면으로 돌아 탱크를 덮칩니다!',
+              owner: LogOwner.home,
+              homeArmy: 3,
+              awayArmy: -4,
+              favorsStat: 'strategy',
+              altText: '{home}, 스피드 질럿 우회! 탱크 시즈 라인 측면을 찌릅니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 탱크가 아군을 맞힙니다! 시즈 모드의 약점이죠!',
+              owner: LogOwner.away,
+              awayArmy: -3,
+              homeArmy: -2,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 드라군이 정면에서 포격합니다! 양면 공격!',
+              owner: LogOwner.home,
+              homeArmy: 4,
+              awayArmy: -4,
+              favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '시즈 라인이 무너졌습니다! 5게이트 물량이 쏟아져 들어갑니다!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 5게이트 드라군 질럿으로 탱크 수비를 돌파합니다!',
+              owner: LogOwner.home,
+              homeArmy: 25,
+              awayArmy: -15,
+              decisive: true,
+              altText: '{home} 선수 시즈 라인 붕괴! 5게이트 물량에 테란이 무너집니다!',
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_wins',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 시즈 탱크 포격이 드라군 무리를 직격합니다!',
+              owner: LogOwner.away,
+              awayArmy: 3,
+              homeArmy: -5,
+              favorsStat: 'defense',
+              altText: '{away}, 탱크 포격! 드라군이 몰려 있다가 한 방에 녹습니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 질럿이 탱크에 접근하지만 마린이 막습니다!',
+              owner: LogOwner.home,
+              homeArmy: -3,
+              awayArmy: -1,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 벌처가 프로토스 확장을 견제합니다! 프로브가 줄어듭니다!',
+              owner: LogOwner.away,
+              homeResource: -20,
+              favorsStat: 'harass',
+            ),
+            ScriptEvent(
+              text: '탱크 수비가 5게이트 푸시를 막아냈습니다! 테란이 역공합니다!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 탱크 라인을 전진시킵니다! 프로토스가 더 이상 공격할 수 없습니다!',
+              owner: LogOwner.away,
+              awayArmy: 25,
+              homeArmy: -15,
+              decisive: true,
+              altText: '{away} 선수 철벽 수비! 5게이트 푸시를 완벽히 막고 역공합니다!',
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);

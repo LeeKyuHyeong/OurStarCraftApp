@@ -259,9 +259,10 @@ const _tvt1facPushVs5fac = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수가 결정적인 한 방을 날립니다!',
+              text: '{home} 선수 소수정예 타이밍 공격 성공! 5팩이 완성되기 전에 끝냅니다!',
               owner: LogOwner.home,
               decisive: true,
+              altText: '{home} 선수 드랍+정면 동시 공격! 상대가 대응하지 못합니다!',
             ),
           ],
         ),
@@ -270,9 +271,10 @@ const _tvt1facPushVs5fac = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수가 결정적인 한 방을 날립니다!',
+              text: '{away} 선수 5팩 물량 폭발! 소수정예를 숫자로 압도합니다!',
               owner: LogOwner.away,
               decisive: true,
+              altText: '{away} 선수 타이밍을 버텨내고 팩토리 물량으로 밀어냅니다!',
             ),
           ],
         ),

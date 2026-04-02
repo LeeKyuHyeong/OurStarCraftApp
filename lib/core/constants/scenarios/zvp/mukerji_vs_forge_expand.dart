@@ -1,0 +1,197 @@
+part of '../../scenario_scripts.dart';
+
+// ----------------------------------------------------------
+// 뮤커지 vs 포지 확장: 다방면 뮤탈+저글링 견제 vs 캐논 라인 수비
+// ----------------------------------------------------------
+const _zvpMukerjiVsForgeExpand = ScenarioScript(
+  id: 'zvp_mukerji_vs_forge_expand',
+  matchup: 'ZvP',
+  homeBuildIds: ['zvp_trans_mukerji'],
+  awayBuildIds: ['pvz_trans_forge_expand'],
+  description: '뮤탈+저글링 다방면 견제 vs 포지 확장 캐논 수비 — 견제전의 교과서',
+  phases: [
+    // Phase 0: opening (lines 1-11)
+    ScriptPhase(
+      name: 'opening',
+      startLine: 1,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 앞마당 해처리를 빠르게 건설합니다.',
+          owner: LogOwner.home,
+          homeResource: 10,
+          altText: '{home}, 앞마당 해처리 건설! 자원 확보 우선!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 포지를 올리고 앞마당 넥서스를 건설합니다!',
+          owner: LogOwner.away,
+          awayResource: -15,
+          altText: '{away}, 포지 확장! 캐논으로 앞마당을 지키겠다는 전략!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 앞마당에 캐논 2기를 세웁니다. 저글링 방어!',
+          owner: LogOwner.away,
+          awayArmy: 3,
+          awayResource: -10,
+          favorsStat: 'defense',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 레어 업그레이드를 시작합니다.',
+          owner: LogOwner.home,
+          homeResource: -10,
+          favorsStat: 'macro',
+          skipChance: 0.2,
+        ),
+        ScriptEvent(
+          text: '양쪽 모두 확장을 선택! 중반 이후 결전이 예상됩니다!',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 1: 뮤탈 견제전 (lines 12-21)
+    ScriptPhase(
+      name: 'mid_game',
+      startLine: 12,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 8,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 스파이어 완성! 뮤탈리스크가 나옵니다!',
+          owner: LogOwner.home,
+          homeArmy: 5,
+          homeResource: -15,
+          altText: '{home}, 뮤탈리스크 생산 시작! 견제전에 돌입합니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 뮤탈리스크가 프로토스 본진 프로브를 찍습니다!',
+          owner: LogOwner.home,
+          awayResource: -15,
+          favorsStat: 'harass',
+          altText: '{home}, 뮤탈리스크 본진 기습! 프로브가 잡힙니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 캐논을 본진에도 추가 건설합니다.',
+          owner: LogOwner.away,
+          awayArmy: 2,
+          awayResource: -10,
+          favorsStat: 'defense',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 저글링을 프로토스 3번째 확장 후보지로 보냅니다!',
+          owner: LogOwner.home,
+          homeArmy: 2,
+          favorsStat: 'harass',
+          skipChance: 0.25,
+        ),
+        ScriptEvent(
+          text: '뮤탈리스크 견제가 계속됩니다! 프로토스는 캐논으로 버텨야 합니다!',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 2: 확장 경쟁 (lines 22-29)
+    ScriptPhase(
+      name: 'late_setup',
+      startLine: 22,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 10,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 3번째 해처리를 올립니다! 자원 우위를 가져갑니다!',
+          owner: LogOwner.home,
+          homeResource: 15,
+          altText: '{home}, 3해처리 체제! 물량전 준비!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 드라군+질럿 병력을 모아 센터로 이동합니다.',
+          owner: LogOwner.away,
+          awayArmy: 4,
+          awayResource: -10,
+          favorsStat: 'attack',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 뮤탈리스크+저글링을 양쪽에서 동시에 투입합니다!',
+          owner: LogOwner.home,
+          homeArmy: 4,
+          awayResource: -10,
+          favorsStat: 'harass',
+        ),
+        ScriptEvent(
+          text: '다방면 견제 vs 캐논 라인! 프로토스 방어선이 시험대에 오릅니다!',
+          owner: LogOwner.system,
+        ),
+      ],
+    ),
+    // Phase 3: 결전 (lines 30+)
+    ScriptPhase(
+      name: 'decisive_battle',
+      startLine: 30,
+      branches: [
+        ScriptBranch(
+          id: 'home_wins',
+          conditionStat: 'harass',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 뮤탈리스크가 캐논 사각지대로 진입합니다!',
+              owner: LogOwner.home,
+              awayResource: -20,
+              favorsStat: 'harass',
+              altText: '{home}, 캐논을 피해 프로브를 잡습니다! 절묘한 각도!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 저글링이 앞마당 캐논을 우회해 넥서스를 공격합니다!',
+              owner: LogOwner.home,
+              homeArmy: 5,
+              awayArmy: -4,
+              favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 방어선이 무너집니다! 양쪽을 동시에 못 막아요!',
+              owner: LogOwner.away,
+              awayArmy: -4,
+              awayResource: -15,
+            ),
+            ScriptEvent(
+              text: '뮤커지의 다면 견제가 포지 확장을 무너뜨립니다! GG!',
+              owner: LogOwner.home,
+              decisive: true,
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_wins',
+          conditionStat: 'defense',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 캐논이 뮤탈리스크 접근을 차단합니다!',
+              owner: LogOwner.away,
+              homeArmy: -3,
+              awayArmy: 2,
+              favorsStat: 'defense',
+              altText: '{away}, 캐논 배치가 완벽합니다! 뮤탈리스크가 들어올 틈이 없어요!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 드라군+질럿이 저그 앞마당으로 진격합니다!',
+              owner: LogOwner.away,
+              awayArmy: 5,
+              homeArmy: -4,
+              favorsStat: 'attack',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 견제에 자원을 다 쓴 상태! 방어 병력이 없습니다!',
+              owner: LogOwner.home,
+              homeArmy: -4,
+              homeResource: -15,
+            ),
+            ScriptEvent(
+              text: '캐논 라인 수비 성공! 프로토스 반격이 저그를 무너뜨립니다! GG!',
+              owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);

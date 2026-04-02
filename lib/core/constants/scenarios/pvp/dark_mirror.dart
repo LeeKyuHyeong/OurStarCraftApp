@@ -158,15 +158,26 @@ const _pvpDarkMirror = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스에 옵저버터리, 서포트 베이까지! 옵저버와 리버를 준비합니다!',
+          text: '{home} 선수 로보틱스 건설! 다크 교환 이후 테크 전환입니다!',
           owner: LogOwner.home,
-          homeResource: -25,
-          altText: '{home}, 로보틱스에 서포트 베이, 옵저버터리까지! 다크 교환 이후 테크 전환!',
+          homeResource: -15,
+          altText: '{home}, 로보틱스를 올립니다! 테크를 전환하는 모습!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 로보틱스에 서포트 베이, 옵저버터리! 셔틀 리버 경쟁!',
+          text: '{home} 서포트 베이에 옵저버터리까지! 리버를 준비합니다!',
+          owner: LogOwner.home,
+          homeResource: -10,
+          altText: '{home}, 옵저버터리와 서포트 베이 건설! 리버를 노리고 있습니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 로보틱스 건설! 테크 경쟁입니다!',
           owner: LogOwner.away,
-          awayResource: -25,
+          awayResource: -15,
+        ),
+        ScriptEvent(
+          text: '{away} 옵저버터리에 서포트 베이까지! 셔틀 리버 경쟁!',
+          owner: LogOwner.away,
+          awayResource: -10,
         ),
         ScriptEvent(
           text: '{home}, 드라군을 모아 전진합니다!',
