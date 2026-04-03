@@ -59,12 +59,12 @@ lib/
 
 ```
 scenario_scripts.dart          # 프레임워크 클래스 정의 + part 선언 + 스크립트 선택 로직
-scenarios/tvt/ (36개)          # TvT 시나리오 (자체완결 빌드, 미러)
-scenarios/tvz/ (7개)           # TvZ 시나리오 (오프닝 매칭 + 트랜지션 분기)
-scenarios/pvt/ (7개)           # PvT 시나리오 (오프닝 매칭 + 트랜지션 분기)
-scenarios/pvp/ (10개)          # PvP 시나리오 (자체완결 빌드, 미러)
-scenarios/zvp/ (6개)           # ZvP 시나리오 (오프닝 매칭 + Z측 트랜지션 분기)
-scenarios/zvz/ (9개)           # ZvZ 시나리오 (자체완결 빌드, 미러)
+scenarios/tvt/ (36개)          # TvT 시나리오 (8 미러 + 28 크로스, 1:1 빌드)
+scenarios/tvz/ (56개)          # TvZ 시나리오 (8T × 7Z, 1:1 빌드)
+scenarios/pvt/ (63개)          # PvT 시나리오 (9P × 7T, 1:1 빌드)
+scenarios/pvp/ (36개)          # PvP 시나리오 (8 미러 + 28 크로스, 1:1 빌드)
+scenarios/zvp/ (63개)          # ZvP 시나리오 (9Z × 7P, 1:1 빌드)
+scenarios/zvz/ (21개)          # ZvZ 시나리오 (6 미러 + 15 크로스, 1:1 빌드)
 build_orders.dart              # 빌드오더 + 이벤트 풀 시스템 (아래 별도 설명)
 initial_data.dart              # 초기 데이터 (선수/팀 생성)
 map_data.dart                  # 게임 맵 정의 (맵 태그, 종족별 승률)
@@ -208,28 +208,11 @@ ScenarioScript
 - **Branch**: 분기 선택 2단계 — ①빌드 ID 필터링(`conditionHomeBuildIds`/`conditionAwayBuildIds`) → ②능력치 필터링(`conditionStat` + `baseProbability`)
 - **Event**: 텍스트 + 병력/자원 변동 + `favorsStat`(능력치 보정) + `decisive`(즉시 승패)
 
-### 오프닝 매칭 + 트랜지션 분기 (TvZ/PvT/ZvP)
+### 1:1 빌드 시나리오 구조 (전 종족전)
 
-TvZ, PvT, ZvP는 빌드가 **오프닝**(초반 선택)과 **트랜지션**(중반 전환)으로 분리된다.
-시나리오는 오프닝 매칭 단위로 통합하고, 중반 이후 `ScriptBranch`의 `conditionHomeBuildIds`/`conditionAwayBuildIds`로 트랜지션별 분기를 태운다.
-
-```dart
-// 예: TvZ standard_vs_standard.dart Phase 2 분기
-ScriptBranch(
-  id: 'bio_vs_mutal',
-  conditionHomeBuildIds: ['tvz_sk', 'tvz_4bar_enbe', 'tvz_trans_bionic_push'],
-  conditionAwayBuildIds: ['zvt_2hatch_mutal', 'zvt_3hatch_mutal', 'zvt_trans_mutal_ultra'],
-  events: [...],  // 바이오닉 vs 뮤탈 전개
-),
-ScriptBranch(
-  id: 'mech_vs_lurker',
-  conditionHomeBuildIds: ['tvz_3fac_goliath', 'tvz_trans_mech_goliath'],
-  conditionAwayBuildIds: ['zvt_2hatch_lurker', 'zvt_trans_lurker_defiler'],
-  events: [...],  // 메카닉 vs 럴커 전개
-),
-```
-
-TvT, PvP, ZvZ는 빌드 자체가 자체완결이므로 트랜지션 분기 불필요 (현행 유지).
+모든 종족전이 **빌드 vs 빌드 1:1 시나리오**로 완전 분리되어 있다 (총 275개).
+각 시나리오 파일이 하나의 빌드 조합을 전담하며, `homeBuildIds`/`awayBuildIds`에 단일 빌드만 지정한다.
+트랜지션 분기 구조는 더 이상 사용하지 않는다.
 
 ### 내러티브 품질 규칙
 
