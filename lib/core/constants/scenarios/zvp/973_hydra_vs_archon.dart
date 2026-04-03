@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _zvp973HydraVsArchon = ScenarioScript(
   id: 'zvp_973_hydra_vs_archon',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_973_hydra'],
-  awayBuildIds: ['pvz_trans_archon'],
+  homeBuildIds: ['zvp_trans_973_hydra', 'zvp_973_hydra', 'zvp_9pool'],
+  awayBuildIds: ['pvz_trans_archon', 'pvz_corsair_reaver'],
   description: '973 히드라 vs 아콘 질럿 — 스톰이 나오면 히드라가 녹는다',
   phases: [
     // Phase 0: opening (lines 1-11)

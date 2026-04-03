@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _zvpHydraLurkerVsForgeExpand = ScenarioScript(
   id: 'zvp_hydra_lurker_vs_forge_expand',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_hydra_lurker'],
+  homeBuildIds: ['zvp_trans_hydra_lurker', 'zvp_12pool'],
   awayBuildIds: ['pvz_trans_forge_expand', 'pvz_forge_cannon'],
   description: '히드라 럴커 vs 포지 확장 — 럴커 장악력과 옵저버 감지가 승부를 가르는 구도',
   phases: [

@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _zvpMukerjiVsCannonRush = ScenarioScript(
   id: 'zvp_mukerji_vs_cannon_rush',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_mukerji'],
+  homeBuildIds: ['zvp_trans_mukerji', 'zvp_mukerji'],
   awayBuildIds: ['pvz_cannon_rush'],
   description: '뮤탈과 저글링 조합 vs 캐논 러시 — 캐논 파괴 후 맵 장악',
   phases: [

@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _zvp973HydraVsDragoonPush = ScenarioScript(
   id: 'zvp_973_hydra_vs_dragoon_push',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_973_hydra'],
-  awayBuildIds: ['pvz_trans_dragoon_push'],
+  homeBuildIds: ['zvp_trans_973_hydra', 'zvp_973_hydra', 'zvp_9pool'],
+  awayBuildIds: ['pvz_trans_dragoon_push', 'pvz_2gate_zealot'],
   description: '973 히드라 vs 드라군 푸시 — 히드라 물량 vs 드라군 물량, 정면 승부',
   phases: [
     // Phase 0: opening (lines 1-11)

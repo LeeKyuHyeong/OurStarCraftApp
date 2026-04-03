@@ -7,7 +7,7 @@ const _zvp5droneVsForgeExpand = ScenarioScript(
   id: 'zvp_5drone_vs_forge_expand',
   matchup: 'ZvP',
   homeBuildIds: ['zvp_5drone'],
-  awayBuildIds: ['pvz_trans_forge_expand'],
+  awayBuildIds: ['pvz_trans_forge_expand', 'pvz_forge_cannon'],
   description: '9투 올인 저글링 vs 포지 확장 캐논 방어',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)

@@ -7,7 +7,7 @@ const _pvt5gatePushVsBioMech = ScenarioScript(
   id: 'pvt_5gate_push_vs_bio_mech',
   matchup: 'PvT',
   homeBuildIds: ['pvt_trans_5gate_push', 'pvt_1gate_expand'],
-  awayBuildIds: ['tvp_trans_bio_mech', 'tvp_rax_double'],
+  awayBuildIds: ['tvp_trans_bio_mech', 'tvp_bar_double'],
   description: '5게이트 드라군+질럿 vs 바이오 메카닉 복합 편성',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)

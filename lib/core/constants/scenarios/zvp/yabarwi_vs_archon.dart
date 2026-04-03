@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _zvpYabarwiVsArchon = ScenarioScript(
   id: 'zvp_yabarwi_vs_archon',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_yabarwi'],
-  awayBuildIds: ['pvz_trans_archon'],
+  homeBuildIds: ['zvp_trans_yabarwi', 'zvp_yabarwi'],
+  awayBuildIds: ['pvz_trans_archon', 'pvz_corsair_reaver'],
   description: '야바위 다면 기만 공격 vs 아콘과 질럿+스톰 방어 — 분산 vs 집중',
   phases: [
     // Phase 0: opening (lines 1-11)

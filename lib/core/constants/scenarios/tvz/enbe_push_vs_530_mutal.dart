@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _tvzEnbePushVs530Mutal = ScenarioScript(
   id: 'tvz_enbe_push_vs_530_mutal',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_enbe_push', 'tvz_4rax_enbe'],
+  homeBuildIds: ['tvz_trans_enbe_push', 'tvz_4bar_enbe'],
   awayBuildIds: ['zvt_trans_530_mutal', 'zvt_1hatch_allin'],
   description: '선엔베 4배럭 타이밍 vs 1해처리 럴커 타이밍 (530)',
   phases: [

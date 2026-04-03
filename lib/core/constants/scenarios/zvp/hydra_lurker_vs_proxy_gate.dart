@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _zvpHydraLurkerVsProxyGate = ScenarioScript(
   id: 'zvp_hydra_lurker_vs_proxy_gate',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_hydra_lurker'],
-  awayBuildIds: ['pvz_proxy_gate'],
+  homeBuildIds: ['zvp_trans_hydra_lurker', 'zvp_12pool'],
+  awayBuildIds: ['pvz_proxy_gate', 'pvz_8gat'],
   description: '히드라 럴커 vs 프록시 게이트 — 럴커 매몰이 질럿 러시를 막아내는 구도',
   phases: [
     // Phase 0: opening (lines 1-11)

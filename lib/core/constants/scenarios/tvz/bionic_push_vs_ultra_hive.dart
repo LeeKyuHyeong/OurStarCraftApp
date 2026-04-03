@@ -7,7 +7,7 @@ const _tvzBionicPushVsUltraHive = ScenarioScript(
   id: 'tvz_bionic_push_vs_ultra_hive',
   matchup: 'TvZ',
   homeBuildIds: ['tvz_trans_bionic_push', 'tvz_sk'],
-  awayBuildIds: ['zvt_trans_ultra_hive', 'zvt_3hatch_nopool'],
+  awayBuildIds: ['zvt_trans_ultra_hive', 'zvt_3hatch_nopool', 'zvt_12hatch'],
   description: '바이오닉 푸시 vs 울트라리스크 하이브 후반 체제',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)

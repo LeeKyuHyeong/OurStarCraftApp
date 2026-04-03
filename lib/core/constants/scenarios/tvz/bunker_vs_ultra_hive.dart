@@ -7,7 +7,7 @@ const _tvzBunkerVsUltraHive = ScenarioScript(
   id: 'tvz_bunker_vs_ultra_hive',
   matchup: 'TvZ',
   homeBuildIds: ['tvz_bunker'],
-  awayBuildIds: ['zvt_trans_ultra_hive', 'zvt_3hatch_nopool'],
+  awayBuildIds: ['zvt_trans_ultra_hive', 'zvt_3hatch_nopool', 'zvt_12hatch'],
   description: '벙커 러시 vs 울트라 하이브 — 초반 올인 vs 최후반 빌드',
   phases: [
     // Phase 0: opening (lines 1-11)

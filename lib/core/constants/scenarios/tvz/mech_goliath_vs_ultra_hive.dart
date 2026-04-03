@@ -7,7 +7,7 @@ const _tvzMechGoliathVsUltraHive = ScenarioScript(
   id: 'tvz_mech_goliath_vs_ultra_hive',
   matchup: 'TvZ',
   homeBuildIds: ['tvz_trans_mech_goliath', 'tvz_3fac_goliath'],
-  awayBuildIds: ['zvt_trans_ultra_hive', 'zvt_3hatch_nopool'],
+  awayBuildIds: ['zvt_trans_ultra_hive', 'zvt_3hatch_nopool', 'zvt_12hatch'],
   description: '메카닉 골리앗 vs 울트라 하이브 — 시즈탱크 스플래시 vs 울트라 돌진',
   phases: [
     // Phase 0: opening (lines 1-11)

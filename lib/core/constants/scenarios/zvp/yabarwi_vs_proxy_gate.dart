@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _zvpYabarwiVsProxyGate = ScenarioScript(
   id: 'zvp_yabarwi_vs_proxy_gate',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_yabarwi'],
-  awayBuildIds: ['pvz_proxy_gate'],
+  homeBuildIds: ['zvp_trans_yabarwi', 'zvp_yabarwi'],
+  awayBuildIds: ['pvz_proxy_gate', 'pvz_8gat'],
   description: '야바위 기만 전술 vs 프록시 질럿 러시 — 럴커로 수비 후 역공',
   phases: [
     // Phase 0: opening (lines 1-11)

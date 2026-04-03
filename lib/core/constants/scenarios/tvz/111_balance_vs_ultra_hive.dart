@@ -7,7 +7,7 @@ const _tvz111BalanceVsUltraHive = ScenarioScript(
   id: 'tvz_111_balance_vs_ultra_hive',
   matchup: 'TvZ',
   homeBuildIds: ['tvz_trans_111_balance', 'tvz_111'],
-  awayBuildIds: ['zvt_trans_ultra_hive', 'zvt_3hatch_nopool'],
+  awayBuildIds: ['zvt_trans_ultra_hive', 'zvt_3hatch_nopool', 'zvt_12hatch'],
   description: '111 밸런스 vs 울트라 하이브 — 중반 타이밍 공격 vs 울트라와 디파일러 장기전',
   phases: [
     // Phase 0: opening (lines 1-11)

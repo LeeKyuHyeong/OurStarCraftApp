@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _zvp973HydraVsCorsair = ScenarioScript(
   id: 'zvp_973_hydra_vs_corsair',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_973_hydra'],
+  homeBuildIds: ['zvp_trans_973_hydra', 'zvp_973_hydra', 'zvp_9pool'],
   awayBuildIds: ['pvz_trans_corsair'],
   description: '973 히드라 vs 커세어 지상군 — 히드라 타이밍으로 빌드업을 끊는다',
   phases: [

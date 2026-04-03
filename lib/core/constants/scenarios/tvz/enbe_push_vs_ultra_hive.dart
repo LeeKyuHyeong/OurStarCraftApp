@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _tvzEnbePushVsUltraHive = ScenarioScript(
   id: 'tvz_enbe_push_vs_ultra_hive',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_enbe_push', 'tvz_4rax_enbe'],
-  awayBuildIds: ['zvt_trans_ultra_hive', 'zvt_3hatch_nopool'],
+  homeBuildIds: ['tvz_trans_enbe_push', 'tvz_4bar_enbe'],
+  awayBuildIds: ['zvt_trans_ultra_hive', 'zvt_3hatch_nopool', 'zvt_12hatch'],
   description: '선엔베 4배럭 마린 타이밍 vs 울트라리스크 하이브 후반 체제',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)

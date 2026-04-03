@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _zvp5hatchHydraVsDragoonPush = ScenarioScript(
   id: 'zvp_5hatch_hydra_vs_dragoon_push',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_5hatch_hydra', 'zvp_12hatch'],
+  homeBuildIds: ['zvp_trans_5hatch_hydra', 'zvp_12hatch', 'zvp_3hatch_hydra'],
   awayBuildIds: ['pvz_trans_dragoon_push', 'pvz_2gate_zealot'],
   description: '5해처리 히드라 물량 vs 2게이트 드라군 푸시',
   phases: [

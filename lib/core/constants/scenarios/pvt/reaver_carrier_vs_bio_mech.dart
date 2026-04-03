@@ -7,7 +7,7 @@ const _pvtReaverCarrierVsBioMech = ScenarioScript(
   id: 'pvt_reaver_carrier_vs_bio_mech',
   matchup: 'PvT',
   homeBuildIds: ['pvt_trans_reaver_carrier', 'pvt_reaver_shuttle', 'pvt_carrier'],
-  awayBuildIds: ['tvp_trans_bio_mech', 'tvp_rax_double'],
+  awayBuildIds: ['tvp_trans_bio_mech', 'tvp_bar_double'],
   description: '리버 셔틀 + 캐리어 전환 vs 마린 탱크 골리앗 — 분산 공격 vs 복합 편성',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)

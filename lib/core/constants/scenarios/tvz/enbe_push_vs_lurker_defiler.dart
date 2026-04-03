@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _tvzEnbePushVsLurkerDefiler = ScenarioScript(
   id: 'tvz_enbe_push_vs_lurker_defiler',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_enbe_push', 'tvz_4rax_enbe'],
+  homeBuildIds: ['tvz_trans_enbe_push', 'tvz_4bar_enbe'],
   awayBuildIds: ['zvt_trans_lurker_defiler', 'zvt_2hatch_lurker'],
   description: '선엔베 4배럭 마린 vs 럴커 디파일러 다크스웜',
   phases: [

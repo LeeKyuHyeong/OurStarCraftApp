@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _zvpMukerjiVs2starCorsair = ScenarioScript(
   id: 'zvp_mukerji_vs_2star_corsair',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_mukerji'],
+  homeBuildIds: ['zvp_trans_mukerji', 'zvp_mukerji'],
   awayBuildIds: ['pvz_2star_corsair'],
   description: '뮤탈과 저글링 vs 더블 스타게이트 커세어 — 공중 제공권 다툼',
   phases: [

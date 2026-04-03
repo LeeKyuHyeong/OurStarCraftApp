@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _zvp973HydraVs2starCorsair = ScenarioScript(
   id: 'zvp_973_hydra_vs_2star_corsair',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_973_hydra'],
+  homeBuildIds: ['zvp_trans_973_hydra', 'zvp_973_hydra', 'zvp_9pool'],
   awayBuildIds: ['pvz_2star_corsair'],
   description: '973 히드라 vs 2스타 커세어 — 히드라 타이밍이 커세어 물량보다 빠르다',
   phases: [

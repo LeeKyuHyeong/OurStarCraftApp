@@ -7,7 +7,7 @@ const _pvt5gateCarrierVsBioMech = ScenarioScript(
   id: 'pvt_5gate_carrier_vs_bio_mech',
   matchup: 'PvT',
   homeBuildIds: ['pvt_trans_5gate_carrier', 'pvt_1gate_expand', 'pvt_carrier'],
-  awayBuildIds: ['tvp_trans_bio_mech', 'tvp_rax_double'],
+  awayBuildIds: ['tvp_trans_bio_mech', 'tvp_bar_double'],
   description: '5게이트 캐리어 vs 바이오 메카닉 — 캐리어 vs 골리앗 대공',
   phases: [
     // Phase 0: opening (lines 1-11)

@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _zvpMutalHydraVsArchon = ScenarioScript(
   id: 'zvp_mutal_hydra_vs_archon',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_mutal_hydra'],
-  awayBuildIds: ['pvz_trans_archon'],
+  homeBuildIds: ['zvp_trans_mutal_hydra', 'zvp_2hatch_mutal', 'zvp_9overpool'],
+  awayBuildIds: ['pvz_trans_archon', 'pvz_corsair_reaver'],
   description: '뮤탈 견제 + 히드라 vs 하이 템플러 아콘 합체',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)

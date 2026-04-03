@@ -7,7 +7,7 @@ const _zvp4poolVsDragoonPush = ScenarioScript(
   id: 'zvp_4pool_vs_dragoon_push',
   matchup: 'ZvP',
   homeBuildIds: ['zvp_4pool'],
-  awayBuildIds: ['pvz_trans_dragoon_push'],
+  awayBuildIds: ['pvz_trans_dragoon_push', 'pvz_2gate_zealot'],
   description: '4풀 저글링 러시 vs 질럿과 드라군 푸쉬',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)

@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _zvp973HydraVsProxyGate = ScenarioScript(
   id: 'zvp_973_hydra_vs_proxy_gate',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_973_hydra'],
-  awayBuildIds: ['pvz_proxy_gate'],
+  homeBuildIds: ['zvp_trans_973_hydra', 'zvp_973_hydra', 'zvp_9pool'],
+  awayBuildIds: ['pvz_proxy_gate', 'pvz_8gat'],
   description: '973 히드라 vs 프록시 게이트 — 공격형 vs 공격형 극초반 충돌',
   phases: [
     // Phase 0: opening (lines 1-11)

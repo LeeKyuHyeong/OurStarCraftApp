@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _zvpYabarwiVsCannonRush = ScenarioScript(
   id: 'zvp_yabarwi_vs_cannon_rush',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_yabarwi'],
+  homeBuildIds: ['zvp_trans_yabarwi', 'zvp_yabarwi'],
   awayBuildIds: ['pvz_cannon_rush'],
   description: '야바위 기만 전술 vs 캐논 러시 — 캐논 실패 후 다면 파괴',
   phases: [

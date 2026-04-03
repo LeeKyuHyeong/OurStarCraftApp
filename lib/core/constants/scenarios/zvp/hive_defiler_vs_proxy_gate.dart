@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _zvpHiveDefilerVsProxyGate = ScenarioScript(
   id: 'zvp_hive_defiler_vs_proxy_gate',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_hive_defiler'],
-  awayBuildIds: ['pvz_proxy_gate'],
+  homeBuildIds: ['zvp_trans_hive_defiler', 'zvp_scourge_defiler', 'zvp_3hatch_nopool'],
+  awayBuildIds: ['pvz_proxy_gate', 'pvz_8gat'],
   description: '하이브 디파일러 vs 프록시 게이트 — 후반 테크 vs 초반 치즈',
   phases: [
     // Phase 0: opening (lines 1-11)

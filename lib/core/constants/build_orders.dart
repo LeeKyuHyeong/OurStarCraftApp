@@ -212,10 +212,10 @@ class BuildOrderData {
       ],
     ),
 
-    // 4. 선엔베 4배럭 (tvz_4rax_enbe - Aggressive)
+    // 4. 선엔베 4배럭 (tvz_4bar_enbe - Aggressive)
     // 엔지니어링 베이 선건설 후 4배럭 마린 메딕 러쉬
     BuildOrder(
-      id: 'tvz_4rax_enbe',
+      id: 'tvz_4bar_enbe',
       name: '선엔베 4배럭',
       race: 'T',
       vsRace: 'Z',
@@ -349,7 +349,7 @@ class BuildOrderData {
       ],
     ),
     // 3. 선엔베 (공격적 - 자체 완결)
-    RaceOpening(race: 'T', id: 'tvz_4rax_enbe', name: '선엔베', vsRace: 'Z',
+    RaceOpening(race: 'T', id: 'tvz_4bar_enbe', name: '선엔베', vsRace: 'Z',
       style: BuildStyle.aggressive, aggressionTier: 1,
       steps: [
         BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
@@ -543,7 +543,7 @@ class BuildOrderData {
         BuildStep(line: 50, text: '{player} 선수 공중 장악 완료!', stat: 'harass', enemyArmy: -5, isClash: true, decisive: true),
       ],
     ),
-    // 6. 선엔베 푸시 (from tvz_4rax_enbe)
+    // 6. 선엔베 푸시 (from tvz_4bar_enbe)
     RaceTransition(race: 'T', id: 'tvz_trans_enbe_push', name: '선엔베 푸시', vsRace: 'Z',
       style: BuildStyle.aggressive, keyStats: ['attack', 'macro'],
       steps: [
@@ -600,7 +600,7 @@ class BuildOrderData {
         BuildStep(line: 85, text: '{player} 선수 업그레이드 완료! 최종 푸시!', stat: 'attack', isClash: true),
       ],
     ),
-    // 4. 바이오 메카닉 (from tvp_rax_double)
+    // 4. 바이오 메카닉 (from tvp_bar_double)
     RaceTransition(race: 'T', id: 'tvp_trans_bio_mech', name: '바이오 메카닉', vsRace: 'P',
       style: BuildStyle.defensive, keyStats: ['defense', 'macro'],
       steps: [
@@ -765,10 +765,10 @@ class BuildOrderData {
       ],
     ),
 
-    // 5. 배럭 더블 (tvp_rax_double - Defensive)
+    // 5. 배럭 더블 (tvp_bar_double - Defensive)
     // 배럭 후 빠른 앞마당 확장. 마린 메딕 운영
     BuildOrder(
-      id: 'tvp_rax_double',
+      id: 'tvp_bar_double',
       name: '배럭 더블',
       race: 'T',
       vsRace: 'P',
@@ -922,9 +922,9 @@ class BuildOrderData {
   // TvT 빌드들
   // 원팩원스타 = 공격형, 투스타 레이스 = 공격형, 배럭더블 = 수비형
   static const terranVsTerranBuilds = [
-    // 1. 원팩원스타 (tvt1FactPush - Aggressive)
+    // 1. 원팩원스타 (tvt1Fac1Star - Aggressive)
     BuildOrder(
-      id: 'tvt_1fac_push',
+      id: 'tvt_1fac_1star',
       name: '원팩원스타',
       race: 'T',
       vsRace: 'T',
@@ -946,9 +946,9 @@ class BuildOrderData {
       ],
     ),
 
-    // 2. 투스타 레이스 (tvtWraithCloak - Aggressive)
+    // 2. 투스타 레이스 (tvt2Star - Aggressive)
     BuildOrder(
-      id: 'tvt_wraith_cloak',
+      id: 'tvt_2star',
       name: '투스타 레이스',
       race: 'T',
       vsRace: 'T',
@@ -970,10 +970,10 @@ class BuildOrderData {
       ],
     ),
 
-    // 3. 배럭더블 (tvtCCFirst - Defensive)
+    // 3. 원배럭더블 (tvt1BarDouble - Defensive)
     BuildOrder(
-      id: 'tvt_cc_first',
-      name: '배럭더블',
+      id: 'tvt_1bar_double',
+      name: '원배럭더블',
       race: 'T',
       vsRace: 'T',
       style: BuildStyle.defensive,
@@ -997,11 +997,39 @@ class BuildOrderData {
       ],
     ),
 
-    // 4. 투팩 벌처 (tvt2FactVulture - Aggressive)
+    // 3-2. 노배럭더블 (tvtNobarDouble - Defensive)
+    // 배럭 없이 커맨드센터 먼저 → 극수비형. 초반 취약하지만 자원 우위
+    BuildOrder(
+      id: 'tvt_nobar_double',
+      name: '노배럭더블',
+      race: 'T',
+      vsRace: 'T',
+      style: BuildStyle.defensive,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 SCV 정찰!', stat: 'scout'),
+        BuildStep(line: 3, text: '{player}, 배럭 없이 앞마당 커맨드센터!', stat: 'macro', myResource: -40),
+        BuildStep(line: 6, text: '{player} 선수 뒤늦게 배럭 건설!', myResource: -10),
+        BuildStep(line: 10, text: '{player}, 마린 생산 시작!', myArmy: 2, myResource: -5),
+        BuildStep(line: 14, text: '{player} 선수 벙커 건설! 초반 방어!', stat: 'defense', myResource: -15),
+        BuildStep(line: 18, text: '{player}, 팩토리 건설!', myResource: -20),
+        BuildStep(line: 22, text: '{player} 선수 머신샵 부착!', myResource: -10),
+        BuildStep(line: 26, text: '{player}, 시즈 탱크 생산!', stat: 'defense', myArmy: 5, myResource: -15),
+        BuildStep(line: 30, text: '{player} 선수 시즈모드 연구!', myResource: -15),
+        BuildStep(line: 36, text: '{player}, 더블 자원 가동! 2번째 팩토리!', stat: 'macro', myResource: -20, myArmy: 2),
+        BuildStep(line: 44, text: '{player} 선수 탱크 더블 생산!', myArmy: 5, myResource: -15),
+        BuildStep(line: 52, text: '{player}, 자원 수급 안정! 일꾼 풀가동!', stat: 'macro', myResource: 30),
+        BuildStep(line: 58, text: '{player} 선수 스타포트 건설!', myResource: -25),
+        BuildStep(line: 64, text: '{player}, 사이언스 퍼실리티!', myResource: -20),
+        BuildStep(line: 70, text: '{player} 선수 베슬 생산!', stat: 'strategy', myArmy: 2, myResource: -20),
+        BuildStep(line: 80, text: '{player}, 물량 우위로 탱크 라인 전진!', stat: 'strategy', isClash: true),
+      ],
+    ),
+
+    // 4. 투팩타이밍 (tvt2FacPush - Aggressive)
     // 팩토리 2개에서 벌처 대량 생산 → 초반 압박
     BuildOrder(
-      id: 'tvt_2fac_vulture',
-      name: '투팩 벌처',
+      id: 'tvt_2fac_push',
+      name: '투팩타이밍',
       race: 'T',
       vsRace: 'T',
       style: BuildStyle.aggressive,
@@ -1021,11 +1049,11 @@ class BuildOrderData {
       ],
     ),
 
-    // 5. 원팩 확장 (tvt1FactExpand - Defensive)
+    // 5. 원팩더블 (tvt1FacDouble - Defensive)
     // 팩토리 1개 → 시즈탱크 → 확장. TvT 표준 빌드
     BuildOrder(
-      id: 'tvt_1fac_expand',
-      name: '원팩 확장',
+      id: 'tvt_1fac_double',
+      name: '원팩더블',
       race: 'T',
       vsRace: 'T',
       style: BuildStyle.defensive,
@@ -1089,6 +1117,28 @@ class BuildOrderData {
         BuildStep(line: 18, text: '{player} 선수 센터 배럭 마린 투입!', stat: 'control', myArmy: 2, isClash: true),
         BuildStep(line: 20, text: '{player}, SCV 수리하며 벙커링!', stat: 'control', isClash: true),
         BuildStep(line: 22, text: '{player} 선수 총공격! BBS 올인!', stat: 'attack', isClash: true, decisive: true),
+      ],
+    ),
+
+    // 8. FD 러쉬 (tvtFdRush - Aggressive)
+    // FD 러쉬 빌드 (상세 내용 추후 정리)
+    BuildOrder(
+      id: 'tvt_fd_rush',
+      name: 'FD 러쉬',
+      race: 'T',
+      vsRace: 'T',
+      style: BuildStyle.aggressive,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
+        BuildStep(line: 4, text: '{player} 선수 팩토리 건설!', myResource: -20),
+        BuildStep(line: 8, text: '{player}, 머신샵 부착!', myResource: -10),
+        BuildStep(line: 12, text: '{player} 선수 시즈 탱크 생산!', stat: 'attack', myArmy: 5, myResource: -15),
+        BuildStep(line: 16, text: '{player}, 시즈모드 연구!', myResource: -15),
+        BuildStep(line: 20, text: '{player} 선수 앞마당 커맨드센터!', stat: 'macro', myResource: -40),
+        BuildStep(line: 24, text: '{player}, 2번째 팩토리!', myResource: -20),
+        BuildStep(line: 30, text: '{player} 선수 탱크 더블 생산!', stat: 'attack', myArmy: 5, myResource: -15),
+        BuildStep(line: 38, text: '{player}, FD 러쉬 준비!', stat: 'attack'),
+        BuildStep(line: 45, text: '{player} 선수 탱크 라인 전진!', stat: 'attack', myArmy: 3, isClash: true, decisive: true),
       ],
     ),
   ];
@@ -3558,7 +3608,7 @@ class BuildOrderData {
       ClashEvent(text: '5팩 골리앗! 대공 진형 완성!', favorsStat: 'defense', attackerArmy: -4, defenderArmy: -12),
       ClashEvent(text: '골리앗 물량! 뮤탈 접근 불가!', favorsStat: 'defense', attackerArmy: -3, defenderArmy: -10, defenderResource: -15),
     ],
-    BuildType.tvz4RaxEnbe: [
+    BuildType.tvz4BarEnbe: [
       ClashEvent(text: '선엔베 4배럭! 마린 메딕 물량 공격!', favorsStat: 'attack', attackerArmy: -5, defenderArmy: -12, defenderResource: -15),
       ClashEvent(text: '엔지니어링 베이로 터렛! 뮤탈 완벽 대비!', favorsStat: 'macro', attackerArmy: -3, defenderArmy: -8),
     ],
@@ -3596,7 +3646,7 @@ class BuildOrderData {
       ClashEvent(text: '업테란! 업그레이드 차이로 전투 우위!', favorsStat: 'strategy', attackerArmy: -4, defenderArmy: -12),
       ClashEvent(text: '업그레이드 완료! 같은 병력이 다른 화력!', favorsStat: 'strategy', attackerArmy: -3, defenderArmy: -10, attackerResource: 10),
     ],
-    BuildType.tvpRaxDouble: [
+    BuildType.tvpBarDouble: [
       ClashEvent(text: '배럭 더블! 마린 메딕 안정 운영!', favorsStat: 'macro', attackerArmy: 3, defenderArmy: 0, attackerResource: 20),
       ClashEvent(text: '배럭 더블 성공! 마린 메딕으로 앞마당 안정!', favorsStat: 'defense', attackerArmy: 5, defenderArmy: -2, attackerResource: 15),
     ],
@@ -3622,23 +3672,23 @@ class BuildOrderData {
     ],
 
     // ==================== TvT 빌드들 (6개) ====================
-    BuildType.tvt1FactPush: [
+    BuildType.tvt1Fac1Star: [
       ClashEvent(text: '원팩원스타! 탱크 레이스 조합 선공!', favorsStat: 'attack', attackerArmy: -8, defenderArmy: -12),
       ClashEvent(text: '빠른 탱크 푸시! 상대 대비 전 공격!', favorsStat: 'attack', attackerArmy: -10, defenderArmy: -15),
     ],
-    BuildType.tvtWraithCloak: [
+    BuildType.tvt2Star: [
       ClashEvent(text: '투스타 레이스! 탱크 라인 견제!', favorsStat: 'harass', attackerArmy: -3, defenderArmy: -8),
       ClashEvent(text: '레이스로 SCV 견제! 일꾼 피해!', favorsStat: 'harass', attackerArmy: -2, defenderArmy: -4, defenderResource: -30),
     ],
-    BuildType.tvtCCFirst: [
+    BuildType.tvt1BarDouble: [
       ClashEvent(text: '빠른 더블 커맨드! 탱크 물량에서 앞섭니다!', favorsStat: 'macro', attackerArmy: 3, defenderArmy: 0, attackerResource: 20),
       ClashEvent(text: '빠른 확장 후 탱크 생산! 안정적 운영!', favorsStat: 'defense', attackerArmy: 5, defenderArmy: -3, attackerResource: 15),
     ],
-    BuildType.tvt2FactVulture: [
+    BuildType.tvt2FacPush: [
       ClashEvent(text: '투팩 벌처! 벌처 물량으로 밀어붙입니다!', favorsStat: 'attack', attackerArmy: -6, defenderArmy: -10, defenderResource: -15),
       ClashEvent(text: '마인 매설! 상대 이동 경로 차단!', favorsStat: 'harass', attackerArmy: -3, defenderArmy: -5, defenderResource: -20),
     ],
-    BuildType.tvt1FactExpand: [
+    BuildType.tvt1FacDouble: [
       ClashEvent(text: '원팩 확장! 시즈 탱크로 안정 방어!', favorsStat: 'defense', attackerArmy: 4, defenderArmy: -3, attackerResource: 15),
       ClashEvent(text: '멀티 운영으로 탱크 물량 확보!', favorsStat: 'macro', attackerArmy: 5, defenderArmy: 0, attackerResource: 20),
     ],

@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _zvpHiveDefilerVsArchon = ScenarioScript(
   id: 'zvp_hive_defiler_vs_archon',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_hive_defiler'],
-  awayBuildIds: ['pvz_trans_archon'],
+  homeBuildIds: ['zvp_trans_hive_defiler', 'zvp_scourge_defiler', 'zvp_3hatch_nopool'],
+  awayBuildIds: ['pvz_trans_archon', 'pvz_corsair_reaver'],
   description: '하이브 디파일러 vs 아콘 질럿 — 다크 스웜으로 아콘 사거리를 차단한다',
   phases: [
     // Phase 0: opening (lines 1-11)

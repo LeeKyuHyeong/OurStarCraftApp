@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _zvpMukerjiVsDragoonPush = ScenarioScript(
   id: 'zvp_mukerji_vs_dragoon_push',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_mukerji'],
-  awayBuildIds: ['pvz_trans_dragoon_push'],
+  homeBuildIds: ['zvp_trans_mukerji', 'zvp_mukerji'],
+  awayBuildIds: ['pvz_trans_dragoon_push', 'pvz_2gate_zealot'],
   description: '뮤탈과 저글링 vs 드라군 타이밍 푸시 — 견제와 정면의 대결',
   phases: [
     // Phase 0: opening (lines 1-11)

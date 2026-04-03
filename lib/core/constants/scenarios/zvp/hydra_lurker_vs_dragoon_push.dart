@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _zvpHydraLurkerVsDragoonPush = ScenarioScript(
   id: 'zvp_hydra_lurker_vs_dragoon_push',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_hydra_lurker'],
-  awayBuildIds: ['pvz_trans_dragoon_push'],
+  homeBuildIds: ['zvp_trans_hydra_lurker', 'zvp_12pool'],
+  awayBuildIds: ['pvz_trans_dragoon_push', 'pvz_2gate_zealot'],
   description: '히드라 럴커 vs 드라군 푸시 — 럴커 매몰과 옵저버 감지가 승부를 가르는 구도',
   phases: [
     // Phase 0: opening (lines 1-11)

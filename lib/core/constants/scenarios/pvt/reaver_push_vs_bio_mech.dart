@@ -7,7 +7,7 @@ const _pvtReaverPushVsBioMech = ScenarioScript(
   id: 'pvt_reaver_push_vs_bio_mech',
   matchup: 'PvT',
   homeBuildIds: ['pvt_trans_reaver_push', 'pvt_reaver_shuttle', 'pvt_proxy_dark'],
-  awayBuildIds: ['tvp_trans_bio_mech', 'tvp_rax_double'],
+  awayBuildIds: ['tvp_trans_bio_mech', 'tvp_bar_double'],
   description: '리버 셔틀 푸시 vs 바이오 메카닉 — 마린 뭉치에 스캐럽 한 방',
   phases: [
     // Phase 0: opening (lines 1-11)

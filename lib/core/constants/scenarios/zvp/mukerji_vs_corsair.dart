@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _zvpMukerjiVsCorsair = ScenarioScript(
   id: 'zvp_mukerji_vs_corsair',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_mukerji'],
+  homeBuildIds: ['zvp_trans_mukerji', 'zvp_mukerji'],
   awayBuildIds: ['pvz_trans_corsair'],
   description: '뮤탈과 저글링 vs 커세어+지상 — 오버로드 사냥 vs 저글링 런바이',
   phases: [

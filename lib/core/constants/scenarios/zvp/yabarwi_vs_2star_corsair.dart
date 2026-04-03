@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _zvpYabarwiVs2starCorsair = ScenarioScript(
   id: 'zvp_yabarwi_vs_2star_corsair',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_yabarwi'],
+  homeBuildIds: ['zvp_trans_yabarwi', 'zvp_yabarwi'],
   awayBuildIds: ['pvz_2star_corsair'],
   description: '저글링+히드라+럴커 기만 전술 vs 더블 스타게이트 커세어 — 지상 vs 공중',
   phases: [

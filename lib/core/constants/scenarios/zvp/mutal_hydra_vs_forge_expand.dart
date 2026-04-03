@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _zvpMutalHydraVsForgeExpand = ScenarioScript(
   id: 'zvp_mutal_hydra_vs_forge_expand',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_mutal_hydra', 'zvp_2hatch_mutal'],
+  homeBuildIds: ['zvp_trans_mutal_hydra', 'zvp_2hatch_mutal', 'zvp_9overpool'],
   awayBuildIds: ['pvz_trans_forge_expand', 'pvz_forge_cannon'],
   description: '뮤탈 프로브 견제 + 히드라 타이밍 vs 포지 더블 수비',
   phases: [

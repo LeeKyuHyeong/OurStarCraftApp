@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _zvpHydraLurkerVsArchon = ScenarioScript(
   id: 'zvp_hydra_lurker_vs_archon',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_hydra_lurker'],
-  awayBuildIds: ['pvz_trans_archon'],
+  homeBuildIds: ['zvp_trans_hydra_lurker', 'zvp_12pool'],
+  awayBuildIds: ['pvz_trans_archon', 'pvz_corsair_reaver'],
   description: '히드라 럴커 vs 아콘과 질럿 — 범위 공격 대결, 사이오닉 스톰과 럴커 매몰의 승부',
   phases: [
     // Phase 0: opening (lines 1-11)

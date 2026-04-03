@@ -7,7 +7,7 @@ const _pvtProxyGateVsBioMech = ScenarioScript(
   id: 'pvt_proxy_gate_vs_bio_mech',
   matchup: 'PvT',
   homeBuildIds: ['pvt_proxy_gate'],
-  awayBuildIds: ['tvp_trans_bio_mech', 'tvp_rax_double'],
+  awayBuildIds: ['tvp_trans_bio_mech', 'tvp_bar_double'],
   description: '프록시 게이트 질럿 러시 vs 바이오 메카닉 수비형',
   phases: [
     // Phase 0: 오프닝 (lines 1-10)

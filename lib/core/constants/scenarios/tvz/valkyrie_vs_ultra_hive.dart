@@ -7,7 +7,7 @@ const _tvzValkyrieVsUltraHive = ScenarioScript(
   id: 'tvz_valkyrie_vs_ultra_hive',
   matchup: 'TvZ',
   homeBuildIds: ['tvz_trans_valkyrie', 'tvz_valkyrie'],
-  awayBuildIds: ['zvt_trans_ultra_hive', 'zvt_3hatch_nopool'],
+  awayBuildIds: ['zvt_trans_ultra_hive', 'zvt_3hatch_nopool', 'zvt_12hatch'],
   description: '발키리 대공 투자 vs 울트라리스크 하이브 테크',
   phases: [
     // Phase 0: opening (lines 1-11)

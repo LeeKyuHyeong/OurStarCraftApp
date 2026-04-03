@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _zvp973HydraVsCannonRush = ScenarioScript(
   id: 'zvp_973_hydra_vs_cannon_rush',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_973_hydra'],
+  homeBuildIds: ['zvp_trans_973_hydra', 'zvp_973_hydra', 'zvp_9pool'],
   awayBuildIds: ['pvz_cannon_rush'],
   description: '973 히드라 vs 캐논 러시 — 히드라 사거리가 캐논을 아웃레인지한다',
   phases: [

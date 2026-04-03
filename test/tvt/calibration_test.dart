@@ -42,23 +42,23 @@ void main() {
   // 시나리오별 빌드 조합 (전체 16개 시나리오)
   final scenarios = [
     // 크로스 매치업 (9개)
-    {'home': 'tvt_cc_first', 'away': 'tvt_2fac_vulture', 'name': '배럭더블 vs 투팩벌처'},
-    {'home': 'tvt_bbs', 'away': 'tvt_cc_first', 'name': 'BBS vs 노배럭더블'},
-    {'home': 'tvt_wraith_cloak', 'away': 'tvt_cc_first', 'name': '레이스 vs 배럭더블'},
-    {'home': 'tvt_5fac', 'away': 'tvt_1fac_expand', 'name': '5팩 vs 마인트리플'},
-    {'home': 'tvt_bbs', 'away': 'tvt_2fac_vulture', 'name': 'BBS vs 테크빌드'},
-    {'home': 'tvt_1fac_push', 'away': 'tvt_wraith_cloak', 'name': '공격적 빌드 대결'},
-    {'home': 'tvt_cc_first', 'away': 'tvt_1fac_expand', 'name': '배럭더블 vs 원팩익스팬드'},
-    {'home': 'tvt_1fac_push', 'away': 'tvt_5fac', 'name': '원팩푸시 vs 5팩'},
-    {'home': 'tvt_2fac_vulture', 'away': 'tvt_1fac_expand', 'name': '투팩벌처 vs 원팩익스팬드'},
+    {'home': 'tvt_1bar_double', 'away': 'tvt_2fac_push', 'name': '배럭더블 vs 투팩벌처'},
+    {'home': 'tvt_bbs', 'away': 'tvt_1bar_double', 'name': 'BBS vs 노배럭더블'},
+    {'home': 'tvt_2star', 'away': 'tvt_1bar_double', 'name': '레이스 vs 배럭더블'},
+    {'home': 'tvt_5fac', 'away': 'tvt_1fac_double', 'name': '5팩 vs 마인트리플'},
+    {'home': 'tvt_bbs', 'away': 'tvt_2fac_push', 'name': 'BBS vs 테크빌드'},
+    {'home': 'tvt_1fac_1star', 'away': 'tvt_2star', 'name': '공격적 빌드 대결'},
+    {'home': 'tvt_1bar_double', 'away': 'tvt_1fac_double', 'name': '배럭더블 vs 원팩익스팬드'},
+    {'home': 'tvt_1fac_1star', 'away': 'tvt_5fac', 'name': '원팩푸시 vs 5팩'},
+    {'home': 'tvt_2fac_push', 'away': 'tvt_1fac_double', 'name': '투팩벌처 vs 원팩익스팬드'},
     // 미러 (7개)
     {'home': 'tvt_bbs', 'away': 'tvt_bbs', 'name': 'BBS 미러'},
-    {'home': 'tvt_cc_first', 'away': 'tvt_cc_first', 'name': '배럭더블 미러'},
-    {'home': 'tvt_2fac_vulture', 'away': 'tvt_2fac_vulture', 'name': '투팩벌처 미러'},
-    {'home': 'tvt_wraith_cloak', 'away': 'tvt_wraith_cloak', 'name': '레이스 미러'},
-    {'home': 'tvt_1fac_push', 'away': 'tvt_1fac_push', 'name': '원팩푸시 미러'},
+    {'home': 'tvt_1bar_double', 'away': 'tvt_1bar_double', 'name': '배럭더블 미러'},
+    {'home': 'tvt_2fac_push', 'away': 'tvt_2fac_push', 'name': '투팩벌처 미러'},
+    {'home': 'tvt_2star', 'away': 'tvt_2star', 'name': '레이스 미러'},
+    {'home': 'tvt_1fac_1star', 'away': 'tvt_1fac_1star', 'name': '원팩푸시 미러'},
     {'home': 'tvt_5fac', 'away': 'tvt_5fac', 'name': '5팩 미러'},
-    {'home': 'tvt_1fac_expand', 'away': 'tvt_1fac_expand', 'name': '원팩익스팬드 미러'},
+    {'home': 'tvt_1fac_double', 'away': 'tvt_1fac_double', 'name': '원팩익스팬드 미러'},
   ];
 
   test('TvT 전체 시나리오 보정용 JSON 로그 내보내기', () async {

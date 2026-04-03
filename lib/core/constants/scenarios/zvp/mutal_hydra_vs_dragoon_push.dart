@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _zvpMutalHydraVsDragoonPush = ScenarioScript(
   id: 'zvp_mutal_hydra_vs_dragoon_push',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_mutal_hydra'],
-  awayBuildIds: ['pvz_trans_dragoon_push'],
+  homeBuildIds: ['zvp_trans_mutal_hydra', 'zvp_2hatch_mutal', 'zvp_9overpool'],
+  awayBuildIds: ['pvz_trans_dragoon_push', 'pvz_2gate_zealot'],
   description: '뮤탈 견제 + 히드라 방어 vs 2게이트 드라군 푸시',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)

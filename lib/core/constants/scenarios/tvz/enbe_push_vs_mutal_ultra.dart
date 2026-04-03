@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _tvzEnbePushVsMutalUltra = ScenarioScript(
   id: 'tvz_enbe_push_vs_mutal_ultra',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_enbe_push', 'tvz_4rax_enbe'],
+  homeBuildIds: ['tvz_trans_enbe_push', 'tvz_4bar_enbe'],
   awayBuildIds: ['zvt_trans_mutal_ultra', 'zvt_9overpool', 'zvt_3hatch_mutal'],
   description: '선엔베 4배럭 마린 타이밍 vs 뮤탈리스크 울트라 전환',
   phases: [

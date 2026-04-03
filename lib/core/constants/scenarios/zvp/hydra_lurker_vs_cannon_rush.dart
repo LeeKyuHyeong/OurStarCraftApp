@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _zvpHydraLurkerVsCannonRush = ScenarioScript(
   id: 'zvp_hydra_lurker_vs_cannon_rush',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_hydra_lurker'],
+  homeBuildIds: ['zvp_trans_hydra_lurker', 'zvp_12pool'],
   awayBuildIds: ['pvz_cannon_rush'],
   description: '히드라 럴커 vs 캐논 러시 — 캐논 러시 실패 시 럴커 장악력이 압도하는 구도',
   phases: [

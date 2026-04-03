@@ -7,7 +7,7 @@ const _tvzWraithVsUltraHive = ScenarioScript(
   id: 'tvz_wraith_vs_ultra_hive',
   matchup: 'TvZ',
   homeBuildIds: ['tvz_trans_wraith', 'tvz_2star_wraith'],
-  awayBuildIds: ['zvt_trans_ultra_hive', 'zvt_3hatch_nopool'],
+  awayBuildIds: ['zvt_trans_ultra_hive', 'zvt_3hatch_nopool', 'zvt_12hatch'],
   description: '레이스 클로킹 견제로 울트라리스크 등장 전에 마무리',
   phases: [
     // Phase 0: opening (lines 1-11)

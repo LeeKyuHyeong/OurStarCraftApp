@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _zvpHiveDefilerVsCannonRush = ScenarioScript(
   id: 'zvp_hive_defiler_vs_cannon_rush',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_hive_defiler'],
+  homeBuildIds: ['zvp_trans_hive_defiler', 'zvp_scourge_defiler', 'zvp_3hatch_nopool'],
   awayBuildIds: ['pvz_cannon_rush'],
   description: '하이브 디파일러 vs 캐논 러시 — 캐논을 막으면 하이브가 지배한다',
   phases: [

@@ -7,7 +7,7 @@ const _pvtReaverArbiterVsBioMech = ScenarioScript(
   id: 'pvt_reaver_arbiter_vs_bio_mech',
   matchup: 'PvT',
   homeBuildIds: ['pvt_trans_reaver_arbiter', 'pvt_1gate_expand', 'pvt_reaver_shuttle'],
-  awayBuildIds: ['tvp_trans_bio_mech', 'tvp_rax_double'],
+  awayBuildIds: ['tvp_trans_bio_mech', 'tvp_bar_double'],
   description: '리버 아비터 vs 바이오 메카닉 — 스톰으로 바이오를 녹이고 리콜로 찌른다',
   phases: [
     // Phase 0: opening (lines 1-11)

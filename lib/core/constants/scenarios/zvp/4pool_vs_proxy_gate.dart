@@ -7,7 +7,7 @@ const _zvp4poolVsProxyGate = ScenarioScript(
   id: 'zvp_4pool_vs_proxy_gate',
   matchup: 'ZvP',
   homeBuildIds: ['zvp_4pool'],
-  awayBuildIds: ['pvz_proxy_gate'],
+  awayBuildIds: ['pvz_proxy_gate', 'pvz_8gat'],
   description: '4풀 저글링 vs 프록시 게이트 질럿 - 치즈 대결',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)

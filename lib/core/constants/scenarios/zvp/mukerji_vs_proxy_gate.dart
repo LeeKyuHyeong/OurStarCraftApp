@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _zvpMukerjiVsProxyGate = ScenarioScript(
   id: 'zvp_mukerji_vs_proxy_gate',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_mukerji'],
-  awayBuildIds: ['pvz_proxy_gate'],
+  homeBuildIds: ['zvp_trans_mukerji', 'zvp_mukerji'],
+  awayBuildIds: ['pvz_proxy_gate', 'pvz_8gat'],
   description: '뮤탈과 저글링 조합 vs 프록시 질럿 러시 — 초반 수비 후 뮤탈 역습',
   phases: [
     // Phase 0: opening (lines 1-11)

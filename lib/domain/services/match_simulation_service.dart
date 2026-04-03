@@ -1980,7 +1980,7 @@ class MatchSimulationService {
 
     // 2. 테란 공격(아카/엔베/레이스) vs 저그 확장
     const _BuildMatchupRule(
-      attackerIds: {'tvz_sk', 'tvz_4rax_enbe', 'tvz_2star_wraith',
+      attackerIds: {'tvz_sk', 'tvz_4bar_enbe', 'tvz_2star_wraith',
                     'tvz_trans_enbe_push', 'tvz_trans_wraith', 'tvz_trans_bionic_push'},
       defenderIds: {'zvt_3hatch_mutal', 'zvt_2hatch_mutal', 'zvt_2hatch_lurker',
                     'zvt_trans_mutal_ultra', 'zvt_trans_2hatch_mutal', 'zvt_trans_lurker_defiler',
@@ -2082,7 +2082,7 @@ class MatchSimulationService {
     // 1. P 치즈(다크드랍/전진로보) vs T 확장
     const _BuildMatchupRule(
       attackerIds: {'pvt_dark_swing', 'pvt_proxy_dark'},
-      defenderIds: {'tvp_double', 'tvp_1fac_gosu', 'tvp_rax_double', 'tvp_fd',
+      defenderIds: {'tvp_double', 'tvp_1fac_gosu', 'tvp_bar_double', 'tvp_fd',
                     'tvp_trans_tank_defense', 'tvp_trans_upgrade', 'tvp_trans_bio_mech'},
       texts: [
         '빌드가 크게 갈렸습니다! {atk} 선수 {atkBuild}! {def} 선수가 읽고 대비할 수 있을까요?',
@@ -2094,7 +2094,7 @@ class MatchSimulationService {
     // 2. 선질럿찌르기 vs T 확장
     const _BuildMatchupRule(
       attackerIds: {'pvt_2gate_zealot', 'pvt_trans_5gate_push', 'pvt_trans_reaver_push'},
-      defenderIds: {'tvp_double', 'tvp_1fac_gosu', 'tvp_rax_double',
+      defenderIds: {'tvp_double', 'tvp_1fac_gosu', 'tvp_bar_double',
                     'tvp_trans_tank_defense', 'tvp_trans_upgrade', 'tvp_trans_bio_mech'},
       texts: [
         '빌드가 갈렸는데요! {atk} 선수 {atkBuild}, {def} 선수는 {defBuild}! 이 압박을 버텨야 합니다!',
@@ -2118,7 +2118,7 @@ class MatchSimulationService {
 
     // 4. 양쪽 확장 (장기전)
     const _BuildMatchupRule(
-      attackerIds: {'tvp_double', 'tvp_1fac_gosu', 'tvp_rax_double', 'tvp_fd', 'tvp_mine_triple',
+      attackerIds: {'tvp_double', 'tvp_1fac_gosu', 'tvp_bar_double', 'tvp_fd', 'tvp_mine_triple',
                     'tvp_trans_tank_defense', 'tvp_trans_upgrade', 'tvp_trans_bio_mech', 'tvp_trans_5fac_mass', 'tvp_trans_anti_carrier'},
       defenderIds: {'pvt_1gate_obs', 'pvt_1gate_expand', 'pvt_carrier', 'pvt_reaver_shuttle',
                     'pvt_trans_5gate_arbiter', 'pvt_trans_5gate_carrier', 'pvt_trans_reaver_arbiter', 'pvt_trans_reaver_carrier'},
@@ -2168,8 +2168,8 @@ class MatchSimulationService {
 
     // 1. 공격 vs 확장/수비
     const _BuildMatchupRule(
-      attackerIds: {'tvt_1fac_push', 'tvt_wraith_cloak', 'tvt_2fac_vulture', 'tvt_5fac', 'tvt_bbs'},
-      defenderIds: {'tvt_cc_first', 'tvt_1fac_expand'},
+      attackerIds: {'tvt_1fac_1star', 'tvt_2star', 'tvt_2fac_push', 'tvt_5fac', 'tvt_bbs'},
+      defenderIds: {'tvt_1bar_double', 'tvt_1fac_double'},
       texts: [
         '빌드가 갈렸습니다! {atk} 선수 {atkBuild}, {def} 선수는 {defBuild}! 이 공격을 넘겨야 합니다!',
         '{atkBuild} vs {defBuild}! {def} 선수 확장 갔는데 이 타이밍을 버텨낼 수 있을지!',
@@ -2179,8 +2179,8 @@ class MatchSimulationService {
 
     // 2. 양쪽 공격
     const _BuildMatchupRule(
-      attackerIds: {'tvt_1fac_push', 'tvt_wraith_cloak', 'tvt_2fac_vulture', 'tvt_5fac', 'tvt_bbs'},
-      defenderIds: {'tvt_1fac_push', 'tvt_wraith_cloak', 'tvt_2fac_vulture', 'tvt_5fac', 'tvt_bbs'},
+      attackerIds: {'tvt_1fac_1star', 'tvt_2star', 'tvt_2fac_push', 'tvt_5fac', 'tvt_bbs'},
+      defenderIds: {'tvt_1fac_1star', 'tvt_2star', 'tvt_2fac_push', 'tvt_5fac', 'tvt_bbs'},
       texts: [
         '양 선수 모두 공격적! {atkBuild} vs {defBuild}, 초반부터 불꽃 튀는 싸움!',
         '양쪽 다 공격 빌드입니다! 누가 먼저 유리한 포지션을 잡느냐가 관건!',
@@ -2190,8 +2190,8 @@ class MatchSimulationService {
 
     // 3. 원팩원스타 vs 투스타레이스 (메카닉 vs 공중)
     const _BuildMatchupRule(
-      attackerIds: {'tvt_1fac_push'},
-      defenderIds: {'tvt_wraith_cloak'},
+      attackerIds: {'tvt_1fac_1star'},
+      defenderIds: {'tvt_2star'},
       texts: [
         '메카닉 vs 레이스! {atk} 선수 지상으로 밀고 {def} 선수는 공중을 노립니다!',
         '{atkBuild} vs {defBuild}! 탱크 라인을 먼저 잡느냐, 레이스 견제가 먼저 들어가느냐!',
@@ -2201,8 +2201,8 @@ class MatchSimulationService {
 
     // 4. 투팩벌처 vs 투스타레이스 (지상 물량 vs 공중 견제)
     const _BuildMatchupRule(
-      attackerIds: {'tvt_2fac_vulture'},
-      defenderIds: {'tvt_wraith_cloak'},
+      attackerIds: {'tvt_2fac_push'},
+      defenderIds: {'tvt_2star'},
       texts: [
         '{atk} 선수 벌처 물량! {def} 선수는 레이스로 견제! 지상 vs 공중 대결!',
         '투팩 벌처 vs 투스타 레이스! 벌처가 먼저 치느냐 레이스가 일꾼을 깎느냐!',
@@ -2213,7 +2213,7 @@ class MatchSimulationService {
     // 5. 5팩토리 vs 원팩확장 (물량 vs 경제)
     const _BuildMatchupRule(
       attackerIds: {'tvt_5fac'},
-      defenderIds: {'tvt_1fac_expand', 'tvt_cc_first'},
+      defenderIds: {'tvt_1fac_double', 'tvt_1bar_double'},
       texts: [
         '{atk} 선수 5팩토리 가동! {def} 선수 {defBuild}인데 이 물량을 버텨야 합니다!',
         '5팩 타이밍 푸시! {def} 선수 확장이 살아남을 수 있을지!',
@@ -2223,8 +2223,8 @@ class MatchSimulationService {
 
     // 6. 투팩벌처 vs 원팩확장 (벌처 러쉬 vs 탱크 방어)
     const _BuildMatchupRule(
-      attackerIds: {'tvt_2fac_vulture'},
-      defenderIds: {'tvt_1fac_expand'},
+      attackerIds: {'tvt_2fac_push'},
+      defenderIds: {'tvt_1fac_double'},
       texts: [
         '벌처 vs 탱크! {atk} 선수 벌처 러쉬, {def} 선수 시즈 탱크로 막아야 합니다!',
         '투팩 벌처 vs 원팩 확장! 벌처가 확장 전에 도착하느냐가 관건!',
@@ -2234,8 +2234,8 @@ class MatchSimulationService {
 
     // 7. 양쪽 운영 (배럭더블/원팩확장)
     const _BuildMatchupRule(
-      attackerIds: {'tvt_cc_first', 'tvt_1fac_expand'},
-      defenderIds: {'tvt_cc_first', 'tvt_1fac_expand'},
+      attackerIds: {'tvt_1bar_double', 'tvt_1fac_double'},
+      defenderIds: {'tvt_1bar_double', 'tvt_1fac_double'},
       texts: [
         '양 선수 모두 안정적 운영! 탱크 자리잡기 경쟁이 승부를 가릅니다.',
         '{atkBuild} vs {defBuild}! 멀티와 포지셔닝 싸움이 예상되네요.',
@@ -2245,7 +2245,7 @@ class MatchSimulationService {
 
     // 8. 투팩벌처 vs 5팩토리 (초반 견제 vs 중반 물량)
     const _BuildMatchupRule(
-      attackerIds: {'tvt_2fac_vulture'},
+      attackerIds: {'tvt_2fac_push'},
       defenderIds: {'tvt_5fac'},
       texts: [
         '{atk} 선수 벌처 견제! {def} 선수 5팩 완성 전에 흔들어야 합니다!',
@@ -2257,7 +2257,7 @@ class MatchSimulationService {
     // 9. BBS vs 배럭더블/원팩확장 (치즈 vs 확장)
     const _BuildMatchupRule(
       attackerIds: {'tvt_bbs'},
-      defenderIds: {'tvt_cc_first', 'tvt_1fac_expand'},
+      defenderIds: {'tvt_1bar_double', 'tvt_1fac_double'},
       texts: [
         '{atk} 선수 BBS입니다! SCV 끌고 벙커링! {def} 선수 {defBuild}인데 막아낼 수 있을까요!',
         'BBS 올인! {atk} 선수 센터 배럭에서 마린 모아 공격! {def} 선수 정찰이 관건!',

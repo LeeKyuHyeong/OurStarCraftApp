@@ -66,8 +66,8 @@ void main() {
       final stream = service.simulateMatchWithLog(
         homePlayer: homePlayer, awayPlayer: awayPlayer,
         map: testMap, getIntervalMs: () => 0,
-        forcedHomeBuildId: 'tvt_cc_first',
-        forcedAwayBuildId: 'tvt_2fac_vulture',
+        forcedHomeBuildId: 'tvt_1bar_double',
+        forcedAwayBuildId: 'tvt_2fac_push',
       );
 
       SimulationState? state;
@@ -110,8 +110,8 @@ void main() {
     final buf = StringBuffer();
     buf.writeln('# TvT 시나리오 1: 배럭더블 vs 투팩벌처 - ${gameCount}경기 통계');
     buf.writeln('');
-    buf.writeln('- 홈: 이영호 (T) | 빌드: tvt_cc_first');
-    buf.writeln('- 어웨이: 박명수 (T) | 빌드: tvt_2fac_vulture');
+    buf.writeln('- 홈: 이영호 (T) | 빌드: tvt_1bar_double');
+    buf.writeln('- 어웨이: 박명수 (T) | 빌드: tvt_2fac_push');
     buf.writeln('- 시나리오: tvt_rax_double_vs_fac_double');
     buf.writeln('');
     buf.writeln('## 종합 전적');
@@ -180,7 +180,7 @@ void main() {
         homePlayer: homePlayer, awayPlayer: awayPlayer,
         map: testMap, getIntervalMs: () => 0,
         forcedHomeBuildId: 'tvt_bbs',
-        forcedAwayBuildId: 'tvt_cc_first',
+        forcedAwayBuildId: 'tvt_1bar_double',
       );
 
       SimulationState? state;
@@ -215,7 +215,7 @@ void main() {
     buf.writeln('# TvT 시나리오 2: BBS vs 노배럭더블 - ${gameCount}경기 통계');
     buf.writeln('');
     buf.writeln('- 홈: 이영호 (T) | 빌드: tvt_bbs');
-    buf.writeln('- 어웨이: 박명수 (T) | 빌드: tvt_cc_first');
+    buf.writeln('- 어웨이: 박명수 (T) | 빌드: tvt_1bar_double');
     buf.writeln('- 시나리오: tvt_bbs_vs_double');
     buf.writeln('');
     buf.writeln('## 종합 전적');
@@ -277,8 +277,8 @@ void main() {
       final stream = service.simulateMatchWithLog(
         homePlayer: homePlayer, awayPlayer: awayPlayer,
         map: testMap, getIntervalMs: () => 0,
-        forcedHomeBuildId: 'tvt_wraith_cloak',
-        forcedAwayBuildId: 'tvt_cc_first',
+        forcedHomeBuildId: 'tvt_2star',
+        forcedAwayBuildId: 'tvt_1bar_double',
       );
 
       SimulationState? state;
@@ -323,8 +323,8 @@ void main() {
     final buf = StringBuffer();
     buf.writeln('# TvT 시나리오 3: 투스타 레이스 vs 배럭더블 - ${gameCount}경기 통계');
     buf.writeln('');
-    buf.writeln('- 홈: 이영호 (T) | 빌드: tvt_wraith_cloak');
-    buf.writeln('- 어웨이: 박명수 (T) | 빌드: tvt_cc_first');
+    buf.writeln('- 홈: 이영호 (T) | 빌드: tvt_2star');
+    buf.writeln('- 어웨이: 박명수 (T) | 빌드: tvt_1bar_double');
     buf.writeln('- 시나리오: tvt_wraith_vs_rax_double');
     buf.writeln('');
     buf.writeln('## 종합 전적');
@@ -389,7 +389,7 @@ void main() {
         homePlayer: homePlayer, awayPlayer: awayPlayer,
         map: testMap, getIntervalMs: () => 0,
         forcedHomeBuildId: 'tvt_5fac',
-        forcedAwayBuildId: 'tvt_1fac_expand',
+        forcedAwayBuildId: 'tvt_1fac_double',
       );
 
       SimulationState? state;
@@ -424,7 +424,7 @@ void main() {
     buf.writeln('# TvT 시나리오 4: 5팩 타이밍 vs 마인 트리플 - ${gameCount}경기 통계');
     buf.writeln('');
     buf.writeln('- 홈: 이영호 (T) | 빌드: tvt_5fac');
-    buf.writeln('- 어웨이: 박명수 (T) | 빌드: tvt_1fac_expand');
+    buf.writeln('- 어웨이: 박명수 (T) | 빌드: tvt_1fac_double');
     buf.writeln('- 시나리오: tvt_5fac_vs_mine_triple');
     buf.writeln('');
     buf.writeln('## 종합 전적');
@@ -482,7 +482,7 @@ void main() {
         homePlayer: homePlayer, awayPlayer: awayPlayer,
         map: testMap, getIntervalMs: () => 0,
         forcedHomeBuildId: 'tvt_bbs',
-        forcedAwayBuildId: 'tvt_2fac_vulture',
+        forcedAwayBuildId: 'tvt_2fac_push',
       );
 
       SimulationState? state;
@@ -516,7 +516,7 @@ void main() {
     buf.writeln('# TvT 시나리오 5: BBS vs 테크빌드 - ${gameCount}경기 통계');
     buf.writeln('');
     buf.writeln('- 홈: 이영호 (T) | 빌드: tvt_bbs');
-    buf.writeln('- 어웨이: 박명수 (T) | 빌드: tvt_2fac_vulture');
+    buf.writeln('- 어웨이: 박명수 (T) | 빌드: tvt_2fac_push');
     buf.writeln('- 시나리오: tvt_bbs_vs_tech');
     buf.writeln('');
     buf.writeln('## 종합 전적');
@@ -573,8 +573,8 @@ void main() {
       final stream = service.simulateMatchWithLog(
         homePlayer: homePlayer, awayPlayer: awayPlayer,
         map: testMap, getIntervalMs: () => 0,
-        forcedHomeBuildId: 'tvt_1fac_push',
-        forcedAwayBuildId: 'tvt_wraith_cloak',
+        forcedHomeBuildId: 'tvt_1fac_1star',
+        forcedAwayBuildId: 'tvt_2star',
       );
 
       SimulationState? state;
@@ -607,8 +607,8 @@ void main() {
     final buf = StringBuffer();
     buf.writeln('# TvT 시나리오 6: 공격적 빌드 대결 - ${gameCount}경기 통계');
     buf.writeln('');
-    buf.writeln('- 홈: 이영호 (T) | 빌드: tvt_1fac_push');
-    buf.writeln('- 어웨이: 박명수 (T) | 빌드: tvt_wraith_cloak');
+    buf.writeln('- 홈: 이영호 (T) | 빌드: tvt_1fac_1star');
+    buf.writeln('- 어웨이: 박명수 (T) | 빌드: tvt_2star');
     buf.writeln('- 시나리오: tvt_aggressive_mirror');
     buf.writeln('');
     buf.writeln('## 종합 전적');

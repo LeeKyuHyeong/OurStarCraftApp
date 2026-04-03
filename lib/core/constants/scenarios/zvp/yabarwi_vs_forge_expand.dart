@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _zvpYabarwiVsForgeExpand = ScenarioScript(
   id: 'zvp_yabarwi_vs_forge_expand',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_yabarwi'],
-  awayBuildIds: ['pvz_trans_forge_expand'],
+  homeBuildIds: ['zvp_trans_yabarwi', 'zvp_yabarwi'],
+  awayBuildIds: ['pvz_trans_forge_expand', 'pvz_forge_cannon'],
   description: '야바위 기만 공격 vs 포지 확장 캐논 수비 — 캐논 라인을 뚫을 수 있나',
   phases: [
     // Phase 0: opening (lines 1-11)

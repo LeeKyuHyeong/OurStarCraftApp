@@ -7,7 +7,7 @@ const _zvp5droneVsDragoonPush = ScenarioScript(
   id: 'zvp_5drone_vs_dragoon_push',
   matchup: 'ZvP',
   homeBuildIds: ['zvp_5drone'],
-  awayBuildIds: ['pvz_trans_dragoon_push'],
+  awayBuildIds: ['pvz_trans_dragoon_push', 'pvz_2gate_zealot'],
   description: '9투 올인 저글링 vs 질럿과 드라군 러쉬',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)

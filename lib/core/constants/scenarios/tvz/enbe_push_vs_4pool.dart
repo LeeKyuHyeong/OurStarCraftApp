@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _tvzEnbePushVs4pool = ScenarioScript(
   id: 'tvz_enbe_push_vs_4pool',
   matchup: 'TvZ',
-  homeBuildIds: ['tvz_trans_enbe_push', 'tvz_4rax_enbe'],
+  homeBuildIds: ['tvz_trans_enbe_push', 'tvz_4bar_enbe'],
   awayBuildIds: ['zvt_4pool'],
   description: '선엔베 4배럭 타이밍 vs 4풀 저글링 러시',
   phases: [

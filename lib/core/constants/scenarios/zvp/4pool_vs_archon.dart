@@ -7,7 +7,7 @@ const _zvp4poolVsArchon = ScenarioScript(
   id: 'zvp_4pool_vs_archon',
   matchup: 'ZvP',
   homeBuildIds: ['zvp_4pool'],
-  awayBuildIds: ['pvz_trans_archon'],
+  awayBuildIds: ['pvz_trans_archon', 'pvz_corsair_reaver'],
   description: '4풀 저글링 올인 vs 하이템플러와 아콘 조합',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)

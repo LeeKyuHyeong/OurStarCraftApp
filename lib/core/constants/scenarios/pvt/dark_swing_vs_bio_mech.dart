@@ -7,7 +7,7 @@ const _pvtDarkSwingVsBioMech = ScenarioScript(
   id: 'pvt_dark_swing_vs_bio_mech',
   matchup: 'PvT',
   homeBuildIds: ['pvt_dark_swing'],
-  awayBuildIds: ['tvp_trans_bio_mech', 'tvp_rax_double'],
+  awayBuildIds: ['tvp_trans_bio_mech', 'tvp_bar_double'],
   description: '다크 스윙 vs 바이오 메카닉 테란',
   phases: [
     // Phase 0: 오프닝 (lines 1-10)

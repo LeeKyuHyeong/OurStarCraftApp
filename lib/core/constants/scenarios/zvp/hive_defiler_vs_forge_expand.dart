@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _zvpHiveDefilerVsForgeExpand = ScenarioScript(
   id: 'zvp_hive_defiler_vs_forge_expand',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_hive_defiler', 'zvp_scourge_defiler'],
+  homeBuildIds: ['zvp_trans_hive_defiler', 'zvp_scourge_defiler', 'zvp_3hatch_nopool'],
   awayBuildIds: ['pvz_trans_forge_expand', 'pvz_forge_cannon'],
   description: '하이브 디파일러 vs 포지 확장 — 다크 스웜 vs 사이오닉 스톰, 클래식 후반전',
   phases: [

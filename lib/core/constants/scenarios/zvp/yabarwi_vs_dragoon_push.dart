@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _zvpYabarwiVsDragoonPush = ScenarioScript(
   id: 'zvp_yabarwi_vs_dragoon_push',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_yabarwi'],
-  awayBuildIds: ['pvz_trans_dragoon_push'],
+  homeBuildIds: ['zvp_trans_yabarwi', 'zvp_yabarwi'],
+  awayBuildIds: ['pvz_trans_dragoon_push', 'pvz_2gate_zealot'],
   description: '야바위 기만 전술 vs 드라군 타이밍 푸시 — 가짜 공격으로 드라군 분산',
   phases: [
     // Phase 0: opening (lines 1-11)

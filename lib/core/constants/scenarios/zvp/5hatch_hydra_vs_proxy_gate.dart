@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _zvp5hatchHydraVsProxyGate = ScenarioScript(
   id: 'zvp_5hatch_hydra_vs_proxy_gate',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_5hatch_hydra'],
-  awayBuildIds: ['pvz_proxy_gate'],
+  homeBuildIds: ['zvp_trans_5hatch_hydra', 'zvp_12hatch', 'zvp_3hatch_hydra'],
+  awayBuildIds: ['pvz_proxy_gate', 'pvz_8gat'],
   description: '5해처리 히드라 매크로 vs 프록시 게이트 질럿 러시',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)

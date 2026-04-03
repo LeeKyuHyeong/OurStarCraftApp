@@ -6,8 +6,8 @@ part of '../../scenario_scripts.dart';
 const _zvpMutalHydraVsProxyGate = ScenarioScript(
   id: 'zvp_mutal_hydra_vs_proxy_gate',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_mutal_hydra'],
-  awayBuildIds: ['pvz_proxy_gate'],
+  homeBuildIds: ['zvp_trans_mutal_hydra', 'zvp_2hatch_mutal', 'zvp_9overpool'],
+  awayBuildIds: ['pvz_proxy_gate', 'pvz_8gat'],
   description: '뮤탈리스크 히드라 vs 프록시 게이트 질럿 러시',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)

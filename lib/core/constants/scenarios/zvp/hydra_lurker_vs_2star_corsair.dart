@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _zvpHydraLurkerVs2starCorsair = ScenarioScript(
   id: 'zvp_hydra_lurker_vs_2star_corsair',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_hydra_lurker'],
+  homeBuildIds: ['zvp_trans_hydra_lurker', 'zvp_12pool'],
   awayBuildIds: ['pvz_2star_corsair'],
   description: '히드라 럴커 vs 2스타게이트 커세어 — 히드라 대공과 럴커 지상 장악의 대결',
   phases: [

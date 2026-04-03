@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _zvpYabarwiVsCorsair = ScenarioScript(
   id: 'zvp_yabarwi_vs_corsair',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_yabarwi'],
+  homeBuildIds: ['zvp_trans_yabarwi', 'zvp_yabarwi'],
   awayBuildIds: ['pvz_trans_corsair'],
   description: '야바위 기만 전술 vs 커세어+지상 — 커세어 정찰이 페이크를 간파하는가',
   phases: [

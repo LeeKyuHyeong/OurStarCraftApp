@@ -6,7 +6,7 @@ part of '../../scenario_scripts.dart';
 const _zvpHiveDefilerVsCorsair = ScenarioScript(
   id: 'zvp_hive_defiler_vs_corsair',
   matchup: 'ZvP',
-  homeBuildIds: ['zvp_trans_hive_defiler'],
+  homeBuildIds: ['zvp_trans_hive_defiler', 'zvp_scourge_defiler', 'zvp_3hatch_nopool'],
   awayBuildIds: ['pvz_trans_corsair'],
   description: '하이브 디파일러 vs 커세어 지상군 — 플레이그로 커세어를, 다크 스웜으로 지상군을',
   phases: [

@@ -7,7 +7,7 @@ const _pvt2gateOpenVsBioMech = ScenarioScript(
   id: 'pvt_2gate_open_vs_bio_mech',
   matchup: 'PvT',
   homeBuildIds: ['pvt_2gate_open', 'pvt_2gate_zealot'],
-  awayBuildIds: ['tvp_trans_bio_mech', 'tvp_rax_double'],
+  awayBuildIds: ['tvp_trans_bio_mech', 'tvp_bar_double'],
   description: '투게이트 질럿→드라군 vs 바이오 메카닉 복합 편성',
   phases: [
     // Phase 0: 오프닝 (lines 1-11)
