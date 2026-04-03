@@ -71,12 +71,12 @@ const _zvzPoolFirstVs12pool = ScenarioScript(
         // 분기 A: 4풀 올인 성공
         ScriptBranch(
           id: 'pool_damages',
-          baseProbability: 0.6,
+          baseProbability: 1.0,
           events: [
             ScriptEvent(
               text: '{home}, 저글링이 드론을 물어뜯습니다! 12풀의 드론이 녹습니다!',
               owner: LogOwner.home,
-              homeArmy: 2, awayResource: -20, awayArmy: -3, favorsStat: 'attack',
+              homeArmy: 1, awayResource: -20, awayArmy: -3, favorsStat: 'attack',
               altText: '{home} 선수 저글링 돌파! 드론을 초토화합니다!',
             ),
             ScriptEvent(

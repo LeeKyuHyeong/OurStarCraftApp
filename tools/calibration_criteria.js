@@ -454,29 +454,7 @@ function checkResourceBounds(log, lineNum) {
 
 // B-8. 최소 로그 수 — 제거됨 (극단적 빌드로 초반 종료되는 경기도 실제로 발생)
 
-/**
- * B-10. 시스템 해설 비율 (10~30%)
- */
-function checkSystemCommentaryRatio(logs) {
-  const systemCount = logs.filter(l => l.owner === 'system').length;
-  const ratio = systemCount / logs.length;
-  const violations = [];
-  if (ratio < 0.10) {
-    violations.push({
-      rule: 'B10_SYSTEM_RATIO',
-      severity: 'warning',
-      message: `시스템 해설 비율 ${(ratio * 100).toFixed(1)}% (최소 10% 필요)`,
-    });
-  }
-  if (ratio > 0.30) {
-    violations.push({
-      rule: 'B10_SYSTEM_RATIO',
-      severity: 'warning',
-      message: `시스템 해설 비율 ${(ratio * 100).toFixed(1)}% (최대 30% 초과)`,
-    });
-  }
-  return violations;
-}
+// B-10. 시스템 해설 비율 — 제거됨 (1:1 빌드 시나리오 세분화로 경기가 짧아질 수 있어 비율 기준이 무의미)
 
 /**
  * B-11. 테크트리 순서 검증
@@ -539,49 +517,50 @@ function checkTechTreeOrder(logs, matchup, isReversed) {
     const log = logs[i];
     const text = log.text || '';
 
-    // home/away 이벤트에서만 체크
-    if (log.owner === 'home' || log.owner === 'away') {
-      const race = log.owner === 'home' ? homeRace : awayRace;
-      const buildings = log.owner === 'home' ? homeBuildings : awayBuildings;
-      const tree = TECH_TREE[race];
-      if (!tree) continue;
+    // 건물/유닛 감지 대상: home, away, system (system은 양쪽 동시 행동)
+    if (log.owner === 'home' || log.owner === 'away' || log.owner === 'system') {
+      // system 이벤트는 양쪽 모두에 건물/유닛 추적
+      const sides = log.owner === 'system'
+        ? [{ race: homeRace, buildings: homeBuildings, label: 'home' }, { race: awayRace, buildings: awayBuildings, label: 'away' }]
+        : [{ race: log.owner === 'home' ? homeRace : awayRace, buildings: log.owner === 'home' ? homeBuildings : awayBuildings, label: log.owner }];
 
-      // 건물 등장 감지 → 추적에 추가 + 하위 건물 자동 추론
-      for (const buildingName of Object.keys(tree.buildings)) {
-        if (text.includes(buildingName)) {
-          buildings.add(buildingName);
-          // 상위 건물이 등장하면 하위 건물도 자동 추가
-          const implied = IMPLIED_BUILDINGS[buildingName];
-          if (implied) {
-            for (const ib of implied) buildings.add(ib);
+      for (const side of sides) {
+        const tree = TECH_TREE[side.race];
+        if (!tree) continue;
+
+        // 건물 등장 감지 → 추적에 추가 + 하위 건물 자동 추론
+        for (const buildingName of Object.keys(tree.buildings)) {
+          if (text.includes(buildingName)) {
+            side.buildings.add(buildingName);
+            const implied = IMPLIED_BUILDINGS[buildingName];
+            if (implied) {
+              for (const ib of implied) side.buildings.add(ib);
+            }
           }
         }
-      }
 
-      // 유닛 등장 감지 → 선행 건물 존재 여부 체크
-      // 한글 문자 범위 (유닛명 앞에 한글이 붙으면 별도 단어가 아닌 복합어로 간주하여 스킵)
-      const HANGUL_RE = /[\uAC00-\uD7AF\u1100-\u11FF\u3130-\u318F]/;
-      for (const [unitName, requiredBuildings] of Object.entries(tree.units)) {
-        const idx = text.indexOf(unitName);
-        if (idx === -1) continue;
-        // 앞 글자가 한글이면 복합어(예: '리플레이스'에서 '레이스') → 스킵
-        if (idx > 0 && HANGUL_RE.test(text[idx - 1])) continue;
-        {
-          for (const req of requiredBuildings) {
-            if (!buildings.has(req)) {
-              // 해처리/넥서스/커맨드센터는 기본 존재로 간주
-              const baseBuildings = ['해처리', '넥서스', '커맨드센터'];
-              if (baseBuildings.includes(req)) {
-                buildings.add(req);
-                continue;
+        // 유닛 등장 감지 → 선행 건물 존재 여부 체크
+        const HANGUL_RE = /[\uAC00-\uD7AF\u1100-\u11FF\u3130-\u318F]/;
+        for (const [unitName, requiredBuildings] of Object.entries(tree.units)) {
+          const idx = text.indexOf(unitName);
+          if (idx === -1) continue;
+          if (idx > 0 && HANGUL_RE.test(text[idx - 1])) continue;
+          {
+            for (const req of requiredBuildings) {
+              if (!side.buildings.has(req)) {
+                const baseBuildings = ['해처리', '넥서스', '커맨드센터'];
+                if (baseBuildings.includes(req)) {
+                  side.buildings.add(req);
+                  continue;
+                }
+                violations.push({
+                  rule: 'B11_TECH_TREE',
+                  line: i + 1,
+                  severity: 'error',
+                  message: `'${unitName}' 등장 but 선행 건물 '${req}' 미등장 (${side.label})`,
+                  text: text.substring(0, 80),
+                });
               }
-              violations.push({
-                rule: 'B11_TECH_TREE',
-                line: i + 1,
-                severity: 'error',
-                message: `'${unitName}' 등장 but 선행 건물 '${req}' 미등장 (${log.owner})`,
-                text: text.substring(0, 80),
-              });
             }
           }
         }
@@ -965,24 +944,20 @@ function checkHomeAwaySymmetry(games, matchup) {
   const normalWinRate = normal.filter(g => g.homeWin).length / normal.length;
   const reversedWinRate = reversed.filter(g => g.homeWin).length / reversed.length;
 
-  // 미러 매치업 (TvT, PvP, ZvZ): 기존 방식 (homeWin 비율 직접 비교)
-  // 비미러 매치업: 위치 편향만 측정 (같은 종족의 승률이 위치에 따라 달라지는지)
-  //   Race1 승률(정방향) = normalWinRate
-  //   Race1 승률(역방향) = 1 - reversedWinRate
-  //   위치 편향 = |Race1 정방향 - Race1 역방향|
+  // 위치 편향 측정: 홈 포지션 자체가 유리한지 확인
+  // 미러/비미러 모두 동일 공식: |normalWinRate + reversedWinRate - 1|
+  //   = |(평균 홈승률 - 0.5) × 2|
+  // 미러에서 normalWinRate ≠ reversedWinRate는 빌드 강약 차이이지 위치 편향이 아님
+  // 비미러에서도 동일: normalWinRate - (1 - reversedWinRate) = normalWinRate + reversedWinRate - 1
   const isMirror = matchup && matchup[0] === matchup[2]; // TvT, PvP, ZvZ
-  const diff = isMirror
-    ? Math.abs(normalWinRate - reversedWinRate)
-    : Math.abs(normalWinRate - (1 - reversedWinRate));
+  const diff = Math.abs(normalWinRate - (1 - reversedWinRate));
 
   if (diff > 0.05) {
+    const avgHomeWinRate = (normalWinRate + reversedWinRate) / 2;
     const violations = [{
       rule: 'C14_HOME_AWAY_SYMMETRY',
       severity: 'error',
-      message: isMirror
-        ? `홈/어웨이 반전 승률 차이 ${(diff * 100).toFixed(1)}%p (허용: ±5%p) [정방향: ${(normalWinRate * 100).toFixed(1)}%, 역방향: ${(reversedWinRate * 100).toFixed(1)}%]`
-        : `위치 편향 ${(diff * 100).toFixed(1)}%p (허용: ±5%p) [Race1 정방향: ${(normalWinRate * 100).toFixed(1)}%, Race1 역방향: ${((1 - reversedWinRate) * 100).toFixed(1)}%]`,
-
+      message: `위치 편향 ${(diff * 100).toFixed(1)}%p (허용: ±5%p) [평균 홈승률: ${(avgHomeWinRate * 100).toFixed(1)}%, 정방향: ${(normalWinRate * 100).toFixed(1)}%, 역방향: ${(reversedWinRate * 100).toFixed(1)}%]`,
     }];
     return violations;
   }
@@ -1029,22 +1004,36 @@ function checkTextDiversity(games, minGames = 100) {
 }
 
 /**
- * C-16. 분기 활성화율 (모든 branch가 최소 5% 이상)
+ * C-16. 분기 활성화율 (시나리오별 각 분기가 최소 5% 이상)
  * branchStats가 제공될 때만 체크
+ * 시나리오별로 그룹핑하여 각 시나리오 내에서 분기 비율 검증
  */
 function checkBranchActivation(branchStats) {
   if (!branchStats || Object.keys(branchStats).length === 0) return [];
   const violations = [];
-  const total = Object.values(branchStats).reduce((a, b) => a + b, 0);
 
+  // 시나리오별 그룹핑: 'scenarioName|branchId' → scenarioName 기준
+  const scenarioGroups = {};
   for (const [branch, count] of Object.entries(branchStats)) {
-    const rate = count / total;
-    if (rate < 0.05) {
-      violations.push({
-        rule: 'C16_BRANCH_ACTIVATION',
-        severity: 'warning',
-        message: `분기 '${branch}' 활성화율 ${(rate * 100).toFixed(1)}% (최소 5% 필요)`,
-      });
+    const parts = branch.split('|');
+    const scenario = parts[0];
+    if (!scenarioGroups[scenario]) scenarioGroups[scenario] = {};
+    scenarioGroups[scenario][branch] = count;
+  }
+
+  for (const [scenario, branches] of Object.entries(scenarioGroups)) {
+    const total = Object.values(branches).reduce((a, b) => a + b, 0);
+    if (total < 20) continue; // 경기 수 너무 적으면 스킵
+
+    for (const [branch, count] of Object.entries(branches)) {
+      const rate = count / total;
+      if (rate < 0.05) {
+        violations.push({
+          rule: 'C16_BRANCH_ACTIVATION',
+          severity: 'warning',
+          message: `분기 '${branch}' 활성화율 ${(rate * 100).toFixed(1)}% (시나리오 내 ${total}경기 중, 최소 5% 필요)`,
+        });
+      }
     }
   }
   return violations;
@@ -1085,8 +1074,7 @@ function validateSingleGame(game, matchup, gameIndex) {
   const logs = game.logs || [];
   const isReversed = game.isReversed || false;
 
-  // B-10: 시스템 해설 비율
-  violations.push(...checkSystemCommentaryRatio(logs));
+  // B-10: 제거됨
 
   // B-11: 테크트리 순서 (isReversed 반영)
   violations.push(...checkTechTreeOrder(logs, matchup, isReversed));
@@ -1278,7 +1266,6 @@ module.exports = {
   checkOwnerConsistency,
   checkArmyBounds,
   checkResourceBounds,
-  checkSystemCommentaryRatio,
   checkTechTreeOrder,
   checkConsecutiveDuplicates,
   checkWinRate,

@@ -11,32 +11,38 @@ const _tvt1facDoubleVsNobarDouble = ScenarioScript(
   awayBuildIds: ['tvt_nobar_double'],
   description: '원팩더블 vs 노배럭더블 - 수비형 미러',
   phases: [
-    // Phase 0: 오프닝 (lines 1-14)
+    // Phase 0: 오프닝 (lines 1-14) - recovery 100/0
     ScriptPhase(
       name: 'opening',
       startLine: 1,
+      recoveryResourcePerLine: 100,
+      recoveryArmyPerLine: 0,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 배럭 건설 후 팩토리! 원팩더블입니다.',
           owner: LogOwner.home,
-          homeResource: -30,
+          homeResource: -450, // 배럭(150) + 팩토리(300)
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{away} 선수 배럭 없이 앞마당 커맨드센터!',
           owner: LogOwner.away,
-          awayResource: -40,
+          awayResource: -400, // CC(400)
+          fixedCost: true,
           altText: '{away}, CC퍼스트! 노배럭더블!',
         ),
         ScriptEvent(
-          text: '{home} 선수 탱크 먼저 나옵니다! 앞마당 확장!',
+          text: '{home} 선수 메카닉 체제 가동! 앞마당 확장!',
           owner: LogOwner.home,
-          homeArmy: 5,
-          homeResource: -55,
+          homeArmy: 2, // 벌처 1기 (2sup)
+          homeResource: -475, // CC(400) + 벌처(75)
+          fixedCost: true,
         ),
         ScriptEvent(
-          text: '{away} 선수 배럭, 팩토리 건설! 탱크는 한 템포 늦습니다.',
+          text: '{away} 선수 배럭, 팩토리 건설! 병력은 한 템포 늦습니다.',
           owner: LogOwner.away,
-          awayResource: -30,
+          awayResource: -450, // 배럭(150) + 팩토리(300)
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '양측 모두 수비형! 장기전이 예상됩니다.',
@@ -45,10 +51,12 @@ const _tvt1facDoubleVsNobarDouble = ScenarioScript(
         ),
       ],
     ),
-    // Phase 1: 중반 (lines 18-35)
+    // Phase 1: 중반 (lines 18-35) - recovery 200/2
     ScriptPhase(
       name: 'mid_game',
       startLine: 18,
+      recoveryResourcePerLine: 200,
+      recoveryArmyPerLine: 2,
       linearEvents: [
         ScriptEvent(
           text: '{away} 선수 더블 자원 가동! 일꾼이 빠르게 늘어납니다!',
@@ -59,32 +67,38 @@ const _tvt1facDoubleVsNobarDouble = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 탱크 추가 생산! 방어선 구축!',
           owner: LogOwner.home,
-          homeArmy: 5,
-          homeResource: -15,
+          homeArmy: 2, // 탱크 1기 (2sup)
+          homeResource: -250, // 탱크(250)
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{away} 선수도 탱크 생산 시작! 물량이 빠르게 따라옵니다!',
           owner: LogOwner.away,
-          awayArmy: 5,
-          awayResource: -15,
+          awayArmy: 2, // 탱크 1기 (2sup)
+          awayResource: -250, // 탱크(250)
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{home} 선수 2번째 팩토리 증설!',
           owner: LogOwner.home,
-          homeResource: -20,
+          homeResource: -300, // 팩토리(300)
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{away} 선수도 팩토리 증설! 탱크 더블 생산!',
           owner: LogOwner.away,
-          awayResource: -20,
+          awayResource: -300, // 팩토리(300)
+          fixedCost: true,
           favorsStat: 'macro',
         ),
       ],
     ),
-    // Phase 2: 탱크 라인전 (lines 40-80)
+    // Phase 2: 탱크 라인전 (lines 40-80) - recovery 300/3
     ScriptPhase(
       name: 'tank_line',
       startLine: 40,
+      recoveryResourcePerLine: 300,
+      recoveryArmyPerLine: 3,
       branches: [
         ScriptBranch(
           id: 'nobar_resource_wins',
@@ -95,26 +109,35 @@ const _tvt1facDoubleVsNobarDouble = ScenarioScript(
             ScriptEvent(
               text: '{away} 선수 더블 자원 효과! 탱크가 더 빠르게 모입니다!',
               owner: LogOwner.away,
-              awayArmy: 5,
-              awayResource: -15,
+              awayArmy: 2, // 탱크 1기 (2sup)
+              awayResource: -250, // 탱크(250)
+              fixedCost: true,
               favorsStat: 'macro',
             ),
             ScriptEvent(
               text: '{home} 선수 탱크 물량이 밀리기 시작합니다.',
               owner: LogOwner.home,
-              homeArmy: 3,
-              homeResource: -15,
+              homeArmy: 2, // 탱크 1기 (2sup)
+              homeResource: -250, // 탱크(250)
+              fixedCost: true,
             ),
             ScriptEvent(
-              text: '{away} 선수 베슬까지 생산! 디펜시브 매트릭스!',
-              owner: LogOwner.away,
-              awayArmy: 2,
-              awayResource: -20,
-              favorsStat: 'strategy',
-            ),
-            ScriptEvent(
-              text: '자원 우위가 결정적! 탱크 수에서 점점 벌어집니다!',
+              text: '자원 우위가 결정적! 병력 수에서 점점 벌어집니다!',
               owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 스타포트 건설! 사이언스 퍼실리티도 올립니다!',
+              owner: LogOwner.away,
+              awayResource: -500, // 스타포트(250) + 사이언스퍼실리티(250)
+              fixedCost: true,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 사이언스 베슬 생산! 디펜시브 매트릭스!',
+              owner: LogOwner.away,
+              awayArmy: 2, // 사이언스베슬 1기 (2sup)
+              awayResource: -325, // 사이언스베슬(325)
+              fixedCost: true,
+              favorsStat: 'strategy',
             ),
             ScriptEvent(
               text: '{away} 선수 탱크 라인 전진! 물량으로 밀어냅니다!',
@@ -138,9 +161,18 @@ const _tvt1facDoubleVsNobarDouble = ScenarioScript(
               favorsStat: 'harass',
             ),
             ScriptEvent(
-              text: '{home} 선수 스타포트에서 드랍십! 탱크를 태웁니다!',
+              text: '{home} 선수 스타포트 건설! 드랍을 준비합니다!',
               owner: LogOwner.home,
-              homeResource: -25,
+              homeResource: -250, // 스타포트(250)
+              fixedCost: true,
+              favorsStat: 'strategy',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 드랍십 생산! 탱크를 태웁니다!',
+              owner: LogOwner.home,
+              homeArmy: 2, // 드랍십 1기 (2sup)
+              homeResource: -200, // 드랍십(200)
+              fixedCost: true,
               favorsStat: 'strategy',
               altText: '{home}, 드랍십! 탱크 드랍으로 후방을 노립니다!',
             ),
@@ -161,7 +193,7 @@ const _tvt1facDoubleVsNobarDouble = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{home} 선수 정면+드랍 양면 공격! 상대를 무너뜨립니다!',
+              text: '{home} 선수 정면과 드랍 양면 공격! 상대를 무너뜨립니다!',
               owner: LogOwner.home,
               homeArmy: 25,
               awayArmy: -15,

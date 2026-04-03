@@ -10,53 +10,63 @@ const _tvt2facPushMirror = ScenarioScript(
   awayBuildIds: ['tvt_2fac_push'],
   description: '투팩 벌처 미러 컨트롤 대결',
   phases: [
-    // Phase 0: 오프닝 (lines 1-11)
+    // Phase 0: 오프닝 (lines 1-11) - recovery 100/줄
     ScriptPhase(
       name: 'opening',
       startLine: 1,
+      recoveryResourcePerLine: 100,
+      recoveryArmyPerLine: 0,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 배럭 건설합니다.',
           owner: LogOwner.home,
-          homeResource: -10,
+          homeResource: -150, // 배럭 150
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{away} 선수 배럭 건설합니다.',
           owner: LogOwner.away,
-          awayResource: -10,
+          awayResource: -150,
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{home} 선수 가스 채취! 팩토리 건설합니다!',
           owner: LogOwner.home,
-          homeResource: -20,
+          homeResource: -400, // 리파이너리(100) + 팩토리(300)
+          fixedCost: true,
           altText: '{home}, 가스와 팩토리! 빠른 메카닉!',
         ),
         ScriptEvent(
           text: '{away} 선수도 가스 채취! 팩토리 건설!',
           owner: LogOwner.away,
-          awayResource: -20,
+          awayResource: -400,
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{home} 선수 두 번째 팩토리 건설! 벌처 속업 연구!',
           owner: LogOwner.home,
-          homeResource: -20,
+          homeResource: -500, // 팩토리(300) + 벌처 속업(200)
+          fixedCost: true,
           altText: '{home}, 투팩! 벌처 대량 생산 체제!',
         ),
         ScriptEvent(
           text: '{away} 선수도 두 번째 팩토리! 벌처 속업 연구 시작!',
           owner: LogOwner.away,
-          awayResource: -20,
+          awayResource: -500,
+          fixedCost: true,
           altText: '{away}, 투팩 미러! 벌처 속업 타이밍 경쟁!',
         ),
         ScriptEvent(
           text: '{home} 선수 벌처 생산 시작! 2기씩 뽑습니다!',
           owner: LogOwner.home,
-          homeArmy: 2, homeResource: -10,
+          homeArmy: 4, homeResource: -150, // 벌처 2기 (75x2, 2sup x2=4)
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{away} 선수도 벌처 생산! 양측 벌처가 쏟아집니다!',
           owner: LogOwner.away,
-          awayArmy: 2, awayResource: -10,
+          awayArmy: 4, awayResource: -150,
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '투팩 벌처 미러! 벌처 컨트롤이 승부를 결정합니다!',
@@ -65,23 +75,27 @@ const _tvt2facPushMirror = ScenarioScript(
         ),
       ],
     ),
-    // Phase 1: 벌처 컨트롤 대결 (lines 12-21)
+    // Phase 1: 벌처 컨트롤 대결 (lines 12-21) - recovery 150/줄 (early-mid)
     ScriptPhase(
       name: 'vulture_control',
       startLine: 12,
       recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 6,
+      recoveryResourcePerLine: 150,
       linearEvents: [
         ScriptEvent(
           text: '{home}, 벌처 4기로 센터 장악! 마인을 깔면서 전진합니다!',
           owner: LogOwner.home,
-          homeArmy: 2, homeResource: -10, favorsStat: 'strategy',
+          homeArmy: 4, homeResource: -150, // 벌처 2기 추가 (75x2)
+          fixedCost: true,
+          favorsStat: 'strategy',
           altText: '{home} 선수 벌처 4기 센터 진출! 마인 매설!',
         ),
         ScriptEvent(
           text: '{away}, 벌처 4기로 맞대응! 마인을 피하면서 이동합니다!',
           owner: LogOwner.away,
-          awayArmy: 2, awayResource: -10, favorsStat: 'control',
+          awayArmy: 4, awayResource: -150,
+          fixedCost: true,
+          favorsStat: 'control',
           altText: '{away} 선수 벌처 4기! 마인을 피해 기동!',
         ),
         ScriptEvent(
@@ -105,10 +119,12 @@ const _tvt2facPushMirror = ScenarioScript(
         ),
       ],
     ),
-    // Phase 2: 벌처 교전 결과 - 분기 (lines 22-35)
+    // Phase 2: 벌처 교전 결과 - 분기 (lines 22-35) - recovery 150/줄
     ScriptPhase(
       name: 'vulture_clash',
       startLine: 22,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 150,
       branches: [
         // 분기 A: 홈 벌처 컨트롤 승
         ScriptBranch(
@@ -118,19 +134,21 @@ const _tvt2facPushMirror = ScenarioScript(
             ScriptEvent(
               text: '{home}, 벌처 컨트롤이 한 수 위입니다! 상대 벌처를 잡아냅니다!',
               owner: LogOwner.home,
-              awayArmy: -4, homeArmy: -1, favorsStat: 'control',
+              awayArmy: -4, homeArmy: -2, // 벌처 2기 vs 1기 교환
+              favorsStat: 'control',
               altText: '{home} 선수 벌처 컨트롤 차이! 상대 벌처 격파!',
             ),
             ScriptEvent(
               text: '{home}, 마인 매설로 맵 전체를 장악합니다!',
               owner: LogOwner.home,
-              homeResource: -10, favorsStat: 'strategy',
+              favorsStat: 'strategy',
               altText: '{home} 선수 마인 매설! 맵 컨트롤을 가져갑니다!',
             ),
             ScriptEvent(
               text: '{home}, 벌처로 상대 앞마당 SCV에 피해를 입힙니다!',
               owner: LogOwner.home,
-              awayResource: -20, favorsStat: 'harass',
+              awayResource: -250, // SCV 견제 피해
+              favorsStat: 'harass',
               altText: '{home} 선수 SCV 견제 성공! 일꾼을 솎아냅니다!',
             ),
             ScriptEvent(
@@ -153,13 +171,15 @@ const _tvt2facPushMirror = ScenarioScript(
             ScriptEvent(
               text: '{away}, 속업 타이밍이 더 빠릅니다! 상대 벌처를 따라잡아 격파!',
               owner: LogOwner.away,
-              homeArmy: -4, awayArmy: -1, favorsStat: 'control',
+              homeArmy: -4, awayArmy: -2,
+              favorsStat: 'control',
               altText: '{away} 선수 속업 차이! 상대 벌처를 잡아냅니다!',
             ),
             ScriptEvent(
               text: '{away}, 상대 앞마당으로 침투합니다! SCV 대량 학살!',
               owner: LogOwner.away,
-              homeResource: -20, favorsStat: 'harass',
+              homeResource: -250,
+              favorsStat: 'harass',
               altText: '{away} 선수 앞마당 침투! SCV를 잡아냅니다!',
             ),
             ScriptEvent(
@@ -170,7 +190,7 @@ const _tvt2facPushMirror = ScenarioScript(
             ScriptEvent(
               text: '{away}, 마인 매설로 맵 장악! 상대 이동을 봉쇄합니다!',
               owner: LogOwner.away,
-              awayResource: -10, favorsStat: 'strategy',
+              favorsStat: 'strategy',
               altText: '{away} 선수 마인으로 맵 봉쇄! 상대가 갇혔습니다!',
             ),
             ScriptEvent(
@@ -182,46 +202,52 @@ const _tvt2facPushMirror = ScenarioScript(
         ),
       ],
     ),
-    // Phase 3: 탱크 전환 (lines 36-54)
+    // Phase 3: 탱크 전환 (lines 36-54) - recovery 200/줄 (mid-game)
     ScriptPhase(
       name: 'tank_transition',
       startLine: 36,
-      recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 8,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 200,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 시즈 탱크 생산 시작! 시즈 모드 연구!',
           owner: LogOwner.home,
-          homeArmy: 3, homeResource: -20,
+          homeArmy: 2, homeResource: -550, // 시즈탱크(250/2sup) + 시즈모드 연구(300)
+          fixedCost: true,
           altText: '{home}, 탱크로 전환! 시즈 연구 중!',
         ),
         ScriptEvent(
           text: '{away} 선수도 탱크 전환! 시즈 모드 연구!',
           owner: LogOwner.away,
-          awayArmy: 3, awayResource: -20,
+          awayArmy: 2, awayResource: -550,
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{home} 선수 아머리 건설! 골리앗 생산을 준비합니다!',
           owner: LogOwner.home,
-          homeArmy: 2, homeResource: -20,
+          homeArmy: 2, homeResource: -300, // 아머리(150) + 골리앗(150/2sup)
+          fixedCost: true,
           altText: '{home}, 아머리가 올라갑니다! 골리앗 준비!',
         ),
         ScriptEvent(
           text: '{away} 선수도 아머리 건설! 골리앗 생산 시작!',
           owner: LogOwner.away,
-          awayArmy: 2, awayResource: -20,
+          awayArmy: 2, awayResource: -300,
+          fixedCost: true,
           altText: '{away}, 골리앗이 합류합니다! 화력이 올라갑니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 스타포트 건설! 드랍십을 준비합니다!',
           owner: LogOwner.home,
-          homeResource: -25,
+          homeResource: -250, // 스타포트 250
+          fixedCost: true,
           altText: '{home}, 스타포트! 드랍십으로 후방을 노린다!',
         ),
         ScriptEvent(
           text: '{away} 선수도 스타포트 건설! 드랍십 경쟁입니다!',
           owner: LogOwner.away,
-          awayResource: -25,
+          awayResource: -250,
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '탱크, 골리앗, 드랍십! 후반 결전이 다가옵니다!',
@@ -230,21 +256,25 @@ const _tvt2facPushMirror = ScenarioScript(
         ),
       ],
     ),
-    // Phase 4: 결전 (lines 55-68)
+    // Phase 4: 결전 (lines 55-68) - recovery 200/줄
     ScriptPhase(
       name: 'decisive_battle',
       startLine: 55,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 200,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 탱크, 골리앗, 드랍십 총동원! 결전을 준비합니다!',
           owner: LogOwner.home,
-          homeArmy: 5, homeResource: -25,
+          homeArmy: 6, homeResource: -400, // 탱크(250/2sup) + 골리앗(150/2sup)
+          fixedCost: true,
           altText: '{home}, 전 병력 결집! 마지막 승부!',
         ),
         ScriptEvent(
           text: '{away} 선수도 전 병력 배치! 최종 교전 준비!',
           owner: LogOwner.away,
-          awayArmy: 5, awayResource: -25,
+          awayArmy: 6, awayResource: -400,
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '양측 탱크 골리앗이 정면 충돌합니다!',
@@ -253,21 +283,25 @@ const _tvt2facPushMirror = ScenarioScript(
         ScriptEvent(
           text: '{home}, 시즈 포격! 상대 탱크가 터집니다!',
           owner: LogOwner.home,
-          awayArmy: -5, homeArmy: -5, favorsStat: 'attack',
+          awayArmy: -6, homeArmy: -4,
+          favorsStat: 'attack',
           altText: '{home} 선수 탱크 화력 집중! 상대 라인이 무너집니다!',
         ),
         ScriptEvent(
           text: '{away}, 골리앗 집중 화력으로 반격합니다!',
           owner: LogOwner.away,
-          homeArmy: -5, awayArmy: -5, favorsStat: 'defense',
+          homeArmy: -6, awayArmy: -4,
+          favorsStat: 'defense',
           altText: '{away} 선수 골리앗 반격! 끝까지 싸웁니다!',
         ),
       ],
     ),
-    // Phase 5: 결전 판정 - 분기 (lines 69+)
+    // Phase 5: 결전 판정 - 분기 (lines 69+) - recovery 200/줄
     ScriptPhase(
       name: 'decisive_outcome',
       startLine: 69,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 200,
       branches: [
         ScriptBranch(
           id: 'home_wins_decisive',
@@ -297,4 +331,3 @@ const _tvt2facPushMirror = ScenarioScript(
     ),
   ],
 );
-

@@ -1,6 +1,6 @@
 # ZVP 시나리오 보정 추이
 
-> 총 63개 시나리오 | 보정 완료 시 O로 변경
+> 총 63개 시나리오 (9Z × 7P) | 모든 빌드 조합 커버 완료 | 보정 완료 시 O로 변경
 
 | # | 시나리오명 | Home 빌드 | Away 빌드 | 보정횟수 | 비고 | 완료 |
 |---|-----------|----------|----------|---------|------|:----:|
@@ -67,3 +67,9 @@
 | 61 | yabarwi_vs_dragoon_push | zvp_trans_yabarwi, zvp_yabarwi | pvz_trans_dragoon_push, pvz_2gate_zealot | 0 | | X |
 | 62 | yabarwi_vs_forge_expand | zvp_trans_yabarwi, zvp_yabarwi | pvz_trans_forge_expand, pvz_forge_cannon | 0 | | X |
 | 63 | yabarwi_vs_proxy_gate | zvp_trans_yabarwi, zvp_yabarwi | pvz_proxy_gate, pvz_8gat | 0 | | X |
+
+---
+
+## 커버리지
+
+모든 빌드 조합 커버 완료 (9Z × 7P = 63개). 미커버 없음.

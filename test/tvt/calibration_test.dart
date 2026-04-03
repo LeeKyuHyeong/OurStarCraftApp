@@ -1,4 +1,4 @@
-/// TvT 보정 루프용 테스트 - JSON 로그 내보내기
+/// TvT 보정 루프용 테스트 - 45개 전체 시나리오 JSON 로그 내보내기
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mystar/domain/models/models.dart';
 import 'package:mystar/domain/services/match_simulation_service.dart';
@@ -39,30 +39,36 @@ void main() {
     centerImportance: 5,
   );
 
-  // 시나리오별 빌드 조합 (전체 16개 시나리오)
-  final scenarios = [
-    // 크로스 매치업 (9개)
-    {'home': 'tvt_1bar_double', 'away': 'tvt_2fac_push', 'name': '배럭더블 vs 투팩벌처'},
-    {'home': 'tvt_bbs', 'away': 'tvt_1bar_double', 'name': 'BBS vs 노배럭더블'},
-    {'home': 'tvt_2star', 'away': 'tvt_1bar_double', 'name': '레이스 vs 배럭더블'},
-    {'home': 'tvt_5fac', 'away': 'tvt_1fac_double', 'name': '5팩 vs 마인트리플'},
-    {'home': 'tvt_bbs', 'away': 'tvt_2fac_push', 'name': 'BBS vs 테크빌드'},
-    {'home': 'tvt_1fac_1star', 'away': 'tvt_2star', 'name': '공격적 빌드 대결'},
-    {'home': 'tvt_1bar_double', 'away': 'tvt_1fac_double', 'name': '배럭더블 vs 원팩익스팬드'},
-    {'home': 'tvt_1fac_1star', 'away': 'tvt_5fac', 'name': '원팩푸시 vs 5팩'},
-    {'home': 'tvt_2fac_push', 'away': 'tvt_1fac_double', 'name': '투팩벌처 vs 원팩익스팬드'},
-    // 미러 (7개)
-    {'home': 'tvt_bbs', 'away': 'tvt_bbs', 'name': 'BBS 미러'},
-    {'home': 'tvt_1bar_double', 'away': 'tvt_1bar_double', 'name': '배럭더블 미러'},
-    {'home': 'tvt_2fac_push', 'away': 'tvt_2fac_push', 'name': '투팩벌처 미러'},
-    {'home': 'tvt_2star', 'away': 'tvt_2star', 'name': '레이스 미러'},
-    {'home': 'tvt_1fac_1star', 'away': 'tvt_1fac_1star', 'name': '원팩푸시 미러'},
-    {'home': 'tvt_5fac', 'away': 'tvt_5fac', 'name': '5팩 미러'},
-    {'home': 'tvt_1fac_double', 'away': 'tvt_1fac_double', 'name': '원팩익스팬드 미러'},
+  // TvT 전체 빌드 (9개)
+  const builds = [
+    'tvt_bbs',
+    'tvt_1fac_1star',
+    'tvt_2fac_push',
+    'tvt_5fac',
+    'tvt_2star',
+    'tvt_1bar_double',
+    'tvt_1fac_double',
+    'tvt_nobar_double',
+    'tvt_fd_rush',
   ];
 
-  test('TvT 전체 시나리오 보정용 JSON 로그 내보내기', () async {
-    const gamesPerScenario = 200;
+  // 45개 시나리오 생성 (9미러 + 36크로스, 크로스는 정렬순으로 한 방향만)
+  final scenarios = <Map<String, String>>[];
+  for (int i = 0; i < builds.length; i++) {
+    for (int j = i; j < builds.length; j++) {
+      final name = i == j
+          ? '${builds[i]} 미러'
+          : '${builds[i]} vs ${builds[j]}';
+      scenarios.add({
+        'home': builds[i],
+        'away': builds[j],
+        'name': name,
+      });
+    }
+  }
+
+  test('TvT 전체 45개 시나리오 보정용 JSON 로그 내보내기', () async {
+    const gamesPerScenario = 100; // 시나리오당 100경기 (정50 + 역50)
     final allGames = <Map<String, dynamic>>[];
     final branchStats = <String, int>{};
 
@@ -71,7 +77,6 @@ void main() {
       final awayBuild = scenario['away']!;
       final scenarioName = scenario['name']!;
 
-      // 정방향 50경기 + 역방향 50경기
       for (int direction = 0; direction < 2; direction++) {
         final isReversed = direction == 1;
         final actualHomeBuild = isReversed ? awayBuild : homeBuild;
@@ -105,8 +110,7 @@ void main() {
           );
           allGames.add(gameJson);
 
-          // 분기 통계 수집
-          final allText = state.battleLogEntries.map((e) => e.text).join(' ');
+          // 분기 통계: 시나리오별로 그룹핑
           final branchKey = '$scenarioName|${isReversed ? "R" : "N"}';
           branchStats[branchKey] = (branchStats[branchKey] ?? 0) + 1;
         }
@@ -122,6 +126,6 @@ void main() {
       branchStats: branchStats,
     );
 
-    print('총 ${allGames.length}경기 → test/output/tvt/log.json');
+    print('총 ${allGames.length}경기 (${scenarios.length}개 시나리오) → test/output/tvt/log.json');
   }, timeout: const Timeout(Duration(minutes: 30)));
 }

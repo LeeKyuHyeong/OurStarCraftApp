@@ -1,0 +1,92 @@
+import 'dart:io';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mystar/domain/models/models.dart';
+import 'package:mystar/domain/services/match_simulation_service.dart';
+
+void main() {
+  const homeBuildId = 'tvt_1bar_double';
+  const awayBuildId = 'tvt_1bar_double';
+
+  final homePlayer = Player(
+    id: 'terran_home',
+    name: '이영호',
+    raceIndex: 0,
+    stats: const PlayerStats(
+      sense: 700, control: 700, attack: 700, harass: 700,
+      strategy: 700, macro: 700, defense: 700, scout: 700,
+    ),
+    levelValue: 7,
+    condition: 100,
+  );
+
+  final awayPlayer = Player(
+    id: 'terran_away',
+    name: '임요환',
+    raceIndex: 0,
+    stats: const PlayerStats(
+      sense: 700, control: 700, attack: 700, harass: 700,
+      strategy: 700, macro: 700, defense: 700, scout: 700,
+    ),
+    levelValue: 7,
+    condition: 100,
+  );
+
+  const testMap = GameMap(
+    id: 'test_fighting_spirit',
+    name: '파이팅 스피릿',
+    rushDistance: 6,
+    resources: 5,
+    terrainComplexity: 5,
+    airAccessibility: 6,
+    centerImportance: 5,
+  );
+
+  test('TvT 배럭더블 미러 5경기 로그', () async {
+    final service = MatchSimulationService();
+    final buf = StringBuffer();
+    buf.writeln('# TvT 배럭더블 미러 5경기 로그');
+    buf.writeln();
+    buf.writeln('**빌드**: $homeBuildId vs $awayBuildId');
+    buf.writeln('**선수**: ${homePlayer.name}(홈) vs ${awayPlayer.name}(어웨이) | 동일 능력치 700');
+    buf.writeln();
+
+    int homeWins = 0;
+    int awayWins = 0;
+
+    for (int game = 1; game <= 5; game++) {
+      final stream = service.simulateMatchWithLog(
+        homePlayer: homePlayer, awayPlayer: awayPlayer,
+        map: testMap, getIntervalMs: () => 0,
+        forcedHomeBuildId: homeBuildId,
+        forcedAwayBuildId: awayBuildId,
+      );
+
+      SimulationState? state;
+      await for (final s in stream) { state = s; }
+
+      final isHomeWin = state!.homeWin == true;
+      if (isHomeWin) homeWins++; else awayWins++;
+
+      final winner = isHomeWin ? '홈(${homePlayer.name})' : '어웨이(${awayPlayer.name})';
+      buf.writeln('---');
+      buf.writeln('## Game $game | $winner 승 | 병력: ${state.homeArmy} vs ${state.awayArmy}');
+      buf.writeln();
+      buf.writeln('```');
+      for (int i = 0; i < state.battleLogEntries.length; i++) {
+        final e = state.battleLogEntries[i];
+        final ownerTag = e.owner == LogOwner.home ? '[홈]  ' : e.owner == LogOwner.away ? '[어웨이]' : '[해설]';
+        buf.writeln('${(i + 1).toString().padLeft(2)}. $ownerTag ${e.text}');
+      }
+      buf.writeln('```');
+      buf.writeln();
+    }
+
+    buf.writeln('---');
+    buf.writeln('## 종합: 홈 $homeWins승 / 어웨이 $awayWins승');
+
+    final outDir = Directory('test/output/tvt');
+    if (!outDir.existsSync()) outDir.createSync(recursive: true);
+    File('test/output/tvt/1bar_double_mirror_5games.md').writeAsStringSync(buf.toString());
+    print(buf.toString());
+  });
+}

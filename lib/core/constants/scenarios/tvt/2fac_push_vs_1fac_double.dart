@@ -10,86 +10,107 @@ const _tvt2facPushVs1facDouble = ScenarioScript(
   awayBuildIds: ['tvt_1fac_double'],
   description: '투팩 벌처 vs 원팩 확장 밸런스전',
   phases: [
-    // Phase 0: 오프닝 (lines 1-14)
+    // Phase 0: 오프닝 (lines 1-14) - recovery 100/0
     ScriptPhase(
       name: 'opening',
       startLine: 1,
+      recoveryResourcePerLine: 100,
+      recoveryArmyPerLine: 0,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 배럭 건설합니다.',
           owner: LogOwner.home,
-          homeResource: -10,
+          homeResource: -150, // 배럭(150)
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{away} 선수 배럭 건설합니다.',
           owner: LogOwner.away,
-          awayResource: -10,
+          awayResource: -150, // 배럭(150)
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{home} 선수 가스 채취 후 팩토리 건설합니다!',
           owner: LogOwner.home,
-          homeResource: -25,
+          homeResource: -300, // 팩토리(300)
+          fixedCost: true,
           altText: '{home}, 팩토리가 올라갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수도 가스 채취! 팩토리 건설!',
           owner: LogOwner.away,
-          awayResource: -25,
+          awayResource: -300, // 팩토리(300)
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{home} 선수 두 번째 팩토리 건설! 투팩 체제입니다!',
           owner: LogOwner.home,
-          homeResource: -20,
+          homeResource: -300, // 팩토리(300)
+          fixedCost: true,
           altText: '{home}, 팩토리가 하나 더! 투팩 벌처 체제!',
         ),
         ScriptEvent(
           text: '{away} 선수 앞마당 커맨드센터! 원팩으로 확장을 가져갑니다!',
           owner: LogOwner.away,
-          awayResource: -30,
+          awayResource: -400, // CC(400)
+          fixedCost: true,
           altText: '{away}, 원팩 확장! 안정적인 운영을 선택합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 벌처 2기 생산 시작! 속업 연구도 시작합니다!',
           owner: LogOwner.home,
-          homeArmy: 2, homeResource: -15,
+          homeArmy: 4, // 벌처 2기 (2sup x2)
+          homeResource: -350, // 벌처2(150) + 속업(200)
+          fixedCost: true,
           altText: '{home}, 벌처가 나옵니다! 속업 연구 중!',
         ),
         ScriptEvent(
           text: '{away} 선수 벌처 생산과 마인 연구를 동시에!',
           owner: LogOwner.away,
-          awayArmy: 2, awayResource: -15,
+          awayArmy: 2, // 벌처 1기 (2sup)
+          awayResource: -75, // 벌처(75)
+          fixedCost: true,
         ),
       ],
     ),
-    // Phase 1: 벌처 센터 장악 (lines 15-24)
+    // Phase 1: 벌처 센터 장악 (lines 15-24) - recovery 150/1
     ScriptPhase(
       name: 'vulture_control',
       startLine: 15,
       recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 6,
+      recoveryResourcePerLine: 150,
       linearEvents: [
         ScriptEvent(
           text: '{home}, 벌처 속업 완료! 센터로 벌처를 보냅니다!',
           owner: LogOwner.home,
-          homeArmy: 2, favorsStat: 'control',
+          homeArmy: 4, // 벌처 2기 (2sup x2)
+          homeResource: -150, // 벌처 2기 (75x2)
+          fixedCost: true,
+          favorsStat: 'control',
           altText: '{home} 선수 벌처 속업! 기동력이 올라갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 마인을 앞마당 입구에 깝니다! 벙커도 건설!',
           owner: LogOwner.away,
-          awayArmy: 1, awayResource: -15,
+          awayResource: -100, // 벙커(100)
+          fixedCost: true,
           altText: '{away}, 마인과 벙커! 벌처 견제에 대비합니다!',
         ),
         ScriptEvent(
           text: '{home}, 투팩 벌처 4기가 센터를 장악합니다! 상대 이동 경로를 차단!',
           owner: LogOwner.home,
-          homeArmy: 2, favorsStat: 'harass',
+          homeArmy: 4, // 벌처 2기 추가 (2sup x2)
+          homeResource: -150, // 벌처 2기 (75x2)
+          fixedCost: true,
+          favorsStat: 'harass',
           altText: '{home} 선수 벌처 4기! 센터 맵 컨트롤을 가져갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 시즈 탱크 생산 시작! 수비를 강화합니다!',
           owner: LogOwner.away,
-          awayArmy: 2, awayResource: -20,
+          awayArmy: 2, // 탱크 1기 (2sup)
+          awayResource: -550, // 머신샵(100) + 탱크(250) + 시즈모드(200)
+          fixedCost: true,
           altText: '{away}, 시즈 탱크! 벌처 견제를 막아낼 준비!',
         ),
         ScriptEvent(
@@ -99,12 +120,14 @@ const _tvt2facPushVs1facDouble = ScenarioScript(
         ),
       ],
     ),
-    // Phase 2: 벌처 견제 결과 - 분기 (lines 25-40)
+    // Phase 2: 벌처 견제 결과 - 분기 (lines 25-40) - recovery 200/2
     ScriptPhase(
       name: 'harass_result',
       startLine: 25,
+      recoveryResourcePerLine: 200,
+      recoveryArmyPerLine: 2,
       branches: [
-        // 분기 A: 벌처 견제 대성공 → SCV 피해
+        // 분기 A: 벌처 견제 대성공 -> SCV 피해
         ScriptBranch(
           id: 'harass_success',
           baseProbability: 1.0,
@@ -123,7 +146,10 @@ const _tvt2facPushVs1facDouble = ScenarioScript(
             ScriptEvent(
               text: '{home}, 추가 벌처까지 합류! 상대 일꾼을 계속 괴롭힙니다!',
               owner: LogOwner.home,
-              homeArmy: 2, awayResource: -5, favorsStat: 'harass',
+              homeArmy: 2, // 벌처 1기 추가 (2sup)
+              homeResource: -75, // 벌처(75)
+              fixedCost: true,
+              awayResource: -5, favorsStat: 'harass',
               altText: '{home} 선수 벌처 추가! 견제가 이어집니다!',
             ),
             ScriptEvent(
@@ -133,7 +159,7 @@ const _tvt2facPushVs1facDouble = ScenarioScript(
             ),
           ],
         ),
-        // 분기 B: 마인에 벌처 피해 → 수비 안정
+        // 분기 B: 마인에 벌처 피해 -> 수비 안정
         ScriptBranch(
           id: 'mine_defense',
           baseProbability: 1.0,
@@ -141,18 +167,21 @@ const _tvt2facPushVs1facDouble = ScenarioScript(
             ScriptEvent(
               text: '{away}, 마인에 벌처가 터집니다! 투팩 벌처에 큰 피해!',
               owner: LogOwner.away,
-              homeArmy: -4, favorsStat: 'defense',
+              homeArmy: -4, // 벌처 2기 손실 (2sup x2)
+              favorsStat: 'defense',
               altText: '{away} 선수 마인 폭발! 벌처가 증발합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 벌처 손실이 큽니다! 투팩 투자가 아까운데요!',
               owner: LogOwner.home,
-              homeArmy: -2,
+              homeArmy: -2, // 벌처 1기 추가 손실 (2sup)
             ),
             ScriptEvent(
               text: '{away} 선수 확장이 안정됩니다! 트리플 확장도 노립니다!',
               owner: LogOwner.away,
-              awayResource: -25, awayArmy: 2,
+              awayResource: -400, // CC(400) 트리플
+              fixedCost: true,
+              awayArmy: 2,
               altText: '{away}, 수비 성공! 세 번째 확장을 가져갑니다!',
             ),
             ScriptEvent(
@@ -164,53 +193,63 @@ const _tvt2facPushVs1facDouble = ScenarioScript(
         ),
       ],
     ),
-    // Phase 3: 드랍십 등장 + 시즈 탱크 대치 (lines 41-54)
+    // Phase 3: 드랍십 등장 + 시즈 탱크 대치 (lines 41-54) - recovery 200/2
     ScriptPhase(
       name: 'dropship_tank',
       startLine: 41,
-      recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 8,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 200,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 스타포트 건설! 드랍십을 준비합니다!',
           owner: LogOwner.home,
-          homeResource: -25,
+          homeResource: -250, // 스타포트(250)
+          fixedCost: true,
           altText: '{home}, 스타포트가 올라갑니다! 드랍십!',
         ),
         ScriptEvent(
           text: '{home} 선수 시즈 탱크 생산 시작! 드랍용 탱크!',
           owner: LogOwner.home,
-          homeArmy: 3, homeResource: -20,
+          homeArmy: 2, // 탱크 1기 (2sup)
+          homeResource: -250, // 탱크(250)
+          fixedCost: true,
           altText: '{home}, 탱크가 나옵니다! 드랍 준비!',
         ),
         ScriptEvent(
           text: '{away} 선수 아머리 건설! 골리앗을 준비합니다!',
           owner: LogOwner.away,
-          awayResource: -20,
+          awayResource: -150, // 아머리(150)
+          fixedCost: true,
           altText: '{away}, 아머리가 올라갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수도 시즈 탱크 추가! 라인 대치가 시작됩니다!',
           owner: LogOwner.away,
-          awayArmy: 3, awayResource: -20,
+          awayArmy: 2, // 탱크 1기 (2sup)
+          awayResource: -250, // 탱크(250)
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{home} 선수 드랍십 생산! 상대 후방을 노릴 준비!',
           owner: LogOwner.home,
-          homeArmy: 2, homeResource: -15,
+          homeArmy: 2, // 드랍십 1기 (2sup)
+          homeResource: -200, // 드랍십(200)
+          fixedCost: true,
           altText: '{home}, 드랍십이 나옵니다!',
         ),
         ScriptEvent(
-          text: '드랍십 등장! 시즈 탱크 라인 대치와 견제전이 동시에!',
+          text: '수송선 등장! 시즈 라인 대치와 견제전이 동시에!',
           owner: LogOwner.system,
           skipChance: 0.2,
         ),
       ],
     ),
-    // Phase 4: 후반 전개 - 분기 (lines 55-70)
+    // Phase 4: 후반 전개 - 분기 (lines 55-70) - recovery 300/3
     ScriptPhase(
       name: 'late_clash',
       startLine: 55,
+      recoveryResourcePerLine: 300,
+      recoveryArmyPerLine: 3,
       branches: [
         // 분기 A: 홈 주도권 유지 + 드랍 견제
         ScriptBranch(
@@ -241,7 +280,7 @@ const _tvt2facPushVs1facDouble = ScenarioScript(
             ),
           ],
         ),
-        // 분기 B: 어웨이 확장 유리 → 물량 역전
+        // 분기 B: 어웨이 확장 유리 -> 물량 역전
         ScriptBranch(
           id: 'away_mass_advantage',
           baseProbability: 1.0,
@@ -272,21 +311,27 @@ const _tvt2facPushVs1facDouble = ScenarioScript(
         ),
       ],
     ),
-    // Phase 5: 결전 (lines 71-82)
+    // Phase 5: 결전 (lines 71-82) - recovery 300/3
     ScriptPhase(
       name: 'decisive_battle',
       startLine: 71,
+      recoveryResourcePerLine: 300,
+      recoveryArmyPerLine: 3,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 탱크 골리앗 총동원! 마지막 전투를 준비합니다!',
           owner: LogOwner.home,
-          homeArmy: 5, homeResource: -25,
+          homeArmy: 4, // 탱크1(2sup) + 골리앗1(2sup)
+          homeResource: -400, // 탱크(250) + 골리앗(150)
+          fixedCost: true,
           altText: '{home}, 전 병력 결집! 결전입니다!',
         ),
         ScriptEvent(
           text: '{away} 선수도 탱크 골리앗 전 병력 배치! 정면 교전 준비!',
           owner: LogOwner.away,
-          awayArmy: 5, awayResource: -25,
+          awayArmy: 4, // 탱크1(2sup) + 골리앗1(2sup)
+          awayResource: -400, // 탱크(250) + 골리앗(150)
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '양측 탱크 골리앗이 정면으로 부딪칩니다!',
@@ -306,10 +351,12 @@ const _tvt2facPushVs1facDouble = ScenarioScript(
         ),
       ],
     ),
-    // Phase 6: 결전 판정 - 분기 (lines 83+)
+    // Phase 6: 결전 판정 - 분기 (lines 83+) - recovery 300/3
     ScriptPhase(
       name: 'decisive_outcome',
       startLine: 83,
+      recoveryResourcePerLine: 300,
+      recoveryArmyPerLine: 3,
       branches: [
         ScriptBranch(
           id: 'home_wins_decisive',
@@ -339,4 +386,3 @@ const _tvt2facPushVs1facDouble = ScenarioScript(
     ),
   ],
 );
-

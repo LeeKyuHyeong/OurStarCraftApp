@@ -16,57 +16,75 @@ const _tvt1barDoubleVs2facPush = ScenarioScript(
     ScriptPhase(
       name: 'opening',
       startLine: 1,
+      recoveryResourcePerLine: 100,
+      recoveryArmyPerLine: 0,
       linearEvents: [
+        // 홈: 배럭 (-150)
         ScriptEvent(
           text: '{home} 선수 배럭을 건설합니다.',
           owner: LogOwner.home,
-          homeResource: -10,
+          homeResource: -150,
+          fixedCost: true,
         ),
+        // 어웨이: 배럭 (-150)
         ScriptEvent(
           text: '{away} 선수도 배럭을 올립니다.',
           owner: LogOwner.away,
-          awayResource: -10,
+          awayResource: -150,
+          fixedCost: true,
         ),
+        // 홈: SCV 정찰 (전투 행동, 비용 없음)
         ScriptEvent(
           text: '{home} 선수 SCV 정찰을 보냅니다!',
           owner: LogOwner.home,
-          homeResource: -3,
           altText: '{home}, SCV가 상대 본진으로 향합니다!',
           skipChance: 0.3,
         ),
+        // 어웨이: 리파이너리 (-100)
         ScriptEvent(
           text: '{away} 선수 가스 채취를 시작합니다.',
           owner: LogOwner.away,
-          awayResource: -5,
+          awayResource: -100,
+          fixedCost: true,
         ),
+        // 홈: 커맨드센터 (-400)
         ScriptEvent(
           text: '{home} 선수 앞마당에 커맨드센터를 건설합니다! 빠른 확장!',
           owner: LogOwner.home,
-          homeResource: -30,
+          homeResource: -400,
+          fixedCost: true,
           altText: '{home}, 앞마당 커맨드센터! 자원 우위를 가져가겠다는 의도!',
         ),
+        // 어웨이: 팩토리(-300) + 머신샵(-100) = -400
         ScriptEvent(
           text: '{away} 선수 팩토리 건설! 머신샵도 바로 붙입니다!',
           owner: LogOwner.away,
-          awayResource: -20,
+          awayResource: -400,
+          fixedCost: true,
           altText: '{away}, 팩토리에 머신샵! 빠른 메카닉 테크!',
         ),
+        // 어웨이: 두 번째 팩토리 (-300)
         ScriptEvent(
           text: '{away} 선수 두 번째 팩토리 건설! 투팩 체제입니다!',
           owner: LogOwner.away,
-          awayResource: -15,
+          awayResource: -300,
+          fixedCost: true,
           altText: '{away}, 투팩! 병력 생산을 두 배로 가져갑니다!',
         ),
+        // 홈: 가스(-100) + 팩토리(-300) + 머신샵(-100) = -500
         ScriptEvent(
           text: '{home} 선수도 팩토리를 올립니다. 머신샵 부착!',
           owner: LogOwner.home,
-          homeResource: -20,
+          homeResource: -500,
+          fixedCost: true,
         ),
+        // 어웨이: 벌처 3기 (+6sup, -225)
         ScriptEvent(
           text: '{away} 선수 벌처 생산 시작! 팩토리가 먼저 올라간 만큼 병력도 빠릅니다!',
           owner: LogOwner.away,
-          awayArmy: 3,
-          awayResource: -10,
+          awayArmy: 6,
+          awayResource: -225,
+          fixedCost: true,
           altText:
               '{away}, 벌처가 나옵니다! 배럭더블보다 팩토리가 빨랐으니 당연한 속도 차이!',
         ),
@@ -81,37 +99,47 @@ const _tvt1barDoubleVs2facPush = ScenarioScript(
     ScriptPhase(
       name: 'twofac_pressure',
       startLine: 14,
+      recoveryResourcePerLine: 100,
+      recoveryArmyPerLine: 0,
       linearEvents: [
+        // 어웨이: 벌처 추가 + 시즈탱크 1기 (+2sup벌처 +2sup탱크 = +4, -75-250 = -325)
         ScriptEvent(
           text: '{away} 선수 벌처 3기와 시즈 탱크 1기로 전진합니다!',
           owner: LogOwner.away,
-          awayArmy: 3,
+          awayArmy: 4, awayResource: -325,
+          fixedCost: true,
           favorsStat: 'attack',
           altText: '{away}, 투팩 병력이 상대 앞마당을 향합니다! 탱크까지 동행!',
         ),
+        // 홈: 마린 2기(+2sup, -100) + 벙커(-100) + 벌처 1기(+2sup, -75) = +4sup, -275
         ScriptEvent(
           text: '{home} 선수 앞마당 벙커! 마린과 벌처로 막아봅니다!',
           owner: LogOwner.home,
-          homeArmy: 2,
-          homeResource: -10,
+          homeArmy: 4,
+          homeResource: -275,
+          fixedCost: true,
           altText: '{home}, 급하게 벙커를 올립니다! 마린이 들어갑니다!',
         ),
         ScriptEvent(
           text: '투팩 병력이 압도적입니다! 배럭더블이 버텨야 합니다!',
           owner: LogOwner.system,
+          skipChance: 0.4,
         ),
+        // 전투: 시즈 포격으로 벙커+마린 피해
         ScriptEvent(
           text: '{away} 선수 시즈 탱크 포격! 벙커가 녹고 있습니다!',
           owner: LogOwner.away,
-          homeArmy: -2,
+          homeArmy: -4,
           favorsStat: 'attack',
           altText: '{away}, 시즈 포격이 벙커를 직격합니다!',
         ),
+        // 홈: 첫 탱크 생산 (+2sup, -250)
         ScriptEvent(
           text: '{home} 선수 팩토리에서 탱크가 겨우 나옵니다! 하지만 시즈 연구가 아직입니다!',
           owner: LogOwner.home,
           homeArmy: 2,
-          homeResource: -10,
+          homeResource: -250,
+          fixedCost: true,
           altText: '{home}, 첫 탱크가 나왔지만 시즈 모드가 없습니다!',
         ),
       ],
@@ -120,6 +148,8 @@ const _tvt1barDoubleVs2facPush = ScenarioScript(
     ScriptPhase(
       name: 'defense_result',
       startLine: 22,
+      recoveryResourcePerLine: 150,
+      recoveryArmyPerLine: 1,
       branches: [
         // 분기 A: 투팩 공격 성공 — 다양한 피해 양상
         ScriptBranch(
@@ -128,33 +158,33 @@ const _tvt1barDoubleVs2facPush = ScenarioScript(
           homeStatMustBeHigher: false,
           baseProbability: 1.0,
           events: [
-            // 벌처 우회 → SCV 피해 (altText로 변주)
+            // 벌처 우회 → SCV 피해 (전투)
             ScriptEvent(
               text: '{away} 선수 벌처 우회! SCV를 잡아냅니다!',
               owner: LogOwner.away,
-              homeResource: -20, homeArmy: -2, awayArmy: 2,
+              homeResource: -200, homeArmy: -2, awayArmy: 2,
               favorsStat: 'harass',
               altText: '{away}, 탱크 포격 사이로 벌처가 SCV를 급습합니다!',
             ),
-            // SCV 피해 심화 (altText: 커맨드센터 띄우기)
+            // SCV 피해 심화 (전투)
             ScriptEvent(
               text: '{home} 선수 SCV 피해가 심각합니다! 앞마당 일꾼이 거의 없습니다!',
               owner: LogOwner.home,
-              homeResource: -15, homeArmy: -1,
+              homeResource: -150, homeArmy: -2,
               altText: '{home} 선수 커맨드센터를 띄웁니다! 파괴는 면했지만 가동이 멈춥니다!',
             ),
-            // 벙커 파괴 (altText: 본진까지 침투)
+            // 벙커 파괴 (전투)
             ScriptEvent(
               text: '{away} 선수 탱크 추가 포격! 상대 벙커가 무너집니다!',
               owner: LogOwner.away,
-              homeArmy: -3, awayArmy: 2,
+              homeArmy: -4, awayArmy: 2,
               altText: '{away}, 벙커를 밀고 본진까지 병력이 올라갑니다!',
             ),
-            // 마무리 해설 (altText로 변주)
             ScriptEvent(
               text: '투팩 공격이 큰 피해를 줬습니다! 배럭더블의 병력이 거의 없습니다!',
               owner: LogOwner.system,
               altText: '꾸역꾸역 막고 있지만 힘들어보입니다! 투팩의 압박이 거셉니다!',
+              skipChance: 0.4,
             ),
           ],
         ),
@@ -165,32 +195,33 @@ const _tvt1barDoubleVs2facPush = ScenarioScript(
           homeStatMustBeHigher: true,
           baseProbability: 1.0,
           events: [
-            // 벙커+탱크로 벌처 격파 (altText: 마인으로 벌처 잡기)
+            // 벌처 격파 (전투)
             ScriptEvent(
               text: '{home} 선수 벙커 수리! 벌처를 잡아냅니다!',
               owner: LogOwner.home,
-              awayArmy: -4, homeArmy: 2,
+              awayArmy: -6, homeArmy: 2,
               favorsStat: 'defense',
               altText: '{home}, 마인이 벌처를 잡습니다! 투팩 공격이 꺾입니다!',
             ),
-            // 투팩 측 피해 (altText: 탱크 후퇴)
+            // 투팩 측 피해 (전투)
             ScriptEvent(
               text: '{away} 선수 벌처 피해가 큽니다! 탱크까지 잃습니다!',
               owner: LogOwner.away,
-              awayArmy: -3,
+              awayArmy: -4,
               altText: '{away}, 벌처를 잃고 탱크만 남습니다! 후퇴를 고민합니다!',
             ),
-            // 경제 가동 (altText: SCV 복구)
+            // 홈: SCV 복구 (자원 회복은 recovery가 처리)
             ScriptEvent(
               text: '{home} 선수 앞마당이 본격 가동됩니다! 자원 순환이 시작됩니다!',
               owner: LogOwner.home,
-              homeResource: 30, homeArmy: 2,
+              homeArmy: 2,
               altText: '{home}, SCV를 뽑으며 복구합니다! 앞마당이 정상 가동!',
             ),
             ScriptEvent(
               text: '배럭더블 수비 성공! 투팩 측은 병력을 많이 잃었습니다!',
               owner: LogOwner.system,
               altText: '투팩 공격이 막혔습니다! 이제 자원 차이가 벌어지기 시작합니다!',
+              skipChance: 0.4,
             ),
           ],
         ),
@@ -200,8 +231,8 @@ const _tvt1barDoubleVs2facPush = ScenarioScript(
     ScriptPhase(
       name: 'post_defense',
       startLine: 30,
-      recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 6,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 200,
       branches: [
         // 분기 A: 투팩이 데미지 줬을 때 — 압박 지속, 끝내기
         ScriptBranch(
@@ -210,26 +241,32 @@ const _tvt1barDoubleVs2facPush = ScenarioScript(
           homeStatMustBeHigher: false,
           baseProbability: 1.0,
           events: [
+            // 어웨이: 탱크 2기 추가 (+4sup, -500)
             ScriptEvent(
               text: '{away} 선수 탱크 추가 생산! 시즈 포격을 이어갑니다!',
               owner: LogOwner.away,
-              awayArmy: 4, awayResource: -15,
+              awayArmy: 4, awayResource: -500,
+              fixedCost: true,
             ),
+            // 홈: 시즈모드 연구 완료(-300) + 탱크 1기(+2sup, -250) = -550
             ScriptEvent(
               text: '{home} 선수 시즈 연구 완료! 하지만 병력이 너무 적습니다...',
               owner: LogOwner.home,
-              homeArmy: 1, homeResource: -10,
+              homeArmy: 2, homeResource: -550,
+              fixedCost: true,
             ),
+            // 전투: 투팩 물량으로 압도
             ScriptEvent(
               text: '{away} 선수 투팩 물량으로 앞마당까지 밀어냅니다! 탱크가 시즈 걸고 포격!',
               owner: LogOwner.away,
-              awayArmy: 3, homeArmy: -3,
+              awayArmy: 4, homeArmy: -6,
               favorsStat: 'attack',
               altText: '{away}, 투팩의 생산력! 탱크 벌처가 끊임없이 나옵니다!',
             ),
             ScriptEvent(
               text: '투팩이 끝내기를 노립니다! 배럭더블은 벙커도 없고 병력도 없습니다!',
               owner: LogOwner.system,
+              skipChance: 0.4,
             ),
           ],
         ),
@@ -240,29 +277,36 @@ const _tvt1barDoubleVs2facPush = ScenarioScript(
           homeStatMustBeHigher: true,
           baseProbability: 1.0,
           events: [
+            // 홈: 시즈모드연구(-300) + 팩토리 추가 2개(-600) = -900, 탱크 생산 +4sup
             ScriptEvent(
               text: '{home} 선수 시즈 연구 완료! 팩토리를 추가합니다! 3팩, 4팩!',
               owner: LogOwner.home,
-              homeArmy: 3,
-              homeResource: -20,
+              homeArmy: 4,
+              homeResource: -900,
+              fixedCost: true,
               altText: '{home}, 더블 자원으로 팩토리가 쭉쭉 늘어납니다!',
             ),
+            // 어웨이: 뒤늦은 확장 커맨드센터(-400)
             ScriptEvent(
               text: '{away} 선수 뒤늦게 앞마당 확장... 자원이 부족합니다!',
               owner: LogOwner.away,
-              awayResource: -20,
+              awayResource: -400,
+              fixedCost: true,
             ),
+            // 홈: 탱크 2기(+4sup, -500) + 벌처 2기(+4sup, -150) = +8sup, -650
             ScriptEvent(
               text: '{home} 선수 탱크가 쏟아집니다! 더블 자원의 힘!',
               owner: LogOwner.home,
-              homeArmy: 3,
-              homeResource: -15,
+              homeArmy: 8,
+              homeResource: -650,
+              fixedCost: true,
               altText: '{home}, 4팩에서 탱크 벌처가 끊임없이!',
             ),
             ScriptEvent(
               text:
                   '배럭더블의 자원 우위가 빛을 발합니다! 물량 차이가 나기 시작하네요!',
               owner: LogOwner.system,
+              skipChance: 0.4,
             ),
           ],
         ),
@@ -272,6 +316,8 @@ const _tvt1barDoubleVs2facPush = ScenarioScript(
     ScriptPhase(
       name: 'decisive_outcome',
       startLine: 38,
+      recoveryResourcePerLine: 200,
+      recoveryArmyPerLine: 2,
       branches: [
         ScriptBranch(
           id: 'home_wins_decisive',

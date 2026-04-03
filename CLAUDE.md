@@ -59,7 +59,7 @@ lib/
 
 ```
 scenario_scripts.dart          # 프레임워크 클래스 정의 + part 선언 + 스크립트 선택 로직
-scenarios/tvt/ (36개)          # TvT 시나리오 (8 미러 + 28 크로스, 1:1 빌드)
+scenarios/tvt/ (45개)          # TvT 시나리오 (9 미러 + 36 크로스, 1:1 빌드)
 scenarios/tvz/ (56개)          # TvZ 시나리오 (8T × 7Z, 1:1 빌드)
 scenarios/pvt/ (63개)          # PvT 시나리오 (9P × 7T, 1:1 빌드)
 scenarios/pvp/ (36개)          # PvP 시나리오 (8 미러 + 28 크로스, 1:1 빌드)
@@ -100,10 +100,12 @@ team_data.dart                 # 팀 초기 데이터
 
 ### Match Simulation (`match_simulation_service.dart`)
 - **Stream 기반**: `simulateMatchWithLog()`가 `Stream<SimulationState>`를 반환 → UI가 실시간 소비
-- `SimulationState`: 병력/자원/로그 상태
+- `SimulationState`: 병력/자원/확장수/로그 상태 (`homeExpansions`/`awayExpansions` 포함)
 - `BattleLogEntry`: 로그 텍스트 + 소유자(home/away/system)
 - `getIntervalMs()` 콜백으로 시뮬레이션 중 속도 변경 가능
 - 테스트 시 `forcedHomeBuildId`, `forcedAwayBuildId` 파라미터로 특정 빌드 조합 강제 지정
+- **확장 보너스**: `homeExpansion: true` 이벤트 → 해당 측 recovery +75/확장
+- **프로 자원관리**: 자원 400 이상 시 recovery 감쇠 → 자원 500~1000 범위 유지
 
 ### Models (`domain/models/`)
 - `Player`: 선수 (능력치 8개: sense, control, attack, harass, strategy, macro, defense, scout)
@@ -178,10 +180,14 @@ team_data.dart                 # 팀 초기 데이터
 
 종족전별 테스트 (test/{matchup}/ 폴더):
 - `test/{matchup}/scenarios_100games_test.dart` - 100경기 통계 검증
-- `test/{matchup}/calibration_test.dart` - 보정 루프용 JSON 로그 내보내기
+- `test/{matchup}/calibration_test.dart` - 보정 루프용 JSON 로그 내보내기 (전체 빌드 조합 커버)
 - `test/{matchup}/single_test.dart` - 1경기 로그 확인 (빌드 ID 변경하여 사용)
 - 테스트 출력: `test/output/{matchup}/` 디렉토리에 마크다운/JSON 리포트 생성
 - 테스트 패턴: 동일 능력치(~700) + 100% 컨디션 선수로 균형 시나리오 검증, `forcedHomeBuildId`/`forcedAwayBuildId`로 빌드 고정
+
+전역 테스트 (test/ 루트):
+- `test/season_full_test.dart` - 전 종족전 186경기 시즌 시뮬레이션 (시나리오 매칭 실패/크래시 검증)
+- `test/home_away_bias_test.dart` - 홈/어웨이 편향 검증 (6종족전 × 300경기 × 2방향, ±5%p 이내)
 
 ### 보정 기준
 - 승률: 동일 능력치 기준 30~70% (미러는 45~55%)
@@ -192,6 +198,8 @@ team_data.dart                 # 팀 초기 데이터
 
 경기 시뮬레이션의 최우선 목표는 **실제 스타크래프트 중계를 보는 듯한 몰입감**이다.
 모든 경기는 시나리오 스크립트(`ScenarioScript`)로 진행되며, 빌드 조합마다 고유한 내러티브가 펼쳐진다.
+
+> **시나리오 작성 상세 규칙**: `SCENARIO_RULES.md` 참조 (양쪽 동시 비용 반영, 비용 체계, Recovery, 텍스트 규칙 등)
 
 ### 시나리오 스크립트 구조
 
@@ -210,9 +218,10 @@ ScenarioScript
 
 ### 1:1 빌드 시나리오 구조 (전 종족전)
 
-모든 종족전이 **빌드 vs 빌드 1:1 시나리오**로 완전 분리되어 있다 (총 275개).
+모든 종족전이 **빌드 vs 빌드 1:1 시나리오**로 완전 분리되어 있다 (총 284개).
 각 시나리오 파일이 하나의 빌드 조합을 전담하며, `homeBuildIds`/`awayBuildIds`에 단일 빌드만 지정한다.
 트랜지션 분기 구조는 더 이상 사용하지 않는다.
+**모든 빌드 조합이 100% 시나리오 커버** → build_orders.dart 폴백 로그 미발동.
 
 ### 내러티브 품질 규칙
 
@@ -338,7 +347,7 @@ ScenarioScript
 | A (줄) | A5 | Owner 불일치 (home 이벤트에 away 주체) | error |
 | A (줄) | A6 | Army 범위 (0~200) | error |
 | A (줄) | A7 | Resource 범위 (0~10000) | error |
-| B (경기) | B10 | 시스템 해설 비율 10~30% | warn  |
+| B (경기) | ~~B10~~ | ~~시스템 해설 비율~~ (제거됨 - 짧은 경기에서 무의미) | -  |
 | B (경기) | B11 | 테크트리 순서 (유닛 → 선행 건물 존재) | error |
 | B (경기) | B12 | 동일 텍스트 3줄 연속 반복 | error |
 | B (경기) | B17 | 승자 최종 병력 ≥ 패자 (decisive 예외) | error |
@@ -351,7 +360,7 @@ ScenarioScript
 | C (통계) | C13 | 승률 30~70% (미러 45~55%) | error |
 | C (통계) | C14 | 홈/어웨이 반전 ±5%p | error |
 | C (통계) | C15 | 텍스트 다양성 (500경기 50+고유) | warn  |
-| C (통계) | C16 | 분기 활성화율 5% 이상 | warn  |
+| C (통계) | C16 | 분기 활성화율 5% 이상 (시나리오별 그룹 내) | warn  |
 | C (통계) | C17 | decisive 종료 비율 30~70% | warn  |
 
 ### 팀 구성 (Agent Teams)

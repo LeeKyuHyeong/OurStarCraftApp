@@ -28,10 +28,27 @@
 
 ---
 
-## 미커버 빌드 조합 (추가 예정)
+## 커버리지
 
-> 분석 후 누락된 빌드 vs 빌드 조합을 여기에 기록
+모든 빌드 조합 커버 완료 (6미러 + 15크로스 = 21개). 미커버 없음.
 
-| # | Home 빌드 | Away 빌드 | 비고 |
-|---|----------|----------|------|
-| | | | |
+## 홈/어웨이 편향 수정 이력 (2026-04-03)
+
+baseProbability 비대칭 + 비대칭 linear phase로 인한 10.7%p 편향 → 1.0%p로 해소.
+
+### baseProbability 균등화 (7개 파일)
+| 파일 | 수정 전 (공격/방어) | 수정 후 |
+|------|-------------------|---------|
+| pool_first_vs_9pool | 0.8 / 1.0 | 1.0 / 1.0 |
+| pool_first_vs_9overpool | 0.9 / 1.0 | 1.0 / 1.0 |
+| pool_first_vs_12pool | 0.6 / 1.0 | 1.0 / 1.0 |
+| pool_first_vs_12hatch | 0.7 / 1.0 | 1.0 / 1.0 |
+| 4pool_vs_3hatch | 0.5 / 1.0 | 1.0 / 1.0 |
+| 9pool_vs_3hatch_nopool | 0.6 / 1.0 | 1.0 / 1.0 |
+| 9overpool_vs_3hatch_nopool | 0.5 / 1.0 | 1.0 / 1.0 |
+
+### 비대칭 linear phase 수정 (4개 파일)
+- 9pool_vs_12hatch: 뮤탈 견제 이벤트에 skipChance 0.5 추가
+- 9overpool_vs_12hatch: 동일
+- 12hatch_vs_12pool: 홈 전용 이벤트 skipChance 0.5 + 어웨이 대응 이벤트 추가
+- 12pool_vs_3hatch_nopool: 어웨이 병력 누적 감소 (awayArmy 6→5)

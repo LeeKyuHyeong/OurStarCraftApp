@@ -21,6 +21,7 @@ class BuildStep {
   final int enemyResource;  // 상대 자원 변화
   final bool isClash;       // 충돌 이벤트 여부 (양측 병력 손실)
   final bool decisive;      // 결정적 이벤트 여부
+  final bool fixedCost;     // true면 모디파이어 미적용 (건물/유닛 생산용)
 
   const BuildStep({
     required this.line,
@@ -32,6 +33,7 @@ class BuildStep {
     this.enemyResource = 0,
     this.isClash = false,
     this.decisive = false,
+    this.fixedCost = false,
   });
 }
 

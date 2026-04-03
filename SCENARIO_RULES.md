@@ -1,0 +1,344 @@
+# 시나리오 작성 규칙
+
+시나리오 스크립트(ScenarioScript) 작성 시 반드시 따라야 하는 규칙.
+비용 레퍼런스: `lib/core/constants/starcraft_costs.dart`
+
+---
+
+## 1. 양쪽 동시 비용 반영 (핵심 원칙)
+
+**모든 이벤트에서 home과 away 양쪽의 자원/병력 변동을 동시에 반영한다.**
+
+스타크래프트에서 양쪽 선수는 동시에 건물을 짓고 유닛을 생산한다.
+한쪽 행동만 기록하면 상대는 recovery(채광)만 반영되어 부자연스러운 자원 격차가 생긨.
+
+### 미러 매치업
+
+양쪽이 같은 빌드 → 하나의 이벤트에 양쪽 동일 비용.
+
+```dart
+// AS-IS (잘못된 예시) - 홈만 비용 반영
+ScriptEvent(
+  text: '{home} 선수 배럭 건설!',
+  owner: LogOwner.home,
+  homeResource: -150,
+  fixedCost: true,
+),
+ScriptEvent(
+  text: '{away} 선수도 배럭 건설!',
+  owner: LogOwner.away,
+  awayResource: -150,
+  fixedCost: true,
+),
+
+// TO-BE (올바른 예시) - 양쪽 동시 반영
+ScriptEvent(
+  text: '{home} 선수 배럭 건설! {away} 선수도 배럭!',
+  owner: LogOwner.system,
+  homeResource: -150,
+  awayResource: -150,
+  fixedCost: true,
+  altText: '양쪽 배럭이 올라갑니다!',
+),
+```
+
+### 크로스 매치업
+
+양쪽이 다른 빌드 → 각 이벤트에 상대의 동시 행동 비용도 포함.
+
+```dart
+// BBS(home) vs 노배럭더블(away)
+// 홈이 배럭 2개 지을 때, 어웨이는 커맨드센터 건설 중
+ScriptEvent(
+  text: '{home} 선수 센터 배럭! 본진에도 배럭!',
+  owner: LogOwner.home,
+  homeResource: -300,  // 배럭 x2
+  awayResource: -400,  // CC (상대의 동시 행동)
+  fixedCost: true,
+  altText: '{home}, BBS! {away} 선수는 앞마당 확장!',
+),
+```
+
+### 전투 이벤트
+
+전투 중에도 양쪽은 후방에서 유닛을 생산하고 있다.
+전투 이벤트에서 직접적인 전투 피해 외에도 양쪽 생산 비용을 포함할 수 있다.
+
+```dart
+// 전투 중 양쪽 탱크 추가 생산
+ScriptEvent(
+  text: '{home} 선수 시즈 포격! 상대 탱크를 직격!',
+  owner: LogOwner.home,
+  awayArmy: -4,       // 전투 피해
+  homeArmy: -2,       // 맞교환
+  homeResource: -250,  // 홈 탱크 추가 생산 (후방)
+  awayResource: -250,  // 어웨이도 탱크 생산 (후방)
+  favorsStat: 'attack',
+),
+```
+
+---
+
+## 2. 비용 체계
+
+### 자원 (Resource)
+
+- 미네랄 + 가스 합산 단일값
+- 시작값: 50 (실제 SC 시작 미네랄)
+- 범위: 0 ~ 10,000
+- 0 미만은 자동 클램핑 (비용이 자원보다 크면 0으로)
+
+### 병력 (Army)
+
+- 서플라이 기반 (마린 1, 탱크 2, 캐리어 6)
+- 시작값: 0
+- 범위: 0 ~ 200
+- 일꾼(SCV/프로브/드론)은 병력에 미포함
+
+### fixedCost
+
+- 건물 건설, 유닛 생산, 업그레이드 연구 → `fixedCost: true`
+- 전투 피해, 견제 피해 → `fixedCost: false` (기본값)
+- fixedCost: true인 이벤트는 favorsStat/winRate 모디파이어가 적용되지 않음
+- fixedCost: false인 이벤트만 능력치 차이에 의한 보정이 적용됨
+
+### 비용 분할 원칙 (핵심)
+
+**큰 비용은 개별 건물/유닛 단위로 분할한다.**
+
+자원은 recovery를 통해 점차 쌓인다. 한 이벤트에 여러 건물을 묶으면:
+- 클램핑(0 미만 → 0)으로 실제 비용이 흡수됨
+- 표시되는 자원 변동이 실제 비용과 괴리됨
+
+```dart
+// AS-IS (잘못된 예시) - 배럭 2개를 한 이벤트에
+ScriptEvent(
+  text: '{home} 센터 배럭! 본진 배럭! {away}도!',
+  homeResource: -300, // 배럭 x2
+  awayResource: -300,
+  fixedCost: true,
+),
+
+// TO-BE (올바른 예시) - 건물 하나씩 분할
+ScriptEvent(
+  text: '{home} 선수 센터에 배럭! {away} 선수도 센터 배럭!',
+  homeResource: -150, // 센터 배럭
+  awayResource: -150,
+  fixedCost: true,
+),
+ScriptEvent(
+  text: '{home} 선수 본진에 배럭! {away} 선수도 본진 배럭!',
+  homeResource: -150, // 본진 배럭
+  awayResource: -150,
+  fixedCost: true,
+),
+```
+
+**분할 기준:**
+- 건물은 개별 건물 단위로 분할 (배럭 150, 팩토리 300, 스타포트 250 등)
+- 리파이너리/가스는 별도 이벤트 (100)
+- 유닛 생산은 같은 종류끼리 묶기 가능 (마린 3기 = -150)
+- 업그레이드 연구는 별도 이벤트 (시즈모드 300, 클로킹 300 등)
+- 건물 + 업그레이드를 한 이벤트에 묶지 않는다
+
+**자원 흐름 예시 (분할 후):**
+```
+Start: 50
+L1: +100=150 → SCV 정찰(비용 없음) → 150
+L2: 150 → 센터 배럭(-150) → 0 → +100 = 100  (delta: -50)
+L3: 100 → +100 = 200 → 본진 배럭(-150) → 50 → +100 = 150  (delta: -50... 실제로는 event 먼저 적용)
+```
+
+> **엔진 처리 순서**: `이전 state → 이벤트 비용(clamp 0) → +recovery → 최종 state`
+> 표시 delta = `비용 + recovery` (예: -150 + 100 = -50). 채광하면서 건설하는 실제 SC와 동일.
+
+---
+
+## 3. Recovery (채광 수입)
+
+매 줄(이벤트 줄 포함)마다 양쪽 모두에게 자동 적용.
+서플라이디팟/파일런/오버로드 비용은 recovery에 암묵적으로 포함.
+
+| 게임 단계 | startLine 기준 | recoveryResourcePerLine | recoveryArmyPerLine |
+|-----------|---------------|------------------------|---------------------|
+| 오프닝    | 1~15          | 100                    | 0                   |
+| 얼리미드  | 16~35         | 150                    | 1                   |
+| 미드게임  | 36~60         | 200                    | 2                   |
+| 레이트    | 60+           | 300                    | 3                   |
+
+### 확장 보너스
+
+앞마당/추가 확장 시 `homeExpansion: true` 또는 `awayExpansion: true` 플래그를 설정하면
+해당 측의 recovery가 **확장당 +75** 증가한다.
+
+```dart
+// 홈이 앞마당 확장 (커맨드센터/넥서스/해처리)
+ScriptEvent(
+  text: '{home} 선수 앞마당에 커맨드센터를 건설합니다!',
+  owner: LogOwner.home,
+  homeResource: -400, // 커맨드센터 400
+  fixedCost: true,
+  homeExpansion: true, // ← 홈 recovery +75 증가
+),
+```
+
+| 확장 수 | 오프닝 recovery | 미드게임 recovery |
+|---------|----------------|-----------------|
+| 본진만  | 100            | 200             |
+| 1확장   | 175            | 275             |
+| 2확장   | 250            | 350             |
+
+### 프로 자원관리 감쇠
+
+프로 선수는 돈을 남기지 않는다. 자원이 400 이상이면 recovery가 자동 감쇠:
+
+| 자원 | recovery 비율 | 예시 (base 100) |
+|------|-------------|----------------|
+| 0~400 | 100% | 100 |
+| 600 | 75% | 75 |
+| 800 | 50% | 50 |
+| 1000+ | 25% (하한) | 25 |
+
+→ **자원이 500~1000 범위에서 자연 유지**됨. 건설/생산으로 자원을 쓰면 recovery가 다시 올라감.
+
+### 자원 흐름 예시 (BBS 미러, recovery=100)
+
+```
+엔진 처리 순서: 이전 state → 이벤트 비용(clamp 0) → +recovery → 최종 state
+
+L1: 50 → +100 = 150  SCV 정찰 (비용 없음)
+L2: 150 - 150(센터 배럭) = 0 → +100 = 100
+L3: 100 - 150(본진 배럭) = clamp(0) → +100 = 100
+L4: 100 - 150(마린 3기, +3army) = clamp(0) → +100 = 100
+...Phase 1 시작 전 빈 줄에서 자원 축적...
+L6: 577 - 100(마린+SCV 전진) → +89(감쇠) = 577
+L8: 636 - 100(벙커) → +73(감쇠) = 636
+```
+
+---
+
+## 4. 이벤트 구조 규칙
+
+### owner 기준
+
+| owner | 사용 시점 | 예시 |
+|-------|----------|------|
+| `LogOwner.system` | 양쪽 동시 행동, 해설 코멘터리 | 건물 동시 건설, 상황 설명 |
+| `LogOwner.home` | 홈 선수가 주도하는 행동 | 홈 공격, 홈 컨트롤 |
+| `LogOwner.away` | 어웨이 선수가 주도하는 행동 | 어웨이 수비, 어웨이 반격 |
+
+### 오프닝 이벤트 (빌드업)
+
+- 양쪽 건물/유닛 생산은 가능하면 하나의 이벤트로 합침
+- owner: `LogOwner.system` (양쪽 동시)
+- `fixedCost: true` 필수
+- 양쪽 비용을 모두 명시
+
+```dart
+ScriptEvent(
+  text: '{home} 선수 팩토리! {away} 선수도 팩토리 건설!',
+  owner: LogOwner.system,
+  homeResource: -300,
+  awayResource: -300,
+  fixedCost: true,
+),
+```
+
+### 크로스 매치업에서 동시 행동 비용 산정
+
+한쪽 이벤트를 서술할 때, 상대가 **같은 시간에 하고 있을 행동**의 비용을 추가.
+
+| 홈 이벤트 | 어웨이 동시 행동 | awayResource |
+|-----------|-----------------|--------------|
+| 배럭 건설 | CC 건설 | -400 |
+| 마린 생산 | 가스+팩토리 건설 | -400 |
+| 벌처 돌진 | 탱크 생산 (후방) | -250 |
+| 시즈 포격 | 탱크 추가 생산 | -250 |
+
+**빌드오더 타임라인**을 기준으로 동시 행동을 결정.
+실제 SC에서 해당 시점에 상대가 무엇을 하고 있을지를 고려.
+
+### 전투 이벤트 (분기)
+
+- 전투 피해: `fixedCost: false` (능력치 보정 적용)
+- 전투 중 생산: `fixedCost: true`인 별도 이벤트 또는 같은 이벤트에 포함
+- 전투 이벤트에서도 상대의 후방 생산을 반영 가능
+
+### decisive 이벤트
+
+- `decisive: true`인 이벤트는 즉시 승패 판정
+- 결전 분기에서 home/away 각 1개씩 배치
+- decisive 이벤트에는 자원/병력 변동 없이 텍스트만 (승패는 엔진이 판정)
+
+---
+
+## 5. Phase 구성
+
+### 기본 구조
+
+```
+Phase 0: 오프닝 (startLine 1)     - 양쪽 빌드업 (건물+유닛)
+Phase 1: 전개   (startLine ~15)   - 첫 교전, 견제
+Phase 2: 분기   (startLine ~22)   - 공격 성공/실패 분기
+Phase 3: 중반   (startLine ~30)   - 후속 전개
+Phase 4: 결전   (startLine ~38+)  - decisive 분기 (home_wins / away_wins)
+```
+
+### linearEvents vs branches
+
+- **오프닝/빌드업**: `linearEvents` (순차)
+- **교전/결전**: `branches` (분기)
+- 분기는 `conditionStat`(능력치 조건) + `baseProbability`(확률)로 선택
+
+---
+
+## 6. 텍스트 규칙
+
+### 플레이스홀더
+
+- `{home}`: 홈 선수 이름 (역방향 시 자동 스왑)
+- `{away}`: 어웨이 선수 이름
+
+### altText
+
+- 50% 확률로 대체 텍스트 사용
+- 텍스트 다양성 확보용
+
+### skipChance
+
+- 0.0 ~ 1.0, 해당 확률로 이벤트 스킵
+- 시스템 해설 이벤트에 0.3~0.5 권장
+- 필수 빌드업 이벤트에는 사용 금지
+
+### 금지어
+
+- '경제' → '자원', '일꾼', '확장' 사용
+- '포토캐논' → '캐논'
+- '쓰러지다' → '무너지다', '밀리다'
+- 건물명은 CLAUDE.md 표기 기준 준수
+
+---
+
+## 7. 역방향 매칭 (isReversed)
+
+시나리오의 homeBuildIds와 awayBuildIds가 겹치면 안 됨.
+역방향 매칭 시 엔진이 자동으로 스왑:
+- homeArmy ↔ awayArmy
+- homeResource ↔ awayResource
+- {home} ↔ {away} 텍스트
+- LogOwner.home ↔ LogOwner.away
+
+**양쪽 동시 비용 이벤트는 역방향에서도 자연스럽게 대칭됨.**
+
+---
+
+## 8. 체크리스트 (시나리오 작성 후)
+
+- [ ] 모든 이벤트에서 양쪽 비용이 반영되었는가?
+- [ ] 건물/유닛 비용이 starcraft_costs.dart와 일치하는가?
+- [ ] fixedCost가 올바르게 설정되었는가? (생산=true, 전투=false)
+- [ ] Phase별 recovery가 가이드라인에 맞는가?
+- [ ] 역방향 매칭 시 대칭성이 유지되는가?
+- [ ] 금지어/건물명 규칙을 준수하는가?
+- [ ] decisive 분기가 home/away 각 1개씩 있는가?
+- [ ] 빌드 타임라인상 동시 행동이 합리적인가?

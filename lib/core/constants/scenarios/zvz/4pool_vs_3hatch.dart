@@ -70,7 +70,7 @@ const _zvz4poolVs3hatch = ScenarioScript(
         // 분기 A: 4풀 대성공 → 즉시 결정
         ScriptBranch(
           id: 'pool_crushes',
-          baseProbability: 0.5,
+          baseProbability: 1.0,
           events: [
             ScriptEvent(
               text: '{home}, 저글링이 드론을 물어뜯습니다! 앞마당도 공격!',
@@ -86,7 +86,7 @@ const _zvz4poolVs3hatch = ScenarioScript(
             ScriptEvent(
               text: '{home}, 추가 저글링 합류! 3해처리의 빈 진영을 파괴!',
               owner: LogOwner.home,
-              homeArmy: 2, awayResource: -10, favorsStat: 'attack',
+              homeArmy: 1, awayResource: -10, favorsStat: 'attack',
             ),
             ScriptEvent(
               text: '4풀이 노풀 3해처리를 초토화! 올인 대성공!',

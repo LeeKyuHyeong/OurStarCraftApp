@@ -10,76 +10,91 @@ const _tvt5facVs1facDouble = ScenarioScript(
   awayBuildIds: ['tvt_1fac_double'],
   description: '5팩 타이밍 vs 원팩 확장 공수 대결',
   phases: [
-    // Phase 0: 오프닝 (lines 1-16)
+    // Phase 0: 오프닝 (lines 1-16) - recovery 100/0
     ScriptPhase(
       name: 'opening',
       startLine: 1,
+      recoveryResourcePerLine: 100,
+      recoveryArmyPerLine: 0,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 배럭 건설합니다.',
           owner: LogOwner.home,
-          homeResource: -10,
+          homeResource: -150, // 배럭(150)
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{away} 선수 배럭 건설합니다.',
           owner: LogOwner.away,
-          awayResource: -10,
+          awayResource: -150, // 배럭(150)
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{home} 선수 팩토리를 빠르게 증설합니다! 3개째!',
           owner: LogOwner.home,
-          homeResource: -30,
+          homeResource: -900, // 팩토리x3(900)
+          fixedCost: true,
           altText: '{home}, 팩토리가 빠르게 늘어납니다! 타이밍을 노리나요?',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리 건설! 앞마당 확장도 가져갑니다!',
           owner: LogOwner.away,
-          awayResource: -25,
+          awayResource: -700, // 팩토리(300) + CC(400)
+          fixedCost: true,
           altText: '{away}, 팩토리가 올라갑니다! 확장도 같이!',
         ),
         ScriptEvent(
           text: '{away} 선수 벌처를 뽑으면서 마인을 깔고 있습니다.',
           owner: LogOwner.away,
-          awayArmy: 2, awayResource: -15,
+          awayArmy: 2, // 벌처 1기 (2sup)
+          awayResource: -75, // 벌처(75)
+          fixedCost: true,
           altText: '{away}, 마인 매설! 수비적으로 운영합니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 머신샵 부착! 시즈 모드 연구 시작! 팩토리 5개 체제! 탱크 벌처 대량 생산!',
           owner: LogOwner.home,
-          homeArmy: 4, homeResource: -30,
+          homeArmy: 4, // 벌처2(4sup)
+          homeResource: -850, // 팩토리2(600) + 머신샵(100) + 벌처2(150)
+          fixedCost: true,
           altText: '{home}, 머신샵에서 시즈 연구! 5팩토리 풀가동! 병력이 쏟아져 나옵니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 세 번째 커맨드센터! 마인으로 시간을 벌면서!',
           owner: LogOwner.away,
-          awayResource: -30,
+          awayResource: -400, // CC(400) 트리플
+          fixedCost: true,
           altText: '{away}, 트리플 확장! 자원을 최대한 끌어올립니다!',
         ),
       ],
     ),
-    // Phase 1: 중반 준비 (lines 17-24)
+    // Phase 1: 중반 준비 (lines 17-24) - recovery 150/1
     ScriptPhase(
       name: 'mid_preparation',
       startLine: 17,
       recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 10,
+      recoveryResourcePerLine: 150,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 머신샵 부착! 시즈 모드 연구!',
           owner: LogOwner.home,
-          homeResource: -15,
+          homeResource: -300, // 시즈모드(300)
+          fixedCost: true,
           altText: '{home}, 머신샵에서 시즈 연구! 탱크가 본격 가동!',
         ),
         ScriptEvent(
           text: '{away} 선수 머신샵 부착! 벌처 마인도 연구합니다!',
           owner: LogOwner.away,
-          awayResource: -15,
+          awayResource: -100, // 머신샵(100)
+          fixedCost: true,
           altText: '{away}, 머신샵에서 마인 연구! 수비 준비!',
         ),
         ScriptEvent(
           text: '{home}, 탱크 생산이 시작됩니다! 팩토리 5개에서 쏟아집니다!',
           owner: LogOwner.home,
-          homeArmy: 5, homeResource: -30,
+          homeArmy: 6, // 탱크 3기 (2sup x3)
+          homeResource: -750, // 탱크3(750)
+          fixedCost: true,
           altText: '{home} 선수 5팩 풀가동! 탱크가 쏟아져 나옵니다!',
         ),
         ScriptEvent(
@@ -90,43 +105,55 @@ const _tvt5facVs1facDouble = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 스타포트 건설! 컨트롤타워 올립니다!',
           owner: LogOwner.away,
-          awayResource: -25,
+          awayResource: -350, // 스타포트(250) + 컨트롤타워(100)
+          fixedCost: true,
           altText: '{away}, 스타포트 건설 후 컨트롤타워! 드랍십을 대비합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 엔지니어링 베이 건설! 터렛을 올립니다!',
           owner: LogOwner.away,
-          awayResource: -10,
+          awayResource: -200, // 엔지니어링베이(125) + 터렛(75)
+          fixedCost: true,
           altText: '{away}, 엔지니어링 베이에 터렛! 드랍 대비!',
         ),
         ScriptEvent(
           text: '{home} 선수 병력이 모이고 있습니다! 곧 전진합니다!',
           owner: LogOwner.home,
-          homeArmy: 3,
+          homeArmy: 4, // 탱크 2기 (2sup x2)
+          homeResource: -500, // 탱크2(500)
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{away} 선수 아머리 건설! 업그레이드를 시작합니다!',
           owner: LogOwner.away,
-          awayResource: -15,
+          awayResource: -150, // 아머리(150)
+          fixedCost: true,
           altText: '{away}, 아머리에서 메카닉 업그레이드!',
         ),
       ],
     ),
-    // Phase 2: 5팩 타이밍 (lines 26-30)
+    // Phase 2: 5팩 타이밍 (lines 26-30) - recovery 200/2
     ScriptPhase(
       name: 'timing_push',
       startLine: 26,
+      recoveryResourcePerLine: 200,
+      recoveryArmyPerLine: 2,
       linearEvents: [
         ScriptEvent(
           text: '{home}, 5팩토리 물량이 전진합니다! 탱크 8기!',
           owner: LogOwner.home,
-          homeArmy: 3, favorsStat: 'attack',
+          homeArmy: 4, // 탱크 2기 추가 (2sup x2)
+          homeResource: -500, // 탱크2(500)
+          fixedCost: true,
+          favorsStat: 'attack',
           altText: '{home} 선수 대규모 전진! 탱크 라인이 밀려갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 마인 지대에서 수비 준비! 탱크도 배치!',
           owner: LogOwner.away,
-          awayArmy: 4, awayResource: -20,
+          awayArmy: 4, // 탱크 2기 (2sup x2)
+          awayResource: -500, // 탱크2(500)
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{home} 선수 벌처로 시야 확보! 상대 탱크 위치를 먼저 파악합니다!',
@@ -154,10 +181,12 @@ const _tvt5facVs1facDouble = ScenarioScript(
         ),
       ],
     ),
-    // Phase 3: 교전 - 분기 (lines 32+)
+    // Phase 3: 교전 - 분기 (lines 32+) - recovery 300/3
     ScriptPhase(
       name: 'clash',
       startLine: 32,
+      recoveryResourcePerLine: 300,
+      recoveryArmyPerLine: 3,
       branches: [
         ScriptBranch(
           id: 'timing_breaks_through',
@@ -194,7 +223,7 @@ const _tvt5facVs1facDouble = ScenarioScript(
             ScriptEvent(
               text: '{away} 선수 벌처를 보내 역습을 시도하지만 마인에 벌처가 터집니다!',
               owner: LogOwner.away,
-              awayArmy: -1,
+              awayArmy: -2, // 벌처 1기 손실 (2sup)
               skipChance: 0.3,
             ),
             ScriptEvent(
@@ -213,7 +242,8 @@ const _tvt5facVs1facDouble = ScenarioScript(
             ScriptEvent(
               text: '{away}, 마인에 벌처가 터집니다! 진격이 멈추는데요!',
               owner: LogOwner.away,
-              homeArmy: -4, favorsStat: 'defense',
+              homeArmy: -4, // 벌처 2기 손실 (2sup x2)
+              favorsStat: 'defense',
               altText: '{away} 선수 마인 폭발! 벌처가 증발합니다!',
             ),
             ScriptEvent(
@@ -224,12 +254,16 @@ const _tvt5facVs1facDouble = ScenarioScript(
             ScriptEvent(
               text: '{away} 선수 아머리 건설! 골리앗을 준비합니다!',
               owner: LogOwner.away,
-              awayResource: -20,
+              awayResource: -150, // 아머리(150)
+              fixedCost: true,
             ),
             ScriptEvent(
               text: '{away}, 확장 자원 우위! 탱크 골리앗이 쌓입니다!',
               owner: LogOwner.away,
-              awayArmy: 3, homeResource: -20,
+              awayArmy: 4, // 탱크1 + 골리앗1 (2sup x2)
+              awayResource: -400, // 탱크(250) + 골리앗(150)
+              fixedCost: true,
+              homeResource: -20,
             ),
             ScriptEvent(
               text: '{away} 선수 마인과 확장 자원으로 5팩 타이밍을 버텨냅니다!',

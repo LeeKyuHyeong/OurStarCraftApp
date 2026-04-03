@@ -10,52 +10,65 @@ const _tvt2starVs1facDouble = ScenarioScript(
   awayBuildIds: ['tvt_1fac_double'],
   description: '투스타 레이스 vs 원팩 확장 공중 견제전',
   phases: [
-    // Phase 0: 오프닝 (lines 1-8)
+    // Phase 0: 오프닝 (lines 1-8) - recovery 100/0
     ScriptPhase(
       name: 'opening',
       startLine: 1,
+      recoveryResourcePerLine: 100,
+      recoveryArmyPerLine: 0,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 배럭 건설합니다.',
           owner: LogOwner.home,
-          homeResource: -10,
+          homeResource: -150, // 배럭(150)
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{away} 선수 배럭 건설합니다.',
           owner: LogOwner.away,
-          awayResource: -10,
+          awayResource: -150, // 배럭(150)
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{home} 선수 팩토리 건설! 빠른 테크!',
           owner: LogOwner.home,
-          homeResource: -20,
+          homeResource: -300, // 팩토리(300)
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리 건설! 앞마당 확장도 같이 가져갑니다!',
           owner: LogOwner.away,
-          awayResource: -30,
+          awayResource: -700, // 팩토리(300) + CC(400)
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{away} 선수 벌처를 뽑으면서 앞마당 커맨드를 올립니다.',
           owner: LogOwner.away,
-          awayArmy: 2, awayResource: -15,
+          awayArmy: 2, // 벌처 1기 (2sup)
+          awayResource: -75, // 벌처(75)
+          fixedCost: true,
           altText: '{away}, 원팩 확장! 벌처 생산하면서 확장!',
         ),
         ScriptEvent(
           text: '{home} 선수 스타포트 건설!',
           owner: LogOwner.home,
-          homeResource: -25,
+          homeResource: -250, // 스타포트(250)
+          fixedCost: true,
           altText: '{home}, 스타포트가 올라갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린 생산하면서 벙커를 올립니다.',
           owner: LogOwner.away,
-          awayArmy: 2, awayResource: -15,
+          awayArmy: 1, // 마린 1기 (1sup)
+          awayResource: -150, // 마린(50) + 벙커(100)
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{home} 선수 레이스 생산! 2번째 스타포트도 올립니다!',
           owner: LogOwner.home,
-          homeArmy: 1, homeResource: -25,
+          homeArmy: 2, // 레이스 1기 (2sup)
+          homeResource: -500, // 레이스(250) + 스타포트(250)
+          fixedCost: true,
           altText: '{home}, 레이스가 나옵니다! 스타포트가 하나 더!',
         ),
         ScriptEvent(
@@ -65,10 +78,12 @@ const _tvt2starVs1facDouble = ScenarioScript(
         ),
       ],
     ),
-    // Phase 1: 초반 레이스 견제 (lines 12-18)
+    // Phase 1: 초반 레이스 견제 (lines 12-18) - recovery 150/1
     ScriptPhase(
       name: 'early_wraith_harass',
       startLine: 12,
+      recoveryResourcePerLine: 150,
+      recoveryArmyPerLine: 1,
       linearEvents: [
         ScriptEvent(
           text: '{home}, 레이스가 상대 본진으로! SCV를 노립니다!',
@@ -96,7 +111,7 @@ const _tvt2starVs1facDouble = ScenarioScript(
           skipChance: 0.3,
         ),
         ScriptEvent(
-          text: '레이스 한두 기로는 건설을 완전히 막을 수는 없지만, SCV 피해가 계속 쌓이고 있습니다!',
+          text: '공중 유닛 한두 기로는 건설을 완전히 막을 수는 없지만, SCV 피해가 계속 쌓이고 있습니다!',
           owner: LogOwner.system,
         ),
         ScriptEvent(
@@ -108,7 +123,8 @@ const _tvt2starVs1facDouble = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 견제를 이어가면서 앞마당 커맨드센터를 올립니다!',
           owner: LogOwner.home,
-          homeResource: -25,
+          homeResource: -400, // CC(400)
+          fixedCost: true,
           altText: '{home}, 견제와 동시에 앞마당 확장! 멀티를 챙깁니다!',
         ),
         ScriptEvent(
@@ -118,10 +134,12 @@ const _tvt2starVs1facDouble = ScenarioScript(
         ),
       ],
     ),
-    // Phase 2: 클로킹 완성 + 침투 - 분기 (lines 18+)
+    // Phase 2: 클로킹 완성 + 침투 - 분기 (lines 18+) - recovery 200/2
     ScriptPhase(
       name: 'cloak_infiltrate',
       startLine: 18,
+      recoveryResourcePerLine: 200,
+      recoveryArmyPerLine: 2,
       branches: [
         ScriptBranch(
           id: 'cloak_devastation',
@@ -136,13 +154,18 @@ const _tvt2starVs1facDouble = ScenarioScript(
             ScriptEvent(
               text: '{away} 선수 아카데미가 이제야 완성! 컴샛스테이션을 급히 올립니다!',
               owner: LogOwner.away,
-              awayResource: -10, awayArmy: -1,
+              awayResource: -150, // 아카데미(150)
+              fixedCost: true,
+              awayArmy: -1,
               skipChance: 0.4,
             ),
             ScriptEvent(
               text: '{home}, 추가 레이스까지! 견제가 이어집니다!',
               owner: LogOwner.home,
-              homeArmy: 1, awayArmy: -2, favorsStat: 'harass',
+              homeArmy: 2, // 레이스 1기 (2sup)
+              homeResource: -250, // 레이스(250)
+              fixedCost: true,
+              awayArmy: -2, favorsStat: 'harass',
               skipChance: 0.4,
             ),
             ScriptEvent(
@@ -153,7 +176,8 @@ const _tvt2starVs1facDouble = ScenarioScript(
             ScriptEvent(
               text: '{away} 선수 아머리를 올리려 하지만 SCV가 부족합니다!',
               owner: LogOwner.away,
-              awayResource: -10,
+              awayResource: -150, // 아머리(150) 시도
+              fixedCost: true,
             ),
           ],
         ),
@@ -165,7 +189,8 @@ const _tvt2starVs1facDouble = ScenarioScript(
             ScriptEvent(
               text: '{away} 선수 아카데미는 올렸습니다! 컴샛스테이션 부착! 스캔은 가능합니다!',
               owner: LogOwner.away,
-              awayResource: -10,
+              awayResource: -150, // 아카데미(150)
+              fixedCost: true,
               altText: '{away}, 아카데미 완성! 스캔은 달리지만 아머리가 문제입니다!',
             ),
             ScriptEvent(
@@ -177,17 +202,22 @@ const _tvt2starVs1facDouble = ScenarioScript(
             ScriptEvent(
               text: '{away} 선수 아머리를 다시 올리지만 또 SCV가 잡힙니다!',
               owner: LogOwner.away,
-              awayResource: -10, awayArmy: -1,
+              awayResource: -150, // 아머리(150) 재시도
+              fixedCost: true,
+              awayArmy: -1,
               altText: '{away}, 아머리 재건설 시도! 하지만 공중 유닛이 놓아주질 않습니다!',
             ),
             ScriptEvent(
-              text: '스캔은 달리는데 골리앗이 없습니다! 마린으로는 레이스를 잡기 어렵습니다!',
+              text: '스캔은 달리는데 골리앗이 없습니다! 마린만으로는 공중 유닛을 잡기 어렵습니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
               text: '{home}, 레이스가 5기 이상! 투스타포트에서 쉬지 않고 뽑아냅니다!',
               owner: LogOwner.home,
-              homeArmy: 3, awayArmy: -2, awayResource: -15, favorsStat: 'harass',
+              homeArmy: 4, // 레이스 2기 (2sup x2)
+              homeResource: -500, // 레이스2(500)
+              fixedCost: true,
+              awayArmy: -2, awayResource: -15, favorsStat: 'harass',
               altText: '{home} 선수 레이스 물량이 쌓입니다! SCV가 녹아내리고 있습니다!',
             ),
             ScriptEvent(
@@ -210,19 +240,24 @@ const _tvt2starVs1facDouble = ScenarioScript(
             ScriptEvent(
               text: '{away} 선수 끈질기게 버텨서 아카데미와 아머리를 모두 완성합니다!',
               owner: LogOwner.away,
-              awayResource: -15, favorsStat: 'defense',
+              awayResource: -300, // 아카데미(150) + 아머리(150)
+              fixedCost: true,
+              favorsStat: 'defense',
               altText: '{away}, 피해를 입었지만 핵심 건물을 모두 올렸습니다!',
             ),
             ScriptEvent(
               text: '{away}, 컴샛스테이션 완성! 스캔으로 클로킹을 잡고 골리앗까지 생산!',
               owner: LogOwner.away,
-              homeArmy: -3, awayArmy: 2,
+              homeArmy: -4, // 레이스 2기 격추 (2sup x2)
+              awayArmy: 2, // 골리앗 1기 (2sup)
+              awayResource: -150, // 골리앗(150)
+              fixedCost: true,
               altText: '{away} 선수 스캔과 골리앗! 공중 유닛을 격추합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 클로킹 레이스 침투! 하지만 대공 화력이 대기 중!',
               owner: LogOwner.home,
-              homeArmy: -1,
+              homeArmy: -2, // 레이스 1기 손실 (2sup)
             ),
             ScriptEvent(
               text: '{away}, 공중 견제를 막아냅니다! 하지만 SCV 피해가 좀 있습니다!',
@@ -231,52 +266,60 @@ const _tvt2starVs1facDouble = ScenarioScript(
               skipChance: 0.3,
             ),
             ScriptEvent(
-              text: '레이스 견제가 막혔습니다! 하지만 투스타 측은 드랍십이 빠릅니다!',
+              text: '공중 견제가 막혔습니다! 하지만 투스타 측은 수송선이 빠릅니다!',
               owner: LogOwner.system,
             ),
           ],
         ),
       ],
     ),
-    // Phase 3: 중반 전환 (lines 26-34)
+    // Phase 3: 중반 전환 (lines 26-34) - recovery 200/2
     ScriptPhase(
       name: 'mid_transition',
       startLine: 26,
       recoveryArmyPerLine: 2,
-      recoveryResourcePerLine: 12,
+      recoveryResourcePerLine: 200,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 팩토리에 머신샵 올립니다! 탱크 생산 준비!',
           owner: LogOwner.home,
-          homeResource: -15,
+          homeResource: -100, // 머신샵(100)
+          fixedCost: true,
           altText: '{home}, 머신샵 부착! 탱크를 준비합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리에 머신샵 부착! 시즈 모드 연구!',
           owner: LogOwner.away,
-          awayResource: -15,
+          awayResource: -400, // 머신샵(100) + 시즈모드(300)
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{home} 선수 스타포트에 컨트롤타워 건설! 드랍십을 노립니다!',
           owner: LogOwner.home,
-          homeResource: -15,
+          homeResource: -100, // 컨트롤타워(100)
+          fixedCost: true,
           altText: '{home}, 컨트롤타워 완성! 드랍십이 가능합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 엔지니어링 베이 건설! 터렛으로 공중 유닛을 대비합니다!',
           owner: LogOwner.away,
-          awayResource: -10,
+          awayResource: -200, // 엔지니어링베이(125) + 터렛(75)
+          fixedCost: true,
           skipChance: 0.3,
         ),
         ScriptEvent(
           text: '{home} 선수 드랍십 생산! 기동전을 노리는 운영!',
           owner: LogOwner.home,
-          homeArmy: 2, homeResource: -15,
+          homeArmy: 2, // 드랍십 1기 (2sup)
+          homeResource: -200, // 드랍십(200)
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{away} 선수 확장 자원으로 탱크가 모이고 있습니다! 라인 방어!',
           owner: LogOwner.away,
-          awayArmy: 3, awayResource: -20,
+          awayArmy: 2, // 탱크 1기 (2sup)
+          awayResource: -250, // 탱크(250)
+          fixedCost: true,
           altText: '{away}, 원팩 확장 자원 가동! 탱크 라인 구축!',
         ),
         ScriptEvent(
@@ -286,10 +329,12 @@ const _tvt2starVs1facDouble = ScenarioScript(
         ),
       ],
     ),
-    // Phase 4: 후속 전개 - 분기 (lines 36+)
+    // Phase 4: 후속 전개 - 분기 (lines 36+) - recovery 300/3
     ScriptPhase(
       name: 'post_defense',
       startLine: 36,
+      recoveryResourcePerLine: 300,
+      recoveryArmyPerLine: 3,
       branches: [
         ScriptBranch(
           id: 'good_damage',

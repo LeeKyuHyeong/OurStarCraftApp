@@ -168,6 +168,7 @@ const _zvz9overpoolVs12hatch = ScenarioScript(
           owner: LogOwner.home,
           awayResource: -10, favorsStat: 'harass',
           altText: '{home}, 뮤탈 견제! 드론을 물어뜯습니다!',
+          skipChance: 0.5,
         ),
         ScriptEvent(
           text: '{away} 선수 스포어로 버티면서 스파이어 완성을 기다립니다!',

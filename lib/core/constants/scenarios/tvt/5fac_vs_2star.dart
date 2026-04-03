@@ -10,72 +10,87 @@ const _tvt5facVs2star = ScenarioScript(
   awayBuildIds: ['tvt_2star'],
   description: '5팩 타이밍 vs 레이스 클로킹 지상 vs 공중',
   phases: [
-    // Phase 0: 오프닝 (lines 1-8)
+    // Phase 0: 오프닝 (lines 1-8) - recovery 100/0
     ScriptPhase(
       name: 'opening',
       startLine: 1,
+      recoveryResourcePerLine: 100,
+      recoveryArmyPerLine: 0,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 배럭 건설합니다.',
           owner: LogOwner.home,
-          homeResource: -10,
+          homeResource: -150, // 배럭(150)
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{away} 선수 배럭 건설합니다.',
           owner: LogOwner.away,
-          awayResource: -10,
+          awayResource: -150, // 배럭(150)
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{home} 선수 팩토리를 빠르게 증설합니다! 5팩 체제!',
           owner: LogOwner.home,
-          homeResource: -20,
+          homeResource: -900, // 팩토리x3(900) - 첫 3개
+          fixedCost: true,
           altText: '{home}, 팩토리가 늘어납니다! 5팩!',
         ),
         ScriptEvent(
-          text: '{away} 선수 팩토리 건설 후 스타포트! 레이스를 노립니다!',
+          text: '{away} 선수 팩토리 건설 후 스타포트! 공중 유닛을 노립니다!',
           owner: LogOwner.away,
-          awayResource: -20,
+          awayResource: -550, // 팩토리(300) + 스타포트(250)
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{home} 선수 벌처 생산 시작! 5팩 가동!',
           owner: LogOwner.home,
-          homeArmy: 2, homeResource: -10,
+          homeArmy: 4, // 벌처 2기 (2sup x2)
+          homeResource: -150, // 벌처2(150)
+          fixedCost: true,
           altText: '{home}, 5팩에서 벌처가 쏟아집니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 스타포트에서 레이스 생산! 클로킹을 노립니다!',
+          text: '{away} 선수 스타포트 가동! 클로킹을 노립니다!',
           owner: LogOwner.away,
-          awayArmy: 2, awayResource: -10,
+          awayArmy: 2, // 레이스 1기 (2sup)
+          awayResource: -500, // 레이스(250) + 스타포트(250)
+          fixedCost: true,
         ),
         ScriptEvent(
-          text: '5팩 물량 vs 레이스 견제! 지상과 공중의 대결!',
+          text: '5팩 물량 vs 공중 견제! 지상과 공중의 대결!',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
       ],
     ),
-    // Phase 1: 중반 교전 준비 (lines 12-22)
+    // Phase 1: 중반 교전 준비 (lines 12-22) - recovery 150/1
     ScriptPhase(
       name: 'mid_buildup',
       startLine: 12,
       recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 6,
+      recoveryResourcePerLine: 150,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 5팩에 머신샵 부착! 탱크 대량 생산!',
           owner: LogOwner.home,
-          homeArmy: 3, homeResource: -25,
+          homeArmy: 4, // 탱크 2기 (2sup x2)
+          homeResource: -1000, // 머신샵(100) + 시즈모드(300) + 탱크2(500) + 잔여(100)
+          fixedCost: true,
           altText: '{home}, 5팩 풀가동! 탱크가 쏟아집니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 레이스 추가 생산! 클로킹 연구 중!',
           owner: LogOwner.away,
-          awayArmy: 3, awayResource: -20,
+          awayArmy: 2, // 레이스 1기 (2sup)
+          awayResource: -550, // 레이스(250) + 클로킹(300)
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{home} 선수 시즈 모드 연구! 아머리도 건설합니다!',
           owner: LogOwner.home,
-          homeResource: -20,
+          homeResource: -150, // 아머리(150)
+          fixedCost: true,
           altText: '{home}, 시즈 연구와 아머리! 골리앗으로 대공까지!',
         ),
         ScriptEvent(
@@ -86,13 +101,15 @@ const _tvt5facVs2star = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 엔지니어링 베이 건설! 터렛으로 대공!',
           owner: LogOwner.home,
-          homeResource: -25,
-          altText: '{home}, 터렛을 올립니다! 레이스를 막아야 합니다!',
+          homeResource: -200, // 엔지니어링베이(125) + 터렛(75)
+          fixedCost: true,
+          altText: '{home}, 터렛을 올립니다! 공중 유닛을 막아야 합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 추가 스타포트! 레이스 물량을 늘립니다!',
           owner: LogOwner.away,
-          awayResource: -25,
+          awayResource: -250, // 스타포트(250) - 이미 2스타포트
+          fixedCost: true,
           skipChance: 0.3,
         ),
         ScriptEvent(
@@ -109,7 +126,9 @@ const _tvt5facVs2star = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 골리앗 생산! 대공 화력을 갖춥니다!',
           owner: LogOwner.home,
-          homeArmy: 1,
+          homeArmy: 2, // 골리앗 1기 (2sup)
+          homeResource: -150, // 골리앗(150)
+          fixedCost: true,
           skipChance: 0.3,
         ),
         ScriptEvent(
@@ -119,25 +138,28 @@ const _tvt5facVs2star = ScenarioScript(
         ),
       ],
     ),
-    // Phase 2: 초반 교전 - 분기 (lines 26+)
+    // Phase 2: 초반 교전 - 분기 (lines 26+) - recovery 200/2
     ScriptPhase(
       name: 'first_clash',
       startLine: 26,
+      recoveryResourcePerLine: 200,
+      recoveryArmyPerLine: 2,
       branches: [
         ScriptBranch(
           id: 'home_ground_win',
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 골리앗으로 레이스를 격추합니다! 5팩 대공!',
+              text: '{home}, 골리앗으로 공중 유닛을 격추합니다! 5팩 대공!',
               owner: LogOwner.home,
-              awayArmy: -2, favorsStat: 'defense',
-              altText: '{home} 선수 골리앗 화력! 레이스가 떨어집니다!',
+              awayArmy: -4, // 레이스 2기 격추 (2sup x2)
+              favorsStat: 'defense',
+              altText: '{home} 선수 골리앗 화력! 공중 유닛이 떨어집니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 레이스가 녹았습니다! 5팩 물량 앞에 견제 효과가 줄어듭니다!',
               owner: LogOwner.away,
-              awayArmy: -1,
+              awayArmy: -2, // 레이스 1기 추가 손실 (2sup)
             ),
             ScriptEvent(
               text: '{home} 선수 5팩 물량으로 전진 준비! 탱크 시즈!',
@@ -170,12 +192,12 @@ const _tvt5facVs2star = ScenarioScript(
         ),
       ],
     ),
-    // Phase 3: 탱크 교전 (lines 32-38)
+    // Phase 3: 탱크 교전 (lines 32-38) - recovery 200/2
     ScriptPhase(
       name: 'tank_battle',
       startLine: 32,
       recoveryArmyPerLine: 2,
-      recoveryResourcePerLine: 10,
+      recoveryResourcePerLine: 200,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 5팩 탱크 시즈! 라인을 잡습니다!',
@@ -189,15 +211,17 @@ const _tvt5facVs2star = ScenarioScript(
           awayArmy: 2, favorsStat: 'strategy',
         ),
         ScriptEvent(
-          text: '5팩 탱크 라인 대 레이스 빌드! 물량 차이가 관건!',
+          text: '5팩 시즈 라인 대 공중 빌드! 물량 차이가 관건!',
           owner: LogOwner.system,
           skipChance: 0.2,
         ),
         ScriptEvent(
-          text: '{home} 선수 드랍십으로 뒤쪽을 노립니다!',
+          text: '{home} 선수 스타포트 건설! 드랍십으로 뒤쪽을 노립니다!',
           owner: LogOwner.home,
+          homeResource: -250, // 스타포트(250)
+          fixedCost: true,
           favorsStat: 'harass',
-          altText: '{home}, 드랍 견제! 뒤를 노립니다!',
+          altText: '{home}, 스타포트에서 드랍십! 뒤를 노립니다!',
           skipChance: 0.3,
         ),
         ScriptEvent(
@@ -208,10 +232,12 @@ const _tvt5facVs2star = ScenarioScript(
         ),
       ],
     ),
-    // Phase 4: 타이밍 교전 결전 - 분기 (lines 40+)
+    // Phase 4: 타이밍 교전 결전 - 분기 (lines 40+) - recovery 300/3
     ScriptPhase(
       name: 'timing_clash',
       startLine: 40,
+      recoveryResourcePerLine: 300,
+      recoveryArmyPerLine: 3,
       branches: [
         ScriptBranch(
           id: 'home_timing',
@@ -229,13 +255,13 @@ const _tvt5facVs2star = ScenarioScript(
               awayArmy: -2,
             ),
             ScriptEvent(
-              text: '{home}, 탱크 골리앗으로 밀어붙입니다! 레이스까지 격추!',
+              text: '{home}, 탱크 골리앗으로 밀어붙입니다! 공중 유닛까지 격추!',
               owner: LogOwner.home,
               awayResource: -15, favorsStat: 'attack',
               altText: '{home} 선수 골리앗 대공까지! 압도적입니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 5팩 물량으로 레이스 빌드를 꺾습니다!',
+              text: '{home} 선수 5팩 물량으로 공중 빌드를 꺾습니다!',
               owner: LogOwner.home,
               decisive: true,
               altText: '{home} 선수 5팩 타이밍 성공! 상대 병력을 압도합니다!',

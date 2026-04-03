@@ -252,7 +252,7 @@ const _zvz12poolVs3hatchNopool = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 뮤탈 편대로 맞섭니다! 물량이 우세합니다!',
           owner: LogOwner.away,
-          awayArmy: 6, awayResource: -25,
+          awayArmy: 5, awayResource: -25,
         ),
         ScriptEvent(
           text: '뮤탈 편대 충돌! 물량 vs 컨트롤!',

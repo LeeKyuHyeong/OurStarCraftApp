@@ -29,15 +29,19 @@ class SimulationState {
   final int awayArmy;
   final int homeResources;
   final int awayResources;
+  final int homeExpansions; // 확장 기지 수 (0=본진만, 1=앞마당, 2=서드...)
+  final int awayExpansions;
   final List<BattleLogEntry> battleLogEntries;
   final bool isFinished;
   final bool? homeWin;
 
   const SimulationState({
-    this.homeArmy = 80,       // 초기 병력
-    this.awayArmy = 80,       // 초기 병력
-    this.homeResources = 150, // 초기 자원
-    this.awayResources = 150, // 초기 자원
+    this.homeArmy = 0,        // 초기 병력 (서플라이, 군사 유닛 없음)
+    this.awayArmy = 0,        // 초기 병력
+    this.homeResources = 50,  // 초기 자원 (실제 SC 시작 미네랄)
+    this.awayResources = 50,  // 초기 자원
+    this.homeExpansions = 0,
+    this.awayExpansions = 0,
     this.battleLogEntries = const [],
     this.isFinished = false,
     this.homeWin,
@@ -51,6 +55,8 @@ class SimulationState {
     int? awayArmy,
     int? homeResources,
     int? awayResources,
+    int? homeExpansions,
+    int? awayExpansions,
     List<BattleLogEntry>? battleLogEntries,
     bool? isFinished,
     bool? homeWin,
@@ -60,10 +66,26 @@ class SimulationState {
       awayArmy: awayArmy ?? this.awayArmy,
       homeResources: homeResources ?? this.homeResources,
       awayResources: awayResources ?? this.awayResources,
+      homeExpansions: homeExpansions ?? this.homeExpansions,
+      awayExpansions: awayExpansions ?? this.awayExpansions,
       battleLogEntries: battleLogEntries ?? this.battleLogEntries,
       isFinished: isFinished ?? this.isFinished,
       homeWin: homeWin ?? this.homeWin,
     );
+  }
+
+  /// 확장 보너스를 포함한 실제 recovery 계산
+  /// 프로 선수 자원관리: 자원 400 이상이면 recovery 감쇠 (돈을 안 남김)
+  static int effectiveRecovery(int baseRecovery, int expansions, int currentResources) {
+    // 확장 보너스: 멀티 기지당 +75 (일꾼 추가 채광)
+    int recovery = baseRecovery + (expansions * 75);
+    // 프로 자원관리 감쇠: 400 이상부터 감소, 1000에서 ~64% 감쇠
+    // → 자원이 500~1000 사이에서 자연 유지됨
+    if (currentResources > 400) {
+      final decay = ((currentResources - 400) / 800).clamp(0.0, 0.75);
+      recovery = (recovery * (1.0 - decay)).round();
+    }
+    return recovery;
   }
 }
 
@@ -588,7 +610,25 @@ class MatchSimulationService {
           scenarioActiveEvents = scriptResult.activeEvents;
 
           if (scriptResult.entry != null) {
-            state = scriptResult.newState;
+            // 이벤트 적용 + 매 줄 recovery (채광은 건설과 동시 진행)
+            final phase = scenarioScript!.phases[scriptResult.nextPhaseIndex < scenarioScript.phases.length
+                ? scriptResult.nextPhaseIndex : scenarioScript.phases.length - 1];
+            final eventState = scriptResult.newState;
+            // 확장 이벤트 반영 (expansion → recovery 증가)
+            final newHomeExp = eventState.homeExpansions + (scriptResult.homeExpansion ? 1 : 0);
+            final newAwayExp = eventState.awayExpansions + (scriptResult.awayExpansion ? 1 : 0);
+            final homeRecovery = SimulationState.effectiveRecovery(
+                phase.recoveryResourcePerLine, newHomeExp, eventState.homeResources);
+            final awayRecovery = SimulationState.effectiveRecovery(
+                phase.recoveryResourcePerLine, newAwayExp, eventState.awayResources);
+            state = eventState.copyWith(
+              homeArmy: (eventState.homeArmy + phase.recoveryArmyPerLine).clamp(0, 200),
+              awayArmy: (eventState.awayArmy + phase.recoveryArmyPerLine).clamp(0, 200),
+              homeResources: (eventState.homeResources + homeRecovery).clamp(0, 10000),
+              awayResources: (eventState.awayResources + awayRecovery).clamp(0, 10000),
+              homeExpansions: newHomeExp,
+              awayExpansions: newAwayExp,
+            );
             yield state;
             await Future.delayed(Duration(milliseconds: getIntervalMs()));
 
@@ -656,11 +696,15 @@ class MatchSimulationService {
             // 이벤트 없는 라인: 회복 적용
             final phase = scenarioScript.phases[scriptResult.nextPhaseIndex < scenarioScript.phases.length
                 ? scriptResult.nextPhaseIndex : scenarioScript.phases.length - 1];
+            final homeRecovery = SimulationState.effectiveRecovery(
+                phase.recoveryResourcePerLine, state.homeExpansions, state.homeResources);
+            final awayRecovery = SimulationState.effectiveRecovery(
+                phase.recoveryResourcePerLine, state.awayExpansions, state.awayResources);
             state = state.copyWith(
               homeArmy: (state.homeArmy + phase.recoveryArmyPerLine).clamp(0, 200),
               awayArmy: (state.awayArmy + phase.recoveryArmyPerLine).clamp(0, 200),
-              homeResources: (state.homeResources + phase.recoveryResourcePerLine).clamp(0, 10000),
-              awayResources: (state.awayResources + phase.recoveryResourcePerLine).clamp(0, 10000),
+              homeResources: (state.homeResources + homeRecovery).clamp(0, 10000),
+              awayResources: (state.awayResources + awayRecovery).clamp(0, 10000),
             );
           }
           continue;
@@ -1206,6 +1250,7 @@ class MatchSimulationService {
   // ==================== 엔딩 시스템 ====================
 
   /// 엔딩 emit (결정타 + GG + 코멘터리 + 승리 선언)
+  /// 각 줄마다 개별 yield하여 병력/자원이 점진적으로 변함
   Stream<SimulationState> _emitEnding({
     required SimulationState state,
     required bool? homeWinOverride,
@@ -1227,56 +1272,87 @@ class MatchSimulationService {
       lineCount: lineCount,
     );
 
-    // 경기 종료 시 패배자 병력/자원 소진 + 승리자 전투 비용 반영
-    final loserArmy = _random.nextInt(10); // 0~9
-    final loserResource = _random.nextInt(30); // 0~29
+    // 최종 목표값 계산
+    final loserFinalArmy = _random.nextInt(4); // 0~3
+    final loserFinalResource = _random.nextInt(50); // 0~49
     final winnerArmy = isHomeWinner ? state.homeArmy : state.awayArmy;
     final winnerResource = isHomeWinner ? state.homeResources : state.awayResources;
-    // 승리자: 병력 30~50% 소모, 자원 20~40% 소모
+    final loserArmy = isHomeWinner ? state.awayArmy : state.homeArmy;
+    final loserResource = isHomeWinner ? state.awayResources : state.homeResources;
     final winnerArmyLoss = (winnerArmy * (0.30 + _random.nextDouble() * 0.20)).round();
     final winnerResourceLoss = (winnerResource * (0.20 + _random.nextDouble() * 0.20)).round();
+    final winnerFinalArmy = (winnerArmy - winnerArmyLoss).clamp(3, 200);
+    final winnerFinalResource = (winnerResource - winnerResourceLoss).clamp(20, 10000);
 
-    // 코멘터리가 최종 병력/자원 값을 기반으로 판단하도록 먼저 계산
-    final adjustedState = state.copyWith(
-      homeArmy: isHomeWinner
-          ? (winnerArmy - winnerArmyLoss).clamp(5, 200)
-          : loserArmy,
-      awayArmy: isHomeWinner
-          ? loserArmy
-          : (winnerArmy - winnerArmyLoss).clamp(5, 200),
-      homeResources: isHomeWinner
-          ? (winnerResource - winnerResourceLoss).clamp(10, 10000)
-          : loserResource,
-      awayResources: isHomeWinner
-          ? loserResource
-          : (winnerResource - winnerResourceLoss).clamp(10, 10000),
+    // 3단계 보간 (결정타 60% → GG 30% → 코멘터리 10%)
+    int lerpInt(int from, int to, double t) => (from + (to - from) * t).round();
+
+    int wArmy(double t) => lerpInt(winnerArmy, winnerFinalArmy, t);
+    int wRes(double t) => lerpInt(winnerResource, winnerFinalResource, t);
+    int lArmy(double t) => lerpInt(loserArmy, loserFinalArmy, t);
+    int lRes(double t) => lerpInt(loserResource, loserFinalResource, t);
+
+    int homeA(double t) => isHomeWinner ? wArmy(t) : lArmy(t);
+    int awayA(double t) => isHomeWinner ? lArmy(t) : wArmy(t);
+    int homeR(double t) => isHomeWinner ? wRes(t) : lRes(t);
+    int awayR(double t) => isHomeWinner ? lRes(t) : wRes(t);
+
+    // 1. 결정타 (60% 진행)
+    state = state.copyWith(
+      homeArmy: homeA(0.6),
+      awayArmy: awayA(0.6),
+      homeResources: homeR(0.6),
+      awayResources: awayR(0.6),
+      battleLogEntries: [...state.battleLogEntries,
+        BattleLogEntry(text: finishingBlow, owner: isHomeWinner ? LogOwner.home : LogOwner.away)],
     );
+    yield state;
+    await Future.delayed(Duration(milliseconds: getIntervalMs()));
 
-    final endingCommentary = _getEndingCommentary(
-      winner: winner,
-      state: adjustedState,
-      lineCount: lineCount,
-      isLongGame: isLongGame,
-    );
-
-    state = adjustedState.copyWith(
-      isFinished: true,
-      homeWin: isHomeWinner,
-      battleLogEntries: [
-        ...state.battleLogEntries,
-        BattleLogEntry(
-          text: finishingBlow,
-          owner: isHomeWinner ? LogOwner.home : LogOwner.away,
-        ),
+    // 2. GG (90% 진행)
+    state = state.copyWith(
+      homeArmy: homeA(0.9),
+      awayArmy: awayA(0.9),
+      homeResources: homeR(0.9),
+      awayResources: awayR(0.9),
+      battleLogEntries: [...state.battleLogEntries,
         BattleLogEntry(
           text: isLongGame
               ? '접전 끝에 ${loser.name} 선수가 GG를 선언합니다.'
               : '${loser.name} 선수, GG를 선언합니다.',
-          owner: isHomeWinner ? LogOwner.away : LogOwner.home,
-        ),
-        BattleLogEntry(text: endingCommentary, owner: LogOwner.system),
-        BattleLogEntry(text: '${winner.name} 선수 승리!', owner: LogOwner.system),
-      ],
+          owner: isHomeWinner ? LogOwner.away : LogOwner.home)],
+    );
+    yield state;
+    await Future.delayed(Duration(milliseconds: getIntervalMs()));
+
+    // 3. 코멘터리 (최종값으로 보간 + 판정)
+    final commentaryState = state.copyWith(
+      homeArmy: homeA(1.0),
+      awayArmy: awayA(1.0),
+      homeResources: homeR(1.0),
+      awayResources: awayR(1.0),
+    );
+
+    final endingCommentary = _getEndingCommentary(
+      winner: winner,
+      state: commentaryState,
+      lineCount: lineCount,
+      isLongGame: isLongGame,
+    );
+
+    state = commentaryState.copyWith(
+      battleLogEntries: [...state.battleLogEntries,
+        BattleLogEntry(text: endingCommentary, owner: LogOwner.system)],
+    );
+    yield state;
+    await Future.delayed(Duration(milliseconds: getIntervalMs()));
+
+    // 4. 승리 선언 (최종)
+    state = state.copyWith(
+      isFinished: true,
+      homeWin: isHomeWinner,
+      battleLogEntries: [...state.battleLogEntries,
+        BattleLogEntry(text: '${winner.name} 선수 승리!', owner: LogOwner.system)],
     );
     yield state;
   }
@@ -3687,40 +3763,43 @@ class MatchSimulationService {
     int homeResourceChange = reversed ? event.awayResource : event.homeResource;
     int awayResourceChange = reversed ? event.homeResource : event.awayResource;
 
-    // favorsStat 보정 (기존 클래시 로직 재사용)
-    if (event.favorsStat != null) {
-      final homeStat = _getStatValue(homeStats, event.favorsStat);
-      final awayStat = _getStatValue(awayStats, event.favorsStat);
-      final statDiff = (homeStat - awayStat).abs();
-      final modifier = 1.0 + (statDiff / 800).clamp(0.0, 0.3);
+    // fixedCost 이벤트(건물/유닛 생산)는 모디파이어 건너뛰기
+    if (!event.fixedCost) {
+      // favorsStat 보정 (기존 클래시 로직 재사용)
+      if (event.favorsStat != null) {
+        final homeStat = _getStatValue(homeStats, event.favorsStat);
+        final awayStat = _getStatValue(awayStats, event.favorsStat);
+        final statDiff = (homeStat - awayStat).abs();
+        final modifier = 1.0 + (statDiff / 800).clamp(0.0, 0.3);
 
-      if (homeStat > awayStat) {
-        // 홈이 유리: 홈 피해 감소, 어웨이 피해 증가
-        if (homeArmyChange < 0) homeArmyChange = (homeArmyChange * (2 - modifier)).round();
-        if (awayArmyChange < 0) awayArmyChange = (awayArmyChange * modifier).round();
-        if (homeResourceChange < 0) homeResourceChange = (homeResourceChange * (2 - modifier)).round();
-        if (awayResourceChange < 0) awayResourceChange = (awayResourceChange * modifier).round();
-      } else if (awayStat > homeStat) {
-        if (awayArmyChange < 0) awayArmyChange = (awayArmyChange * (2 - modifier)).round();
-        if (homeArmyChange < 0) homeArmyChange = (homeArmyChange * modifier).round();
-        if (awayResourceChange < 0) awayResourceChange = (awayResourceChange * (2 - modifier)).round();
-        if (homeResourceChange < 0) homeResourceChange = (homeResourceChange * modifier).round();
+        if (homeStat > awayStat) {
+          // 홈이 유리: 홈 피해 감소, 어웨이 피해 증가
+          if (homeArmyChange < 0) homeArmyChange = (homeArmyChange * (2 - modifier)).round();
+          if (awayArmyChange < 0) awayArmyChange = (awayArmyChange * modifier).round();
+          if (homeResourceChange < 0) homeResourceChange = (homeResourceChange * (2 - modifier)).round();
+          if (awayResourceChange < 0) awayResourceChange = (awayResourceChange * modifier).round();
+        } else if (awayStat > homeStat) {
+          if (awayArmyChange < 0) awayArmyChange = (awayArmyChange * (2 - modifier)).round();
+          if (homeArmyChange < 0) homeArmyChange = (homeArmyChange * modifier).round();
+          if (awayResourceChange < 0) awayResourceChange = (awayResourceChange * (2 - modifier)).round();
+          if (homeResourceChange < 0) homeResourceChange = (homeResourceChange * modifier).round();
+        }
       }
-    }
 
-    // winRate 기반 종합 데미지 보정 (시나리오 이벤트에도 적용)
-    // 피해(음수)에만 적용 → 빌드업(양수)은 영향 없음
-    // reversed일 때는 modifier를 반전 (홈/어웨이 위치가 바뀌므로)
-    final scenarioWinBias = (winRate - 0.5) * 2.0;
-    if (scenarioWinBias.abs() > 0.01) {
-      final sFavoredMod = 1.0 - scenarioWinBias * 0.3;
-      final sUnfavoredMod = 1.0 + scenarioWinBias * 0.3;
-      final homeModifier = reversed ? sUnfavoredMod : sFavoredMod;
-      final awayModifier = reversed ? sFavoredMod : sUnfavoredMod;
-      if (homeArmyChange < 0) homeArmyChange = (homeArmyChange * homeModifier).round();
-      if (awayArmyChange < 0) awayArmyChange = (awayArmyChange * awayModifier).round();
-      if (homeResourceChange < 0) homeResourceChange = (homeResourceChange * homeModifier).round();
-      if (awayResourceChange < 0) awayResourceChange = (awayResourceChange * awayModifier).round();
+      // winRate 기반 종합 데미지 보정 (시나리오 이벤트에도 적용)
+      // 피해(음수)에만 적용 → 빌드업(양수)은 영향 없음
+      // reversed일 때는 modifier를 반전 (홈/어웨이 위치가 바뀌므로)
+      final scenarioWinBias = (winRate - 0.5) * 2.0;
+      if (scenarioWinBias.abs() > 0.01) {
+        final sFavoredMod = 1.0 - scenarioWinBias * 0.3;
+        final sUnfavoredMod = 1.0 + scenarioWinBias * 0.3;
+        final homeModifier = reversed ? sUnfavoredMod : sFavoredMod;
+        final awayModifier = reversed ? sFavoredMod : sUnfavoredMod;
+        if (homeArmyChange < 0) homeArmyChange = (homeArmyChange * homeModifier).round();
+        if (awayArmyChange < 0) awayArmyChange = (awayArmyChange * awayModifier).round();
+        if (homeResourceChange < 0) homeResourceChange = (homeResourceChange * homeModifier).round();
+        if (awayResourceChange < 0) awayResourceChange = (awayResourceChange * awayModifier).round();
+      }
     }
 
     // 상태 업데이트
@@ -3732,6 +3811,10 @@ class MatchSimulationService {
       battleLogEntries: [...state.battleLogEntries, BattleLogEntry(text: text, owner: _resolveScriptOwner(event.owner, reversed))],
     );
 
+    // expansion 플래그 (reversed일 때 스왑)
+    final homeExp = reversed ? event.awayExpansion : event.homeExpansion;
+    final awayExp = reversed ? event.homeExpansion : event.awayExpansion;
+
     return _ScenarioLineResult(
       nextPhaseIndex: phaseIndex,
       nextEventIndex: nextEventIndex,
@@ -3739,6 +3822,8 @@ class MatchSimulationService {
       newState: newState,
       entry: BattleLogEntry(text: text, owner: _resolveScriptOwner(event.owner, reversed)),
       decisive: event.decisive,
+      homeExpansion: homeExp,
+      awayExpansion: awayExp,
     );
   }
 
@@ -3970,12 +4055,15 @@ class MatchSimulationService {
 
   /// 승패 조건 체크
   bool? _checkWinCondition(SimulationState state, int lineCount) {
-    // 병력 0 이하 = 패배 (동시 전멸 시 50/50 랜덤 → 홈/어웨이 편향 방지)
-    final homeDead = state.homeArmy <= 0;
-    final awayDead = state.awayArmy <= 0;
-    if (homeDead && awayDead) return _random.nextBool();
-    if (homeDead) return false;
-    if (awayDead) return true;
+    // 15줄 이전에는 병력 기반 패배 판정 안 함 (오프닝 빌드업 구간, 병력 0 시작)
+    if (lineCount >= 15) {
+      // 병력 0 이하 = 패배 (동시 전멸 시 50/50 랜덤 → 홈/어웨이 편향 방지)
+      final homeDead = state.homeArmy <= 0;
+      final awayDead = state.awayArmy <= 0;
+      if (homeDead && awayDead) return _random.nextBool();
+      if (homeDead) return false;
+      if (awayDead) return true;
+    }
 
     // 병력 격차 승리 조건 (최소 50줄 이후에만 체크)
     if (lineCount >= 50) {
@@ -4272,6 +4360,8 @@ class _ScenarioLineResult {
   final SimulationState newState;
   final BattleLogEntry? entry; // null이면 빈 라인 (회복만)
   final bool decisive;
+  final bool homeExpansion; // 이 이벤트에서 홈 확장 발생
+  final bool awayExpansion; // 이 이벤트에서 어웨이 확장 발생
 
   const _ScenarioLineResult({
     required this.nextPhaseIndex,
@@ -4280,6 +4370,8 @@ class _ScenarioLineResult {
     required this.newState,
     this.entry,
     required this.decisive,
+    this.homeExpansion = false,
+    this.awayExpansion = false,
   });
 }
 

@@ -2,6 +2,7 @@ part of '../../scenario_scripts.dart';
 
 // ----------------------------------------------------------
 // 10. BBS 미러 (치즈 미러)
+// 양쪽 센터+본진 배럭 → 마린 SCV 러쉬 → 벙커 경쟁
 // ----------------------------------------------------------
 const _tvtBbsMirror = ScenarioScript(
   id: 'tvt_bbs_mirror',
@@ -10,88 +11,77 @@ const _tvtBbsMirror = ScenarioScript(
   awayBuildIds: ['tvt_bbs'],
   description: 'BBS 미러 센터 배럭 치즈전',
   phases: [
-    // Phase 0: 오프닝 (lines 1-9)
+    // Phase 0: 오프닝 (lines 1-9) - recovery 100/줄
     ScriptPhase(
       name: 'opening',
       startLine: 1,
+      recoveryResourcePerLine: 100,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 SCV를 센터로 보냅니다!',
-          owner: LogOwner.home,
-          homeResource: -5,
-        ),
-        ScriptEvent(
-          text: '{away} 선수도 SCV를 센터로 보냅니다!',
-          owner: LogOwner.away,
-          awayResource: -5,
-        ),
-        ScriptEvent(
-          text: '{home} 선수 센터에 배럭 건설! 본진에도 배럭!',
-          owner: LogOwner.home,
-          homeResource: -20,
-          altText: '{home}, 센터와 본진 배럭! BBS입니다!',
-        ),
-        ScriptEvent(
-          text: '{away} 선수도 센터에 배럭! 본진 배럭도 건설!',
-          owner: LogOwner.away,
-          awayResource: -20,
-          altText: '{away}, 센터 배럭! BBS! 양쪽 다 BBS입니다!',
-        ),
-        ScriptEvent(
-          text: '양쪽 BBS! 센터 배럭 치즈 미러가 나왔습니다!',
+          text: '양쪽 SCV가 센터로 향합니다! BBS 미러입니다!',
           owner: LogOwner.system,
+          altText: '양 선수 SCV를 센터로! 센터 배럭을 노립니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 마린 생산 시작! 센터 마린 3기를 빠르게 모읍니다!',
-          owner: LogOwner.home,
-          homeArmy: 2, homeResource: -5,
+          text: '{home} 선수 센터에 배럭 건설! {away} 선수도 센터 배럭!',
+          owner: LogOwner.system,
+          homeResource: -150, // 센터 배럭
+          awayResource: -150, // 센터 배럭
+          fixedCost: true,
+          altText: '양쪽 센터에 배럭이 올라갑니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 마린 생산! 센터에서 마린 집결!',
-          owner: LogOwner.away,
-          awayArmy: 2, awayResource: -5,
+          text: '{home} 선수 본진에도 배럭! {away} 선수도 본진 배럭!',
+          owner: LogOwner.system,
+          homeResource: -150, // 본진 배럭
+          awayResource: -150, // 본진 배럭
+          fixedCost: true,
+          altText: '양쪽 본진에도 배럭이 올라갑니다! BBS 미러!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 배럭에서 마린 3기 생산! {away} 선수 배럭에서도 마린 3기!',
+          owner: LogOwner.system,
+          homeArmy: 3, homeResource: -150, // 마린 3기 (50x3)
+          awayArmy: 3, awayResource: -150,
+          fixedCost: true,
+          altText: '양쪽 배럭에서 마린이 쏟아집니다! 센터에서 곧 마주칩니다!',
         ),
       ],
     ),
-    // Phase 1: 마린과 SCV 전진 (lines 10-17)
+    // Phase 1: 마린 SCV 전진 (lines 10-17) - recovery 100/줄
     ScriptPhase(
       name: 'marine_clash',
       startLine: 10,
+      recoveryResourcePerLine: 100,
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 마린과 SCV를 뭉쳐서 전진합니다!',
-          owner: LogOwner.home,
-          homeArmy: 1, homeResource: -5, favorsStat: 'attack',
-          altText: '{home} 선수 마린과 SCV 전진! 센터를 장악하려 합니다!',
-        ),
-        ScriptEvent(
-          text: '{away} 선수도 마린과 SCV 전진! 센터에서 마주칩니다!',
-          owner: LogOwner.away,
-          awayArmy: 1, awayResource: -5, favorsStat: 'attack',
-          altText: '{away}, 마린과 SCV 맞전진! 정면 충돌!',
+          text: '{home} 선수 마린과 SCV를 뭉쳐서 전진! {away} 선수도 전진! 센터에서 마주칩니다!',
+          owner: LogOwner.system,
+          homeArmy: 2, homeResource: -100, // 마린 2기 추가 (50x2)
+          awayArmy: 2, awayResource: -100,
+          fixedCost: true,
+          altText: '양쪽 마린과 SCV가 센터에서 정면으로 부딪칩니다!',
         ),
         ScriptEvent(
           text: '센터에서 마린과 SCV 대결! 누가 먼저 벙커를 올리느냐!',
           owner: LogOwner.system,
+          skipChance: 0.3,
         ),
         ScriptEvent(
-          text: '{home}, 벙커 건설 시도! SCV가 짓기 시작합니다!',
-          owner: LogOwner.home,
-          homeResource: -15, favorsStat: 'control',
-          altText: '{home} 선수 벙커 건설! 마린을 넣을 수 있을까요?',
-        ),
-        ScriptEvent(
-          text: '{away} 선수도 벙커 건설 시도! 양쪽 벙커 경쟁!',
-          owner: LogOwner.away,
-          awayResource: -15, favorsStat: 'control',
-          altText: '{away}, 벙커 건설! 양쪽 벙커가 동시에 올라갑니다!',
+          text: '{home} 선수 벙커 건설! {away} 선수도 벙커! 양쪽 벙커 경쟁!',
+          owner: LogOwner.system,
+          homeResource: -100, // 벙커 100
+          awayResource: -100,
+          fixedCost: true,
+          altText: '양쪽 벙커가 동시에 올라갑니다! 벙커 경쟁!',
         ),
       ],
     ),
-    // Phase 2: 벙커 전쟁 - 분기 (lines 18-27)
+    // Phase 2: 벙커 전쟁 - 분기 (lines 18-27) - recovery 100/줄
     ScriptPhase(
       name: 'bunker_war',
       startLine: 18,
+      recoveryResourcePerLine: 100,
       branches: [
         // 분기 A: 홈 벙커 선점
         ScriptBranch(
@@ -99,21 +89,22 @@ const _tvtBbsMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 벙커 완성! 마린이 먼저 들어갑니다!',
+              text: '{home} 선수 벙커 완성! 마린이 먼저 들어갑니다!',
               owner: LogOwner.home,
-              homeArmy: 2, favorsStat: 'control',
+              favorsStat: 'control',
               altText: '{home} 선수 벙커 선점! 마린이 투입됩니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 벙커가 아직 짓는 중! 마린으로 공격하지만 벙커 화력이 세요!',
+              text: '{away} 선수 벙커가 아직 짓는 중! 마린이 벙커 화력에 녹고 있어요!',
               owner: LogOwner.away,
-              awayArmy: -2, homeArmy: -1,
+              awayArmy: -2, // 마린 2기 사망
               altText: '{away}, 벙커 완성이 늦습니다! 마린이 녹고 있어요!',
             ),
             ScriptEvent(
-              text: '{home}, SCV 수리! 벙커가 안 무너집니다!',
+              text: '{home} 선수 SCV 수리! 벙커가 안 무너집니다!',
               owner: LogOwner.home,
-              awayArmy: -1, favorsStat: 'control',
+              awayArmy: -1,
+              favorsStat: 'control',
             ),
             ScriptEvent(
               text: '벙커 선점 차이! 먼저 완성한 쪽이 크게 유리합니다!',
@@ -128,21 +119,22 @@ const _tvtBbsMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 벙커 완성! 마린이 먼저 들어갑니다!',
+              text: '{away} 선수 벙커 완성! 마린이 먼저 들어갑니다!',
               owner: LogOwner.away,
-              awayArmy: 2, favorsStat: 'control',
+              favorsStat: 'control',
               altText: '{away} 선수 벙커 선점! 마린 투입!',
             ),
             ScriptEvent(
               text: '{home} 선수 벙커가 늦습니다! 마린이 상대 벙커에 녹고 있어요!',
               owner: LogOwner.home,
-              homeArmy: -2, awayArmy: -1,
+              homeArmy: -2,
               altText: '{home}, 벙커 완성이 늦어서 마린 피해가 큽니다!',
             ),
             ScriptEvent(
-              text: '{away}, SCV 수리까지! 벙커를 지켜냅니다!',
+              text: '{away} 선수 SCV 수리까지! 벙커를 지켜냅니다!',
               owner: LogOwner.away,
-              homeArmy: -1, favorsStat: 'control',
+              homeArmy: -1,
+              favorsStat: 'control',
             ),
             ScriptEvent(
               text: '벙커 선점! 한 발 빠른 완성이 승부를 결정합니다!',
@@ -161,89 +153,91 @@ const _tvtBbsMirror = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{home}, 추가 마린으로 상대 벙커를 공격합니다!',
+              text: '{home} 선수 추가 마린으로 상대 벙커를 공격합니다!',
               owner: LogOwner.home,
-              homeArmy: 1, awayArmy: -1, favorsStat: 'attack',
+              homeArmy: 1, homeResource: -50, // 마린 1기
+              awayArmy: -1,
+              awayResource: -50, // 어웨이도 마린 추가 생산 중
+              favorsStat: 'attack',
               altText: '{home} 선수 추가 마린 투입! 상대 벙커를 노립니다!',
             ),
             ScriptEvent(
               text: '{away} 선수도 추가 마린! SCV로 벙커를 수리합니다!',
               owner: LogOwner.away,
-              awayArmy: 1, homeArmy: -1, favorsStat: 'defense',
+              awayArmy: 1, awayResource: -50,
+              homeArmy: -1,
+              homeResource: -50, // 홈도 마린 추가 생산 중
+              favorsStat: 'defense',
               altText: '{away}, 마린과 SCV로 버팁니다!',
             ),
             ScriptEvent(
               text: '양쪽 벙커 교착! 후반전으로 넘어갑니다!',
               owner: LogOwner.system,
-              skipChance: 0.2,
+              skipChance: 0.3,
             ),
           ],
         ),
       ],
     ),
-    // Phase 3: 후반전 - 팩토리 전환 (lines 28-40)
+    // Phase 3: 후반전 - 팩토리 전환 (lines 28-40) - recovery 150/줄
     ScriptPhase(
       name: 'aftermath',
       startLine: 28,
       recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 5,
+      recoveryResourcePerLine: 150,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 가스를 넣고 팩토리 건설합니다!',
-          owner: LogOwner.home,
-          homeResource: -20,
-          altText: '{home}, 팩토리가 올라갑니다! 벌처로 전환!',
+          text: '{home} 선수 가스를 넣고 팩토리! {away} 선수도 팩토리!',
+          owner: LogOwner.system,
+          homeResource: -400, // 리파이너리(100) + 팩토리(300)
+          awayResource: -400,
+          fixedCost: true,
+          altText: '양쪽 팩토리가 올라갑니다! 벌처로 전환!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 팩토리 건설! 벌처 생산 준비!',
-          owner: LogOwner.away,
-          awayResource: -20,
-          altText: '{away}, 팩토리! 벌처로 판을 뒤집으려 합니다!',
+          text: '{home} 선수 벌처 생산! {away} 선수도 벌처! 센터에서 교전!',
+          owner: LogOwner.system,
+          homeArmy: 4, homeResource: -150, // 벌처 2기 (75x2)
+          awayArmy: 4, awayResource: -150,
+          fixedCost: true,
+          altText: '양쪽 벌처가 출격합니다! 기동전으로 전환!',
         ),
         ScriptEvent(
-          text: '{home}, 벌처 생산 시작! 센터에서 벌처 교전!',
-          owner: LogOwner.home,
-          homeArmy: 2, homeResource: -10, favorsStat: 'control',
-          altText: '{home} 선수 벌처 출격! 기동전으로 전환!',
-        ),
-        ScriptEvent(
-          text: '{away} 선수 벌처로 맞대응! 마인 매설도 시작합니다!',
-          owner: LogOwner.away,
-          awayArmy: 2, awayResource: -10, favorsStat: 'control',
-        ),
-        ScriptEvent(
-          text: '{home}, 탱크 생산! 시즈 모드 연구!',
-          owner: LogOwner.home,
-          homeArmy: 3, homeResource: -20,
-          altText: '{home} 선수 탱크가 나옵니다! 시즈 연구!',
-        ),
-        ScriptEvent(
-          text: '{away} 선수도 탱크 생산! 시즈 모드!',
-          owner: LogOwner.away,
-          awayArmy: 3, awayResource: -20,
+          text: '{home} 선수 머신샵에서 탱크 생산! 시즈 모드 연구! {away} 선수도 탱크!',
+          owner: LogOwner.system,
+          homeArmy: 2, homeResource: -550, // 시즈탱크(250) + 시즈모드(300)
+          awayArmy: 2, awayResource: -550,
+          fixedCost: true,
+          altText: '양쪽 팩토리에서 탱크가 나옵니다! 시즈 연구!',
         ),
         ScriptEvent(
           text: '양측 탱크가 충돌합니다! 최종 교전!',
           owner: LogOwner.system,
+          skipChance: 0.3,
         ),
         ScriptEvent(
-          text: '{home}, 시즈 포격! 상대 탱크를 직격!',
+          text: '{home} 선수 시즈 포격! 상대 탱크를 직격!',
           owner: LogOwner.home,
-          awayArmy: -5, homeArmy: -5, favorsStat: 'attack',
+          awayArmy: -4, homeArmy: -2,
+          awayResource: -200,
+          favorsStat: 'attack',
           altText: '{home} 선수 탱크 화력! 상대 병력이 무너집니다!',
         ),
         ScriptEvent(
-          text: '{away}, 벌처로 우회! 탱크 포격에 맞섭니다!',
+          text: '{away} 선수 벌처로 우회! 탱크 포격에 맞섭니다!',
           owner: LogOwner.away,
-          homeArmy: -5, awayArmy: -5, favorsStat: 'defense',
+          homeArmy: -4, awayArmy: -2,
+          homeResource: -200,
+          favorsStat: 'defense',
           altText: '{away} 선수 벌처 우회 공격! 반격!',
         ),
       ],
     ),
-    // Phase 4: 결전 판정 - 분기 (lines 41+)
+    // Phase 4: 결전 판정 - 분기 (lines 41+) - recovery 150/줄
     ScriptPhase(
       name: 'decisive_outcome',
       startLine: 41,
+      recoveryResourcePerLine: 150,
       branches: [
         ScriptBranch(
           id: 'home_wins_decisive',
@@ -273,4 +267,3 @@ const _tvtBbsMirror = ScenarioScript(
     ),
   ],
 );
-

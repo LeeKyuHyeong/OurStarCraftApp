@@ -68,7 +68,7 @@ part 'scenarios/tvz/enbe_push_vs_530_mutal.dart';
 part 'scenarios/tvz/enbe_push_vs_mutal_lurker.dart';
 part 'scenarios/tvz/enbe_push_vs_ultra_hive.dart';
 
-// TvT (28 scenarios - 7 mirrors + 21 cross matchups)
+// TvT (45 scenarios - 8 mirrors + 37 cross matchups)
 // 미러 (7)
 part 'scenarios/tvt/bbs_mirror.dart';
 part 'scenarios/tvt/1bar_double_mirror.dart';
@@ -112,6 +112,16 @@ part 'scenarios/tvt/2star_vs_nobar_double.dart';
 part 'scenarios/tvt/2fac_push_vs_nobar_double.dart';
 part 'scenarios/tvt/5fac_vs_nobar_double.dart';
 part 'scenarios/tvt/1fac_double_vs_nobar_double.dart';
+// FD러쉬 크로스 (9)
+part 'scenarios/tvt/fd_rush_mirror.dart';
+part 'scenarios/tvt/fd_rush_vs_bbs.dart';
+part 'scenarios/tvt/fd_rush_vs_1fac_1star.dart';
+part 'scenarios/tvt/fd_rush_vs_2fac_push.dart';
+part 'scenarios/tvt/fd_rush_vs_5fac.dart';
+part 'scenarios/tvt/fd_rush_vs_2star.dart';
+part 'scenarios/tvt/fd_rush_vs_1bar_double.dart';
+part 'scenarios/tvt/fd_rush_vs_1fac_double.dart';
+part 'scenarios/tvt/fd_rush_vs_nobar_double.dart';
 
 // PvT (63 scenarios - 9P × 7T, 모두 1:1)
 // 센터 게이트 (7)
@@ -375,6 +385,9 @@ class ScriptEvent {
   final double skipChance;
   final String? altText;
   final String? requiresMapTag; // 'rushShort', 'rushLong', 'airHigh', 'terrainHigh'
+  final bool fixedCost; // true면 favorsStat/winRate 모디파이어 미적용 (건물/유닛 생산용)
+  final bool homeExpansion; // true면 홈 확장 (앞마당/추가 확장) → 홈 recovery 증가
+  final bool awayExpansion; // true면 어웨이 확장 → 어웨이 recovery 증가
 
   const ScriptEvent({
     required this.text,
@@ -388,6 +401,9 @@ class ScriptEvent {
     this.skipChance = 0.0,
     this.altText,
     this.requiresMapTag,
+    this.fixedCost = false,
+    this.homeExpansion = false,
+    this.awayExpansion = false,
   });
 }
 
@@ -430,7 +446,7 @@ class ScriptPhase {
     this.linearEvents,
     this.branches,
     this.recoveryArmyPerLine = 0,
-    this.recoveryResourcePerLine = 5,
+    this.recoveryResourcePerLine = 100,
   });
 }
 
@@ -553,7 +569,7 @@ class ScenarioScriptData {
     // 선엔베 푸시 (7)
     _tvzEnbePushVs4pool, _tvzEnbePushVsMutalUltra, _tvzEnbePushVs2hatchMutal,
     _tvzEnbePushVsLurkerDefiler, _tvzEnbePushVs530Mutal, _tvzEnbePushVsMutalLurker, _tvzEnbePushVsUltraHive,
-    // TvT (scenarios/tvt/) - 36 scenarios
+    // TvT (scenarios/tvt/) - 45 scenarios
     // 미러 (8)
     _tvtBbsMirror,
     _tvt1barDoubleMirror,
@@ -597,6 +613,16 @@ class ScenarioScriptData {
     _tvt2facPushVsNobarDouble,
     _tvt5facVsNobarDouble,
     _tvt1facDoubleVsNobarDouble,
+    // FD러쉬 크로스 (9)
+    _tvtFdRushMirror,
+    _tvtFdRushVsBbs,
+    _tvtFdRushVs1fac1star,
+    _tvtFdRushVs2facPush,
+    _tvtFdRushVs5fac,
+    _tvtFdRushVs2star,
+    _tvtFdRushVs1barDouble,
+    _tvtFdRushVs1facDouble,
+    _tvtFdRushVsNobarDouble,
     // PvT (scenarios/pvt/) - 63 scenarios (9P × 7T)
     // 센터 게이트 (7)
     _pvtProxyGateVsBbs, _pvtProxyGateVsTankDefense, _pvtProxyGateVsTimingPush,

@@ -10,54 +10,64 @@ const _tvt1fac1starMirror = ScenarioScript(
   awayBuildIds: ['tvt_1fac_1star'],
   description: '원팩원스타 미러 벌처 탱크 드랍 대결',
   phases: [
-    // Phase 0: 오프닝 (lines 1-11)
+    // Phase 0: 오프닝 (lines 1-11) - recovery 100/줄
     ScriptPhase(
       name: 'opening',
       startLine: 1,
+      recoveryResourcePerLine: 100,
+      recoveryArmyPerLine: 0,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 배럭 건설합니다.',
           owner: LogOwner.home,
-          homeResource: -10,
+          homeResource: -150, // 배럭 150
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{away} 선수 배럭 건설합니다.',
           owner: LogOwner.away,
-          awayResource: -10,
+          awayResource: -150,
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{home} 선수 가스 채취! 팩토리 건설!',
           owner: LogOwner.home,
-          homeResource: -20,
+          homeResource: -400, // 리파이너리(100) + 팩토리(300)
+          fixedCost: true,
           altText: '{home}, 팩토리가 올라갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수도 가스 채취! 팩토리 건설!',
           owner: LogOwner.away,
-          awayResource: -20,
+          awayResource: -400,
+          fixedCost: true,
           altText: '{away}, 팩토리! 원팩원스타 미러가 예상됩니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 스타포트 건설! 원팩원스타!',
           owner: LogOwner.home,
-          homeResource: -25,
+          homeResource: -250, // 스타포트 250
+          fixedCost: true,
           altText: '{home}, 스타포트가 올라갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수도 스타포트 건설! 원팩원스타 미러 확정!',
           owner: LogOwner.away,
-          awayResource: -25,
+          awayResource: -250,
+          fixedCost: true,
           altText: '{away}, 스타포트! 양쪽 원팩원스타 미러입니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 벌처 생산 시작!',
           owner: LogOwner.home,
-          homeArmy: 2, homeResource: -10,
+          homeArmy: 2, homeResource: -75, // 벌처 75/2sup
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{away} 선수도 벌처 생산!',
           owner: LogOwner.away,
-          awayArmy: 2, awayResource: -10,
+          awayArmy: 2, awayResource: -75,
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '원팩원스타 미러! 벌처 교전부터 시작됩니다!',
@@ -66,46 +76,50 @@ const _tvt1fac1starMirror = ScenarioScript(
         ),
       ],
     ),
-    // Phase 1: 벌처 교전 (lines 12-21)
+    // Phase 1: 벌처 교전 (lines 12-21) - recovery 150/줄 (early-mid)
     ScriptPhase(
       name: 'vulture_skirmish',
       startLine: 12,
       recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 5,
+      recoveryResourcePerLine: 150,
       linearEvents: [
         ScriptEvent(
           text: '{home}, 벌처로 센터를 장악합니다! 마인 매설!',
           owner: LogOwner.home,
-          favorsStat: 'control', homeResource: -5,
+          favorsStat: 'control',
           altText: '{home} 선수 벌처 기동! 마인을 깝니다!',
         ),
         ScriptEvent(
           text: '{away} 선수도 벌처로 맞대응! 마인 매설 경쟁!',
           owner: LogOwner.away,
-          favorsStat: 'control', awayResource: -5,
+          favorsStat: 'control',
           altText: '{away}, 마인 매설! 양쪽 마인밭입니다!',
         ),
         ScriptEvent(
           text: '{home}, 벌처 교전! 컨트롤 대결!',
           owner: LogOwner.home,
-          awayArmy: -1, favorsStat: 'control',
+          awayArmy: -2, // 벌처 1기 격파 (2sup)
+          favorsStat: 'control',
           altText: '{home} 선수 벌처 컨트롤! 상대 벌처를 잡습니다!',
         ),
         ScriptEvent(
           text: '{away} 선수도 벌처로 반격! 마인에 걸립니다!',
           owner: LogOwner.away,
-          homeArmy: -1, favorsStat: 'control',
+          homeArmy: -2,
+          favorsStat: 'control',
           altText: '{away}, 상대 벌처도 마인에 걸립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 탱크 생산! 시즈 모드 연구 시작!',
           owner: LogOwner.home,
-          homeArmy: 2, homeResource: -15,
+          homeArmy: 2, homeResource: -550, // 시즈탱크(250) + 시즈모드 연구(300)
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{away} 선수도 탱크 생산! 시즈 연구!',
           owner: LogOwner.away,
-          awayArmy: 2, awayResource: -15,
+          awayArmy: 2, awayResource: -550,
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '벌처전이 끝나고 탱크 대치로 전환됩니다!',
@@ -114,10 +128,12 @@ const _tvt1fac1starMirror = ScenarioScript(
         ),
       ],
     ),
-    // Phase 2: 탱크 대치 - 분기 (lines 22-37)
+    // Phase 2: 탱크 대치 - 분기 (lines 22-37) - recovery 150/줄
     ScriptPhase(
       name: 'tank_standoff',
       startLine: 22,
+      recoveryArmyPerLine: 1,
+      recoveryResourcePerLine: 150,
       branches: [
         // 분기 A: 홈 탱크 우위
         ScriptBranch(
@@ -127,7 +143,8 @@ const _tvt1fac1starMirror = ScenarioScript(
             ScriptEvent(
               text: '{home}, 벌처 시야로 상대 탱크 위치를 포착! 선제 포격!',
               owner: LogOwner.home,
-              awayArmy: -3, favorsStat: 'scout+attack',
+              awayArmy: -4, // 탱크+벌처 피해 (4sup)
+              favorsStat: 'scout+attack',
               altText: '{home} 선수 시야 싸움에서 앞섭니다! 탱크 직격!',
             ),
             ScriptEvent(
@@ -138,7 +155,9 @@ const _tvt1fac1starMirror = ScenarioScript(
             ScriptEvent(
               text: '{home}, 탱크 차이를 살려 라인을 밀어갑니다!',
               owner: LogOwner.home,
-              homeArmy: 2, favorsStat: 'attack',
+              homeArmy: 2, homeResource: -250, // 탱크 추가 (250/2sup)
+              fixedCost: true,
+              favorsStat: 'attack',
               altText: '{home} 선수 탱크 라인 전진! 상대를 밀어붙입니다!',
             ),
             ScriptEvent(
@@ -156,7 +175,8 @@ const _tvt1fac1starMirror = ScenarioScript(
             ScriptEvent(
               text: '{away}, 벌처 시야 확보! 상대 탱크를 먼저 포착합니다!',
               owner: LogOwner.away,
-              homeArmy: -3, favorsStat: 'scout+attack',
+              homeArmy: -4,
+              favorsStat: 'scout+attack',
               altText: '{away} 선수 시야 싸움 승리! 상대 탱크를 직격!',
             ),
             ScriptEvent(
@@ -167,7 +187,9 @@ const _tvt1fac1starMirror = ScenarioScript(
             ScriptEvent(
               text: '{away}, 탱크 차이로 라인을 밀어갑니다!',
               owner: LogOwner.away,
-              awayArmy: 2, favorsStat: 'attack',
+              awayArmy: 2, awayResource: -250,
+              fixedCost: true,
+              favorsStat: 'attack',
               altText: '{away} 선수 탱크 라인 전진! 밀어붙입니다!',
             ),
             ScriptEvent(
@@ -179,35 +201,39 @@ const _tvt1fac1starMirror = ScenarioScript(
         ),
       ],
     ),
-    // Phase 3: 드랍전 (lines 38-54)
+    // Phase 3: 드랍전 (lines 38-54) - recovery 200/줄 (mid-game)
     ScriptPhase(
       name: 'drop_war',
       startLine: 38,
-      recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 6,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 200,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 드랍십 생산! 상대 후방을 노립니다!',
           owner: LogOwner.home,
-          homeArmy: 2, homeResource: -15,
+          homeArmy: 2, homeResource: -200, // 드랍십 200/2sup
+          fixedCost: true,
           altText: '{home}, 드랍십 출격! 멀티 견제!',
         ),
         ScriptEvent(
           text: '{away} 선수도 드랍십! 양쪽 드랍 견제전!',
           owner: LogOwner.away,
-          awayArmy: 2, awayResource: -15,
+          awayArmy: 2, awayResource: -200,
+          fixedCost: true,
           altText: '{away}, 드랍십 출격! 양쪽 드랍전입니다!',
         ),
         ScriptEvent(
           text: '{home}, 탱크를 실어서 상대 확장기지에 내립니다!',
           owner: LogOwner.home,
-          awayResource: -15, favorsStat: 'strategy',
+          awayResource: -200, // SCV 피해
+          favorsStat: 'strategy',
           altText: '{home} 선수 탱크 드랍! 상대 SCV가 위험합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수도 탱크 드랍! 상대 본진을 공격!',
           owner: LogOwner.away,
-          homeResource: -15, favorsStat: 'strategy',
+          homeResource: -200,
+          favorsStat: 'strategy',
           altText: '{away}, 탱크 드랍! 양쪽 후방이 불탑니다!',
         ),
         ScriptEvent(
@@ -218,56 +244,66 @@ const _tvt1fac1starMirror = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 아머리 건설! 골리앗 생산 준비!',
           owner: LogOwner.home,
-          homeResource: -20,
+          homeResource: -150, // 아머리 150
+          fixedCost: true,
           altText: '{home}, 아머리! 골리앗으로 대공 화력!',
           skipChance: 0.3,
         ),
         ScriptEvent(
           text: '{away} 선수도 아머리 건설! 골리앗 생산!',
           owner: LogOwner.away,
-          awayResource: -20,
+          awayResource: -150,
+          fixedCost: true,
           skipChance: 0.3,
         ),
       ],
     ),
-    // Phase 4: 결전 (lines 55-65)
+    // Phase 4: 결전 (lines 55-65) - recovery 200/줄
     ScriptPhase(
       name: 'decisive_battle',
       startLine: 55,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 200,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 탱크 골리앗 총동원! 최종 교전!',
           owner: LogOwner.home,
-          homeArmy: 5, homeResource: -25,
+          homeArmy: 4, homeResource: -400, // 탱크(250/2sup) + 골리앗(150/2sup)
+          fixedCost: true,
           altText: '{home}, 전 병력 결집! 결전입니다!',
         ),
         ScriptEvent(
           text: '{away} 선수도 탱크 골리앗 전 병력! 정면 충돌!',
           owner: LogOwner.away,
-          awayArmy: 5, awayResource: -25,
+          awayArmy: 4, awayResource: -400,
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '양측 탱크 골리앗이 정면으로 부딪칩니다!',
           owner: LogOwner.system,
         ),
         ScriptEvent(
-          text: '{home}, 시즈 포격! 상대 탱크 라인을 직격합니다!',
+          text: '{home}, 시즈 포격! 상대 탱크가 터집니다!',
           owner: LogOwner.home,
-          awayArmy: -5, homeArmy: -5, favorsStat: 'control',
+          awayArmy: -6, homeArmy: -4,
+          favorsStat: 'control',
           altText: '{home} 선수 탱크 화력! 상대 병력이 무너집니다!',
         ),
         ScriptEvent(
           text: '{away}, 골리앗 화력으로 반격합니다!',
           owner: LogOwner.away,
-          homeArmy: -5, awayArmy: -5, favorsStat: 'control',
+          homeArmy: -6, awayArmy: -4,
+          favorsStat: 'control',
           altText: '{away} 선수 골리앗 집중 화력! 맞섭니다!',
         ),
       ],
     ),
-    // Phase 5: 결전 판정 - 분기 (lines 66+)
+    // Phase 5: 결전 판정 - 분기 (lines 66+) - recovery 200/줄
     ScriptPhase(
       name: 'decisive_outcome',
       startLine: 66,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 200,
       branches: [
         ScriptBranch(
           id: 'home_wins_decisive',
@@ -297,4 +333,3 @@ const _tvt1fac1starMirror = ScenarioScript(
     ),
   ],
 );
-
