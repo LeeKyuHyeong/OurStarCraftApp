@@ -1,36 +1,36 @@
 # Daily Dev Mission — OurStarCraftApp
 
-> 생성일: 2026-04-01 | 프로젝트: OurStarCraftApp
+> 생성일: 2026-04-02 | 프로젝트: OurStarCraftApp
 
 ---
 
-## 미션: SaveRepository에서 비즈니스 로직 분리 + 도메인 예외 계층 설계
+## 미션: GameStateNotifier 상태 변이를 Unit of Work 패턴으로 트랜잭션 관리
 
-- **영역**: 클린 아키텍처 / 계층 분리 / 예외 처리 전략
+- **영역**: 트랜잭션 관리 / 데이터 일관성 / Unit of Work 패턴
 - **난이도**: 중급
 
 ### 문제점
-`SaveRepository`(647줄)가 순수 영속성 계층임에도 `createNewGame()`, `_createFirstSeason()`, `_createProleagueSchedule()` 같은 도메인 로직을 직접 포함하고 있어 계층 간 책임이 혼재되어 있다. 또한 서비스 계층(`PlayoffService`, `IndividualLeagueService`)이 `ArgumentError` 같은 원시 예외를 던지고 있어 호출자 측에서 도메인 오류와 시스템 오류를 구분할 수 없다. Repository 인터페이스 없이 Hive에 직접 의존하고 있어 저장소 교체나 단위 테스트가 불가능하다.
+`GameStateNotifier`의 게임 상태 변경 메서드들(`updatePlayer`, `save`, `startNewGame` 등)은 여러 엔티티를 순차적으로 수정하면서 중간에 실패하면 일부만 반영되는 부분 업데이트 문제가 발생할 수 있다. 예를 들어 시즌 진행 중 선수 능력치 변경 + 팀 자원 차감 + 인벤토리 업데이트가 하나의 논리적 트랜잭션이지만, Hive 저장 시점이 분산되어 데이터 정합성을 보장하지 못한다. `SaveRepository`와 `GameStateNotifier` 사이에 변경 추적 및 일괄 커밋/롤백 메커니즘이 없어 장애 복원력이 취약하다.
 
 ### 왜 면접 강점이 되는가
-와디즈·빗썸 같은 핀테크 스타트업은 결제·정산 도메인에서 계층 분리와 명확한 예외 전략이 필수다. "Repository에서 도메인 로직을 왜 분리했는지", "커스텀 예외 계층을 어떻게 설계했는지"를 구체적 코드와 함께 설명하면 아키텍처 이해도를 효과적으로 어필할 수 있다.
+와디즈(투자), 빗썸(거래) 같은 금융 도메인 스타트업에서 "복수 엔티티의 원자적 상태 변경"은 핵심 과제이며, Unit of Work 패턴으로 트랜잭션 경계를 설계한 경험은 Spring의 `@Transactional` 이면의 원리를 이해하고 있음을 증명한다.
 
 ### 구현 가이드
-1. **IGameRepository 인터페이스 추출** — `save_repository.dart`에서 `loadGame()`, `saveGame()`, `deleteSlot()` 등 순수 CRUD 시그니처만 추상 클래스 `IGameRepository`로 분리하고, `SaveRepository`가 이를 구현하도록 변경. Riverpod Provider에서도 인터페이스 타입으로 주입.
-2. **GameInitializationService 도메인 서비스 생성** — `SaveRepository.createNewGame()` 내부의 `_createFirstSeason()`, `_createProleagueSchedule()`, 선수/팀 초기화 로직을 `lib/domain/services/game_initialization_service.dart`로 이동. Repository는 생성된 `SaveData`를 받아 저장만 수행.
-3. **도메인 예외 계층 설계** — `lib/domain/models/exceptions.dart`에 `DomainException(abstract)` → `InvalidRosterException`, `InsufficientFundsException`, `SeasonPhaseException` 등 커스텀 예외 클래스를 정의. `PlayoffService`의 `ArgumentError`를 `SeasonPhaseException`으로 교체.
-4. **Provider 계층 예외 매핑** — `GameStateNotifier`에서 도메인 예외를 catch하여 `GameState.error` 필드에 사용자 친화적 메시지로 변환하는 에러 핸들링 레이어 추가. 시스템 예외(`HiveError` 등)와 도메인 예외의 처리 경로를 분리.
+1. **UnitOfWork 클래스 설계** — `Map<String, EntityChange>` 형태로 변경된 엔티티(Player, Team, Season, Inventory)를 추적하는 `UnitOfWork` 클래스를 만든다. `registerDirty()`, `registerNew()`, `registerDeleted()` 메서드로 변경 사항을 등록하고, 실제 저장은 하지 않는다.
+2. **commit/rollback 메커니즘 구현** — `commit()` 호출 시 `SaveRepository`를 통해 모든 변경을 일괄 저장하고, 중간 실패 시 `rollback()`으로 변경 전 스냅샷(`GameState` 복사본)을 복원한다. Java 백엔드 관점에서 Spring `TransactionSynchronizationManager`와 동일한 역할임을 문서화한다.
+3. **GameStateNotifier 리팩토링** — 기존 `updatePlayer()`, 시즌 진행 등 복합 로직에서 직접 `state = state.copyWith(...)` 후 `save()`하는 패턴을 `unitOfWork.registerDirty(player)` → 로직 완료 후 `unitOfWork.commit()`으로 전환한다.
+4. **낙관적 잠금(Optimistic Lock) 추가** — `SaveData`에 `version` 필드를 추가하고, `commit()` 시 버전 불일치 감지 로직을 넣어 동시 저장 충돌을 방지한다. JPA의 `@Version` 어노테이션과 동일한 개념임을 포트폴리오에 명시한다.
 
 ### 면접 질문 3선
 
-**Q1.** Repository 계층에 비즈니스 로직이 섞이면 어떤 문제가 발생하고, 이를 어떻게 해결하셨나요?
-> 핵심 키워드: 단일 책임 원칙(SRP), 의존성 역전 원칙(DIP)
+**Q1.** Unit of Work 패턴과 Repository 패턴의 관계를 설명하고, Spring에서 `@Transactional`이 내부적으로 어떻게 Unit of Work 역할을 하는지 설명해주세요.
+> 핵심 키워드: 변경 추적(Dirty Checking), 영속성 컨텍스트(Persistence Context)
 
-**Q2.** 커스텀 예외 계층을 설계할 때 checked vs unchecked 전략을 어떻게 결정하셨나요?
-> 핵심 키워드: 복구 가능성(recoverable), 계층별 예외 변환(exception translation)
+**Q2.** 트랜잭션 중간에 외부 API 호출이 포함된 경우, 롤백 범위를 어떻게 설계하시겠습니까?
+> 핵심 키워드: 보상 트랜잭션(Compensating Transaction), Saga 패턴
 
-**Q3.** 저장소 구현체를 Hive에서 Room이나 Remote API로 교체해야 한다면 어떤 설계가 필요한가요?
-> 핵심 키워드: 인터페이스 분리, 어댑터 패턴(Adapter Pattern)
+**Q3.** 낙관적 잠금과 비관적 잠금의 차이를 설명하고, 각각 어떤 상황에서 선택하는지 실제 사례와 함께 말씀해주세요.
+> 핵심 키워드: `@Version` vs `SELECT FOR UPDATE`, 충돌 빈도 기반 선택
 
 ---
 
@@ -53,23 +53,17 @@
 
 ## 이전 미션 기록
 
-### 경기 시뮬레이션 이벤트 시스템에 Observer 패턴 + Event-Driven Architecture 적용
-- **영역**: 이벤트 기반 아키텍처 / 디커플링 설계 | **난이도**: 중급
-
-### 이벤트 기반 경기 로그 시스템에 CQRS 패턴 적용
-- **영역**: 이벤트 소싱 / CQRS 아키텍처 설계 | **난이도**: 고급
-
-### Match Simulation의 Stream 기반 로그를 Event Sourcing 패턴으로 재설계
-- **영역**: Event-Driven Architecture / 도메인 이벤트 설계 | **난이도**: 고급
-
-### Match Simulation Service에 전략 패턴(Strategy Pattern) 적용
-- **영역**: 디자인 패턴 / 서비스 계층 리팩토링 | **난이도**: 중급
-
-### Spring Boot 매치 기록 API 서버 구축
-- **영역**: 백엔드 API 설계 + 도메인 모델링 | **난이도**: 중급
-
-### Spring Boot 게임 데이터 API 서버 신규 구축
-- **영역**: Backend API 설계 / 프로젝트 아키텍처 확장 | **난이도**: 중급
+- MatchSimulationService 동시성 제어 + 캐싱 전략 설계 (동시성 / 캐싱 아키텍처)
+- GameState 동시성 제어 + 낙관적 락킹 전략 설계 (동시성 / 낙관적 락킹)
+- BuildOrderData 캐싱 계층 설계 + Cache Aside 패턴 적용 (캐싱 전략 / 성능 최적화)
+- MatchSimulationService 동시성 제어 + 비동기 파이프라인 설계 (동시성 / 비동기 처리)
+- SaveRepository에서 비즈니스 로직 분리 + 도메인 예외 계층 설계 (클린 아키텍처 / 계층 분리)
+- 경기 시뮬레이션 이벤트 시스템에 Observer 패턴 + Event-Driven Architecture 적용
+- 이벤트 기반 경기 로그 시스템에 CQRS 패턴 적용
+- Match Simulation의 Stream 기반 로그를 Event Sourcing 패턴으로 재설계
+- Match Simulation Service에 전략 패턴(Strategy Pattern) 적용
+- Spring Boot 매치 기록 API 서버 구축
+- Spring Boot 게임 데이터 API 서버 신규 구축
 
 ---
 

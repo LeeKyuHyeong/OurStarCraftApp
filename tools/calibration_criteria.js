@@ -52,6 +52,10 @@ const PLUS_CONNECTOR_REGEX = /[\uAC00-\uD7A3]\+[\uAC00-\uD7A3A-Za-z]/;
 // '~전의 핵심!' 패턴 금지 (정보 전달 톤 → 해설 톤으로)
 const CORE_INFO_REGEX = /[가-힣]+전의 핵심/;
 
+// '쓰러지다' 계열 금지 (스타크래프트 용어 아님)
+// → '견제', '솎아내기', '잡아냅니다', '처리합니다' 등 사용
+const FALL_DOWN_REGEX = /쓰러지|쓰러집|쓰러진/;
+
 // 건물명 매핑: 잘못된 표기 → 올바른 표기
 const BUILDING_NAME_CORRECTIONS = {
   // 테란
@@ -310,6 +314,15 @@ function checkForbiddenWords(text, lineNum) {
       text: text.substring(0, 80),
     });
   }
+  if (FALL_DOWN_REGEX.test(text)) {
+    violations.push({
+      rule: 'A1_FORBIDDEN_WORD',
+      line: lineNum,
+      severity: 'error',
+      message: `'쓰러지다' 표현 금지 (→ '견제', '솎아내기', '잡아냅니다' 등 사용)`,
+      text: text.substring(0, 80),
+    });
+  }
   return violations;
 }
 
@@ -469,6 +482,19 @@ function checkSystemCommentaryRatio(logs) {
  * B-11. 테크트리 순서 검증
  * 유닛이 생산 가능 건물 없이 등장하는지 체크
  */
+// 저그 생산 건물 (유닛이 실제로 나오는 곳: 라바 → 해처리/레어/하이브)
+const ZERG_PRODUCTION_BUILDINGS = new Set(['해처리', '레어', '하이브', '라바']);
+
+// 저그 테크 건물 (유닛 생산이 아닌 선행조건 건물)
+const ZERG_TECH_ONLY_BUILDINGS = new Set([
+  '스포닝풀', '히드라덴', '스파이어', '퀸즈네스트',
+  '디파일러 마운드', '울트라리스크 캐번', '그레이터 스파이어',
+  '에볼루션 챔버', '챔버',
+]);
+
+// 건물 건설/착공 키워드
+const CONSTRUCTION_KEYWORDS = ['건설', '추가', '올리', '올립', '시작', '준비', '짓', '착공', '진화'];
+
 // 상위 건물이 등장하면 하위 건물도 존재한다고 추론 (해설에서 중간 건물 생략하는 경우 대비)
 const IMPLIED_BUILDINGS = {
   // 저그: 하이브가 있으면 하위 테크 건물은 당연히 존재
@@ -745,7 +771,154 @@ function checkRaceUnitMismatch(logs, matchup, isReversed) {
   return violations;
 }
 
-// B-22. 시스템 해설 위치 분산 — 제거됨
+/**
+ * B-22. 한 줄에 건물 3개 이상 건설/착공 체크
+ * 시간상 한번에 3개 이상의 건물을 동시에 건설할 수 없음
+ */
+function checkMultiBuildingLine(logs, matchup, isReversed) {
+  const violations = [];
+  const races = MATCHUP_RACES[matchup];
+  if (!races) return violations;
+
+  const [homeRace, awayRace] = isReversed ? [races[1], races[0]] : [races[0], races[1]];
+
+  for (let i = 0; i < logs.length; i++) {
+    const log = logs[i];
+    if (log.owner !== 'home' && log.owner !== 'away') continue;
+
+    const text = log.text || '';
+    const race = log.owner === 'home' ? homeRace : awayRace;
+    const tree = TECH_TREE[race];
+    if (!tree) continue;
+
+    // 텍스트에 등장하는 고유 건물 수집
+    const mentioned = [];
+    for (const bName of Object.keys(tree.buildings)) {
+      if (text.includes(bName)) mentioned.push(bName);
+    }
+
+    // 3개 이상 + 건설 키워드가 있을 때만 위반
+    if (mentioned.length >= 3) {
+      const hasConstruction = CONSTRUCTION_KEYWORDS.some(kw => text.includes(kw));
+      if (hasConstruction) {
+        violations.push({
+          rule: 'B22_MULTI_BUILDING_LINE',
+          line: i + 1,
+          severity: 'error',
+          message: `한 줄에 건물 ${mentioned.length}개 건설 언급 (${mentioned.join(', ')}) — 분리 필요`,
+          text: text.substring(0, 80),
+        });
+      }
+    }
+  }
+  return violations;
+}
+
+/**
+ * B-23. 저그 유닛이 테크 건물에서 생산된다는 서술 체크
+ * 모든 저그 유닛은 라바(해처리/레어/하이브)에서 나옴.
+ * 스포닝풀, 히드라덴, 스파이어 등은 선행조건 건물일 뿐, 유닛 생산 장소가 아님.
+ */
+function checkZergUnitSource(logs, matchup, isReversed) {
+  const violations = [];
+  const races = MATCHUP_RACES[matchup];
+  if (!races) return violations;
+
+  const [homeRace, awayRace] = isReversed ? [races[1], races[0]] : [races[0], races[1]];
+  if (homeRace !== 'zerg' && awayRace !== 'zerg') return violations;
+
+  const zergUnits = Object.keys(TECH_TREE.zerg.units);
+
+  for (let i = 0; i < logs.length; i++) {
+    const log = logs[i];
+    if (log.owner !== 'home' && log.owner !== 'away') continue;
+
+    const race = log.owner === 'home' ? homeRace : awayRace;
+    if (race !== 'zerg') continue;
+
+    const text = log.text || '';
+
+    // 패턴: "{테크건물}에서 {유닛}" — 테크건물에서 유닛이 나온다는 잘못된 서술
+    for (const techB of ZERG_TECH_ONLY_BUILDINGS) {
+      const pattern = techB + '에서';
+      const idx = text.indexOf(pattern);
+      if (idx === -1) continue;
+
+      const afterText = text.substring(idx + pattern.length);
+      for (const unit of zergUnits) {
+        if (afterText.includes(unit)) {
+          violations.push({
+            rule: 'B23_ZERG_UNIT_SOURCE',
+            line: i + 1,
+            severity: 'error',
+            message: `저그 유닛 '${unit}'은 '${techB}'에서 나오지 않음 — 라바/해처리에서 생산`,
+            text: text.substring(0, 80),
+          });
+          break;
+        }
+      }
+    }
+  }
+  return violations;
+}
+
+/**
+ * B-24. 선행건물 완성 전 후속건물 동시 착공 체크
+ * 예: "레어 진화 시작합니다. 스파이어도 준비합니다" — 스파이어는 레어 완성 후에만 착공 가능
+ */
+function checkPrereqSimultaneous(logs, matchup, isReversed) {
+  const violations = [];
+  const races = MATCHUP_RACES[matchup];
+  if (!races) return violations;
+
+  const [homeRace, awayRace] = isReversed ? [races[1], races[0]] : [races[0], races[1]];
+  const START_VERBS = ['시작', '진화'];
+  const COMPLETE_VERBS = ['완성', '완료'];
+
+  for (let i = 0; i < logs.length; i++) {
+    const log = logs[i];
+    if (log.owner !== 'home' && log.owner !== 'away') continue;
+
+    const text = log.text || '';
+    const race = log.owner === 'home' ? homeRace : awayRace;
+    const tree = TECH_TREE[race];
+    if (!tree) continue;
+
+    // 텍스트에 등장하는 건물 목록
+    const mentioned = [];
+    for (const bName of Object.keys(tree.buildings)) {
+      if (text.includes(bName)) mentioned.push(bName);
+    }
+    if (mentioned.length < 2) continue;
+
+    // 각 쌍에 대해 선행건물이 "시작/진화" 중이면서 후속건물도 언급된 경우
+    for (const dep of mentioned) {
+      const prereqs = tree.buildings[dep] || [];
+      for (const prereq of prereqs) {
+        if (!mentioned.includes(prereq)) continue;
+
+        // 선행건물 주변에 "시작/진화" 동사가 있는지 확인
+        const prereqIdx = text.indexOf(prereq);
+        const surroundEnd = Math.min(text.length, prereqIdx + prereq.length + 15);
+        const surrounding = text.substring(prereqIdx, surroundEnd);
+
+        const isStarting = START_VERBS.some(v => surrounding.includes(v));
+        const isComplete = COMPLETE_VERBS.some(v => surrounding.includes(v));
+
+        if (isStarting && !isComplete) {
+          violations.push({
+            rule: 'B24_PREREQ_SIMULTANEOUS',
+            line: i + 1,
+            severity: 'error',
+            message: `'${dep}'은 '${prereq}' 완성 후에만 착공 가능 — 동시 시작 불가`,
+            text: text.substring(0, 80),
+          });
+        }
+      }
+    }
+  }
+  return violations;
+}
 
 // ============================================================
 // D. 다경기 통계 검증 (C레벨)
@@ -783,7 +956,7 @@ function checkWinRate(games, matchup) {
  * 예: 정방향 홈(T) 56%, 역방향 홈(Z) 50% → 평균 53% → 위치 편향 3%p ✗
  *     (홈 위치 자체가 유리)
  */
-function checkHomeAwaySymmetry(games) {
+function checkHomeAwaySymmetry(games, matchup) {
   const normal = games.filter(g => !g.isReversed);
   const reversed = games.filter(g => g.isReversed);
 
@@ -792,17 +965,40 @@ function checkHomeAwaySymmetry(games) {
   const normalWinRate = normal.filter(g => g.homeWin).length / normal.length;
   const reversedWinRate = reversed.filter(g => g.homeWin).length / reversed.length;
 
-  // 위치 편향 = 평균 홈 승률이 50%에서 벗어난 정도
-  const avgHomeWinRate = (normalWinRate + reversedWinRate) / 2;
-  const positionBias = Math.abs(avgHomeWinRate - 0.5);
+  // 미러 매치업 (TvT, PvP, ZvZ): 기존 방식 (homeWin 비율 직접 비교)
+  // 비미러 매치업: 위치 편향만 측정 (같은 종족의 승률이 위치에 따라 달라지는지)
+  //   Race1 승률(정방향) = normalWinRate
+  //   Race1 승률(역방향) = 1 - reversedWinRate
+  //   위치 편향 = |Race1 정방향 - Race1 역방향|
+  const isMirror = matchup && matchup[0] === matchup[2]; // TvT, PvP, ZvZ
+  const diff = isMirror
+    ? Math.abs(normalWinRate - reversedWinRate)
+    : Math.abs(normalWinRate - (1 - reversedWinRate));
 
-  if (positionBias > 0.05) {
-    return [{
+  if (diff > 0.05) {
+    const violations = [{
       rule: 'C14_HOME_AWAY_SYMMETRY',
       severity: 'error',
-      message: `홈 위치 편향 ${(positionBias * 100).toFixed(1)}%p (허용: ±5%p) [정방향 홈: ${(normalWinRate * 100).toFixed(1)}%, 역방향 홈: ${(reversedWinRate * 100).toFixed(1)}%, 평균: ${(avgHomeWinRate * 100).toFixed(1)}%]`,
+      message: isMirror
+        ? `홈/어웨이 반전 승률 차이 ${(diff * 100).toFixed(1)}%p (허용: ±5%p) [정방향: ${(normalWinRate * 100).toFixed(1)}%, 역방향: ${(reversedWinRate * 100).toFixed(1)}%]`
+        : `위치 편향 ${(diff * 100).toFixed(1)}%p (허용: ±5%p) [Race1 정방향: ${(normalWinRate * 100).toFixed(1)}%, Race1 역방향: ${((1 - reversedWinRate) * 100).toFixed(1)}%]`,
+
     }];
+    return violations;
   }
+
+  // 비미러: 종족 밸런스 경고 (위치 편향은 OK이지만 종족간 승률 편차가 클 때)
+  if (!isMirror) {
+    const raceDiff = Math.abs(normalWinRate - reversedWinRate);
+    if (raceDiff > 0.10) {
+      return [{
+        rule: 'C14_RACE_BALANCE',
+        severity: 'warning',
+        message: `종족 밸런스 편차 ${(raceDiff * 100).toFixed(1)}%p [정방향 homeWin: ${(normalWinRate * 100).toFixed(1)}%, 역방향 homeWin: ${(reversedWinRate * 100).toFixed(1)}%]`,
+      }];
+    }
+  }
+
   return [];
 }
 
@@ -910,6 +1106,15 @@ function validateSingleGame(game, matchup, gameIndex) {
   // B-21: 종족 간 유닛 혼입 방지 (isReversed 반영)
   violations.push(...checkRaceUnitMismatch(logs, matchup, isReversed));
 
+  // B-22: 한 줄에 건물 3개 이상 건설 금지
+  violations.push(...checkMultiBuildingLine(logs, matchup, isReversed));
+
+  // B-23: 저그 유닛이 테크 건물에서 생산된다는 서술 금지
+  violations.push(...checkZergUnitSource(logs, matchup, isReversed));
+
+  // B-24: 선행건물 완성 전 후속건물 동시 착공 금지
+  violations.push(...checkPrereqSimultaneous(logs, matchup, isReversed));
+
   // 줄 단위 검증
   for (let i = 0; i < logs.length; i++) {
     const log = logs[i];
@@ -945,7 +1150,7 @@ function validateMultiGame(data) {
   // 다경기 통계 검증 (최소 50경기)
   if (games.length >= 50) {
     allViolations.push(...checkWinRate(games, matchup));
-    allViolations.push(...checkHomeAwaySymmetry(games));
+    allViolations.push(...checkHomeAwaySymmetry(games, matchup));
     allViolations.push(...checkTextDiversity(games));
     if (data.branchStats) {
       allViolations.push(...checkBranchActivation(data.branchStats));
@@ -1084,6 +1289,9 @@ module.exports = {
   checkDeadPlayerAction,
   checkUnitTiming,
   checkRaceUnitMismatch,
+  checkMultiBuildingLine,
+  checkZergUnitSource,
+  checkPrereqSimultaneous,
   checkDecisiveRate,
   isDecisiveEnding,
   TECH_TREE,
@@ -1091,4 +1299,7 @@ module.exports = {
   DECISIVE_KEYWORDS,
   FORBIDDEN_WORDS,
   BUILDING_NAME_CORRECTIONS,
+  ZERG_PRODUCTION_BUILDINGS,
+  ZERG_TECH_ONLY_BUILDINGS,
+  CONSTRUCTION_KEYWORDS,
 };
