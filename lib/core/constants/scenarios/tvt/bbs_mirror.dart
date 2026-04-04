@@ -18,28 +18,28 @@ const _tvtBbsMirror = ScenarioScript(
       recoveryResourcePerLine: 100,
       linearEvents: [
         ScriptEvent(
-          text: '양쪽 SCV가 센터로 향합니다! BBS 미러입니다!',
+          text: '양쪽 SCV가 센터로 향합니다. BBS 미러입니다.',
           owner: LogOwner.system,
-          altText: '양 선수 SCV를 센터로! 센터 배럭을 노립니다!',
+          altText: '양 선수 SCV를 센터로 보냅니다. 센터 배럭을 노립니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 센터에 배럭 건설! {away} 선수도 센터 배럭!',
+          text: '{home} 선수 센터에 배럭 건설. {away} 선수도 센터 배럭을 올립니다.',
           owner: LogOwner.system,
           homeResource: -150, // 센터 배럭
           awayResource: -150, // 센터 배럭
           fixedCost: true,
-          altText: '양쪽 센터에 배럭이 올라갑니다!',
+          altText: '양쪽 센터에 배럭이 올라갑니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 본진에도 배럭! {away} 선수도 본진 배럭!',
+          text: '{home} 선수 본진에도 배럭을 올립니다. {away} 선수도 본진 배럭.',
           owner: LogOwner.system,
           homeResource: -150, // 본진 배럭
           awayResource: -150, // 본진 배럭
           fixedCost: true,
-          altText: '양쪽 본진에도 배럭이 올라갑니다! BBS 미러!',
+          altText: '양쪽 본진에도 배럭이 올라갑니다. BBS 미러.',
         ),
         ScriptEvent(
-          text: '{home} 선수 배럭에서 마린 3기 생산! {away} 선수 배럭에서도 마린 3기!',
+          text: '{home} 선수 배럭에서 마린 3기 생산. {away} 선수 배럭에서도 마린 3기.',
           owner: LogOwner.system,
           homeArmy: 3, homeResource: -150, // 마린 3기 (50x3)
           awayArmy: 3, awayResource: -150,
@@ -68,12 +68,12 @@ const _tvtBbsMirror = ScenarioScript(
           skipChance: 0.3,
         ),
         ScriptEvent(
-          text: '{home} 선수 벙커 건설! {away} 선수도 벙커! 양쪽 벙커 경쟁!',
+          text: '{home} 선수 벙커 건설. {away} 선수도 벙커를 올립니다. 양쪽 벙커 경쟁입니다.',
           owner: LogOwner.system,
           homeResource: -100, // 벙커 100
           awayResource: -100,
           fixedCost: true,
-          altText: '양쪽 벙커가 동시에 올라갑니다! 벙커 경쟁!',
+          altText: '양쪽 벙커가 동시에 올라갑니다. 벙커 경쟁입니다.',
         ),
       ],
     ),
@@ -98,7 +98,7 @@ const _tvtBbsMirror = ScenarioScript(
               text: '{away} 선수 벙커가 아직 짓는 중! 마린이 벙커 화력에 녹고 있어요!',
               owner: LogOwner.away,
               awayArmy: -2, // 마린 2기 사망
-              altText: '{away}, 벙커 완성이 늦습니다! 마린이 녹고 있어요!',
+              altText: '{away} 선수 벙커 완성이 늦습니다! 마린이 녹고 있어요!',
             ),
             ScriptEvent(
               text: '{home} 선수 SCV 수리! 벙커가 안 무너집니다!',
@@ -128,7 +128,7 @@ const _tvtBbsMirror = ScenarioScript(
               text: '{home} 선수 벙커가 늦습니다! 마린이 상대 벙커에 녹고 있어요!',
               owner: LogOwner.home,
               homeArmy: -2,
-              altText: '{home}, 벙커 완성이 늦어서 마린 피해가 큽니다!',
+              altText: '{home} 선수 벙커 완성이 늦어서 마린 피해가 큽니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 SCV 수리까지! 벙커를 지켜냅니다!',
@@ -168,7 +168,7 @@ const _tvtBbsMirror = ScenarioScript(
               homeArmy: -1,
               homeResource: -50, // 홈도 마린 추가 생산 중
               favorsStat: 'defense',
-              altText: '{away}, 마린과 SCV로 버팁니다!',
+              altText: '{away} 선수 마린과 SCV로 버팁니다!',
             ),
             ScriptEvent(
               text: '양쪽 벙커 교착! 후반전으로 넘어갑니다!',
@@ -187,28 +187,28 @@ const _tvtBbsMirror = ScenarioScript(
       recoveryResourcePerLine: 150,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 가스를 넣고 팩토리! {away} 선수도 팩토리!',
+          text: '{home} 선수 가스를 올리고 팩토리 건설. {away} 선수도 팩토리를 올립니다.',
           owner: LogOwner.system,
           homeResource: -400, // 리파이너리(100) + 팩토리(300)
           awayResource: -400,
           fixedCost: true,
-          altText: '양쪽 팩토리가 올라갑니다! 벌처로 전환!',
+          altText: '양쪽 팩토리가 올라갑니다. 벌처로 전환합니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 벌처 생산! {away} 선수도 벌처! 센터에서 교전!',
+          text: '{home} 선수 벌처 생산. {away} 선수도 벌처를 뽑습니다. 센터에서 교전!',
           owner: LogOwner.system,
           homeArmy: 4, homeResource: -150, // 벌처 2기 (75x2)
           awayArmy: 4, awayResource: -150,
           fixedCost: true,
-          altText: '양쪽 벌처가 출격합니다! 기동전으로 전환!',
+          altText: '양쪽 벌처가 출격합니다. 기동전으로 전환합니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 머신샵에서 탱크 생산! 시즈 모드 연구! {away} 선수도 탱크!',
+          text: '{home} 선수 머신샵에서 탱크 생산. 시즈 모드 연구를 시작합니다. {away} 선수도 탱크.',
           owner: LogOwner.system,
           homeArmy: 2, homeResource: -550, // 시즈탱크(250) + 시즈모드(300)
           awayArmy: 2, awayResource: -550,
           fixedCost: true,
-          altText: '양쪽 팩토리에서 탱크가 나옵니다! 시즈 연구!',
+          altText: '양쪽 팩토리에서 탱크가 나옵니다. 시즈 연구도 시작합니다.',
         ),
         ScriptEvent(
           text: '양측 탱크가 충돌합니다! 최종 교전!',
@@ -230,6 +230,48 @@ const _tvtBbsMirror = ScenarioScript(
           homeResource: -200,
           favorsStat: 'defense',
           altText: '{away} 선수 벌처 우회 공격! 반격!',
+        ),
+        // ── 맵 특성 이벤트 ──
+        // 근거리 맵: 벌처/탱크 교전 강화 (공격 능력치 유리)
+        ScriptEvent(
+          text: '{home} 선수 근거리 맵이라 탱크가 바로 사거리에 들어옵니다! 시즈 포격!',
+          owner: LogOwner.home,
+          awayArmy: -2,
+          favorsStat: 'attack',
+          requiresMapTag: 'rushShort',
+          skipChance: 0.5,
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 근거리 맵 이점을 살려 시즈 포격!',
+          owner: LogOwner.away,
+          homeArmy: -2,
+          favorsStat: 'attack',
+          requiresMapTag: 'rushShort',
+          skipChance: 0.5,
+        ),
+        // 복잡 지형 맵: 고지대 시즈 배치
+        ScriptEvent(
+          text: '{home} 선수 고지대를 점령하고 시즈 포격! 아래에서는 사거리가 안 닿습니다!',
+          owner: LogOwner.home,
+          awayArmy: -2,
+          favorsStat: 'strategy',
+          requiresMapTag: 'terrainHigh',
+          skipChance: 0.5,
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 반대편 고지대에 탱크를 올립니다. 지형 싸움.',
+          owner: LogOwner.away,
+          homeArmy: -2,
+          favorsStat: 'strategy',
+          requiresMapTag: 'terrainHigh',
+          skipChance: 0.5,
+        ),
+        // 원거리 맵: 멀티 확장 안전
+        ScriptEvent(
+          text: '원거리 맵이라 멀티 확장이 안전합니다, 양측 자원이 풍부해집니다.',
+          owner: LogOwner.system,
+          homeResource: 200, awayResource: 200,
+          requiresMapTag: 'rushLong',
         ),
       ],
     ),

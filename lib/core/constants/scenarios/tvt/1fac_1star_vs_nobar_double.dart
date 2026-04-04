@@ -18,7 +18,7 @@ const _tvt1fac1starVsNobarDouble = ScenarioScript(
       recoveryResourcePerLine: 100,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 배럭 건설! 빠른 팩토리를 노립니다!',
+          text: '{home} 선수 배럭을 올리고 빠른 팩토리를 노립니다.',
           owner: LogOwner.home,
           homeResource: -150, // 배럭 150
           fixedCost: true,
@@ -28,14 +28,14 @@ const _tvt1fac1starVsNobarDouble = ScenarioScript(
           owner: LogOwner.away,
           awayResource: -400, // 커맨드센터 400
           fixedCost: true,
-          altText: '{away}, CC퍼스트! 노배럭더블입니다!',
+          altText: '{away} 선수 CC퍼스트! 노배럭더블입니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 팩토리 건설! 머신샵 부착!',
+          text: '{home} 선수 팩토리를 올리고 머신샵을 부착합니다.',
           owner: LogOwner.home,
           homeResource: -500, // 가스 100 + 팩토리 300 + 머신샵 100
           fixedCost: true,
-          altText: '{home}, 팩토리에 머신샵! 빠른 테크 전환입니다!',
+          altText: '{home} 선수 팩토리에 머신샵 부착. 빠른 테크 전환입니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 뒤늦게 배럭을 올립니다... 마린이 한참 늦습니다.',
@@ -57,29 +57,71 @@ const _tvt1fac1starVsNobarDouble = ScenarioScript(
       recoveryResourcePerLine: 150,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 시즈 탱크 생산! 시즈모드 연구 시작!',
+          text: '{home} 선수 시즈 탱크 생산. 시즈모드 연구 시작.',
           owner: LogOwner.home,
           homeArmy: 4, homeResource: -625, // 시즈모드 300 + 탱크 250 + 벌처 75
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{away} 선수 마린이 겨우 나오기 시작합니다. 팩토리는 아직 멀었습니다!',
+          text: '{away} 선수 마린이 겨우 나오기 시작합니다. 팩토리는 아직 멀었습니다.',
           owner: LogOwner.away,
           awayArmy: 2, awayResource: -100, // 마린 2기 (50x2)
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{home} 선수 스타포트 건설! 벌처도 생산합니다!',
+          text: '{home} 선수 스타포트를 올립니다. 벌처도 생산합니다.',
           owner: LogOwner.home,
           homeArmy: 2, homeResource: -325, // 스타포트 250 + 벌처 75
           fixedCost: true,
-          altText: '{home}, 스타포트까지! 공격 준비가 빠릅니다!',
+          altText: '{home} 선수 스타포트까지 건설합니다. 공격 준비가 빠릅니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 탱크와 벌처를 이끌고 전진합니다!',
           owner: LogOwner.home,
           favorsStat: 'attack',
-          altText: '{home}, 원팩 푸시 시작! 상대는 탱크가 없습니다!',
+          altText: '{home} 선수 원팩 푸시를 시작합니다. 상대는 탱크가 없습니다.',
+        ),
+        // ── 맵 특성 이벤트 ──
+        // 근거리 맵: 교전 강화 (공격 능력치 유리)
+        ScriptEvent(
+          text: '{home} 선수 근거리 맵이라 탱크가 바로 사거리에 들어옵니다! 시즈 포격!',
+          owner: LogOwner.home,
+          awayArmy: -2,
+          favorsStat: 'attack',
+          requiresMapTag: 'rushShort',
+          skipChance: 0.5,
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 근거리 맵 이점을 살려 시즈 포격!',
+          owner: LogOwner.away,
+          homeArmy: -2,
+          favorsStat: 'attack',
+          requiresMapTag: 'rushShort',
+          skipChance: 0.5,
+        ),
+        // 복잡 지형 맵: 고지대 시즈 배치
+        ScriptEvent(
+          text: '{home} 선수 고지대를 점령하고 시즈 포격! 아래에서는 사거리가 안 닿습니다!',
+          owner: LogOwner.home,
+          awayArmy: -2,
+          favorsStat: 'strategy',
+          requiresMapTag: 'terrainHigh',
+          skipChance: 0.5,
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 반대편 고지대에 탱크를 올립니다! 지형 싸움!',
+          owner: LogOwner.away,
+          homeArmy: -2,
+          favorsStat: 'strategy',
+          requiresMapTag: 'terrainHigh',
+          skipChance: 0.5,
+        ),
+        // 원거리 맵: 멀티 확장 안전
+        ScriptEvent(
+          text: '원거리 맵이라 멀티 확장이 안전합니다, 양측 자원이 풍부해집니다.',
+          owner: LogOwner.system,
+          homeResource: 200, awayResource: 200,
+          requiresMapTag: 'rushLong',
         ),
       ],
     ),
@@ -114,7 +156,7 @@ const _tvt1fac1starVsNobarDouble = ScenarioScript(
               owner: LogOwner.home,
               awayResource: -400, // 커맨드센터 피해
               favorsStat: 'control',
-              altText: '{home}, 벌처 컨트롤! SCV가 수리를 못 합니다!',
+              altText: '{home} 선수 벌처 컨트롤! SCV가 수리를 못 합니다!',
             ),
             ScriptEvent(
               text: '기갑 유닛 한 대 차이가 이렇게 큽니다! 마린으로는 상대가 안 됩니다!',
@@ -137,12 +179,12 @@ const _tvt1fac1starVsNobarDouble = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수 벙커를 올립니다! 마린이 들어갑니다!',
+              text: '{away} 선수 벙커를 올립니다. 마린이 들어갑니다.',
               owner: LogOwner.away,
               awayArmy: 4, awayResource: -200, // 벙커 100 + 마린 2기 (50x2)
               fixedCost: true,
               favorsStat: 'defense',
-              altText: '{away}, 벙커 완성! 마린 화력으로 벌처를 견제!',
+              altText: '{away} 선수 벙커 완성! 마린 화력으로 벌처를 견제!',
             ),
             ScriptEvent(
               text: '{home} 선수 탱크로 벙커를 노리지만 SCV 수리가 빠릅니다!',
@@ -156,12 +198,12 @@ const _tvt1fac1starVsNobarDouble = ScenarioScript(
               fixedCost: true,
             ),
             ScriptEvent(
-              text: '{away} 선수 시즈 탱크 생산! 벙커 뒤에서 시즈!',
+              text: '{away} 선수 시즈 탱크 생산. 벙커 뒤에서 시즈 배치.',
               owner: LogOwner.away,
               awayArmy: 4, awayResource: -550, // 머신샵 100 + 시즈모드 300 + 탱크 250 (약간 묶음)
               fixedCost: true,
               favorsStat: 'defense',
-              altText: '{away}, 탱크 합류! 벙커와 탱크 조합 완성!',
+              altText: '{away} 선수 탱크 합류! 벙커와 탱크 조합 완성!',
             ),
             ScriptEvent(
               text: '{home} 선수 푸시가 막혔습니다! 후퇴합니다!',

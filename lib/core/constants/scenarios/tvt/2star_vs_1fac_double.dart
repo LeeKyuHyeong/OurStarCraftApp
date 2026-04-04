@@ -30,13 +30,13 @@ const _tvt2starVs1facDouble = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{home} 선수 팩토리 건설! 빠른 테크!',
+          text: '{home} 선수 팩토리 건설. 빠른 테크.',
           owner: LogOwner.home,
           homeResource: -300, // 팩토리(300)
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{away} 선수 팩토리 건설! 앞마당 확장도 같이 가져갑니다!',
+          text: '{away} 선수 팩토리 건설. 앞마당 확장도 같이 가져갑니다.',
           owner: LogOwner.away,
           awayResource: -700, // 팩토리(300) + CC(400)
           fixedCost: true,
@@ -47,14 +47,14 @@ const _tvt2starVs1facDouble = ScenarioScript(
           awayArmy: 2, // 벌처 1기 (2sup)
           awayResource: -75, // 벌처(75)
           fixedCost: true,
-          altText: '{away}, 원팩 확장! 벌처 생산하면서 확장!',
+          altText: '{away} 선수 원팩 확장. 벌처 생산하면서 확장.',
         ),
         ScriptEvent(
-          text: '{home} 선수 스타포트 건설!',
+          text: '{home} 선수 스타포트 건설.',
           owner: LogOwner.home,
           homeResource: -250, // 스타포트(250)
           fixedCost: true,
-          altText: '{home}, 스타포트가 올라갑니다!',
+          altText: '{home} 선수 스타포트가 올라갑니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 마린 생산하면서 벙커를 올립니다.',
@@ -64,12 +64,12 @@ const _tvt2starVs1facDouble = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{home} 선수 레이스 생산! 2번째 스타포트도 올립니다!',
+          text: '{home} 선수 레이스 생산. 2번째 스타포트도 올립니다.',
           owner: LogOwner.home,
           homeArmy: 2, // 레이스 1기 (2sup)
           homeResource: -500, // 레이스(250) + 스타포트(250)
           fixedCost: true,
-          altText: '{home}, 레이스가 나옵니다! 스타포트가 하나 더!',
+          altText: '{home} 선수 레이스가 나옵니다. 스타포트가 하나 더.',
         ),
         ScriptEvent(
           text: '투스타포트! 레이스를 대량으로 뽑겠다는 의도!',
@@ -86,28 +86,28 @@ const _tvt2starVs1facDouble = ScenarioScript(
       recoveryArmyPerLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 레이스가 상대 본진으로! SCV를 노립니다!',
+          text: '{home} 선수 레이스가 상대 본진으로! SCV를 노립니다!',
           owner: LogOwner.home,
           favorsStat: 'harass',
           altText: '{home} 선수 레이스 출격! 상대 SCV를 공격합니다!',
         ),
         ScriptEvent(
-          text: '{home}, 아카데미 짓는 SCV를 노립니다! 스캔을 늦추려는 의도!',
+          text: '{home} 선수 아카데미 짓는 SCV를 노립니다! 스캔을 늦추려는 의도!',
           owner: LogOwner.home,
           favorsStat: 'harass', awayResource: -5,
           altText: '{home} 선수 아카데미 건설 SCV를 쫓아냅니다!',
         ),
         ScriptEvent(
-          text: '{home}, 아머리 짓는 SCV도 공격! 골리앗 생산을 늦추려는 의도!',
+          text: '{home} 선수 아머리 짓는 SCV도 공격! 골리앗 생산을 늦추려는 의도!',
           owner: LogOwner.home,
           favorsStat: 'harass', awayResource: -5,
           altText: '{home} 선수 아머리 건설 SCV까지 괴롭힙니다!',
         ),
         ScriptEvent(
-          text: '{home}, 엔지니어링 베이 SCV까지! 터렛 건설도 지연시킵니다!',
+          text: '{home} 선수 엔지니어링 베이 SCV까지! 터렛 건설도 지연시킵니다!',
           owner: LogOwner.home,
           awayResource: -5,
-          altText: '{home}, 엔지니어링 베이 짓는 SCV도 쫓습니다! 터렛이 늦어지네요!',
+          altText: '{home} 선수 엔지니어링 베이 짓는 SCV도 쫓습니다! 터렛이 늦어지네요!',
           skipChance: 0.3,
         ),
         ScriptEvent(
@@ -118,14 +118,14 @@ const _tvt2starVs1facDouble = ScenarioScript(
           text: '{away} 선수 SCV를 건물 옆에 붙여놓고 끈질기게 건설을 시도합니다!',
           owner: LogOwner.away,
           favorsStat: 'defense',
-          altText: '{away}, SCV를 계속 붙이면서 건물을 올립니다! 포기하지 않습니다!',
+          altText: '{away} 선수 SCV를 계속 붙이면서 건물을 올립니다! 포기하지 않습니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 견제를 이어가면서 앞마당 커맨드센터를 올립니다!',
+          text: '{home} 선수 견제를 이어가면서 앞마당 커맨드센터를 올립니다.',
           owner: LogOwner.home,
           homeResource: -400, // CC(400)
           fixedCost: true,
-          altText: '{home}, 견제와 동시에 앞마당 확장! 멀티를 챙깁니다!',
+          altText: '{home} 선수 견제와 동시에 앞마당 확장! 멀티를 챙깁니다!',
         ),
         ScriptEvent(
           text: '피해는 누적되고 있지만 {away} 선수 포기하지 않습니다! 건물이 하나둘 올라오고 있어요!',
@@ -146,13 +146,13 @@ const _tvt2starVs1facDouble = ScenarioScript(
           baseProbability: 0.7,
           events: [
             ScriptEvent(
-              text: '{home}, 클로킹 완성! 레이스 3기가 침투합니다! 아카데미가 늦어서 스캔이 안 됩니다!',
+              text: '{home} 선수 클로킹 완성! 레이스 3기가 침투합니다! 아카데미가 늦어서 스캔이 안 됩니다!',
               owner: LogOwner.home,
               awayResource: -20, awayArmy: -2, favorsStat: 'harass',
               altText: '{home} 선수 클로킹 레이스 침투! 컴샛스테이션이 없어 보이지 않습니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 아카데미가 이제야 완성! 컴샛스테이션을 급히 올립니다!',
+              text: '{away} 선수 아카데미가 이제야 완성. 컴샛스테이션을 급히 올립니다.',
               owner: LogOwner.away,
               awayResource: -150, // 아카데미(150)
               fixedCost: true,
@@ -160,7 +160,7 @@ const _tvt2starVs1facDouble = ScenarioScript(
               skipChance: 0.4,
             ),
             ScriptEvent(
-              text: '{home}, 추가 레이스까지! 견제가 이어집니다!',
+              text: '{home} 선수 추가 레이스까지! 견제가 이어집니다!',
               owner: LogOwner.home,
               homeArmy: 2, // 레이스 1기 (2sup)
               homeResource: -250, // 레이스(250)
@@ -187,14 +187,14 @@ const _tvt2starVs1facDouble = ScenarioScript(
           conditionStat: 'harass',
           events: [
             ScriptEvent(
-              text: '{away} 선수 아카데미는 올렸습니다! 컴샛스테이션 부착! 스캔은 가능합니다!',
+              text: '{away} 선수 아카데미는 올렸습니다. 컴샛스테이션 부착. 스캔은 가능합니다.',
               owner: LogOwner.away,
               awayResource: -150, // 아카데미(150)
               fixedCost: true,
-              altText: '{away}, 아카데미 완성! 스캔은 달리지만 아머리가 문제입니다!',
+              altText: '{away} 선수 아카데미 완성. 스캔은 달리지만 아머리가 문제입니다.',
             ),
             ScriptEvent(
-              text: '{home}, 스캔에 걸리지만 아머리 짓는 SCV를 집요하게 노립니다!',
+              text: '{home} 선수 스캔에 걸리지만 아머리 짓는 SCV를 집요하게 노립니다!',
               owner: LogOwner.home,
               awayResource: -10, favorsStat: 'harass',
               altText: '{home} 선수 아머리 건설을 끈질기게 방해합니다!',
@@ -205,14 +205,14 @@ const _tvt2starVs1facDouble = ScenarioScript(
               awayResource: -150, // 아머리(150) 재시도
               fixedCost: true,
               awayArmy: -1,
-              altText: '{away}, 아머리 재건설 시도! 하지만 공중 유닛이 놓아주질 않습니다!',
+              altText: '{away} 선수 아머리 재건설 시도! 하지만 공중 유닛이 놓아주질 않습니다!',
             ),
             ScriptEvent(
-              text: '스캔은 달리는데 골리앗이 없습니다! 마린만으로는 공중 유닛을 잡기 어렵습니다!',
+              text: '스캔은 달리는데 골리앗이 없습니다. 마린만으로는 공중 유닛을 잡기 어렵습니다.',
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{home}, 레이스가 5기 이상! 투스타포트에서 쉬지 않고 뽑아냅니다!',
+              text: '{home} 선수 레이스가 5기 이상. 투스타포트에서 쉬지 않고 뽑아냅니다.',
               owner: LogOwner.home,
               homeArmy: 4, // 레이스 2기 (2sup x2)
               homeResource: -500, // 레이스2(500)
@@ -221,7 +221,7 @@ const _tvt2starVs1facDouble = ScenarioScript(
               altText: '{home} 선수 레이스 물량이 쌓입니다! SCV가 녹아내리고 있습니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 탱크가 있지만 공중 유닛을 잡을 수가 없습니다!',
+              text: '{away} 선수 탱크가 있지만 공중 유닛을 잡을 수가 없습니다.',
               owner: LogOwner.away,
               awayResource: -15, awayArmy: -2,
             ),
@@ -229,7 +229,7 @@ const _tvt2starVs1facDouble = ScenarioScript(
               text: '{home} 선수 레이스 편대로 상대 본진을 초토화합니다! 대공유닛 없이는 막을 수가 없습니다!',
               owner: LogOwner.home,
               decisive: true,
-              altText: '{home}, 레이스 물량 앞에 속수무책! 아머리가 끝내 올라오지 못했습니다!',
+              altText: '{home} 선수 레이스 물량 앞에 속수무책! 아머리가 끝내 올라오지 못했습니다!',
             ),
           ],
         ),
@@ -243,10 +243,10 @@ const _tvt2starVs1facDouble = ScenarioScript(
               awayResource: -300, // 아카데미(150) + 아머리(150)
               fixedCost: true,
               favorsStat: 'defense',
-              altText: '{away}, 피해를 입었지만 핵심 건물을 모두 올렸습니다!',
+              altText: '{away} 선수 피해를 입었지만 핵심 건물을 모두 올렸습니다!',
             ),
             ScriptEvent(
-              text: '{away}, 컴샛스테이션 완성! 스캔으로 클로킹을 잡고 골리앗까지 생산!',
+              text: '{away} 선수 컴샛스테이션 완성. 스캔으로 클로킹을 잡고 골리앗까지 생산.',
               owner: LogOwner.away,
               homeArmy: -4, // 레이스 2기 격추 (2sup x2)
               awayArmy: 2, // 골리앗 1기 (2sup)
@@ -260,7 +260,7 @@ const _tvt2starVs1facDouble = ScenarioScript(
               homeArmy: -2, // 레이스 1기 손실 (2sup)
             ),
             ScriptEvent(
-              text: '{away}, 공중 견제를 막아냅니다! 하지만 SCV 피해가 좀 있습니다!',
+              text: '{away} 선수 공중 견제를 막아냅니다! 하지만 SCV 피해가 좀 있습니다!',
               owner: LogOwner.away,
               awayResource: -10,
               skipChance: 0.3,
@@ -281,51 +281,93 @@ const _tvt2starVs1facDouble = ScenarioScript(
       recoveryResourcePerLine: 200,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 팩토리에 머신샵 올립니다! 탱크 생산 준비!',
+          text: '{home} 선수 팩토리에 머신샵 올립니다. 탱크 생산 준비.',
           owner: LogOwner.home,
           homeResource: -100, // 머신샵(100)
           fixedCost: true,
-          altText: '{home}, 머신샵 부착! 탱크를 준비합니다!',
+          altText: '{home} 선수 머신샵 부착. 탱크를 준비합니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수 팩토리에 머신샵 부착! 시즈 모드 연구!',
+          text: '{away} 선수 팩토리에 머신샵 부착. 시즈 모드 연구.',
           owner: LogOwner.away,
           awayResource: -400, // 머신샵(100) + 시즈모드(300)
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{home} 선수 스타포트에 컨트롤타워 건설! 드랍십을 노립니다!',
+          text: '{home} 선수 스타포트에 컨트롤타워 건설. 드랍십을 노립니다.',
           owner: LogOwner.home,
           homeResource: -100, // 컨트롤타워(100)
           fixedCost: true,
-          altText: '{home}, 컨트롤타워 완성! 드랍십이 가능합니다!',
+          altText: '{home} 선수 컨트롤타워 완성. 드랍십이 가능합니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수 엔지니어링 베이 건설! 터렛으로 공중 유닛을 대비합니다!',
+          text: '{away} 선수 엔지니어링 베이 건설. 터렛으로 공중 유닛을 대비합니다.',
           owner: LogOwner.away,
           awayResource: -200, // 엔지니어링베이(125) + 터렛(75)
           fixedCost: true,
           skipChance: 0.3,
         ),
         ScriptEvent(
-          text: '{home} 선수 드랍십 생산! 기동전을 노리는 운영!',
+          text: '{home} 선수 드랍십 생산. 기동전을 노리는 운영.',
           owner: LogOwner.home,
           homeArmy: 2, // 드랍십 1기 (2sup)
           homeResource: -200, // 드랍십(200)
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{away} 선수 확장 자원으로 탱크가 모이고 있습니다! 라인 방어!',
+          text: '{away} 선수 확장 자원으로 탱크가 모이고 있습니다. 라인 방어.',
           owner: LogOwner.away,
           awayArmy: 2, // 탱크 1기 (2sup)
           awayResource: -250, // 탱크(250)
           fixedCost: true,
-          altText: '{away}, 원팩 확장 자원 가동! 탱크 라인 구축!',
+          altText: '{away} 선수 원팩 확장 자원 가동. 탱크 라인 구축.',
         ),
         ScriptEvent(
-          text: '중반 전환기! 양쪽 다 메카닉 체제에 들어갑니다!',
+          text: '중반 전환기. 양쪽 다 메카닉 체제에 들어갑니다.',
           owner: LogOwner.system,
           skipChance: 0.2,
+        ),
+        // ── 맵 특성 이벤트 ──
+        // 근거리 맵: 교전 강화 (공격 능력치 유리)
+        ScriptEvent(
+          text: '{home} 선수 근거리 맵이라 탱크가 바로 사거리에 들어옵니다! 시즈 포격!',
+          owner: LogOwner.home,
+          awayArmy: -2,
+          favorsStat: 'attack',
+          requiresMapTag: 'rushShort',
+          skipChance: 0.5,
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 근거리 맵 이점을 살려 시즈 포격!',
+          owner: LogOwner.away,
+          homeArmy: -2,
+          favorsStat: 'attack',
+          requiresMapTag: 'rushShort',
+          skipChance: 0.5,
+        ),
+        // 복잡 지형 맵: 고지대 시즈 배치
+        ScriptEvent(
+          text: '{home} 선수 고지대를 점령하고 시즈 포격! 아래에서는 사거리가 안 닿습니다!',
+          owner: LogOwner.home,
+          awayArmy: -2,
+          favorsStat: 'strategy',
+          requiresMapTag: 'terrainHigh',
+          skipChance: 0.5,
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 반대편 고지대에 탱크를 올립니다. 지형 싸움.',
+          owner: LogOwner.away,
+          homeArmy: -2,
+          favorsStat: 'strategy',
+          requiresMapTag: 'terrainHigh',
+          skipChance: 0.5,
+        ),
+        // 원거리 맵: 멀티 확장 안전
+        ScriptEvent(
+          text: '원거리 맵이라 멀티 확장이 안전합니다, 양측 자원이 풍부해집니다.',
+          owner: LogOwner.system,
+          homeResource: 200, awayResource: 200,
+          requiresMapTag: 'rushLong',
         ),
       ],
     ),
@@ -336,46 +378,72 @@ const _tvt2starVs1facDouble = ScenarioScript(
       recoveryResourcePerLine: 300,
       recoveryArmyPerLine: 3,
       branches: [
+        // 게릴라 드랍: 확장 견제 후 회수
         ScriptBranch(
-          id: 'good_damage',
-          baseProbability: 1.0,
+          id: 'guerrilla_drop',
+          baseProbability: 1.2,
           events: [
             ScriptEvent(
-              text: '{home}, 드랍십에 탱크 벌처! 뒤쪽으로 우회합니다!',
+              text: '{home} 선수 드랍십에 탱크를 싣고 상대 확장으로 향합니다.',
               owner: LogOwner.home,
               homeArmy: 2, favorsStat: 'strategy',
-              altText: '{home} 선수 드랍 출격! 멀티를 노립니다!',
+              altText: '{home} 선수 드랍십 출격. 확장기지를 노립니다.',
             ),
             ScriptEvent(
-              text: '{home}, 드랍십에서 탱크를 내립니다! 미네랄 라인 공격!',
+              text: '{home} 선수 확장기지에 탱크 투하! SCV를 잡고 바로 회수합니다!',
               owner: LogOwner.home,
               awayArmy: -2, awayResource: -15, favorsStat: 'harass',
-              altText: '{home} 선수 드랍 견제! 일꾼을 솎아냅니다!',
+              altText: '{home} 선수 드랍 견제! 일꾼을 솎아내고 빠집니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 뒤를 잡혔습니다! 터렛이 없는 곳이에요!',
+              text: '{away} 선수 골리앗이 달려왔지만 이미 빠져나갔습니다!',
               owner: LogOwner.away,
               awayResource: -10,
             ),
             ScriptEvent(
-              text: '{home}, 정면에서도 동시 전진! 양쪽에서 압박!',
+              text: '드랍으로 시선을 끈 사이 정면 라인에서 거리재기가 이어집니다.',
+              owner: LogOwner.system,
+              skipChance: 0.3,
+              altText: '게릴라 드랍! 자잘한 피해가 쌓이고 있습니다.',
+            ),
+          ],
+        ),
+        // 마무리 드랍: 유리한 쪽이 드랍과 정면으로 끝냄
+        ScriptBranch(
+          id: 'finishing_drop',
+          baseProbability: 0.7,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 드랍십 두 대 출격! 본진과 확장 동시 투하!',
+              owner: LogOwner.home,
+              homeArmy: 2, favorsStat: 'strategy',
+              altText: '{home} 선수 드랍십이 두 갈래로 나뉩니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 정면 탱크 라인도 전진! 세 방향 공격!',
               owner: LogOwner.home,
               awayArmy: -3, homeArmy: -1, favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '{home} 선수 레이스 견제로 상대 일꾼을 학살합니다!',
+              text: '{away} 선수 수비가 분산됩니다! 어디를 먼저 막아야 할지!',
+              owner: LogOwner.away,
+              awayResource: -15,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 레이스까지 합류! 상대 일꾼을 초토화합니다!',
               owner: LogOwner.home,
               decisive: true,
-              altText: '{home} 선수 클로킹 레이스! 스캔 없는 상대 본진을 초토화합니다!',
+              altText: '{home} 선수 클로킹 레이스와 드랍 동시 투입! 막을 수 없습니다!',
             ),
           ],
         ),
+        // 정면 밀기: 어웨이 자원 우위로 정면 승부
         ScriptBranch(
-          id: 'minimal_damage',
+          id: 'frontal_push',
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 원팩 확장 자원이 풀가동! 물량 차이가 벌어집니다!',
+              text: '{away} 선수 원팩 확장 자원이 풀가동! 물량 차이가 벌어집니다!',
               owner: LogOwner.away,
               awayArmy: 4, favorsStat: 'macro',
               altText: '{away} 선수 확장 자원 풀가동! 물량이 쌓입니다!',
@@ -391,7 +459,7 @@ const _tvt2starVs1facDouble = ScenarioScript(
               homeArmy: -3, favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '{away}, 탱크 시즈 포격! 라인을 밀어냅니다!',
+              text: '{away} 선수 탱크 시즈 포격! 라인을 밀어냅니다!',
               owner: LogOwner.away,
               awayArmy: 2, homeArmy: -2,
             ),
@@ -400,6 +468,35 @@ const _tvt2starVs1facDouble = ScenarioScript(
               owner: LogOwner.away,
               decisive: true,
               altText: '{away} 선수 대공 수비 성공! 확장 자원 우위로 밀어냅니다!',
+            ),
+          ],
+        ),
+        // 역전 드랍: 밀리는 홈이 본진 올인 드랍
+        ScriptBranch(
+          id: 'desperate_drop',
+          baseProbability: 0.6,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 정면에서 밀리고 있습니다! 승부수를 던집니다!',
+              owner: LogOwner.home,
+              homeArmy: -2,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 드랍십 두 대에 탱크를 싣고 상대 본진으로!',
+              owner: LogOwner.home,
+              favorsStat: 'strategy',
+              altText: '{home} 선수 올인 드랍! 본진을 노립니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 본진 탱크 투하! 시즈 모드! 팩토리를 노립니다!',
+              owner: LogOwner.home,
+              awayArmy: -3, awayResource: -20, favorsStat: 'harass',
+              altText: '{home} 선수 본진에서 시즈 포격! 생산 시설을 파괴합니다!',
+            ),
+            ScriptEvent(
+              text: '역전 드랍! 피해가 크면 경기가 뒤집어질 수 있습니다!',
+              owner: LogOwner.system,
+              altText: '승부수가 통할 것인가! 긴장감이 고조됩니다!',
             ),
           ],
         ),

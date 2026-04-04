@@ -2,71 +2,63 @@ import 'dart:math';
 import '../../domain/services/match_simulation_service.dart';
 import '../../domain/models/models.dart';
 
-// TvZ (56 scenarios - 8T × 7Z, 모두 1:1)
-// 벙커 (7)
-part 'scenarios/tvz/bunker_vs_4pool.dart';
-part 'scenarios/tvz/bunker_vs_mutal_ultra.dart';
-part 'scenarios/tvz/bunker_vs_2hatch_mutal.dart';
-part 'scenarios/tvz/bunker_vs_lurker_defiler.dart';
-part 'scenarios/tvz/bunker_vs_530_mutal.dart';
-part 'scenarios/tvz/bunker_vs_mutal_lurker.dart';
-part 'scenarios/tvz/bunker_vs_ultra_hive.dart';
-// 선엔베 (7)
-part 'scenarios/tvz/4bar_enbe_vs_4pool.dart';
-part 'scenarios/tvz/4bar_enbe_vs_mutal_ultra.dart';
-part 'scenarios/tvz/4bar_enbe_vs_2hatch_mutal.dart';
-part 'scenarios/tvz/4bar_enbe_vs_lurker_defiler.dart';
-part 'scenarios/tvz/4bar_enbe_vs_530_mutal.dart';
-part 'scenarios/tvz/4bar_enbe_vs_mutal_lurker.dart';
-part 'scenarios/tvz/4bar_enbe_vs_ultra_hive.dart';
-// 바이오닉 푸시 (7)
-part 'scenarios/tvz/bionic_push_vs_4pool.dart';
-part 'scenarios/tvz/bionic_push_vs_mutal_ultra.dart';
-part 'scenarios/tvz/bionic_push_vs_2hatch_mutal.dart';
-part 'scenarios/tvz/bionic_push_vs_lurker_defiler.dart';
-part 'scenarios/tvz/bionic_push_vs_530_mutal.dart';
-part 'scenarios/tvz/bionic_push_vs_mutal_lurker.dart';
-part 'scenarios/tvz/bionic_push_vs_ultra_hive.dart';
-// 메카닉 골리앗 (7)
-part 'scenarios/tvz/mech_goliath_vs_4pool.dart';
-part 'scenarios/tvz/mech_goliath_vs_mutal_ultra.dart';
-part 'scenarios/tvz/mech_goliath_vs_2hatch_mutal.dart';
-part 'scenarios/tvz/mech_goliath_vs_lurker_defiler.dart';
-part 'scenarios/tvz/mech_goliath_vs_530_mutal.dart';
-part 'scenarios/tvz/mech_goliath_vs_mutal_lurker.dart';
-part 'scenarios/tvz/mech_goliath_vs_ultra_hive.dart';
-// 111 밸런스 (7)
-part 'scenarios/tvz/111_balance_vs_4pool.dart';
-part 'scenarios/tvz/111_balance_vs_mutal_ultra.dart';
-part 'scenarios/tvz/111_balance_vs_2hatch_mutal.dart';
-part 'scenarios/tvz/111_balance_vs_lurker_defiler.dart';
-part 'scenarios/tvz/111_balance_vs_530_mutal.dart';
-part 'scenarios/tvz/111_balance_vs_mutal_lurker.dart';
-part 'scenarios/tvz/111_balance_vs_ultra_hive.dart';
-// 발키리 (7)
-part 'scenarios/tvz/valkyrie_vs_4pool.dart';
-part 'scenarios/tvz/valkyrie_vs_mutal_ultra.dart';
-part 'scenarios/tvz/valkyrie_vs_2hatch_mutal.dart';
-part 'scenarios/tvz/valkyrie_vs_lurker_defiler.dart';
-part 'scenarios/tvz/valkyrie_vs_530_mutal.dart';
-part 'scenarios/tvz/valkyrie_vs_mutal_lurker.dart';
-part 'scenarios/tvz/valkyrie_vs_ultra_hive.dart';
-// 레이스 (7)
-part 'scenarios/tvz/wraith_vs_4pool.dart';
-part 'scenarios/tvz/wraith_vs_mutal_ultra.dart';
-part 'scenarios/tvz/wraith_vs_2hatch_mutal.dart';
-part 'scenarios/tvz/wraith_vs_lurker_defiler.dart';
-part 'scenarios/tvz/wraith_vs_530_mutal.dart';
-part 'scenarios/tvz/wraith_vs_mutal_lurker.dart';
-part 'scenarios/tvz/wraith_vs_ultra_hive.dart';
-// 선엔베 푸시 (7)
-part 'scenarios/tvz/enbe_push_vs_4pool.dart';
-part 'scenarios/tvz/enbe_push_vs_mutal_ultra.dart';
-part 'scenarios/tvz/enbe_push_vs_2hatch_mutal.dart';
-part 'scenarios/tvz/enbe_push_vs_lurker_defiler.dart';
-part 'scenarios/tvz/enbe_push_vs_530_mutal.dart';
-part 'scenarios/tvz/enbe_push_vs_mutal_lurker.dart';
-part 'scenarios/tvz/enbe_push_vs_ultra_hive.dart';
+// TvZ (49 scenarios - 7T × 7Z, 오프닝 기반 1:1)
+// 노배럭더블 (7)
+part 'scenarios/tvz/nobar_double_vs_2hatch_mutal.dart';
+part 'scenarios/tvz/nobar_double_vs_4pool.dart';
+part 'scenarios/tvz/nobar_double_vs_530_mutal.dart';
+part 'scenarios/tvz/nobar_double_vs_lurker_defiler.dart';
+part 'scenarios/tvz/nobar_double_vs_mutal_lurker.dart';
+part 'scenarios/tvz/nobar_double_vs_mutal_ultra.dart';
+part 'scenarios/tvz/nobar_double_vs_ultra_hive.dart';
+// 배럭더블 (7)
+part 'scenarios/tvz/bar_double_vs_2hatch_mutal.dart';
+part 'scenarios/tvz/bar_double_vs_4pool.dart';
+part 'scenarios/tvz/bar_double_vs_530_mutal.dart';
+part 'scenarios/tvz/bar_double_vs_lurker_defiler.dart';
+part 'scenarios/tvz/bar_double_vs_mutal_lurker.dart';
+part 'scenarios/tvz/bar_double_vs_mutal_ultra.dart';
+part 'scenarios/tvz/bar_double_vs_ultra_hive.dart';
+// 111 (7)
+part 'scenarios/tvz/111_vs_2hatch_mutal.dart';
+part 'scenarios/tvz/111_vs_4pool.dart';
+part 'scenarios/tvz/111_vs_530_mutal.dart';
+part 'scenarios/tvz/111_vs_lurker_defiler.dart';
+part 'scenarios/tvz/111_vs_mutal_lurker.dart';
+part 'scenarios/tvz/111_vs_mutal_ultra.dart';
+part 'scenarios/tvz/111_vs_ultra_hive.dart';
+// 2배럭아카데미 (7)
+part 'scenarios/tvz/2bar_academy_vs_2hatch_mutal.dart';
+part 'scenarios/tvz/2bar_academy_vs_4pool.dart';
+part 'scenarios/tvz/2bar_academy_vs_530_mutal.dart';
+part 'scenarios/tvz/2bar_academy_vs_lurker_defiler.dart';
+part 'scenarios/tvz/2bar_academy_vs_mutal_lurker.dart';
+part 'scenarios/tvz/2bar_academy_vs_mutal_ultra.dart';
+part 'scenarios/tvz/2bar_academy_vs_ultra_hive.dart';
+// 팩토리더블 (7)
+part 'scenarios/tvz/fac_double_vs_2hatch_mutal.dart';
+part 'scenarios/tvz/fac_double_vs_4pool.dart';
+part 'scenarios/tvz/fac_double_vs_530_mutal.dart';
+part 'scenarios/tvz/fac_double_vs_lurker_defiler.dart';
+part 'scenarios/tvz/fac_double_vs_mutal_lurker.dart';
+part 'scenarios/tvz/fac_double_vs_mutal_ultra.dart';
+part 'scenarios/tvz/fac_double_vs_ultra_hive.dart';
+// 2스타레이스 (7)
+part 'scenarios/tvz/2star_vs_2hatch_mutal.dart';
+part 'scenarios/tvz/2star_vs_4pool.dart';
+part 'scenarios/tvz/2star_vs_530_mutal.dart';
+part 'scenarios/tvz/2star_vs_lurker_defiler.dart';
+part 'scenarios/tvz/2star_vs_mutal_lurker.dart';
+part 'scenarios/tvz/2star_vs_mutal_ultra.dart';
+part 'scenarios/tvz/2star_vs_ultra_hive.dart';
+// BBS (7)
+part 'scenarios/tvz/bbs_vs_2hatch_mutal.dart';
+part 'scenarios/tvz/bbs_vs_4pool.dart';
+part 'scenarios/tvz/bbs_vs_530_mutal.dart';
+part 'scenarios/tvz/bbs_vs_lurker_defiler.dart';
+part 'scenarios/tvz/bbs_vs_mutal_lurker.dart';
+part 'scenarios/tvz/bbs_vs_mutal_ultra.dart';
+part 'scenarios/tvz/bbs_vs_ultra_hive.dart';
 
 // TvT (45 scenarios - 8 mirrors + 37 cross matchups)
 // 미러 (7)
@@ -544,31 +536,28 @@ class ScenarioScriptData {
   };
 
   static const List<ScenarioScript> _allScripts = [
-    // TvZ (scenarios/tvz/) - 56 scenarios (8T × 7Z)
-    // 벙커 (7)
-    _tvzBunkerVs4pool, _tvzBunkerVsMutalUltra, _tvzBunkerVs2hatchMutal,
-    _tvzBunkerVsLurkerDefiler, _tvzBunkerVs530Mutal, _tvzBunkerVsMutalLurker, _tvzBunkerVsUltraHive,
-    // 선엔베 (7)
-    _tvz4barEnbeVs4pool, _tvz4barEnbeVsMutalUltra, _tvz4barEnbeVs2hatchMutal,
-    _tvz4barEnbeVsLurkerDefiler, _tvz4barEnbeVs530Mutal, _tvz4barEnbeVsMutalLurker, _tvz4barEnbeVsUltraHive,
-    // 바이오닉 푸시 (7)
-    _tvzBionicPushVs4pool, _tvzBionicPushVsMutalUltra, _tvzBionicPushVs2hatchMutal,
-    _tvzBionicPushVsLurkerDefiler, _tvzBionicPushVs530Mutal, _tvzBionicPushVsMutalLurker, _tvzBionicPushVsUltraHive,
-    // 메카닉 골리앗 (7)
-    _tvzMechGoliathVs4pool, _tvzMechGoliathVsMutalUltra, _tvzMechGoliathVs2hatchMutal,
-    _tvzMechGoliathVsLurkerDefiler, _tvzMechGoliathVs530Mutal, _tvzMechGoliathVsMutalLurker, _tvzMechGoliathVsUltraHive,
-    // 111 밸런스 (7)
-    _tvz111BalanceVs4pool, _tvz111BalanceVsMutalUltra, _tvz111BalanceVs2hatchMutal,
-    _tvz111BalanceVsLurkerDefiler, _tvz111BalanceVs530Mutal, _tvz111BalanceVsMutalLurker, _tvz111BalanceVsUltraHive,
-    // 발키리 (7)
-    _tvzValkyrieVs4pool, _tvzValkyrieVsMutalUltra, _tvzValkyrieVs2hatchMutal,
-    _tvzValkyrieVsLurkerDefiler, _tvzValkyrieVs530Mutal, _tvzValkyrieVsMutalLurker, _tvzValkyrieVsUltraHive,
-    // 레이스 (7)
-    _tvzWraithVs4pool, _tvzWraithVsMutalUltra, _tvzWraithVs2hatchMutal,
-    _tvzWraithVsLurkerDefiler, _tvzWraithVs530Mutal, _tvzWraithVsMutalLurker, _tvzWraithVsUltraHive,
-    // 선엔베 푸시 (7)
-    _tvzEnbePushVs4pool, _tvzEnbePushVsMutalUltra, _tvzEnbePushVs2hatchMutal,
-    _tvzEnbePushVsLurkerDefiler, _tvzEnbePushVs530Mutal, _tvzEnbePushVsMutalLurker, _tvzEnbePushVsUltraHive,
+    // TvZ (scenarios/tvz/) - 49 scenarios (7T × 7Z, 오프닝 기반)
+    // 노배럭더블 (7)
+    _tvzNobarDoubleVs2hatchMutal, _tvzNobarDoubleVs4pool, _tvzNobarDoubleVs530Mutal,
+    _tvzNobarDoubleVsLurkerDefiler, _tvzNobarDoubleVsMutalLurker, _tvzNobarDoubleVsMutalUltra, _tvzNobarDoubleVsUltraHive,
+    // 배럭더블 (7)
+    _tvzBarDoubleVs2hatchMutal, _tvzBarDoubleVs4pool, _tvzBarDoubleVs530Mutal,
+    _tvzBarDoubleVsLurkerDefiler, _tvzBarDoubleVsMutalLurker, _tvzBarDoubleVsMutalUltra, _tvzBarDoubleVsUltraHive,
+    // 111 (7)
+    _tvz111Vs2hatchMutal, _tvz111Vs4pool, _tvz111Vs530Mutal,
+    _tvz111VsLurkerDefiler, _tvz111VsMutalLurker, _tvz111VsMutalUltra, _tvz111VsUltraHive,
+    // 2배럭아카데미 (7)
+    _tvz2barAcademyVs2hatchMutal, _tvz2barAcademyVs4pool, _tvz2barAcademyVs530Mutal,
+    _tvz2barAcademyVsLurkerDefiler, _tvz2barAcademyVsMutalLurker, _tvz2barAcademyVsMutalUltra, _tvz2barAcademyVsUltraHive,
+    // 팩토리더블 (7)
+    _tvzFacDoubleVs2hatchMutal, _tvzFacDoubleVs4pool, _tvzFacDoubleVs530Mutal,
+    _tvzFacDoubleVsLurkerDefiler, _tvzFacDoubleVsMutalLurker, _tvzFacDoubleVsMutalUltra, _tvzFacDoubleVsUltraHive,
+    // 2스타레이스 (7)
+    _tvz2starVs2hatchMutal, _tvz2starVs4pool, _tvz2starVs530Mutal,
+    _tvz2starVsLurkerDefiler, _tvz2starVsMutalLurker, _tvz2starVsMutalUltra, _tvz2starVsUltraHive,
+    // BBS (7)
+    _tvzBbsVs2hatchMutal, _tvzBbsVs4pool, _tvzBbsVs530Mutal,
+    _tvzBbsVsLurkerDefiler, _tvzBbsVsMutalLurker, _tvzBbsVsMutalUltra, _tvzBbsVsUltraHive,
     // TvT (scenarios/tvt/) - 45 scenarios
     // 미러 (8)
     _tvtBbsMirror,

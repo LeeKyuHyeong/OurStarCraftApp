@@ -29,37 +29,37 @@ const _tvt1fac1starVs1facDouble = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{home} 선수 팩토리 건설! 빠른 메카닉을 노립니다!',
+          text: '{home} 선수 팩토리를 올립니다. 빠른 메카닉을 노립니다.',
           owner: LogOwner.home,
           homeResource: -400, // 가스 100 + 팩토리 300
           fixedCost: true,
-          altText: '{home}, 팩토리가 올라갑니다! 원팩 푸시!',
+          altText: '{home} 선수 팩토리가 올라갑니다. 원팩 푸시 운영입니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수도 팩토리 건설! 하지만 앞마당 확장도 같이!',
+          text: '{away} 선수도 팩토리를 올립니다. 하지만 앞마당 확장도 같이 갑니다.',
           owner: LogOwner.away,
           awayResource: -800, // 가스 100 + 팩토리 300 + 커맨드센터 400
           fixedCost: true,
-          altText: '{away}, 팩토리 후 확장! 원팩 확장입니다!',
+          altText: '{away} 선수 팩토리 후 확장. 원팩 확장입니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 벌처를 뽑으면서 마인을 깔고 있습니다.',
           owner: LogOwner.away,
           awayArmy: 2, awayResource: -75, // 벌처 75
           fixedCost: true,
-          altText: '{away}, 마인 매설! 수비적으로 운영합니다.',
+          altText: '{away} 선수 마인을 매설합니다. 수비적으로 운영합니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 머신샵 부착! 시즈 모드 연구! 탱크 벌처 생산에 집중!',
+          text: '{home} 선수 머신샵을 부착합니다. 시즈 모드 연구를 시작합니다. 탱크 벌처 생산에 집중합니다.',
           owner: LogOwner.home,
           homeArmy: 4, homeResource: -725, // 머신샵 100 + 시즈모드 300 + 탱크 250 + 벌처 75
           fixedCost: true,
-          altText: '{home}, 머신샵에서 시즈 연구! 빠른 탱크를 노립니다!',
+          altText: '{home} 선수 머신샵에서 시즈 연구를 시작합니다. 빠른 탱크를 노립니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수 앞마당 자원이 들어옵니다! 마인으로 시간을 벌면서!',
+          text: '{away} 선수 앞마당 자원이 들어옵니다. 마인으로 시간을 벌면서.',
           owner: LogOwner.away,
-          altText: '{away}, 원팩 확장 자원 가동! 수비하면서 물량을 쌓습니다!',
+          altText: '{away} 선수 원팩 확장 자원 가동. 수비하면서 물량을 쌓습니다.',
         ),
       ],
     ),
@@ -71,59 +71,59 @@ const _tvt1fac1starVs1facDouble = ScenarioScript(
       recoveryResourcePerLine: 150,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 추가 팩토리 건설! 병력 생산을 늘립니다!',
+          text: '{home} 선수 추가 팩토리를 건설합니다. 병력 생산을 늘립니다.',
           owner: LogOwner.home,
           homeResource: -300, // 팩토리 300
           fixedCost: true,
-          altText: '{home}, 팩토리를 추가! 물량 차이를 만들겠다는 의도!',
+          altText: '{home} 선수 팩토리를 추가합니다. 물량 차이를 만들겠다는 의도입니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수 머신샵 부착! 벌처 마인도 연구합니다!',
+          text: '{away} 선수 머신샵을 부착합니다. 벌처 마인도 연구합니다.',
           owner: LogOwner.away,
           awayResource: -100, // 머신샵 100
           fixedCost: true,
-          altText: '{away}, 머신샵에서 마인 연구! 수비 준비!',
+          altText: '{away} 선수 머신샵에서 마인 연구를 시작합니다. 수비 준비.',
         ),
         ScriptEvent(
-          text: '{home}, 탱크 벌처가 모이고 있습니다! 빠른 타이밍!',
+          text: '{home} 선수 탱크 벌처가 모이고 있습니다. 빠른 타이밍.',
           owner: LogOwner.home,
           homeArmy: 6, homeResource: -575, // 탱크 250 + 벌처 75x2 + 스타포트 250 (원팩원스타)
           fixedCost: true,
-          altText: '{home} 선수 원팩 푸시! 탱크와 벌처가 모입니다!',
+          altText: '{home} 선수 원팩 푸시. 탱크와 벌처가 모입니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수 벌처로 센터를 장악합니다! 마인 매설!',
+          text: '{away} 선수 벌처로 센터를 장악합니다. 마인 매설.',
           owner: LogOwner.away,
           awayArmy: 2, awayResource: -75, // 벌처 75
           fixedCost: true,
           favorsStat: 'scout',
         ),
         ScriptEvent(
-          text: '{away} 선수 스타포트 건설! 컨트롤타워 올립니다!',
+          text: '{away} 선수 스타포트를 올립니다. 컨트롤타워도 건설합니다.',
           owner: LogOwner.away,
           awayResource: -350, // 스타포트 250 + 컨트롤타워 100
           fixedCost: true,
-          altText: '{away}, 스타포트 건설 후 컨트롤타워! 드랍십을 대비합니다!',
+          altText: '{away} 선수 스타포트 건설 후 컨트롤타워. 드랍십을 대비합니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수 엔지니어링 베이 건설! 터렛을 올립니다!',
+          text: '{away} 선수 엔지니어링 베이를 올립니다. 터렛도 건설합니다.',
           owner: LogOwner.away,
           awayResource: -200, // 엔지니어링베이 125 + 터렛 75
           fixedCost: true,
-          altText: '{away}, 엔지니어링 베이에 터렛! 드랍 대비!',
+          altText: '{away} 선수 엔지니어링 베이에 터렛 건설. 드랍에 대비합니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 병력이 모이고 있습니다! 곧 전진합니다!',
+          text: '{home} 선수 병력이 모이고 있습니다. 곧 전진합니다.',
           owner: LogOwner.home,
           homeArmy: 4, homeResource: -325, // 탱크 250 + 벌처 75
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{away} 선수 아머리 건설! 업그레이드를 시작합니다!',
+          text: '{away} 선수 아머리를 올립니다. 업그레이드를 시작합니다.',
           owner: LogOwner.away,
           awayResource: -150, // 아머리 150
           fixedCost: true,
-          altText: '{away}, 아머리에서 메카닉 업그레이드!',
+          altText: '{away} 선수 아머리에서 메카닉 업그레이드를 시작합니다.',
         ),
       ],
     ),
@@ -135,7 +135,7 @@ const _tvt1fac1starVs1facDouble = ScenarioScript(
       recoveryResourcePerLine: 200,
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 탱크 벌처가 전진합니다! 빠른 타이밍!',
+          text: '{home} 선수 탱크 벌처가 전진합니다! 빠른 타이밍!',
           owner: LogOwner.home,
           homeArmy: 4, homeResource: -325, // 탱크 250 + 벌처 75
           fixedCost: true,
@@ -149,20 +149,20 @@ const _tvt1fac1starVs1facDouble = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{home} 선수 벌처로 시야 확보! 상대 탱크 위치를 먼저 파악합니다!',
+          text: '{home} 선수 벌처로 시야 확보. 상대 탱크 위치를 먼저 파악합니다.',
           owner: LogOwner.home,
           awayArmy: -2, favorsStat: 'strategy+scout',
-          altText: '{home}, 시즈 탱크 거리재기! 시야 싸움에서 앞서갑니다!',
+          altText: '{home} 선수 시즈 탱크 거리재기. 시야 싸움에서 앞서갑니다.',
           skipChance: 0.3,
         ),
         ScriptEvent(
-          text: '{away} 선수 벌처를 보내 상대 병력을 확인합니다!',
+          text: '{away} 선수 벌처를 보내 상대 병력을 확인합니다.',
           owner: LogOwner.away,
           favorsStat: 'scout',
-          altText: '{away}, 벌처 정찰! 상대 병력을 파악합니다!',
+          altText: '{away} 선수 벌처 정찰. 상대 병력을 파악합니다.',
         ),
         ScriptEvent(
-          text: '{home}, 탱크 시즈 모드! 포격 사거리 안에 들어왔습니다!',
+          text: '{home} 선수 탱크 시즈 모드! 포격 사거리 안에 들어왔습니다!',
           owner: LogOwner.home,
           favorsStat: 'attack',
           altText: '{home} 선수 탱크 시즈! 사거리 안에 들어왔습니다!',
@@ -171,6 +171,48 @@ const _tvt1fac1starVs1facDouble = ScenarioScript(
           text: '원팩 푸시 vs 원팩 확장! 같은 빌드 다른 선택의 대결!',
           owner: LogOwner.system,
           skipChance: 0.2,
+        ),
+        // ── 맵 특성 이벤트 ──
+        // 근거리 맵: 교전 강화 (공격 능력치 유리)
+        ScriptEvent(
+          text: '{home} 선수 근거리 맵이라 탱크가 바로 사거리에 들어옵니다! 시즈 포격!',
+          owner: LogOwner.home,
+          awayArmy: -2,
+          favorsStat: 'attack',
+          requiresMapTag: 'rushShort',
+          skipChance: 0.5,
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 근거리 맵 이점을 살려 시즈 포격!',
+          owner: LogOwner.away,
+          homeArmy: -2,
+          favorsStat: 'attack',
+          requiresMapTag: 'rushShort',
+          skipChance: 0.5,
+        ),
+        // 복잡 지형 맵: 고지대 시즈 배치
+        ScriptEvent(
+          text: '{home} 선수 고지대를 점령하고 시즈 포격! 아래에서는 사거리가 안 닿습니다!',
+          owner: LogOwner.home,
+          awayArmy: -2,
+          favorsStat: 'strategy',
+          requiresMapTag: 'terrainHigh',
+          skipChance: 0.5,
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 반대편 고지대에 탱크를 올립니다! 지형 싸움!',
+          owner: LogOwner.away,
+          homeArmy: -2,
+          favorsStat: 'strategy',
+          requiresMapTag: 'terrainHigh',
+          skipChance: 0.5,
+        ),
+        // 원거리 맵: 멀티 확장 안전
+        ScriptEvent(
+          text: '원거리 맵이라 멀티 확장이 안전합니다, 양측 자원이 풍부해집니다.',
+          owner: LogOwner.system,
+          homeResource: 200, awayResource: 200,
+          requiresMapTag: 'rushLong',
         ),
       ],
     ),
@@ -186,13 +228,13 @@ const _tvt1fac1starVs1facDouble = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 벌처로 마인 지대를 정찰합니다!',
+              text: '{home} 선수 벌처로 마인 지대를 정찰합니다.',
               owner: LogOwner.home,
               favorsStat: 'scout',
-              altText: '{home} 선수 벌처 정찰! 마인 위치를 확인합니다!',
+              altText: '{home} 선수 벌처 정찰. 마인 위치를 확인합니다.',
             ),
             ScriptEvent(
-              text: '{home}, 탱크 화력이 마인 지대를 뚫습니다! 벌처 돌진!',
+              text: '{home} 선수 탱크 화력이 마인 지대를 뚫습니다! 벌처 돌진!',
               owner: LogOwner.home,
               awayArmy: -4, homeArmy: -2, favorsStat: 'attack',
               altText: '{home} 선수 탱크 시즈 포격! 마인 라인 돌파!',
@@ -203,7 +245,7 @@ const _tvt1fac1starVs1facDouble = ScenarioScript(
               awayArmy: -2,
             ),
             ScriptEvent(
-              text: '{home}, 탱크 라인 전진! 시즈 모드로 상대 건물까지 포격!',
+              text: '{home} 선수 탱크 라인 전진! 시즈 모드로 상대 건물까지 포격!',
               owner: LogOwner.home,
               awayResource: -400, // 커맨드센터 파괴
               favorsStat: 'attack',
@@ -215,7 +257,7 @@ const _tvt1fac1starVs1facDouble = ScenarioScript(
               awayArmy: -2,
             ),
             ScriptEvent(
-              text: '{away} 선수 벌처를 보내 역습을 시도하지만 마인에 벌처가 터집니다!',
+              text: '{away} 선수 탱크를 보내 역습을 시도하지만 마인에 탱크가 터집니다!',
               owner: LogOwner.away,
               awayArmy: -2, // 벌처 1기 = 2sup
               skipChance: 0.3,
@@ -235,10 +277,10 @@ const _tvt1fac1starVs1facDouble = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 마인에 벌처가 터집니다! 진격이 멈추는데요!',
+              text: '{away} 선수 마인에 탱크가 터집니다! 진격이 멈추는데요!',
               owner: LogOwner.away,
               homeArmy: -4, favorsStat: 'defense',
-              altText: '{away} 선수 마인 폭발! 벌처가 증발합니다!',
+              altText: '{away} 선수 마인 폭발! 탱크가 증발합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 병력 손실! 탱크도 피해를 입었습니다!',
@@ -246,13 +288,13 @@ const _tvt1fac1starVs1facDouble = ScenarioScript(
               homeArmy: -2,
             ),
             ScriptEvent(
-              text: '{away} 선수 아머리 건설! 골리앗을 준비합니다!',
+              text: '{away} 선수 아머리를 올립니다. 골리앗을 준비합니다.',
               owner: LogOwner.away,
               awayResource: -150, // 아머리 150
               fixedCost: true,
             ),
             ScriptEvent(
-              text: '{away}, 확장 자원 우위! 탱크 골리앗이 쌓입니다!',
+              text: '{away} 선수 확장 자원 우위. 탱크 골리앗이 쌓입니다.',
               owner: LogOwner.away,
               awayArmy: 4, awayResource: -300, // 골리앗 2기 (150x2)
               fixedCost: true,

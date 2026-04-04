@@ -136,185 +136,168 @@ class BuildOrderData {
 
   // ==================== 테란 빌드 ====================
 
-  // TvZ 빌드들
-  // 센터 8배럭 = 치즈, 투배럭 아카 = 공격형, 5팩 골리앗 = 수비형, 선엔베 4배럭 = 공격형, 111 = 밸런스, 발리오닉 = 수비형, 투스타 레이스 = 공격형
+  // TvZ 빌드들 (7개 오프닝 기반)
+  // BBS = 치즈, 2배럭아카데미 = 공격형, 배럭더블 = 밸런스, 111 = 밸런스, 팩토리더블 = 밸런스, 노배럭더블 = 수비형, 2스타레이스 = 공격형, 5배럭 = 공격형
   static const terranVsZergBuilds = [
-    // 1. 센터 8배럭 (tvz_bunker - Cheese)
-    // 8서플 배럭 후 즉시 벙커링. 초반 올인
+    // 1. BBS (tvz_bbs - Cheese)
     BuildOrder(
-      id: 'tvz_bunker',
-      name: '센터 8배럭',
-      race: 'T',
-      vsRace: 'Z',
+      id: 'tvz_bbs',
+      name: 'BBS',
+      race: 'T', vsRace: 'Z',
       style: BuildStyle.cheese,
       steps: [
-        BuildStep(line: 1, text: '{player} 선수 8서플 배럭 건설합니다.', myResource: -10),
-        BuildStep(line: 4, text: '{player} 선수 마린 생산 시작!', myArmy: 2, myResource: -5),
-        BuildStep(line: 7, text: '{player}, SCV 이동! 상대 앞마당으로!', stat: 'attack'),
-        BuildStep(line: 10, text: '{player} 선수 벙커 건설합니다!', stat: 'control', myResource: -15),
-        BuildStep(line: 14, text: '{player}, 마린 벙커 투입!', stat: 'attack', myArmy: 3, myResource: -5),
+        BuildStep(line: 1, text: '{player} 선수 센터에 배럭 건설합니다.', myResource: -10),
+        BuildStep(line: 3, text: '{player} 선수 본진에 배럭 추가! BBS!', myResource: -10),
+        BuildStep(line: 5, text: '{player} 선수 마린을 모읍니다.', myArmy: 3, myResource: -5),
+        BuildStep(line: 7, text: '{player} 선수 SCV를 끌고 전진합니다!', stat: 'attack'),
+        BuildStep(line: 10, text: '{player} 선수 벙커 건설!', stat: 'control', myResource: -15),
+        BuildStep(line: 14, text: '{player} 선수 마린 벙커 투입!', stat: 'attack', myArmy: 3, myResource: -5),
         BuildStep(line: 18, text: '{player} 선수 SCV 수리하면서 버팁니다!', stat: 'control', isClash: true),
-        BuildStep(line: 22, text: '{player}, 추가 마린 도착!', stat: 'attack', myArmy: 3, myResource: -5, isClash: true),
+        BuildStep(line: 22, text: '{player} 선수 추가 마린 도착!', stat: 'attack', myArmy: 3, myResource: -5, isClash: true),
         BuildStep(line: 25, text: '{player} 선수 끝장을 보려 합니다!', stat: 'attack', isClash: true, decisive: true),
       ],
     ),
 
-    // 2. 투배럭 아카 (tvzSKTerran - Aggressive)
-    // 현 메타 정석. 배럭 2개 + 아카데미로 마린 메딕 조합 후 벌처 합류, 멀티 어택
+    // 2. 2배럭아카데미 (tvz_2bar_academy - Aggressive)
     BuildOrder(
-      id: 'tvz_sk',
-      name: '투배럭 아카',
-      race: 'T',
-      vsRace: 'Z',
+      id: 'tvz_2bar_academy',
+      name: '2배럭아카데미',
+      race: 'T', vsRace: 'Z',
       style: BuildStyle.aggressive,
       steps: [
         BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
-        BuildStep(line: 3, text: '{player} 선수 마린 생산!', myArmy: 2, myResource: -5),
-        BuildStep(line: 5, text: '{player} 선수 2번째 배럭!', myResource: -10),
-        BuildStep(line: 8, text: '{player} 선수 아카데미 건설!', myResource: -15),
-        BuildStep(line: 12, text: '{player} 선수 메딕 생산 시작!', stat: 'control', myArmy: 3, myResource: -10),
-        BuildStep(line: 14, text: '{player} 선수 스팀팩 연구!', stat: 'attack', myResource: -15),
-        BuildStep(line: 16, text: '{player}, 마린 메딕 완성! 공격 들어갑니다!', stat: 'attack', myArmy: 4, isClash: true),
-        BuildStep(line: 20, text: '{player} 선수 앞마당 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 3, text: '{player} 선수 2번째 배럭!', myResource: -10),
+        BuildStep(line: 5, text: '{player} 선수 아카데미 건설!', myResource: -15),
+        BuildStep(line: 8, text: '{player} 선수 마린 메딕 생산 시작!', stat: 'control', myArmy: 3, myResource: -10),
+        BuildStep(line: 11, text: '{player} 선수 스팀팩 연구!', stat: 'attack', myResource: -15),
+        BuildStep(line: 14, text: '{player} 선수 앞마당 커맨드센터를 올립니다.', stat: 'macro', myResource: -30),
+        BuildStep(line: 18, text: '{player} 선수 마린 메딕 물량으로 공격!', stat: 'attack', myArmy: 6, myResource: -15, isClash: true),
         BuildStep(line: 24, text: '{player} 선수 팩토리 건설!', myResource: -20),
-        BuildStep(line: 28, text: '{player}, 탱크 생산! 맵 장악!', stat: 'harass', myArmy: 3, myResource: -30),
-        BuildStep(line: 36, text: '{player}, 마린 메딕 푸시!', stat: 'attack', myArmy: 6, myResource: -15),
-        BuildStep(line: 50, text: '{player} 선수 멀티 포인트 공격!', stat: 'control', enemyArmy: -5),
-        BuildStep(line: 60, text: '{player} 선수 3번째 멀티 확장!', stat: 'macro', myResource: -30),
-        BuildStep(line: 75, text: '{player}, 마린 메딕 탱크 조합 완성!', stat: 'macro', myArmy: 15, myResource: -40),
+        BuildStep(line: 30, text: '{player} 선수 탱크 생산!', stat: 'defense', myArmy: 4, myResource: -20),
+        BuildStep(line: 40, text: '{player} 선수 마린 메딕 탱크 조합!', stat: 'macro', myArmy: 10, myResource: -30),
       ],
     ),
 
-    // 4. 5팩 골리앗 (tvz3FactoryGoliath - Defensive)
-    // 현 메타 수비형 정석. 팩토리 5개로 골리앗 대량 생산, 뮤탈 완벽 대비
+    // 3. 배럭더블 (tvz_bar_double - Balanced)
     BuildOrder(
-      id: 'tvz_3fac_goliath',
-      name: '5팩 골리앗',
-      race: 'T',
-      vsRace: 'Z',
-      style: BuildStyle.defensive,
-      steps: [
-        BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
-        BuildStep(line: 4, text: '{player} 선수 서플라이 건설!', myResource: -8),
-        BuildStep(line: 6, text: '{player} 선수 앞마당 확장!', stat: 'macro', myResource: -30),
-        BuildStep(line: 10, text: '{player} 선수 팩토리 건설!', myResource: -20),
-        BuildStep(line: 14, text: '{player} 선수 머신샵 부착!', myResource: -10),
-        BuildStep(line: 16, text: '{player} 선수 아머리 건설!', myResource: -15),
-        BuildStep(line: 18, text: '{player} 선수 벙커 건설!', stat: 'defense', myArmy: 2, myResource: -15),
-        BuildStep(line: 20, text: '{player} 선수 팩토리 추가!', myResource: -20),
-        BuildStep(line: 24, text: '{player} 선수 골리앗 레인지 업!', stat: 'strategy', myResource: -15),
-        BuildStep(line: 28, text: '{player} 선수 3번째 팩토리!', myResource: -20),
-        BuildStep(line: 32, text: '{player}, 4번째 팩토리!', myResource: -20),
-        BuildStep(line: 36, text: '{player} 선수 5번째 팩토리 건설!', myResource: -20),
-        BuildStep(line: 40, text: '{player}, 골리앗 대량 생산!', stat: 'defense', myArmy: 10, myResource: -30),
-        BuildStep(line: 48, text: '{player}, 골리앗 추가 생산!', stat: 'defense', myArmy: 8, myResource: -25),
-        BuildStep(line: 54, text: '{player} 선수 시즈 탱크 생산 시작!', stat: 'strategy', myArmy: 4, myResource: -20),
-        BuildStep(line: 60, text: '{player}, 3번째 멀티 확장!', stat: 'macro', myResource: -30),
-        BuildStep(line: 66, text: '{player}, 시즈 탱크 골리앗 조합 완성!', stat: 'macro', myArmy: 18, myResource: -45),
-      ],
-    ),
-
-    // 4. 선엔베 4배럭 (tvz_4bar_enbe - Aggressive)
-    // 엔지니어링 베이 선건설 후 4배럭 마린 메딕 러쉬
-    BuildOrder(
-      id: 'tvz_4bar_enbe',
-      name: '선엔베 4배럭',
-      race: 'T',
-      vsRace: 'Z',
-      style: BuildStyle.aggressive,
-      steps: [
-        BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
-        BuildStep(line: 3, text: '{player} 선수 엔지니어링 베이 건설!', myResource: -12),
-        BuildStep(line: 6, text: '{player} 선수 2번째 배럭!', myResource: -10),
-        BuildStep(line: 9, text: '{player} 선수 3번째 배럭!', myResource: -10),
-        BuildStep(line: 12, text: '{player}, 4번째 배럭까지 올립니다!', myResource: -10),
-        BuildStep(line: 15, text: '{player} 선수 아카데미 건설!', myResource: -15),
-        BuildStep(line: 18, text: '{player}, 마린 쏟아냅니다!', stat: 'attack', myArmy: 6, myResource: -15),
-        BuildStep(line: 22, text: '{player} 선수 메딕 생산 시작!', stat: 'control', myArmy: 3, myResource: -10),
-        BuildStep(line: 26, text: '{player}, 스팀팩 연구 시작!', stat: 'attack', myResource: -15),
-        BuildStep(line: 30, text: '{player} 선수 앞마당 확장!', stat: 'macro', myResource: -30),
-        BuildStep(line: 35, text: '{player}, 마린 메딕 대규모 푸시!', stat: 'attack', myArmy: 8, myResource: -20, isClash: true),
-        BuildStep(line: 40, text: '{player} 선수 상대 앞마당 압박!', stat: 'control', enemyArmy: -4, isClash: true),
-        BuildStep(line: 45, text: '{player}, 추가 병력 합류! 밀어붙입니다!', stat: 'attack', myArmy: 5, isClash: true, decisive: true),
-      ],
-    ),
-
-    // 5. 111 (tvz_111 - Balanced)
-    // 1배럭 1팩토리 1스타포트. 밸런스 운영. 탱크+벌처+레이스 유연 조합
-    BuildOrder(
-      id: 'tvz_111',
-      name: '111',
-      race: 'T',
-      vsRace: 'Z',
+      id: 'tvz_bar_double',
+      name: '배럭더블',
+      race: 'T', vsRace: 'Z',
       style: BuildStyle.balanced,
       steps: [
         BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
         BuildStep(line: 3, text: '{player} 선수 마린 생산!', myArmy: 2, myResource: -5),
-        BuildStep(line: 6, text: '{player} 선수 팩토리 건설!', myResource: -20),
-        BuildStep(line: 10, text: '{player} 선수 스타포트 건설!', myResource: -25),
-        BuildStep(line: 14, text: '{player}, 시즈 탱크 생산!', stat: 'defense', myArmy: 6, myResource: -15),
-        BuildStep(line: 18, text: '{player} 선수 앞마당 확장!', stat: 'macro', myResource: -30),
-        BuildStep(line: 22, text: '{player}, 레이스 생산!', stat: 'harass', myArmy: 4, myResource: -15),
-        BuildStep(line: 28, text: '{player} 선수 레이스로 정찰! 상대 빌드 파악!', stat: 'scout', enemyArmy: -3),
-        BuildStep(line: 34, text: '{player}, 벙커 건설로 앞마당 방어!', stat: 'defense', myResource: -15),
-        BuildStep(line: 42, text: '{player}, 벌처 마인으로 상대 견제!', stat: 'harass', enemyArmy: -5, enemyResource: -10),
-        BuildStep(line: 50, text: '{player} 선수 탱크 벌처 전진!', stat: 'control', myArmy: 5, isClash: true),
-        BuildStep(line: 58, text: '{player}, 탱크 추가 생산!', stat: 'defense', myArmy: 8, myResource: -20),
-        BuildStep(line: 68, text: '{player} 선수 3번째 멀티 확장!', stat: 'macro', myResource: -30),
-        BuildStep(line: 78, text: '{player}, 탱크 바이오닉 조합 완성! 전진!', stat: 'macro', myArmy: 15, myResource: -35, isClash: true),
+        BuildStep(line: 5, text: '{player} 선수 앞마당 커맨드센터를 올립니다.', stat: 'macro', myResource: -30),
+        BuildStep(line: 8, text: '{player} 선수 리파이너리 건설.', myResource: -5),
+        BuildStep(line: 11, text: '{player} 선수 벙커 건설!', stat: 'defense', myResource: -15),
+        BuildStep(line: 14, text: '{player} 선수 팩토리 건설!', myResource: -20),
+        BuildStep(line: 18, text: '{player} 선수 벌처 생산!', stat: 'harass', myArmy: 2, myResource: -5),
+        BuildStep(line: 24, text: '{player} 선수 아카데미 건설!', myResource: -15),
+        BuildStep(line: 30, text: '{player} 선수 마린 메딕 물량이 늘어납니다.', stat: 'attack', myArmy: 6, myResource: -15),
+        BuildStep(line: 40, text: '{player} 선수 3번째 멀티 확장!', stat: 'macro', myResource: -30),
       ],
     ),
 
-    // 6. 발리오닉 (tvz_valkyrie - Defensive)
-    // 발키리 + 바이오닉(마린메딕). 대공 방어 후 운영
+    // 4. 111 (tvz_111 - Balanced)
     BuildOrder(
-      id: 'tvz_valkyrie',
-      name: '발리오닉',
-      race: 'T',
-      vsRace: 'Z',
-      style: BuildStyle.defensive,
+      id: 'tvz_111',
+      name: '111',
+      race: 'T', vsRace: 'Z',
+      style: BuildStyle.balanced,
       steps: [
         BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
-        BuildStep(line: 3, text: '{player} 선수 마린 생산!', myArmy: 2, myResource: -5),
-        BuildStep(line: 6, text: '{player} 선수 앞마당 확장!', stat: 'macro', myResource: -30),
-        BuildStep(line: 10, text: '{player} 선수 아카데미 건설!', myResource: -15),
-        BuildStep(line: 14, text: '{player} 선수 팩토리 건설!', myResource: -20),
-        BuildStep(line: 16, text: '{player} 선수 아머리 건설!', myResource: -15),
-        BuildStep(line: 18, text: '{player}, 스타포트 건설!', myResource: -25),
-        BuildStep(line: 20, text: '{player}, 컨트롤타워 부착!', myResource: -10),
-        BuildStep(line: 22, text: '{player} 선수 발키리 생산!', stat: 'defense', myArmy: 4, myResource: -20),
-        BuildStep(line: 28, text: '{player}, 메딕 생산 시작!', stat: 'control', myArmy: 3, myResource: -10),
-        BuildStep(line: 34, text: '{player} 선수 스팀팩 연구!', stat: 'attack', myResource: -15),
-        BuildStep(line: 40, text: '{player}, 발키리로 뮤탈 요격!', stat: 'defense', enemyArmy: -4),
-        BuildStep(line: 48, text: '{player} 선수 2번째 스타포트!', myResource: -25),
-        BuildStep(line: 56, text: '{player}, 발키리 추가 생산!', stat: 'defense', myArmy: 4, myResource: -20),
-        BuildStep(line: 65, text: '{player} 선수 3번째 멀티 확장!', stat: 'macro', myResource: -30),
-        BuildStep(line: 75, text: '{player}, 대공 완벽 장악!', stat: 'defense', enemyArmy: -5),
-        BuildStep(line: 85, text: '{player} 선수 마린 메딕 발키리 조합 완성!', stat: 'macro', myArmy: 16, myResource: -40),
+        BuildStep(line: 3, text: '{player} 선수 리파이너리 건설.', myResource: -5),
+        BuildStep(line: 5, text: '{player} 선수 팩토리 건설!', myResource: -20),
+        BuildStep(line: 8, text: '{player} 선수 스타포트 건설!', myResource: -25),
+        BuildStep(line: 11, text: '{player} 선수 벌처 생산! 정찰 나갑니다.', stat: 'scout', myArmy: 2, myResource: -5),
+        BuildStep(line: 14, text: '{player} 선수 앞마당 커맨드센터를 올립니다.', stat: 'macro', myResource: -30),
+        BuildStep(line: 18, text: '{player} 선수 시즈 탱크 생산!', stat: 'defense', myArmy: 4, myResource: -15),
+        BuildStep(line: 24, text: '{player} 선수 벌처 마인으로 견제!', stat: 'harass', enemyArmy: -3, enemyResource: -10),
+        BuildStep(line: 30, text: '{player} 선수 탱크 벌처 전진!', stat: 'control', myArmy: 5, isClash: true),
+        BuildStep(line: 40, text: '{player} 선수 3번째 멀티 확장!', stat: 'macro', myResource: -30),
       ],
     ),
 
-    // 7. 투스타 레이스 (tvz_2star_wraith - Aggressive)
-    // 스타포트 2개로 레이스 견제. 공중 장악
+    // 5. 팩토리더블 (tvz_fac_double - Balanced)
     BuildOrder(
-      id: 'tvz_2star_wraith',
-      name: '투스타 레이스',
-      race: 'T',
-      vsRace: 'Z',
+      id: 'tvz_fac_double',
+      name: '팩토리더블',
+      race: 'T', vsRace: 'Z',
+      style: BuildStyle.balanced,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
+        BuildStep(line: 3, text: '{player} 선수 리파이너리 건설.', myResource: -5),
+        BuildStep(line: 5, text: '{player} 선수 팩토리 건설!', myResource: -20),
+        BuildStep(line: 8, text: '{player} 선수 벌처 생산! 정찰 및 저글링 견제.', stat: 'harass', myArmy: 2, myResource: -5),
+        BuildStep(line: 11, text: '{player} 선수 앞마당 커맨드센터를 올립니다.', stat: 'macro', myResource: -30),
+        BuildStep(line: 14, text: '{player} 선수 벌처로 센터를 장악합니다.', stat: 'scout', myArmy: 2, myResource: -5),
+        BuildStep(line: 18, text: '{player} 선수 마인 연구!', stat: 'harass', myResource: -10),
+        BuildStep(line: 22, text: '{player} 선수 팩토리 추가!', myResource: -20),
+        BuildStep(line: 28, text: '{player} 선수 시즈 탱크 생산!', stat: 'defense', myArmy: 4, myResource: -15),
+        BuildStep(line: 36, text: '{player} 선수 3번째 멀티 확장!', stat: 'macro', myResource: -30),
+      ],
+    ),
+
+    // 6. 노배럭더블 (tvz_nobar_double - Defensive)
+    BuildOrder(
+      id: 'tvz_nobar_double',
+      name: '노배럭더블',
+      race: 'T', vsRace: 'Z',
+      style: BuildStyle.defensive,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 앞마당 커맨드센터를 먼저 올립니다! 노배럭더블!', stat: 'macro', myResource: -40),
+        BuildStep(line: 4, text: '{player} 선수 배럭 건설!', myResource: -10),
+        BuildStep(line: 7, text: '{player} 선수 리파이너리 건설.', myResource: -5),
+        BuildStep(line: 10, text: '{player} 선수 마린 생산!', myArmy: 2, myResource: -5),
+        BuildStep(line: 13, text: '{player} 선수 팩토리 건설!', myResource: -20),
+        BuildStep(line: 16, text: '{player} 선수 벙커 건설!', stat: 'defense', myResource: -15),
+        BuildStep(line: 20, text: '{player} 선수 벌처 생산!', stat: 'harass', myArmy: 2, myResource: -5),
+        BuildStep(line: 26, text: '{player} 선수 아카데미 건설!', myResource: -15),
+        BuildStep(line: 32, text: '{player} 선수 마린 메딕 물량이 늘어납니다.', stat: 'attack', myArmy: 6, myResource: -15),
+        BuildStep(line: 40, text: '{player} 선수 3번째 멀티 확장!', stat: 'macro', myResource: -30),
+      ],
+    ),
+
+    // 7. 2스타레이스 (tvz_2star - Aggressive)
+    BuildOrder(
+      id: 'tvz_2star',
+      name: '2스타레이스',
+      race: 'T', vsRace: 'Z',
       style: BuildStyle.aggressive,
       steps: [
         BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
-        BuildStep(line: 3, text: '{player} 선수 마린 생산!', myArmy: 2, myResource: -5),
-        BuildStep(line: 6, text: '{player} 선수 팩토리 건설!', myResource: -20),
-        BuildStep(line: 9, text: '{player} 선수 스타포트 건설!', myResource: -25),
-        BuildStep(line: 12, text: '{player}, 2번째 스타포트!', stat: 'harass', myResource: -25),
-        BuildStep(line: 16, text: '{player} 선수 레이스 더블 생산!', stat: 'harass', myArmy: 4, myResource: -15),
-        BuildStep(line: 20, text: '{player}, 레이스로 오버로드 사냥!', stat: 'harass', enemyArmy: -3),
-        BuildStep(line: 25, text: '{player} 선수 레이스 추가 생산!', myArmy: 4, myResource: -15),
-        BuildStep(line: 30, text: '{player}, 드론 견제!', stat: 'harass', enemyResource: -25),
-        BuildStep(line: 36, text: '{player} 선수 앞마당 확장!', stat: 'macro', myResource: -30),
-        BuildStep(line: 42, text: '{player}, 레이스 편대 완성!', stat: 'control', myArmy: 4, myResource: -15, isClash: true),
-        BuildStep(line: 50, text: '{player} 선수 공중 장악 완료!', stat: 'harass', enemyArmy: -5, isClash: true, decisive: true),
+        BuildStep(line: 3, text: '{player} 선수 리파이너리 건설.', myResource: -5),
+        BuildStep(line: 5, text: '{player} 선수 팩토리 건설!', myResource: -20),
+        BuildStep(line: 8, text: '{player} 선수 스타포트 건설!', myResource: -25),
+        BuildStep(line: 11, text: '{player} 선수 2번째 스타포트!', stat: 'harass', myResource: -25),
+        BuildStep(line: 14, text: '{player} 선수 레이스 더블 생산!', stat: 'harass', myArmy: 4, myResource: -15),
+        BuildStep(line: 18, text: '{player} 선수 레이스로 오버로드 사냥!', stat: 'harass', enemyArmy: -3),
+        BuildStep(line: 22, text: '{player} 선수 앞마당 커맨드센터를 올립니다.', stat: 'macro', myResource: -30),
+        BuildStep(line: 28, text: '{player} 선수 레이스 추가 생산!', myArmy: 4, myResource: -15),
+        BuildStep(line: 36, text: '{player} 선수 레이스 편대 완성!', stat: 'control', myArmy: 4, myResource: -15),
+      ],
+    ),
+
+    // 8. 5배럭 (tvz_5bar - Aggressive)
+    BuildOrder(
+      id: 'tvz_5bar',
+      name: '5배럭',
+      race: 'T', vsRace: 'Z',
+      style: BuildStyle.aggressive,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
+        BuildStep(line: 3, text: '{player} 선수 앞마당 커맨드센터를 올립니다.', myResource: -20),
+        BuildStep(line: 5, text: '{player} 선수 리파이너리 건설! 가스 채취를 시작합니다.', myResource: -5),
+        BuildStep(line: 7, text: '{player} 선수 배럭을 추가합니다!', myResource: -10),
+        BuildStep(line: 9, text: '{player} 선수 아카데미 건설! 스팀팩 연구!', myResource: -15),
+        BuildStep(line: 11, text: '{player} 선수 3번째 배럭!', myResource: -10),
+        BuildStep(line: 14, text: '{player}, 4번째 배럭!', myResource: -10),
+        BuildStep(line: 17, text: '{player}, 5번째 배럭까지 올립니다! 5배럭 체제!', myResource: -10),
+        BuildStep(line: 20, text: '{player}, 마린 메딕 대량 생산!', stat: 'attack', myArmy: 7, myResource: -20),
+        BuildStep(line: 25, text: '{player} 선수 메딕 합류! 물량이 쏟아집니다!', stat: 'control', myArmy: 4, myResource: -15),
+        BuildStep(line: 30, text: '{player}, 5배럭 물량 푸시!', stat: 'attack', myArmy: 8, myResource: -20, isClash: true),
+        BuildStep(line: 35, text: '{player} 선수 마린 메딕이 앞마당을 압박합니다!', stat: 'attack', enemyArmy: -5, isClash: true),
+        BuildStep(line: 40, text: '{player}, 추가 병력 합류! 밀어붙입니다!', stat: 'attack', myArmy: 5, isClash: true, decisive: true),
       ],
     ),
 
@@ -323,82 +306,90 @@ class BuildOrderData {
   // ==================== 테란 오프닝 데이터 (TvZ 6종 + TvP 4종) ====================
 
   static const terranOpeningsTvZ = [
-    // 1. 센터 8배럭 (치즈 - 자체 완결)
-    RaceOpening(race: 'T', id: 'tvz_bunker', name: '센터 8배럭', vsRace: 'Z',
+    // 1. BBS (치즈 - 자체 완결)
+    RaceOpening(race: 'T', id: 'tvz_bbs', name: 'BBS', vsRace: 'Z',
       style: BuildStyle.cheese, aggressionTier: 0,
       steps: [
-        BuildStep(line: 1, text: '{player} 선수 8서플 배럭 건설합니다.', myResource: -10),
-        BuildStep(line: 4, text: '{player} 선수 마린 생산 시작!', myArmy: 2, myResource: -5),
-        BuildStep(line: 7, text: '{player}, SCV 이동! 상대 앞마당으로!', stat: 'attack'),
-        BuildStep(line: 10, text: '{player} 선수 벙커 건설합니다!', stat: 'control', myResource: -15),
-        BuildStep(line: 14, text: '{player}, 마린 벙커 투입!', stat: 'attack', myArmy: 3, myResource: -5),
+        BuildStep(line: 1, text: '{player} 선수 센터에 배럭 건설합니다.', myResource: -10),
+        BuildStep(line: 3, text: '{player} 선수 본진에 배럭 추가! BBS!', myResource: -10),
+        BuildStep(line: 5, text: '{player} 선수 마린을 모읍니다.', myArmy: 3, myResource: -5),
+        BuildStep(line: 7, text: '{player} 선수 SCV를 끌고 전진합니다!', stat: 'attack'),
+        BuildStep(line: 10, text: '{player} 선수 벙커 건설!', stat: 'control', myResource: -15),
+        BuildStep(line: 14, text: '{player} 선수 마린 벙커 투입!', stat: 'attack', myArmy: 3, myResource: -5),
         BuildStep(line: 18, text: '{player} 선수 SCV 수리하면서 버팁니다!', stat: 'control', isClash: true),
-        BuildStep(line: 22, text: '{player}, 추가 마린 도착!', stat: 'attack', myArmy: 3, myResource: -5, isClash: true),
+        BuildStep(line: 22, text: '{player} 선수 추가 마린 도착!', stat: 'attack', myArmy: 3, myResource: -5, isClash: true),
         BuildStep(line: 25, text: '{player} 선수 끝장을 보려 합니다!', stat: 'attack', isClash: true, decisive: true),
       ],
     ),
-    // 2. 투배럭 (공격적)
-    RaceOpening(race: 'T', id: 'tvz_sk_opening', name: '투배럭', vsRace: 'Z',
+    // 2. 2배럭아카데미 (공격적)
+    RaceOpening(race: 'T', id: 'tvz_2bar_academy', name: '2배럭아카데미', vsRace: 'Z',
       style: BuildStyle.aggressive, aggressionTier: 1,
       steps: [
         BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
-        BuildStep(line: 3, text: '{player} 선수 마린 생산!', myArmy: 2, myResource: -5),
-        BuildStep(line: 5, text: '{player} 선수 2번째 배럭!', myResource: -10),
-        BuildStep(line: 8, text: '{player} 선수 아카데미 건설!', myResource: -15),
-        BuildStep(line: 12, text: '{player} 선수 메딕 생산 시작!', stat: 'control', myArmy: 3, myResource: -10),
-        BuildStep(line: 14, text: '{player} 선수 스팀팩 연구!', stat: 'attack', myResource: -15),
-        BuildStep(line: 16, text: '{player} 선수 앞마당 확장!', stat: 'macro', myResource: -30),
+        BuildStep(line: 3, text: '{player} 선수 2번째 배럭!', myResource: -10),
+        BuildStep(line: 5, text: '{player} 선수 아카데미 건설!', myResource: -15),
+        BuildStep(line: 8, text: '{player} 선수 마린 메딕 생산 시작!', stat: 'control', myArmy: 3, myResource: -10),
+        BuildStep(line: 11, text: '{player} 선수 스팀팩 연구!', stat: 'attack', myResource: -15),
+        BuildStep(line: 14, text: '{player} 선수 앞마당 커맨드센터를 올립니다.', stat: 'macro', myResource: -30),
       ],
     ),
-    // 3. 선엔베 (공격적 - 자체 완결)
-    RaceOpening(race: 'T', id: 'tvz_4bar_enbe', name: '선엔베', vsRace: 'Z',
-      style: BuildStyle.aggressive, aggressionTier: 1,
-      steps: [
-        BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
-        BuildStep(line: 3, text: '{player} 선수 엔지니어링 베이 건설!', myResource: -12),
-        BuildStep(line: 6, text: '{player} 선수 2번째 배럭!', myResource: -10),
-        BuildStep(line: 9, text: '{player} 선수 3번째 배럭!', myResource: -10),
-        BuildStep(line: 12, text: '{player}, 4번째 배럭까지 올립니다!', myResource: -10),
-        BuildStep(line: 15, text: '{player} 선수 아카데미 건설!', myResource: -15),
-        BuildStep(line: 18, text: '{player}, 마린 쏟아냅니다!', stat: 'attack', myArmy: 6, myResource: -15),
-        BuildStep(line: 22, text: '{player} 선수 메딕 생산 시작!', stat: 'control', myArmy: 3, myResource: -10),
-        BuildStep(line: 26, text: '{player}, 스팀팩 연구 시작!', stat: 'attack', myResource: -15),
-        BuildStep(line: 30, text: '{player} 선수 앞마당 확장!', stat: 'macro', myResource: -30),
-        BuildStep(line: 35, text: '{player}, 마린 메딕 대규모 푸시!', stat: 'attack', myArmy: 8, myResource: -20, isClash: true),
-        BuildStep(line: 40, text: '{player} 선수 상대 앞마당 압박!', stat: 'control', enemyArmy: -4, isClash: true),
-        BuildStep(line: 45, text: '{player}, 추가 병력 합류! 밀어붙입니다!', stat: 'attack', myArmy: 5, isClash: true, decisive: true),
-      ],
-    ),
-    // 4. 원배럭 더블 (밸런스)
-    RaceOpening(race: 'T', id: 'tvz_1rax_double', name: '원배럭 더블', vsRace: 'Z',
+    // 3. 배럭더블 (밸런스)
+    RaceOpening(race: 'T', id: 'tvz_bar_double', name: '배럭더블', vsRace: 'Z',
       style: BuildStyle.balanced, aggressionTier: 2,
       steps: [
         BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
         BuildStep(line: 3, text: '{player} 선수 마린 생산!', myArmy: 2, myResource: -5),
-        BuildStep(line: 5, text: '{player} 선수 앞마당 확장!', stat: 'macro', myResource: -30),
-        BuildStep(line: 9, text: '{player} 선수 벙커 건설!', stat: 'defense', myResource: -15),
-        BuildStep(line: 13, text: '{player} 선수 팩토리 건설!', myResource: -20),
+        BuildStep(line: 5, text: '{player} 선수 앞마당 커맨드센터를 올립니다.', stat: 'macro', myResource: -30),
+        BuildStep(line: 8, text: '{player} 선수 리파이너리 건설.', myResource: -5),
+        BuildStep(line: 11, text: '{player} 선수 벙커 건설!', stat: 'defense', myResource: -15),
+        BuildStep(line: 14, text: '{player} 선수 팩토리 건설!', myResource: -20),
       ],
     ),
-    // 5. 원팩토리 더블 (밸런스)
-    RaceOpening(race: 'T', id: 'tvz_1fac_double', name: '원팩토리 더블', vsRace: 'Z',
+    // 4. 111 (밸런스)
+    RaceOpening(race: 'T', id: 'tvz_111', name: '111', vsRace: 'Z',
       style: BuildStyle.balanced, aggressionTier: 2,
       steps: [
         BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
-        BuildStep(line: 3, text: '{player} 선수 마린 생산!', myArmy: 2, myResource: -5),
-        BuildStep(line: 6, text: '{player} 선수 팩토리 건설!', myResource: -20),
-        BuildStep(line: 10, text: '{player} 선수 앞마당 확장!', stat: 'macro', myResource: -30),
-        BuildStep(line: 14, text: '{player} 선수 벙커 건설!', stat: 'defense', myResource: -15),
+        BuildStep(line: 3, text: '{player} 선수 리파이너리 건설.', myResource: -5),
+        BuildStep(line: 5, text: '{player} 선수 팩토리 건설!', myResource: -20),
+        BuildStep(line: 8, text: '{player} 선수 스타포트 건설!', myResource: -25),
+        BuildStep(line: 11, text: '{player} 선수 벌처 생산! 정찰 나갑니다.', stat: 'scout', myArmy: 2, myResource: -5),
+        BuildStep(line: 14, text: '{player} 선수 앞마당 커맨드센터를 올립니다.', stat: 'macro', myResource: -30),
       ],
     ),
-    // 6. 노배럭 더블 (수비적)
-    RaceOpening(race: 'T', id: 'tvz_norax_double', name: '노배럭 더블', vsRace: 'Z',
+    // 5. 팩토리더블 (밸런스)
+    RaceOpening(race: 'T', id: 'tvz_fac_double', name: '팩토리더블', vsRace: 'Z',
+      style: BuildStyle.balanced, aggressionTier: 2,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
+        BuildStep(line: 3, text: '{player} 선수 리파이너리 건설.', myResource: -5),
+        BuildStep(line: 5, text: '{player} 선수 팩토리 건설!', myResource: -20),
+        BuildStep(line: 8, text: '{player} 선수 벌처 생산! 정찰 및 저글링 견제.', stat: 'harass', myArmy: 2, myResource: -5),
+        BuildStep(line: 11, text: '{player} 선수 앞마당 커맨드센터를 올립니다.', stat: 'macro', myResource: -30),
+        BuildStep(line: 14, text: '{player} 선수 벌처로 센터를 장악합니다.', stat: 'scout', myArmy: 2, myResource: -5),
+      ],
+    ),
+    // 6. 노배럭더블 (수비적)
+    RaceOpening(race: 'T', id: 'tvz_nobar_double', name: '노배럭더블', vsRace: 'Z',
       style: BuildStyle.defensive, aggressionTier: 3,
       steps: [
-        BuildStep(line: 1, text: '{player} 선수 커맨드센터 건설합니다!', stat: 'macro', myResource: -40),
-        BuildStep(line: 5, text: '{player} 선수 배럭 건설!', myResource: -10),
-        BuildStep(line: 9, text: '{player} 선수 마린 생산!', myArmy: 2, myResource: -5),
+        BuildStep(line: 1, text: '{player} 선수 앞마당 커맨드센터를 먼저 올립니다! 노배럭더블!', stat: 'macro', myResource: -40),
+        BuildStep(line: 4, text: '{player} 선수 배럭 건설!', myResource: -10),
+        BuildStep(line: 7, text: '{player} 선수 리파이너리 건설.', myResource: -5),
+        BuildStep(line: 10, text: '{player} 선수 마린 생산!', myArmy: 2, myResource: -5),
         BuildStep(line: 13, text: '{player} 선수 팩토리 건설!', myResource: -20),
+      ],
+    ),
+    // 7. 2스타레이스 (공격적)
+    RaceOpening(race: 'T', id: 'tvz_2star', name: '2스타레이스', vsRace: 'Z',
+      style: BuildStyle.aggressive, aggressionTier: 1,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
+        BuildStep(line: 3, text: '{player} 선수 리파이너리 건설.', myResource: -5),
+        BuildStep(line: 5, text: '{player} 선수 팩토리 건설!', myResource: -20),
+        BuildStep(line: 8, text: '{player} 선수 스타포트 건설!', myResource: -25),
+        BuildStep(line: 11, text: '{player} 선수 2번째 스타포트!', stat: 'harass', myResource: -25),
+        BuildStep(line: 14, text: '{player} 선수 레이스 더블 생산!', stat: 'harass', myArmy: 4, myResource: -15),
       ],
     ),
   ];
@@ -477,8 +468,8 @@ class BuildOrderData {
   // ==================== 테란 트랜지션 데이터 (TvZ 6종 + TvP 6종) ====================
 
   static const terranTransitionsTvZ = [
-    // 1. 바이오닉 푸시 (from tvz_sk)
-    RaceTransition(race: 'T', id: 'tvz_trans_bionic_push', name: '바이오닉 푸시', vsRace: 'Z',
+    // 1. 바이오닉 (from tvz_2bar_academy)
+    RaceTransition(race: 'T', id: 'tvz_trans_bionic', name: '바이오닉', vsRace: 'Z',
       style: BuildStyle.aggressive, keyStats: ['attack', 'control'],
       steps: [
         BuildStep(line: 20, text: '{player} 선수 팩토리 건설!', myResource: -20),
@@ -489,8 +480,8 @@ class BuildOrderData {
         BuildStep(line: 75, text: '{player}, 마린 메딕 탱크 조합 완성!', stat: 'macro', myArmy: 15, myResource: -40),
       ],
     ),
-    // 2. 메카닉 골리앗 (from tvz_3fac_goliath)
-    RaceTransition(race: 'T', id: 'tvz_trans_mech_goliath', name: '메카닉 골리앗', vsRace: 'Z',
+    // 2. 메카닉 (from tvz_nobar_double)
+    RaceTransition(race: 'T', id: 'tvz_trans_mech', name: '메카닉', vsRace: 'Z',
       style: BuildStyle.defensive, keyStats: ['defense', 'macro'],
       steps: [
         BuildStep(line: 18, text: '{player} 선수 벙커 건설!', stat: 'defense', myArmy: 2, myResource: -15),
@@ -518,8 +509,8 @@ class BuildOrderData {
         BuildStep(line: 78, text: '{player}, 탱크 바이오닉 조합 완성! 전진!', stat: 'macro', myArmy: 15, myResource: -35, isClash: true),
       ],
     ),
-    // 4. 발키리 대공 (from tvz_valkyrie)
-    RaceTransition(race: 'T', id: 'tvz_trans_valkyrie', name: '발키리 대공', vsRace: 'Z',
+    // 4. 발키리 (from tvz_bar_double)
+    RaceTransition(race: 'T', id: 'tvz_trans_valkyrie', name: '발키리', vsRace: 'Z',
       style: BuildStyle.defensive, keyStats: ['defense', 'control'],
       steps: [
         BuildStep(line: 18, text: '{player}, 스타포트 건설!', myResource: -25),
@@ -532,8 +523,8 @@ class BuildOrderData {
         BuildStep(line: 85, text: '{player} 선수 마린 메딕 발키리 조합 완성!', stat: 'macro', myArmy: 16, myResource: -40),
       ],
     ),
-    // 5. 레이스 공중 (from tvz_2star_wraith)
-    RaceTransition(race: 'T', id: 'tvz_trans_wraith', name: '레이스 공중', vsRace: 'Z',
+    // 5. 레이스 (from tvz_2star)
+    RaceTransition(race: 'T', id: 'tvz_trans_wraith', name: '레이스', vsRace: 'Z',
       style: BuildStyle.aggressive, keyStats: ['harass', 'control'],
       steps: [
         BuildStep(line: 18, text: '{player} 선수 스타포트 건설!', myResource: -25),
@@ -545,8 +536,19 @@ class BuildOrderData {
         BuildStep(line: 50, text: '{player} 선수 공중 장악 완료!', stat: 'harass', enemyArmy: -5, isClash: true, decisive: true),
       ],
     ),
-    // 6. 선엔베 푸시 (from tvz_4bar_enbe)
-    RaceTransition(race: 'T', id: 'tvz_trans_enbe_push', name: '선엔베 푸시', vsRace: 'Z',
+    // 6. 5배럭 푸시 (from tvz_5bar)
+    RaceTransition(race: 'T', id: 'tvz_trans_5bar', name: '5배럭 푸시', vsRace: 'Z',
+      style: BuildStyle.aggressive, keyStats: ['attack', 'control'],
+      steps: [
+        BuildStep(line: 20, text: '{player}, 마린 메딕 대량 생산!', stat: 'attack', myArmy: 7, myResource: -20),
+        BuildStep(line: 25, text: '{player} 선수 메딕 합류! 물량이 쏟아집니다!', stat: 'control', myArmy: 4, myResource: -15),
+        BuildStep(line: 30, text: '{player}, 5배럭 물량 푸시!', stat: 'attack', myArmy: 8, myResource: -20, isClash: true),
+        BuildStep(line: 35, text: '{player} 선수 마린 메딕이 앞마당을 압박합니다!', stat: 'attack', enemyArmy: -5, isClash: true),
+        BuildStep(line: 40, text: '{player}, 추가 병력 합류! 밀어붙입니다!', stat: 'attack', myArmy: 5, isClash: true, decisive: true),
+      ],
+    ),
+    // 7. 선엔베 3배럭 (from tvz_2bar_academy)
+    RaceTransition(race: 'T', id: 'tvz_trans_enbe_3bar', name: '선엔베 3배럭', vsRace: 'Z',
       style: BuildStyle.aggressive, keyStats: ['attack', 'macro'],
       steps: [
         BuildStep(line: 18, text: '{player}, 마린 쏟아냅니다!', stat: 'attack', myArmy: 6, myResource: -15),
@@ -3596,35 +3598,39 @@ class BuildOrderData {
 
   /// 빌드 타입별 전용 이벤트 맵
   static const Map<BuildType, List<ClashEvent>> buildTypeEvents = {
-    // ==================== TvZ 빌드들 (7개) ====================
-    BuildType.tvzBunkerRush: [
-      ClashEvent(text: '8배럭 벙커링! 앞마당에 벙커가 올라갑니다!', favorsStat: 'attack', attackerArmy: -2, defenderArmy: -12),
-      ClashEvent(text: '벙커 뒤에서 마린 화력! 저글링이 녹습니다!', favorsStat: 'control', attackerArmy: -3, defenderArmy: -10),
+    // ==================== TvZ 빌드들 (8개) ====================
+    BuildType.tvzBbs: [
+      ClashEvent(text: 'BBS 벙커링! 앞마당에 벙커가 올라갑니다!', favorsStat: 'attack', attackerArmy: -2, defenderArmy: -12),
+      ClashEvent(text: '벙커 뒤에서 마린 화력! 저글링을 녹여냅니다!', favorsStat: 'control', attackerArmy: -3, defenderArmy: -10),
     ],
-    BuildType.tvzSKTerran: [
-      ClashEvent(text: '투배럭 아카! 마린 메딕으로 멀티 어택!', favorsStat: 'attack', attackerArmy: -5, defenderArmy: -10, defenderResource: -15),
+    BuildType.tvz2BarAcademy: [
+      ClashEvent(text: '2배럭아카데미! 마린 메딕으로 멀티 어택!', favorsStat: 'attack', attackerArmy: -5, defenderArmy: -10, defenderResource: -15),
       ClashEvent(text: '스팀팩 마린 메딕! 저글링 떼를 녹입니다!', favorsStat: 'attack', attackerArmy: -3, defenderArmy: -8),
       ClashEvent(text: '벌처 견제와 마린 메딕 푸시! 멀티 포인트 공격!', favorsStat: 'control', attackerArmy: -5, defenderArmy: -6, defenderResource: -20),
     ],
-    BuildType.tvz3FactoryGoliath: [
-      ClashEvent(text: '5팩 골리앗! 대공 진형 완성!', favorsStat: 'defense', attackerArmy: -4, defenderArmy: -12),
-      ClashEvent(text: '골리앗 물량! 뮤탈 접근 불가!', favorsStat: 'defense', attackerArmy: -3, defenderArmy: -10, defenderResource: -15),
-    ],
-    BuildType.tvz4BarEnbe: [
-      ClashEvent(text: '선엔베 4배럭! 마린 메딕 물량 공격!', favorsStat: 'attack', attackerArmy: -5, defenderArmy: -12, defenderResource: -15),
-      ClashEvent(text: '엔지니어링 베이로 터렛! 뮤탈 완벽 대비!', favorsStat: 'macro', attackerArmy: -3, defenderArmy: -8),
+    BuildType.tvzBarDouble: [
+      ClashEvent(text: '배럭더블 안정 확장! 벌처로 맵 장악!', favorsStat: 'macro', attackerArmy: -4, defenderArmy: -8),
+      ClashEvent(text: '마린 메딕 물량 증가! 센터 교전!', favorsStat: 'attack', attackerArmy: -5, defenderArmy: -10, defenderResource: -15),
     ],
     BuildType.tvz111: [
       ClashEvent(text: '111 밸런스! 탱크 벌처 레이스 조합!', favorsStat: 'strategy', attackerArmy: -5, defenderArmy: -10),
       ClashEvent(text: '111 운영! 상대 빌드에 맞춰 유연하게 대응!', favorsStat: 'control', attackerArmy: -4, defenderArmy: -8, attackerResource: 10),
     ],
-    BuildType.tvzValkyrie: [
-      ClashEvent(text: '발키리 등장! 뮤탈 편대가 녹아내립니다!', favorsStat: 'defense', attackerArmy: -3, defenderArmy: -12),
-      ClashEvent(text: '발키리 합류! 마린 메딕 조합 완성!', favorsStat: 'defense', attackerArmy: -4, defenderArmy: -10, defenderResource: -15),
+    BuildType.tvzFacDouble: [
+      ClashEvent(text: '팩토리더블! 벌처 마인으로 저글링 견제!', favorsStat: 'harass', attackerArmy: -3, defenderArmy: -8, defenderResource: -15),
+      ClashEvent(text: '탱크 벌처 조합! 센터 라인 전개!', favorsStat: 'control', attackerArmy: -4, defenderArmy: -10),
     ],
-    BuildType.tvz2StarWraith: [
-      ClashEvent(text: '투스타 레이스! 드론 견제!', favorsStat: 'harass', attackerArmy: -3, defenderArmy: -5, defenderResource: -30),
+    BuildType.tvzNobarDouble: [
+      ClashEvent(text: '노배럭더블 빠른 확장! 탱크 라인 방어!', favorsStat: 'defense', attackerArmy: -4, defenderArmy: -12),
+      ClashEvent(text: '골리앗 물량! 뮤탈 접근 불가!', favorsStat: 'defense', attackerArmy: -3, defenderArmy: -10, defenderResource: -15),
+    ],
+    BuildType.tvz2Star: [
+      ClashEvent(text: '2스타 레이스! 드론 견제!', favorsStat: 'harass', attackerArmy: -3, defenderArmy: -5, defenderResource: -30),
       ClashEvent(text: '레이스 공중 장악! 오버로드 사냥!', favorsStat: 'strategy', attackerArmy: -2, defenderArmy: -8, defenderResource: -20),
+    ],
+    BuildType.tvz5Bar: [
+      ClashEvent(text: '5배럭 마린 물량! 순수 보병 화력이 쏟아집니다!', favorsStat: 'attack', attackerArmy: -5, defenderArmy: -12, defenderResource: -15),
+      ClashEvent(text: '스팀팩 마린 메딕! 저글링을 녹여냅니다!', favorsStat: 'control', attackerArmy: -4, defenderArmy: -10),
     ],
 
     // ==================== TvP 빌드들 (12개) ====================
@@ -6196,7 +6202,7 @@ class BuildOrderData {
     final transitionSearch = <(List<RaceTransition>, List<RaceOpening>, String)>[
       (zergTransitionsZvT, zergOpeningsZvT, 'zvt_12hatch'),
       (zergTransitionsZvP, zergOpeningsZvP, 'zvp_12hatch'),
-      (terranTransitionsTvZ, terranOpeningsTvZ, 'tvz_1fac_double'),
+      (terranTransitionsTvZ, terranOpeningsTvZ, 'tvz_bar_double'),
       (terranTransitionsTvP, terranOpeningsTvP, 'tvp_1fac_double'),
       (protossTransitionsPvT, protossOpeningsPvT, 'pvt_1gate_double'),
       (protossTransitionsPvZ, protossOpeningsPvZ, 'pvz_1gate_nexus'),

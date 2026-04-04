@@ -48,24 +48,44 @@ const _tvt1barDoubleMirror = ScenarioScript(
           altText: '{away} 선수도 앞마당 확장, 같은 빌드입니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 팩토리 건설, 가스를 올립니다.',
+          text: '{home} 선수 가스를 올립니다.',
           owner: LogOwner.home,
-          homeResource: -400, // 리파이너리(100) + 팩토리(300)
+          homeResource: -100, // 리파이너리(100)
           fixedCost: true,
-          altText: '{home} 선수 가스와 팩토리를 올립니다.',
+          altText: '{home} 선수 리파이너리 건설, 가스 채취를 시작합니다.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 가스를 올립니다.',
+          owner: LogOwner.away,
+          awayResource: -100,
+          fixedCost: true,
+          altText: '{away} 선수도 리파이너리, 가스 채취 시작.',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 팩토리 건설을 시작합니다.',
+          owner: LogOwner.home,
+          homeResource: -300, // 팩토리(300) - 가스 모이면 착공
+          fixedCost: true,
+          altText: '{home} 선수 팩토리를 올립니다.',
         ),
         ScriptEvent(
           text: '{away} 선수도 팩토리를 올립니다.',
           owner: LogOwner.away,
-          awayResource: -400,
+          awayResource: -300,
           fixedCost: true,
-          altText: '{away} 선수도 팩토리, SCV 정찰을 보냅니다.',
+          altText: '{away} 선수도 팩토리 건설, SCV 정찰을 보냅니다.',
         ),
         ScriptEvent(
           text: '양측 배럭 더블 미러, 정석적인 테테전 전개입니다.',
           owner: LogOwner.system,
-          skipChance: 0.5,
+          skipChance: 0.4,
           altText: '배럭 더블 미러, 이제 벌처 싸움이 관건입니다.',
+        ),
+        ScriptEvent(
+          text: '안정적인 운영을 선택했습니다. 실력 싸움 가겠다는 거죠.',
+          owner: LogOwner.system,
+          skipChance: 0.6,
+          altText: '서로 눈치싸움이 치열합니다. 먼저 칼을 뽑는 쪽은 누굴까요?',
         ),
       ],
     ),
@@ -77,18 +97,18 @@ const _tvt1barDoubleMirror = ScenarioScript(
       recoveryResourcePerLine: 150,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 벌처 생산, 센터로 내보냅니다.',
+          text: '{home} 선수 벌처 생산, 센터로 정찰을 보냅니다.',
           owner: LogOwner.home,
           homeArmy: 2, homeResource: -75,
           fixedCost: true,
-          altText: '{home} 선수 첫 벌처가 나왔습니다.',
+          altText: '{home} 선수 첫 벌처가 나왔습니다, 정찰 나갑니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수도 벌처 생산, 센터로 향합니다.',
+          text: '{away} 선수도 벌처 생산, 센터로 정찰을 보냅니다.',
           owner: LogOwner.away,
           awayArmy: 2, awayResource: -75,
           fixedCost: true,
-          altText: '{away} 선수도 벌처를 내보냅니다.',
+          altText: '{away} 선수도 벌처를 내보냅니다, 상대 빌드를 확인합니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 배럭 플로팅으로 상대 진영을 정찰합니다.',
@@ -98,26 +118,26 @@ const _tvt1barDoubleMirror = ScenarioScript(
           altText: '{home} 선수 배럭을 띄워서 상대 빌드를 확인합니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수 벌처 속업 연구를 시작합니다.',
-          owner: LogOwner.away,
-          awayResource: -200,
-          fixedCost: true,
-          favorsStat: 'strategy',
-          altText: '{away} 선수 속업 연구, 벌처 기동력을 높입니다.',
-        ),
-        ScriptEvent(
-          text: '{home} 선수도 벌처 속업, 타이밍 경쟁입니다.',
+          text: '{home} 선수 머신샵 건설, 벌처 속업 연구를 시작합니다.',
           owner: LogOwner.home,
           homeResource: -200,
           fixedCost: true,
           favorsStat: 'strategy',
-          altText: '{home} 선수도 속업 연구, 누가 먼저 완료하느냐.',
+          altText: '{home} 선수 머신샵 완성, 속업 연구를 선택합니다.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 머신샵 완성, 속업 연구 시작합니다.',
+          owner: LogOwner.away,
+          awayResource: -200,
+          fixedCost: true,
+          favorsStat: 'strategy',
+          altText: '{away} 선수도 속업 연구, 타이밍 경쟁입니다.',
         ),
         ScriptEvent(
           text: '양측 벌처가 센터에서 조우합니다.',
           owner: LogOwner.system,
           skipChance: 0.3,
-          altText: '센터에서 벌처가 마주칩니다, 벌처전이 시작됩니다.',
+          altText: '첫 탱크가 나오기 전까지는 폭풍전야입니다.',
         ),
       ],
     ),
@@ -157,6 +177,15 @@ const _tvt1barDoubleMirror = ScenarioScript(
               text: '벌처전에서 밀리면 맵 컨트롤을 잃게 됩니다.',
               owner: LogOwner.system,
               skipChance: 0.3,
+              altText: '벌처 돌리기! 상대 시선을 분산시키는 고도의 심리전입니다.',
+            ),
+            // 근거리 맵: 벌처 견제 도착이 빨라서 추가 피해 (harass 높으면 더 큰 피해)
+            ScriptEvent(
+              text: '{home} 선수 근거리 맵이라 벌처가 바로 앞마당에 도착! 추가 SCV 피해!',
+              owner: LogOwner.home,
+              awayResource: -150,
+              favorsStat: 'harass',
+              requiresMapTag: 'rushShort',
             ),
           ],
         ),
@@ -176,7 +205,7 @@ const _tvt1barDoubleMirror = ScenarioScript(
               text: '{away} 선수 마인 매설로 맵 컨트롤을 확보합니다.',
               owner: LogOwner.away,
               favorsStat: 'strategy',
-              altText: '{away} 선수 마인을 깔아 상대 벌처 이동을 제한합니다.',
+              altText: '{away} 선수 마인을 깔아 상대 병력 이동을 제한합니다.',
             ),
             ScriptEvent(
               text: '{away} 선수 상대 앞마당으로 침투! SCV 견제!',
@@ -189,6 +218,92 @@ const _tvt1barDoubleMirror = ScenarioScript(
               text: '벌처전에서 밀린 쪽이 SCV 피해를 입었습니다.',
               owner: LogOwner.system,
               skipChance: 0.3,
+            ),
+            // 근거리 맵: 벌처 견제 도착이 빨라서 추가 피해 (harass 높으면 더 큰 피해)
+            ScriptEvent(
+              text: '{away} 선수 근거리 맵이라 벌처가 바로 도착! SCV 피해가 더 큽니다!',
+              owner: LogOwner.away,
+              homeResource: -150,
+              favorsStat: 'harass',
+              requiresMapTag: 'rushShort',
+            ),
+          ],
+        ),
+        // 홈 벌처 압살 → 조기 종료
+        ScriptBranch(
+          id: 'home_vulture_crush',
+          baseProbability: 0.5,
+          conditionStat: 'harass',
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 벌처가 상대 벌처를 전멸시킵니다!',
+              owner: LogOwner.home,
+              awayArmy: -6, homeArmy: -2,
+              favorsStat: 'control',
+              altText: '{home} 선수 벌처 컨트롤 압도! 상대 벌처가 전멸!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 벌처가 상대 앞마당으로 돌진합니다! SCV를 대량 학살!',
+              owner: LogOwner.home,
+              awayResource: -400,
+              favorsStat: 'harass',
+              altText: '{home} 선수 벌처 난입! SCV가 줄줄이 터집니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 본진까지 침투! SCV가 녹아내립니다!',
+              owner: LogOwner.home,
+              awayResource: -300,
+              favorsStat: 'attack',
+              altText: '{home} 선수 본진 SCV까지 타격! 자원 채취가 마비됩니다!',
+            ),
+            ScriptEvent(
+              text: '벌처에 SCV를 너무 많이 잃었습니다! 회복이 불가능합니다!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 벌처 견제가 치명적입니다! 상대 자원 채취가 마비됩니다!',
+              owner: LogOwner.home,
+              decisive: true,
+              altText: '{home} 선수 벌처 난동이 계속됩니다! SCV가 일할 수 없습니다!',
+            ),
+          ],
+        ),
+        // 어웨이 벌처 압살 → 조기 종료
+        ScriptBranch(
+          id: 'away_vulture_crush',
+          baseProbability: 0.5,
+          conditionStat: 'harass',
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 벌처가 상대 벌처를 전멸시킵니다!',
+              owner: LogOwner.away,
+              homeArmy: -6, awayArmy: -2,
+              favorsStat: 'control',
+              altText: '{away} 선수 벌처 컨트롤 압도! 상대 벌처가 전멸!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 벌처가 상대 앞마당 SCV를 대량으로 잡아냅니다!',
+              owner: LogOwner.away,
+              homeResource: -400,
+              favorsStat: 'harass',
+              altText: '{away} 선수 벌처 난입! SCV가 줄줄이 터집니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 본진까지 침투! SCV가 녹아내립니다!',
+              owner: LogOwner.away,
+              homeResource: -300,
+              favorsStat: 'attack',
+              altText: '{away} 선수 본진 SCV까지 타격! 자원 채취가 마비됩니다!',
+            ),
+            ScriptEvent(
+              text: '벌처에 SCV를 너무 많이 잃었습니다! 회복이 불가능합니다!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 벌처 견제가 치명적입니다! 상대 자원 채취가 마비됩니다!',
+              owner: LogOwner.away,
+              decisive: true,
+              altText: '{away} 선수 벌처 난동이 계속됩니다! SCV가 일할 수 없습니다!',
             ),
           ],
         ),
@@ -223,7 +338,7 @@ const _tvt1barDoubleMirror = ScenarioScript(
         ),
       ],
     ),
-    // ── Phase 3: 탱크+벌처 (시즈 모드 연구 전) ──
+    // ── Phase 3: 탱크와 벌처 (시즈 모드 연구 전) ──
     ScriptPhase(
       name: 'tank_vulture',
       startLine: 38,
@@ -242,7 +357,7 @@ const _tvt1barDoubleMirror = ScenarioScript(
           owner: LogOwner.away,
           awayArmy: 2, awayResource: -250,
           fixedCost: true,
-          altText: '{away} 선수도 탱크 합류, 양측 탱크+벌처 조합입니다.',
+          altText: '{away} 선수도 탱크 합류, 양측 탱크와 벌처가 섞입니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 벌처로 시야를 확보하고 탱크가 한 발 쏩니다! 상대 벌처가 맞습니다!',
@@ -266,9 +381,126 @@ const _tvt1barDoubleMirror = ScenarioScript(
           skipChance: 0.4,
           altText: '시즈 모드 연구 전, 탱크와 벌처가 섞여서 기동전을 벌입니다.',
         ),
+        ScriptEvent(
+          text: '팩토리 랠리 포인트가 센터로 향합니다.',
+          owner: LogOwner.system,
+          skipChance: 0.6,
+          altText: '서로의 빌드를 다 알고 있습니다. 이제는 컨트롤 싸움이에요.',
+        ),
+        // 팩토리 추가 (2팩)
+        ScriptEvent(
+          text: '{home} 선수 추가 팩토리 건설, 병력이 더 빨리 늘어납니다.',
+          owner: LogOwner.home,
+          homeResource: -300,
+          fixedCost: true,
+          altText: '{home} 선수 팩토리 추가, 생산이 빨라집니다.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 추가 팩토리 건설, 생산을 맞춥니다.',
+          owner: LogOwner.away,
+          awayResource: -300,
+          fixedCost: true,
+          altText: '{away} 선수도 팩토리 추가.',
+        ),
       ],
     ),
-    // ── Phase 4: 시즈탱크+벌처 (시즈 모드 완료, 거리재기 시작) ──
+    // ── Phase 3.5: 탱크 전환 직후 밀어붙이기 체크 ──
+    // 배럭더블은 확장이 빨라 자원이 비등 → 탱크 푸시 빈도 낮음
+    ScriptPhase(
+      name: 'tank_push_check',
+      startLine: 46,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 200,
+      branches: [
+        ScriptBranch(
+          id: 'tank_even',
+          baseProbability: 2.0,
+          events: [
+            ScriptEvent(
+              text: '양측 탱크와 벌처가 대치합니다. 시즈 모드 연구를 기다립니다.',
+              owner: LogOwner.system,
+              skipChance: 0.3,
+              altText: '탱크가 나왔지만 시즈 모드가 없습니다. 기동전이 이어집니다.',
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'home_tank_push',
+          baseProbability: 0.4,
+          conditionStat: 'attack',
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 벌처전 우세로 탱크가 먼저 나왔습니다! 벌처 호위 아래 전진!',
+              owner: LogOwner.home,
+              homeArmy: 4, homeResource: -250,
+              fixedCost: true,
+              favorsStat: 'macro',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 탱크와 벌처로 상대 앞마당을 압박합니다!',
+              owner: LogOwner.home,
+              awayArmy: -4, awayResource: -200,
+              favorsStat: 'attack',
+              altText: '{home} 선수 탱크 화력으로 밀어붙입니다! 상대 앞마당이 위험합니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 탱크가 부족합니다! 벌처만으로는 버틸 수 없습니다!',
+              owner: LogOwner.away,
+              awayArmy: -2,
+            ),
+            ScriptEvent(
+              text: '벌처전 열세가 탱크 수 열세로 이어집니다!',
+              owner: LogOwner.system,
+              altText: '자원 격차가 병력 격차로! 탱크가 모자란 쪽이 무너지고 있습니다.',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 탱크와 벌처 압박! 상대가 버틸 수 없습니다!',
+              owner: LogOwner.home,
+              decisive: true,
+              altText: '{home} 선수 탱크 화력 차이! 상대 앞마당이 무너집니다!',
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_tank_push',
+          baseProbability: 0.4,
+          conditionStat: 'attack',
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 벌처전 우세로 탱크가 먼저 나옵니다! 벌처 호위 아래 전진!',
+              owner: LogOwner.away,
+              awayArmy: 4, awayResource: -250,
+              fixedCost: true,
+              favorsStat: 'macro',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 탱크와 벌처로 상대 앞마당을 압박합니다!',
+              owner: LogOwner.away,
+              homeArmy: -4, homeResource: -200,
+              favorsStat: 'attack',
+              altText: '{away} 선수 탱크 화력으로 밀어붙입니다! 상대 앞마당이 위험합니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 탱크가 부족합니다! 벌처만으로는 버틸 수 없습니다!',
+              owner: LogOwner.home,
+              homeArmy: -2,
+            ),
+            ScriptEvent(
+              text: '벌처전 열세가 탱크 수 열세로 이어집니다!',
+              owner: LogOwner.system,
+              altText: '자원 격차가 병력 격차로! 탱크가 모자란 쪽이 무너지고 있습니다.',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 탱크와 벌처 압박! 상대가 버틸 수 없습니다!',
+              owner: LogOwner.away,
+              decisive: true,
+              altText: '{away} 선수 탱크 화력 차이! 상대 앞마당이 무너집니다!',
+            ),
+          ],
+        ),
+      ],
+    ),
+    // ── Phase 4: 시즈탱크와 벌처 (시즈 모드 완료, 거리재기 시작) ──
     ScriptPhase(
       name: 'siege_vulture',
       startLine: 50,
@@ -287,13 +519,13 @@ const _tvt1barDoubleMirror = ScenarioScript(
           owner: LogOwner.away,
           awayResource: -300,
           fixedCost: true,
-          altText: '{away} 선수도 시즈 모드, 양측 시즈 라인이 만들어집니다.',
+          altText: '{away} 선수도 시즈 모드, 양측 탱크 라인이 만들어집니다.',
         ),
         ScriptEvent(
           text: '시즈 모드가 완료됐습니다, 이제부터 거리재기가 시작됩니다.',
           owner: LogOwner.system,
-          skipChance: 0.4,
-          altText: '양측 시즈 탱크 대치, 사거리 싸움이 시작됩니다.',
+          skipChance: 0.3,
+          altText: '테테전의 꽃, 시즈 탱크 라인 긋기 싸움입니다.',
         ),
         // 거리재기
         ScriptEvent(
@@ -318,7 +550,7 @@ const _tvt1barDoubleMirror = ScenarioScript(
           awayArmy: -1,
           favorsStat: 'harass',
           skipChance: 0.5,
-          altText: '{home} 선수 벌처 우회 견제! 상대 탱크 후방을 노립니다!',
+          altText: '{home} 선수 벌처가 상대 병력 뒤쪽으로 내려갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수도 벌처로 상대 라인 뒤를 찌릅니다, SCV를 잡습니다.',
@@ -329,14 +561,380 @@ const _tvt1barDoubleMirror = ScenarioScript(
           altText: '{away} 선수 벌처 침투, 상대 후방 SCV에 피해를 줍니다.',
         ),
         ScriptEvent(
-          text: '시즈 탱크 거리재기가 계속됩니다, 한 대씩 깎이는 신경전입니다.',
+          text: '사거리 싸움이 치열합니다, 탱크 한 대 차이가 승부를 가릅니다.',
           owner: LogOwner.system,
           skipChance: 0.3,
-          altText: '사거리 싸움이 치열합니다, 탱크 한 대 차이가 승부를 가릅니다.',
+          altText: '먼저 자리 잡는 쪽이 센터의 주인입니다.',
+        ),
+        // 복잡 지형 맵: 고지대 시즈 배치로 추가 피해
+        ScriptEvent(
+          text: '언덕 위 시즈모드, 테테전에서 가장 무서운 지형지물이죠.',
+          owner: LogOwner.system,
+          requiresMapTag: 'terrainHigh',
+          skipChance: 0.5,
+        ),
+        ScriptEvent(
+          text: '{home} 선수 고지대를 점령하고 시즈 포격! 아래에서는 사거리가 안 닿습니다!',
+          owner: LogOwner.home,
+          awayArmy: -2,
+          favorsStat: 'strategy',
+          requiresMapTag: 'terrainHigh',
+          skipChance: 0.5,
+          altText: '{home} 선수 지형을 활용한 시즈 배치! 상대가 올라올 수 없습니다!',
+        ),
+        // 복잡 지형 맵: 어웨이도 고지대 활용
+        ScriptEvent(
+          text: '{away} 선수도 반대편 고지대에 탱크를 올립니다! 지형 싸움!',
+          owner: LogOwner.away,
+          homeArmy: -2,
+          favorsStat: 'strategy',
+          requiresMapTag: 'terrainHigh',
+          skipChance: 0.5,
+          altText: '{away} 선수 고지대 시즈로 응수! 서로 고지를 점령합니다!',
+        ),
+        // 근거리 맵: 시즈 거리재기가 더 치열 (attack 높은 쪽이 포격에서 유리)
+        ScriptEvent(
+          text: '{home} 선수 근거리라 탱크가 바로 사거리에 들어옵니다! 시즈 포격!',
+          owner: LogOwner.home,
+          awayArmy: -2,
+          favorsStat: 'attack',
+          requiresMapTag: 'rushShort',
+          skipChance: 0.5,
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 근거리 맵 이점을 살려 시즈 포격!',
+          owner: LogOwner.away,
+          homeArmy: -2,
+          favorsStat: 'attack',
+          requiresMapTag: 'rushShort',
+          skipChance: 0.5,
+        ),
+        // 원거리 맵: 멀티 확장 여유
+        ScriptEvent(
+          text: '원거리 맵이라 멀티 확장이 안전합니다, 양측 자원이 풍부해집니다.',
+          owner: LogOwner.system,
+          homeResource: 200, awayResource: 200,
+          requiresMapTag: 'rushLong',
         ),
       ],
     ),
-    // ── Phase 5: 시즈탱크+골리앗 (아머리 건설, 골리앗 전환) ──
+    // ── Phase 4.5: 트리플 확장 분기 ──
+    ScriptPhase(
+      name: 'triple_expansion',
+      startLine: 58,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 200,
+      branches: [
+        // 양측 동시 확장 (가장 일반적)
+        ScriptBranch(
+          id: 'both_expand',
+          baseProbability: 1.5,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 세 번째 커맨드센터를 올립니다. 자원 라인을 늘립니다.',
+              owner: LogOwner.home,
+              homeResource: -400,
+              fixedCost: true,
+              altText: '{home} 선수 트리플 커맨드센터, 자원을 확보합니다.',
+            ),
+            ScriptEvent(
+              text: '{away} 선수도 세 번째 확장을 올립니다. 비슷한 타이밍입니다.',
+              owner: LogOwner.away,
+              awayResource: -400,
+              fixedCost: true,
+              altText: '{away} 선수도 트리플 커맨드, 양측 자원 확보에 나섭니다.',
+            ),
+            ScriptEvent(
+              text: '양측 트리플 확장, 자원 라인이 동시에 늘어납니다.',
+              owner: LogOwner.system,
+              skipChance: 0.4,
+              altText: '서로 비슷한 타이밍에 확장을 가져갑니다.',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 벌처로 상대 트리플 SCV를 찌릅니다.',
+              owner: LogOwner.home,
+              awayResource: -100,
+              favorsStat: 'harass',
+              skipChance: 0.5,
+              altText: '{home} 선수 벌처 견제, 새 확장기지 SCV를 노립니다.',
+            ),
+            ScriptEvent(
+              text: '{away} 선수도 벌처를 보내 상대 트리플을 견제합니다.',
+              owner: LogOwner.away,
+              homeResource: -100,
+              favorsStat: 'harass',
+              skipChance: 0.5,
+              altText: '{away} 선수도 벌처로 상대 확장기지 SCV를 잡습니다.',
+            ),
+          ],
+        ),
+        // 홈 선확장 (리스크 감수, 후반 자원 우위)
+        ScriptBranch(
+          id: 'home_fast_expand',
+          baseProbability: 0.7,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 먼저 세 번째 커맨드센터를 올립니다. 과감한 확장입니다.',
+              owner: LogOwner.home,
+              homeResource: -400,
+              fixedCost: true,
+              altText: '{home} 선수 트리플 커맨드를 선행합니다. 자원 우위를 노립니다.',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 상대 확장 타이밍을 포착합니다! 병력이 얇은 틈을 노립니다!',
+              owner: LogOwner.away,
+              homeArmy: -3,
+              favorsStat: 'sense',
+              altText: '{away} 선수 확장 직후를 노린 포격! 탱크가 전진합니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 확장 비용 때문에 병력이 잠깐 부족합니다. 시즈로 버팁니다.',
+              owner: LogOwner.home,
+              favorsStat: 'defense',
+              altText: '{home} 선수 탱크 라인으로 수비합니다. 확장 비용이 부담입니다.',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 벌처로 SCV를 잡으며 상대 확장을 방해합니다!',
+              owner: LogOwner.away,
+              homeResource: -150,
+              favorsStat: 'harass',
+              skipChance: 0.4,
+              altText: '{away} 선수 벌처 견제! 새 확장기지 SCV에 피해를 줍니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수도 뒤늦게 트리플 확장을 올립니다.',
+              owner: LogOwner.away,
+              awayResource: -400,
+              fixedCost: true,
+              altText: '{away} 선수도 세 번째 확장, 자원 격차를 줄입니다.',
+            ),
+          ],
+        ),
+        // 어웨이 선확장 (홈 선확장의 미러)
+        ScriptBranch(
+          id: 'away_fast_expand',
+          baseProbability: 0.7,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 먼저 세 번째 커맨드센터를 올립니다. 과감한 확장입니다.',
+              owner: LogOwner.away,
+              awayResource: -400,
+              fixedCost: true,
+              altText: '{away} 선수 트리플 커맨드를 선행합니다. 자원 우위를 노립니다.',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 상대 확장 타이밍을 포착합니다! 병력이 얇은 틈을 노립니다!',
+              owner: LogOwner.home,
+              awayArmy: -3,
+              favorsStat: 'sense',
+              altText: '{home} 선수 확장 직후를 노린 포격! 탱크가 전진합니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 확장 비용 때문에 병력이 잠깐 부족합니다. 시즈로 버팁니다.',
+              owner: LogOwner.away,
+              favorsStat: 'defense',
+              altText: '{away} 선수 탱크 라인으로 수비합니다. 확장 비용이 부담입니다.',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 벌처로 SCV를 잡으며 상대 확장을 방해합니다!',
+              owner: LogOwner.home,
+              awayResource: -150,
+              favorsStat: 'harass',
+              skipChance: 0.4,
+              altText: '{home} 선수 벌처 견제! 새 확장기지 SCV에 피해를 줍니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수도 뒤늦게 트리플 확장을 올립니다.',
+              owner: LogOwner.home,
+              homeResource: -400,
+              fixedCost: true,
+              altText: '{home} 선수도 세 번째 확장, 자원 격차를 줄입니다.',
+            ),
+          ],
+        ),
+        // 홈 확장 포기 + 공격 (decisive)
+        ScriptBranch(
+          id: 'home_skip_expand_attack',
+          baseProbability: 0.5,
+          conditionStat: 'attack',
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 트리플을 포기하고 팩토리를 추가합니다. 병력에 올인합니다.',
+              owner: LogOwner.home,
+              homeResource: -300, homeArmy: 3,
+              fixedCost: true,
+              altText: '{home} 선수 확장 대신 팩토리 추가, 공격 준비입니다.',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 세 번째 커맨드센터를 올립니다.',
+              owner: LogOwner.away,
+              awayResource: -400,
+              fixedCost: true,
+              altText: '{away} 선수 트리플 커맨드를 올립니다.',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 상대가 확장하는 틈을 노립니다! 탱크와 벌처가 전진합니다!',
+              owner: LogOwner.home,
+              awayArmy: -4, homeArmy: -1,
+              favorsStat: 'attack',
+              altText: '{home} 선수 확장 타이밍에 전면 공격! 탱크가 밀고 들어갑니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 확장 비용 때문에 병력이 부족합니다! 탱크 라인이 밀립니다!',
+              owner: LogOwner.away,
+              awayArmy: -3,
+              favorsStat: 'defense',
+              altText: '{away} 선수 병력이 모자랍니다! 확장 투자가 독이 됩니다!',
+            ),
+            ScriptEvent(
+              text: '확장을 포기하고 병력에 집중한 {home} 선수! 탱크 수 차이가 결정적입니다!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 시즈 포격이 상대 진영을 초토화합니다! 병력 차이가 너무 큽니다!',
+              owner: LogOwner.home,
+              decisive: true,
+              altText: '{home} 선수 탱크 라인이 상대를 짓누릅니다! 자원이 있어도 병력이 없습니다!',
+            ),
+          ],
+        ),
+        // 어웨이 확장 포기 + 공격 (decisive, 홈의 미러)
+        ScriptBranch(
+          id: 'away_skip_expand_attack',
+          baseProbability: 0.5,
+          conditionStat: 'attack',
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 트리플을 포기하고 팩토리를 추가합니다. 병력에 올인합니다.',
+              owner: LogOwner.away,
+              awayResource: -300, awayArmy: 3,
+              fixedCost: true,
+              altText: '{away} 선수 확장 대신 팩토리 추가, 공격 준비입니다.',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 세 번째 커맨드센터를 올립니다.',
+              owner: LogOwner.home,
+              homeResource: -400,
+              fixedCost: true,
+              altText: '{home} 선수 트리플 커맨드를 올립니다.',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 상대가 확장하는 틈을 노립니다! 탱크와 벌처가 전진합니다!',
+              owner: LogOwner.away,
+              homeArmy: -4, awayArmy: -1,
+              favorsStat: 'attack',
+              altText: '{away} 선수 확장 타이밍에 전면 공격! 탱크가 밀고 들어갑니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 확장 비용 때문에 병력이 부족합니다! 탱크 라인이 밀립니다!',
+              owner: LogOwner.home,
+              homeArmy: -3,
+              favorsStat: 'defense',
+              altText: '{home} 선수 병력이 모자랍니다! 확장 투자가 독이 됩니다!',
+            ),
+            ScriptEvent(
+              text: '확장을 포기하고 병력에 집중한 {away} 선수! 탱크 수 차이가 결정적입니다!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 시즈 포격이 상대 진영을 초토화합니다! 병력 차이가 너무 큽니다!',
+              owner: LogOwner.away,
+              decisive: true,
+              altText: '{away} 선수 탱크 라인이 상대를 짓누릅니다! 자원이 있어도 병력이 없습니다!',
+            ),
+          ],
+        ),
+      ],
+    ),
+    // ── Phase 5: 탱크 라인 압도 → 조기 종료 가능 ──
+    ScriptPhase(
+      name: 'siege_dominance',
+      startLine: 60,
+      recoveryArmyPerLine: 2,
+      recoveryResourcePerLine: 200,
+      branches: [
+        // 시즈 거리재기에서 큰 차이 없이 계속 진행
+        ScriptBranch(
+          id: 'siege_continues',
+          baseProbability: 1.5,
+          events: [
+            ScriptEvent(
+              text: '양측 탱크 라인이 팽팽합니다, 골리앗 전환으로 넘어갑니다.',
+              owner: LogOwner.system,
+              skipChance: 0.4,
+              altText: '시즈 대치가 이어집니다, 다음 테크가 관건입니다.',
+            ),
+          ],
+        ),
+        // 홈 탱크 라인 압도 → 밀어붙여서 끝냄
+        ScriptBranch(
+          id: 'home_siege_crush',
+          baseProbability: 0.6,
+          conditionStat: 'attack',
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 거리재기에서 탱크 수 차이가 벌어졌습니다! 라인을 밀어붙입니다!',
+              owner: LogOwner.home,
+              awayArmy: -6, homeArmy: -2,
+              favorsStat: 'attack',
+              altText: '{home} 선수 탱크 라인 우위! 상대 탱크를 밀어냅니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 탱크 라인이 상대 앞마당까지 진입합니다! 시즈 포격!',
+              owner: LogOwner.home,
+              awayArmy: -4, awayResource: -300,
+              favorsStat: 'attack',
+              altText: '{home} 선수 앞마당까지 시즈! 상대가 무너집니다!',
+            ),
+            ScriptEvent(
+              text: '탱크 라인에서 밀리면 회복이 안 됩니다! 탱크 수 차이가 너무 큽니다!',
+              owner: LogOwner.system,
+              altText: '조이기 라인이 풀리지 않습니다. 서서히 말라 죽어가네요.',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 탱크 라인이 상대 진영을 압박합니다! 탱크 수 차이가 큽니다!',
+              owner: LogOwner.home,
+              decisive: true,
+              altText: '{home} 선수 시즈 화력 우위! 상대가 라인을 유지하기 어렵습니다!',
+            ),
+          ],
+        ),
+        // 어웨이 탱크 라인 압도 → 밀어붙여서 끝냄
+        ScriptBranch(
+          id: 'away_siege_crush',
+          baseProbability: 0.6,
+          conditionStat: 'attack',
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 거리재기에서 탱크 수가 앞섭니다! 라인을 밀어붙입니다!',
+              owner: LogOwner.away,
+              homeArmy: -6, awayArmy: -2,
+              favorsStat: 'attack',
+              altText: '{away} 선수 탱크 라인 우위! 상대 탱크를 밀어냅니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 탱크 라인이 상대 앞마당까지 진입! 시즈 포격!',
+              owner: LogOwner.away,
+              homeArmy: -4, homeResource: -300,
+              favorsStat: 'attack',
+              altText: '{away} 선수 앞마당까지 시즈! 상대가 무너집니다!',
+            ),
+            ScriptEvent(
+              text: '탱크 라인에서 밀리면 회복이 안 됩니다!',
+              owner: LogOwner.system,
+              altText: '압도적인 화력! 이건 컨트롤로 극복이 안 됩니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 탱크 라인이 상대 진영을 압박합니다! 탱크 수 차이가 큽니다!',
+              owner: LogOwner.away,
+              decisive: true,
+              altText: '{away} 선수 시즈 화력 우위! 상대가 라인을 유지하기 어렵습니다!',
+            ),
+          ],
+        ),
+      ],
+    ),
+    // ── Phase 5: 시즈탱크와 골리앗 (아머리 건설, 골리앗 전환) ──
     ScriptPhase(
       name: 'siege_goliath',
       startLine: 66,
@@ -360,10 +958,10 @@ const _tvt1barDoubleMirror = ScenarioScript(
           altText: '{away} 선수도 골리앗 생산, 화력이 두꺼워집니다.',
         ),
         ScriptEvent(
-          text: '양측 골리앗이 합류하면서 라인이 두꺼워집니다.',
+          text: '시즈 탱크에 골리앗이 합류하면서 정면 화력이 올라갑니다.',
           owner: LogOwner.system,
           skipChance: 0.4,
-          altText: '시즈탱크+골리앗 조합, 정면 화력이 올라갑니다.',
+          altText: '인구수가 올라갑니다, 이제 곧 한 방이 터질 수 있습니다.',
         ),
         // 거리재기 - 골리앗 합류 후
         ScriptEvent(
@@ -387,11 +985,28 @@ const _tvt1barDoubleMirror = ScenarioScript(
           owner: LogOwner.home,
           favorsStat: 'strategy',
           skipChance: 0.5,
-          altText: '{home} 선수 골리앗으로 상대 시즈 라인 위치를 탐색합니다.',
+          altText: '{home} 선수 골리앗으로 상대 탱크 라인 위치를 탐색합니다.',
+        ),
+        // 팩토리 추가 (3팩)
+        ScriptEvent(
+          text: '{home} 선수 추가 팩토리 건설, 병력 보충이 빨라집니다.',
+          owner: LogOwner.home,
+          homeResource: -300,
+          fixedCost: true,
+          skipChance: 0.4,
+          altText: '{home} 선수 팩토리 추가, 물량이 더 빨리 늘어납니다.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 추가 팩토리 건설.',
+          owner: LogOwner.away,
+          awayResource: -300,
+          fixedCost: true,
+          skipChance: 0.4,
+          altText: '{away} 선수도 팩토리 추가, 생산을 맞춥니다.',
         ),
       ],
     ),
-    // ── Phase 6: 시즈탱크+골리앗+드랍십 - 분기 ──
+    // ── Phase 6: 시즈탱크와 골리앗+드랍십 - 분기 ──
     ScriptPhase(
       name: 'full_mech',
       startLine: 80,
@@ -431,6 +1046,24 @@ const _tvt1barDoubleMirror = ScenarioScript(
           owner: LogOwner.system,
           skipChance: 0.4,
           altText: '양측 풀 메카닉, 이제 드랍이냐 정면이냐가 관건입니다.',
+        ),
+        ScriptEvent(
+          text: '골리앗 비율을 높여서 드랍십을 원천 봉쇄합니다.',
+          owner: LogOwner.system,
+          skipChance: 0.6,
+          altText: '팩토리가 쉴 새 없이 돌아갑니다. 물량전 예고입니다.',
+        ),
+        // 공중 개방 맵: 드랍 경로가 다양해서 드랍 위협 증가
+        ScriptEvent(
+          text: '공중이 열린 맵입니다, 드랍 경로가 다양해서 골리앗 배치가 어렵습니다.',
+          owner: LogOwner.system,
+          requiresMapTag: 'airHigh',
+        ),
+        // 원거리 맵: 드랍 이동 시간이 길어서 탐지 가능
+        ScriptEvent(
+          text: '원거리 맵이라 드랍십 이동이 오래 걸립니다, 정찰할 시간이 있습니다.',
+          owner: LogOwner.system,
+          requiresMapTag: 'rushLong',
         ),
       ],
     ),
@@ -479,6 +1112,14 @@ const _tvt1barDoubleMirror = ScenarioScript(
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
+            // 공중 개방 맵: 드랍 경로가 다양해서 추가 드랍 피해
+            ScriptEvent(
+              text: '공중이 열린 맵이라 드랍십이 다른 경로로 한 번 더 들어갑니다! 추가 피해!',
+              owner: LogOwner.home,
+              awayResource: -200,
+              requiresMapTag: 'airHigh',
+              favorsStat: 'harass',
+            ),
           ],
         ),
         // 어웨이 드랍 성공
@@ -519,6 +1160,14 @@ const _tvt1barDoubleMirror = ScenarioScript(
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
+            // 공중 개방 맵: 드랍 경로가 다양해서 추가 드랍 피해
+            ScriptEvent(
+              text: '공중이 열린 맵이라 드랍십이 우회해서 한 번 더 진입합니다! 추가 피해!',
+              owner: LogOwner.away,
+              homeResource: -200,
+              requiresMapTag: 'airHigh',
+              favorsStat: 'harass',
+            ),
           ],
         ),
         // 정면 교전
@@ -530,7 +1179,7 @@ const _tvt1barDoubleMirror = ScenarioScript(
               text: '양측 드랍을 경계하며 골리앗을 대공 위치에 배치합니다, 정면 승부입니다.',
               owner: LogOwner.system,
               skipChance: 0.3,
-              altText: '드랍 없이 정면 승부, 시즈 라인 싸움입니다.',
+              altText: '드랍 없이 정면 승부, 탱크 라인 싸움입니다.',
             ),
             // 거리재기
             ScriptEvent(
@@ -550,7 +1199,7 @@ const _tvt1barDoubleMirror = ScenarioScript(
               altText: '{away} 선수 맞포격! {home} 병력을 깎습니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 탱크+골리앗 라인을 전진시킵니다!',
+              text: '{home} 선수 탱크, 골리앗 라인을 전진시킵니다!',
               owner: LogOwner.home,
               homeArmy: 4, homeResource: -400,
               fixedCost: true,
@@ -569,6 +1218,81 @@ const _tvt1barDoubleMirror = ScenarioScript(
               text: '정면 라인전! 시즈 포격 범위가 승부를 가릅니다!',
               owner: LogOwner.system,
               skipChance: 0.3,
+              altText: '탱크 일점사! 상대 탱크 숫자 줄이는 데 집중합니다!',
+            ),
+          ],
+        ),
+        // 홈 불리 → 본진 한방 뒤집기 드랍
+        ScriptBranch(
+          id: 'home_desperate_drop',
+          baseProbability: 0.8,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 정면에서 밀리고 있습니다! 병력 차이가 벌어지고 있습니다!',
+              owner: LogOwner.system,
+              homeArmy: -4,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 드랍십 두 대에 탱크를 가득 싣습니다! 본진을 노립니다!',
+              owner: LogOwner.home,
+              favorsStat: 'strategy',
+              altText: '{home} 선수 대규모 드랍! 상대 본진 뒤를 노립니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 상대 본진에 탱크 투하! 시즈 모드 전환! 팩토리가 터집니다!',
+              owner: LogOwner.home,
+              awayResource: -500, awayArmy: -4,
+              favorsStat: 'harass',
+              altText: '{home} 선수 본진 드랍 성공! 생산 라인을 타격합니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 급히 병력을 돌리지만 이미 피해가 큽니다!',
+              owner: LogOwner.away,
+              awayArmy: -2,
+              altText: '{away} 선수 본진 생산 건물이 파괴됩니다! 생산이 끊깁니다!',
+            ),
+            ScriptEvent(
+              text: '대역전극! 불리하던 경기를 드랍쉽 한 방으로 뒤집습니다!',
+              owner: LogOwner.system,
+              skipChance: 0.3,
+              altText: '드랍쉽 한 대의 기적! 본진 팩토리 라인이 마비됐습니다.',
+            ),
+          ],
+        ),
+        // 어웨이 불리 → 본진 한방 뒤집기 드랍
+        ScriptBranch(
+          id: 'away_desperate_drop',
+          baseProbability: 0.8,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 정면에서 밀리고 있습니다! 탱크 수가 부족합니다!',
+              owner: LogOwner.system,
+              awayArmy: -4,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 드랍십 두 대에 탱크를 싣고 상대 본진으로 향합니다!',
+              owner: LogOwner.away,
+              favorsStat: 'strategy',
+              altText: '{away} 선수 대규모 드랍! 승부수를 던집니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 상대 본진에 탱크 투하! 시즈 모드! 생산시설이 터집니다!',
+              owner: LogOwner.away,
+              homeResource: -500, homeArmy: -4,
+              favorsStat: 'harass',
+              altText: '{away} 선수 본진 드랍 성공! 상대 팩토리를 부숩니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 병력을 돌리지만 생산시설 피해가 심각합니다!',
+              owner: LogOwner.home,
+              homeArmy: -2,
+              altText: '{home} 선수 본진 생산 건물이 파괴됩니다! 생산이 끊깁니다!',
+            ),
+            ScriptEvent(
+              text: '역전 드랍! 불리했던 쪽이 생산력을 뒤집었습니다!',
+              owner: LogOwner.system,
+              skipChance: 0.3,
+              altText: '드랍쉽 한 대의 기적! 본진 팩토리 라인이 마비됐습니다.',
             ),
           ],
         ),
@@ -598,6 +1322,23 @@ const _tvt1barDoubleMirror = ScenarioScript(
           skipChance: 0.5,
           altText: '{away} 선수 맞포격! 사거리 끝에서 {home} 탱크를 잡습니다!',
         ),
+        // 결전 전 대규모 교전
+        ScriptEvent(
+          text: '{home} 선수 탱크 라인을 전진시킵니다! 상대 골리앗과 정면 포격전!',
+          owner: LogOwner.home,
+          awayArmy: -8, homeArmy: -6,
+          favorsStat: 'attack',
+          skipChance: 0.3,
+          altText: '{home} 선수 라인 전진! 상대 병력과 정면으로 부딪힙니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 시즈 포격으로 응사합니다! 양측 병력이 크게 줄어듭니다!',
+          owner: LogOwner.away,
+          homeArmy: -8, awayArmy: -6,
+          favorsStat: 'attack',
+          skipChance: 0.3,
+          altText: '{away} 선수 맞포격! 양측 탱크가 대거 터집니다!',
+        ),
         ScriptEvent(
           text: '{home} 선수 전 병력 총동원! 최종 결전!',
           owner: LogOwner.home,
@@ -616,19 +1357,19 @@ const _tvt1barDoubleMirror = ScenarioScript(
           text: '양측 전 병력 충돌! 여기서 밀리면 끝입니다!',
           owner: LogOwner.system,
           skipChance: 0.3,
-          altText: '전 병력이 정면에서 부딪힙니다!',
+          altText: '모든 병력 쏟아붓습니다! 마지막 결전이에요!',
         ),
         ScriptEvent(
           text: '{home} 선수 시즈 포격 집중! 상대 탱크가 터집니다!',
           owner: LogOwner.home,
-          awayArmy: -6, homeArmy: -4,
+          awayArmy: -20, homeArmy: -10,
           favorsStat: 'attack',
           altText: '{home} 선수 시즈 화력! 상대 탱크를 집중 타격합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 골리앗 화력으로 반격합니다!',
           owner: LogOwner.away,
-          homeArmy: -6, awayArmy: -4,
+          homeArmy: -20, awayArmy: -10,
           favorsStat: 'defense',
           altText: '{away} 선수 골리앗으로 끝까지 저항합니다!',
         ),
@@ -646,8 +1387,8 @@ const _tvt1barDoubleMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수 벌처 컨트롤 차이! 상대 SCV를 솎아냅니다!',
-              altText: '{home} 선수 드랍 견제 성공! 상대 생산시설을 타격합니다!',
+              text: '{home} 선수 탱크 라인을 밀어붙입니다! 상대 라인이 흔들립니다!',
+              altText: '{home} 선수 탱크 수에서 앞서기 시작합니다! 라인을 압박합니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -658,8 +1399,8 @@ const _tvt1barDoubleMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수 벌처 컨트롤 승리! 맵 장악으로 밀어냅니다!',
-              altText: '{away} 선수 드랍십 기습! 상대 후방을 초토화합니다!',
+              text: '{away} 선수 탱크 라인을 밀어붙입니다! 상대 라인이 흔들립니다!',
+              altText: '{away} 선수 탱크 수에서 앞서기 시작합니다! 라인을 압박합니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

@@ -277,13 +277,14 @@ enum BuildStyle {
 /// 세부 빌드 타입 (매치업별 구체적 빌드, sc1hub.com 기준)
 enum BuildType {
   // ==================== TvZ 빌드 (7개) ====================
-  tvzBunkerRush('tvz_bunker', 'TvZ', '센터 8배럭', BuildStyle.cheese, ['attack', 'control']),
-  tvzSKTerran('tvz_sk', 'TvZ', '투배럭 아카', BuildStyle.aggressive, ['control', 'macro']),
-  tvz3FactoryGoliath('tvz_3fac_goliath', 'TvZ', '5팩 골리앗', BuildStyle.defensive, ['defense', 'macro']),
-  tvz4BarEnbe('tvz_4bar_enbe', 'TvZ', '선엔베 4배럭', BuildStyle.aggressive, ['attack', 'macro']),
+  tvzBbs('tvz_bbs', 'TvZ', 'BBS', BuildStyle.cheese, ['attack', 'control']),
+  tvz2BarAcademy('tvz_2bar_academy', 'TvZ', '2배럭아카데미', BuildStyle.aggressive, ['attack', 'control']),
+  tvzBarDouble('tvz_bar_double', 'TvZ', '배럭더블', BuildStyle.balanced, ['macro', 'defense']),
   tvz111('tvz_111', 'TvZ', '111', BuildStyle.balanced, ['strategy', 'control'], 1),
-  tvzValkyrie('tvz_valkyrie', 'TvZ', '발리오닉', BuildStyle.defensive, ['defense', 'macro']),
-  tvz2StarWraith('tvz_2star_wraith', 'TvZ', '투스타 레이스', BuildStyle.aggressive, ['harass', 'strategy']),
+  tvzFacDouble('tvz_fac_double', 'TvZ', '팩토리더블', BuildStyle.balanced, ['harass', 'macro']),
+  tvzNobarDouble('tvz_nobar_double', 'TvZ', '노배럭더블', BuildStyle.defensive, ['macro', 'defense']),
+  tvz2Star('tvz_2star', 'TvZ', '2스타레이스', BuildStyle.aggressive, ['harass', 'strategy']),
+  tvz5Bar('tvz_5bar', 'TvZ', '5배럭', BuildStyle.aggressive, ['attack', 'control']),
 
   // ==================== TvP 빌드 (12개) ====================
   tvpBbs('tvp_bbs', 'TvP', '센터 8배럭', BuildStyle.cheese, ['attack', 'control']),
@@ -395,12 +396,12 @@ enum BuildType {
   zvpTransHydraLurker('zvp_trans_hydra_lurker', 'ZvP', '히드라→럴커', BuildStyle.balanced, ['macro', 'attack']),
 
   // TvZ 트랜지션 빌드 (6개)
-  tvzTransBionicPush('tvz_trans_bionic_push', 'TvZ', '바이오닉 푸시', BuildStyle.aggressive, ['attack', 'control']),
-  tvzTransMechGoliath('tvz_trans_mech_goliath', 'TvZ', '메카닉 골리앗', BuildStyle.defensive, ['defense', 'macro']),
+  tvzTransBionic('tvz_trans_bionic', 'TvZ', '바이오닉', BuildStyle.aggressive, ['attack', 'control']),
+  tvzTransMech('tvz_trans_mech', 'TvZ', '메카닉', BuildStyle.defensive, ['defense', 'macro']),
   tvzTrans111Balance('tvz_trans_111_balance', 'TvZ', '111 밸런스', BuildStyle.balanced, ['strategy', 'defense']),
-  tvzTransValkyrie('tvz_trans_valkyrie', 'TvZ', '발키리 대공', BuildStyle.defensive, ['defense', 'control']),
-  tvzTransWraith('tvz_trans_wraith', 'TvZ', '레이스 공중', BuildStyle.aggressive, ['harass', 'control']),
-  tvzTransEnbePush('tvz_trans_enbe_push', 'TvZ', '선엔베 푸시', BuildStyle.aggressive, ['attack', 'macro']),
+  tvzTransValkyrie('tvz_trans_valkyrie', 'TvZ', '발키리', BuildStyle.defensive, ['defense', 'control']),
+  tvzTransWraith('tvz_trans_wraith', 'TvZ', '레이스', BuildStyle.aggressive, ['harass', 'control']),
+  tvzTransEnbe3bar('tvz_trans_enbe_3bar', 'TvZ', '선엔베 3배럭', BuildStyle.aggressive, ['attack', 'macro']),
 
   // TvP 트랜지션 빌드 (6개)
   tvpTransTankDefense('tvp_trans_tank_defense', 'TvP', '탱크 수비', BuildStyle.defensive, ['defense', 'macro']),
@@ -590,10 +591,10 @@ class BuildMatchup {
     if (a == BuildType.zvz9OverPool && b == BuildType.zvzPoolFirst) return 5;
 
     // TvZ/ZvT 특수 상성
-    if (a == BuildType.tvzBunkerRush && b == BuildType.zvt1HatchAllIn) return 15;  // 벙커링 > 원해처리 럴커 (초반 마린으로 히드라/럴커 전 압살)
-    if (a == BuildType.zvt1HatchAllIn && b == BuildType.tvzBunkerRush) return -15;
-    if (a == BuildType.tvz4BarEnbe && b == BuildType.zvt3HatchMutal) return 12;    // 선엔베 > 미친저그
-    if (a == BuildType.zvt3HatchMutal && b == BuildType.tvz4BarEnbe) return -12;
+    if (a == BuildType.tvzBbs && b == BuildType.zvt1HatchAllIn) return 15;  // BBS > 원해처리 럴커 (초반 마린으로 히드라/럴커 전 압살)
+    if (a == BuildType.zvt1HatchAllIn && b == BuildType.tvzBbs) return -15;
+    if (a == BuildType.tvzTransEnbe3bar && b == BuildType.zvt3HatchMutal) return 12;    // 선엔베 > 미친저그
+    if (a == BuildType.zvt3HatchMutal && b == BuildType.tvzTransEnbe3bar) return -12;
     if (a == BuildType.tvz111 && b == BuildType.zvt3HatchMutal) return 12;         // 111 탱크가 3해처리 느린 방어 타이밍 노림
     if (a == BuildType.zvt3HatchMutal && b == BuildType.tvz111) return -12;
     if (a == BuildType.tvz111 && b == BuildType.zvt2HatchMutal) return 8;          // 레이스 정찰로 뮤탈 타이밍 파악
@@ -602,44 +603,53 @@ class BuildMatchup {
     if (a == BuildType.zvt2HatchLurker && b == BuildType.tvz111) return -12;
     if (a == BuildType.tvz111 && b == BuildType.zvt1HatchAllIn) return 8;          // 빠른 탱크로 럴커 올인 버팀
     if (a == BuildType.zvt1HatchAllIn && b == BuildType.tvz111) return -8;
-    if (a == BuildType.tvzValkyrie && b == BuildType.zvt2HatchMutal) return 23;    // 발리오닉 > 뮤탈: +4(def>agg TvZ) + 23 = +27
-    if (a == BuildType.zvt2HatchMutal && b == BuildType.tvzValkyrie) return -23;
-    if (a == BuildType.tvz2StarWraith && b == BuildType.zvt2HatchLurker) return 4; // 레이스 > 지상저그: -4(agg>def TvZ) + 4 = 0
-    if (a == BuildType.zvt2HatchLurker && b == BuildType.tvz2StarWraith) return -4;
+    if (a == BuildType.tvzTransValkyrie && b == BuildType.zvt2HatchMutal) return 23;    // 발키리 > 뮤탈: +4(def>agg TvZ) + 23 = +27
+    if (a == BuildType.zvt2HatchMutal && b == BuildType.tvzTransValkyrie) return -23;
+    if (a == BuildType.tvz2Star && b == BuildType.zvt2HatchLurker) return 4; // 레이스 > 지상저그: -4(agg>def TvZ) + 4 = 0
+    if (a == BuildType.zvt2HatchLurker && b == BuildType.tvz2Star) return -4;
 
-    // TvZ/ZvT 추가 상성 (TODO.md TvZ 끝나는 경험 기반)
-    // 센터 8배럭이 12앞마당을 직접 노림 (벙커가 앞마당에 빠르게 올라감)
-    if (a == BuildType.tvzBunkerRush && b == BuildType.zvt12Hatch) return 8;           // +10(cheese>bal) + 8 = +18
-    if (a == BuildType.zvt12Hatch && b == BuildType.tvzBunkerRush) return -8;
-    // 센터 8배럭 vs 노풀3해처리 (저글링도 없어서 벙커 방어 불가)
-    if (a == BuildType.tvzBunkerRush && b == BuildType.zvt3HatchNoPool) return 10;     // +25(cheese>def) + 10 = +35
-    if (a == BuildType.zvt3HatchNoPool && b == BuildType.tvzBunkerRush) return -10;
+    // TvZ/ZvT 추가 상성
+    // BBS가 12앞마당을 직접 노림 (벙커가 앞마당에 빠르게 올라감)
+    if (a == BuildType.tvzBbs && b == BuildType.zvt12Hatch) return 8;           // +10(cheese>bal) + 8 = +18
+    if (a == BuildType.zvt12Hatch && b == BuildType.tvzBbs) return -8;
+    // BBS vs 노풀3해처리 (저글링도 없어서 벙커 방어 불가)
+    if (a == BuildType.tvzBbs && b == BuildType.zvt3HatchNoPool) return 10;     // +25(cheese>def) + 10 = +35
+    if (a == BuildType.zvt3HatchNoPool && b == BuildType.tvzBbs) return -10;
     // 9풀 발업저글링이 수비형 테란에 강함 (마린 나오기 전 저글링 도착, GG 多)
-    if (a == BuildType.zvt9Pool && b == BuildType.tvzTransMechGoliath) return 14;      // -4(def>agg TvZ) + 14 = +10
-    if (a == BuildType.tvzTransMechGoliath && b == BuildType.zvt9Pool) return -14;
+    if (a == BuildType.zvt9Pool && b == BuildType.tvzTransMech) return 14;      // -4(def>agg TvZ) + 14 = +10
+    if (a == BuildType.tvzTransMech && b == BuildType.zvt9Pool) return -14;
     if (a == BuildType.zvt9Pool && b == BuildType.tvzTransValkyrie) return 14;         // -4 + 14 = +10
     if (a == BuildType.tvzTransValkyrie && b == BuildType.zvt9Pool) return -14;
     // 9오버풀도 비슷하지만 오버로드 먼저 뽑아서 약간 느림
-    if (a == BuildType.zvt9OverPool && b == BuildType.tvzTransMechGoliath) return 10;  // -4 + 10 = +6
-    if (a == BuildType.tvzTransMechGoliath && b == BuildType.zvt9OverPool) return -10;
+    if (a == BuildType.zvt9OverPool && b == BuildType.tvzTransMech) return 10;  // -4 + 10 = +6
+    if (a == BuildType.tvzTransMech && b == BuildType.zvt9OverPool) return -10;
     if (a == BuildType.zvt9OverPool && b == BuildType.tvzTransValkyrie) return 10;     // -4 + 10 = +6
     if (a == BuildType.tvzTransValkyrie && b == BuildType.zvt9OverPool) return -10;
     // 공격 테란 vs 노풀3해처리 (군사 전혀 없는 저그를 공략)
-    if (a == BuildType.tvz4BarEnbe && b == BuildType.zvt3HatchNoPool) return 17;       // -4(def>agg TvZ) + 17 = +13
-    if (a == BuildType.zvt3HatchNoPool && b == BuildType.tvz4BarEnbe) return -17;
-    if (a == BuildType.tvzSKTerran && b == BuildType.zvt3HatchNoPool) return 17;       // -4 + 17 = +13
-    if (a == BuildType.zvt3HatchNoPool && b == BuildType.tvzSKTerran) return -17;
+    if (a == BuildType.tvzTransEnbe3bar && b == BuildType.zvt3HatchNoPool) return 17;       // -4(def>agg TvZ) + 17 = +13
+    if (a == BuildType.zvt3HatchNoPool && b == BuildType.tvzTransEnbe3bar) return -17;
+    if (a == BuildType.tvz2BarAcademy && b == BuildType.zvt3HatchNoPool) return 17;       // -4 + 17 = +13
+    if (a == BuildType.zvt3HatchNoPool && b == BuildType.tvz2BarAcademy) return -17;
     // 발키리가 3해처리 뮤탈도 카운터 (대공 진형)
-    if (a == BuildType.tvzValkyrie && b == BuildType.zvt3HatchMutal) return 20;        // +4(def>agg TvZ) + 20 = +24
-    if (a == BuildType.zvt3HatchMutal && b == BuildType.tvzValkyrie) return -20;
-    // 투스타 레이스가 뮤탈 빌드에 강함 (공중 장악 + 오버로드 사냥)
-    if (a == BuildType.tvz2StarWraith && b == BuildType.zvt2HatchMutal) return 8;      // 0(agg=agg) + 8 = +8
-    if (a == BuildType.zvt2HatchMutal && b == BuildType.tvz2StarWraith) return -8;
-    if (a == BuildType.tvz2StarWraith && b == BuildType.zvt3HatchMutal) return 10;     // 0 + 10 = +10
-    if (a == BuildType.zvt3HatchMutal && b == BuildType.tvz2StarWraith) return -10;
-    // 5팩 골리앗이 원해처리 럴커에 강함 (빠른 탱크로 럴커 전 포격 + 스캔)
-    if (a == BuildType.tvz3FactoryGoliath && b == BuildType.zvt1HatchAllIn) return 18; // +4(def>agg TvZ) + 18 = +22
-    if (a == BuildType.zvt1HatchAllIn && b == BuildType.tvz3FactoryGoliath) return -18;
+    if (a == BuildType.tvzTransValkyrie && b == BuildType.zvt3HatchMutal) return 20;        // +4(def>agg TvZ) + 20 = +24
+    if (a == BuildType.zvt3HatchMutal && b == BuildType.tvzTransValkyrie) return -20;
+    // 2스타 레이스가 뮤탈 빌드에 강함 (공중 장악 + 오버로드 사냥)
+    if (a == BuildType.tvz2Star && b == BuildType.zvt2HatchMutal) return 8;      // 0(agg=agg) + 8 = +8
+    if (a == BuildType.zvt2HatchMutal && b == BuildType.tvz2Star) return -8;
+    if (a == BuildType.tvz2Star && b == BuildType.zvt3HatchMutal) return 10;     // 0 + 10 = +10
+    if (a == BuildType.zvt3HatchMutal && b == BuildType.tvz2Star) return -10;
+    // 노배럭더블이 원해처리 럴커에 강함 (빠른 확장 + 탱크로 럴커 전 포격)
+    if (a == BuildType.tvzNobarDouble && b == BuildType.zvt1HatchAllIn) return 18; // +4(def>agg TvZ) + 18 = +22
+    if (a == BuildType.zvt1HatchAllIn && b == BuildType.tvzNobarDouble) return -18;
+    // 5배럭 vs 노풀3해처리 (순수 마린 물량으로 군사 없는 저그 압살)
+    if (a == BuildType.tvz5Bar && b == BuildType.zvt3HatchNoPool) return 17;           // -4(def>agg TvZ) + 17 = +13
+    if (a == BuildType.zvt3HatchNoPool && b == BuildType.tvz5Bar) return -17;
+    // 5배럭 vs 미친저그 (마린 물량이 3해처리 느린 방어 타이밍 공략)
+    if (a == BuildType.tvz5Bar && b == BuildType.zvt3HatchMutal) return 10;            // 0(agg=agg) + 10 = +10
+    if (a == BuildType.zvt3HatchMutal && b == BuildType.tvz5Bar) return -10;
+    // 5배럭 vs 2해처리 뮤탈 (터렛 없어서 뮤탈에 약함)
+    if (a == BuildType.tvz5Bar && b == BuildType.zvt2HatchMutal) return -8;            // 0(agg=agg) - 8 = -8
+    if (a == BuildType.zvt2HatchMutal && b == BuildType.tvz5Bar) return 8;
 
     // TvT 특수 상성 (15쌍)
     if (a == BuildType.tvt1Fac1Star && b == BuildType.tvt1BarDouble) return 15;       // 원팩원스타 > 원배럭더블

@@ -19,24 +19,24 @@ const _tvt5facVsNobarDouble = ScenarioScript(
       recoveryArmyPerLine: 0,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 배럭 건설 후 팩토리!',
+          text: '{home} 선수 배럭 건설 후 팩토리.',
           owner: LogOwner.home,
           homeResource: -450, // 배럭 150 + 팩토리 300
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{away} 선수 배럭 없이 앞마당 커맨드센터!',
+          text: '{away} 선수 배럭 없이 앞마당 커맨드센터.',
           owner: LogOwner.away,
           awayResource: -400, // CC 400
           fixedCost: true,
-          altText: '{away}, CC퍼스트! 노배럭더블!',
+          altText: '{away} 선수 CC퍼스트. 노배럭더블.',
         ),
         ScriptEvent(
-          text: '{home} 선수 팩토리를 계속 증설합니다! 2번째, 3번째!',
+          text: '{home} 선수 팩토리를 계속 증설합니다. 2번째, 3번째.',
           owner: LogOwner.home,
           homeResource: -600, // 팩토리 x2 (300+300)
           fixedCost: true,
-          altText: '{home}, 팩토리 증설! 5팩토리를 노립니다!',
+          altText: '{home} 선수 팩토리 증설. 5팩토리를 노립니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 뒤늦게 배럭, 팩토리 건설합니다.',
@@ -54,37 +54,79 @@ const _tvt5facVsNobarDouble = ScenarioScript(
       recoveryArmyPerLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 4번째 팩토리! 5번째까지 올립니다!',
+          text: '{home} 선수 4번째 팩토리. 5번째까지 올립니다.',
           owner: LogOwner.home,
           homeResource: -600, // 팩토리 x2 (300+300)
           fixedCost: true,
           favorsStat: 'macro',
         ),
         ScriptEvent(
-          text: '{away} 선수 시즈 탱크 생산 시작! 시즈모드 연구!',
+          text: '{away} 선수 시즈 탱크 생산 시작. 시즈모드 연구.',
           owner: LogOwner.away,
           awayArmy: 2, // 탱크 1기 = 2sup
           awayResource: -550, // 탱크 250 + 시즈모드 300
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{home} 선수 5팩토리 풀가동! 탱크를 쏟아냅니다!',
+          text: '{home} 선수 5팩토리 풀가동. 탱크를 쏟아냅니다.',
           owner: LogOwner.home,
           homeArmy: 6, // 탱크 3기 = 6sup
           homeResource: -750, // 탱크 3기 (250x3)
           fixedCost: true,
-          altText: '{home}, 5팩에서 탱크가 쏟아집니다! 엄청난 물량!',
+          altText: '{home} 선수 5팩에서 탱크가 쏟아집니다. 엄청난 물량.',
         ),
         ScriptEvent(
-          text: '{away} 선수 앞마당 자원이 들어오기 시작합니다! 확장 먹은 자원이 중요합니다!',
+          text: '{away} 선수 앞마당 자원이 들어오기 시작합니다. 확장 먹은 자원이 중요합니다.',
           owner: LogOwner.away,
           awayResource: 10,
           skipChance: 0.3,
         ),
         ScriptEvent(
-          text: '5팩토리 타이밍! 노배럭더블이 자원은 먼저 모았지만 팩토리 수가 부족합니다!',
+          text: '5팩토리 타이밍. 노배럭더블이 자원은 먼저 모았지만 팩토리 수가 부족합니다.',
           owner: LogOwner.system,
           skipChance: 0.5,
+        ),
+        // ── 맵 특성 이벤트 ──
+        // 근거리 맵: 교전 강화 (공격 능력치 유리)
+        ScriptEvent(
+          text: '{home} 선수 근거리 맵이라 탱크가 바로 사거리에 들어옵니다! 시즈 포격!',
+          owner: LogOwner.home,
+          awayArmy: -2,
+          favorsStat: 'attack',
+          requiresMapTag: 'rushShort',
+          skipChance: 0.5,
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 근거리 맵 이점을 살려 시즈 포격!',
+          owner: LogOwner.away,
+          homeArmy: -2,
+          favorsStat: 'attack',
+          requiresMapTag: 'rushShort',
+          skipChance: 0.5,
+        ),
+        // 복잡 지형 맵: 고지대 시즈 배치
+        ScriptEvent(
+          text: '{home} 선수 고지대를 점령하고 시즈 포격! 아래에서는 사거리가 안 닿습니다!',
+          owner: LogOwner.home,
+          awayArmy: -2,
+          favorsStat: 'strategy',
+          requiresMapTag: 'terrainHigh',
+          skipChance: 0.5,
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 반대편 고지대에 탱크를 올립니다. 지형 싸움.',
+          owner: LogOwner.away,
+          homeArmy: -2,
+          favorsStat: 'strategy',
+          requiresMapTag: 'terrainHigh',
+          skipChance: 0.5,
+        ),
+        // 원거리 맵: 멀티 확장 안전
+        ScriptEvent(
+          text: '원거리 맵이라 멀티 확장이 안전합니다. 양측 자원이 풍부해집니다.',
+          owner: LogOwner.system,
+          homeResource: 200, awayResource: 200,
+          requiresMapTag: 'rushLong',
         ),
       ],
     ),
@@ -108,7 +150,7 @@ const _tvt5facVsNobarDouble = ScenarioScript(
               homeResource: -500, // 탱크 2기 (250x2)
               fixedCost: true,
               favorsStat: 'attack',
-              altText: '{home}, 5팩 타이밍! 탱크가 끝없이 나옵니다!',
+              altText: '{home} 선수 5팩 타이밍 시작. 탱크가 끝없이 나옵니다.',
             ),
             ScriptEvent(
               text: '{away} 선수 탱크 2대로 방어하지만 물량이 부족합니다!',
@@ -124,13 +166,13 @@ const _tvt5facVsNobarDouble = ScenarioScript(
               fixedCost: true,
             ),
             ScriptEvent(
-              text: '{away} 선수 벌처로 저항하지만 탱크 물량에 막힙니다!',
+              text: '{away} 선수 벌처로 저항하지만 탱크 물량에 막힙니다.',
               owner: LogOwner.away,
               awayArmy: -2,
               skipChance: 0.4,
             ),
             ScriptEvent(
-              text: '팩토리 수 차이가 결정적입니다! 노배럭의 자원으로도 메울 수 없는 생산력!',
+              text: '팩토리 수 차이가 결정적입니다. 노배럭의 자원으로도 메울 수 없는 생산력.',
               owner: LogOwner.system,
               skipChance: 0.5,
             ),
@@ -150,7 +192,7 @@ const _tvt5facVsNobarDouble = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수 벙커와 탱크로 방어선 구축!',
+              text: '{away} 선수 벙커와 탱크로 방어선 구축.',
               owner: LogOwner.away,
               awayArmy: 2, // 탱크 1기 = 2sup
               awayResource: -350, // 벙커 100 + 탱크 250
@@ -158,13 +200,13 @@ const _tvt5facVsNobarDouble = ScenarioScript(
               favorsStat: 'defense',
             ),
             ScriptEvent(
-              text: '{home} 선수 5팩 푸시! 하지만 고지 방어가 단단합니다!',
+              text: '{home} 선수 5팩 푸시. 하지만 고지 방어가 단단합니다.',
               owner: LogOwner.home,
               homeArmy: -4,
               awayArmy: -3,
             ),
             ScriptEvent(
-              text: '{away} 선수 더블 자원으로 탱크 보충이 빠릅니다!',
+              text: '{away} 선수 더블 자원으로 탱크 보충이 빠릅니다.',
               owner: LogOwner.away,
               awayArmy: 4, // 탱크 2기 = 4sup
               awayResource: -500, // 탱크 2기 (250x2)
@@ -172,19 +214,19 @@ const _tvt5facVsNobarDouble = ScenarioScript(
               favorsStat: 'macro',
             ),
             ScriptEvent(
-              text: '{home} 선수 5팩은 자원이 부족합니다! 확장을 못 먹었습니다!',
+              text: '{home} 선수 5팩은 자원이 부족합니다. 확장을 못 먹었습니다.',
               owner: LogOwner.home,
               homeArmy: -3,
               homeResource: -10,
             ),
             ScriptEvent(
-              text: '{away} 선수 고지대에서 시즈모드! 유리한 위치를 선점합니다!',
+              text: '{away} 선수 고지대에서 시즈모드. 유리한 위치를 선점합니다.',
               owner: LogOwner.away,
               awayArmy: 3,
               skipChance: 0.4,
             ),
             ScriptEvent(
-              text: '5팩 타이밍을 막았습니다! 자원 우위로 역전!',
+              text: '5팩 타이밍을 막았습니다. 자원 우위로 역전.',
               owner: LogOwner.system,
               skipChance: 0.5,
             ),

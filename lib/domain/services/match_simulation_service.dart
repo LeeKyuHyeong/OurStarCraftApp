@@ -639,31 +639,28 @@ class MatchSimulationService {
                 (scenarioScript!.decisiveWeight >= 1.0 ||
                  _random.nextDouble() < scenarioScript.decisiveWeight);
             if (effectiveDecisive) {
-              // decisive 이벤트: 시나리오 방향성(scenarioBoost) + 누적 병력 상태(armyBonus) 종합
-              // scenarioBoost: 이벤트 주체에게 +15% 기본 보정
-              // armyBonus: 병력 비율에 따라 ±40% 추가 보정 (누적 상태 반영)
-              // → 병력이 많은 쪽 + 시나리오 주체가 일치하면 ~90%+ 승리
-              // → 병력이 적은데 시나리오 주체인 경우 역전 가능하지만 낮은 확률
+              // decisive 이벤트: 시나리오 주체가 확정적으로 승리
+              // 시나리오에서 "벌처 전멸 → SCV 초토화 → 회복 불가" 같은 내러티브 후
+              // decisive=true가 발동되면 해당 주체가 이겨야 내러티브가 일관됨
               bool? decisiveWinner;
               if (scriptResult.entry != null) {
-                const scenarioBoost = 0.15;
-                final totalArmy = state.homeArmy + state.awayArmy;
-                final armyBonus = totalArmy > 10
-                    ? (state.homeArmy - state.awayArmy) / totalArmy * 0.4
-                    : 0.0;
                 if (scriptResult.entry!.owner == LogOwner.home) {
-                  decisiveWinner = _random.nextDouble() < (winRate + scenarioBoost + armyBonus).clamp(0.05, 0.95);
+                  decisiveWinner = true;
                 } else if (scriptResult.entry!.owner == LogOwner.away) {
-                  decisiveWinner = _random.nextDouble() < (winRate - scenarioBoost + armyBonus).clamp(0.05, 0.95);
+                  decisiveWinner = false;
                 } else {
                   // system/clash: 병력 우세 + winRate 종합
                   final armyDiff = state.homeArmy - state.awayArmy;
+                  final totalArmy = state.homeArmy + state.awayArmy;
+                  final sysArmyBonus = totalArmy > 10
+                      ? (state.homeArmy - state.awayArmy) / totalArmy * 0.4
+                      : 0.0;
                   if (armyDiff > 15) {
                     decisiveWinner = true;
                   } else if (armyDiff < -15) {
                     decisiveWinner = false;
                   } else {
-                    decisiveWinner = _random.nextDouble() < (winRate + armyBonus).clamp(0.05, 0.95);
+                    decisiveWinner = _random.nextDouble() < (winRate + sysArmyBonus).clamp(0.05, 0.95);
                   }
                 }
               }
@@ -675,6 +672,7 @@ class MatchSimulationService {
                 awayPlayer: awayPlayer,
                 lineCount: lineCount,
                 getIntervalMs: getIntervalMs,
+                isDecisive: true,
               );
               return;
             }
@@ -914,6 +912,7 @@ class MatchSimulationService {
             awayPlayer: awayPlayer,
             lineCount: lineCount,
             getIntervalMs: getIntervalMs,
+            isDecisive: true,
           );
           return;
         }
@@ -1260,6 +1259,7 @@ class MatchSimulationService {
     required int lineCount,
     required int Function() getIntervalMs,
     bool isLongGame = false,
+    bool isDecisive = false,
   }) async* {
     final isHomeWinner = homeWinOverride ?? (_random.nextDouble() < winRate);
     final winner = isHomeWinner ? homePlayer : awayPlayer;
@@ -1271,6 +1271,11 @@ class MatchSimulationService {
       state: state,
       lineCount: lineCount,
     );
+
+    // decisive 종료 시 '승리를 거둡니다' 키워드 포함 텍스트 추가
+    final effectiveFinishingBlow = isDecisive
+        ? '$finishingBlow ${winner.name} 선수, 승리를 거둡니다!'
+        : finishingBlow;
 
     // 최종 목표값 계산
     final loserFinalArmy = _random.nextInt(4); // 0~3
@@ -1304,7 +1309,7 @@ class MatchSimulationService {
       homeResources: homeR(0.6),
       awayResources: awayR(0.6),
       battleLogEntries: [...state.battleLogEntries,
-        BattleLogEntry(text: finishingBlow, owner: isHomeWinner ? LogOwner.home : LogOwner.away)],
+        BattleLogEntry(text: effectiveFinishingBlow, owner: isHomeWinner ? LogOwner.home : LogOwner.away)],
     );
     yield state;
     await Future.delayed(Duration(milliseconds: getIntervalMs()));
@@ -1325,100 +1330,18 @@ class MatchSimulationService {
     yield state;
     await Future.delayed(Duration(milliseconds: getIntervalMs()));
 
-    // 3. 코멘터리 (최종값으로 보간 + 판정)
-    final commentaryState = state.copyWith(
+    // 3. 승리 선언 (최종)
+    final finalState = state.copyWith(
+      isFinished: true,
+      homeWin: isHomeWinner,
       homeArmy: homeA(1.0),
       awayArmy: awayA(1.0),
       homeResources: homeR(1.0),
       awayResources: awayR(1.0),
-    );
-
-    final endingCommentary = _getEndingCommentary(
-      winner: winner,
-      state: commentaryState,
-      lineCount: lineCount,
-      isLongGame: isLongGame,
-    );
-
-    state = commentaryState.copyWith(
-      battleLogEntries: [...state.battleLogEntries,
-        BattleLogEntry(text: endingCommentary, owner: LogOwner.system)],
-    );
-    yield state;
-    await Future.delayed(Duration(milliseconds: getIntervalMs()));
-
-    // 4. 승리 선언 (최종)
-    state = state.copyWith(
-      isFinished: true,
-      homeWin: isHomeWinner,
       battleLogEntries: [...state.battleLogEntries,
         BattleLogEntry(text: '${winner.name} 선수 승리!', owner: LogOwner.system)],
     );
-    yield state;
-  }
-
-  /// 엔딩 코멘터리 (게임 상황에 따라)
-  String _getEndingCommentary({
-    required Player winner,
-    required SimulationState state,
-    required int lineCount,
-    bool isLongGame = false,
-  }) {
-    if (isLongGame) {
-      final longGameTexts = [
-        '정말 긴 접전이었습니다! ${winner.name} 선수가 끝까지 버텨냈네요.',
-        '양측 모두 포기하지 않은 명경기였습니다!',
-        '장기전에서 ${winner.name} 선수의 운영이 빛났습니다.',
-      ];
-      return longGameTexts[_random.nextInt(longGameTexts.length)];
-    }
-
-    // 승리 유형 판별: 자원이 더 많으면 수비/경제형, 병력이 압도적이면 공격형
-    final isHomeWinner = state.homeArmy > state.awayArmy;
-    final winnerRes = isHomeWinner ? state.homeResources : state.awayResources;
-    final loserRes = isHomeWinner ? state.awayResources : state.homeResources;
-    final isDefensiveWin = winnerRes > loserRes * 1.5; // 자원 50% 이상 우위 → 수비형
-
-    // 빠른 승리 (40줄 이하)
-    if (lineCount <= 40) {
-      final texts = isDefensiveWin
-          ? [
-              '${winner.name} 선수, 극강의 수비력을 보여줍니다!',
-              '${winner.name} 선수의 판단이 한 수 위였습니다!',
-              '${winner.name} 선수, 상대 공격을 버텨내고 역전합니다!',
-            ]
-          : [
-              '${winner.name} 선수, 공격적인 빌드가 먹혔습니다!',
-              '빠른 경기! ${winner.name} 선수가 일찍 승기를 잡았네요.',
-              '${winner.name} 선수, 초반 공세가 결정적이었습니다!',
-            ];
-      return texts[_random.nextInt(texts.length)];
-    }
-
-    // 접전 (병력 차 적음)
-    final armyDiff = (state.homeArmy - state.awayArmy).abs();
-    if (armyDiff < 20) {
-      final closeTexts = [
-        '정말 아슬아슬한 경기였습니다!',
-        '어느 쪽이 이겨도 이상하지 않은 접전이었네요!',
-        '한 끗 차이의 승부! ${winner.name} 선수가 가져갑니다!',
-      ];
-      return closeTexts[_random.nextInt(closeTexts.length)];
-    }
-
-    // 일반적 마무리
-    final normalTexts = isDefensiveWin
-        ? [
-            '${winner.name} 선수의 경기 운영이 한 수 위였습니다.',
-            '${winner.name} 선수, 안정적인 운영으로 승리를 가져갑니다!',
-            '${winner.name} 선수, 수비 후 반격이 완벽했습니다!',
-          ]
-        : [
-            '${winner.name} 선수는 역시 끝낼 수 있을 때 끝내버리죠.',
-            '${winner.name} 선수, 깔끔한 마무리입니다!',
-            '대단한 경기력! ${winner.name} 선수 승리 가져갑니다.',
-          ];
-    return normalTexts[_random.nextInt(normalTexts.length)];
+    yield finalState;
   }
 
   /// 결정타 텍스트 (GG 직전, 경기가 끝나는 이유)
@@ -1428,29 +1351,97 @@ class MatchSimulationService {
     required SimulationState state,
     required int lineCount,
   }) {
-    // 빠른 승리 (초반 러시/치즈 성공) - 종족별 구체적 텍스트
-    if (lineCount <= 40) {
-      final winnerRace = winner.race;
-      final loserRace = loser.race;
+    final winnerRace = winner.race;
+    final loserRace = loser.race;
+    final isTvT = winnerRace == Race.terran && loserRace == Race.terran;
+    final loserArmy = (state.homeArmy <= state.awayArmy) ? state.homeArmy : state.awayArmy;
+    final isWinnerHome = state.homeArmy > state.awayArmy;
+    final winnerRes = isWinnerHome ? state.homeResources : state.awayResources;
+    final loserRes = isWinnerHome ? state.awayResources : state.homeResources;
 
+    // ========== TvT ==========
+    if (isTvT) {
+      // 승자가 스타포트를 지었는지 로그에서 확인 (드랍십 텍스트 사용 조건)
+      final allText = state.battleLogEntries.map((e) => e.text).join(' ');
+      final winnerHasStarport = allText.contains('스타포트');
+
+      // TvT 초반: 컨트롤 차이로 병력 격차 (유닛명 직접 언급 금지 — B11 테크트리 위반 방지)
+      if (lineCount <= 40) {
+        final texts = [
+          '${winner.name} 선수 초반 컨트롤 완승! ${loser.name} 선수 병력 차이를 못 좁힙니다!',
+          '${winner.name} 선수 컨트롤이 압도적! ${loser.name} 선수 병력 전멸!',
+          '${winner.name} 선수 초반 교전 장악! ${loser.name} 선수 회복 불가!',
+        ];
+        return texts[_random.nextInt(texts.length)];
+      }
+
+      // TvT 장기전 (80줄+): 스타포트가 있을 때만 드랍 운영
+      if (lineCount >= 80 && winnerHasStarport) {
+        if (winnerRes < loserRes) {
+          final texts = [
+            '${winner.name} 선수 대규모 후방 기습! ${loser.name} 선수 본진 생산시설 점거! 추가 병력이 끊깁니다!',
+            '${winner.name} 선수 후방 급습 성공! ${loser.name} 선수 생산시설 파괴! 병력 보충 불가!',
+            '${winner.name} 선수 승부수! 후방 기습으로 ${loser.name} 선수 본진 장악! 남은 병력싸움에서 우위!',
+          ];
+          return texts[_random.nextInt(texts.length)];
+        }
+        final texts = [
+          '${winner.name} 선수 후방 기습으로 상대 라인 뒤를 잡습니다! ${loser.name} 선수 지상 병력 괴멸!',
+          '${winner.name} 선수 후방 공격! ${loser.name} 선수 라인 뒤쪽이 무너지며 확장기지 장악!',
+          '${winner.name} 선수 다방면 공격! ${loser.name} 선수 앞마당까지 밀리며 수비 붕괴!',
+        ];
+        return texts[_random.nextInt(texts.length)];
+      }
+
+      // TvT 병력 전멸
+      if (loserArmy <= 10) {
+        final texts = [
+          '${winner.name} 선수 화력 집중! ${loser.name} 선수 병력 증발!',
+          '${winner.name} 선수 총공격! ${loser.name} 선수 남은 병력이 없습니다!',
+          '${winner.name} 선수 일제 사격! ${loser.name} 선수 병력 괴멸!',
+        ];
+        return texts[_random.nextInt(texts.length)];
+      }
+
+      // TvT 중반/후반: 라인 밀어내며 앞마당→본진
+      final texts = <String>[
+        '${winner.name} 선수 라인 전진! ${loser.name} 선수 밀려나며 앞마당이 무너집니다!',
+        '${winner.name} 선수 수비 라인 돌파! ${loser.name} 선수 앞마당에서 본진까지 밀립니다!',
+        '${winner.name} 선수 거리재기 승리! ${loser.name} 선수 포지션을 내줍니다!',
+        '${winner.name} 선수 견제 성공! ${loser.name} 선수 일꾼을 초토화!',
+      ];
+      // 스타포트가 있고 후반이면 후방 공격 텍스트도 풀에 추가
+      if (winnerHasStarport && lineCount >= 60) {
+        texts.addAll([
+          '${winner.name} 선수 후방 기습으로 상대 라인 뒤를 잡습니다! ${loser.name} 선수 지상 병력 괴멸!',
+          '${winner.name} 선수 다방면 공격! ${loser.name} 선수 앞마당까지 밀리며 수비 붕괴!',
+        ]);
+      }
+      return texts[_random.nextInt(texts.length)];
+    }
+
+    // ========== 다른 종족전 ==========
+
+    // 빠른 승리 (초반 러시/치즈 성공)
+    if (lineCount <= 40) {
       // TvZ 초반: 마린 vs 저글링
       if (winnerRace == Race.terran && loserRace == Race.zerg) {
         final texts = [
           '${winner.name} 선수, 마린으로 저글링 초토화 후 본진 입성!',
           '${winner.name} 선수 마린 화력! ${loser.name} 선수 저글링 전멸!',
-          '${winner.name} 선수 공격에 ${loser.name} 선수 본진이 무너집니다!',
+          '${winner.name} 선수 벙커에서 쏟아지는 화력! ${loser.name} 선수 저글링을 녹여냅니다!',
         ];
         return texts[_random.nextInt(texts.length)];
       }
       if (winnerRace == Race.zerg && loserRace == Race.terran) {
         final texts = [
-          '${winner.name} 선수, 저글링으로 마린 초토화 후 본진 입성!',
           '${winner.name} 선수 저글링 서라운드! ${loser.name} 선수 마린 전멸!',
           '${winner.name} 선수 저글링 물량에 ${loser.name} 선수 수비 붕괴!',
+          '${winner.name} 선수 저글링 본진 난입! ${loser.name} 선수 SCV까지 잡힙니다!',
         ];
         return texts[_random.nextInt(texts.length)];
       }
-      // TvP 초반: 마린 vs 질럿/드라군
+      // TvP 초반
       if (winnerRace == Race.terran && loserRace == Race.protoss) {
         final texts = [
           '${winner.name} 선수, 마린으로 ${loser.name} 선수 본진 초토화!',
@@ -1465,53 +1456,244 @@ class MatchSimulationService {
         ];
         return texts[_random.nextInt(texts.length)];
       }
-
-      // 범용 초반 마무리 - 자원 기반 공격형/수비형 구분
-      final isWinnerHome = state.homeArmy > state.awayArmy;
-      final winRes = isWinnerHome ? state.homeResources : state.awayResources;
-      final losRes = isWinnerHome ? state.awayResources : state.homeResources;
-      final earlyTexts = winRes > losRes * 1.5
-          ? [
-              '${winner.name} 선수, 상대 공격을 막아내고 반격! ${loser.name} 선수 무너집니다!',
-              '${winner.name} 선수 결정타! ${loser.name} 선수 더 이상 버틸 수 없습니다!',
-              '${winner.name} 선수, 수비 후 물량 역전! ${loser.name} 선수를 밀어냅니다!',
-            ]
-          : [
-              '${winner.name} 선수, ${loser.name} 선수 본진 초토화!',
-              '${winner.name} 선수 공격에 ${loser.name} 선수 본진이 무너집니다!',
-              '${winner.name} 선수, 공세 성공! ${loser.name} 선수 수비 실패!',
-            ];
-      return earlyTexts[_random.nextInt(earlyTexts.length)];
+      // PvZ 초반
+      if (winnerRace == Race.protoss && loserRace == Race.zerg) {
+        final texts = [
+          '${winner.name} 선수 질럿으로 해처리 파괴!',
+          '${winner.name} 선수 캐논 러시 성공! ${loser.name} 선수 해처리가 무너집니다!',
+        ];
+        return texts[_random.nextInt(texts.length)];
+      }
+      if (winnerRace == Race.zerg && loserRace == Race.protoss) {
+        final texts = [
+          '${winner.name} 선수 저글링 난입! ${loser.name} 선수 프로브 초토화!',
+          '${winner.name} 선수 저글링이 캐논 완성 전에 들어갑니다!',
+        ];
+        return texts[_random.nextInt(texts.length)];
+      }
+      // PvP 초반
+      if (winnerRace == Race.protoss && loserRace == Race.protoss) {
+        final texts = [
+          '${winner.name} 선수 질럿 돌진! ${loser.name} 선수 프로브 라인 초토화!',
+          '${winner.name} 선수 공격에 ${loser.name} 선수 수비 실패!',
+        ];
+        return texts[_random.nextInt(texts.length)];
+      }
+      // ZvZ 초반
+      if (winnerRace == Race.zerg && loserRace == Race.zerg) {
+        final texts = [
+          '${winner.name} 선수 저글링 서라운드! ${loser.name} 선수 드론까지 잡힙니다!',
+          '${winner.name} 선수 발업 저글링 돌진! ${loser.name} 선수 수비 붕괴!',
+        ];
+        return texts[_random.nextInt(texts.length)];
+      }
     }
 
     // 병력 격차가 클 때 (패배측 병력 잔여량 확인)
-    final loserArmy = (state.homeArmy <= state.awayArmy) ? state.homeArmy : state.awayArmy;
     if (loserArmy <= 10) {
-      final wipeTexts = [
-        '${winner.name} 선수 총공격! ${loser.name} 선수 전 병력 소실!',
-        '${winner.name} 선수 압도적! ${loser.name} 선수 남은 병력이 없습니다!',
-        '${winner.name} 선수 총공격! ${loser.name} 선수 병력 괴멸!',
-      ];
-      return wipeTexts[_random.nextInt(wipeTexts.length)];
+      // TvZ
+      if (winnerRace == Race.terran && loserRace == Race.zerg) {
+        final texts = [
+          '${winner.name} 선수 마린메딕 화력에 ${loser.name} 선수 저그 병력 소실!',
+          '${winner.name} 선수 시즈탱크 라인에 ${loser.name} 선수 저글링을 녹여냅니다!',
+        ];
+        return texts[_random.nextInt(texts.length)];
+      }
+      if (winnerRace == Race.zerg && loserRace == Race.terran) {
+        final texts = [
+          '${winner.name} 선수 저글링 서라운드! ${loser.name} 선수 마린메딕 전멸!',
+          '${winner.name} 선수 럴커 가시에 ${loser.name} 선수 바이오닉 괴멸!',
+        ];
+        return texts[_random.nextInt(texts.length)];
+      }
+      // TvP
+      if (winnerRace == Race.terran && loserRace == Race.protoss) {
+        final texts = [
+          '${winner.name} 선수 시즈탱크 포격! ${loser.name} 선수 드라군 부대 괴멸!',
+          '${winner.name} 선수 EMP 후 바이오닉 돌격! ${loser.name} 선수 프로토스 전멸!',
+        ];
+        return texts[_random.nextInt(texts.length)];
+      }
+      if (winnerRace == Race.protoss && loserRace == Race.terran) {
+        final texts = [
+          '${winner.name} 선수 스톰 작렬! ${loser.name} 선수 바이오닉 전멸!',
+          '${winner.name} 선수 드라군 집중 사격! ${loser.name} 선수 테란 병력 괴멸!',
+        ];
+        return texts[_random.nextInt(texts.length)];
+      }
+      // ZvP
+      if (winnerRace == Race.zerg && loserRace == Race.protoss) {
+        final texts = [
+          '${winner.name} 선수 저글링 서라운드! ${loser.name} 선수 프로토스 한방병력 괴멸!',
+          '${winner.name} 선수 럴커 가시에 ${loser.name} 선수 드라군이 녹아내립니다!',
+        ];
+        return texts[_random.nextInt(texts.length)];
+      }
+      if (winnerRace == Race.protoss && loserRace == Race.zerg) {
+        final texts = [
+          '${winner.name} 선수 스톰 작렬! ${loser.name} 선수 히드라 부대 전멸!',
+          '${winner.name} 선수 질럿 돌진에 ${loser.name} 선수 저그 병력이 사라집니다!',
+        ];
+        return texts[_random.nextInt(texts.length)];
+      }
+      // PvP
+      if (winnerRace == Race.protoss && loserRace == Race.protoss) {
+        final texts = [
+          '${winner.name} 선수 리버 스카랩 명중! ${loser.name} 선수 드라군 부대 증발!',
+          '${winner.name} 선수 스톰 작렬! ${loser.name} 선수 상대 병력 괴멸!',
+        ];
+        return texts[_random.nextInt(texts.length)];
+      }
+      // ZvZ
+      if (winnerRace == Race.zerg && loserRace == Race.zerg) {
+        final texts = [
+          '${winner.name} 선수 뮤탈리스크 집중 공격! ${loser.name} 선수 병력 전멸!',
+          '${winner.name} 선수 저글링 서라운드 성공! ${loser.name} 선수 병력이 녹아내립니다!',
+        ];
+        return texts[_random.nextInt(texts.length)];
+      }
     }
 
     // 장기전 (멀티/자원 고갈)
     if (lineCount >= 80) {
-      final lateTexts = [
-        '${winner.name} 선수 멀티 파괴! ${loser.name} 선수 본진이 무너집니다!',
-        '${winner.name} 선수 결정타! ${loser.name} 선수 더 이상 버틸 수 없습니다!',
-        '${winner.name} 선수 결정타! ${loser.name} 선수 병력 보충이 안 되는 상황!',
-      ];
-      return lateTexts[_random.nextInt(lateTexts.length)];
+      // TvZ
+      if (winnerRace == Race.terran && loserRace == Race.zerg) {
+        final texts = [
+          '${winner.name} 선수 사이언스베슬 이레디에이트! ${loser.name} 선수 디파일러 제거 후 밀어넣습니다!',
+          '${winner.name} 선수 드랍십 견제로 확장기지 파괴! ${loser.name} 선수 자원이 끊깁니다!',
+          '${winner.name} 선수 시즈탱크 라인 전진! ${loser.name} 선수 저그 수비 라인 붕괴!',
+        ];
+        return texts[_random.nextInt(texts.length)];
+      }
+      if (winnerRace == Race.zerg && loserRace == Race.terran) {
+        final texts = [
+          '${winner.name} 선수 디파일러 다크스웜! ${loser.name} 선수 시즈탱크 무력화!',
+          '${winner.name} 선수 울트라와 저글링 돌진! ${loser.name} 선수 테란 라인 붕괴!',
+          '${winner.name} 선수 뮤탈 견제로 확장기지 초토화! ${loser.name} 선수 자원줄 끊깁니다!',
+        ];
+        return texts[_random.nextInt(texts.length)];
+      }
+      // TvP
+      if (winnerRace == Race.terran && loserRace == Race.protoss) {
+        final texts = [
+          '${winner.name} 선수 드랍십 본진 급습! ${loser.name} 선수 일꾼 초토화!',
+          '${winner.name} 선수 EMP 명중! ${loser.name} 선수 하이템플러 무력화 후 밀어넣습니다!',
+        ];
+        return texts[_random.nextInt(texts.length)];
+      }
+      if (winnerRace == Race.protoss && loserRace == Race.terran) {
+        final texts = [
+          '${winner.name} 선수 아비터 리콜! ${loser.name} 선수 본진 급습 성공!',
+          '${winner.name} 선수 하이템플러 스톰 연타! ${loser.name} 선수 바이오닉 증발!',
+          '${winner.name} 선수 캐리어 함대 완성! ${loser.name} 선수 더 이상 막을 수 없습니다!',
+        ];
+        return texts[_random.nextInt(texts.length)];
+      }
+      // ZvP
+      if (winnerRace == Race.zerg && loserRace == Race.protoss) {
+        final texts = [
+          '${winner.name} 선수 디파일러 플레이그! ${loser.name} 선수 캐리어 함대 괴멸!',
+          '${winner.name} 선수 울트라와 디파일러 조합! ${loser.name} 선수 프로토스 한방병력 괴멸!',
+          '${winner.name} 선수 확장기지 하나씩 잠식! ${loser.name} 선수 자원이 끊깁니다!',
+        ];
+        return texts[_random.nextInt(texts.length)];
+      }
+      if (winnerRace == Race.protoss && loserRace == Race.zerg) {
+        final texts = [
+          '${winner.name} 선수 캐리어 함대로 하이브 파괴!',
+          '${winner.name} 선수 아비터 리콜! ${loser.name} 선수 본진 급습 성공!',
+          '${winner.name} 선수 스톰과 질럿 돌격! ${loser.name} 선수 저그 수비 라인 붕괴!',
+        ];
+        return texts[_random.nextInt(texts.length)];
+      }
+      // PvP
+      if (winnerRace == Race.protoss && loserRace == Race.protoss) {
+        final texts = [
+          '${winner.name} 선수 셔틀 리버 견제 성공! ${loser.name} 선수 일꾼 초토화!',
+          '${winner.name} 선수 스톰 교전에서 승리! ${loser.name} 선수 병력 괴멸!',
+          '${winner.name} 선수 확장기지 파괴! ${loser.name} 선수 자원줄이 끊깁니다!',
+        ];
+        return texts[_random.nextInt(texts.length)];
+      }
+      // ZvZ
+      if (winnerRace == Race.zerg && loserRace == Race.zerg) {
+        final texts = [
+          '${winner.name} 선수 가드디언 포격! ${loser.name} 선수 성큰 라인 파괴!',
+          '${winner.name} 선수 뮤탈과 스커지 공중전 승리! 제공권 장악!',
+          '${winner.name} 선수 확장기지 파괴! ${loser.name} 선수 자원이 끊깁니다!',
+        ];
+        return texts[_random.nextInt(texts.length)];
+      }
     }
 
     // 일반 중반 마무리
-    final midTexts = [
-      '${winner.name} 선수 결정타! ${loser.name} 선수 본진이 무너집니다!',
-      '${winner.name} 선수 주력 교전에서 승리를 거둡니다! ${loser.name} 선수 수비 라인 붕괴!',
-      '${winner.name} 선수 결정적 교전 승리! ${loser.name} 선수 막을 수가 없습니다!',
-    ];
-    return midTexts[_random.nextInt(midTexts.length)];
+    // TvZ
+    if (winnerRace == Race.terran && loserRace == Race.zerg) {
+      final texts = [
+        '${winner.name} 선수 마린메딕 푸시! ${loser.name} 선수 저그 수비 라인 돌파!',
+        '${winner.name} 선수 벌처 견제로 ${loser.name} 선수 일꾼을 초토화!',
+        '${winner.name} 선수 시즈탱크 전진 배치! ${loser.name} 선수 저그가 막을 수 없습니다!',
+      ];
+      return texts[_random.nextInt(texts.length)];
+    }
+    if (winnerRace == Race.zerg && loserRace == Race.terran) {
+      final texts = [
+        '${winner.name} 선수 뮤탈리스크 견제 성공! ${loser.name} 선수 일꾼이 쓸려나갑니다!',
+        '${winner.name} 선수 럴커 매복! ${loser.name} 선수 마린메딕 부대 전멸!',
+        '${winner.name} 선수 저글링 런바이! ${loser.name} 선수 확장기지 파괴!',
+      ];
+      return texts[_random.nextInt(texts.length)];
+    }
+    // TvP
+    if (winnerRace == Race.terran && loserRace == Race.protoss) {
+      final texts = [
+        '${winner.name} 선수 시즈탱크 전진! ${loser.name} 선수 드라군 사거리 밖에서 포격!',
+        '${winner.name} 선수 벌처 견제로 ${loser.name} 선수 일꾼을 초토화!',
+      ];
+      return texts[_random.nextInt(texts.length)];
+    }
+    if (winnerRace == Race.protoss && loserRace == Race.terran) {
+      final texts = [
+        '${winner.name} 선수 셔틀 리버 견제 성공! ${loser.name} 선수 시즈탱크 파괴!',
+        '${winner.name} 선수 드라군 물량으로 밀어넣습니다!',
+        '${winner.name} 선수 스톰 한 방에 ${loser.name} 선수 바이오닉 증발!',
+      ];
+      return texts[_random.nextInt(texts.length)];
+    }
+    // ZvP
+    if (winnerRace == Race.zerg && loserRace == Race.protoss) {
+      final texts = [
+        '${winner.name} 선수 히드라 물량으로 ${loser.name} 선수 앞마당 돌파!',
+        '${winner.name} 선수 럴커와 저글링 조합! ${loser.name} 선수 드라군 라인 붕괴!',
+      ];
+      return texts[_random.nextInt(texts.length)];
+    }
+    if (winnerRace == Race.protoss && loserRace == Race.zerg) {
+      final texts = [
+        '${winner.name} 선수 하이템플러 스톰! ${loser.name} 선수 히드라 부대 증발!',
+        '${winner.name} 선수 질럿과 드라군 한방에 ${loser.name} 선수 해처리 파괴!',
+      ];
+      return texts[_random.nextInt(texts.length)];
+    }
+    // PvP
+    if (winnerRace == Race.protoss && loserRace == Race.protoss) {
+      final texts = [
+        '${winner.name} 선수 리버 스카랩! ${loser.name} 선수 드라군 부대에 명중!',
+        '${winner.name} 선수 스톰 교전에서 한 수 위!',
+      ];
+      return texts[_random.nextInt(texts.length)];
+    }
+    // ZvZ
+    if (winnerRace == Race.zerg && loserRace == Race.zerg) {
+      final texts = [
+        '${winner.name} 선수 뮤탈리스크 타수 차이! 제공권 장악!',
+        '${winner.name} 선수 저글링 서라운드! ${loser.name} 선수 병력 괴멸!',
+      ];
+      return texts[_random.nextInt(texts.length)];
+    }
+
+    // 최종 폴백 (도달하지 않아야 함)
+    return '${winner.name} 선수 주력 교전에서 승리! ${loser.name} 선수 수비 라인 붕괴!';
   }
 
   // ==================== 인터랙션 이벤트 시스템 ====================
@@ -2043,7 +2225,7 @@ class MatchSimulationService {
 
     // 1. 벙커링 vs 저그 확장
     const _BuildMatchupRule(
-      attackerIds: {'tvz_bunker'},
+      attackerIds: {'tvz_bbs'},
       defenderIds: {'zvt_3hatch_mutal', 'zvt_2hatch_mutal', 'zvt_2hatch_lurker',
                     'zvt_trans_mutal_ultra', 'zvt_trans_2hatch_mutal', 'zvt_trans_lurker_defiler',
                     'zvt_trans_mutal_lurker', 'zvt_trans_ultra_hive'},
@@ -2056,8 +2238,8 @@ class MatchSimulationService {
 
     // 2. 테란 공격(아카/엔베/레이스) vs 저그 확장
     const _BuildMatchupRule(
-      attackerIds: {'tvz_sk', 'tvz_4bar_enbe', 'tvz_2star_wraith',
-                    'tvz_trans_enbe_push', 'tvz_trans_wraith', 'tvz_trans_bionic_push'},
+      attackerIds: {'tvz_2bar_academy', 'tvz_trans_enbe_3bar', 'tvz_2star',
+                    'tvz_trans_wraith', 'tvz_trans_bionic'},
       defenderIds: {'zvt_3hatch_mutal', 'zvt_2hatch_mutal', 'zvt_2hatch_lurker',
                     'zvt_trans_mutal_ultra', 'zvt_trans_2hatch_mutal', 'zvt_trans_lurker_defiler',
                     'zvt_trans_mutal_lurker', 'zvt_trans_ultra_hive'},
@@ -2071,8 +2253,8 @@ class MatchSimulationService {
     // 3. 원해처리 럴커 vs 테란 수비
     const _BuildMatchupRule(
       attackerIds: {'zvt_1hatch_allin', 'zvt_trans_530_mutal'},
-      defenderIds: {'tvz_3fac_goliath', 'tvz_valkyrie',
-                    'tvz_trans_mech_goliath', 'tvz_trans_valkyrie'},
+      defenderIds: {'tvz_nobar_double', 'tvz_trans_valkyrie',
+                    'tvz_trans_mech'},
       texts: [
         '{atk} 선수 {atkBuild}! 빠른 럴커로 돌파를 노리는데요, {def} 선수 스캔이 관건!',
         '{atkBuild}입니다! {def} 선수 {defBuild}인데, 럴커 대비가 됐을지!',
@@ -2085,8 +2267,8 @@ class MatchSimulationService {
       attackerIds: {'zvt_3hatch_mutal', 'zvt_2hatch_mutal', 'zvt_2hatch_lurker',
                     'zvt_trans_mutal_ultra', 'zvt_trans_2hatch_mutal', 'zvt_trans_lurker_defiler',
                     'zvt_trans_mutal_lurker', 'zvt_trans_ultra_hive'},
-      defenderIds: {'tvz_3fac_goliath', 'tvz_valkyrie', 'tvz_111', 'tvz_sk',
-                    'tvz_trans_mech_goliath', 'tvz_trans_valkyrie', 'tvz_trans_111_balance', 'tvz_trans_bionic_push'},
+      defenderIds: {'tvz_nobar_double', 'tvz_trans_valkyrie', 'tvz_111', 'tvz_2bar_academy',
+                    'tvz_trans_mech', 'tvz_trans_111_balance', 'tvz_trans_bionic'},
       texts: [
         '양 선수 모두 운영 체제! {atkBuild} vs {defBuild}, 긴 싸움이 예상됩니다!',
         '양측 다 확장하며 배를 불리고 있습니다! 중후반 싸움이 관건이겠네요.',
@@ -2096,7 +2278,7 @@ class MatchSimulationService {
 
     // 5. 벙커링 vs 원해처리 럴커 (양쪽 초반)
     const _BuildMatchupRule(
-      attackerIds: {'tvz_bunker'},
+      attackerIds: {'tvz_bbs'},
       defenderIds: {'zvt_1hatch_allin', 'zvt_trans_530_mutal'},
       texts: [
         '양쪽 다 초반 승부수입니다! {atkBuild} vs {defBuild}, 누가 먼저 치명타를 입히느냐!',
@@ -2107,7 +2289,7 @@ class MatchSimulationService {
 
     // 6. 투스타레이스 vs 뮤탈 (공중전)
     const _BuildMatchupRule(
-      attackerIds: {'tvz_2star_wraith', 'tvz_trans_wraith'},
+      attackerIds: {'tvz_2star', 'tvz_trans_wraith'},
       defenderIds: {'zvt_2hatch_mutal',
                     'zvt_trans_2hatch_mutal',
                     'zvt_trans_mutal_ultra', 'zvt_trans_mutal_lurker'},
@@ -2133,8 +2315,8 @@ class MatchSimulationService {
     const _BuildMatchupRule(
       attackerIds: {'zvt_9pool', 'zvt_9overpool',
                     'zvt_trans_mutal_ultra', 'zvt_trans_2hatch_mutal'},
-      defenderIds: {'tvz_3fac_goliath', 'tvz_valkyrie',
-                    'tvz_trans_mech_goliath', 'tvz_trans_valkyrie'},
+      defenderIds: {'tvz_nobar_double', 'tvz_trans_valkyrie',
+                    'tvz_trans_mech'},
       texts: [
         '{atk} 선수 빠른 저글링! {def} 선수 수비형인데 마린이 늦을 수 있겠는데요!',
         '{atkBuild}입니다! {def} 선수 {defBuild}로 갔는데 초반 저글링 대응이 관건!',
@@ -2144,7 +2326,7 @@ class MatchSimulationService {
 
     // 9. 벙커러쉬 vs 노풀3해처리 (극상성)
     const _BuildMatchupRule(
-      attackerIds: {'tvz_bunker'},
+      attackerIds: {'tvz_bbs'},
       defenderIds: {'zvt_3hatch_nopool'},
       texts: [
         '큰일 났습니다! {def} 선수 노풀 3해처리인데 벙커러쉬가 들어옵니다!',

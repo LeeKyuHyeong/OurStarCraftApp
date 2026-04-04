@@ -1,4 +1,4 @@
-/// TvZ 보정 루프용 테스트 - JSON 로그 내보내기
+/// TvZ 보정 루프용 테스트 - JSON 로그 내보내기 (전체 49개 시나리오)
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mystar/domain/models/models.dart';
 import 'package:mystar/domain/services/match_simulation_service.dart';
@@ -6,53 +6,87 @@ import '../../tools/export_log_helper.dart';
 
 void main() {
   final homePlayer = Player(
-    id: 'terran_home',
-    name: '이영호',
-    raceIndex: 0,
+    id: 'terran_home', name: '이영호', raceIndex: 0,
     stats: const PlayerStats(
       sense: 700, control: 700, attack: 700, harass: 700,
       strategy: 700, macro: 700, defense: 700, scout: 700,
     ),
-    levelValue: 7,
-    condition: 100,
+    levelValue: 7, condition: 100,
   );
 
   final awayPlayer = Player(
-    id: 'zerg_away',
-    name: '이재동',
-    raceIndex: 1,
+    id: 'zerg_away', name: '이재동', raceIndex: 1,
     stats: const PlayerStats(
       sense: 700, control: 700, attack: 700, harass: 700,
       strategy: 700, macro: 700, defense: 700, scout: 700,
     ),
-    levelValue: 7,
-    condition: 100,
+    levelValue: 7, condition: 100,
   );
 
   const testMap = GameMap(
-    id: 'test_fighting_spirit',
-    name: '파이팅 스피릿',
-    rushDistance: 6,
-    resources: 5,
-    terrainComplexity: 5,
-    airAccessibility: 6,
-    centerImportance: 5,
+    id: 'test_fighting_spirit', name: '파이팅 스피릿',
+    rushDistance: 6, resources: 5, terrainComplexity: 5,
+    airAccessibility: 6, centerImportance: 5,
     matchup: RaceMatchup(tvzTerranWinRate: 50, zvpZergWinRate: 50, pvtProtossWinRate: 50),
   );
 
-  // 시나리오별 빌드 조합 (scenario_tvz.dart에서 추출)
   final scenarios = [
-    {'home': 'tvz_sk', 'away': 'zvt_2hatch_mutal', 'name': '바이오닉 러시 vs 뮤탈리스크'},
-    {'home': 'tvz_3fac_goliath', 'away': 'zvt_2hatch_lurker', 'name': '메카닉 vs 럴커/디파일러 장기전'},
-    {'home': 'tvz_bunker', 'away': 'zvt_12pool', 'name': '센터 8배럭 벙커 vs 스탠다드 저그'},
-    {'home': 'tvz_111', 'away': 'zvt_3hatch_nopool', 'name': '111 밸런스 vs 노풀 3해처리 매크로'},
-    {'home': 'tvz_2star_wraith', 'away': 'zvt_2hatch_mutal', 'name': '투스타 레이스 vs 뮤탈리스크 공중전'},
-    {'home': 'tvz_bunker', 'away': 'zvt_4pool', 'name': '센터 8배럭 벙커 vs 4풀 극초반 승부'},
-    {'home': 'tvz_sk', 'away': 'zvt_9pool', 'name': '스탠다드 테란 vs 9풀/9오버풀 초반 압박'},
-    {'home': 'tvz_valkyrie', 'away': 'zvt_2hatch_mutal', 'name': '발키리 대공 vs 뮤탈리스크'},
-    {'home': 'tvz_sk', 'away': 'zvt_3hatch_nopool', 'name': '배럭더블 vs 노풀 3해처리 매크로전'},
-    {'home': 'tvz_sk', 'away': 'zvt_1hatch_allin', 'name': '스탠다드 테란 vs 원해처리 럴커 올인'},
-    {'home': 'tvz_3fac_goliath', 'away': 'zvt_trans_ultra_hive', 'name': '메카닉 vs 하이브 울트라/디파일러 후반전'},
+    // === 노배럭더블 (7개) ===
+    {'home': 'tvz_nobar_double', 'away': 'zvt_trans_2hatch_mutal', 'name': '노배럭더블 vs 2해처리뮤탈'},
+    {'home': 'tvz_nobar_double', 'away': 'zvt_4pool', 'name': '노배럭더블 vs 4풀'},
+    {'home': 'tvz_nobar_double', 'away': 'zvt_trans_530_mutal', 'name': '노배럭더블 vs 530뮤탈'},
+    {'home': 'tvz_nobar_double', 'away': 'zvt_trans_lurker_defiler', 'name': '노배럭더블 vs 럴커디파일러'},
+    {'home': 'tvz_nobar_double', 'away': 'zvt_trans_mutal_lurker', 'name': '노배럭더블 vs 뮤탈럴커'},
+    {'home': 'tvz_nobar_double', 'away': 'zvt_trans_mutal_ultra', 'name': '노배럭더블 vs 뮤탈울트라'},
+    {'home': 'tvz_nobar_double', 'away': 'zvt_trans_ultra_hive', 'name': '노배럭더블 vs 울트라하이브'},
+    // === 배럭더블 (7개) ===
+    {'home': 'tvz_bar_double', 'away': 'zvt_trans_2hatch_mutal', 'name': '배럭더블 vs 2해처리뮤탈'},
+    {'home': 'tvz_bar_double', 'away': 'zvt_4pool', 'name': '배럭더블 vs 4풀'},
+    {'home': 'tvz_bar_double', 'away': 'zvt_trans_530_mutal', 'name': '배럭더블 vs 530뮤탈'},
+    {'home': 'tvz_bar_double', 'away': 'zvt_trans_lurker_defiler', 'name': '배럭더블 vs 럴커디파일러'},
+    {'home': 'tvz_bar_double', 'away': 'zvt_trans_mutal_lurker', 'name': '배럭더블 vs 뮤탈럴커'},
+    {'home': 'tvz_bar_double', 'away': 'zvt_trans_mutal_ultra', 'name': '배럭더블 vs 뮤탈울트라'},
+    {'home': 'tvz_bar_double', 'away': 'zvt_trans_ultra_hive', 'name': '배럭더블 vs 울트라하이브'},
+    // === 111 (7개) ===
+    {'home': 'tvz_111', 'away': 'zvt_trans_2hatch_mutal', 'name': '111 vs 2해처리뮤탈'},
+    {'home': 'tvz_111', 'away': 'zvt_4pool', 'name': '111 vs 4풀'},
+    {'home': 'tvz_111', 'away': 'zvt_trans_530_mutal', 'name': '111 vs 530뮤탈'},
+    {'home': 'tvz_111', 'away': 'zvt_trans_lurker_defiler', 'name': '111 vs 럴커디파일러'},
+    {'home': 'tvz_111', 'away': 'zvt_trans_mutal_lurker', 'name': '111 vs 뮤탈럴커'},
+    {'home': 'tvz_111', 'away': 'zvt_trans_mutal_ultra', 'name': '111 vs 뮤탈울트라'},
+    {'home': 'tvz_111', 'away': 'zvt_trans_ultra_hive', 'name': '111 vs 울트라하이브'},
+    // === 2배럭아카데미 (7개) ===
+    {'home': 'tvz_2bar_academy', 'away': 'zvt_trans_2hatch_mutal', 'name': '2배럭아카 vs 2해처리뮤탈'},
+    {'home': 'tvz_2bar_academy', 'away': 'zvt_4pool', 'name': '2배럭아카 vs 4풀'},
+    {'home': 'tvz_2bar_academy', 'away': 'zvt_trans_530_mutal', 'name': '2배럭아카 vs 530뮤탈'},
+    {'home': 'tvz_2bar_academy', 'away': 'zvt_trans_lurker_defiler', 'name': '2배럭아카 vs 럴커디파일러'},
+    {'home': 'tvz_2bar_academy', 'away': 'zvt_trans_mutal_lurker', 'name': '2배럭아카 vs 뮤탈럴커'},
+    {'home': 'tvz_2bar_academy', 'away': 'zvt_trans_mutal_ultra', 'name': '2배럭아카 vs 뮤탈울트라'},
+    {'home': 'tvz_2bar_academy', 'away': 'zvt_trans_ultra_hive', 'name': '2배럭아카 vs 울트라하이브'},
+    // === 팩토리더블 (7개) ===
+    {'home': 'tvz_fac_double', 'away': 'zvt_trans_2hatch_mutal', 'name': '팩더블 vs 2해처리뮤탈'},
+    {'home': 'tvz_fac_double', 'away': 'zvt_4pool', 'name': '팩더블 vs 4풀'},
+    {'home': 'tvz_fac_double', 'away': 'zvt_trans_530_mutal', 'name': '팩더블 vs 530뮤탈'},
+    {'home': 'tvz_fac_double', 'away': 'zvt_trans_lurker_defiler', 'name': '팩더블 vs 럴커디파일러'},
+    {'home': 'tvz_fac_double', 'away': 'zvt_trans_mutal_lurker', 'name': '팩더블 vs 뮤탈럴커'},
+    {'home': 'tvz_fac_double', 'away': 'zvt_trans_mutal_ultra', 'name': '팩더블 vs 뮤탈울트라'},
+    {'home': 'tvz_fac_double', 'away': 'zvt_trans_ultra_hive', 'name': '팩더블 vs 울트라하이브'},
+    // === 2스타레이스 (7개) ===
+    {'home': 'tvz_2star', 'away': 'zvt_trans_2hatch_mutal', 'name': '2스타 vs 2해처리뮤탈'},
+    {'home': 'tvz_2star', 'away': 'zvt_4pool', 'name': '2스타 vs 4풀'},
+    {'home': 'tvz_2star', 'away': 'zvt_trans_530_mutal', 'name': '2스타 vs 530뮤탈'},
+    {'home': 'tvz_2star', 'away': 'zvt_trans_lurker_defiler', 'name': '2스타 vs 럴커디파일러'},
+    {'home': 'tvz_2star', 'away': 'zvt_trans_mutal_lurker', 'name': '2스타 vs 뮤탈럴커'},
+    {'home': 'tvz_2star', 'away': 'zvt_trans_mutal_ultra', 'name': '2스타 vs 뮤탈울트라'},
+    {'home': 'tvz_2star', 'away': 'zvt_trans_ultra_hive', 'name': '2스타 vs 울트라하이브'},
+    // === BBS (7개) ===
+    {'home': 'tvz_bbs', 'away': 'zvt_trans_2hatch_mutal', 'name': 'BBS vs 2해처리뮤탈'},
+    {'home': 'tvz_bbs', 'away': 'zvt_4pool', 'name': 'BBS vs 4풀'},
+    {'home': 'tvz_bbs', 'away': 'zvt_trans_530_mutal', 'name': 'BBS vs 530뮤탈'},
+    {'home': 'tvz_bbs', 'away': 'zvt_trans_lurker_defiler', 'name': 'BBS vs 럴커디파일러'},
+    {'home': 'tvz_bbs', 'away': 'zvt_trans_mutal_lurker', 'name': 'BBS vs 뮤탈럴커'},
+    {'home': 'tvz_bbs', 'away': 'zvt_trans_mutal_ultra', 'name': 'BBS vs 뮤탈울트라'},
+    {'home': 'tvz_bbs', 'away': 'zvt_trans_ultra_hive', 'name': 'BBS vs 울트라하이브'},
   ];
 
   test('TvZ 전체 시나리오 보정용 JSON 로그 내보내기', () async {
@@ -65,7 +99,6 @@ void main() {
       final awayBuild = scenario['away']!;
       final scenarioName = scenario['name']!;
 
-      // 정방향 50경기 + 역방향 50경기
       for (int direction = 0; direction < 2; direction++) {
         final isReversed = direction == 1;
         final actualHomeBuild = isReversed ? awayBuild : homeBuild;
@@ -76,12 +109,9 @@ void main() {
         for (int i = 0; i < gamesPerScenario ~/ 2; i++) {
           final service = MatchSimulationService();
           final stream = service.simulateMatchWithLog(
-            homePlayer: actualHomePlayer,
-            awayPlayer: actualAwayPlayer,
-            map: testMap,
-            getIntervalMs: () => 0,
-            forcedHomeBuildId: actualHomeBuild,
-            forcedAwayBuildId: actualAwayBuild,
+            homePlayer: actualHomePlayer, awayPlayer: actualAwayPlayer,
+            map: testMap, getIntervalMs: () => 0,
+            forcedHomeBuildId: actualHomeBuild, forcedAwayBuildId: actualAwayBuild,
           );
 
           SimulationState? state;
@@ -89,17 +119,12 @@ void main() {
           if (state == null) continue;
 
           final gameJson = gameToJson(
-            gameIndex: allGames.length,
-            finalState: state,
-            homePlayerName: actualHomePlayer.name,
-            awayPlayerName: actualAwayPlayer.name,
-            homeBuildId: homeBuild,
-            awayBuildId: awayBuild,
-            isReversed: isReversed,
+            gameIndex: allGames.length, finalState: state,
+            homePlayerName: actualHomePlayer.name, awayPlayerName: actualAwayPlayer.name,
+            homeBuildId: homeBuild, awayBuildId: awayBuild, isReversed: isReversed,
           );
           allGames.add(gameJson);
 
-          // 분기 통계 수집
           final branchKey = '$scenarioName|${isReversed ? "R" : "N"}';
           branchStats[branchKey] = (branchStats[branchKey] ?? 0) + 1;
         }
@@ -108,13 +133,10 @@ void main() {
     }
 
     await exportLogsToJson(
-      matchup: 'TvZ',
-      scenarioId: null,
-      games: allGames,
-      outputPath: 'test/output/tvz/log.json',
-      branchStats: branchStats,
+      matchup: 'TvZ', scenarioId: null, games: allGames,
+      outputPath: 'test/output/tvz/log.json', branchStats: branchStats,
     );
 
     print('총 ${allGames.length}경기 → test/output/tvz/log.json');
-  }, timeout: const Timeout(Duration(minutes: 10)));
+  }, timeout: const Timeout(Duration(minutes: 30)));
 }
