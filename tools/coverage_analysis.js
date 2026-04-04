@@ -6,10 +6,10 @@ const path = require('path');
 const buildTypes = {
   // TvZ: 테란 측 (opening + transition)
   TvZ_home: [
-    'tvz_bunker', 'tvz_sk', 'tvz_3fac_goliath', 'tvz_4bar_enbe',
+    'tvz_bunker', 'tvz_sk', 'tvz_3fac_goliath', 'tvz_enbe_first',
     'tvz_111', 'tvz_valkyrie', 'tvz_2star_wraith',
     'tvz_trans_bionic_push', 'tvz_trans_mech_goliath', 'tvz_trans_111_balance',
-    'tvz_trans_valkyrie', 'tvz_trans_wraith', 'tvz_trans_enbe_push'
+    'tvz_trans_valkyrie', 'tvz_trans_wraith', 'tvz_trans_enbe_first'
   ],
   // ZvT: 저그 측 (opening + transition)
   TvZ_away: [
