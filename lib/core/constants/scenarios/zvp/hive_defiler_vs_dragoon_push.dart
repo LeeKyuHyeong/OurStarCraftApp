@@ -128,7 +128,7 @@ const _zvpHiveDefilerVsDragoonPush = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'home_wins',
-          baseProbability: 1.0,
+          baseProbability: 2.0,
           conditionStat: 'strategy',
           events: [
             ScriptEvent(

@@ -91,7 +91,7 @@ const _pvpZealotRushVs2gateReaver = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'zealot_rush_success',
-          baseProbability: 0.55,
+          baseProbability: 0.85,
           events: [
             ScriptEvent(
               text: '{home}, 질럿이 프로브를 사냥합니다!',
@@ -119,7 +119,7 @@ const _pvpZealotRushVs2gateReaver = ScenarioScript(
         ),
         ScriptBranch(
           id: 'reaver_defends',
-          baseProbability: 1.45,
+          baseProbability: 1.15,
           events: [
             ScriptEvent(
               text: '{away}, 드라군으로 질럿을 잡습니다! 리버가 나옵니다!',

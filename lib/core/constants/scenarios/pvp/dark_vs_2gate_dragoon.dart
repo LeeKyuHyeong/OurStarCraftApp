@@ -39,13 +39,13 @@ const _pvpDarkVs2gateDragoon = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 게이트웨이를 추가합니다! 투게이트 드라군!',
           owner: LogOwner.away,
-          awayResource: -15,
+          awayArmy: 4, awayResource: -15,
           altText: '{away}, 게이트웨이 추가! 드라군을 빠르게 모읍니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 템플러 아카이브 건설! 다크 확정!',
           owner: LogOwner.home,
-          homeResource: -20,
+          homeArmy: 2, homeResource: -20,
           altText: '{home}, 템플러 아카이브! 다크 올인입니다!',
         ),
       ],
@@ -64,7 +64,7 @@ const _pvpDarkVs2gateDragoon = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 드라군을 뽑고 있습니다. 디텍이 있을까요?',
           owner: LogOwner.away,
-          awayArmy: 6, awayResource: -15,
+          awayArmy: 3, awayResource: -15,
         ),
         ScriptEvent(
           text: '다크 템플러가 접근합니다! 디텍 여부가 관건!',

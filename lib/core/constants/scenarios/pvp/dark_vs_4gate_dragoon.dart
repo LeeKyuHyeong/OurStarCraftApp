@@ -57,13 +57,13 @@ const _pvpDarkVs4gateDragoon = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 다크 템플러 2기 생산! 포게이트 상대에게 다크!',
           owner: LogOwner.home,
-          homeArmy: 3, homeResource: -20,
+          homeArmy: 3, awayArmy: 3, homeResource: -20,
           altText: '{home}, 다크 출격! 포게이트에 자원을 쏟은 상대를 노립니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 드라군을 빠르게 모으고 있습니다! 옵저버는 없어요!',
           owner: LogOwner.away,
-          awayArmy: 5, awayResource: -20,
+          awayArmy: 3, awayResource: -20,
         ),
         ScriptEvent(
           text: '포게이트는 로보틱스를 안 갔습니다! 디텍이 없을 가능성이 높아요!',
@@ -79,7 +79,7 @@ const _pvpDarkVs4gateDragoon = ScenarioScript(
         // 분기 A: 디텍 없어 다크 성공
         ScriptBranch(
           id: 'dark_massacre',
-          baseProbability: 0.65,
+          baseProbability: 0.8,
           events: [
             ScriptEvent(
               text: '{home}, 다크가 프로브를 학살합니다! 디텍이 없습니다!',
@@ -108,7 +108,7 @@ const _pvpDarkVs4gateDragoon = ScenarioScript(
         // 분기 B: 캐논으로 급히 대응
         ScriptBranch(
           id: 'emergency_cannon',
-          baseProbability: 1.35,
+          baseProbability: 1.2,
           events: [
             ScriptEvent(
               text: '{away} 선수 캐논을 긴급 건설합니다! 다크를 잡습니다!',

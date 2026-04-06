@@ -54,21 +54,16 @@ const _pvp1gateMultiMirror = ScenarioScript(
         ),
       ],
     ),
-    // Phase 1: 드라군 생산 + 확장 안정화 (lines 15-24)
+    // Phase 1: 드라군 생산 + 확장 안정화 (lines 10-24)
     ScriptPhase(
       name: 'dragoon_expansion',
-      startLine: 15,
+      startLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 드라군 생산 시작! 앞마당을 지킵니다!',
-          owner: LogOwner.home,
-          homeArmy: 3, homeResource: -15,
-          altText: '{home} 선수 드라군으로 앞마당 수비!',
-        ),
-        ScriptEvent(
-          text: '{away} 선수도 드라군! 앞마당 방어!',
-          owner: LogOwner.away,
-          awayArmy: 3, awayResource: -15,
+          text: '양측 드라군 생산 시작! 앞마당을 지킵니다!',
+          owner: LogOwner.system,
+          homeArmy: 3, awayArmy: 3, homeResource: -15, awayResource: -15,
+          altText: '{home}과 {away}, 동시에 드라군 생산 시작!',
         ),
         ScriptEvent(
           text: '{home} 선수 게이트웨이 추가! 멀티 자원으로!',

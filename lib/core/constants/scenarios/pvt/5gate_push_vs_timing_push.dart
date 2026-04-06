@@ -173,7 +173,7 @@ const _pvt5gatePushVsTimingPush = ScenarioScript(
         ),
         ScriptBranch(
           id: 'away_wins',
-          baseProbability: 1.0,
+          baseProbability: 2.0,
           events: [
             ScriptEvent(
               text: '{away} 선수 시즈 탱크 포격이 드라군 무리에 직격합니다!',

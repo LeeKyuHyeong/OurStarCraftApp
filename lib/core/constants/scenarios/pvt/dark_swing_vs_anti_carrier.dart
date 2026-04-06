@@ -127,9 +127,7 @@ const _pvtDarkSwingVsAntiCarrier = ScenarioScript(
         // 분기 A: 다크 성공 → 골리앗 빌드업 차단
         ScriptBranch(
           id: 'home_wins',
-          conditionStat: 'harass',
-          homeStatMustBeHigher: true,
-          baseProbability: 1.0,
+          baseProbability: 1.5,
           events: [
             ScriptEvent(
               text: '{home} 선수 다크가 SCV를 베기 시작합니다! 디텍이 없어요!',
@@ -167,8 +165,6 @@ const _pvtDarkSwingVsAntiCarrier = ScenarioScript(
         // 분기 B: 스캔으로 방어 → 골리앗 물량 역전
         ScriptBranch(
           id: 'away_wins',
-          conditionStat: 'defense',
-          homeStatMustBeHigher: false,
           baseProbability: 1.0,
           events: [
             ScriptEvent(

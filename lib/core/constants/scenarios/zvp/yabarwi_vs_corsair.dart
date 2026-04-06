@@ -73,7 +73,7 @@ const _zvpYabarwiVsCorsair = ScenarioScript(
           favorsStat: 'strategy',
         ),
         ScriptEvent(
-          text: '{away} 선수 사이버네틱스 코어에서 드라군을 생산하며 지상 병력을 보충합니다.',
+          text: '{away} 선수 드라군을 생산하며 지상 병력을 보충합니다.',
           owner: LogOwner.away,
           awayArmy: 3,
           awayResource: -10,

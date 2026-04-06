@@ -19,7 +19,7 @@ const _zvp973HydraVsForgeExpand = ScenarioScript(
           text: '{home} 선수 9풀로 스포닝풀을 올립니다! 공격적인 오프닝!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 9풀 오프닝! 공격적인 빌드를 준비합니다.',
+          altText: '{home}, 스포닝풀을 올리며 공격적인 9풀 오프닝!',
         ),
         ScriptEvent(
           text: '{away} 선수 포지를 올리고 앞마당 넥서스를 건설합니다.',

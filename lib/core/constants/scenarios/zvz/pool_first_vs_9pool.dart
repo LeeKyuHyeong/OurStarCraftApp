@@ -91,7 +91,7 @@ const _zvzPoolFirstVs9pool = ScenarioScript(
               altText: '{away} 선수 저글링 합류! 겨우 막아냅니다!',
             ),
             ScriptEvent(
-              text: '드론 피해가 컸습니다! 4풀 올인이 먹혔습니다!',
+              text: '드론 피해가 컸습니다! 4풀 올인이 먹혔습니다! 승리를 거둡니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -119,7 +119,7 @@ const _zvzPoolFirstVs9pool = ScenarioScript(
               awayArmy: 2, awayResource: -10, favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '9풀의 빠른 대응! 4풀이 막혔습니다!',
+              text: '9풀의 빠른 대응! 4풀이 막혔습니다! 승리를 거둡니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

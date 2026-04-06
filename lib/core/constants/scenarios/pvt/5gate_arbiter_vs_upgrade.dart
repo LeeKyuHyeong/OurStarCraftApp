@@ -154,7 +154,7 @@ const _pvt5gateArbiterVsUpgrade = ScenarioScript(
         ),
         ScriptBranch(
           id: 'away_wins',
-          baseProbability: 1.0,
+          baseProbability: 2.5,
           events: [
             ScriptEvent(
               text: '{away} 선수 3-3 풀업 마린 메딕이 전진합니다! 화력이 남다릅니다!',

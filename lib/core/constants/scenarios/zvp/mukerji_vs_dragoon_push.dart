@@ -133,7 +133,7 @@ const _zvpMukerjiVsDragoonPush = ScenarioScript(
         ScriptBranch(
           id: 'home_wins',
           conditionStat: 'control',
-          baseProbability: 1.0,
+          baseProbability: 2.5,
           events: [
             ScriptEvent(
               text: '{home} 선수 저글링 서라운드가 성공합니다! 드라군이 움직이질 못합니다!',

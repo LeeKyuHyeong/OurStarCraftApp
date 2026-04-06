@@ -72,13 +72,9 @@ const _pvp4gateDragoonMirror = ScenarioScript(
           altText: '{away}, 드라군이 모입니다! 비슷한 물량!',
         ),
         ScriptEvent(
-          text: '{home}, 드라군 편대가 전진합니다!',
-          owner: LogOwner.home,
-          homeArmy: 2, favorsStat: 'attack',
-        ),
-        ScriptEvent(
-          text: '양측 드라군 편대가 센터에서 부딪힙니다!',
+          text: '양측 드라군 편대가 전진합니다! 센터에서 충돌!',
           owner: LogOwner.system,
+          homeArmy: 2, awayArmy: 2, favorsStat: 'attack',
         ),
       ],
     ),

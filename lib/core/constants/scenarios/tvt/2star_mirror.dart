@@ -554,7 +554,7 @@ const _tvt2starMirror = ScenarioScript(
               altText: '{home} 선수 확장 대신 탱크 골리앗을 쏟아냅니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 앞마당을 올리는 사이 {home} 선수가 밀고 옵니다!',
+              text: '{home} 선수 확장 타이밍에 공격을 감행합니다! {away} 선수 위험합니다!',
               owner: LogOwner.home,
               awayArmy: -4,
               favorsStat: 'attack',
@@ -585,7 +585,7 @@ const _tvt2starMirror = ScenarioScript(
               altText: '{away} 선수 확장 대신 탱크 골리앗을 쏟아냅니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 앞마당을 올리는 사이 {away} 선수가 밀고 옵니다!',
+              text: '{away} 선수 확장 타이밍에 공격을 감행합니다! {home} 선수 위험합니다!',
               owner: LogOwner.away,
               homeArmy: -4,
               favorsStat: 'attack',

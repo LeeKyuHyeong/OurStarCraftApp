@@ -137,7 +137,7 @@ const _pvt2gateOpenVsBbs = ScenarioScript(
         // 분기 A: 프로토스 드라군 전환 성공 → 홈 승리
         ScriptBranch(
           id: 'home_wins',
-          baseProbability: 1.0,
+          baseProbability: 2.5,
           events: [
             ScriptEvent(
               text: '{home} 선수 드라군이 마린을 쏘아냅니다! 사정거리가 깁니다!',

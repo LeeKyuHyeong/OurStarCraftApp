@@ -94,6 +94,12 @@ const _zvpHiveDefilerVsCannonRush = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
+          text: '{away} 선수 추가 캐논으로 해처리를 계속 압박합니다!',
+          owner: LogOwner.away,
+          awayArmy: 3, awayResource: -20, favorsStat: 'attack',
+          altText: '{away}, 캐논이 해처리를 계속 두드립니다!',
+        ),
+        ScriptEvent(
           text: '{home} 선수 성큰을 세워 캐논에 대응합니다!',
           owner: LogOwner.home,
           homeArmy: 2,
@@ -102,19 +108,12 @@ const _zvpHiveDefilerVsCannonRush = ScenarioScript(
           skipChance: 0.2,
         ),
         ScriptEvent(
-          text: '{away} 선수 추가 캐논을 올리려 합니다!',
-          owner: LogOwner.away,
-          awayArmy: 1,
-          awayResource: -15,
-          altText: '{away}, 캐논을 한 기 더 올립니다! 집요한 공격이에요!',
-        ),
-        ScriptEvent(
           text: '{home} 선수 레어를 올리며 테크를 준비합니다.',
           owner: LogOwner.home,
           homeResource: -20,
         ),
         ScriptEvent(
-          text: '캐논 러시가 실패하면 프로토스는 크게 뒤처집니다!',
+          text: '캐논이 자리를 잡으면 저그는 탈출조차 어렵습니다!',
           owner: LogOwner.system,
         ),
       ],
@@ -158,7 +157,7 @@ const _zvpHiveDefilerVsCannonRush = ScenarioScript(
         ),
         ScriptBranch(
           id: 'away_wins',
-          baseProbability: 1.0,
+          baseProbability: 2.5,
           conditionStat: 'control',
           events: [
             ScriptEvent(

@@ -74,7 +74,7 @@ const _pvp2gateReaverVs4gateDragoon = ScenarioScript(
         ScriptEvent(
           text: '{home}, 셔틀 리버에 드라군 호위! 맞받아칩니다!',
           owner: LogOwner.home,
-          homeArmy: 2, favorsStat: 'control',
+          homeArmy: 4, favorsStat: 'control',
           altText: '{home} 선수 리버와 드라군으로 맞섭니다!',
         ),
         ScriptEvent(

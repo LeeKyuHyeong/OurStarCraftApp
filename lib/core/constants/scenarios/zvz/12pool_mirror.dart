@@ -211,7 +211,7 @@ const _zvz12poolMirror = ScenarioScript(
               homeArmy: 3, awayArmy: -5, favorsStat: 'control',
             ),
             ScriptEvent(
-              text: '결정적인 순간입니다!',
+              text: '{home}, 결정타! 승리를 거둡니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -238,7 +238,7 @@ const _zvz12poolMirror = ScenarioScript(
               awayArmy: 3, homeArmy: -5, favorsStat: 'control',
             ),
             ScriptEvent(
-              text: '결정적인 순간입니다!',
+              text: '{away}, 결정타! 승리를 거둡니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

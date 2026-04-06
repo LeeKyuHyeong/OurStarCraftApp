@@ -75,7 +75,7 @@ const _pvp2gateReaverVs2gateDragoon = ScenarioScript(
         ScriptEvent(
           text: '{home}, 셔틀에 리버를 태웁니다! 간발의 차이!',
           owner: LogOwner.home,
-          homeArmy: 3, homeResource: -25, favorsStat: 'control',
+          homeArmy: 5, homeResource: -25, favorsStat: 'control',
           altText: '{home} 선수 셔틀 리버! 겨우 간에 맞았습니다!',
         ),
         ScriptEvent(

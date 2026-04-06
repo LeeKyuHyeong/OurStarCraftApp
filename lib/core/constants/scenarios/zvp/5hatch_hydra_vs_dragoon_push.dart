@@ -125,7 +125,8 @@ const _zvp5hatchHydraVsDragoonPush = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'home_wins',
-          baseProbability: 1.0,
+          baseProbability: 2.0,
+          conditionStat: 'macro',
           events: [
             ScriptEvent(
               text: '{home} 선수 히드라 물량이 드라군을 압도합니다! 숫자가 다릅니다!',

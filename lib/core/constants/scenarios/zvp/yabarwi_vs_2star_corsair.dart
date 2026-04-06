@@ -159,7 +159,7 @@ const _zvpYabarwiVs2starCorsair = ScenarioScript(
         ScriptBranch(
           id: 'away_wins',
           conditionStat: 'control',
-          baseProbability: 1.0,
+          baseProbability: 2.5,
           events: [
             ScriptEvent(
               text: '{away} 선수 커세어가 오버로드를 전멸시킵니다! 보급이 막힙니다!',

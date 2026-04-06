@@ -118,7 +118,7 @@ const _pvpDragoonNexusMirror = ScenarioScript(
             ),
             ScriptEvent(
               text: '{home}, 옵저버터리도 완성! 옵저버를 먼저 뽑을까 리버를 먼저 뽑을까?',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               skipChance: 0.2,
             ),
             ScriptEvent(
@@ -131,6 +131,12 @@ const _pvpDragoonNexusMirror = ScenarioScript(
               text: '{away}, 그런데 다크 템플러가 잠입합니다! 디텍이 없습니다!',
               owner: LogOwner.away,
               awayArmy: 2, awayResource: -20, favorsStat: 'harass',
+            ),
+            ScriptEvent(
+              text: '양측 견제가 맞부딪힙니다! 어느 쪽이 더 큰 피해를 주느냐가 관건입니다!',
+              owner: LogOwner.system,
+              homeArmy: -3, awayArmy: -3, favorsStat: 'harass',
+              decisive: true,
             ),
           ],
         ),
@@ -161,9 +167,10 @@ const _pvpDragoonNexusMirror = ScenarioScript(
               awayArmy: 3, awayResource: -25,
             ),
             ScriptEvent(
-              text: '양측 셔틀 리버가 교차합니다! PvP의 꽃입니다!',
+              text: '양측 셔틀 컨트롤! 스카랩 명중 여부가 승부를 가릅니다!',
               owner: LogOwner.system,
-              skipChance: 0.2,
+              homeArmy: -3, awayArmy: -3, favorsStat: 'control',
+              decisive: true,
             ),
           ],
         ),
@@ -198,7 +205,7 @@ const _pvpDragoonNexusMirror = ScenarioScript(
             ),
             ScriptEvent(
               text: '리버 견제가 성공! 프로브 차이가 벌어집니다!',
-              owner: LogOwner.system,
+              owner: LogOwner.home,
               skipChance: 0.3,
             ),
           ],
@@ -256,10 +263,10 @@ const _pvpDragoonNexusMirror = ScenarioScript(
         ),
       ],
     ),
-    // Phase 5: 결전 분기 (lines 67-80)
+    // Phase 5: 결전 분기 (lines 35-50)
     ScriptPhase(
       name: 'decisive_battle',
-      startLine: 67,
+      startLine: 35,
       branches: [
         ScriptBranch(
           id: 'home_storm_wins',

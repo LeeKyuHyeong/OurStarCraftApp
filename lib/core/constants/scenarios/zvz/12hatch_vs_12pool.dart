@@ -50,10 +50,10 @@ const _zvz12hatchVs12pool = ScenarioScript(
         ),
       ],
     ),
-    // Phase 1: 저글링 압박 (lines 15-24)
+    // Phase 1: 저글링 압박 (lines 9-12)
     ScriptPhase(
       name: 'ling_pressure',
-      startLine: 15,
+      startLine: 9,
       linearEvents: [
         ScriptEvent(
           text: '{away}, 발업 저글링이 상대 앞마당에 도착합니다!',
@@ -74,10 +74,10 @@ const _zvz12hatchVs12pool = ScenarioScript(
         ),
       ],
     ),
-    // Phase 2: 압박 결과 - 분기 (lines 25-38)
+    // Phase 2: 압박 결과 - 분기 (lines 13-24)
     ScriptPhase(
       name: 'pressure_result',
-      startLine: 25,
+      startLine: 13,
       branches: [
         // 분기 A: 저글링이 드론 피해를 줌
         ScriptBranch(
@@ -138,10 +138,10 @@ const _zvz12hatchVs12pool = ScenarioScript(
         ),
       ],
     ),
-    // Phase 3: 스파이어 경쟁 (lines 39-52)
+    // Phase 3: 스파이어 경쟁 (lines 18-28)
     ScriptPhase(
       name: 'spire_race',
-      startLine: 39,
+      startLine: 18,
       recoveryArmyPerLine: 1,
       recoveryResourcePerLine: 6,
       linearEvents: [
@@ -176,10 +176,10 @@ const _zvz12hatchVs12pool = ScenarioScript(
         ),
       ],
     ),
-    // Phase 4: 결전 - 분기 (lines 53-68)
+    // Phase 4: 결전 - 분기 (lines 29-44)
     ScriptPhase(
       name: 'decisive_battle',
-      startLine: 53,
+      startLine: 29,
       branches: [
         // 분기 A: 12앞(홈) 자원 우위로 뮤탈 물량 승리
         ScriptBranch(
@@ -202,7 +202,7 @@ const _zvz12hatchVs12pool = ScenarioScript(
               homeArmy: 3, awayArmy: -3, awayResource: -15, favorsStat: 'harass',
             ),
             ScriptEvent(
-              text: '12앞마당의 자원 우위가 결정적!',
+              text: '12앞마당의 자원 우위가 결정적! 승리를 거둡니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -229,7 +229,7 @@ const _zvz12hatchVs12pool = ScenarioScript(
               awayArmy: 3, homeArmy: -3, homeResource: -15, favorsStat: 'harass',
             ),
             ScriptEvent(
-              text: '뮤탈 컨트롤이 자원 차이를 극복했습니다!',
+              text: '뮤탈 컨트롤이 자원 차이를 극복했습니다! 승리를 거둡니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

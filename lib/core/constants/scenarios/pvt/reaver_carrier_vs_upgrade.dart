@@ -176,7 +176,7 @@ const _pvtReaverCarrierVsUpgrade = ScenarioScript(
         // 분기 B: 풀업 마린 + 골리앗 → 어웨이 승리
         ScriptBranch(
           id: 'away_wins',
-          baseProbability: 1.0,
+          baseProbability: 2.0,
           events: [
             ScriptEvent(
               text: '{away} 선수 풀업 마린과 골리앗이 캐리어를 집중 사격합니다!',

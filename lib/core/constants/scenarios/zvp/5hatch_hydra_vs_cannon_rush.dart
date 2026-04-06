@@ -53,36 +53,35 @@ const _zvp5hatchHydraVsCannonRush = ScenarioScript(
       recoveryResourcePerLine: 8,
       linearEvents: [
         ScriptEvent(
-          text: '{away} 선수 캐논 건설 시작! 앞마당 해처리를 겨냥합니다!',
+          text: '{away} 선수 캐논이 완성됩니다! 앞마당 해처리를 포격합니다!',
           owner: LogOwner.away,
-          awayArmy: 3, awayResource: -20,
-          altText: '{away}, 캐논이 올라갑니다! 해처리가 사정거리 안!',
-        ),
-        ScriptEvent(
-          text: '{home} 선수 드론으로 캐논을 막으려 합니다!',
-          owner: LogOwner.home,
-          homeArmy: 1, homeResource: -5, favorsStat: 'scout',
-          altText: '{home}, 드론 동원! 캐논 건설을 방해합니다!',
+          awayArmy: 5, homeArmy: -1, homeResource: -15, favorsStat: 'attack',
+          altText: '{away}, 캐논 완성! 해처리가 맞기 시작합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 스포닝풀 완성! 저글링으로 프로브를 쫓습니다!',
           owner: LogOwner.home,
           homeArmy: 2, homeResource: -10, favorsStat: 'control',
-          altText: '{home}, 저글링 등장! 프로브를 잡으러 갑니다!',
+          altText: '{home}, 저글링 등장! 캐논 주변 프로브를 잡으러 갑니다!',
         ),
         ScriptEvent(
-          text: '캐논 러시를 막느냐 못 막느냐! 앞마당의 운명이 걸렸습니다!',
+          text: '{away} 선수 두 번째 캐논 건설! 저글링도 막아냅니다!',
+          owner: LogOwner.away,
+          awayArmy: 4, homeArmy: -1, favorsStat: 'attack',
+        ),
+        ScriptEvent(
+          text: '캐논 화력이 무섭습니다! 저그가 버틸 수 있을까요?',
           owner: LogOwner.system,
           skipChance: 0.2,
         ),
         ScriptEvent(
-          text: '{away}, 캐논 추가 건설! 화력을 집중합니다!',
-          owner: LogOwner.away,
-          awayArmy: 2, awayResource: -15,
+          text: '{home} 선수 드론을 동원해 버텨봅니다!',
+          owner: LogOwner.home,
+          homeArmy: 1, homeResource: -5, favorsStat: 'scout',
         ),
       ],
     ),
-    // Phase 2: 매크로 전환 (lines 22-29)
+    // Phase 2: 공방 전개 (lines 22-29)
     ScriptPhase(
       name: 'late_setup',
       startLine: 22,
@@ -90,30 +89,24 @@ const _zvp5hatchHydraVsCannonRush = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 캐논을 막아내고 해처리를 추가합니다! 매크로 확장!',
-          owner: LogOwner.home,
-          homeResource: -30,
-          altText: '{home}, 캐논 수비 성공! 해처리를 더 올립니다!',
-        ),
-        ScriptEvent(
-          text: '{home} 선수 히드라덴 건설! 히드라리스크를 준비합니다!',
-          owner: LogOwner.home,
-          homeArmy: 3, homeResource: -20,
-        ),
-        ScriptEvent(
-          text: '{away} 선수 캐논 러시 실패 후 뒤늦게 넥서스를 건설합니다.',
+          text: '{away} 선수 캐논이 앞마당 해처리를 집중 포격합니다!',
           owner: LogOwner.away,
-          awayResource: -30,
-          altText: '{away}, 뒤늦은 넥서스! 자원 손실이 큽니다.',
+          awayArmy: 3, homeResource: -15, favorsStat: 'attack',
+          altText: '{away}, 캐논 포격! 해처리 체력이 빠르게 줄어듭니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 5해처리 체제 완성! 히드라 대량 생산!',
+          text: '{home} 선수 저글링을 캐논 주변에 보내봅니다!',
           owner: LogOwner.home,
-          homeArmy: 5, homeResource: -25, favorsStat: 'macro',
-          altText: '{home}, 히드라가 쏟아집니다! 5해처리의 위력!',
+          awayArmy: -1, favorsStat: 'harass',
+          altText: '{home}, 저글링! 캐논 주변 프로브를 노립니다!',
         ),
         ScriptEvent(
-          text: '캐논 러시 실패 후 자원 차이가 벌어지고 있습니다!',
+          text: '{home} 선수 히드라덴 건설! 히드라리스크로 역전을 노립니다!',
+          owner: LogOwner.home,
+          homeArmy: 2, homeResource: -20, favorsStat: 'macro',
+        ),
+        ScriptEvent(
+          text: '캐논이 자리를 잡을수록 저그의 탈출은 어려워집니다!',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
@@ -127,17 +120,18 @@ const _zvp5hatchHydraVsCannonRush = ScenarioScript(
         ScriptBranch(
           id: 'home_wins',
           baseProbability: 1.0,
+          conditionStat: 'macro',
           events: [
             ScriptEvent(
-              text: '{home} 선수 히드라 편대가 전진합니다! 캐논을 부수며 진격!',
+              text: '{home} 선수 히드라리스크가 나오면서 캐논을 원거리 사격으로 제거합니다!',
               owner: LogOwner.home,
-              homeArmy: 3, awayArmy: -3, favorsStat: 'attack',
-              altText: '{home}, 히드라가 캐논을 쓸어버립니다!',
+              homeArmy: 3, awayArmy: -4, favorsStat: 'control',
+              altText: '{home}, 히드라리스크 사거리로 캐논을 안전하게 처리합니다!',
             ),
             ScriptEvent(
               text: '{home}, 히드라 물량이 프로토스 본진까지 밀어붙입니다!',
               owner: LogOwner.home,
-              awayArmy: -4, favorsStat: 'attack',
+              awayArmy: -3, favorsStat: 'attack',
             ),
             ScriptEvent(
               text: '{away} 선수 드라군을 급히 뽑지만 이미 늦었습니다!',
@@ -145,7 +139,7 @@ const _zvp5hatchHydraVsCannonRush = ScenarioScript(
               awayArmy: 2, homeArmy: -1,
             ),
             ScriptEvent(
-              text: '캐논 러시 실패! 5해처리 히드라가 승리를 가져갑니다!',
+              text: '캐논 러시 실패! 히드라가 승리를 가져갑니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -153,18 +147,19 @@ const _zvp5hatchHydraVsCannonRush = ScenarioScript(
         ),
         ScriptBranch(
           id: 'away_wins',
-          baseProbability: 1.0,
+          baseProbability: 2.0,
+          conditionStat: 'attack',
           events: [
             ScriptEvent(
               text: '{away} 선수 캐논이 앞마당 해처리를 파괴합니다!',
               owner: LogOwner.away,
-              homeArmy: -2, homeResource: -20, favorsStat: 'attack',
+              homeArmy: -2, homeResource: -25, favorsStat: 'attack',
               altText: '{away}, 캐논 화력! 해처리가 무너집니다!',
             ),
             ScriptEvent(
               text: '{away}, 캐논을 본진 입구까지 올립니다! 저그가 갇힙니다!',
               owner: LogOwner.away,
-              awayArmy: 3, homeArmy: -2,
+              awayArmy: 3, homeArmy: -3,
             ),
             ScriptEvent(
               text: '{home} 선수 탈출을 시도하지만 캐논 포위망에 걸립니다!',

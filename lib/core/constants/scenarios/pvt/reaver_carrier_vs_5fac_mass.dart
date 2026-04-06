@@ -139,7 +139,7 @@ const _pvtReaverCarrierVs5facMass = ScenarioScript(
         // 분기 A: 캐리어가 탱크 물량 위를 장악 → 홈 승리
         ScriptBranch(
           id: 'home_wins',
-          baseProbability: 1.0,
+          baseProbability: 2.5,
           events: [
             ScriptEvent(
               text: '{home} 선수 캐리어 편대가 시즈탱크 위를 날아갑니다! 탱크가 올려다보기만 합니다!',

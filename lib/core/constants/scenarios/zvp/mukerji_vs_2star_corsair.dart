@@ -164,7 +164,7 @@ const _zvpMukerjiVs2starCorsair = ScenarioScript(
         ScriptBranch(
           id: 'away_wins',
           conditionStat: 'control',
-          baseProbability: 1.0,
+          baseProbability: 2.5,
           events: [
             ScriptEvent(
               text: '{away} 선수 커세어가 뮤탈리스크를 전멸시킵니다!',

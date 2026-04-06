@@ -27,18 +27,18 @@ const _zvpHydraLurkerVsForgeExpand = ScenarioScript(
           altText: '{away}, 포지가 올라갑니다! 포지 확장 빌드로 가는군요!',
         ),
         ScriptEvent(
-          text: '{away} 선수 넥서스 확장! 게이트웨이와 캐논 2기로 입구를 막습니다!',
+          text: '{away} 선수 넥서스 확장! 캐논 2기로 입구를 막습니다!',
           owner: LogOwner.away,
           awayResource: -35,
           awayArmy: 2,
-          altText: '{away}, 넥서스를 올리며 게이트웨이와 캐논으로 입구를 봉쇄합니다!',
+          altText: '{away}, 넥서스를 올리며 캐논 라인으로 입구를 봉쇄합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 스포닝풀 완성 후 히드라덴 건설을 서두릅니다.',
           owner: LogOwner.home,
           homeResource: -20,
           favorsStat: 'strategy',
-          altText: '{home}, 히드라덴을 올립니다! 캐논을 상대하려면 히드라가 필요하죠!',
+          altText: '{home}, 스포닝풀 완성 후 히드라덴을 올립니다! 캐논을 상대하려면 히드라가 필요하죠!',
         ),
         ScriptEvent(
           text: '포지 확장의 캐논 라인! 히드라리스크로 뚫을 수 있을까요?',
@@ -62,7 +62,7 @@ const _zvpHydraLurkerVsForgeExpand = ScenarioScript(
           altText: '{home}, 히드라리스크가 모이고 있습니다! 캐논 사거리 밖에서 공격 가능해요!',
         ),
         ScriptEvent(
-          text: '{away} 선수 사이버네틱스 코어에서 드라군을 생산합니다! 캐논만으론 부족하죠!',
+          text: '{away} 선수 지상군을 보충합니다! 캐논만으론 부족하죠!',
           owner: LogOwner.away,
           awayArmy: 3,
           awayResource: -15,

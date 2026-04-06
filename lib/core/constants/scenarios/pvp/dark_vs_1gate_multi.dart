@@ -58,13 +58,13 @@ const _pvpDarkVs1gateMulti = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 다크 템플러 2기 생산! 멀티부터 노립니다!',
           owner: LogOwner.home,
-          homeArmy: 3, homeResource: -20,
+          homeArmy: 3, awayArmy: 2, homeResource: -20,
           altText: '{home}, 다크 출격! 확장 기지 프로브를 노립니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 앞마당에 프로브가 많습니다! 디텍이 있을까요?',
           owner: LogOwner.away,
-          awayArmy: 3, awayResource: -10,
+          awayArmy: 2, awayResource: -10,
         ),
         ScriptEvent(
           text: '멀티를 간 상황에서 다크가 들어갑니다! 디텍 준비가 핵심!',
@@ -80,7 +80,7 @@ const _pvpDarkVs1gateMulti = ScenarioScript(
         // 분기 A: 멀티에 디텍 없어 다크 성공
         ScriptBranch(
           id: 'dark_destroys_multi',
-          baseProbability: 0.6,
+          baseProbability: 1.0,
           events: [
             ScriptEvent(
               text: '{home}, 다크가 앞마당 프로브를 베기 시작합니다! 디텍이 없어요!',
@@ -109,7 +109,7 @@ const _pvpDarkVs1gateMulti = ScenarioScript(
         // 분기 B: 캐논으로 다크 차단
         ScriptBranch(
           id: 'cannon_defense',
-          baseProbability: 1.4,
+          baseProbability: 1.0,
           events: [
             ScriptEvent(
               text: '{away} 선수 앞마당에 캐논이 있습니다! 다크를 잡아냅니다!',

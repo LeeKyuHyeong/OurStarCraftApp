@@ -122,9 +122,7 @@ const _pvtDarkSwingVsTankDefense = ScenarioScript(
         // 분기 A: 다크 성공 - 디텍 부재
         ScriptBranch(
           id: 'home_wins',
-          conditionStat: 'harass',
-          homeStatMustBeHigher: true,
-          baseProbability: 1.0,
+          baseProbability: 1.5,
           events: [
             ScriptEvent(
               text: '{home} 선수 다크가 터렛 사각지대로 잠입합니다!',
@@ -166,8 +164,6 @@ const _pvtDarkSwingVsTankDefense = ScenarioScript(
         // 분기 B: 디텍 성공 → 탱크 방어 → 역전
         ScriptBranch(
           id: 'away_wins',
-          conditionStat: 'scout',
-          homeStatMustBeHigher: false,
           baseProbability: 1.0,
           events: [
             ScriptEvent(

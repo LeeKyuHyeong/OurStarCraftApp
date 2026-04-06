@@ -95,6 +95,13 @@ const _zvpHydraLurkerVsCannonRush = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
+          text: '{away} 선수 캐논을 추가로 세워 방어선을 확장합니다!',
+          owner: LogOwner.away,
+          awayArmy: 3, awayResource: -20,
+          favorsStat: 'attack',
+          altText: '{away}, 캐논이 더 세워집니다! 포위망이 좁혀옵니다!',
+        ),
+        ScriptEvent(
           text: '{home} 선수 히드라덴 건설! 캐논 정리를 위해 히드라리스크를 뽑습니다!',
           owner: LogOwner.home,
           homeResource: -20,
@@ -102,20 +109,13 @@ const _zvpHydraLurkerVsCannonRush = ScenarioScript(
           altText: '{home}, 히드라덴이 올라갑니다! 캐논에 대한 해답이죠!',
         ),
         ScriptEvent(
-          text: '{away} 선수 캐논을 추가로 세워 방어선을 확장합니다!',
-          owner: LogOwner.away,
-          awayArmy: 2,
-          awayResource: -15,
-          favorsStat: 'strategy',
-        ),
-        ScriptEvent(
           text: '{home} 선수 히드라리스크 생산 시작! 캐논보다 사거리가 깁니다!',
           owner: LogOwner.home,
-          homeArmy: 4,
+          homeArmy: 3,
           homeResource: -15,
         ),
         ScriptEvent(
-          text: '히드라리스크가 나오면 캐논 정리가 가능합니다! 타이밍 문제네요!',
+          text: '히드라리스크가 나오면 캐논 정리가 가능하지만 이미 늦을 수도 있습니다!',
           owner: LogOwner.system,
         ),
       ],
@@ -159,7 +159,7 @@ const _zvpHydraLurkerVsCannonRush = ScenarioScript(
         ),
         ScriptBranch(
           id: 'away_wins',
-          baseProbability: 1.0,
+          baseProbability: 2.0,
           conditionStat: 'attack',
           events: [
             ScriptEvent(

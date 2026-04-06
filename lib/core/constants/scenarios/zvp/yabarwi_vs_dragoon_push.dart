@@ -130,7 +130,7 @@ const _zvpYabarwiVsDragoonPush = ScenarioScript(
         ScriptBranch(
           id: 'home_wins',
           conditionStat: 'strategy',
-          baseProbability: 1.0,
+          baseProbability: 2.5,
           events: [
             ScriptEvent(
               text: '{home} 선수 럴커가 드라군 편대를 관통합니다!',

@@ -90,7 +90,7 @@ const _zvzPoolFirstVs9overpool = ScenarioScript(
               homeArmy: 2, awayResource: -10, favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '4풀 올인이 9오버풀을 파괴! 풀 타이밍이 치명적이었습니다!',
+              text: '4풀 올인이 9오버풀을 파괴! 풀 타이밍이 치명적이었습니다! 승리를 거둡니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -118,7 +118,7 @@ const _zvzPoolFirstVs9overpool = ScenarioScript(
               awayArmy: 5, awayResource: -10, favorsStat: 'defense',
             ),
             ScriptEvent(
-              text: '4풀을 막아냈습니다! 드론 한 기 이점이 살아있습니다!',
+              text: '4풀을 막아냈습니다! 드론 한 기 이점이 살아있습니다! 승리를 거둡니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

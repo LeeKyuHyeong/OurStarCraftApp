@@ -33,10 +33,10 @@ const _zvpMutalHydraVsForgeExpand = ScenarioScript(
           altText: '{home}, 앞마당 해처리! 확장을 가져갑니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수 앞마당 넥서스를 건설합니다! 게이트웨이와 캐논으로 입구를 막습니다!',
+          text: '{away} 선수 앞마당 넥서스를 건설합니다! 캐논으로 입구를 막습니다!',
           owner: LogOwner.away,
           awayResource: -30,
-          altText: '{away}, 넥서스 건설! 게이트웨이와 캐논으로 봉쇄!',
+          altText: '{away}, 넥서스 건설! 캐논 라인으로 앞마당을 봉쇄합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 스포닝풀과 가스를 넣으면서 레어를 향합니다.',
@@ -44,7 +44,7 @@ const _zvpMutalHydraVsForgeExpand = ScenarioScript(
           homeResource: -25,
         ),
         ScriptEvent(
-          text: '국룰 포지더블! 저그는 공중 견제와 히드라를 선택했습니다!',
+          text: '국룰 포지더블! 저그는 공중 견제로 판을 열어갑니다!',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
@@ -61,7 +61,7 @@ const _zvpMutalHydraVsForgeExpand = ScenarioScript(
           text: '{home} 선수 스파이어 완성! 뮤탈리스크를 생산합니다!',
           owner: LogOwner.home,
           homeArmy: 4, homeResource: -25,
-          altText: '{home}, 스파이어에서 뮤탈리스크 생산! 프로브를 견제하러 갑니다!',
+          altText: '{home}, 스파이어 완성! 뮤탈리스크가 날아오릅니다!',
         ),
         ScriptEvent(
           text: '{home}, 뮤탈이 프로토스 본진 프로브를 물어뜯습니다!',

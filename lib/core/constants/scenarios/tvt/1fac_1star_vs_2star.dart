@@ -82,11 +82,11 @@ const _tvt1fac1starVs2star = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{home} 선수 시즈 모드 연구 중. 아머리도 건설합니다.',
+          text: '{home} 선수 스타포트를 올립니다. 아머리도 건설합니다.',
           owner: LogOwner.home,
           homeResource: -400, // 스타포트 250 + 아머리 150 (원팩원스타)
           fixedCost: true,
-          altText: '{home} 선수 시즈 연구와 아머리 건설. 대공 준비까지 갖춥니다.',
+          altText: '{home} 선수 스타포트와 아머리를 동시에 올립니다. 대공 준비.',
         ),
         ScriptEvent(
           text: '{away} 선수 클로킹 레이스로 견제 시작! SCV를 노립니다!',
@@ -222,7 +222,7 @@ const _tvt1fac1starVs2star = ScenarioScript(
           owner: LogOwner.home,
           homeResource: -200, // 드랍십 200 (스타포트는 이미 있음 - 원팩원스타)
           fixedCost: true,
-          altText: '{home} 선수 드랍십 생산. 기동전을 준비합니다.',
+          altText: '{home} 선수 컨트롤타워 완성. 드랍십 생산. 기동전을 준비합니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 레이스로 정찰하면서 상대 움직임을 파악합니다.',

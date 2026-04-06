@@ -81,10 +81,18 @@ const _tvtBbsVsNobarDouble = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 배럭이 완성됩니다. 마린 생산 시작.',
           owner: LogOwner.away,
-          awayArmy: 1, // 마린 1기
-          awayResource: -50, // 마린 1기
+          awayArmy: 2, // 마린 2기
+          awayResource: -100, // 마린 2기
           fixedCost: true,
-          altText: '{away} 선수 마린이 겨우 나오기 시작합니다.',
+          altText: '{away} 선수 마린이 나오기 시작합니다.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 SCV를 끌어모아 마린 진격로를 막습니다.',
+          owner: LogOwner.away,
+          homeArmy: -2, // 마린 2기 사망 (SCV 방어)
+          awayArmy: 1,
+          favorsStat: 'defense',
+          altText: '{away} 선수 SCV 컨트롤! 마린 진격을 늦춥니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 상대 앞마당에 벙커 건설 시도.',
@@ -113,7 +121,7 @@ const _tvtBbsVsNobarDouble = ScenarioScript(
           id: 'bbs_success_to_victory',
           conditionStat: 'attack',
           homeStatMustBeHigher: true,
-          baseProbability: 1.0,
+          baseProbability: 0.7,
           events: [
             ScriptEvent(
               text: '{home} 선수 벙커 완성! 마린이 들어갑니다!',
@@ -198,7 +206,7 @@ const _tvtBbsVsNobarDouble = ScenarioScript(
           id: 'bbs_defense_to_victory',
           conditionStat: 'defense',
           homeStatMustBeHigher: false,
-          baseProbability: 1.0,
+          baseProbability: 1.5,
           events: [
             ScriptEvent(
               text: '{away} 선수 SCV를 뭉쳐서 마린을 끊습니다! 벙커에 마린이 못 들어갑니다!',

@@ -200,16 +200,16 @@ const _tvtBbsVs5fac = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 탱크 생산 시작. BBS 이후 전환합니다.',
           owner: LogOwner.home,
-          homeArmy: 2, // 탱크 1대 (2sup)
-          homeResource: -550, // 시즈모드(300) + 탱크(250)
+          homeArmy: 4, // 탱크 1대(2sup) + 벌처 1대(2sup)
+          homeResource: -625, // 시즈모드(300) + 탱크(250) + 벌처(75)
           fixedCost: true,
-          altText: '{home} 선수 탱크 체제로 전환합니다.',
+          altText: '{home} 선수 탱크와 벌처로 전환합니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 5팩 물량으로 탱크 벌처가 빠르게 모입니다.',
           owner: LogOwner.away,
-          awayArmy: 6, // 탱크 1대(2sup) + 벌처 2대(2sup x2)
-          awayResource: -400, // 탱크(250) + 벌처 2대(75x2)
+          awayArmy: 4, // 탱크 1대(2sup) + 벌처 1대(2sup)
+          awayResource: -325, // 탱크(250) + 벌처(75)
           fixedCost: true,
         ),
         ScriptEvent(
@@ -218,6 +218,10 @@ const _tvtBbsVs5fac = ScenarioScript(
           homeResource: -350, // 스타포트(250) + 컨트롤타워(100)
           fixedCost: true,
           altText: '{home} 선수 스타포트 건설 후 컨트롤타워를 올립니다. 드랍십을 노립니다.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 상대 스타포트를 정찰합니다. 드랍십 견제에 대비합니다.',
+          owner: LogOwner.away,
         ),
         ScriptEvent(
           text: '{away} 선수 엔지니어링 베이 건설. 업그레이드를 시작합니다.',
@@ -260,11 +264,20 @@ const _tvtBbsVs5fac = ScenarioScript(
             ScriptEvent(
               text: '{home} 선수 확장기지에 탱크 투하! SCV를 잡아냅니다!',
               owner: LogOwner.home,
-              awayResource: -150, // SCV 손실
+              awayResource: -200, // SCV 손실
+              awayArmy: -2, // SCV 및 유닛 손실
               favorsStat: 'harass',
             ),
             ScriptEvent(
-              text: '{away} 선수 5팩 물량으로 빠르게 대응하지만 이미 회수합니다.',
+              text: '{home} 선수 탱크 시즈! 팩토리를 포격합니다!',
+              owner: LogOwner.home,
+              awayResource: -200, // 팩토리 피해
+              awayArmy: -2,
+              favorsStat: 'harass',
+              altText: '{home} 선수 본진 팩토리를 향해 시즈 포격!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 5팩 물량으로 드랍에 대응합니다. 이미 큰 피해.',
               owner: LogOwner.away,
               awayArmy: -1, // 피해
             ),
@@ -278,7 +291,7 @@ const _tvtBbsVs5fac = ScenarioScript(
         // 마무리 드랍: 유리한 쪽이 드랍과 정면 동시로 끝냄
         ScriptBranch(
           id: 'finishing_drop',
-          baseProbability: 0.7,
+          baseProbability: 1.2,
           conditionStat: 'attack',
           homeStatMustBeHigher: true,
           events: [
@@ -312,7 +325,7 @@ const _tvtBbsVs5fac = ScenarioScript(
         // 정면 승부: 드랍 없이 5팩 물량 전진
         ScriptBranch(
           id: 'frontal_push',
-          baseProbability: 1.0,
+          baseProbability: 0.7,
           events: [
             ScriptEvent(
               text: '{away} 선수 5팩 물량. 탱크 벌처가 압도적으로 앞섭니다.',
@@ -341,7 +354,7 @@ const _tvtBbsVs5fac = ScenarioScript(
         // 역전 드랍: 불리한 쪽이 올인 본진 드랍
         ScriptBranch(
           id: 'desperate_drop',
-          baseProbability: 0.6,
+          baseProbability: 0.9,
           conditionStat: 'harass',
           events: [
             ScriptEvent(

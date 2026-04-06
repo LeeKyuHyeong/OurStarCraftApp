@@ -125,7 +125,7 @@ const _pvt5gateCarrierVsBbs = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'home_wins',
-          baseProbability: 1.0,
+          baseProbability: 2.5,
           events: [
             ScriptEvent(
               text: '{home} 선수 캐리어 편대가 출격합니다! 인터셉터가 쏟아집니다!',

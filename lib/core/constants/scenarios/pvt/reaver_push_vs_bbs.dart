@@ -76,10 +76,16 @@ const _pvtReaverPushVsBbs = ScenarioScript(
           skipChance: 0.3,
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스와 서포트 베이 건설을 시작합니다! 공성 빌드!',
+          text: '{home} 선수 로보틱스 건설을 시작합니다!',
           owner: LogOwner.home,
-          homeResource: -15,
-          altText: '{home}, 로보틱스와 서포트 베이가 올라갑니다! 셔틀이 나올 준비를 하네요!',
+          homeResource: -10,
+          altText: '{home}, 로보틱스가 올라갑니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 서포트 베이까지 건설합니다! 리버를 준비하는 겁니다!',
+          owner: LogOwner.home,
+          homeResource: -10,
+          altText: '{home}, 서포트 베이 건설 완료! 셔틀과 리버가 나올 준비!',
         ),
         ScriptEvent(
           text: 'BBS를 버텨낸다면 리버 셔틀이 게임을 뒤집을 수 있습니다!',

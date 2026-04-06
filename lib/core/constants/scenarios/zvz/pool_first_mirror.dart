@@ -78,7 +78,7 @@ const _zvzPoolFirstMirror = ScenarioScript(
         // 분기 A: 홈 저글링 컨트롤 승리
         ScriptBranch(
           id: 'home_ling_wins',
-          baseProbability: 1.0,
+          baseProbability: 1.15,
           events: [
             ScriptEvent(
               text: '{home}, 저글링 컨트롤 차이! 상대 저글링을 잡아냅니다!',
@@ -98,7 +98,7 @@ const _zvzPoolFirstMirror = ScenarioScript(
               altText: '{home} 선수 저글링 돌파! 드론을 공격합니다!',
             ),
             ScriptEvent(
-              text: '저글링 컨트롤 차이가 승부를 갈랐습니다!',
+              text: '저글링 컨트롤 차이가 승부를 갈랐습니다! 승리를 거둡니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -107,7 +107,7 @@ const _zvzPoolFirstMirror = ScenarioScript(
         // 분기 B: 어웨이 저글링 컨트롤 승리
         ScriptBranch(
           id: 'away_ling_wins',
-          baseProbability: 1.0,
+          baseProbability: 0.85,
           events: [
             ScriptEvent(
               text: '{away}, 저글링 컨트롤 차이! 상대 저글링을 잡아냅니다!',
@@ -127,7 +127,7 @@ const _zvzPoolFirstMirror = ScenarioScript(
               altText: '{away} 선수 저글링 돌파! 드론을 공격합니다!',
             ),
             ScriptEvent(
-              text: '저글링 컨트롤 차이가 승부를 갈랐습니다!',
+              text: '저글링 컨트롤 차이가 승부를 갈랐습니다! 승리를 거둡니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

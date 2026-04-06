@@ -106,7 +106,6 @@ const _tvt1fac1starVs2facPush = ScenarioScript(
           owner: LogOwner.away,
           awayResource: -350, // 스타포트 250 + 컨트롤타워 100
           fixedCost: true,
-          skipChance: 0.3,
         ),
         ScriptEvent(
           text: '{home} 선수 센터에서 벌처 교전! 선제 타격을 노립니다!',

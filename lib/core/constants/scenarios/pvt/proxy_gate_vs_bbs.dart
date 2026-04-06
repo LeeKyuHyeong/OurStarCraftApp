@@ -84,7 +84,7 @@ const _pvtProxyGateVsBbs = ScenarioScript(
           favorsStat: 'attack',
         ),
         ScriptEvent(
-          text: '양쪽 본진이 동시에 공격받고 있습니다! 치킨 레이스!',
+          text: '양쪽 본진이 동시에 공격받고 있습니다! 먼저 본진을 부수는 쪽이 승리!',
           owner: LogOwner.system,
           skipChance: 0.2,
         ),

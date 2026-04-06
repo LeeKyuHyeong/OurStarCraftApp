@@ -87,7 +87,7 @@ const _zvp973HydraVs2starCorsair = ScenarioScript(
         ),
       ],
     ),
-    // Phase 2: 히드라 푸시 (lines 22-29)
+    // Phase 2: 커세어 지배 vs 히드라 대공 (lines 22-29)
     ScriptPhase(
       name: 'late_setup',
       startLine: 22,
@@ -95,28 +95,26 @@ const _zvp973HydraVs2starCorsair = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
+          text: '{away} 선수 커세어가 오버로드를 계속 사냥합니다! 시야가 줄어듭니다!',
+          owner: LogOwner.away,
+          awayArmy: 3, homeArmy: -1, homeResource: -15, favorsStat: 'harass',
+          altText: '{away}, 오버로드가 계속 격추됩니다! 보급이 위험합니다!',
+        ),
+        ScriptEvent(
           text: '{home} 선수 히드라 부대를 모아서 프로토스 앞마당으로 이동합니다!',
           owner: LogOwner.home,
           homeArmy: 3,
           favorsStat: 'attack',
-          altText: '{home}, 히드라 타이밍 어택! 프로토스를 향해 전진합니다!',
-        ),
-        ScriptEvent(
-          text: '{away} 선수 지상 수비가 약합니다! 커세어에 자원을 집중했어요.',
-          owner: LogOwner.away,
-          awayArmy: 1,
-          awayResource: -15,
-          skipChance: 0.2,
+          altText: '{home}, 히드라 타이밍 어택! 커세어 투자로 지상이 약합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 게이트웨이의 질럿과 캐논으로 수비를 준비합니다.',
           owner: LogOwner.away,
-          awayArmy: 2,
-          awayResource: -10,
+          awayArmy: 3, awayResource: -15,
           favorsStat: 'defense',
         ),
         ScriptEvent(
-          text: '히드라 타이밍 어택! 커세어에 투자한 프로토스의 지상이 약합니다!',
+          text: '히드라 타이밍 vs 커세어의 오버로드 사냥! 무엇이 먼저 효과를 낼까요?',
           owner: LogOwner.system,
         ),
       ],
@@ -161,7 +159,7 @@ const _zvp973HydraVs2starCorsair = ScenarioScript(
         ),
         ScriptBranch(
           id: 'away_wins',
-          baseProbability: 1.0,
+          baseProbability: 2.5,
           conditionStat: 'defense',
           events: [
             ScriptEvent(

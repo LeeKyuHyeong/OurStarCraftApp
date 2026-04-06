@@ -127,7 +127,7 @@ const _zvpHydraLurkerVsDragoonPush = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'home_wins',
-          baseProbability: 1.0,
+          baseProbability: 2.5,
           conditionStat: 'control',
           events: [
             ScriptEvent(

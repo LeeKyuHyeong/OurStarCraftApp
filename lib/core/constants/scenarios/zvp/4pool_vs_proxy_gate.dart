@@ -106,7 +106,7 @@ const _zvp4poolVsProxyGate = ScenarioScript(
           skipChance: 0.2,
         ),
         ScriptEvent(
-          text: '{home} 선수 스포닝풀에서 저글링을 계속 보충합니다!',
+          text: '{home} 선수 라바에서 저글링을 계속 보충합니다!',
           owner: LogOwner.home,
           homeArmy: 3, homeResource: -10,
           altText: '{home}, 저글링 보충! 수적 우위를 노립니다!',

@@ -58,13 +58,13 @@ const _pvp1gateMultiVs3gateSpeedzealot = ScenarioScript(
         ScriptEvent(
           text: '{away}, 각속 업그레이드 완료! 스피드질럿이 앞마당으로!',
           owner: LogOwner.away,
-          awayArmy: 5, favorsStat: 'attack',
+          awayArmy: 5, homeArmy: 2, favorsStat: 'attack',
           altText: '{away} 선수 스피드질럿 돌진! 멀티를 노립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 질럿과 프로브로 앞마당을 지킵니다!',
           owner: LogOwner.home,
-          homeArmy: 2,
+          homeArmy: 1,
         ),
         ScriptEvent(
           text: '멀티를 간 상태에서 스피드질럿! 앞마당을 지킬 수 있을까?',

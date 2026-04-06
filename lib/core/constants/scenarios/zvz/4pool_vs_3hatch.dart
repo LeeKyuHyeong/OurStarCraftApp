@@ -29,7 +29,7 @@ const _zvz4poolVs3hatch = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 저글링 6기 생산! 상대 진영으로 출발합니다!',
           owner: LogOwner.home,
-          homeArmy: 6, homeResource: -15,
+          homeArmy: 3, homeResource: -15,
           altText: '{home}, 저글링이 빠르게 출발합니다!',
         ),
         ScriptEvent(
@@ -40,10 +40,10 @@ const _zvz4poolVs3hatch = ScenarioScript(
         ),
       ],
     ),
-    // Phase 1: 저글링 도착 (lines 11-16)
+    // Phase 1: 저글링 도착 (lines 7-10)
     ScriptPhase(
       name: 'ling_rush',
-      startLine: 11,
+      startLine: 7,
       linearEvents: [
         ScriptEvent(
           text: '{home}, 저글링이 도착합니다! 상대는 풀도 없고 저글링도 없습니다!',
@@ -62,10 +62,10 @@ const _zvz4poolVs3hatch = ScenarioScript(
         ),
       ],
     ),
-    // Phase 2: 결과 - 분기 (lines 17-30)
+    // Phase 2: 결과 - 분기 (lines 11-24)
     ScriptPhase(
       name: 'rush_result',
-      startLine: 17,
+      startLine: 11,
       branches: [
         // 분기 A: 4풀 대성공 → 즉시 결정
         ScriptBranch(
@@ -89,7 +89,7 @@ const _zvz4poolVs3hatch = ScenarioScript(
               homeArmy: 1, awayResource: -10, favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '4풀이 노풀 3해처리를 초토화! 올인 대성공!',
+              text: '4풀이 노풀 3해처리를 초토화! 올인 대성공! 승리를 거둡니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -117,7 +117,7 @@ const _zvz4poolVs3hatch = ScenarioScript(
               awayArmy: 5, awayResource: -10, favorsStat: 'defense',
             ),
             ScriptEvent(
-              text: '4풀을 막아냈습니다! 3해처리의 자원이 살아있습니다!',
+              text: '4풀을 막아냈습니다! 3해처리의 자원이 살아있습니다! 승리를 거둡니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

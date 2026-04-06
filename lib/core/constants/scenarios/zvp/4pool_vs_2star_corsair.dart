@@ -132,7 +132,8 @@ const _zvp4poolVs2starCorsair = ScenarioScript(
         ),
         ScriptBranch(
           id: 'away_wins',
-          baseProbability: 1.0,
+          baseProbability: 2.0,
+          conditionStat: 'defense',
           events: [
             ScriptEvent(
               text: '{away}, 질럿이 저글링을 전부 잡아내고 커세어까지 합류합니다!',

@@ -124,9 +124,7 @@ const _pvtDarkSwingVsBbs = ScenarioScript(
         // 분기 A: 다크가 BBS를 역전
         ScriptBranch(
           id: 'home_wins',
-          conditionStat: 'harass',
-          homeStatMustBeHigher: true,
-          baseProbability: 1.0,
+          baseProbability: 1.5,
           events: [
             ScriptEvent(
               text: '{home} 선수 다크 템플러가 테란 본진에 잠입합니다!',
@@ -168,8 +166,6 @@ const _pvtDarkSwingVsBbs = ScenarioScript(
         // 분기 B: BBS가 다크 전에 프로토스 괴멸
         ScriptBranch(
           id: 'away_wins',
-          conditionStat: 'attack',
-          homeStatMustBeHigher: false,
           baseProbability: 1.0,
           events: [
             ScriptEvent(

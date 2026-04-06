@@ -82,10 +82,17 @@ const _tvtBbsVs1facDouble = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 벌처와 마린으로 대응 준비.',
           owner: LogOwner.away,
-          awayArmy: 1, // 마린 1기
-          awayResource: -50, // 마린 1기
+          awayArmy: 3, // 벌처 1대(2sup) + 마린 1기(1sup)
+          awayResource: -125, // 벌처(75) + 마린(50)
           fixedCost: true,
           altText: '{away} 선수 벌처가 나오면서 방어 태세.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 벌처로 진격하는 마린을 차단합니다.',
+          owner: LogOwner.away,
+          homeArmy: -2, // 마린 2기 사망
+          favorsStat: 'defense',
+          altText: '{away} 선수 벌처 기동력으로 마린 진격을 막습니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 상대 앞마당에 벙커 건설 시도.',
@@ -114,7 +121,7 @@ const _tvtBbsVs1facDouble = ScenarioScript(
           id: 'bbs_success_to_victory',
           conditionStat: 'attack',
           homeStatMustBeHigher: true,
-          baseProbability: 1.0,
+          baseProbability: 0.8,
           events: [
             ScriptEvent(
               text: '{home} 선수 벙커 완성! 마린이 들어갑니다!',
@@ -199,7 +206,7 @@ const _tvtBbsVs1facDouble = ScenarioScript(
           id: 'bbs_defense_to_victory',
           conditionStat: 'defense',
           homeStatMustBeHigher: false,
-          baseProbability: 1.0,
+          baseProbability: 1.2,
           events: [
             ScriptEvent(
               text: '{away} 선수 벌처와 SCV를 동원해 마린을 끊습니다! 벙커에 마린이 못 들어갑니다!',

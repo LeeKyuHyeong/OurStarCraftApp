@@ -38,7 +38,7 @@ const _zvp973HydraVsCorsair = ScenarioScript(
           owner: LogOwner.away,
           awayArmy: 2,
           awayResource: -15,
-          altText: '{away}, 커세어와 함께 사이버네틱스 코어에서 드라군을 생산합니다.',
+          altText: '{away}, 커세어와 함께 드라군을 생산합니다.',
         ),
         ScriptEvent(
           text: '커세어 빌드업이 완성되기 전에 히드라가 들어갈 수 있을까요?',

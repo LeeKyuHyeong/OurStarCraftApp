@@ -50,10 +50,10 @@ const _zvz9overpoolVs12hatch = ScenarioScript(
         ),
       ],
     ),
-    // Phase 1: 저글링 도착 (lines 15-20)
+    // Phase 1: 저글링 도착 (lines 9-13)
     ScriptPhase(
       name: 'ling_attack',
-      startLine: 15,
+      startLine: 9,
       linearEvents: [
         ScriptEvent(
           text: '{home}, 발업 저글링이 상대 앞마당에 도착합니다!',
@@ -74,15 +74,15 @@ const _zvz9overpoolVs12hatch = ScenarioScript(
         ),
       ],
     ),
-    // Phase 2: 앞마당 수비 결과 - 분기 (lines 21-36)
+    // Phase 2: 앞마당 수비 결과 - 분기 (lines 13-24)
     ScriptPhase(
       name: 'hatch_defense',
-      startLine: 21,
+      startLine: 13,
       branches: [
         // 분기 A: 앞마당 파괴
         ScriptBranch(
           id: 'hatch_destroyed',
-          baseProbability: 1.0,
+          baseProbability: 0.8,
           events: [
             ScriptEvent(
               text: '{home}, 저글링이 드론을 뚫습니다! 앞마당 해처리를 공격!',
@@ -102,16 +102,16 @@ const _zvz9overpoolVs12hatch = ScenarioScript(
               awayArmy: -2, awayResource: -10, homeArmy: -2, favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '앞마당이 큰 피해를 입었습니다! 공격 성공!',
-              owner: LogOwner.system,
-              skipChance: 0.3,
+              text: '앞마당이 파괴됩니다! 공격 성공! 승리를 거둡니다!',
+              owner: LogOwner.home,
+              decisive: true,
             ),
           ],
         ),
         // 분기 B: 수비 성공
         ScriptBranch(
           id: 'defense_success',
-          baseProbability: 1.0,
+          baseProbability: 1.2,
           events: [
             ScriptEvent(
               text: '{away}, 성큰이 완성됩니다! 저글링을 잡아냅니다!',
@@ -130,18 +130,18 @@ const _zvz9overpoolVs12hatch = ScenarioScript(
               awayArmy: 1, homeArmy: -1, favorsStat: 'control',
             ),
             ScriptEvent(
-              text: '수비 성공! 12앞마당이 살았습니다!',
-              owner: LogOwner.system,
-              skipChance: 0.2,
+              text: '앞마당을 지켜냈습니다! 12앞마당 수비 성공! 승리를 거둡니다!',
+              owner: LogOwner.away,
+              decisive: true,
             ),
           ],
         ),
       ],
     ),
-    // Phase 3: 뮤탈 경쟁 (lines 37-52)
+    // Phase 3: 뮤탈 경쟁 (lines 18-30)
     ScriptPhase(
       name: 'mutal_race',
-      startLine: 37,
+      startLine: 18,
       recoveryArmyPerLine: 1,
       recoveryResourcePerLine: 5,
       linearEvents: [
@@ -182,15 +182,15 @@ const _zvz9overpoolVs12hatch = ScenarioScript(
         ),
       ],
     ),
-    // Phase 4: 결전 - 분기 (lines 53-68)
+    // Phase 4: 결전 - 분기 (lines 31-45)
     ScriptPhase(
       name: 'decisive_battle',
-      startLine: 53,
+      startLine: 31,
       branches: [
         // 분기 A: 12앞(어웨이) 자원 우위로 뮤탈 역전
         ScriptBranch(
           id: 'away_macro_comeback',
-          baseProbability: 1.0,
+          baseProbability: 1.4,
           events: [
             ScriptEvent(
               text: '{away} 선수 뮤탈이 합류합니다! 물량이 늘어납니다!',
@@ -209,7 +209,7 @@ const _zvz9overpoolVs12hatch = ScenarioScript(
               awayArmy: 3, homeArmy: -3, homeResource: -15, favorsStat: 'harass',
             ),
             ScriptEvent(
-              text: '12앞마당의 자원이 빛나는 순간입니다!',
+              text: '12앞마당의 자원이 빛나는 순간입니다! 승리를 거둡니다!',
               owner: LogOwner.away,
               decisive: true,
             ),
@@ -218,7 +218,7 @@ const _zvz9overpoolVs12hatch = ScenarioScript(
         // 분기 B: 9오버풀(홈) 뮤탈 선점 유지
         ScriptBranch(
           id: 'home_mutal_dominance',
-          baseProbability: 1.0,
+          baseProbability: 0.6,
           events: [
             ScriptEvent(
               text: '{home}, 뮤탈 수 차이로 공중전을 압도합니다!',
@@ -238,7 +238,7 @@ const _zvz9overpoolVs12hatch = ScenarioScript(
               homeArmy: -2, awayArmy: -2, favorsStat: 'control',
             ),
             ScriptEvent(
-              text: '뮤탈 선점이 승부를 갈랐습니다!',
+              text: '뮤탈 선점이 승부를 갈랐습니다! 승리를 거둡니다!',
               owner: LogOwner.home,
               decisive: true,
             ),

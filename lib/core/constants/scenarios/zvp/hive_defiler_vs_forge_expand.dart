@@ -33,12 +33,12 @@ const _zvpHiveDefilerVsForgeExpand = ScenarioScript(
           homeResource: -15,
         ),
         ScriptEvent(
-          text: '{away} 선수 캐논을 세우고 게이트웨이와 사이버네틱스 코어를 올리며 앞마당을 확보합니다.',
+          text: '{away} 선수 캐논으로 입구를 막으며 앞마당을 확보합니다.',
           owner: LogOwner.away,
           awayArmy: 2,
           awayResource: -10,
           favorsStat: 'defense',
-          altText: '{away}, 게이트웨이와 사이버네틱스 코어! 캐논과 함께 앞마당을 지킵니다.',
+          altText: '{away}, 캐논 라인! 앞마당을 단단히 지킵니다.',
         ),
         ScriptEvent(
           text: '양측 모두 확장을 선택했습니다! 장기전이 예상됩니다.',
@@ -94,11 +94,11 @@ const _zvpHiveDefilerVsForgeExpand = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 하이브를 완성하고 디파일러 마운드에서 디파일러를 생산합니다!',
+          text: '{home} 선수 하이브를 완성하고 디파일러 마운드에서 준비합니다! 다크 스웜 체제!',
           owner: LogOwner.home,
           homeArmy: 3,
           homeResource: -25,
-          altText: '{home}, 디파일러 마운드 완성! 디파일러가 나왔습니다! 다크 스웜 준비 완료!',
+          altText: '{home}, 디파일러 마운드 완성! 다크 스웜 준비 완료!',
         ),
         ScriptEvent(
           text: '{away} 선수 하이템플러를 생산합니다! 사이오닉 스톰 준비!',
@@ -145,7 +145,7 @@ const _zvpHiveDefilerVsForgeExpand = ScenarioScript(
               altText: '{home}, 다크 스웜! 프로토스 원거리 유닛이 무력화됩니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 울트라리스크 캐번에서 울트라리스크가 출격! 저글링과 프로토스 진영을 돌파합니다!',
+              text: '{home} 선수 울트라리스크가 출격! 저글링과 함께 프로토스 진영을 돌파합니다!',
               owner: LogOwner.home,
               homeArmy: 3,
               awayArmy: -3,

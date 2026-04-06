@@ -87,7 +87,7 @@ const _zvpYabarwiVsCannonRush = ScenarioScript(
         ),
       ],
     ),
-    // Phase 2: 야바위 전환 (lines 22-29)
+    // Phase 2: 공방 전개 (lines 22-29)
     ScriptPhase(
       name: 'late_setup',
       startLine: 22,
@@ -95,26 +95,26 @@ const _zvpYabarwiVsCannonRush = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 히드라리스크와 럴커 편대를 구성합니다!',
-          owner: LogOwner.home,
-          homeArmy: 5,
-          homeResource: -15,
-          altText: '{home}, 럴커 합류! 공격 준비 완료!',
+          text: '{away} 선수 캐논을 계속 올립니다! 포위망을 좁혀오고 있습니다!',
+          owner: LogOwner.away,
+          awayArmy: 3, awayResource: -20, favorsStat: 'attack',
+          altText: '{away}, 추가 캐논! 저그 앞마당이 봉쇄될 위기입니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 저글링을 3방향으로 분산시킵니다! 어디가 진짜인가!',
+          text: '{home} 선수 히드라리스크와 럴커 편대를 구성합니다!',
           owner: LogOwner.home,
           homeArmy: 3,
+          homeResource: -15,
+          altText: '{home}, 럴커 합류! 캐논을 돌파할 방법을 찾습니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 저글링을 여러 방향으로 분산시킵니다!',
+          owner: LogOwner.home,
+          homeArmy: 2,
           favorsStat: 'strategy',
         ),
         ScriptEvent(
-          text: '{away} 선수 캐논 러시 실패 후 드라군을 뽑으려 합니다.',
-          owner: LogOwner.away,
-          awayArmy: 2,
-          awayResource: -10,
-        ),
-        ScriptEvent(
-          text: '캐논 러시 실패! 야바위 전술이 시작됩니다!',
+          text: '캐논 포위망 vs 야바위 전술! 승부는 아직 모릅니다!',
           owner: LogOwner.system,
         ),
       ],
@@ -161,7 +161,7 @@ const _zvpYabarwiVsCannonRush = ScenarioScript(
           id: 'away_wins',
           conditionStat: 'strategy',
           homeStatMustBeHigher: false,
-          baseProbability: 1.0,
+          baseProbability: 2.0,
           events: [
             ScriptEvent(
               text: '{away} 선수 캐논이 핵심 위치에 완성됩니다! 해처리가 맞습니다!',

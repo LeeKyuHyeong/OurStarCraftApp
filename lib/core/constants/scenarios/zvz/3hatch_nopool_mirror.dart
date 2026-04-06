@@ -190,7 +190,7 @@ const _zvz3hatchNopoolMirror = ScenarioScript(
               homeArmy: 3, awayArmy: -3, awayResource: -15, favorsStat: 'harass',
             ),
             ScriptEvent(
-              text: '결정적인 순간입니다!',
+              text: '{home}, 결정타! 승리를 거둡니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -218,7 +218,7 @@ const _zvz3hatchNopoolMirror = ScenarioScript(
               awayArmy: 3, homeArmy: -3, homeResource: -15, favorsStat: 'harass',
             ),
             ScriptEvent(
-              text: '결정적인 순간입니다!',
+              text: '{away}, 결정타! 승리를 거둡니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

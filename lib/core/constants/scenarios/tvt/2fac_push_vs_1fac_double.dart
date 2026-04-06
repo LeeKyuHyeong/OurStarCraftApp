@@ -216,11 +216,11 @@ const _tvt2facPushVs1facDouble = ScenarioScript(
           altText: '{home} 선수 탱크가 나옵니다, 드랍 준비.',
         ),
         ScriptEvent(
-          text: '{away} 선수 아머리 건설, 골리앗을 준비합니다.',
+          text: '{away} 선수 아머리 건설, 골리앗을 준비합니다. 상대 스타포트에 대비합니다.',
           owner: LogOwner.away,
           awayResource: -150, // 아머리(150)
           fixedCost: true,
-          altText: '{away} 선수 아머리가 올라갑니다.',
+          altText: '{away} 선수 아머리가 올라갑니다. 스타포트 드랍십 견제 대비.',
         ),
         ScriptEvent(
           text: '{away} 선수도 시즈 탱크 추가. 라인 대치가 시작됩니다.',

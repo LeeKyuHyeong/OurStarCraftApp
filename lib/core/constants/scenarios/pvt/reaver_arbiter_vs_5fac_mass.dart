@@ -127,8 +127,7 @@ const _pvtReaverArbiterVs5facMass = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'home_wins',
-          baseProbability: 1.0,
-          conditionStat: 'strategy',
+          baseProbability: 2.5,
           events: [
             ScriptEvent(
               text: '{home} 선수 아비터 스테이시스 필드! 시즈탱크 절반이 얼어붙습니다!',

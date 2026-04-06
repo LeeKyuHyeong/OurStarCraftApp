@@ -49,6 +49,10 @@ const _tvtBbsVs2star = ScenarioScript(
           altText: '{home} 선수 BBS 확정. 마린을 모읍니다.',
         ),
         ScriptEvent(
+          text: '{home} 선수 상대 스타포트를 정찰합니다. 공중 유닛이 나올 수 있습니다.',
+          owner: LogOwner.home,
+        ),
+        ScriptEvent(
           text: '{home} 선수 마린이 모이고 있습니다.',
           owner: LogOwner.home,
           homeArmy: 3, // 마린 3기
@@ -257,7 +261,7 @@ const _tvtBbsVs2star = ScenarioScript(
               homeResource: -150, // 터렛 2개 (75x2)
               fixedCost: true,
               favorsStat: 'defense',
-              altText: '{home} 선수 대공 방어가 완성됩니다. 클로킹 레이스를 봉쇄합니다.',
+              altText: '{home} 선수 대공 방어가 완성됩니다. 공중 유닛을 봉쇄합니다.',
             ),
             ScriptEvent(
               text: '{home} 선수 탱크 라인으로 전진! 시즈 포격!',
@@ -322,7 +326,7 @@ const _tvtBbsVs2star = ScenarioScript(
           baseProbability: 0.8,
           events: [
             ScriptEvent(
-              text: '{home} 선수 터렛으로 레이스를 막고 있지만 완벽하지 않습니다.',
+              text: '{home} 선수 터렛을 촘촘히 깝니다. 공중 유닛 격추!',
               owner: LogOwner.home,
               homeResource: -75, // 터렛 1개
               fixedCost: true,

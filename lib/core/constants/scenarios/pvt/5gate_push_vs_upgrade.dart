@@ -173,7 +173,7 @@ const _pvt5gatePushVsUpgrade = ScenarioScript(
         ),
         ScriptBranch(
           id: 'away_wins',
-          baseProbability: 1.0,
+          baseProbability: 2.5,
           events: [
             ScriptEvent(
               text: '{away} 선수 2차 업그레이드 마린이 드라군을 녹입니다! 화력이 압도적!',

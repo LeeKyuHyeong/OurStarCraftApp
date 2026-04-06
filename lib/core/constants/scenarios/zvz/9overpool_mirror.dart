@@ -100,7 +100,7 @@ const _zvz9overpoolMirror = ScenarioScript(
         // 분기 A: 홈이 저글링 견제 성공
         ScriptBranch(
           id: 'home_ling_harass',
-          baseProbability: 1.0,
+          baseProbability: 1.3,
           events: [
             ScriptEvent(
               text: '{home}, 저글링으로 상대 앞마당 드론을 노립니다! 성큰 완성 전!',
@@ -129,7 +129,7 @@ const _zvz9overpoolMirror = ScenarioScript(
         // 분기 B: 어웨이가 저글링 견제 성공
         ScriptBranch(
           id: 'away_ling_harass',
-          baseProbability: 1.0,
+          baseProbability: 0.7,
           events: [
             ScriptEvent(
               text: '{away}, 저글링으로 상대 앞마당 드론을 노립니다! 성큰 완성 전!',
@@ -201,7 +201,7 @@ const _zvz9overpoolMirror = ScenarioScript(
         // 분기 A: 홈 뮤탈 컨트롤 우위
         ScriptBranch(
           id: 'home_mutal_wins',
-          baseProbability: 1.0,
+          baseProbability: 1.3,
           events: [
             ScriptEvent(
               text: '{home} 선수 뮤탈리스크가 나옵니다! 스커지도 섞습니다!',
@@ -229,7 +229,7 @@ const _zvz9overpoolMirror = ScenarioScript(
         // 분기 B: 어웨이 뮤탈 컨트롤 우위
         ScriptBranch(
           id: 'away_mutal_wins',
-          baseProbability: 1.0,
+          baseProbability: 0.7,
           events: [
             ScriptEvent(
               text: '{home} 선수 뮤탈리스크가 나옵니다! 스커지도 섞습니다!',
@@ -264,7 +264,7 @@ const _zvz9overpoolMirror = ScenarioScript(
         // 분기 A: 홈 뮤탈 견제 승리
         ScriptBranch(
           id: 'home_decisive_win',
-          baseProbability: 1.0,
+          baseProbability: 1.3,
           events: [
             ScriptEvent(
               text: '뮤탈 소모전! 9오버풀 미러의 결전입니다!',
@@ -282,7 +282,7 @@ const _zvz9overpoolMirror = ScenarioScript(
               homeArmy: 3, awayArmy: -5, favorsStat: 'control',
             ),
             ScriptEvent(
-              text: '결정적인 순간입니다!',
+              text: '{home}, 결정타! 승리를 거둡니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -291,7 +291,7 @@ const _zvz9overpoolMirror = ScenarioScript(
         // 분기 B: 어웨이 뮤탈 견제 승리
         ScriptBranch(
           id: 'away_decisive_win',
-          baseProbability: 1.0,
+          baseProbability: 0.7,
           events: [
             ScriptEvent(
               text: '뮤탈 소모전! 9오버풀 미러의 결전입니다!',
@@ -309,7 +309,7 @@ const _zvz9overpoolMirror = ScenarioScript(
               awayArmy: 3, homeArmy: -5, favorsStat: 'control',
             ),
             ScriptEvent(
-              text: '결정적인 순간입니다!',
+              text: '{away}, 결정타! 승리를 거둡니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

@@ -88,7 +88,7 @@ const _zvp973HydraVsCannonRush = ScenarioScript(
         ),
       ],
     ),
-    // Phase 2: 히드라 반격 (lines 22-29)
+    // Phase 2: 공방 전개 (lines 22-29)
     ScriptPhase(
       name: 'late_setup',
       startLine: 22,
@@ -96,28 +96,20 @@ const _zvp973HydraVsCannonRush = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 히드라리스크를 추가 생산합니다! 캐논을 하나씩 파괴합니다!',
+          text: '{away} 선수 캐논을 추가로 올립니다! 포위망을 더 좁힙니다!',
+          owner: LogOwner.away,
+          awayArmy: 3, awayResource: -20, favorsStat: 'attack',
+          altText: '{away}, 추가 캐논! 히드라가 나오기 전에 끝내야 합니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 히드라리스크가 나오기 시작합니다! 사거리 우위를 노립니다!',
           owner: LogOwner.home,
           homeArmy: 3,
-          awayArmy: -2,
+          homeResource: -15,
           favorsStat: 'attack',
         ),
         ScriptEvent(
-          text: '{away} 선수 추가 캐논을 올리려 하지만 히드라에 막힙니다!',
-          owner: LogOwner.away,
-          awayResource: -15,
-          awayArmy: -1,
-          altText: '{away}, 캐논을 더 올리려 하지만 히드라 사거리에 걸립니다!',
-        ),
-        ScriptEvent(
-          text: '{home} 선수 히드라 부대가 캐논을 정리하고 전진 준비를 합니다.',
-          owner: LogOwner.home,
-          homeArmy: 2,
-          homeResource: -10,
-          skipChance: 0.2,
-        ),
-        ScriptEvent(
-          text: '캐논이 히드라 사거리에 밀리고 있습니다! 프로토스가 위험합니다!',
+          text: '히드라 사거리가 캐논보다 길지만 수가 충분한지가 관건입니다!',
           owner: LogOwner.system,
         ),
       ],
@@ -162,7 +154,7 @@ const _zvp973HydraVsCannonRush = ScenarioScript(
         ),
         ScriptBranch(
           id: 'away_wins',
-          baseProbability: 1.0,
+          baseProbability: 2.0,
           conditionStat: 'control',
           events: [
             ScriptEvent(

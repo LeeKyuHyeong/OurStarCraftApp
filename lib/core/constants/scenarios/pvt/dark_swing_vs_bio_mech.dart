@@ -126,9 +126,7 @@ const _pvtDarkSwingVsBioMech = ScenarioScript(
         // 분기 A: 다크 잠입 성공 → 프로토스 승리
         ScriptBranch(
           id: 'home_wins',
-          conditionStat: 'harass',
-          homeStatMustBeHigher: true,
-          baseProbability: 1.0,
+          baseProbability: 1.5,
           events: [
             ScriptEvent(
               text: '{home} 선수 다크가 스캔 사각지대로 잠입합니다!',
@@ -171,8 +169,6 @@ const _pvtDarkSwingVsBioMech = ScenarioScript(
         // 분기 B: 디텍 성공 → 사이언스 베슬 합류 → 테란 역전
         ScriptBranch(
           id: 'away_wins',
-          conditionStat: 'scout',
-          homeStatMustBeHigher: false,
           baseProbability: 1.0,
           events: [
             ScriptEvent(

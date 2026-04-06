@@ -40,12 +40,12 @@ const _pvp4gateVsMulti = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 사이버네틱스 코어 건설! 드라군 준비!',
           owner: LogOwner.away,
-          awayResource: -15,
+          awayArmy: 3, awayResource: -15,
         ),
         ScriptEvent(
           text: '{home} 선수 게이트웨이를 빠르게 추가합니다! 3게이트!',
           owner: LogOwner.home,
-          homeResource: -30,
+          homeArmy: 4, homeResource: -30,
           altText: '{home}, 게이트웨이 추가! 드라군을 빠르게 모읍니다!',
         ),
       ],
@@ -120,9 +120,10 @@ const _pvp4gateVsMulti = ScenarioScript(
               altText: '{away} 선수 수비 성공! 드라군을 잡아냅니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 드라군을 많이 잃었습니다! 압박 실패!',
-              owner: LogOwner.home,
+              text: '{away} 선수 멀티 수비 성공! 드라군 압박을 막아냅니다!',
+              owner: LogOwner.away,
               homeArmy: -4,
+              decisive: true,
             ),
             ScriptEvent(
               text: '{away}, 게이트웨이가 추가로 돌아갑니다! 멀티 자원이 빛을 발합니다!',

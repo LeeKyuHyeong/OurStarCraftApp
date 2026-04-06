@@ -68,13 +68,13 @@ const _pvp3gateSpeedzealotVs1gateRobo = ScenarioScript(
         ScriptEvent(
           text: '{home}, 스피드 질럿이 전진합니다! 빠릅니다!',
           owner: LogOwner.home,
-          homeArmy: 5, homeResource: -25, favorsStat: 'attack',
+          homeArmy: 5, awayArmy: 2, homeResource: -25, favorsStat: 'attack',
           altText: '{home} 선수 스피드 질럿! 빠른 속도로 돌진!',
         ),
         ScriptEvent(
           text: '{away} 선수 드라군과 질럿으로 막습니다! 리버가 나와야!',
           owner: LogOwner.away,
-          awayArmy: 2, awayResource: -15,
+          awayArmy: 1, awayResource: -15,
           altText: '{away}, 수비! 리버까지 버텨야 합니다!',
         ),
         ScriptEvent(

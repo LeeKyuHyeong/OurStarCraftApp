@@ -154,7 +154,7 @@ const _pvt5gateCarrierVsBioMech = ScenarioScript(
         ),
         ScriptBranch(
           id: 'away_wins',
-          baseProbability: 1.0,
+          baseProbability: 2.2,
           events: [
             ScriptEvent(
               text: '{away} 선수 골리앗 편대가 캐리어에 집중 화력! 사거리 업그레이드!',

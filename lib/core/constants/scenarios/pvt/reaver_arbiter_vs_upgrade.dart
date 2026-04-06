@@ -157,7 +157,7 @@ const _pvtReaverArbiterVsUpgrade = ScenarioScript(
         ),
         ScriptBranch(
           id: 'away_wins',
-          baseProbability: 1.0,
+          baseProbability: 2.0,
           conditionStat: 'macro',
           events: [
             ScriptEvent(

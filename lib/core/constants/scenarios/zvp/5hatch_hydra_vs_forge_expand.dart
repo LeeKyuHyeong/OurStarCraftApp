@@ -33,10 +33,10 @@ const _zvp5hatchHydraVsForgeExpand = ScenarioScript(
           altText: '{home}, 앞마당 해처리! 확장을 가져갑니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수 앞마당 넥서스 건설! 캐논과 게이트웨이로 입구를 막습니다!',
+          text: '{away} 선수 앞마당 넥서스 건설! 게이트웨이로 입구를 막습니다!',
           owner: LogOwner.away,
           awayResource: -30,
-          altText: '{away}, 넥서스! 게이트웨이와 캐논으로 입구를 봉쇄합니다!',
+          altText: '{away}, 넥서스와 캐논! 앞마당 방어를 준비합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 스포닝풀과 가스를 올립니다.',
@@ -44,7 +44,7 @@ const _zvp5hatchHydraVsForgeExpand = ScenarioScript(
           homeResource: -20,
         ),
         ScriptEvent(
-          text: '국룰 조합입니다! 히드라 타이밍이냐 캐논 수비냐!',
+          text: '국룰 포지더블! 저그 타이밍 어택이냐 캐논 수비냐!',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),

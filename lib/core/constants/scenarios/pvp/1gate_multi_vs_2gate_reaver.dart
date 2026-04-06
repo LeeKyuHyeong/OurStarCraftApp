@@ -57,13 +57,13 @@ const _pvp1gateMultiVs2gateReaver = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 셔틀에 리버를 태웁니다! 멀티를 노립니다!',
           owner: LogOwner.away,
-          awayArmy: 3, awayResource: -15,
+          awayArmy: 3, homeArmy: 2, awayResource: -15,
           altText: '{away}, 셔틀 리버 출격! 앞마당 프로브를 노립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 앞마당에 드라군을 배치합니다!',
           owner: LogOwner.home,
-          homeArmy: 3, homeResource: -15,
+          homeArmy: 2, homeResource: -15,
         ),
         ScriptEvent(
           text: '셔틀 리버가 멀티를 노립니다! 드라군 배치가 핵심!',

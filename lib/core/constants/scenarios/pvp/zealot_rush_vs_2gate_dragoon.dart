@@ -67,7 +67,7 @@ const _pvpZealotRushVs2gateDragoon = ScenarioScript(
         ),
         ScriptEvent(
           text: '질럿 러시 vs 투게이트 드라군! 드라군이 나오면 막힙니다!',
-          owner: LogOwner.system,
+          owner: LogOwner.away,
         ),
       ],
     ),

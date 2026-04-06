@@ -61,10 +61,10 @@ const _zvz12hatchVs3hatchNopool = ScenarioScript(
         ),
       ],
     ),
-    // Phase 1: 저글링 견제 타이밍 (lines 17-28)
+    // Phase 1: 저글링 견제 타이밍 (lines 11-20)
     ScriptPhase(
       name: 'ling_timing',
-      startLine: 17,
+      startLine: 11,
       linearEvents: [
         ScriptEvent(
           text: '{home} 선수 저글링이 먼저 나옵니다! 상대 앞마당을 견제할 수 있습니다!',
@@ -94,10 +94,10 @@ const _zvz12hatchVs3hatchNopool = ScenarioScript(
         ),
       ],
     ),
-    // Phase 2: 스파이어 경쟁 (lines 29-42)
+    // Phase 2: 스파이어 경쟁 (lines 21-30)
     ScriptPhase(
       name: 'spire_race',
-      startLine: 29,
+      startLine: 21,
       recoveryArmyPerLine: 1,
       recoveryResourcePerLine: 8,
       linearEvents: [
@@ -118,10 +118,10 @@ const _zvz12hatchVs3hatchNopool = ScenarioScript(
         ),
       ],
     ),
-    // Phase 3: 뮤탈 교전 - 분기 (lines 43-56)
+    // Phase 3: 뮤탈 교전 - 분기 (lines 31-44)
     ScriptPhase(
       name: 'mutal_clash',
-      startLine: 43,
+      startLine: 31,
       branches: [
         // 분기 A: 홈이 뮤탈 컨트롤 우위
         ScriptBranch(
@@ -182,15 +182,15 @@ const _zvz12hatchVs3hatchNopool = ScenarioScript(
         ),
       ],
     ),
-    // Phase 4: 결전 - 분기 (lines 57-70)
+    // Phase 4: 결전 - 분기 (lines 45-58)
     ScriptPhase(
       name: 'decisive_battle',
-      startLine: 57,
+      startLine: 45,
       branches: [
         // 분기 A: 홈 스커지 컨트롤 승리
         ScriptBranch(
           id: 'home_decisive_win',
-          baseProbability: 1.0,
+          baseProbability: 0.8,
           events: [
             ScriptEvent(
               text: '뮤탈 결전! 컨트롤 vs 물량!',
@@ -207,7 +207,7 @@ const _zvz12hatchVs3hatchNopool = ScenarioScript(
               homeArmy: 3, awayArmy: -3, awayResource: -15, favorsStat: 'harass',
             ),
             ScriptEvent(
-              text: '결정적인 순간입니다!',
+              text: '{home}, 결정타! 승리를 거둡니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -216,7 +216,7 @@ const _zvz12hatchVs3hatchNopool = ScenarioScript(
         // 분기 B: 3해처리(어웨이) 뮤탈 물량 승리
         ScriptBranch(
           id: 'away_decisive_win',
-          baseProbability: 1.0,
+          baseProbability: 1.2,
           events: [
             ScriptEvent(
               text: '뮤탈 결전! 컨트롤 vs 물량!',
@@ -233,7 +233,7 @@ const _zvz12hatchVs3hatchNopool = ScenarioScript(
               awayArmy: 3, homeArmy: -3, homeResource: -15, favorsStat: 'harass',
             ),
             ScriptEvent(
-              text: '3해처리의 자원 차이가 결정적!',
+              text: '3해처리의 자원 차이가 결정적! 승리를 거둡니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

@@ -82,7 +82,7 @@ const _zvz9overpoolVs12pool = ScenarioScript(
         // 분기 A: 9오버풀 공격 성공
         ScriptBranch(
           id: 'attacker_breaks_through',
-          baseProbability: 1.0,
+          baseProbability: 0.5,
           events: [
             ScriptEvent(
               text: '{home}, 저글링이 입구를 뚫었습니다! 드론을 노립니다!',
@@ -110,7 +110,7 @@ const _zvz9overpoolVs12pool = ScenarioScript(
         // 분기 B: 12풀 수비 성공
         ScriptBranch(
           id: 'defender_holds',
-          baseProbability: 1.0,
+          baseProbability: 1.5,
           events: [
             ScriptEvent(
               text: '{away}, 언덕에서 저글링을 효과적으로 막아냅니다!',
@@ -178,7 +178,7 @@ const _zvz9overpoolVs12pool = ScenarioScript(
         // 분기 A: 9오버풀(홈) 뮤탈 결전 승리
         ScriptBranch(
           id: 'home_decisive_win',
-          baseProbability: 1.0,
+          baseProbability: 0.7,
           events: [
             ScriptEvent(
               text: '뮤탈 vs 뮤탈! ZvZ 결전입니다!',
@@ -196,7 +196,7 @@ const _zvz9overpoolVs12pool = ScenarioScript(
               homeArmy: 3, awayArmy: -3, awayResource: -15, favorsStat: 'harass',
             ),
             ScriptEvent(
-              text: '결정적인 순간입니다!',
+              text: '{home}, 결정타! 승리를 거둡니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -205,7 +205,7 @@ const _zvz9overpoolVs12pool = ScenarioScript(
         // 분기 B: 12풀(어웨이) 자원으로 뮤탈 물량 역전
         ScriptBranch(
           id: 'away_decisive_win',
-          baseProbability: 1.0,
+          baseProbability: 1.3,
           events: [
             ScriptEvent(
               text: '뮤탈 vs 뮤탈! ZvZ 결전입니다!',
@@ -223,7 +223,7 @@ const _zvz9overpoolVs12pool = ScenarioScript(
               awayArmy: 3, homeArmy: -3, homeResource: -15, favorsStat: 'harass',
             ),
             ScriptEvent(
-              text: '결정적인 순간입니다!',
+              text: '{away}, 결정타! 승리를 거둡니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

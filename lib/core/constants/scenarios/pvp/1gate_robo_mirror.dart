@@ -204,16 +204,6 @@ const _pvp1gateRoboMirror = ScenarioScript(
               owner: LogOwner.home,
               awayArmy: -8, homeArmy: -3, favorsStat: 'strategy',
               altText: '{home} 선수 스톰 명중! 드라군 편대가 증발!',
-            ),
-            ScriptEvent(
-              text: '{away}, 맞스톰! 하지만 병력 차이가 벌어졌습니다!',
-              owner: LogOwner.away,
-              homeArmy: -5, awayArmy: -3,
-            ),
-            ScriptEvent(
-              text: '결정적인 스톰! 전장을 지배합니다!',
-              owner: LogOwner.home,
-              awayArmy: -10,
               decisive: true,
             ),
           ],
@@ -227,16 +217,6 @@ const _pvp1gateRoboMirror = ScenarioScript(
               owner: LogOwner.away,
               homeArmy: -8, awayArmy: -3, favorsStat: 'strategy',
               altText: '{away} 선수 스톰 명중! 드라군 편대가 증발!',
-            ),
-            ScriptEvent(
-              text: '{home}, 맞스톰! 하지만 병력 차이가 벌어졌습니다!',
-              owner: LogOwner.home,
-              awayArmy: -5, homeArmy: -3,
-            ),
-            ScriptEvent(
-              text: '결정적인 스톰! 전장을 지배합니다!',
-              owner: LogOwner.away,
-              homeArmy: -10,
               decisive: true,
             ),
           ],

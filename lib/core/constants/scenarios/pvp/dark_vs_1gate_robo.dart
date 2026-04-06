@@ -57,13 +57,13 @@ const _pvpDarkVs1gateRobo = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 다크 템플러 2기 생산! 상대 진영으로 출발!',
           owner: LogOwner.home,
-          homeArmy: 3, homeResource: -20,
+          homeArmy: 3, awayArmy: 2, homeResource: -20,
           altText: '{home}, 다크 출격! 로보틱스가 있으면 위험합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 로보틱스에서 옵저버를 생산 중입니다!',
           owner: LogOwner.away,
-          awayArmy: 3, awayResource: -10,
+          awayArmy: 2, awayResource: -10,
         ),
         ScriptEvent(
           text: '로보틱스가 있다면 옵저버로 다크를 잡을 수 있습니다! 타이밍이 관건!',
@@ -79,7 +79,7 @@ const _pvpDarkVs1gateRobo = ScenarioScript(
         // 분기 A: 옵저버가 늦게 나와 다크 성공
         ScriptBranch(
           id: 'dark_before_observer',
-          baseProbability: 0.4,
+          baseProbability: 0.7,
           events: [
             ScriptEvent(
               text: '{home}, 다크가 먼저 도착합니다! 옵저버가 아직입니다!',
@@ -108,7 +108,7 @@ const _pvpDarkVs1gateRobo = ScenarioScript(
         // 분기 B: 옵저버가 제때 나와 다크 차단
         ScriptBranch(
           id: 'observer_ready',
-          baseProbability: 1.6,
+          baseProbability: 1.3,
           events: [
             ScriptEvent(
               text: '{away} 선수 옵저버가 딱 맞춰 나옵니다! 다크가 보입니다!',

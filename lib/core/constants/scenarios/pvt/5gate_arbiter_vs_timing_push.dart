@@ -159,7 +159,7 @@ const _pvt5gateArbiterVsTimingPush = ScenarioScript(
         ),
         ScriptBranch(
           id: 'away_wins',
-          baseProbability: 1.0,
+          baseProbability: 1.8,
           events: [
             ScriptEvent(
               text: '{away} 선수 아비터가 나오기 전에 2차 공격을 감행합니다!',

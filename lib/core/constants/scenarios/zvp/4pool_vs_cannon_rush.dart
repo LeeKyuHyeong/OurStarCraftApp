@@ -132,13 +132,19 @@ const _zvp4poolVsCannonRush = ScenarioScript(
         ),
         ScriptBranch(
           id: 'away_wins',
-          baseProbability: 1.0,
+          baseProbability: 2.5,
+          conditionStat: 'defense',
           events: [
             ScriptEvent(
               text: '{away}, 캐논이 완성되면서 저글링을 전부 잡아냅니다!',
               owner: LogOwner.away,
-              homeArmy: -5, favorsStat: 'defense',
+              homeArmy: -5, awayArmy: 2, favorsStat: 'defense',
               altText: '{away} 선수 캐논 완성! 저글링이 녹습니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 추가 캐논이 저그 앞마당 입구를 봉쇄합니다!',
+              owner: LogOwner.away,
+              homeResource: -20, awayArmy: 2,
             ),
             ScriptEvent(
               text: '캐논 러쉬 성공! 저그 앞마당이 봉쇄됩니다!',

@@ -65,7 +65,7 @@ const _zvpMutalHydraVsDragoonPush = ScenarioScript(
           altText: '{home}, 성큰 건설! 드라군을 막아야 합니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 레어 완성! 스파이어에서 뮤탈리스크를 생산합니다!',
+          text: '{home} 선수 레어 완성! 스파이어를 올리고 뮤탈리스크를 준비합니다!',
           owner: LogOwner.home,
           homeArmy: 3, homeResource: -25,
           altText: '{home}, 스파이어! 뮤탈이 나오면 판이 바뀝니다!',
@@ -121,7 +121,8 @@ const _zvpMutalHydraVsDragoonPush = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'home_wins',
-          baseProbability: 1.0,
+          baseProbability: 2.5,
+          conditionStat: 'strategy',
           events: [
             ScriptEvent(
               text: '{home} 선수 뮤탈이 드라군을 유인하는 사이 히드라가 전진합니다!',

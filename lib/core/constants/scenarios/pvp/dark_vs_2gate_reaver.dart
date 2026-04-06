@@ -57,13 +57,13 @@ const _pvpDarkVs2gateReaver = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 다크 템플러 2기 생산! 리버 빌드 상대에게 다크!',
           owner: LogOwner.home,
-          homeArmy: 3, homeResource: -20,
+          homeArmy: 3, awayArmy: 2, homeResource: -20,
           altText: '{home}, 다크 출격! 로보틱스가 있으면 옵저버가 위험!',
         ),
         ScriptEvent(
           text: '{away} 선수 로보틱스에서 옵저버를 생산합니다! 리버도 준비!',
           owner: LogOwner.away,
-          awayArmy: 3, awayResource: -15,
+          awayArmy: 2, awayResource: -15,
         ),
         ScriptEvent(
           text: '로보틱스 빌드라 옵저버가 있을 가능성이 높습니다! 다크가 통할까요?',
@@ -79,7 +79,7 @@ const _pvpDarkVs2gateReaver = ScenarioScript(
         // 분기 A: 옵저버가 늦어 다크 일부 성공
         ScriptBranch(
           id: 'dark_partial_success',
-          baseProbability: 0.35,
+          baseProbability: 0.7,
           events: [
             ScriptEvent(
               text: '{home}, 다크가 먼저 도착합니다! 옵저버보다 빨랐어요!',
@@ -108,7 +108,7 @@ const _pvpDarkVs2gateReaver = ScenarioScript(
         // 분기 B: 옵저버로 다크 완벽 차단 + 리버 반격
         ScriptBranch(
           id: 'observer_blocks_reaver_counter',
-          baseProbability: 1.65,
+          baseProbability: 1.3,
           events: [
             ScriptEvent(
               text: '{away} 선수 옵저버가 다크를 포착합니다! 완벽한 대응!',

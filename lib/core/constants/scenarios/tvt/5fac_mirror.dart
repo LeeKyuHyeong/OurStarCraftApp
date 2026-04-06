@@ -36,7 +36,8 @@ const _tvt5facMirror = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수도 팩토리 건설, 가스를 올립니다.',
           owner: LogOwner.away,
-          skipChance: 0.4,
+          awayResource: -400,
+          fixedCost: true,
         ),
         ScriptEvent(
           text: '{home} 선수 팩토리를 연달아 증설합니다. 벌써 세 번째.',
@@ -49,8 +50,8 @@ const _tvt5facMirror = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수도 팩토리 증설, 확장 없이 올인하겠다는 의도.',
           owner: LogOwner.away,
-          skipChance: 0.4,
           altText: '{away} 선수 확장 없이 팩토리만 짓습니다.',
+          skipChance: 0.3,
         ),
         ScriptEvent(
           text: '{home} 선수 머신샵 건설, 시즈 모드 연구를 시작합니다.',
@@ -59,6 +60,11 @@ const _tvt5facMirror = ScenarioScript(
           awayResource: -400,
           fixedCost: true,
           altText: '{home} 선수 머신샵에서 시즈 모드 연구.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 머신샵 부착. 시즈 모드 연구 시작.',
+          owner: LogOwner.away,
+          skipChance: 0.3,
         ),
         ScriptEvent(
           text: '{home} 선수 벌처와 시즈탱크 대량 생산을 시작합니다.',
@@ -714,7 +720,7 @@ const _tvt5facMirror = ScenarioScript(
               text: '{away} 선수 골리앗을 보냈지만 이미 빠져나갔습니다.',
               owner: LogOwner.away,
               skipChance: 0.3,
-              altText: '{away} 선수 대응이 늦었습니다. 이미 드랍십이 떠났습니다.',
+              altText: '{away} 선수 대응이 늦었습니다. 이미 수송선이 떠났습니다.',
             ),
             ScriptEvent(
               text: '게릴라 드랍! 시선을 끈 사이 정면에서 거리재기가 이어집니다.',
@@ -746,7 +752,7 @@ const _tvt5facMirror = ScenarioScript(
               homeResource: -650, // 스타포트(250) + 드랍십 x2(400)
               awayResource: -250,
               fixedCost: true,
-              altText: '{home} 선수 드랍십 두 대 생산, 마무리를 노립니다.',
+              altText: '{home} 선수 스타포트에서 드랍십 두 대 생산, 마무리를 노립니다.',
             ),
             ScriptEvent(
               text: '{home} 선수 드랍십 두 대 출격! 본진과 확장에 동시 투하!',
@@ -817,11 +823,11 @@ const _tvt5facMirror = ScenarioScript(
           baseProbability: 0.6,
           events: [
             ScriptEvent(
-              text: '{away} 선수 정면에서 밀리고 있습니다. 드랍십으로 승부수를 던집니다.',
+              text: '{away} 선수 스타포트를 올립니다. 드랍십으로 승부수를 던집니다.',
               owner: LogOwner.away,
               awayResource: -450, // 스타포트(250) + 드랍십(200)
               fixedCost: true,
-              altText: '{away} 선수 역전을 위한 드랍! 본진을 노립니다.',
+              altText: '{away} 선수 스타포트 건설. 드랍 역전을 노립니다.',
             ),
             ScriptEvent(
               text: '{away} 선수 드랍십 두 대에 탱크를 싣고 상대 본진으로 향합니다!',

@@ -88,7 +88,7 @@ const _zvpMukerjiVsCannonRush = ScenarioScript(
         ),
       ],
     ),
-    // Phase 2: 뮤탈 전환 (lines 22-29)
+    // Phase 2: 공방 전개 (lines 22-29)
     ScriptPhase(
       name: 'late_setup',
       startLine: 22,
@@ -96,26 +96,26 @@ const _zvpMukerjiVsCannonRush = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 캐논을 막아내고 레어 업그레이드에 들어갑니다!',
+          text: '{away} 선수 캐논을 추가로 올려 저그 앞마당을 조이기 시작합니다!',
+          owner: LogOwner.away,
+          awayArmy: 3, awayResource: -20, favorsStat: 'attack',
+          altText: '{away}, 추가 캐논! 포위망이 좁혀옵니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 레어 업그레이드를 서두릅니다! 스파이어로 반전을 노립니다!',
           owner: LogOwner.home,
           homeResource: -10,
+          favorsStat: 'macro',
           altText: '{home}, 레어로 전환! 스파이어 건설 준비!',
         ),
         ScriptEvent(
-          text: '{home} 선수 스파이어 완성! 뮤탈리스크 생산을 시작합니다!',
+          text: '{home} 선수 스파이어 건설 중! 뮤탈리스크가 나오면 다릅니다!',
           owner: LogOwner.home,
-          homeArmy: 4,
+          homeArmy: 2,
           homeResource: -15,
-          favorsStat: 'macro',
         ),
         ScriptEvent(
-          text: '{away} 선수 캐논 러시 실패 후 본진에서 게이트웨이를 추가합니다.',
-          owner: LogOwner.away,
-          awayArmy: 2,
-          awayResource: -10,
-        ),
-        ScriptEvent(
-          text: '캐논 러시 실패! 이제 뮤탈리스크가 맵을 지배할 차례입니다!',
+          text: '캐논이 먼저 완성되느냐, 뮤탈이 먼저 나오느냐! 타이밍 싸움입니다!',
           owner: LogOwner.system,
         ),
       ],
@@ -160,7 +160,7 @@ const _zvpMukerjiVsCannonRush = ScenarioScript(
         ScriptBranch(
           id: 'away_wins',
           conditionStat: 'strategy',
-          baseProbability: 1.0,
+          baseProbability: 2.0,
           events: [
             ScriptEvent(
               text: '{away} 선수 캐논이 해처리 사정거리 안에 완성됩니다!',

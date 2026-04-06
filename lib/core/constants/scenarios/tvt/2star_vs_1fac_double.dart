@@ -57,6 +57,10 @@ const _tvt2starVs1facDouble = ScenarioScript(
           altText: '{home} 선수 스타포트가 올라갑니다.',
         ),
         ScriptEvent(
+          text: '{away} 선수 상대 스타포트를 정찰합니다. 레이스 견제에 대비합니다.',
+          owner: LogOwner.away,
+        ),
+        ScriptEvent(
           text: '{away} 선수 마린 생산하면서 벙커를 올립니다.',
           owner: LogOwner.away,
           awayArmy: 1, // 마린 1기 (1sup)

@@ -44,7 +44,7 @@ const _pvp1gateRoboVs2gateDragoon = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 게이트웨이 추가! 드라군을 빠르게 모읍니다!',
           owner: LogOwner.away,
-          awayArmy: 3, awayResource: -20,
+          homeArmy: 2, awayArmy: 3, awayResource: -20,
           altText: '{away}, 투게이트! 드라군 물량으로 밀어붙이려는 의도!',
         ),
         ScriptEvent(
@@ -81,12 +81,12 @@ const _pvp1gateRoboVs2gateDragoon = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 드라군이 적지만 리버가 합류합니다!',
           owner: LogOwner.home,
-          homeArmy: 2, homeResource: -15,
+          homeArmy: 4, homeResource: -15,
           altText: '{home}, 리버가 합류! 화력이 보강됩니다!',
         ),
         ScriptEvent(
           text: '드라군 물량 vs 리버 화력! 어느 쪽이 유리할까요?',
-          owner: LogOwner.system,
+          owner: LogOwner.home,
           skipChance: 0.2,
         ),
       ],
@@ -105,21 +105,6 @@ const _pvp1gateRoboVs2gateDragoon = ScenarioScript(
               owner: LogOwner.away,
               homeArmy: -4, awayArmy: -2, favorsStat: 'attack',
               altText: '{away} 선수 드라군이 압도합니다! 수가 너무 많아요!',
-            ),
-            ScriptEvent(
-              text: '{home} 선수 드라군이 부족합니다! 리버도 보호가 안 돼요!',
-              owner: LogOwner.home,
-              homeArmy: -2,
-            ),
-            ScriptEvent(
-              text: '{away}, 상대 핵심 유닛을 잡아냅니다! 드라군 집중 사격!',
-              owner: LogOwner.away,
-              homeArmy: -3, favorsStat: 'attack',
-            ),
-            ScriptEvent(
-              text: '드라군 물량 차이가 결정적! 상대 테크를 압도합니다!',
-              owner: LogOwner.away,
-              homeArmy: -10,
               decisive: true,
             ),
           ],
@@ -144,11 +129,6 @@ const _pvp1gateRoboVs2gateDragoon = ScenarioScript(
               text: '{home}, 셔틀 리버 컨트롤! 내렸다 태웠다! 완벽합니다!',
               owner: LogOwner.home,
               awayArmy: -3, favorsStat: 'control',
-            ),
-            ScriptEvent(
-              text: '리버 화력이 드라군 물량을 압도합니다!',
-              owner: LogOwner.home,
-              awayArmy: -10,
               decisive: true,
             ),
           ],

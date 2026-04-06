@@ -55,7 +55,7 @@ const _pvp1gateRoboVs4gateDragoon = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 드라군이 밀려옵니다! 4게이트 물량!',
           owner: LogOwner.away,
-          awayArmy: 5, awayResource: -30,
+          awayArmy: 5, homeArmy: 2, awayResource: -30,
           altText: '{away}, 드라군이 쏟아져 나옵니다!',
         ),
       ],
@@ -68,11 +68,11 @@ const _pvp1gateRoboVs4gateDragoon = ScenarioScript(
         ScriptEvent(
           text: '{away}, 드라군 대편대가 전진! 4게이트의 위력!',
           owner: LogOwner.away,
-          awayArmy: 3, favorsStat: 'attack',
+          homeArmy: 2, awayArmy: 3, favorsStat: 'attack',
           altText: '{away} 선수 드라군 전진! 수가 엄청나게 많습니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 리버가 합류! 하지만 드라군 수가 너무 적습니다!',
+          text: '{home} 선수 리버가 합류! 하지만 드라군 수가 너무 많습니다!',
           owner: LogOwner.home,
           homeArmy: 2, homeResource: -15,
           altText: '{home}, 리버가 나왔지만 호위 드라군이 부족합니다!',

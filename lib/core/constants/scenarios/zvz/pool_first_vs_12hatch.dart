@@ -29,7 +29,7 @@ const _zvzPoolFirstVs12hatch = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 저글링 6기 생산! 상대 진영으로 출발합니다!',
           owner: LogOwner.home,
-          homeArmy: 4, homeResource: -15,
+          homeArmy: 2, homeResource: -15,
           altText: '{home}, 저글링이 달려갑니다!',
         ),
         ScriptEvent(
@@ -39,10 +39,10 @@ const _zvzPoolFirstVs12hatch = ScenarioScript(
         ),
       ],
     ),
-    // Phase 1: 저글링 도착 (lines 11-16)
+    // Phase 1: 저글링 도착 (lines 7-10)
     ScriptPhase(
       name: 'ling_rush',
-      startLine: 11,
+      startLine: 7,
       linearEvents: [
         ScriptEvent(
           text: '{home}, 저글링이 상대 앞마당에 도착합니다! 스포닝풀이 없어요!',
@@ -62,10 +62,10 @@ const _zvzPoolFirstVs12hatch = ScenarioScript(
         ),
       ],
     ),
-    // Phase 2: 결과 - 분기 (lines 17-28)
+    // Phase 2: 결과 - 분기 (lines 11-22)
     ScriptPhase(
       name: 'rush_result',
-      startLine: 17,
+      startLine: 11,
       branches: [
         // 분기 A: 4풀 올인 성공
         ScriptBranch(
@@ -90,7 +90,7 @@ const _zvzPoolFirstVs12hatch = ScenarioScript(
               altText: '{home} 선수 저글링, 남은 드론까지 추격합니다!',
             ),
             ScriptEvent(
-              text: '4풀이 12앞마당을 초토화! 올인 성공!',
+              text: '4풀이 12앞마당을 초토화! 올인 성공! 승리를 거둡니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -118,7 +118,7 @@ const _zvzPoolFirstVs12hatch = ScenarioScript(
               awayArmy: 10, awayResource: -10, favorsStat: 'defense',
             ),
             ScriptEvent(
-              text: '4풀이 막혔습니다! 드론 수 차이로 12앞마당 유리!',
+              text: '4풀이 막혔습니다! 드론 수 차이로 12앞마당 유리! 승리를 거둡니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

@@ -64,27 +64,22 @@ const _pvp3gateSpeedzealotMirror = ScenarioScript(
         ),
       ],
     ),
-    // Phase 1: 스피드 질럿 생산 (lines 15-22)
+    // Phase 1: 스피드 질럿 생산 (lines 10-22)
     ScriptPhase(
       name: 'speedzealot_production',
-      startLine: 15,
+      startLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 질럿 다리 업그레이드 완료! 스피드 질럿이 쏟아집니다!',
-          owner: LogOwner.home,
-          homeArmy: 5, homeResource: -25,
-          altText: '{home} 선수 스피드 질럿! 빠릅니다!',
-        ),
-        ScriptEvent(
-          text: '{away} 선수도 다리 업그레이드 완료! 스피드 질럿 생산!',
-          owner: LogOwner.away,
-          awayArmy: 5, awayResource: -25,
-          altText: '{away}, 스피드 질럿! 양쪽 다 빠릅니다!',
+          text: '양측 질럿 다리 업그레이드 완료! 스피드 질럿이 쏟아집니다!',
+          owner: LogOwner.system,
+          homeArmy: 5, awayArmy: 5, homeResource: -25, awayResource: -25,
+          altText: '{home}과 {away}, 스피드 질럿 동시 생산!',
         ),
         ScriptEvent(
           text: '{home}, 질럿이 전진합니다! 상대 앞마당을 노립니다!',
           owner: LogOwner.home,
-          homeArmy: 2, favorsStat: 'attack',
+          homeArmy: 2, awayArmy: 2, favorsStat: 'attack',
+          altText: '{home} 선수 스피드 질럿 전진! {away}도 맞불!',
         ),
         ScriptEvent(
           text: '양측 스피드 질럿이 교차합니다! 견제와 방어의 판단!',

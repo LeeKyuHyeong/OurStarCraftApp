@@ -62,17 +62,17 @@ const _tvt1barDoubleVs1facDouble = ScenarioScript(
           fixedCost: true,
           altText: '{away} 선수 벌처 정찰을 보내고 머신샵에서 마인 연구.',
         ),
-        ScriptEvent(
-          text: '첫 탱크가 나오기 전까지는 폭풍전야입니다.',
-          owner: LogOwner.system,
-          skipChance: 0.5,
-        ),
         // 홈: 가스(-100) + 팩토리(-300) = -400
         ScriptEvent(
           text: '{home} 선수 팩토리 건설. 가스를 넣습니다.',
           owner: LogOwner.home,
           homeResource: -400,
           fixedCost: true,
+        ),
+        ScriptEvent(
+          text: '배럭더블 vs 원팩확장. 초반 자원 vs 빠른 메카닉의 대결입니다.',
+          owner: LogOwner.system,
+          skipChance: 0.5,
         ),
         // 어웨이: 앞마당 커맨드센터 (-400)
         ScriptEvent(

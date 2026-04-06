@@ -82,7 +82,7 @@ const _zvpMutalHydraVsCannonRush = ScenarioScript(
         ),
       ],
     ),
-    // Phase 2: 뮤탈 전환 (lines 22-29)
+    // Phase 2: 공방 전개 (lines 22-29)
     ScriptPhase(
       name: 'late_setup',
       startLine: 22,
@@ -90,27 +90,26 @@ const _zvpMutalHydraVsCannonRush = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 레어에서 스파이어를 올립니다! 뮤탈리스크!',
+          text: '{away} 선수 캐논을 추가로 올립니다! 앞마당 포위가 좁혀옵니다!',
+          owner: LogOwner.away,
+          awayArmy: 3, awayResource: -20, favorsStat: 'attack',
+          altText: '{away}, 추가 캐논! 저그 앞마당이 위험합니다!',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 레어에서 스파이어를 올립니다! 뮤탈리스크로 반전을 노립니다!',
           owner: LogOwner.home,
           homeResource: -25,
-          altText: '{home}, 스파이어! 뮤탈리스크를 준비합니다!',
-        ),
-        ScriptEvent(
-          text: '{home} 선수 뮤탈리스크 3기 완성! 출격합니다!',
-          owner: LogOwner.home,
-          homeArmy: 4, homeResource: -20, favorsStat: 'harass',
-          altText: '{home}, 뮤탈 3기! 프로브를 사냥하러 갑니다!',
-        ),
-        ScriptEvent(
-          text: '{away} 선수 캐논 실패 후 본진에서 재건합니다.',
-          owner: LogOwner.away,
-          awayResource: -25,
+          altText: '{home}, 스파이어 건설! 뮤탈리스크를 준비합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 히드라덴도 건설합니다! 지상군도 준비!',
           owner: LogOwner.home,
-          homeArmy: 3, homeResource: -20,
+          homeArmy: 2, homeResource: -20,
           altText: '{home}, 히드라덴! 뮤탈과 히드라를 함께 운용!',
+        ),
+        ScriptEvent(
+          text: '캐논 vs 뮤탈! 타이밍 싸움이 이 경기의 핵심입니다!',
+          owner: LogOwner.system,
         ),
       ],
     ),
@@ -148,7 +147,8 @@ const _zvpMutalHydraVsCannonRush = ScenarioScript(
         ),
         ScriptBranch(
           id: 'away_wins',
-          baseProbability: 1.0,
+          baseProbability: 2.0,
+          conditionStat: 'attack',
           events: [
             ScriptEvent(
               text: '{away} 선수 캐논이 앞마당 해처리를 파괴합니다!',

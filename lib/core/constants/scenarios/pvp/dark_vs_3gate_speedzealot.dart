@@ -58,13 +58,13 @@ const _pvpDarkVs3gateSpeedzealot = ScenarioScript(
         ScriptEvent(
           text: '{away}, 각속 업그레이드 완료! 스피드질럿이 쏟아집니다!',
           owner: LogOwner.away,
-          awayArmy: 5, awayResource: -15, favorsStat: 'attack',
+          awayArmy: 5, homeArmy: 2, awayResource: -15, favorsStat: 'attack',
           altText: '{away} 선수 스피드질럿! 빠른 질럿이 돌진합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 템플러 아카이브 건설 중! 다크가 곧 나옵니다!',
           owner: LogOwner.home,
-          homeArmy: 2, homeResource: -20,
+          homeArmy: 1, homeResource: -20,
         ),
         ScriptEvent(
           text: '스피드질럿이 먼저 도착할까, 다크가 먼저 나올까! 타이밍 승부!',

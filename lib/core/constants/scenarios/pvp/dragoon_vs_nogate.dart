@@ -45,7 +45,7 @@ const _pvpDragoonVsNogate = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 사이버네틱스 코어 건설! 드라군을 준비합니다!',
           owner: LogOwner.away,
-          awayResource: -15,
+          awayArmy: 3, awayResource: -15,
         ),
       ],
     ),
@@ -196,7 +196,7 @@ const _pvpDragoonVsNogate = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'home_storm_wins',
-          baseProbability: 0.7,
+          baseProbability: 1.05,
           events: [
             ScriptEvent(
               text: '{home}, 스톰! 상대 드라군이 녹습니다!',
@@ -214,7 +214,7 @@ const _pvpDragoonVsNogate = ScenarioScript(
         ),
         ScriptBranch(
           id: 'away_harass_wins',
-          baseProbability: 1.3,
+          baseProbability: 0.95,
           events: [
             ScriptEvent(
               text: '{away}, 셔틀에 하이 템플러를 태워서 본진 견제!',

@@ -76,11 +76,12 @@ const _tvt1barDoubleVs2facPush = ScenarioScript(
           fixedCost: true,
           altText: '{away} 선수 투팩. 병력 생산을 두 배로 가져갑니다.',
         ),
-        // 홈: 가스(-100) + 팩토리(-300) + 머신샵(-100) = -500
+        // 홈: 마린 2기 생산 + 가스(-100) + 팩토리(-300) + 머신샵(-100) = -600
         ScriptEvent(
-          text: '{home} 선수도 팩토리를 올립니다. 머신샵 부착.',
+          text: '{home} 선수 마린 2기를 생산하고 팩토리를 올립니다. 머신샵 부착.',
           owner: LogOwner.home,
-          homeResource: -500,
+          homeArmy: 2, // 마린 2기 (1sup x2)
+          homeResource: -600, // 마린 2기(100) + 가스(100) + 팩토리(300) + 머신샵(100)
           fixedCost: true,
         ),
         // 어웨이: 벌처 3기 (+6sup, -225)
@@ -299,19 +300,20 @@ const _tvt1barDoubleVs2facPush = ScenarioScript(
               fixedCost: true,
               altText: '{home} 선수 더블 자원으로 팩토리가 쭉쭉 늘어납니다!',
             ),
-            // 어웨이: 뒤늦은 확장 커맨드센터(-400)
+            // 어웨이: 뒤늦은 확장 커맨드센터(-400) + 탱크 재생산
             ScriptEvent(
-              text: '{away} 선수 뒤늦게 앞마당 확장... 자원이 부족합니다.',
+              text: '{away} 선수 뒤늦게 앞마당 확장... 탱크를 추가 생산합니다.',
               owner: LogOwner.away,
-              awayResource: -400,
+              awayArmy: 4, // 탱크 2대 (2sup x2)
+              awayResource: -900, // 확장(400) + 탱크 2대(250x2)
               fixedCost: true,
             ),
             // 홈: 탱크 2기(+4sup, -500) + 벌처 2기(+4sup, -150) = +8sup, -650
             ScriptEvent(
               text: '{home} 선수 탱크가 쏟아집니다! 더블 자원의 힘!',
               owner: LogOwner.home,
-              homeArmy: 8,
-              homeResource: -650,
+              homeArmy: 6, // 탱크 1대(2sup) + 벌처 2대(2sup x2)
+              homeResource: -400, // 탱크(250) + 벌처 2대(75x2)
               fixedCost: true,
               altText: '{home} 선수 4팩에서 탱크 벌처가 끊임없이!',
             ),
@@ -335,6 +337,8 @@ const _tvt1barDoubleVs2facPush = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'home_wins_decisive',
+          conditionStat: 'macro',
+          homeStatMustBeHigher: true,
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -347,6 +351,8 @@ const _tvt1barDoubleVs2facPush = ScenarioScript(
         ),
         ScriptBranch(
           id: 'away_wins_decisive',
+          conditionStat: 'attack',
+          homeStatMustBeHigher: false,
           baseProbability: 1.0,
           events: [
             ScriptEvent(

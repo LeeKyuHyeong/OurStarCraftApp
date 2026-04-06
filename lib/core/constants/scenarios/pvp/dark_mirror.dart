@@ -28,13 +28,13 @@ const _pvpDarkMirror = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 아둔! 다크를 노립니다!',
           owner: LogOwner.home,
-          homeResource: -20,
+          homeArmy: 3, homeResource: -20,
           altText: '{home}, 아둔! 다크 빌드입니다!',
         ),
         ScriptEvent(
           text: '{away} 선수도 아둔! 양쪽 다 다크를 노리는 상황입니다!',
           owner: LogOwner.away,
-          awayResource: -20,
+          awayArmy: 3, awayResource: -20,
           altText: '{away}, 아둔! 양쪽 다 다크를 노리네요!',
         ),
         ScriptEvent(

@@ -50,10 +50,10 @@ const _zvz12poolVs3hatchNopool = ScenarioScript(
         ),
       ],
     ),
-    // Phase 1: 저글링 압박 (lines 15-24)
+    // Phase 1: 저글링 압박 (lines 9-13)
     ScriptPhase(
       name: 'ling_pressure',
-      startLine: 15,
+      startLine: 9,
       linearEvents: [
         ScriptEvent(
           text: '{home}, 발업 저글링이 상대 앞마당에 도착합니다!',
@@ -74,10 +74,10 @@ const _zvz12poolVs3hatchNopool = ScenarioScript(
         ),
       ],
     ),
-    // Phase 2: 압박 결과 - 분기 (lines 25-40)
+    // Phase 2: 압박 결과 - 분기 (lines 13-28)
     ScriptPhase(
       name: 'pressure_result',
-      startLine: 25,
+      startLine: 13,
       branches: [
         // 분기 A: 저글링이 드론 피해를 줌
         ScriptBranch(
@@ -183,7 +183,7 @@ const _zvz12poolVs3hatchNopool = ScenarioScript(
         // 분기 A: 뮤탈 견제로 드론 차이 벌림
         ScriptBranch(
           id: 'mutal_harass',
-          baseProbability: 1.0,
+          baseProbability: 0.8,
           events: [
             ScriptEvent(
               text: '{home}, 뮤탈이 먼저 나왔습니다! 드론을 노립니다!',
@@ -211,7 +211,7 @@ const _zvz12poolVs3hatchNopool = ScenarioScript(
         // 분기 B: 3해처리가 뮤탈 물량으로 압도
         ScriptBranch(
           id: 'macro_mutal_overwhelm',
-          baseProbability: 1.0,
+          baseProbability: 1.2,
           events: [
             ScriptEvent(
               text: '{away}, 뮤탈이 쏟아집니다! 3해처리의 자원이 빛나는 순간!',
@@ -279,7 +279,7 @@ const _zvz12poolVs3hatchNopool = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'home_scourge_wins',
-          baseProbability: 0.5,
+          baseProbability: 0.4,
           events: [
             ScriptEvent(
               text: '{home}, 스커지 컨트롤로 뮤탈 편대를 격파합니다!',
@@ -287,7 +287,7 @@ const _zvz12poolVs3hatchNopool = ScenarioScript(
               homeArmy: 5, awayArmy: -8, favorsStat: 'control',
             ),
             ScriptEvent(
-              text: '스커지 컨트롤이 뮤탈 물량을 압도했습니다! 12풀의 승리!',
+              text: '스커지 컨트롤이 뮤탈 물량을 압도했습니다! 12풀의 승리! 승리를 거둡니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -295,7 +295,7 @@ const _zvz12poolVs3hatchNopool = ScenarioScript(
         ),
         ScriptBranch(
           id: 'away_mutal_overwhelm',
-          baseProbability: 0.5,
+          baseProbability: 0.6,
           events: [
             ScriptEvent(
               text: '{away}, 뮤탈 물량이 스커지를 흡수하고 남습니다! 드론 견제!',
@@ -303,7 +303,7 @@ const _zvz12poolVs3hatchNopool = ScenarioScript(
               awayArmy: 5, homeArmy: -8, favorsStat: 'macro',
             ),
             ScriptEvent(
-              text: '뮤탈 물량과 자원 차이가 결정적! 3해처리의 승리!',
+              text: '뮤탈 물량과 자원 차이가 결정적! 3해처리의 승리! 승리를 거둡니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

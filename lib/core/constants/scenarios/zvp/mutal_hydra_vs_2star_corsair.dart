@@ -59,7 +59,7 @@ const _zvpMutalHydraVs2starCorsair = ScenarioScript(
           altText: '{away}, 커세어 4기! 오버로드를 사냥합니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 레어 완성! 스파이어에서 뮤탈리스크를 뽑습니다!',
+          text: '{home} 선수 레어 완성! 스파이어를 올리고 뮤탈리스크가 날아오릅니다!',
           owner: LogOwner.home,
           homeArmy: 3, homeResource: -25,
           altText: '{home}, 스파이어 완성! 뮤탈 생산 시작!',
@@ -148,7 +148,8 @@ const _zvpMutalHydraVs2starCorsair = ScenarioScript(
         ),
         ScriptBranch(
           id: 'away_wins',
-          baseProbability: 1.0,
+          baseProbability: 2.5,
+          conditionStat: 'control',
           events: [
             ScriptEvent(
               text: '{away} 선수 커세어 물량으로 뮤탈을 격추합니다! 범위 공격!',

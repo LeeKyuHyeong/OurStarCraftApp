@@ -28,11 +28,11 @@ const _zvpMukerjiVsArchon = ScenarioScript(
           altText: '{away}, 게이트웨이 뒤에 아둔 건설! 하이 템플러를 준비합니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 스포닝풀에서 저글링 생산 후 레어 업그레이드! 스파이어를 올립니다.',
+          text: '{home} 선수 저글링으로 채우면서 레어 업그레이드! 스파이어를 올립니다.',
           owner: LogOwner.home,
           homeResource: -10,
           favorsStat: 'macro',
-          altText: '{home}, 스포닝풀 완성 후 레어와 스파이어를 올립니다!',
+          altText: '{home}, 레어와 스파이어를 올립니다! 뮤탈 체제로 전환합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 템플러 아카이브까지 건설! 아콘과 스톰 체제!',

@@ -127,7 +127,8 @@ const _zvpMutalHydraVsArchon = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'home_wins',
-          baseProbability: 1.0,
+          baseProbability: 1.5,
+          conditionStat: 'harass',
           events: [
             ScriptEvent(
               text: '{home} 선수 뮤탈이 아콘을 우회해 프로브를 견제합니다!',

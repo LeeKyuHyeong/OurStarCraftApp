@@ -58,13 +58,13 @@ const _pvp4gateDragoonVs3gateSpeedzealot = ScenarioScript(
         ScriptEvent(
           text: '{home}, 포게이트에서 드라군이 쏟아집니다!',
           owner: LogOwner.home,
-          homeArmy: 5, homeResource: -20, favorsStat: 'attack',
+          homeArmy: 5, awayArmy: 3, homeResource: -20, favorsStat: 'attack',
           altText: '{home} 선수 드라군 편대! 사정거리로 밀어냅니다!',
         ),
         ScriptEvent(
           text: '{away}, 각속 완료! 스피드질럿이 돌진합니다!',
           owner: LogOwner.away,
-          awayArmy: 5, awayResource: -15, favorsStat: 'attack',
+          awayArmy: 3, awayResource: -15, favorsStat: 'attack',
           altText: '{away} 선수 스피드질럿! 빠른 질럿이 드라군에 달라붙습니다!',
         ),
         ScriptEvent(

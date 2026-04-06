@@ -172,7 +172,7 @@ const _pvt5gatePushVsBioMech = ScenarioScript(
         ),
         ScriptBranch(
           id: 'away_wins',
-          baseProbability: 1.0,
+          baseProbability: 2.2,
           events: [
             ScriptEvent(
               text: '{away} 선수 탱크 포격이 드라군 무리에 명중합니다!',

@@ -122,9 +122,7 @@ const _pvtDarkSwingVsTimingPush = ScenarioScript(
         // 분기 A: 다크 견제 성공 → 타이밍 지연 → 프로토스 승리
         ScriptBranch(
           id: 'home_wins',
-          conditionStat: 'harass',
-          homeStatMustBeHigher: true,
-          baseProbability: 1.0,
+          baseProbability: 1.5,
           events: [
             ScriptEvent(
               text: '{home} 선수 다크가 SCV를 베어냅니다! 디텍이 늦었어요!',
@@ -163,8 +161,6 @@ const _pvtDarkSwingVsTimingPush = ScenarioScript(
         // 분기 B: 디텍 성공 → 타이밍 푸시 관철
         ScriptBranch(
           id: 'away_wins',
-          conditionStat: 'attack',
-          homeStatMustBeHigher: false,
           baseProbability: 1.0,
           events: [
             ScriptEvent(

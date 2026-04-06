@@ -211,6 +211,12 @@ const _tvtFdRushVsNobarDouble = ScenarioScript(
           altText: '{away} 선수 자원 차이. 병력이 빠르게 늡니다.',
         ),
         ScriptEvent(
+          text: '{away} 선수 스타포트와 컨트롤타워를 올립니다. 드랍십을 준비합니다.',
+          owner: LogOwner.away,
+          awayResource: -350, // 스타포트(250) + 컨트롤타워(100)
+          fixedCost: true,
+        ),
+        ScriptEvent(
           text: '노배럭더블의 자원 우위가 나타나기 시작합니다.',
           owner: LogOwner.system,
           skipChance: 0.25,

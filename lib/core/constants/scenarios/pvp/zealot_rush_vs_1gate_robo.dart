@@ -92,7 +92,7 @@ const _pvpZealotRushVs1gateRobo = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'zealot_before_reaver',
-          baseProbability: 0.6,
+          baseProbability: 0.9,
           events: [
             ScriptEvent(
               text: '{home}, 질럿이 프로브를 잡습니다! 테크가 아직이에요!',
@@ -120,7 +120,7 @@ const _pvpZealotRushVs1gateRobo = ScenarioScript(
         ),
         ScriptBranch(
           id: 'reaver_saves',
-          baseProbability: 1.4,
+          baseProbability: 1.1,
           events: [
             ScriptEvent(
               text: '{away}, 질럿과 프로브로 버팁니다! 리버가 곧!',

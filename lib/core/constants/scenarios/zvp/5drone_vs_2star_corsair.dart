@@ -138,7 +138,8 @@ const _zvp5droneVs2starCorsair = ScenarioScript(
         ),
         ScriptBranch(
           id: 'away_wins',
-          baseProbability: 1.0,
+          baseProbability: 2.0,
+          conditionStat: 'defense',
           events: [
             ScriptEvent(
               text: '{away}, 질럿이 저글링을 전부 잡고 커세어로 오버로드를 사냥합니다!',

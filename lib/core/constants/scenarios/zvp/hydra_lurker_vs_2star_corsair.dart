@@ -160,7 +160,7 @@ const _zvpHydraLurkerVs2starCorsair = ScenarioScript(
         ),
         ScriptBranch(
           id: 'away_wins',
-          baseProbability: 1.0,
+          baseProbability: 2.5,
           conditionStat: 'harass',
           events: [
             ScriptEvent(

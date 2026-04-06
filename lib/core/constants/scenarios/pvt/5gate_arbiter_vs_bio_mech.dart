@@ -155,7 +155,7 @@ const _pvt5gateArbiterVsBioMech = ScenarioScript(
         ),
         ScriptBranch(
           id: 'away_wins',
-          baseProbability: 1.0,
+          baseProbability: 2.0,
           events: [
             ScriptEvent(
               text: '{away} 선수 골리앗이 아비터를 집중 사격! 대공 화력이 강합니다!',

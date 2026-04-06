@@ -57,13 +57,13 @@ const _pvp3gateSpeedzealotVs2gateDragoon = ScenarioScript(
         ScriptEvent(
           text: '{home}, 각속 업그레이드 완료! 스피드질럿이 돌진합니다!',
           owner: LogOwner.home,
-          homeArmy: 5, favorsStat: 'attack',
+          homeArmy: 5, awayArmy: 2, favorsStat: 'attack',
           altText: '{home} 선수 스피드질럿! 빠른 질럿이 쏟아집니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 드라군을 모아 대응합니다! 사정거리로 막아야 합니다!',
           owner: LogOwner.away,
-          awayArmy: 4, awayResource: -15,
+          awayArmy: 3, awayResource: -15,
         ),
         ScriptEvent(
           text: '스피드질럿 vs 드라군! 접근하면 질럿, 거리를 유지하면 드라군!',

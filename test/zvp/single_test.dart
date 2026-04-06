@@ -8,8 +8,8 @@ import 'package:mystar/domain/services/match_simulation_service.dart';
 /// ============================================================
 void main() {
   // ── 빌드 ID 설정 (여기만 수정) ──
-  const homeBuildId = 'zvp_12hatch';
-  const awayBuildId = 'pvz_forge_cannon';
+  const homeBuildId = 'zvp_trans_5hatch_hydra';
+  const awayBuildId = 'pvz_cannon_rush'; // 목표: P 30~70% 승률
 
   final homePlayer = Player(
     id: 'zerg_test',

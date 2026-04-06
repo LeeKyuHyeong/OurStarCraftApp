@@ -8,8 +8,8 @@ import 'package:mystar/domain/services/match_simulation_service.dart';
 /// ============================================================
 void main() {
   // ── 빌드 ID 설정 (여기만 수정) ──
-  const homeBuildId = 'pvt_1gate_expand';
-  const awayBuildId = 'tvp_double';
+  const homeBuildId = 'pvt_dark_swing';
+  const awayBuildId = 'tvp_bbs';
 
   final homePlayer = Player(
     id: 'protoss_test',

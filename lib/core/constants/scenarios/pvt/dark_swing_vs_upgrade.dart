@@ -120,9 +120,7 @@ const _pvtDarkSwingVsUpgrade = ScenarioScript(
         // 분기 A: 다크 대성공 - 스캔 부족
         ScriptBranch(
           id: 'home_wins',
-          conditionStat: 'harass',
-          homeStatMustBeHigher: true,
-          baseProbability: 1.0,
+          baseProbability: 1.5,
           events: [
             ScriptEvent(
               text: '{home} 선수 다크가 앞마당 SCV를 베기 시작합니다!',
@@ -160,8 +158,6 @@ const _pvtDarkSwingVsUpgrade = ScenarioScript(
         // 분기 B: 스캔 + 터렛으로 방어 → 업그레이드 완료 역전
         ScriptBranch(
           id: 'away_wins',
-          conditionStat: 'scout',
-          homeStatMustBeHigher: false,
           baseProbability: 1.0,
           events: [
             ScriptEvent(

@@ -1272,8 +1272,8 @@ class MatchSimulationService {
       lineCount: lineCount,
     );
 
-    // decisive 종료 시 '승리를 거둡니다' 키워드 포함 텍스트 추가
-    final effectiveFinishingBlow = isDecisive
+    // decisive 종료 시 50% 확률로 '승리를 거둡니다' 키워드 포함 (C17 비율 조절)
+    final effectiveFinishingBlow = isDecisive && _random.nextDouble() < 0.5
         ? '$finishingBlow ${winner.name} 선수, 승리를 거둡니다!'
         : finishingBlow;
 
@@ -1466,15 +1466,15 @@ class MatchSimulationService {
       }
       if (winnerRace == Race.zerg && loserRace == Race.protoss) {
         final texts = [
-          '${winner.name} 선수 저글링 난입! ${loser.name} 선수 프로브 초토화!',
-          '${winner.name} 선수 저글링이 캐논 완성 전에 들어갑니다!',
+          '${winner.name} 선수 병력 난입! ${loser.name} 선수 프로브 초토화!',
+          '${winner.name} 선수 캐논 완성 전에 들어갑니다!',
         ];
         return texts[_random.nextInt(texts.length)];
       }
       // PvP 초반
       if (winnerRace == Race.protoss && loserRace == Race.protoss) {
         final texts = [
-          '${winner.name} 선수 질럿 돌진! ${loser.name} 선수 프로브 라인 초토화!',
+          '${winner.name} 선수 질럿 돌진! ${loser.name} 선수 프로브 대열 초토화!',
           '${winner.name} 선수 공격에 ${loser.name} 선수 수비 실패!',
         ];
         return texts[_random.nextInt(texts.length)];
@@ -1539,7 +1539,7 @@ class MatchSimulationService {
       // PvP
       if (winnerRace == Race.protoss && loserRace == Race.protoss) {
         final texts = [
-          '${winner.name} 선수 리버 스카랩 명중! ${loser.name} 선수 드라군 부대 증발!',
+          '${winner.name} 선수 스카랩 명중! ${loser.name} 선수 드라군 부대 증발!',
           '${winner.name} 선수 스톰 작렬! ${loser.name} 선수 상대 병력 괴멸!',
         ];
         return texts[_random.nextInt(texts.length)];

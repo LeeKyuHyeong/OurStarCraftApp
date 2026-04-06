@@ -81,7 +81,7 @@ const _zvp5hatchHydraVs2starCorsair = ScenarioScript(
         ),
       ],
     ),
-    // Phase 2: 히드라 대공 vs 커세어 (lines 22-29)
+    // Phase 2: 커세어 vs 히드라 (lines 22-29)
     ScriptPhase(
       name: 'late_setup',
       startLine: 22,
@@ -89,27 +89,26 @@ const _zvp5hatchHydraVs2starCorsair = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 히드라 사정거리 업그레이드 완료! 커세어를 격추합니다!',
-          owner: LogOwner.home,
-          awayArmy: -3, homeArmy: 2, favorsStat: 'control',
-          altText: '{home}, 히드라 사업! 커세어가 접근할 수 없습니다!',
+          text: '{away} 선수 커세어로 계속 오버로드를 사냥합니다! 보급이 줄어듭니다!',
+          owner: LogOwner.away,
+          awayArmy: 3, homeArmy: -1, homeResource: -15, favorsStat: 'harass',
+          altText: '{away}, 커세어가 오버로드를 계속 격추합니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 해처리를 추가하며 5해처리 체제 완성!',
+          text: '{home} 선수 히드라 사정거리 업그레이드를 서두릅니다!',
           owner: LogOwner.home,
-          homeResource: -30,
+          homeArmy: 2, homeResource: -20, favorsStat: 'control',
+          altText: '{home}, 히드라 사업 연구! 커세어를 아웃레인지합니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 커세어로 견제하면서 지상군을 모읍니다!',
+          text: '{away} 선수 지상군도 모으며 전면전을 준비합니다!',
           owner: LogOwner.away,
           awayArmy: 3, awayResource: -20,
-          altText: '{away}, 커세어 견제 유지! 드라군을 보충합니다!',
+          altText: '{away}, 드라군을 추가! 지상 전력도 보강합니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 히드라 대량 생산! 물량 차이가 벌어집니다!',
-          owner: LogOwner.home,
-          homeArmy: 5, homeResource: -25, favorsStat: 'macro',
-          altText: '{home}, 5해처리에서 히드라가 쏟아집니다!',
+          text: '커세어의 오버로드 사냥 vs 히드라의 대공 반격! 어느 쪽이 먼저인가!',
+          owner: LogOwner.system,
         ),
       ],
     ),
@@ -147,7 +146,8 @@ const _zvp5hatchHydraVs2starCorsair = ScenarioScript(
         ),
         ScriptBranch(
           id: 'away_wins',
-          baseProbability: 1.0,
+          baseProbability: 2.5,
+          conditionStat: 'harass',
           events: [
             ScriptEvent(
               text: '{away} 선수 커세어가 오버로드를 전멸시킵니다! 보급이 막힙니다!',

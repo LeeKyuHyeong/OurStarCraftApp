@@ -21,10 +21,10 @@ const _pvt5gateCarrierVsAntiCarrier = ScenarioScript(
           homeResource: -15,
         ),
         ScriptEvent(
-          text: '{away} 선수 배럭에서 팩토리! 아머리까지 빠르게 올립니다!',
+          text: '{away} 선수 배럭에서 팩토리! 빠르게 올립니다!',
           owner: LogOwner.away,
           awayResource: -25,
-          altText: '{away}, 팩토리에 아머리! 대공 체제를 구축합니다!',
+          altText: '{away}, 팩토리를 올립니다! 대공 체제를 구축합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 사이버네틱스 코어 이후 넥서스 건설!',
@@ -39,7 +39,7 @@ const _pvt5gateCarrierVsAntiCarrier = ScenarioScript(
           altText: '{away}, 골리앗에 사거리 업그레이드! 대공 특화 빌드!',
         ),
         ScriptEvent(
-          text: '테란이 안티 캐리어 빌드를 가져갑니다! 골리앗 중심!',
+          text: '테란이 골리앗 중심의 대공 체계를 갖춰갑니다!',
           owner: LogOwner.system,
         ),
         ScriptEvent(
