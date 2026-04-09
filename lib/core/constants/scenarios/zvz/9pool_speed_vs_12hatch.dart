@@ -106,7 +106,7 @@ const _zvz9poolSpeedVs12hatch = ScenarioScript(
               homeArmy: -4, awayArmy: -1, favorsStat: 'defense',
             ),
             ScriptEvent(
-              text: '{away}, 풀 완성! 저글링 + 성큰으로 입구를 잠급니다!',
+              text: '{away}, 풀 완성! 저글링과 성큰으로 입구를 잠급니다!',
               owner: LogOwner.away,
               awayArmy: 6, awayResource: -22, favorsStat: 'defense',
             ),

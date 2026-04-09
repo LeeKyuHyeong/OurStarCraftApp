@@ -27,7 +27,7 @@ const _zvz9poolSpeedVs9overpool = ScenarioScript(
           altText: '{away}, 9오버풀! 인구 안정 후 풀 진입!',
         ),
         ScriptEvent(
-          text: '{home}, 저글링 6기 + 발업! 라바 전부 저글링!',
+          text: '{home}, 저글링 6기에 발업! 라바 전부 저글링!',
           owner: LogOwner.home,
           homeArmy: 6, homeResource: -8,
           altText: '{home} 선수 발업 저글링이 한 박자 먼저 출발!',
@@ -108,7 +108,7 @@ const _zvz9poolSpeedVs9overpool = ScenarioScript(
               awayArmy: 4, awayResource: -10, favorsStat: 'control',
             ),
             ScriptEvent(
-              text: '{home} 선수 압박이 막혔어요! 드론 격차 + 안정성에서 밀립니다!',
+              text: '{home} 선수 압박이 막혔어요! 드론 격차와 안정성에서 밀립니다!',
               owner: LogOwner.home,
               homeArmy: -2,
             ),

@@ -27,7 +27,7 @@ const _zvz9poolSpeedVs12pool = ScenarioScript(
           altText: '{away}, 12풀! 드론이 3기 더 많아요!',
         ),
         ScriptEvent(
-          text: '{home}, 저글링 6기 + 발업! 풀이 한 박자 빠르고 발업도 빠릅니다!',
+          text: '{home}, 저글링 6기에 발업! 풀이 한 박자 빠르고 발업도 빠릅니다!',
           owner: LogOwner.home,
           homeArmy: 6, homeResource: -8,
         ),
@@ -95,7 +95,7 @@ const _zvz9poolSpeedVs12pool = ScenarioScript(
               text: '{away}, 드론 우위로 발업 저글링을 잡아냅니다! 풀도 완성!',
               owner: LogOwner.away,
               homeArmy: -4, awayArmy: 4, awayResource: -10, favorsStat: 'defense',
-              altText: '{away} 선수 드론 컨트롤 + 저글링 합류! 12풀 수비 성공!',
+              altText: '{away} 선수 드론 컨트롤에 저글링 합류! 12풀 수비 성공!',
             ),
             ScriptEvent(
               text: '{home} 선수 압박이 무산됩니다! 드론은 6기뿐인데 상대는 10기예요!',

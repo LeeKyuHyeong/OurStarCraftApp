@@ -29,13 +29,13 @@ const _zvz9poolSpeedVs9poolLair = ScenarioScript(
           text: '{home}, 라바를 전부 저글링에! 발업도 연구!',
           owner: LogOwner.home,
           homeArmy: 6, homeResource: -8,
-          altText: '{home}, 저글링 6기 + 발업! 압박형입니다!',
+          altText: '{home}, 저글링 6기에 발업! 압박형입니다!',
         ),
         ScriptEvent(
           text: '{away}, 저글링은 4기만! 나머지 라바는 드론에! 발업도 스킵!',
           owner: LogOwner.away,
           awayArmy: 4, awayResource: -5,
-          altText: '{away}, 저글링 4기 + 드론 + 빠른 레어! 테크형입니다!',
+          altText: '{away}, 저글링 4기에 드론, 빠른 레어! 테크형입니다!',
         ),
         ScriptEvent(
           text: '같은 9풀이지만 라바 분배가 완전히 다릅니다!',
@@ -112,7 +112,7 @@ const _zvz9poolSpeedVs9poolLair = ScenarioScript(
               text: '{away}, 드론과 저글링으로 발업 저글링을 잡아냅니다! 성큰도 완성!',
               owner: LogOwner.away,
               homeArmy: -4, awayArmy: -1, awayResource: -10, favorsStat: 'defense',
-              altText: '{away} 선수 드론 컨트롤 + 성큰! 발업 저글링이 녹아요!',
+              altText: '{away} 선수 드론 컨트롤에 성큰! 발업 저글링이 녹아요!',
             ),
             ScriptEvent(
               text: '{home} 선수 추가 저글링이 약해집니다! 레어가 곧 완성돼요!',

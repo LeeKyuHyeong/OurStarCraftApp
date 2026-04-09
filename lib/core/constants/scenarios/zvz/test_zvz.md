@@ -20,7 +20,7 @@
 | # | 파일명 | Home | Away | 보정 |
 |---|--------|------|------|:----:|
 | 1 | 4pool_mirror | zvz_4pool | zvz_4pool | O |
-| 2 | 9pool_speed_mirror | zvz_9pool_speed | zvz_9pool_speed | X |
+| 2 | 9pool_speed_mirror | zvz_9pool_speed | zvz_9pool_speed | O |
 | 3 | 9pool_lair_mirror | zvz_9pool_lair | zvz_9pool_lair | X |
 | 4 | 9overpool_mirror | zvz_9overpool | zvz_9overpool | X |
 | 5 | 12pool_mirror | zvz_12pool | zvz_12pool | X |
