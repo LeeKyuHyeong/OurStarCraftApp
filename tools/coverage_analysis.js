@@ -59,8 +59,8 @@ const buildTypes = {
 
   // ZvZ
   ZvZ: [
-    'zvz_pool_first', 'zvz_9pool', 'zvz_9overpool', 'zvz_12pool',
-    'zvz_12hatch', 'zvz_3hatch_nopool'
+    'zvz_4pool', 'zvz_9pool_speed', 'zvz_9pool_lair', 'zvz_9overpool',
+    'zvz_12pool', 'zvz_12hatch'
   ],
 
   // PvP

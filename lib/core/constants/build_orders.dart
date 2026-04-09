@@ -2100,12 +2100,12 @@ class BuildOrderData {
     ),
   ];
 
-  // ZvZ 빌드들 (BuildType: zvzPoolFirst, zvz9Pool, zvz12Pool, zvz12Hatch, zvz3HatchNoPool)
+  // ZvZ 빌드들 (BuildType: zvz4Pool, zvz9PoolSpeed, zvz9PoolLair, zvz9OverPool, zvz12Pool, zvz12Hatch)
   static const zergVsZergBuilds = [
-    // 1. 4풀 (zvzPoolFirst - Cheese)
+    // 1. 4풀 (zvz4Pool - Cheese)
     // 상대 해처리 퍼스트 읽고 저글링으로 4풀 러시
     BuildOrder(
-      id: 'zvz_pool_first',
+      id: 'zvz_4pool',
       name: '4풀',
       race: 'Z',
       vsRace: 'Z',
@@ -2120,29 +2120,50 @@ class BuildOrderData {
       ],
     ),
 
-    // 2. 9풀 (zvz9Pool - Aggressive)
-    // 9드론에 스포닝풀 → 저글링 싸움 → 레어 → 뮤탈 전환
+    // 2-A. 9풀 발업 (zvz9PoolSpeed - Aggressive)
+    // 9드론에 풀 → 저글링 + 발업 우선 → 라바를 저글링에 몰빵 → 압박으로 결착
     BuildOrder(
-      id: 'zvz_9pool',
-      name: '9풀',
+      id: 'zvz_9pool_speed',
+      name: '9풀 발업',
       race: 'Z',
       vsRace: 'Z',
       style: BuildStyle.aggressive,
       steps: [
         BuildStep(line: 1, text: '{player} 선수 드론 생산!', myResource: 5),
         BuildStep(line: 4, text: '{player} 선수 9드론에 풀!', stat: 'strategy', myResource: -15),
-        BuildStep(line: 8, text: '{player} 선수 저글링 생산!', stat: 'attack', myArmy: 6, myResource: -5),
-        BuildStep(line: 10, text: '{player}, 저글링 발업 연구!', stat: 'control', myResource: -15),
-        BuildStep(line: 12, text: '{player}, 저글링 찌르기!', stat: 'attack', enemyResource: -15, isClash: true),
-        BuildStep(line: 16, text: '{player} 선수 앞마당 해처리 건설!', stat: 'macro', myResource: -30),
-        BuildStep(line: 22, text: '{player} 선수 빠른 레어 건설!', stat: 'strategy', myResource: -20),
-        BuildStep(line: 26, text: '{player} 선수 성큰 콜로니 건설!', stat: 'defense', myArmy: 1, myResource: -12),
-        BuildStep(line: 28, text: '{player} 선수 스파이어 건설!', myResource: -25),
-        BuildStep(line: 32, text: '{player}, 스포어 콜로니 건설합니다.', stat: 'defense', myArmy: 1, myResource: -10),
-        BuildStep(line: 36, text: '{player}, 뮤탈리스크 선행 생산!', stat: 'control', myArmy: 8, myResource: -15),
-        BuildStep(line: 40, text: '{player}, 뮤탈로 드론 견제!', stat: 'harass', enemyResource: -20),
-        BuildStep(line: 44, text: '{player} 선수 뮤탈 추가 생산!', stat: 'strategy', myArmy: 5, myResource: -10),
-        BuildStep(line: 50, text: '{player}, 뮤탈 물량으로 제공권 장악!', stat: 'control', myArmy: 3, enemyArmy: -5, isClash: true, decisive: true),
+        BuildStep(line: 8, text: '{player} 선수 저글링 6기 먼저 생산!', stat: 'attack', myArmy: 6, myResource: -5),
+        BuildStep(line: 10, text: '{player}, 저글링 발업 연구! 가스에 자원을 묶습니다!', stat: 'control', myResource: -15),
+        BuildStep(line: 12, text: '{player}, 저글링 찌르기 한 번!', stat: 'attack', enemyResource: -15, isClash: true),
+        BuildStep(line: 14, text: '{player} 선수 라바를 전부 저글링에 돌립니다!', stat: 'attack', myArmy: 4, myResource: -8),
+        BuildStep(line: 18, text: '{player}, 발업 완료! 저글링 속도가 붙습니다!', stat: 'control', myArmy: 2),
+        BuildStep(line: 22, text: '{player} 선수 추가 저글링으로 두 번째 압박!', stat: 'attack', myArmy: 6, myResource: -10, isClash: true),
+        BuildStep(line: 26, text: '{player} 선수 늦은 앞마당 해처리!', stat: 'macro', myResource: -30),
+        BuildStep(line: 32, text: '{player}, 발업 저글링으로 결착을 노립니다!', stat: 'attack', myArmy: 4, isClash: true, decisive: true),
+      ],
+    ),
+
+    // 2-B. 9풀 레어 (zvz9PoolLair - Aggressive)
+    // 9드론에 풀 → 저글링 4기만 → 빠른 앞마당 → 레어 → 스파이어 → 뮤탈 선점
+    BuildOrder(
+      id: 'zvz_9pool_lair',
+      name: '9풀 레어',
+      race: 'Z',
+      vsRace: 'Z',
+      style: BuildStyle.aggressive,
+      steps: [
+        BuildStep(line: 1, text: '{player} 선수 드론 생산!', myResource: 5),
+        BuildStep(line: 4, text: '{player} 선수 9드론에 풀!', stat: 'strategy', myResource: -15),
+        BuildStep(line: 8, text: '{player} 선수 저글링 4기만 생산! 라바 절반은 드론으로!', stat: 'macro', myArmy: 4, myResource: -5),
+        BuildStep(line: 10, text: '{player}, 가스 채취 시작! 발업은 스킵합니다!', stat: 'strategy', myResource: -8),
+        BuildStep(line: 14, text: '{player} 선수 앞마당 해처리 빠르게!', stat: 'macro', myResource: -30),
+        BuildStep(line: 18, text: '{player} 선수 레어 올립니다! 저글링은 수비형으로!', stat: 'strategy', myResource: -20),
+        BuildStep(line: 22, text: '{player}, 성큰 콜로니로 입구 차단!', stat: 'defense', myArmy: 1, myResource: -12),
+        BuildStep(line: 26, text: '{player} 선수 스파이어 건설 시작!', myResource: -25),
+        BuildStep(line: 30, text: '{player}, 스포어 콜로니!', stat: 'defense', myArmy: 1, myResource: -10),
+        BuildStep(line: 34, text: '{player}, 뮤탈리스크 선행 생산!', stat: 'control', myArmy: 8, myResource: -15),
+        BuildStep(line: 38, text: '{player}, 뮤탈로 드론 견제!', stat: 'harass', enemyResource: -20),
+        BuildStep(line: 42, text: '{player} 선수 뮤탈 추가 생산!', stat: 'strategy', myArmy: 5, myResource: -10),
+        BuildStep(line: 48, text: '{player}, 뮤탈 물량으로 제공권 장악!', stat: 'control', myArmy: 3, enemyArmy: -5, isClash: true, decisive: true),
       ],
     ),
 
@@ -2220,29 +2241,6 @@ class BuildOrderData {
       ],
     ),
 
-    // 5. 노풀 3해처리 (zvz_3hatch_nopool - Defensive)
-    // 스포닝풀 없이 3해처리 먼저. 극 수비적, 경제력 폭발 후 물량전
-    BuildOrder(
-      id: 'zvz_3hatch_nopool',
-      name: '노풀 3해처리',
-      race: 'Z',
-      vsRace: 'Z',
-      style: BuildStyle.defensive,
-      steps: [
-        BuildStep(line: 1, text: '{player} 선수 해처리 건설합니다.', myResource: -10),
-        BuildStep(line: 4, text: '{player}, 앞마당 해처리!', stat: 'macro', myResource: -30),
-        BuildStep(line: 8, text: '{player} 선수 3번째 해처리!', stat: 'macro', myResource: -30),
-        BuildStep(line: 12, text: '{player} 선수 스포닝풀 건설!', myResource: -15),
-        BuildStep(line: 16, text: '{player}, 드론 풀가동!', stat: 'macro', myResource: 20),
-        BuildStep(line: 22, text: '{player} 선수 저글링 대량 생산!', stat: 'defense', myArmy: 8, myResource: -10),
-        BuildStep(line: 28, text: '{player}, 저글링으로 수비!', stat: 'defense', isClash: true),
-        BuildStep(line: 34, text: '{player} 선수 레어 건설!', myResource: -20),
-        BuildStep(line: 40, text: '{player} 선수 스파이어 건설!', myResource: -25),
-        BuildStep(line: 48, text: '{player}, 뮤탈리스크 생산!', stat: 'control', myArmy: 8, myResource: -20),
-        BuildStep(line: 56, text: '{player}, 멀티 운영으로 뮤탈 추가!', stat: 'macro', myArmy: 6, myResource: -15),
-        BuildStep(line: 64, text: '{player}, 압도적 물량! 뮤탈 전쟁 승리!', stat: 'macro', myArmy: 4, isClash: true, decisive: true),
-      ],
-    ),
   ];
 
   // ==================== 프로토스 빌드 ====================
@@ -3758,22 +3756,22 @@ class BuildOrderData {
       ClashEvent(text: '기만 성공! 상대 대비가 엇나갔습니다!', favorsStat: 'attack', attackerArmy: -5, defenderArmy: -12),
     ],
 
-    // ==================== ZvZ 빌드들 (5개) ====================
-    BuildType.zvzPoolFirst: [
+    // ==================== ZvZ 빌드들 (6개) ====================
+    BuildType.zvz4Pool: [
       ClashEvent(text: '4풀 러시 성공! 해처리가 막힙니다!', favorsStat: 'attack', attackerArmy: -5, defenderArmy: -8, defenderResource: -20),
       ClashEvent(text: '4풀 저글링 러시! 컨트롤로 승부!', favorsStat: 'scout', attackerArmy: -8, defenderArmy: -10),
     ],
-    BuildType.zvz9Pool: [
-      ClashEvent(text: '9레어! 빠른 뮤탈 전환!', favorsStat: 'strategy', attackerArmy: -3, defenderArmy: -6, defenderResource: -15),
-      ClashEvent(text: '9레어 뮤탈 타이밍! 상대보다 먼저 뮤탈!', favorsStat: 'control', attackerArmy: -5, defenderArmy: -10),
+    BuildType.zvz9PoolSpeed: [
+      ClashEvent(text: '발업 저글링 압박! 라바를 전부 저글링에 돌립니다!', favorsStat: 'attack', attackerArmy: -6, defenderArmy: -10, defenderResource: -15),
+      ClashEvent(text: '9풀 발업 두 번째 찌르기! 드론까지 끊습니다!', favorsStat: 'control', attackerArmy: -5, defenderArmy: -8),
+    ],
+    BuildType.zvz9PoolLair: [
+      ClashEvent(text: '9풀 레어 뮤탈 선점! 상대보다 먼저 스파이어!', favorsStat: 'strategy', attackerArmy: -3, defenderArmy: -6, defenderResource: -15),
+      ClashEvent(text: '뮤탈 타이밍 우위! 드론 견제로 격차를 벌립니다!', favorsStat: 'harass', attackerArmy: -5, defenderArmy: -10),
     ],
     BuildType.zvz12Hatch: [
       ClashEvent(text: '12앞마당 드론 뽑기! 멀티 운영으로 역전!', favorsStat: 'macro', attackerArmy: 2, defenderArmy: 0, attackerResource: 20),
       ClashEvent(text: '물량 축적 완료! 이제 반격입니다!', favorsStat: 'macro', attackerArmy: 5, defenderArmy: -3, attackerResource: -15),
-    ],
-    BuildType.zvz3HatchNoPool: [
-      ClashEvent(text: '노풀 3해처리! 멀티 자원이 터집니다!', favorsStat: 'macro', attackerArmy: 4, defenderArmy: -2, attackerResource: 20),
-      ClashEvent(text: '3해처리 드론 풀가동! 물량으로 압도!', favorsStat: 'macro', attackerArmy: -3, defenderArmy: -6, attackerResource: 15),
     ],
     BuildType.zvz12Pool: [
       ClashEvent(text: '12풀! 안정적 운영에서 저글링 생산!', favorsStat: 'macro', attackerArmy: 4, defenderArmy: -2, attackerResource: 15),

@@ -321,7 +321,8 @@ Phase 4: 결전   (startLine ~38+)  - decisive 분기 (home_wins / away_wins)
 
 ## 7. 역방향 매칭 (isReversed)
 
-시나리오의 homeBuildIds와 awayBuildIds가 겹치면 안 됨.
+> `homeBuildIds`/`awayBuildIds` 겹침 금지 원칙은 CLAUDE.md "Home/Away 규칙" 참조.
+
 역방향 매칭 시 엔진이 자동으로 스왑:
 - homeArmy ↔ awayArmy
 - homeResource ↔ awayResource

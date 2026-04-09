@@ -501,6 +501,37 @@ const IMPLIED_BUILDINGS = {
   '로보틱스 서포트 베이': ['로보틱스', '사이버네틱스 코어', '게이트웨이'],
 };
 
+// 빌드명/약칭 → 정식 건물명 (테크트리 검증용)
+// 시나리오 텍스트가 방송 톤이라 빌드명("4풀", "9풀", "12앞" 등)으로 표기되는 경우가 많아,
+// 이를 정식 건물명으로 매핑해 선행 건물 인식을 보강한다.
+const BUILDING_ALIASES = {
+  // 저그 — 풀 계열 빌드명 ("풀"은 ZvZ 텍스트에서 거의 항상 스포닝풀을 가리킴)
+  '풀': '스포닝풀',
+  '4풀': '스포닝풀',
+  '5풀': '스포닝풀',
+  '7풀': '스포닝풀',
+  '9풀': '스포닝풀',
+  '오버풀': '스포닝풀',
+  '12풀': '스포닝풀',
+  // 저그 — 해처리 계열 ("12앞", "12해처리" 등)
+  '12앞': '해처리',
+  '12해처리': '해처리',
+  '앞마당 해처리': '해처리',
+  // 테란 — 빌드명 (향후 TvT/TvZ 작업 시 활용)
+  'BBS': '배럭',
+  '배럭더블': '배럭',
+  '1배럭더블': '배럭',
+  '노배럭더블': '커맨드센터',
+  '팩더블': '팩토리',
+  '1팩더블': '팩토리',
+  // 프로토스 — 빌드명
+  '2게이트': '게이트웨이',
+  '원게이트': '게이트웨이',
+  '투게이트': '게이트웨이',
+  '포지더블': '포지',
+  '노게이트': '넥서스',
+};
+
 function checkTechTreeOrder(logs, matchup, isReversed) {
   const violations = [];
   const races = MATCHUP_RACES[matchup];
@@ -533,6 +564,16 @@ function checkTechTreeOrder(logs, matchup, isReversed) {
           if (text.includes(buildingName)) {
             side.buildings.add(buildingName);
             const implied = IMPLIED_BUILDINGS[buildingName];
+            if (implied) {
+              for (const ib of implied) side.buildings.add(ib);
+            }
+          }
+        }
+        // 빌드명/약칭 별칭 감지 → 매핑된 정식 건물명을 추가
+        for (const [alias, canonical] of Object.entries(BUILDING_ALIASES)) {
+          if (text.includes(alias) && tree.buildings[canonical]) {
+            side.buildings.add(canonical);
+            const implied = IMPLIED_BUILDINGS[canonical];
             if (implied) {
               for (const ib of implied) side.buildings.add(ib);
             }

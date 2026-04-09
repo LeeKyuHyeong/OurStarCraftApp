@@ -310,32 +310,32 @@ part 'scenarios/zvp/hydra_lurker_vs_forge_expand.dart';
 
 // ZvZ (21 scenarios - 6 mirrors + 15 cross, 모두 1:1)
 // 미러 (6)
-part 'scenarios/zvz/pool_first_mirror.dart';
-part 'scenarios/zvz/9pool_mirror_single.dart';
-part 'scenarios/zvz/12hatch_mirror.dart';
+part 'scenarios/zvz/4pool_mirror.dart';
+part 'scenarios/zvz/9pool_speed_mirror.dart';
+part 'scenarios/zvz/9pool_lair_mirror.dart';
 part 'scenarios/zvz/9overpool_mirror.dart';
 part 'scenarios/zvz/12pool_mirror.dart';
-part 'scenarios/zvz/3hatch_nopool_mirror.dart';
-// 기존 1:1 크로스 (2)
-part 'scenarios/zvz/9pool_vs_9overpool.dart';
-part 'scenarios/zvz/4pool_vs_3hatch.dart';
-// pool_first 크로스 (4)
-part 'scenarios/zvz/pool_first_vs_9pool.dart';
-part 'scenarios/zvz/pool_first_vs_9overpool.dart';
-part 'scenarios/zvz/pool_first_vs_12hatch.dart';
-part 'scenarios/zvz/pool_first_vs_12pool.dart';
-// 9pool 크로스 (3)
-part 'scenarios/zvz/9pool_vs_12hatch.dart';
-part 'scenarios/zvz/9pool_vs_12pool.dart';
-part 'scenarios/zvz/9pool_vs_3hatch_nopool.dart';
-// 9overpool 크로스 (3)
-part 'scenarios/zvz/9overpool_vs_12hatch.dart';
+part 'scenarios/zvz/12hatch_mirror.dart';
+// 4pool 크로스 (5)
+part 'scenarios/zvz/4pool_vs_9pool_speed.dart';
+part 'scenarios/zvz/4pool_vs_9pool_lair.dart';
+part 'scenarios/zvz/4pool_vs_9overpool.dart';
+part 'scenarios/zvz/4pool_vs_12pool.dart';
+part 'scenarios/zvz/4pool_vs_12hatch.dart';
+// 9pool_speed 크로스 (4)
+part 'scenarios/zvz/9pool_speed_vs_9pool_lair.dart';
+part 'scenarios/zvz/9pool_speed_vs_9overpool.dart';
+part 'scenarios/zvz/9pool_speed_vs_12pool.dart';
+part 'scenarios/zvz/9pool_speed_vs_12hatch.dart';
+// 9pool_lair 크로스 (3)
+part 'scenarios/zvz/9pool_lair_vs_9overpool.dart';
+part 'scenarios/zvz/9pool_lair_vs_12pool.dart';
+part 'scenarios/zvz/9pool_lair_vs_12hatch.dart';
+// 9overpool 크로스 (2)
 part 'scenarios/zvz/9overpool_vs_12pool.dart';
-part 'scenarios/zvz/9overpool_vs_3hatch_nopool.dart';
-// 12hatch/12pool 크로스 (3)
+part 'scenarios/zvz/9overpool_vs_12hatch.dart';
+// 12hatch/12pool 크로스 (1)
 part 'scenarios/zvz/12hatch_vs_12pool.dart';
-part 'scenarios/zvz/12hatch_vs_3hatch_nopool.dart';
-part 'scenarios/zvz/12pool_vs_3hatch_nopool.dart';
 
 // ============================================================
 // 시나리오 스크립트 데이터 클래스
@@ -714,31 +714,31 @@ class ScenarioScriptData {
     _zvpHydraLurkerVsDragoonPush, _zvpHydraLurkerVsCorsair, _zvpHydraLurkerVsArchon, _zvpHydraLurkerVsForgeExpand,
     // ZvZ (scenarios/zvz/) - 21 scenarios (6 mirrors + 15 cross)
     // 미러 (6)
-    _zvzPoolFirstMirror,
-    _zvz9poolMirrorSingle,
-    _zvz12hatchMirror,
+    _zvz4PoolMirror,
+    _zvz9poolSpeedMirror,
+    _zvz9poolLairMirror,
     _zvz9overpoolMirror,
     _zvz12poolMirror,
-    _zvz3hatchNopoolMirror,
-    // 기존 1:1 크로스 (2)
-    _zvz9poolVs9overpool,
-    _zvz4poolVs3hatch,
-    // pool_first 크로스 (4)
-    _zvzPoolFirstVs9pool,
-    _zvzPoolFirstVs9overpool,
-    _zvzPoolFirstVs12hatch,
-    _zvzPoolFirstVs12pool,
-    // 9pool 크로스 (3)
-    _zvz9poolVs12hatch,
-    _zvz9poolVs12pool,
-    _zvz9poolVs3hatchNopool,
-    // 9overpool 크로스 (3)
-    _zvz9overpoolVs12hatch,
+    _zvz12hatchMirror,
+    // 4pool 크로스 (5)
+    _zvz4PoolVs9poolSpeed,
+    _zvz4PoolVs9poolLair,
+    _zvz4PoolVs9overpool,
+    _zvz4PoolVs12pool,
+    _zvz4PoolVs12hatch,
+    // 9pool_speed 크로스 (4)
+    _zvz9poolSpeedVs9poolLair,
+    _zvz9poolSpeedVs9overpool,
+    _zvz9poolSpeedVs12pool,
+    _zvz9poolSpeedVs12hatch,
+    // 9pool_lair 크로스 (3)
+    _zvz9poolLairVs9overpool,
+    _zvz9poolLairVs12pool,
+    _zvz9poolLairVs12hatch,
+    // 9overpool 크로스 (2)
     _zvz9overpoolVs12pool,
-    _zvz9overpoolVs3hatchNopool,
-    // 12hatch/12pool 크로스 (3)
+    _zvz9overpoolVs12hatch,
+    // 12hatch/12pool 크로스 (1)
     _zvz12hatchVs12pool,
-    _zvz12hatchVs3hatchNopool,
-    _zvz12poolVs3hatchNopool,
   ];
 }

@@ -74,7 +74,7 @@ void main() {
       final stream = service.simulateMatchWithLog(
         homePlayer: homePlayer, awayPlayer: awayPlayer,
         map: testMap, getIntervalMs: () => 0,
-        forcedHomeBuildId: 'zvz_9pool',
+        forcedHomeBuildId: 'zvz_9pool_lair',
         forcedAwayBuildId: 'zvz_9overpool',
       );
 
@@ -221,7 +221,7 @@ void main() {
         homePlayer: homePlayer, awayPlayer: awayPlayer,
         map: testMap, getIntervalMs: () => 0,
         forcedHomeBuildId: 'zvz_12hatch',
-        forcedAwayBuildId: 'zvz_9pool',
+        forcedAwayBuildId: 'zvz_9pool_lair',
       );
 
       SimulationState? state;
@@ -317,7 +317,7 @@ void main() {
 
   // =========================================================
   // 시나리오 3: 4풀 vs 12앞마당 (zvz_4pool_vs_12hatch)
-  // homeBuild: zvz_pool_first, awayBuild: zvz_12hatch
+  // homeBuild: zvz_4pool, awayBuild: zvz_12hatch
   // Phase 2 분기: pool_crushes (conditionStat=attack, home>away)
   //              / drone_defense (conditionStat=control, away>home)
   // =========================================================
@@ -337,7 +337,7 @@ void main() {
       final stream = service.simulateMatchWithLog(
         homePlayer: homePlayer, awayPlayer: awayPlayer,
         map: testMap, getIntervalMs: () => 0,
-        forcedHomeBuildId: 'zvz_pool_first',
+        forcedHomeBuildId: 'zvz_4pool',
         forcedAwayBuildId: 'zvz_12hatch',
       );
 
@@ -385,7 +385,7 @@ void main() {
     final buffer = StringBuffer();
     buffer.writeln('# ZvZ 시나리오3: 4풀 vs 12앞마당 - 100경기');
     buffer.writeln('');
-    buffer.writeln('- 홈: 이재동 (4풀) | 빌드: zvz_pool_first');
+    buffer.writeln('- 홈: 이재동 (4풀) | 빌드: zvz_4pool');
     buffer.writeln('- 어웨이: 박성준 (12앞마당) | 빌드: zvz_12hatch');
     buffer.writeln('- 맵: 파이팅 스피릿');
     buffer.writeln('');
@@ -433,12 +433,10 @@ void main() {
   });
 
   // =========================================================
-  // 시나리오 4: 노풀 3해처리 미러 (zvz_3hatch_mirror)
-  // homeBuild: zvz_3hatch_nopool, awayBuild: zvz_3hatch_nopool
-  // Phase 2 분기: mutal_control_diff (conditionStat=control, home>away)
-  //              / mutal_stalemate (conditionStat=macro, away>home)
+  // 시나리오 4: 12풀 미러 (zvz_12pool_mirror)
+  // homeBuild: zvz_12pool, awayBuild: zvz_12pool
   // =========================================================
-  test('ZvZ 시나리오4: 노풀 3해처리 미러 100경기', () async {
+  test('ZvZ 시나리오4: 12풀 미러 100경기', () async {
     int homeWins = 0, awayWins = 0;
 
     int p2ControlDiff = 0, p2ControlDiffWin = 0;
@@ -454,8 +452,8 @@ void main() {
       final stream = service.simulateMatchWithLog(
         homePlayer: homePlayer, awayPlayer: awayPlayer,
         map: testMap, getIntervalMs: () => 0,
-        forcedHomeBuildId: 'zvz_3hatch_nopool',
-        forcedAwayBuildId: 'zvz_3hatch_nopool',
+        forcedHomeBuildId: 'zvz_12pool',
+        forcedAwayBuildId: 'zvz_12pool',
       );
 
       SimulationState? state;
@@ -500,10 +498,10 @@ void main() {
     final p2Total = p2ControlDiff + p2Stalemate;
 
     final buffer = StringBuffer();
-    buffer.writeln('# ZvZ 시나리오4: 노풀 3해처리 미러 - 100경기');
+    buffer.writeln('# ZvZ 시나리오4: 12풀 미러 - 100경기');
     buffer.writeln('');
-    buffer.writeln('- 홈: 이재동 (3해처리) | 빌드: zvz_3hatch_nopool');
-    buffer.writeln('- 어웨이: 박성준 (3해처리) | 빌드: zvz_3hatch_nopool');
+    buffer.writeln('- 홈: 이재동 (12풀) | 빌드: zvz_12pool');
+    buffer.writeln('- 어웨이: 박성준 (12풀) | 빌드: zvz_12pool');
     buffer.writeln('- 맵: 파이팅 스피릿');
     buffer.writeln('');
     buffer.writeln('## 종합 전적 (${total}경기)');

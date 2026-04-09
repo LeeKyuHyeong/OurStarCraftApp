@@ -160,6 +160,7 @@ const _zvz12hatchMirror = ScenarioScript(
         ScriptBranch(
           id: 'home_decisive_win',
           baseProbability: 1.0,
+          conditionStat: 'control',
           events: [
             ScriptEvent(
               text: '뮤탈 vs 뮤탈! 12앞마당 미러 결전입니다!',
@@ -188,6 +189,8 @@ const _zvz12hatchMirror = ScenarioScript(
         ScriptBranch(
           id: 'away_decisive_win',
           baseProbability: 1.0,
+          conditionStat: 'control',
+          homeStatMustBeHigher: false,
           events: [
             ScriptEvent(
               text: '뮤탈 vs 뮤탈! 12앞마당 미러 결전입니다!',

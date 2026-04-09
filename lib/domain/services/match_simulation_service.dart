@@ -1272,10 +1272,7 @@ class MatchSimulationService {
       lineCount: lineCount,
     );
 
-    // decisive 종료 시 50% 확률로 '승리를 거둡니다' 키워드 포함 (C17 비율 조절)
-    final effectiveFinishingBlow = isDecisive && _random.nextDouble() < 0.5
-        ? '$finishingBlow ${winner.name} 선수, 승리를 거둡니다!'
-        : finishingBlow;
+    final effectiveFinishingBlow = finishingBlow;
 
     // 최종 목표값 계산
     final loserFinalArmy = _random.nextInt(4); // 0~3
@@ -1479,11 +1476,12 @@ class MatchSimulationService {
         ];
         return texts[_random.nextInt(texts.length)];
       }
-      // ZvZ 초반
+      // ZvZ 초반 — 4풀이 섞이면 발업이 없을 수 있으므로 발업 언급 제외
       if (winnerRace == Race.zerg && loserRace == Race.zerg) {
         final texts = [
           '${winner.name} 선수 저글링 서라운드! ${loser.name} 선수 드론까지 잡힙니다!',
-          '${winner.name} 선수 발업 저글링 돌진! ${loser.name} 선수 수비 붕괴!',
+          '${winner.name} 선수 저글링 돌진! ${loser.name} 선수 수비 붕괴!',
+          '${winner.name} 선수 라바를 전부 저글링에! ${loser.name} 선수 본진까지 밀립니다!',
         ];
         return texts[_random.nextInt(texts.length)];
       }
@@ -2625,11 +2623,11 @@ class MatchSimulationService {
       ],
     ),
 
-    // ==================== ZvZ (6개) ====================
+    // ==================== ZvZ (5개) ====================
 
-    // 1. 4풀/9풀/9오버풀 vs 12앞/12풀 (러쉬 vs 확장형)
+    // 1. 러쉬형 vs 확장형 (4풀/9풀발업/9오버풀 vs 12앞/12풀)
     const _BuildMatchupRule(
-      attackerIds: {'zvz_pool_first', 'zvz_9pool', 'zvz_9overpool'},
+      attackerIds: {'zvz_4pool', 'zvz_9pool_speed', 'zvz_9overpool'},
       defenderIds: {'zvz_12hatch', 'zvz_12pool'},
       texts: [
         '빌드가 갈렸는데요! {atk} 선수 {atkBuild}, {def} 선수 {defBuild}! 초반 러쉬를 막아야 합니다!',
@@ -2638,10 +2636,10 @@ class MatchSimulationService {
       ],
     ),
 
-    // 2. 양쪽 러쉬
+    // 2. 양쪽 러쉬형
     const _BuildMatchupRule(
-      attackerIds: {'zvz_pool_first', 'zvz_9pool', 'zvz_9overpool'},
-      defenderIds: {'zvz_pool_first', 'zvz_9pool', 'zvz_9overpool'},
+      attackerIds: {'zvz_4pool', 'zvz_9pool_speed', 'zvz_9overpool'},
+      defenderIds: {'zvz_4pool', 'zvz_9pool_speed', 'zvz_9overpool'},
       texts: [
         '양 선수 모두 빠른 풀! 초반부터 저글링 싸움이 벌어집니다!',
         '양쪽 다 공격적! {atkBuild} vs {defBuild}, 컨트롤 싸움이 승부를 가릅니다!',
@@ -2651,8 +2649,8 @@ class MatchSimulationService {
 
     // 3. 양쪽 운영
     const _BuildMatchupRule(
-      attackerIds: {'zvz_12hatch', 'zvz_12pool', 'zvz_3hatch_nopool'},
-      defenderIds: {'zvz_12hatch', 'zvz_12pool', 'zvz_3hatch_nopool'},
+      attackerIds: {'zvz_12hatch', 'zvz_12pool'},
+      defenderIds: {'zvz_12hatch', 'zvz_12pool'},
       texts: [
         '양 선수 모두 안정적인 운영! 뮤탈 싸움이 관건인 중후반전이 예상됩니다.',
         '{atkBuild} vs {defBuild}! 양쪽 다 확장하며 긴 경기를 준비합니다.',
@@ -2660,36 +2658,25 @@ class MatchSimulationService {
       ],
     ),
 
-    // 4. 4풀 vs 노풀 3해처리 (극 공격 vs 극 수비)
+    // 4. 9풀 레어 (테크 우선) vs 운영형
     const _BuildMatchupRule(
-      attackerIds: {'zvz_pool_first'},
-      defenderIds: {'zvz_3hatch_nopool'},
+      attackerIds: {'zvz_9pool_lair'},
+      defenderIds: {'zvz_12hatch', 'zvz_12pool'},
       texts: [
-        '{atk} 선수 4풀! {def} 선수 노풀 3해처리인데, 저글링이 들어가면 끝날 수 있습니다!',
-        '{atkBuild} vs {defBuild}! 극과 극의 빌드 매치업! {def} 선수가 버틸 수 있을까요?',
-        '4풀 vs 노풀 3해처리! {def} 선수에게 치명적인 빌드 매치업입니다!',
+        '{atk} 선수 9풀 레어! 발업을 스킵하고 빠른 뮤탈을 선점하려 합니다!',
+        '{atkBuild} vs {defBuild}! 뮤탈 타이밍이 관건입니다, 누가 먼저 스파이어를 올릴지!',
+        '{atk} 선수 빠른 레어! {def} 선수가 멀티 우위를 살리려면 뮤탈 타이밍을 막아야 합니다!',
       ],
     ),
 
-    // 5. 9풀 vs 노풀 3해처리 (공격 vs 극 수비)
+    // 5. 9풀 발업 vs 9풀 레어 (라바 분배 철학의 충돌)
     const _BuildMatchupRule(
-      attackerIds: {'zvz_9pool'},
-      defenderIds: {'zvz_3hatch_nopool'},
+      attackerIds: {'zvz_9pool_speed'},
+      defenderIds: {'zvz_9pool_lair'},
       texts: [
-        '{atk} 선수 9풀! {def} 선수 노풀 3해처리인데, 저글링 타이밍이 관건입니다!',
-        '{atkBuild} vs {defBuild}! 풀 타이밍 차이가 경기를 결정합니다!',
-        '9풀 vs 노풀 3해처리! {atk} 선수의 저글링이 먼저 도착하는 매치업입니다!',
-      ],
-    ),
-
-    // 6. 9풀 vs 12풀 (9풀이 피해를 주느냐 vs 12풀이 드론 우위를 살리느냐)
-    const _BuildMatchupRule(
-      attackerIds: {'zvz_9pool'},
-      defenderIds: {'zvz_12pool'},
-      texts: [
-        '{atk} 선수 9풀! {def} 선수 12풀인데, 드론 3기 차이를 살릴 수 있을지가 관건입니다!',
-        '9풀 vs 12풀! {atk} 선수가 초반에 피해를 주지 못하면 멀티 격차가 벌어집니다!',
-        '{atkBuild} vs {defBuild}! {def} 선수가 저글링 피해를 최소화하면 멀티 우위로 갈 수 있습니다!',
+        '{atk} 선수 9풀 발업, {def} 선수 9풀 레어! 같은 풀 타이밍이지만 라바 분배 철학이 갈립니다!',
+        '발업 vs 레어! 저글링 압박이 테크를 끊느냐, 뮤탈 타이밍이 먼저 도착하느냐!',
+        '{atk} 선수 라바를 전부 저글링에! {def} 선수는 드론 우선 후 빠른 스파이어!',
       ],
     ),
 
@@ -3948,11 +3935,13 @@ class MatchSimulationService {
     // fixedCost 이벤트(건물/유닛 생산)는 모디파이어 건너뛰기
     if (!event.fixedCost) {
       // favorsStat 보정 (기존 클래시 로직 재사용)
+      // 능력치 차 200 → 약 +/-12.5% 데미지 modifier (이전 +/-25%에서 약화)
+      // 시나리오 이벤트 한 번에 army가 0으로 급변하는 것을 방지
       if (event.favorsStat != null) {
         final homeStat = _getStatValue(homeStats, event.favorsStat);
         final awayStat = _getStatValue(awayStats, event.favorsStat);
         final statDiff = (homeStat - awayStat).abs();
-        final modifier = 1.0 + (statDiff / 800).clamp(0.0, 0.3);
+        final modifier = 1.0 + (statDiff / 1600).clamp(0.0, 0.15);
 
         if (homeStat > awayStat) {
           // 홈이 유리: 홈 피해 감소, 어웨이 피해 증가
@@ -4049,15 +4038,23 @@ class MatchSimulationService {
       candidates = buildMatched.isNotEmpty ? buildMatched : noCondition;
     }
 
-    // 2단계: conditionStat 조건 필터링 (기존 로직)
+    // 2단계: conditionStat 조건 처리
+    // 기존 이진 필터(높은 쪽만 eligible)는 능력치가 조금만 차이나도 100% 쏠림 발생.
+    // 변경: conditionStat가 있는 분기는 항상 eligible 유지하되, 능력치 차이를 baseProbability에
+    // 부드럽게 반영해 다른 분기와 함께 가중 선택. 이후 _armyBiasedBranchSelect에서 60/40 캡 적용.
     final eligible = <ScriptBranch>[];
     for (final branch in candidates) {
       if (branch.conditionStat != null) {
         final homeStat = _getStatValue(reversed ? awayStats : homeStats, branch.conditionStat);
         final awayStat = _getStatValue(reversed ? homeStats : awayStats, branch.conditionStat);
         final homeHigher = homeStat > awayStat;
-        // 동일 능력치면 양쪽 분기 모두 eligible → baseProbability/army로 결정
-        if (homeStat == awayStat || branch.homeStatMustBeHigher == homeHigher) {
+        if (homeStat == awayStat) {
+          eligible.add(branch);
+        } else if (branch.homeStatMustBeHigher == homeHigher) {
+          // 우세한 쪽 분기: 그대로 추가 (army 단계에서 자연스럽게 가중치 받음)
+          eligible.add(branch);
+        } else {
+          // 열세한 쪽 분기도 살려둠 — 60/40 캡 내에서 변수로 작용
           eligible.add(branch);
         }
       } else {
@@ -4075,7 +4072,7 @@ class MatchSimulationService {
     if (eligible.length > 1 && state != null) {
       final hasDecisive = eligible.any((b) => b.events.any((e) => e.decisive));
       if (hasDecisive) {
-        return _armyBiasedBranchSelect(eligible, state, reversed);
+        return _armyBiasedBranchSelect(eligible, state, reversed, homeStats, awayStats);
       }
       // non-decisive 분기: 부드러운 army 영향 (이전 분기 결과 반영)
       return _armyInfluencedBranchSelect(eligible, state, reversed);
@@ -4094,46 +4091,62 @@ class MatchSimulationService {
   }
 
   /// 병력 기반 decisive 분기 선택
-  /// 누적된 병력 상태에 따라 해당 진영의 decisive 분기를 가중 선택
+  /// 누적된 병력 상태 + conditionStat 능력치 차이에 따라 해당 진영의 decisive 분기를 가중 선택
+  /// 최대 60/40 캡 (zvz처럼 변수 많은 종족전에서 능력치 한쪽 쏠림 방지)
   ScriptBranch _armyBiasedBranchSelect(
     List<ScriptBranch> branches,
     SimulationState state,
     bool reversed,
+    PlayerStats homeStats,
+    PlayerStats awayStats,
   ) {
     final homeArmy = state.homeArmy;
     final awayArmy = state.awayArmy;
     final totalArmy = homeArmy + awayArmy;
 
-    // 병력이 거의 없으면 기본 가중치 사용
-    if (totalArmy <= 10) return _weightedBranchSelect(branches);
-
-    // 병력 비율 계산 (스크립트 기준: reversed면 실제 home/away가 반전)
+    // 병력 비율 (병력이 거의 없으면 0.5로 간주)
     final scriptHomeArmy = reversed ? awayArmy : homeArmy;
-    final homeRatio = scriptHomeArmy / totalArmy; // 0.0 ~ 1.0
+    final homeRatio = totalArmy > 10 ? scriptHomeArmy / totalArmy : 0.5;
 
-    // 가중치 적용: 병력 비율의 제곱으로 차이를 증폭
-    // 예: 80 vs 30 → homeRatio 0.727 → 제곱 0.529 vs 0.075 → 정규화 87:13
-    // 압도적 차이(>70%)면 확정 선택 → 텍스트/결과 불일치 방지
-    if (homeRatio > 0.70) {
-      // 홈 병력 압도 → 홈 decisive 확정
+    // 압도적 병력 차이(>85%)에서만 확정 선택 → 텍스트/결과 불일치 방지
+    if (totalArmy > 10 && homeRatio > 0.85) {
       final homeBranch = branches.where((b) =>
         b.events.any((e) => e.decisive && e.owner == LogOwner.home)).firstOrNull;
       if (homeBranch != null) return homeBranch;
-    } else if (homeRatio < 0.30) {
-      // 어웨이 병력 압도 → 어웨이 decisive 확정
+    } else if (totalArmy > 10 && homeRatio < 0.15) {
       final awayBranch = branches.where((b) =>
         b.events.any((e) => e.decisive && e.owner == LogOwner.away)).firstOrNull;
       if (awayBranch != null) return awayBranch;
     }
 
+    // 가중치 적용:
+    //   1) 병력 비율 댐핑 → 0.5 기준
+    //   2) conditionStat 기반 가중 → 능력치 차 200+에서 +/-0.1 saturate
+    // 최종 0.4~0.6 캡 → ZvZ 같은 변수 많은 매치업에서도 분기 선택은 60/40 이내
+    const armyDampening = 0.2;
     final adjustedWeights = <double>[];
     for (final branch in branches) {
       final decisiveEvent = branch.events.where((e) => e.decisive).firstOrNull;
       if (decisiveEvent != null) {
         final isHomeBranch = decisiveEvent.owner == LogOwner.home;
-        // 비율 제곱으로 차이 증폭
         final ratio = isHomeBranch ? homeRatio : (1 - homeRatio);
-        adjustedWeights.add(ratio * ratio);
+        final dampedRatio = 0.5 + (ratio - 0.5) * armyDampening;
+
+        // conditionStat 기반 추가 가중 (능력치 차 200에서 saturate)
+        double statBias = 0.0;
+        if (branch.conditionStat != null) {
+          final scriptHomeStat = _getStatValue(reversed ? awayStats : homeStats, branch.conditionStat);
+          final scriptAwayStat = _getStatValue(reversed ? homeStats : awayStats, branch.conditionStat);
+          final statDiff = scriptHomeStat - scriptAwayStat;
+          if (statDiff != 0) {
+            final favored = (statDiff > 0) == (branch.homeStatMustBeHigher);
+            final normalized = (statDiff.abs() / 200.0).clamp(0.0, 1.0); // 200+ saturate
+            statBias = (favored ? 1 : -1) * normalized * 0.1;
+          }
+        }
+
+        // 최종 0.4 ~ 0.6 캡 → 60/40 max
+        adjustedWeights.add((dampedRatio + statBias).clamp(0.4, 0.6));
       } else {
         adjustedWeights.add(branch.baseProbability);
       }

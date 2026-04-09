@@ -342,12 +342,12 @@ enum BuildType {
   zvpYabarwi('zvp_yabarwi', 'ZvP', '야바위', BuildStyle.aggressive, ['strategy', 'attack']),
 
   // ==================== ZvZ 빌드 (6개) ====================
-  zvzPoolFirst('zvz_pool_first', 'ZvZ', '4풀', BuildStyle.cheese, ['attack', 'scout']),
-  zvz9Pool('zvz_9pool', 'ZvZ', '9풀', BuildStyle.aggressive, ['attack', 'control']),
+  zvz4Pool('zvz_4pool', 'ZvZ', '4풀', BuildStyle.cheese, ['attack', 'scout']),
+  zvz9PoolSpeed('zvz_9pool_speed', 'ZvZ', '9풀 발업', BuildStyle.aggressive, ['attack', 'control']),
+  zvz9PoolLair('zvz_9pool_lair', 'ZvZ', '9풀 레어', BuildStyle.aggressive, ['strategy', 'harass']),
   zvz9OverPool('zvz_9overpool', 'ZvZ', '9오버풀', BuildStyle.aggressive, ['attack', 'control']),
   zvz12Pool('zvz_12pool', 'ZvZ', '12풀', BuildStyle.balanced, ['macro', 'strategy']),
   zvz12Hatch('zvz_12hatch', 'ZvZ', '12앞', BuildStyle.balanced, ['macro', 'defense']),
-  zvz3HatchNoPool('zvz_3hatch_nopool', 'ZvZ', '노풀 3해처리', BuildStyle.defensive, ['macro', 'defense']),
 
   // ==================== PvT 빌드 (7개) ====================
   pvtProxyGate('pvt_proxy_gate', 'PvT', '센터 게이트', BuildStyle.cheese, ['attack', 'control']),
@@ -557,38 +557,40 @@ class BuildMatchup {
 
   /// 세부 빌드 특수 상성 (반대칭: f(A,B) = -f(B,A))
   static double _getSpecificAdvantage(BuildType a, BuildType b) {
-    // ZvZ 특수 상성 (10쌍)
-    if (a == BuildType.zvzPoolFirst && b == BuildType.zvz12Hatch) return 9;    // 4풀 > 12앞마당 (20→9: 수비 성공 시 12앞 유리)
-    if (a == BuildType.zvz12Hatch && b == BuildType.zvzPoolFirst) return -9;
-    if (a == BuildType.zvz9Pool && b == BuildType.zvz12Hatch) return 2;        // 9풀 > 12앞마당 (경제력 회복 가능)
-    if (a == BuildType.zvz12Hatch && b == BuildType.zvz9Pool) return -2;
-    if (a == BuildType.zvz9Pool && b == BuildType.zvzPoolFirst) return 8;      // 9풀 > 4풀
-    if (a == BuildType.zvzPoolFirst && b == BuildType.zvz9Pool) return -8;
-    if (a == BuildType.zvzPoolFirst && b == BuildType.zvz3HatchNoPool) return 25; // 4풀 > 노풀 3해처리 (극상성)
-    if (a == BuildType.zvz3HatchNoPool && b == BuildType.zvzPoolFirst) return -25;
-    if (a == BuildType.zvz9Pool && b == BuildType.zvz3HatchNoPool) return 18;    // 9풀 > 노풀 3해처리
-    if (a == BuildType.zvz3HatchNoPool && b == BuildType.zvz9Pool) return -18;
-    if (a == BuildType.zvz12Hatch && b == BuildType.zvz12Pool) return 3;       // 12앞 ≈ 12풀 (미세 우위)
-    if (a == BuildType.zvz12Pool && b == BuildType.zvz12Hatch) return -3;
-    if (a == BuildType.zvz9Pool && b == BuildType.zvz12Pool) return -5;        // 12풀 > 9풀 (드론 3개 경제 우위, 9풀 피해 못 주면 불리)
-    if (a == BuildType.zvz12Pool && b == BuildType.zvz9Pool) return 5;
-    if (a == BuildType.zvz3HatchNoPool && b == BuildType.zvz12Hatch) return 5; // 노풀 3해처리 > 12앞 (후반 경제력)
-    if (a == BuildType.zvz12Hatch && b == BuildType.zvz3HatchNoPool) return -5;
-    if (a == BuildType.zvz3HatchNoPool && b == BuildType.zvz12Pool) return 8;  // 노풀 3해처리 > 12풀 (경제력 격차)
-    if (a == BuildType.zvz12Pool && b == BuildType.zvz3HatchNoPool) return -8;
-    if (a == BuildType.zvzPoolFirst && b == BuildType.zvz12Pool) return 12;    // 4풀 > 12풀
-    if (a == BuildType.zvz12Pool && b == BuildType.zvzPoolFirst) return -12;
-    // 9오버풀 상성
-    if (a == BuildType.zvz9OverPool && b == BuildType.zvz12Hatch) return 12;  // 9오버풀 > 12앞
+    // ZvZ 특수 상성
+    if (a == BuildType.zvz4Pool && b == BuildType.zvz12Hatch) return 9;    // 4풀 > 12앞마당
+    if (a == BuildType.zvz12Hatch && b == BuildType.zvz4Pool) return -9;
+    if (a == BuildType.zvz4Pool && b == BuildType.zvz12Pool) return 12;    // 4풀 > 12풀
+    if (a == BuildType.zvz12Pool && b == BuildType.zvz4Pool) return -12;
+    if (a == BuildType.zvz4Pool && b == BuildType.zvz9OverPool) return -5; // 9오버풀 > 4풀 (서플 관리)
+    if (a == BuildType.zvz9OverPool && b == BuildType.zvz4Pool) return 5;
+    // 9풀 발업 (속도 압박형) 상성
+    if (a == BuildType.zvz9PoolSpeed && b == BuildType.zvz4Pool) return 8;       // 9풀 발업 > 4풀
+    if (a == BuildType.zvz4Pool && b == BuildType.zvz9PoolSpeed) return -8;
+    if (a == BuildType.zvz9PoolSpeed && b == BuildType.zvz12Hatch) return 6;     // 9풀 발업 > 12앞 (저글링 압박)
+    if (a == BuildType.zvz12Hatch && b == BuildType.zvz9PoolSpeed) return -6;
+    if (a == BuildType.zvz9PoolSpeed && b == BuildType.zvz12Pool) return -2;     // 12풀 ≈ 9풀 발업 (드론 우위)
+    if (a == BuildType.zvz12Pool && b == BuildType.zvz9PoolSpeed) return 2;
+    if (a == BuildType.zvz9PoolSpeed && b == BuildType.zvz9OverPool) return 3;   // 9풀 발업 > 9오버풀
+    if (a == BuildType.zvz9OverPool && b == BuildType.zvz9PoolSpeed) return -3;
+    if (a == BuildType.zvz9PoolSpeed && b == BuildType.zvz9PoolLair) return 8;   // 9풀 발업 > 9풀 레어 (저글링 압박이 테크 끊음)
+    if (a == BuildType.zvz9PoolLair && b == BuildType.zvz9PoolSpeed) return -8;
+    // 9풀 레어 (테크 우선형) 상성
+    if (a == BuildType.zvz9PoolLair && b == BuildType.zvz4Pool) return 5;        // 9풀 레어 > 4풀 (저글링 4기로도 막음)
+    if (a == BuildType.zvz4Pool && b == BuildType.zvz9PoolLair) return -5;
+    if (a == BuildType.zvz9PoolLair && b == BuildType.zvz12Hatch) return 8;      // 9풀 레어 > 12앞 (뮤탈 선점)
+    if (a == BuildType.zvz12Hatch && b == BuildType.zvz9PoolLair) return -8;
+    if (a == BuildType.zvz9PoolLair && b == BuildType.zvz12Pool) return -3;      // 12풀 > 9풀 레어 (드론 3기 + 동등한 뮤탈 타이밍)
+    if (a == BuildType.zvz12Pool && b == BuildType.zvz9PoolLair) return 3;
+    if (a == BuildType.zvz9PoolLair && b == BuildType.zvz9OverPool) return 8;    // 9풀 레어 ≈ 9오버풀 (시나리오 편향 보정 — 9오버풀이 55% 목표)
+    if (a == BuildType.zvz9OverPool && b == BuildType.zvz9PoolLair) return -8;
+    // 12hatch / 12pool / 9overpool 간 상성
+    if (a == BuildType.zvz12Hatch && b == BuildType.zvz12Pool) return 40;      // 12앞 > 12풀 (경제 우위, 수비 성공 시 뮤탈 물량 차이)
+    if (a == BuildType.zvz12Pool && b == BuildType.zvz12Hatch) return -40;
+    if (a == BuildType.zvz9OverPool && b == BuildType.zvz12Hatch) return 12;   // 9오버풀 > 12앞
     if (a == BuildType.zvz12Hatch && b == BuildType.zvz9OverPool) return -12;
-    if (a == BuildType.zvz9OverPool && b == BuildType.zvz12Pool) return -3;   // 12풀 > 9오버풀 (경제 우위)
+    if (a == BuildType.zvz9OverPool && b == BuildType.zvz12Pool) return -3;    // 12풀 > 9오버풀 (경제 우위)
     if (a == BuildType.zvz12Pool && b == BuildType.zvz9OverPool) return 3;
-    if (a == BuildType.zvz9OverPool && b == BuildType.zvz3HatchNoPool) return 15; // 9오버풀 > 노풀 3해처리
-    if (a == BuildType.zvz3HatchNoPool && b == BuildType.zvz9OverPool) return -15;
-    if (a == BuildType.zvz9OverPool && b == BuildType.zvz9Pool) return 3;     // 9오버풀 > 9풀 (드론 하나 많은 장점)
-    if (a == BuildType.zvz9Pool && b == BuildType.zvz9OverPool) return -3;
-    if (a == BuildType.zvzPoolFirst && b == BuildType.zvz9OverPool) return -5; // 9오버풀 > 4풀 (서플 관리)
-    if (a == BuildType.zvz9OverPool && b == BuildType.zvzPoolFirst) return 5;
 
     // TvZ/ZvT 특수 상성
     if (a == BuildType.tvzBbs && b == BuildType.zvt1HatchAllIn) return 15;  // BBS > 원해처리 럴커 (초반 마린으로 히드라/럴커 전 압살)

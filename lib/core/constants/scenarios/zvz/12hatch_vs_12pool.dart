@@ -64,7 +64,7 @@ const _zvz12hatchVs12pool = ScenarioScript(
         ScriptEvent(
           text: '{home} 선수 노발업 저글링과 드론, 성큰으로 수비합니다!',
           owner: LogOwner.home,
-          homeArmy: 4, homeResource: -15, favorsStat: 'defense',
+          homeArmy: 6, homeResource: -15, favorsStat: 'defense',
           altText: '{home}, 성큰을 올리면서 수비합니다!',
         ),
         ScriptEvent(
@@ -79,26 +79,26 @@ const _zvz12hatchVs12pool = ScenarioScript(
       name: 'pressure_result',
       startLine: 13,
       branches: [
-        // 분기 A: 저글링이 드론 피해를 줌
+        // 분기 A: 저글링이 드론 피해를 줌 — 12풀 저글링이 성큰 전에 도착해야 성립
         ScriptBranch(
           id: 'ling_damages',
-          baseProbability: 1.0,
+          baseProbability: 0.3,
           events: [
             ScriptEvent(
               text: '{away}, 저글링이 드론을 물어뜯습니다! 성큰 완성 전!',
               owner: LogOwner.away,
-              homeResource: -15, homeArmy: -2, favorsStat: 'attack',
+              homeResource: -15, homeArmy: -1, favorsStat: 'attack',
               altText: '{away} 선수 저글링 돌파! 앞마당 드론이 녹습니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 앞마당 드론 피해가 심각합니다!',
+              text: '{home} 선수 앞마당 드론 피해가 있지만 막아냅니다!',
               owner: LogOwner.home,
               homeResource: -10,
             ),
             ScriptEvent(
-              text: '{away}, 추가 저글링 합류! 앞마당 해처리까지 위협!',
+              text: '{away}, 추가 저글링 합류하지만 성큰이 완성!',
               owner: LogOwner.away,
-              awayArmy: 2, homeResource: -10, homeArmy: -2, favorsStat: 'attack',
+              awayArmy: 1, homeResource: -5, favorsStat: 'attack',
             ),
             ScriptEvent(
               text: '앞마당이 큰 피해를 입었습니다!',
@@ -107,10 +107,10 @@ const _zvz12hatchVs12pool = ScenarioScript(
             ),
           ],
         ),
-        // 분기 B: 수비 성공
+        // 분기 B: 수비 성공 — 12앞이 성큰+드론으로 막으면 경제 우위 유지 (실전에서 대부분 수비 성공)
         ScriptBranch(
           id: 'defense_success',
-          baseProbability: 1.0,
+          baseProbability: 1.7,
           events: [
             ScriptEvent(
               text: '{home}, 성큰이 완성됩니다! 저글링을 잡아냅니다!',

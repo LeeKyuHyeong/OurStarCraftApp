@@ -1,54 +1,67 @@
-# ZVZ 시나리오 보정 추이
+# ZvZ 시나리오 보정 현황
 
-> 총 21개 시나리오 | 보정 완료 시 O로 변경
+> 총 21개 시나리오 (6빌드: 6미러 + 15크로스)
 
-| # | 시나리오명 | Home 빌드 | Away 빌드 | 보정횟수 | 비고 | 완료 |
-|---|-----------|----------|----------|---------|------|:----:|
-| 1 | 12hatch_mirror | zvz_12hatch | zvz_12hatch | 0 | | X |
-| 2 | 12hatch_vs_12pool | zvz_12hatch | zvz_12pool | 0 | | X |
-| 3 | 12hatch_vs_3hatch_nopool | zvz_12hatch | zvz_3hatch_nopool | 0 | | X |
-| 4 | 12pool_mirror | zvz_12pool | zvz_12pool | 0 | | X |
-| 5 | 12pool_vs_3hatch_nopool | zvz_12pool | zvz_3hatch_nopool | 0 | | X |
-| 6 | 3hatch_nopool_mirror | zvz_3hatch_nopool | zvz_3hatch_nopool | 0 | | X |
-| 7 | 4pool_vs_3hatch | zvz_pool_first | zvz_3hatch_nopool | 0 | | X |
-| 8 | 9overpool_mirror | zvz_9overpool | zvz_9overpool | 0 | | X |
-| 9 | 9overpool_vs_12hatch | zvz_9overpool | zvz_12hatch | 0 | | X |
-| 10 | 9overpool_vs_12pool | zvz_9overpool | zvz_12pool | 0 | | X |
-| 11 | 9overpool_vs_3hatch_nopool | zvz_9overpool | zvz_3hatch_nopool | 0 | | X |
-| 12 | 9pool_mirror_single | zvz_9pool | zvz_9pool | 0 | | X |
-| 13 | 9pool_vs_12hatch | zvz_9pool | zvz_12hatch | 0 | | X |
-| 14 | 9pool_vs_12pool | zvz_9pool | zvz_12pool | 0 | | X |
-| 15 | 9pool_vs_3hatch_nopool | zvz_9pool | zvz_3hatch_nopool | 0 | | X |
-| 16 | 9pool_vs_9overpool | zvz_9pool | zvz_9overpool | 0 | | X |
-| 17 | pool_first_mirror | zvz_pool_first | zvz_pool_first | 0 | | X |
-| 18 | pool_first_vs_12hatch | zvz_pool_first | zvz_12hatch | 0 | | X |
-| 19 | pool_first_vs_12pool | zvz_pool_first | zvz_12pool | 0 | | X |
-| 20 | pool_first_vs_9overpool | zvz_pool_first | zvz_9overpool | 0 | | X |
-| 21 | pool_first_vs_9pool | zvz_pool_first | zvz_9pool | 0 | | X |
+## 빌드 목록 (6개)
 
----
+| # | 빌드 ID | 이름 | 스타일 |
+|---|---------|------|--------|
+| 1 | zvz_4pool | 4풀 | cheese |
+| 2 | zvz_9pool_speed | 9풀 발업 | aggressive |
+| 3 | zvz_9pool_lair | 9풀 레어 | aggressive |
+| 4 | zvz_9overpool | 9오버풀 | aggressive |
+| 5 | zvz_12pool | 12풀 | balanced |
+| 6 | zvz_12hatch | 12앞 | balanced |
 
-## 커버리지
+## 시나리오 목록 (21개)
 
-모든 빌드 조합 커버 완료 (6미러 + 15크로스 = 21개). 미커버 없음.
+### 미러 (6개)
 
-## 홈/어웨이 편향 수정 이력 (2026-04-03)
+| # | 파일명 | Home | Away | 보정 |
+|---|--------|------|------|:----:|
+| 1 | 4pool_mirror | zvz_4pool | zvz_4pool | O |
+| 2 | 9pool_speed_mirror | zvz_9pool_speed | zvz_9pool_speed | X |
+| 3 | 9pool_lair_mirror | zvz_9pool_lair | zvz_9pool_lair | X |
+| 4 | 9overpool_mirror | zvz_9overpool | zvz_9overpool | X |
+| 5 | 12pool_mirror | zvz_12pool | zvz_12pool | X |
+| 6 | 12hatch_mirror | zvz_12hatch | zvz_12hatch | X |
 
-baseProbability 비대칭 + 비대칭 linear phase로 인한 10.7%p 편향 → 1.0%p로 해소.
+### 4pool 크로스 (5개)
 
-### baseProbability 균등화 (7개 파일)
-| 파일 | 수정 전 (공격/방어) | 수정 후 |
-|------|-------------------|---------|
-| pool_first_vs_9pool | 0.8 / 1.0 | 1.0 / 1.0 |
-| pool_first_vs_9overpool | 0.9 / 1.0 | 1.0 / 1.0 |
-| pool_first_vs_12pool | 0.6 / 1.0 | 1.0 / 1.0 |
-| pool_first_vs_12hatch | 0.7 / 1.0 | 1.0 / 1.0 |
-| 4pool_vs_3hatch | 0.5 / 1.0 | 1.0 / 1.0 |
-| 9pool_vs_3hatch_nopool | 0.6 / 1.0 | 1.0 / 1.0 |
-| 9overpool_vs_3hatch_nopool | 0.5 / 1.0 | 1.0 / 1.0 |
+| # | 파일명 | Home | Away | 보정 |
+|---|--------|------|------|:----:|
+| 7 | 4pool_vs_9pool_speed | zvz_4pool | zvz_9pool_speed | X |
+| 8 | 4pool_vs_9pool_lair | zvz_4pool | zvz_9pool_lair | X |
+| 9 | 4pool_vs_9overpool | zvz_4pool | zvz_9overpool | X |
+| 10 | 4pool_vs_12pool | zvz_4pool | zvz_12pool | X |
+| 11 | 4pool_vs_12hatch | zvz_4pool | zvz_12hatch | X |
 
-### 비대칭 linear phase 수정 (4개 파일)
-- 9pool_vs_12hatch: 뮤탈 견제 이벤트에 skipChance 0.5 추가
-- 9overpool_vs_12hatch: 동일
-- 12hatch_vs_12pool: 홈 전용 이벤트 skipChance 0.5 + 어웨이 대응 이벤트 추가
-- 12pool_vs_3hatch_nopool: 어웨이 병력 누적 감소 (awayArmy 6→5)
+### 9pool_speed 크로스 (4개)
+
+| # | 파일명 | Home | Away | 보정 |
+|---|--------|------|------|:----:|
+| 12 | 9pool_speed_vs_9pool_lair | zvz_9pool_speed | zvz_9pool_lair | X |
+| 13 | 9pool_speed_vs_9overpool | zvz_9pool_speed | zvz_9overpool | X |
+| 14 | 9pool_speed_vs_12pool | zvz_9pool_speed | zvz_12pool | X |
+| 15 | 9pool_speed_vs_12hatch | zvz_9pool_speed | zvz_12hatch | X |
+
+### 9pool_lair 크로스 (3개)
+
+| # | 파일명 | Home | Away | 보정 |
+|---|--------|------|------|:----:|
+| 16 | 9pool_lair_vs_9overpool | zvz_9pool_lair | zvz_9overpool | X |
+| 17 | 9pool_lair_vs_12pool | zvz_9pool_lair | zvz_12pool | X |
+| 18 | 9pool_lair_vs_12hatch | zvz_9pool_lair | zvz_12hatch | X |
+
+### 9overpool 크로스 (2개)
+
+| # | 파일명 | Home | Away | 보정 |
+|---|--------|------|------|:----:|
+| 19 | 9overpool_vs_12pool | zvz_9overpool | zvz_12pool | X |
+| 20 | 9overpool_vs_12hatch | zvz_9overpool | zvz_12hatch | X |
+
+### 12hatch 크로스 (1개)
+
+| # | 파일명 | Home | Away | 보정 |
+|---|--------|------|------|:----:|
+| 21 | 12hatch_vs_12pool | zvz_12hatch | zvz_12pool | X |

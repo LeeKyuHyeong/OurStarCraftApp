@@ -1,4 +1,4 @@
-/// ZvZ 전체 21개 시나리오 3경기 로그 + 1000경기 통계
+/// ZvZ 전체 21개 시나리오 3경기 로그 + 1000경기 통계 (6 mirror + 15 cross)
 import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mystar/domain/models/models.dart';
@@ -28,11 +28,10 @@ void main() {
   );
 
   const builds = [
-    'zvz_9pool', 'zvz_9overpool', 'zvz_12hatch',
-    'zvz_12pool', 'zvz_pool_first', 'zvz_3hatch_nopool',
+    'zvz_4pool', 'zvz_9pool_speed', 'zvz_9pool_lair', 'zvz_9overpool', 'zvz_12pool', 'zvz_12hatch',
   ];
 
-  // 21개 시나리오
+  // 21개 시나리오 (6 mirror + 15 cross)
   final scenarios = <Map<String, String>>[];
   for (int i = 0; i < builds.length; i++) {
     for (int j = i; j < builds.length; j++) {

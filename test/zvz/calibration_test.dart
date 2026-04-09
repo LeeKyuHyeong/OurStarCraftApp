@@ -39,17 +39,35 @@ void main() {
     centerImportance: 5,
   );
 
-  // 시나리오별 빌드 조합
+  // 시나리오별 빌드 조합 (6 mirror + 15 cross = 21)
   final scenarios = [
-    {'home': 'zvz_9pool', 'away': 'zvz_9overpool', 'name': '9풀 vs 9오버풀'},
-    {'home': 'zvz_12hatch', 'away': 'zvz_9pool', 'name': '12앞마당 vs 9풀'},
-    {'home': 'zvz_pool_first', 'away': 'zvz_12hatch', 'name': '4풀 vs 12앞마당'},
-    {'home': 'zvz_3hatch_nopool', 'away': 'zvz_3hatch_nopool', 'name': '3해처리 미러'},
-    {'home': 'zvz_pool_first', 'away': 'zvz_9pool', 'name': '4풀 vs 9풀'},
-    {'home': 'zvz_pool_first', 'away': 'zvz_3hatch_nopool', 'name': '4풀 vs 3해처리'},
-    {'home': 'zvz_9pool', 'away': 'zvz_9pool', 'name': '9풀 미러'},
-    {'home': 'zvz_12pool', 'away': 'zvz_3hatch_nopool', 'name': '12풀 vs 3해처리'},
+    // 미러
+    {'home': 'zvz_4pool', 'away': 'zvz_4pool', 'name': '4풀 미러'},
+    {'home': 'zvz_9pool_speed', 'away': 'zvz_9pool_speed', 'name': '9풀 발업 미러'},
+    {'home': 'zvz_9pool_lair', 'away': 'zvz_9pool_lair', 'name': '9풀 레어 미러'},
     {'home': 'zvz_9overpool', 'away': 'zvz_9overpool', 'name': '9오버풀 미러'},
+    {'home': 'zvz_12pool', 'away': 'zvz_12pool', 'name': '12풀 미러'},
+    {'home': 'zvz_12hatch', 'away': 'zvz_12hatch', 'name': '12앞마당 미러'},
+    // 4풀 크로스
+    {'home': 'zvz_4pool', 'away': 'zvz_9pool_speed', 'name': '4풀 vs 9풀 발업'},
+    {'home': 'zvz_4pool', 'away': 'zvz_9pool_lair', 'name': '4풀 vs 9풀 레어'},
+    {'home': 'zvz_4pool', 'away': 'zvz_9overpool', 'name': '4풀 vs 9오버풀'},
+    {'home': 'zvz_4pool', 'away': 'zvz_12pool', 'name': '4풀 vs 12풀'},
+    {'home': 'zvz_4pool', 'away': 'zvz_12hatch', 'name': '4풀 vs 12앞마당'},
+    // 9풀 발업 크로스
+    {'home': 'zvz_9pool_speed', 'away': 'zvz_9pool_lair', 'name': '9풀 발업 vs 9풀 레어'},
+    {'home': 'zvz_9pool_speed', 'away': 'zvz_9overpool', 'name': '9풀 발업 vs 9오버풀'},
+    {'home': 'zvz_9pool_speed', 'away': 'zvz_12pool', 'name': '9풀 발업 vs 12풀'},
+    {'home': 'zvz_9pool_speed', 'away': 'zvz_12hatch', 'name': '9풀 발업 vs 12앞마당'},
+    // 9풀 레어 크로스
+    {'home': 'zvz_9pool_lair', 'away': 'zvz_9overpool', 'name': '9풀 레어 vs 9오버풀'},
+    {'home': 'zvz_9pool_lair', 'away': 'zvz_12pool', 'name': '9풀 레어 vs 12풀'},
+    {'home': 'zvz_9pool_lair', 'away': 'zvz_12hatch', 'name': '9풀 레어 vs 12앞마당'},
+    // 9오버풀 크로스
+    {'home': 'zvz_9overpool', 'away': 'zvz_12pool', 'name': '9오버풀 vs 12풀'},
+    {'home': 'zvz_9overpool', 'away': 'zvz_12hatch', 'name': '9오버풀 vs 12앞마당'},
+    // 12풀/12앞 크로스
+    {'home': 'zvz_12hatch', 'away': 'zvz_12pool', 'name': '12앞마당 vs 12풀'},
   ];
 
   test('ZvZ 전체 시나리오 보정용 JSON 로그 내보내기', () async {

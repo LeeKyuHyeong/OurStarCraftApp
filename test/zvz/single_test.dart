@@ -8,8 +8,8 @@ import 'package:mystar/domain/services/match_simulation_service.dart';
 /// ============================================================
 void main() {
   // ── 빌드 ID 설정 (여기만 수정) ──
-  const homeBuildId = 'zvz_9pool';
-  const awayBuildId = 'zvz_9overpool';
+  const homeBuildId = 'zvz_9pool_speed';
+  const awayBuildId = 'zvz_9pool_speed';
 
   final homePlayer = Player(
     id: 'zerg_home',

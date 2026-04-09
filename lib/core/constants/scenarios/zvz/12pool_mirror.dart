@@ -194,6 +194,7 @@ const _zvz12poolMirror = ScenarioScript(
         ScriptBranch(
           id: 'home_decisive_win',
           baseProbability: 1.0,
+          conditionStat: 'control',
           events: [
             ScriptEvent(
               text: '뮤탈 소모전! 12풀 미러의 결전입니다!',
@@ -221,6 +222,8 @@ const _zvz12poolMirror = ScenarioScript(
         ScriptBranch(
           id: 'away_decisive_win',
           baseProbability: 1.0,
+          conditionStat: 'control',
+          homeStatMustBeHigher: false,
           events: [
             ScriptEvent(
               text: '뮤탈 소모전! 12풀 미러의 결전입니다!',
