@@ -41,10 +41,10 @@ const _zvz9poolLairMirror = ScenarioScript(
           altText: '{away}, 레어 직행! 동일한 빌드입니다!',
         ),
         ScriptEvent(
-          text: '{home}, 저글링 6기 생산하면서 두 번째 가스 100으로 발업도 눌러줍니다!',
+          text: '{home}, 저글링 6기 생산하면서 가스 100이 모이자마자 발업도 눌러줍니다!',
           owner: LogOwner.home,
           homeArmy: 6, homeResource: -15,
-          altText: '{home} 선수 저글링 생산! 가스 2회차로 발업도 시작!',
+          altText: '{home} 선수 저글링 생산! 가스 100이 모이자마자 발업도 시작합니다!',
         ),
         ScriptEvent(
           text: '{away}, 저글링 6기! 발업도 같이 돌립니다! 레어가 올라가는 동안 견제!',
@@ -78,7 +78,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               altText: '{home} 선수 발업 저글링 견제! 빠른 속도로 드론을 잡습니다!',
             ),
             ScriptEvent(
-              text: '{away}, 발업 저글링으로 맞받지만 드론 피해가 있습니다!',
+              text: '{away}, 발업 저글링으로 수비해보지만 드론 피해가 있습니다!',
               owner: LogOwner.away,
               homeArmy: -3, awayResource: -5, favorsStat: 'defense',
             ),
@@ -103,7 +103,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               altText: '{away} 선수 발업 저글링 견제! 빠른 속도로 드론을 잡습니다!',
             ),
             ScriptEvent(
-              text: '{home}, 발업 저글링으로 맞받지만 드론 피해가 있습니다!',
+              text: '{home}, 발업 저글링으로 수비해보지만 드론 피해가 있습니다!',
               owner: LogOwner.home,
               awayArmy: -3, homeResource: -5, favorsStat: 'defense',
             ),

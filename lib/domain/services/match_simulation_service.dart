@@ -1476,8 +1476,18 @@ class MatchSimulationService {
         ];
         return texts[_random.nextInt(texts.length)];
       }
-      // ZvZ 초반 — 4풀이 섞이면 발업이 없을 수 있으므로 발업 언급 제외
+      // ZvZ 초반 — 뮤탈/스커지 경기였으면 뮤탈 관련 텍스트, 아니면 저글링 텍스트
       if (winnerRace == Race.zerg && loserRace == Race.zerg) {
+        final allText = state.battleLogEntries.map((e) => e.text).join(' ');
+        final hasMutal = allText.contains('뮤탈') || allText.contains('스커지');
+        if (hasMutal) {
+          final texts = [
+            '누적된 피해를 뒤집지 못한 ${loser.name} 선수, 마지막 뮤탈 교전에서 병력이 괴멸합니다!',
+            '${winner.name} 선수 뮤탈 물량 차이! ${loser.name} 선수 더 이상 버틸 수 없습니다!',
+            '드론 피해가 쌓인 ${loser.name} 선수, 뮤탈 추가 생산이 끊기며 무너집니다!',
+          ];
+          return texts[_random.nextInt(texts.length)];
+        }
         final texts = [
           '${winner.name} 선수 저글링 서라운드! ${loser.name} 선수 드론까지 잡힙니다!',
           '${winner.name} 선수 저글링 돌진! ${loser.name} 선수 수비 붕괴!',
