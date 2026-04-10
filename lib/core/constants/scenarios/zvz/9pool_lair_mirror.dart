@@ -1,7 +1,7 @@
 part of '../../scenario_scripts.dart';
 
 // ----------------------------------------------------------
-// 9풀 레어 미러 — 레어 직행 → 가스 2회차 발업 → 뮤탈 경쟁
+// 9풀 레어 미러 — 선 레어 선택 → 가스 2회차 발업 → 뮤탈 경쟁
 // 저글링 견제 후 뮤탈전이 메인 이벤트
 // ----------------------------------------------------------
 const _zvz9poolLairMirror = ScenarioScript(
@@ -11,7 +11,7 @@ const _zvz9poolLairMirror = ScenarioScript(
   awayBuildIds: ['zvz_9pool_lair'],
   description: '9풀 레어 미러 — 발업 스킵 후 뮤탈 선점 경쟁',
   phases: [
-    // Phase 0: 오프닝 — 레어 직행 + 저글링 + 발업 (lines 1-10)
+    // Phase 0: 오프닝 — 선 레어 선택 + 저글링 + 발업 (lines 1-10)
     ScriptPhase(
       name: 'opening',
       startLine: 1,
@@ -23,22 +23,22 @@ const _zvz9poolLairMirror = ScenarioScript(
           altText: '{home}, 9풀에 가스! 빠른 테크를 노리는 빌드!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 9풀에 가스! 레어 미러입니다!',
+          text: '{away} 선수도 9풀에 가스! 동일한 빌드를 선택했는데요~',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 똑같이 9풀 가스! 양쪽 다 레어 직행!',
+          altText: '{away}, 똑같이 9풀 가스! 양쪽 다 선 레어 선택!',
         ),
         ScriptEvent(
           text: '{home}, 가스 100이 모이자마자 레어 진화! 발업보다 테크를 우선합니다!',
           owner: LogOwner.home,
           homeResource: -20,
-          altText: '{home} 선수 레어 직행! 공중 유닛을 최대한 빨리 뽑겠다는 판단!',
+          altText: '{home} 선수 선 레어 선택! 공중 유닛을 최대한 빨리 뽑겠다는 판단!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 레어 진화 시작! 양쪽 다 테크 경쟁!',
+          text: '{away} 선수도 레어 진화 시작! 양쪽 다 테크를 올립니다!',
           owner: LogOwner.away,
           awayResource: -20,
-          altText: '{away}, 레어 직행! 동일한 빌드입니다!',
+          altText: '{away}, 선 레어 선택! 동일한 빌드입니다!',
         ),
         ScriptEvent(
           text: '{home}, 저글링 6기 생산하면서 가스 100이 모이자마자 발업도 눌러줍니다!',
@@ -53,10 +53,10 @@ const _zvz9poolLairMirror = ScenarioScript(
           altText: '{away} 선수도 저글링에 발업! 양쪽 동일한 타이밍!',
         ),
         ScriptEvent(
-          text: '양쪽 다 레어 직행 후 발업! 테크 타이밍이 동일합니다!',
+          text: '양쪽 다 선 레어 선택 후 발업! 테크 타이밍이 동일합니다!',
           owner: LogOwner.system,
           skipChance: 0.3,
-          altText: '레어 미러! 발업도 같은 타이밍에 끝납니다!',
+          altText: '동일한 빌드! 발업도 같은 타이밍에 끝납니다!',
         ),
       ],
     ),
@@ -143,23 +143,35 @@ const _zvz9poolLairMirror = ScenarioScript(
       recoveryResourcePerLine: 5,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 레어 완성! 스파이어를 바로 올립니다!',
+          text: '{home} 선수 레어 완성! 공중 테크의 문이 열립니다!',
           owner: LogOwner.home,
-          homeResource: -20,
-          altText: '{home}, 레어 완성 즉시 스파이어! 뮤탈까지 얼마 안 남았습니다!',
+          homeResource: -10,
+          altText: '{home}, 레어 완성! 다음 단계로 넘어갑니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 레어 완성! 스파이어 건설!',
+          text: '{away} 선수도 레어 완성! 양쪽 테크가 동일합니다!',
           owner: LogOwner.away,
-          awayResource: -20,
-          altText: '{away}, 스파이어! 뮤탈 타이밍이 동일합니다!',
+          awayResource: -10,
+          altText: '{away}, 레어 완성! 테크 타이밍이 같습니다!',
         ),
         ScriptEvent(
-          text: '스파이어가 올라가는 동안이 가장 위험한 시간! 성큰으로 수비를 보강합니다!',
+          text: '{home} 선수 스파이어를 바로 올립니다!',
+          owner: LogOwner.home,
+          homeResource: -10,
+          altText: '{home}, 스파이어 건설! 공중 유닛까지 얼마 안 남았습니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 스파이어 건설!',
+          owner: LogOwner.away,
+          awayResource: -10,
+          altText: '{away}, 스파이어! 타이밍이 동일합니다!',
+        ),
+        ScriptEvent(
+          text: '오버로드로 상대 빌드가 다 보이죠! 양쪽 저글링으로 눈치를 봅니다!',
           owner: LogOwner.system,
-          homeArmy: 2, awayArmy: 2, homeResource: -10, awayResource: -10,
+          homeArmy: 2, awayArmy: 2,
           skipChance: 0.3,
-          altText: '양쪽 성큰 건설! 스파이어 완성까지 버텨야 합니다!',
+          altText: '스파이어 올라가는 동안 저글링으로 정찰! 상대 움직임을 확인합니다!',
         ),
       ],
     ),
@@ -187,7 +199,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               awayArmy: 4, awayResource: -15,
             ),
             ScriptEvent(
-              text: '뮤탈 미러 시작! 드론 견제를 주고받으면서 서서히 차이가 벌어집니다!',
+              text: '뮤탈 싸움 시작! 드론 견제를 주고받으면서 서서히 차이가 벌어집니다!',
               owner: LogOwner.system,
               altText: '양쪽 뮤탈이 동수! 여기서부터 긴 싸움입니다!',
             ),
@@ -250,7 +262,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               homeArmy: 4, homeResource: -15,
             ),
             ScriptEvent(
-              text: '뮤탈 미러 시작! 드론 견제를 주고받으면서 서서히 차이가 벌어집니다!',
+              text: '뮤탈 싸움 시작! 드론 견제를 주고받으면서 서서히 차이가 벌어집니다!',
               owner: LogOwner.system,
               altText: '양쪽 뮤탈이 동수! 여기서부터 긴 싸움입니다!',
             ),
@@ -310,7 +322,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               text: '뮤탈 동수! 양쪽 스커지를 섞으면서 견제를 주고받습니다!',
               owner: LogOwner.system,
               homeResource: -5, awayResource: -5,
-              altText: '뮤탈 미러! 스커지 운용이 승부를 가릅니다!',
+              altText: '뮤탈 싸움! 스커지 운용이 승부를 가릅니다!',
             ),
             ScriptEvent(
               text: '{home}, 스커지 2기가 상대 뮤탈 뭉치에 정확히 꽂힙니다! 뮤탈 2기 격추!',
@@ -351,7 +363,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               text: '뮤탈 동수! 양쪽 스커지를 섞으면서 견제를 주고받습니다!',
               owner: LogOwner.system,
               homeResource: -5, awayResource: -5,
-              altText: '뮤탈 미러! 스커지 운용이 승부를 가릅니다!',
+              altText: '뮤탈 싸움! 스커지 운용이 승부를 가릅니다!',
             ),
             ScriptEvent(
               text: '{away}, 스커지 2기가 상대 뮤탈 뭉치에 정확히 꽂힙니다! 뮤탈 2기 격추!',
@@ -391,7 +403,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               text: '{home}, 초반 드론 피해가 적었던 덕분에 뮤탈 추가 생산이 빠릅니다!',
               owner: LogOwner.home,
               homeArmy: 2, favorsStat: 'macro',
-              altText: '{home} 선수 자원이 넉넉합니다! 뮤탈을 더 빨리 뽑습니다!',
+              altText: '{home} 선수, 상대보다 드론 피해가 적었습니다! 뮤탈을 더 빨리 뽑습니다!',
             ),
             ScriptEvent(
               text: '{away}, 뮤탈 수가 밀리기 시작합니다! 스커지로 버팁니다!',
@@ -426,7 +438,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               text: '{away}, 초반 드론 피해가 적었던 덕분에 뮤탈 추가 생산이 빠릅니다!',
               owner: LogOwner.away,
               awayArmy: 2, favorsStat: 'macro',
-              altText: '{away} 선수 자원이 넉넉합니다! 뮤탈을 더 빨리 뽑습니다!',
+              altText: '{away} 선수, 상대보다 드론 피해가 적었습니다! 뮤탈을 더 빨리 뽑습니다!',
             ),
             ScriptEvent(
               text: '{home}, 뮤탈 수가 밀리기 시작합니다! 스커지로 버팁니다!',
@@ -678,6 +690,67 @@ const _zvz9poolLairMirror = ScenarioScript(
             ScriptEvent(
               text: '라바 차이가 벌어집니다! 뮤탈 물량을 따라잡을 수 없습니다!',
               owner: LogOwner.away,
+              decisive: true,
+            ),
+          ],
+        ),
+        // ── 홈 역전 (스커지 회피 + 스커지 적중) ──
+        ScriptBranch(
+          id: 'home_comeback',
+          baseProbability: 0.05,
+          conditionStat: 'control',
+          events: [
+            ScriptEvent(
+              text: '밀리던 {home} 선수! 뮤탈 컨트롤로 상대 스커지를 전부 떨쳐냅니다!',
+              owner: LogOwner.home,
+              homeArmy: 2,
+              altText: '{home} 선수 불리한 상황! 하지만 뮤탈 컨트롤이 살아있습니다!',
+            ),
+            ScriptEvent(
+              text: '상대 스커지가 빗나갑니다! {home} 선수 뮤탈이 살아남았습니다!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 스커지는 정확히 적중! 상대 뮤탈이 격추됩니다!',
+              owner: LogOwner.home,
+              awayArmy: -8, homeArmy: -2, favorsStat: 'control',
+              altText: '{home} 선수 스커지 명중! 한 순간에 뮤탈 수가 뒤집어집니다!',
+            ),
+            ScriptEvent(
+              text: '스커지 회피와 적중이 동시에! {home} 선수 기적같은 역전승!',
+              owner: LogOwner.home,
+              awayResource: -20, favorsStat: 'attack',
+              decisive: true,
+            ),
+          ],
+        ),
+        // ── 어웨이 역전 (스커지 회피 + 스커지 적중) ──
+        ScriptBranch(
+          id: 'away_comeback',
+          baseProbability: 0.05,
+          conditionStat: 'control',
+          homeStatMustBeHigher: false,
+          events: [
+            ScriptEvent(
+              text: '밀리던 {away} 선수! 뮤탈 컨트롤로 상대 스커지를 전부 떨쳐냅니다!',
+              owner: LogOwner.away,
+              awayArmy: 2,
+              altText: '{away} 선수 불리한 상황! 하지만 뮤탈 컨트롤이 살아있습니다!',
+            ),
+            ScriptEvent(
+              text: '상대 스커지가 빗나갑니다! {away} 선수 뮤탈이 살아남았습니다!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 스커지는 정확히 적중! 상대 뮤탈이 격추됩니다!',
+              owner: LogOwner.away,
+              homeArmy: -8, awayArmy: -2, favorsStat: 'control',
+              altText: '{away} 선수 스커지 명중! 한 순간에 뮤탈 수가 뒤집어집니다!',
+            ),
+            ScriptEvent(
+              text: '스커지 회피와 적중이 동시에! {away} 선수 기적같은 역전승!',
+              owner: LogOwner.away,
+              homeResource: -20, favorsStat: 'attack',
               decisive: true,
             ),
           ],

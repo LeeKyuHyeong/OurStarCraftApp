@@ -56,6 +56,12 @@ const CORE_INFO_REGEX = /[가-힣]+전의 핵심/;
 // → '견제', '솎아내기', '잡아냅니다', '처리합니다' 등 사용
 const FALL_DOWN_REGEX = /쓰러지|쓰러집|쓰러진/;
 
+// '경쟁' 금지 (부자연스러운 해설 톤 → '싸움' 등 사용)
+const COMPETITION_REGEX = /경쟁/;
+
+// 'X 미러' 금지 (실제 해설에서 미러라는 표현 안 씀 → '동일한 빌드' 등 사용)
+const MIRROR_TERM_REGEX = /미러/;
+
 // 건물명 매핑: 잘못된 표기 → 올바른 표기
 const BUILDING_NAME_CORRECTIONS = {
   // 테란
@@ -320,6 +326,24 @@ function checkForbiddenWords(text, lineNum) {
       line: lineNum,
       severity: 'error',
       message: `'쓰러지다' 표현 금지 (→ '견제', '솎아내기', '잡아냅니다' 등 사용)`,
+      text: text.substring(0, 80),
+    });
+  }
+  if (COMPETITION_REGEX.test(text)) {
+    violations.push({
+      rule: 'A1_FORBIDDEN_WORD',
+      line: lineNum,
+      severity: 'error',
+      message: `'경쟁' 표현 금지 (→ '싸움' 등 해설 톤으로 변경)`,
+      text: text.substring(0, 80),
+    });
+  }
+  if (MIRROR_TERM_REGEX.test(text)) {
+    violations.push({
+      rule: 'A1_FORBIDDEN_WORD',
+      line: lineNum,
+      severity: 'error',
+      message: `'미러' 표현 금지 (→ '동일한 빌드', '같은 빌드' 등 해설 톤으로 변경)`,
       text: text.substring(0, 80),
     });
   }

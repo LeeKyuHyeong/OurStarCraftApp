@@ -2,15 +2,16 @@ part of '../../scenario_scripts.dart';
 
 // ----------------------------------------------------------
 // 4풀 vs 9풀 발업 (치즈 vs 발업 압박)
+// 타이밍: 4풀 도착 2:28, 9풀 발업 첫 저글링 2:14 (4풀보다 14초 빠름)
 // ----------------------------------------------------------
 const _zvz4PoolVs9poolSpeed = ScenarioScript(
   id: 'zvz_4pool_vs_9pool_speed',
   matchup: 'ZvZ',
   homeBuildIds: ['zvz_4pool'],
   awayBuildIds: ['zvz_9pool_speed'],
-  description: '4풀 vs 9풀 발업 — 4풀 선저글링이 9풀 라바 압박을 막을 수 있을지',
+  description: '4풀 vs 9풀 발업 — 9풀 발업이 저글링이 먼저 나와 수비 유리',
   phases: [
-    // Phase 0: 오프닝 (lines 1-8)
+    // Phase 0: 오프닝 (lines 1-10)
     ScriptPhase(
       name: 'opening',
       startLine: 1,
@@ -22,98 +23,119 @@ const _zvz4PoolVs9poolSpeed = ScenarioScript(
           altText: '{home}, 4풀! 극단적인 올인입니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 드론을 9드론까지 뽑고 가스, 풀 동시!',
+          text: '{away} 선수 9드론에 스포닝풀과 익스트랙터를 동시에 건설합니다!',
           owner: LogOwner.away,
           awayResource: -20,
+          altText: '{away}, 9풀 발업! 스포닝풀과 가스를 올립니다!',
         ),
         ScriptEvent(
-          text: '{home}, 저글링 6기 먼저! 4풀의 첫 저글링이 이미 출발합니다!',
+          text: '{home} 선수 저글링 6기 생산! 상대 진영으로 출발합니다!',
           owner: LogOwner.home,
           homeArmy: 6, homeResource: -8, favorsStat: 'attack',
+          altText: '{home}, 4풀의 첫 저글링이 달려갑니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 9풀 발업, 저글링은 아직입니다!',
+          text: '{away} 선수 가스를 모으면서 저글링 생산! 발업도 연구 시작합니다!',
           owner: LogOwner.away,
-          awayResource: -8,
-        ),
-      ],
-    ),
-    // Phase 1: 4풀 저글링 도착 (lines 9-14)
-    ScriptPhase(
-      name: 'first_arrival',
-      startLine: 9,
-      linearEvents: [
-        ScriptEvent(
-          text: '{home}, 저글링이 9풀 진영에 도착! 드론을 물어뜯습니다!',
-          owner: LogOwner.home,
-          awayResource: -20, awayArmy: -2, favorsStat: 'attack',
-          altText: '{home} 선수 4풀 저글링 침투! 9풀은 저글링이 아직 없어요!',
+          awayArmy: 6, awayResource: -10,
+          altText: '{away}, 저글링이 이미 나왔습니다! 발업 연구도 시작!',
         ),
         ScriptEvent(
-          text: '{away} 선수 드론으로 일단 막으면서 저글링을 기다립니다!',
-          owner: LogOwner.away,
-          awayArmy: 3,
-        ),
-        ScriptEvent(
-          text: '4풀 저글링이 도착할 때 9풀은 아직 풀이 막 완성되는 시점!',
+          text: '9풀 발업은 4풀보다 저글링이 빨리 나옵니다! 수비 준비가 되어있습니다!',
           owner: LogOwner.system,
           skipChance: 0.3,
+          altText: '4풀 저글링이 도착하면 9풀은 이미 저글링이 있습니다!',
         ),
       ],
     ),
-    // Phase 2: 결과 — 분기 (lines 15-26)
+    // Phase 1: 4풀 저글링 도착 — 9풀은 이미 저글링으로 수비중 (lines 11-16)
+    ScriptPhase(
+      name: 'ling_clash',
+      startLine: 11,
+      linearEvents: [
+        ScriptEvent(
+          text: '{home} 선수 저글링이 도착합니다! 하지만 상대 저글링이 이미 나와있습니다!',
+          owner: LogOwner.home,
+          favorsStat: 'attack',
+          altText: '{home}, 저글링 도착! 그런데 9풀 저글링이 벌써 수비하고 있습니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 저글링으로 바로 수비합니다! 드론 수도 9기로 여유있습니다!',
+          owner: LogOwner.away,
+          awayArmy: 1,
+          altText: '{away}, 저글링이 준비되어 있습니다! 드론 피해 없이 교전!',
+        ),
+        ScriptEvent(
+          text: '저글링 대 저글링! 4풀은 수가 적고 9풀은 드론 우위까지 있습니다!',
+          owner: LogOwner.system,
+          skipChance: 0.3,
+          altText: '4풀 저글링 6기 대 9풀 저글링 6기! 하지만 드론 차이가 5기!',
+        ),
+      ],
+    ),
+    // Phase 2: 결과 — 분기 (lines 17-28)
     ScriptPhase(
       name: 'rush_result',
-      startLine: 15,
+      startLine: 17,
       branches: [
-        // 분기 A: 4풀이 먼저 큰 피해
+        // 분기 A: 4풀이 컨트롤로 돌파
         ScriptBranch(
           id: 'pool_breaks_through',
-          baseProbability: 1.0,
+          baseProbability: 0.8,
           conditionStat: 'attack',
           events: [
             ScriptEvent(
-              text: '{home}, 드론을 끊임없이 잡아냅니다! 9풀의 라바가 모자랍니다!',
+              text: '{home} 선수 저글링 컨트롤! 상대 저글링을 피하면서 드론을 노립니다!',
               owner: LogOwner.home,
-              awayResource: -25, awayArmy: -3, favorsStat: 'attack',
+              awayResource: -15, awayArmy: -2, homeArmy: -2, favorsStat: 'attack',
+              altText: '{home}, 저글링으로 드론을 물어뜯습니다! 수비 저글링을 피해서!',
             ),
             ScriptEvent(
-              text: '{away} 선수 저글링이 나오긴 하지만 드론 손실이 너무 큽니다!',
+              text: '{away} 선수 저글링으로 막지만 드론까지 피해를 입습니다!',
               owner: LogOwner.away,
-              awayArmy: 3, awayResource: -5,
+              awayResource: -10, awayArmy: -1,
+              altText: '{away}, 수비하지만 드론이 몇 기 빠집니다!',
             ),
             ScriptEvent(
-              text: '{home}, 추가 저글링! 4풀 올인이 결착납니다!',
+              text: '{home} 선수 추가 저글링 투입! 드론 손실이 누적됩니다!',
               owner: LogOwner.home,
-              homeArmy: 3, favorsStat: 'attack',
+              homeArmy: 2, awayResource: -10, favorsStat: 'attack',
+              altText: '{home}, 저글링을 계속 보냅니다! 4기뿐인 드론에서 쥐어짜냅니다!',
+            ),
+            ScriptEvent(
+              text: '드론 차이를 좁혔습니다! 4풀의 끈질긴 압박이 성공합니다!',
+              owner: LogOwner.home,
               decisive: true,
             ),
           ],
         ),
-        // 분기 B: 9풀 발업 저글링 합류로 역전
+        // 분기 B: 9풀 발업 저글링으로 제압
         ScriptBranch(
-          id: 'speed_lings_arrive',
+          id: 'speed_lings_dominate',
           baseProbability: 1.0,
           conditionStat: 'control',
           homeStatMustBeHigher: false,
           events: [
             ScriptEvent(
-              text: '{away}, 저글링이 합류합니다! 라바를 전부 저글링에!',
+              text: '{away} 선수 저글링이 4풀 저글링과 정면 교전! 드론도 합세합니다!',
               owner: LogOwner.away,
-              awayArmy: 6, awayResource: -10, favorsStat: 'control',
+              homeArmy: -3, awayArmy: -2, favorsStat: 'control',
+              altText: '{away}, 저글링과 드론 협공! 4풀 저글링을 잡아냅니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 4풀 저글링이 더 이상 추가가 안 됩니다! 드론이 4기뿐!',
+              text: '{home} 선수 저글링이 녹습니다! 드론이 4기뿐이라 보충이 안 됩니다!',
               owner: LogOwner.home,
-              homeArmy: -3,
+              homeArmy: -2,
+              altText: '{home}, 4풀 저글링이 밀립니다! 라바가 부족합니다!',
             ),
             ScriptEvent(
-              text: '{away}, 발업까지 완료되면서 4풀 저글링을 잡아냅니다!',
+              text: '{away} 선수 발업이 곧 완료됩니다! 추가 저글링까지 합류!',
               owner: LogOwner.away,
-              homeArmy: -4, awayArmy: -2, favorsStat: 'control',
+              awayArmy: 4, awayResource: -10, favorsStat: 'control',
+              altText: '{away}, 발업 저글링의 속도 차이! 4풀 저글링을 압도합니다!',
             ),
             ScriptEvent(
-              text: '{away}, 9풀의 드론 우위가 살아납니다! 결착!',
+              text: '9풀 발업이 4풀을 제압합니다! 저글링이 먼저 나온 게 결정적!',
               owner: LogOwner.away,
               decisive: true,
             ),

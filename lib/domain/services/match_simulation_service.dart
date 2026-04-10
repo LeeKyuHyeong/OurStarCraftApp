@@ -32,6 +32,7 @@ class SimulationState {
   final int homeExpansions; // 확장 기지 수 (0=본진만, 1=앞마당, 2=서드...)
   final int awayExpansions;
   final List<BattleLogEntry> battleLogEntries;
+  final List<String> selectedBranchIds;
   final bool isFinished;
   final bool? homeWin;
 
@@ -43,6 +44,7 @@ class SimulationState {
     this.homeExpansions = 0,
     this.awayExpansions = 0,
     this.battleLogEntries = const [],
+    this.selectedBranchIds = const [],
     this.isFinished = false,
     this.homeWin,
   });
@@ -58,6 +60,7 @@ class SimulationState {
     int? homeExpansions,
     int? awayExpansions,
     List<BattleLogEntry>? battleLogEntries,
+    List<String>? selectedBranchIds,
     bool? isFinished,
     bool? homeWin,
   }) {
@@ -69,6 +72,7 @@ class SimulationState {
       homeExpansions: homeExpansions ?? this.homeExpansions,
       awayExpansions: awayExpansions ?? this.awayExpansions,
       battleLogEntries: battleLogEntries ?? this.battleLogEntries,
+      selectedBranchIds: selectedBranchIds ?? this.selectedBranchIds,
       isFinished: isFinished ?? this.isFinished,
       homeWin: homeWin ?? this.homeWin,
     );
@@ -1694,7 +1698,7 @@ class MatchSimulationService {
     // ZvZ
     if (winnerRace == Race.zerg && loserRace == Race.zerg) {
       final texts = [
-        '${winner.name} 선수 뮤탈리스크 타수 차이! 제공권 장악!',
+        '${winner.name} 선수 뮤탈리스크 물량 차이! 제공권 장악!',
         '${winner.name} 선수 저글링 서라운드! ${loser.name} 선수 병력 괴멸!',
       ];
       return texts[_random.nextInt(texts.length)];
@@ -3014,7 +3018,7 @@ class MatchSimulationService {
       return '${text.substring(0, text.length - 4)}$ending';
     }
     if (text.endsWith('합니다!')) {
-      final endings = ['하죠!!', '하는데요!', '합니다!', '하네요!'];
+      final endings = ['하죠!!', '한데요!', '합니다!', '하네요!'];
       final ending = endings[_random.nextInt(endings.length)];
       return '${text.substring(0, text.length - 4)}$ending';
     }
@@ -3050,6 +3054,7 @@ class MatchSimulationService {
     if (text.endsWith('습니다!')) {
       final endings = ['죠!!', '는데요!', '네요!'];
       final ending = endings[_random.nextInt(endings.length)];
+      // 습니다! → 4글자 제거 후 어미 붙임
       return '${text.substring(0, text.length - 4)}$ending';
     }
     // "~건설!" → "~건설하구요."
@@ -3852,6 +3857,9 @@ class MatchSimulationService {
           state: state,
         );
         activeEvents = branch.events;
+        state = state.copyWith(
+          selectedBranchIds: [...state.selectedBranchIds, branch.id],
+        );
       } else {
         // 이벤트 없는 페이즈 → 다음 페이즈로
         return _ScenarioLineResult(

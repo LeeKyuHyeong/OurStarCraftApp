@@ -1,112 +1,331 @@
 part of '../../scenario_scripts.dart';
 
 // ----------------------------------------------------------
-// 9풀 발업 vs 12풀 — 저글링 압박이 드론 3기 우위를 끊을 수 있을지
+// 9풀 발업 vs 12풀 — 발업 속도 우위 구간 vs 드론 3기 우위
+// 타이밍: 9풀 발업 저글링 2:14, 도착 2:51, 발업 완료 2:58
+//         12풀 풀 완성 2:22, 저글링 ~2:40, 발업 완료 3:29
+// → 9풀 도착(2:51) 시 12풀은 이미 저글링 보유(2:40)!
+// → 발업 속도 차이 구간(2:58~3:29)이 승부처
+// → 둘 다 무난하면 확장 → 레어 → 스파이어 → 뮤탈전
 // ----------------------------------------------------------
 const _zvz9poolSpeedVs12pool = ScenarioScript(
   id: 'zvz_9pool_speed_vs_12pool',
   matchup: 'ZvZ',
   homeBuildIds: ['zvz_9pool_speed'],
   awayBuildIds: ['zvz_12pool'],
-  description: '9풀 발업 vs 12풀 — 라바 압박 vs 드론 우위',
+  description: '9풀 발업 vs 12풀 — 저글링전 → 확장 → 뮤탈전',
   phases: [
-    // Phase 0: 빌드 차이 (lines 1-8)
+    // Phase 0: 빌드 차이 (lines 1-10)
     ScriptPhase(
       name: 'opening',
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 9드론에 풀, 가스도 같이!',
+          text: '{home} 선수 9드론에 스포닝풀과 익스트랙터를 동시에 건설합니다!',
           owner: LogOwner.home,
           homeResource: -15,
+          altText: '{home}, 9풀 발업! 풀과 가스를 동시에!',
         ),
         ScriptEvent(
-          text: '{away} 선수 12드론까지 뽑고 풀을 올립니다!',
+          text: '{away} 선수 드론을 12기까지 뽑고 스포닝풀을 올립니다!',
           owner: LogOwner.away,
-          awayResource: -15, awayArmy: 0,
-          altText: '{away}, 12풀! 드론이 3기 더 많아요!',
+          awayResource: -15,
+          altText: '{away}, 12풀! 드론이 3기 더 많은 상태에서 풀 진입!',
         ),
         ScriptEvent(
-          text: '{home}, 저글링 6기에 발업! 풀이 한 박자 빠르고 발업도 빠릅니다!',
+          text: '{home} 선수 저글링 6기 생산! 발업도 연구 시작합니다!',
           owner: LogOwner.home,
           homeArmy: 6, homeResource: -8,
+          altText: '{home}, 저글링에 발업! 상대 진영으로 출발합니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 12풀은 저글링이 한참 늦어요! 드론으로 막아야 합니다!',
+          text: '{away} 선수 12풀 스포닝풀이 완성됩니다! 저글링 생산 시작!',
           owner: LogOwner.away,
-          awayArmy: 0,
+          awayArmy: 4, awayResource: -10,
+          altText: '{away}, 12풀이라 풀이 늦었지만 드론이 많습니다! 저글링도 나옵니다!',
+        ),
+        ScriptEvent(
+          text: '9풀 발업 대 12풀! 저글링은 9풀이 먼저지만 드론은 12풀이 3기 많습니다!',
+          owner: LogOwner.system,
+          skipChance: 0.3,
+          altText: '발업 타이밍 대 드론 우위! 어느 쪽이 유리할까요?',
         ),
       ],
     ),
-    // Phase 1: 발업 저글링 도착 (lines 9-14)
+    // Phase 1: 9풀 도착 — 12풀은 이미 저글링 보유 (lines 11-16)
     ScriptPhase(
-      name: 'speed_arrives',
-      startLine: 9,
+      name: 'ling_arrives',
+      startLine: 11,
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 발업 저글링이 12풀 진영에 도착! 드론을 노립니다!',
+          text: '{home} 선수 저글링이 도착합니다! 12풀도 이미 저글링이 나와있습니다!',
           owner: LogOwner.home,
-          awayResource: -20, awayArmy: -2, favorsStat: 'attack',
-          altText: '{home} 선수 저글링 침투! 12풀의 드론이 위험합니다!',
+          favorsStat: 'attack',
+          altText: '{home}, 저글링 도착! 하지만 12풀 저글링이 수비하고 있습니다!',
         ),
         ScriptEvent(
-          text: '{away}, 드론으로 둘러싸면서 막습니다! 풀이 곧 완성돼요!',
+          text: '{away} 선수 저글링으로 수비합니다! 드론 수도 12기로 여유있습니다!',
           owner: LogOwner.away,
-          awayArmy: 4,
+          awayArmy: 2,
+          altText: '{away}, 저글링이 준비되어 있고 드론도 많습니다!',
+        ),
+        ScriptEvent(
+          text: '노발업 저글링 대 노발업 저글링! 하지만 12풀이 드론 우위!',
+          owner: LogOwner.system,
+          skipChance: 0.3,
+          altText: '아직 발업이 안 끝났습니다! 노발업 상태에서 교전!',
         ),
       ],
     ),
-    // Phase 2: 결과 — 분기 (lines 15-26)
+    // Phase 2: 초반 저글링 교전 결과 (lines 17-22)
     ScriptPhase(
-      name: 'pressure_result',
-      startLine: 15,
+      name: 'ling_skirmish',
+      startLine: 17,
       branches: [
-        // 분기 A: 발업 저글링이 드론 우위 끊음
         ScriptBranch(
-          id: 'speed_breaks_economy',
+          id: 'ling_even',
           baseProbability: 1.0,
-          conditionStat: 'attack',
           events: [
             ScriptEvent(
-              text: '{home}, 라바를 전부 저글링에! 두 번째 압박이 들어갑니다!',
-              owner: LogOwner.home,
-              homeArmy: 6, homeResource: -10, favorsStat: 'attack',
+              text: '양쪽 저글링이 부딪힙니다! 비등한 교전입니다!',
+              owner: LogOwner.system,
+              homeArmy: -2, awayArmy: -2,
+              altText: '저글링 대 저글링! 서로 비슷한 피해를 주고받습니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 드론이 빠르게 줄어듭니다! 12풀 우위가 사라져요!',
-              owner: LogOwner.away,
-              awayResource: -25, awayArmy: -3,
-            ),
-            ScriptEvent(
-              text: '{home}, 드론 격차를 완전히 뒤집고 결착!',
-              owner: LogOwner.home,
-              decisive: true,
+              text: '초반 저글링전은 비등! 발업 완료 타이밍이 승부처입니다!',
+              owner: LogOwner.system,
+              skipChance: 0.3,
             ),
           ],
         ),
-        // 분기 B: 12풀이 드론 우위로 막아냄
         ScriptBranch(
-          id: 'twelve_pool_economy_holds',
-          baseProbability: 1.0,
+          id: 'home_ling_harass',
+          baseProbability: 0.8,
+          conditionStat: 'attack',
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 저글링이 수비 저글링을 피해 드론을 물어뜯습니다!',
+              owner: LogOwner.home,
+              homeArmy: -2, awayArmy: -1, awayResource: -10, favorsStat: 'attack',
+              altText: '{home}, 저글링 컨트롤! 12풀의 드론을 몇 기 잡아냅니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 드론이 빠졌지만 아직 드론 우위가 남아있습니다!',
+              owner: LogOwner.away,
+              altText: '{away}, 드론 손실이 있지만 12풀의 드론 우위는 건재합니다!',
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_defense',
+          baseProbability: 0.8,
           conditionStat: 'defense',
           homeStatMustBeHigher: false,
           events: [
             ScriptEvent(
-              text: '{away}, 드론 우위로 발업 저글링을 잡아냅니다! 풀도 완성!',
+              text: '{away} 선수 드론과 저글링으로 상대 저글링을 잡아냅니다! 12풀의 드론 물량!',
               owner: LogOwner.away,
-              homeArmy: -4, awayArmy: 4, awayResource: -10, favorsStat: 'defense',
-              altText: '{away} 선수 드론 컨트롤에 저글링 합류! 12풀 수비 성공!',
+              homeArmy: -3, awayArmy: -1, favorsStat: 'defense',
+              altText: '{away}, 드론 합세로 9풀 저글링을 잡습니다! 물량이 다릅니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 압박이 무산됩니다! 드론은 6기뿐인데 상대는 10기예요!',
+              text: '{home} 선수 저글링이 좀 빠졌습니다! 발업 완료를 기다려야 합니다!',
               owner: LogOwner.home,
-              homeArmy: -3,
+              altText: '{home}, 저글링 손실! 발업이 완료되면 속도 차이로 만회해야 합니다!',
+            ),
+          ],
+        ),
+      ],
+    ),
+    // Phase 3: 발업 속도 차이 구간 + 확장 (lines 23-30)
+    ScriptPhase(
+      name: 'speed_window',
+      startLine: 23,
+      branches: [
+        // 분기 A: 발업 속도 차이로 드론 격차 뒤집기
+        ScriptBranch(
+          id: 'speed_closes_gap',
+          baseProbability: 0.8,
+          conditionStat: 'attack',
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 발업 완료! 12풀은 아직 발업이 멀었습니다!',
+              owner: LogOwner.home,
+              homeArmy: 3, favorsStat: 'control',
+              altText: '{home}, 발업 저글링! 속도 차이가 나기 시작합니다!',
             ),
             ScriptEvent(
-              text: '{away}, 드론 우위로 추가 해처리까지! 운영으로 결착!',
+              text: '{home} 선수 발업 저글링이 노발업 저글링을 압도합니다! 드론까지 물어뜯습니다!',
+              owner: LogOwner.home,
+              awayArmy: -3, awayResource: -15, homeArmy: -1, favorsStat: 'attack',
+              altText: '{home}, 속도 차이가 결정적! 노발업 저글링이 발업을 못 따라갑니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 드론 손실이 커집니다! 발업 완료까지 시간이 남았는데!',
               owner: LogOwner.away,
-              awayResource: -30, favorsStat: 'macro',
+              awayResource: -10,
+              altText: '{away}, 12풀 발업 완료까지 아직 멀었는데 드론이 빠지고 있습니다!',
+            ),
+            ScriptEvent(
+              text: '발업 속도 차이 구간에서 드론 격차를 뒤집었습니다! 9풀 발업의 타이밍 승리!',
+              owner: LogOwner.home,
               decisive: true,
+              altText: '12풀의 드론 우위가 사라졌습니다! 발업 타이밍이 적중!',
+            ),
+          ],
+        ),
+        // 분기 B: 12풀이 드론 우위로 수비 후 경제 승리
+        ScriptBranch(
+          id: 'twelve_pool_economy',
+          baseProbability: 0.8,
+          conditionStat: 'defense',
+          homeStatMustBeHigher: false,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 발업 완료! 압박을 넣지만 12풀의 수비가 단단합니다!',
+              owner: LogOwner.home,
+              homeArmy: 2, homeResource: -8,
+              altText: '{home}, 발업 저글링으로 압박! 하지만 상대 물량이 많습니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 드론 3기 우위로 저글링을 충분히 보충합니다!',
+              owner: LogOwner.away,
+              homeArmy: -3, awayArmy: 3, favorsStat: 'defense',
+              altText: '{away}, 12풀의 드론 물량! 저글링 보충이 빠릅니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 발업도 완료됩니다! 속도가 같아지면 드론 우위가 결정적!',
+              owner: LogOwner.away,
+              awayArmy: 2, awayResource: -10, favorsStat: 'macro',
+              altText: '{away}, 12풀도 발업 완료! 이제 드론 3기 차이만 남았습니다!',
+            ),
+            ScriptEvent(
+              text: '12풀이 발업 구간을 버텨냈습니다! 드론 우위로 결착!',
+              owner: LogOwner.away,
+              decisive: true,
+              altText: '드론 3기 차이를 지켜냈습니다! 12풀의 경기 운영 승리!',
+            ),
+          ],
+        ),
+        // 분기 C: 양쪽 확장 → 뮤탈전
+        ScriptBranch(
+          id: 'both_expand',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 발업 완료! 앞마당 해처리도 건설합니다!',
+              owner: LogOwner.home,
+              homeResource: -20,
+              homeExpansion: true,
+              altText: '{home}, 발업 챙기고 확장! 경기가 중반으로 넘어갑니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수도 앞마당 해처리를 건설합니다! 드론 우위를 유지합니다!',
+              owner: LogOwner.away,
+              awayResource: -20,
+              awayExpansion: true,
+              altText: '{away}, 12풀도 확장! 드론 우위로 중반전을 가져갑니다!',
+            ),
+            ScriptEvent(
+              text: '양쪽 모두 확장! 이제 테크 싸움이 시작됩니다!',
+              owner: LogOwner.system,
+              skipChance: 0.3,
+              altText: '둘 다 앞마당! 이제 테크 타이밍이 관건입니다!',
+            ),
+          ],
+        ),
+      ],
+    ),
+    // Phase 3.5: 스파이어 건설 (startLine 29)
+    ScriptPhase(
+      name: 'spire_transition',
+      startLine: 29,
+      linearEvents: [
+        ScriptEvent(
+          text: '양쪽 스파이어가 올라갑니다! 뮤탈전이 임박합니다!',
+          owner: LogOwner.system,
+          altText: '스파이어 완성! 뮤탈리스크 생산이 시작됩니다!',
+        ),
+      ],
+    ),
+    // Phase 4: 뮤탈전 (lines 31-38)
+    ScriptPhase(
+      name: 'mutal_war',
+      startLine: 31,
+      branches: [
+        ScriptBranch(
+          id: 'home_mutal_wins',
+          baseProbability: 1.0,
+          conditionStat: 'control',
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 레어 진화 시작! 테크를 서두릅니다!',
+              owner: LogOwner.home,
+              homeResource: -15,
+              altText: '{home}, 레어 진화! 뮤탈 타이밍을 노립니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수도 레어 진화! 가스를 모읍니다!',
+              owner: LogOwner.away,
+              awayResource: -15,
+              altText: '{away}, 레어 진화! 12풀의 드론 우위로 가스도 빠릅니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 스파이어 완성! 뮤탈리스크가 나옵니다!',
+              owner: LogOwner.home,
+              homeArmy: 5, homeResource: -20,
+              altText: '{home}, 뮤탈 등장! 상대 드론을 견제합니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 뮤탈 컨트롤로 상대 스커지를 떨쳐냅니다! 드론 견제 성공!',
+              owner: LogOwner.home,
+              awayResource: -15, awayArmy: -2, favorsStat: 'control',
+              altText: '{home}, 뮤탈 컨트롤이 좋습니다! 스커지를 피하면서 드론을 잡습니다!',
+            ),
+            ScriptEvent(
+              text: '뮤탈 컨트롤 차이! 드론 견제가 누적되면서 결착!',
+              owner: LogOwner.home,
+              decisive: true,
+              altText: '드론 견제에서 앞서면서 물량 차이를 벌립니다! 9풀 발업의 승리!',
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'away_mutal_wins',
+          baseProbability: 1.0,
+          conditionStat: 'harass',
+          homeStatMustBeHigher: false,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 레어 진화! 12풀의 드론 우위로 가스가 빠르게 모입니다!',
+              owner: LogOwner.away,
+              awayResource: -15,
+              altText: '{away}, 레어 진화! 드론이 많아서 가스도 빠릅니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수도 레어 진화! 테크를 서두릅니다!',
+              owner: LogOwner.home,
+              homeResource: -15,
+              altText: '{home}, 레어 진화! 테크 타이밍에서 밀리면 안 됩니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 스파이어 완성! 뮤탈리스크가 나옵니다! 드론이 많아 보충도 빠릅니다!',
+              owner: LogOwner.away,
+              awayArmy: 6, awayResource: -20,
+              altText: '{away}, 뮤탈 등장! 12풀의 자원 우위로 뮤탈 추가가 빠릅니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 뮤탈로 드론 견제! 스커지도 정확히 적중합니다!',
+              owner: LogOwner.away,
+              homeResource: -15, homeArmy: -2, favorsStat: 'harass',
+              altText: '{away}, 뮤탈 물량에서 앞섭니다! 드론 견제가 누적됩니다!',
+            ),
+            ScriptEvent(
+              text: '12풀의 자원 우위가 뮤탈전에서 빛을 발합니다! 물량 차이로 결착!',
+              owner: LogOwner.away,
+              decisive: true,
+              altText: '드론이 많은 12풀! 뮤탈 보충이 빨라 물량에서 앞섭니다!',
             ),
           ],
         ),

@@ -31,7 +31,13 @@ flutter test test/pvp/scenarios_100games_test.dart
 flutter test -n "PvP S1:" test/pvp/scenarios_100games_test.dart
 
 # 1경기 테스트 (빌드 ID 변경하여 사용)
-flutter test test/tvz/single_test.dart
+flutter test --name "ZvZ" test/single_test.dart
+
+# 보정 루프용 JSON 내보내기
+flutter test --name "ZvZ" test/calibration_test.dart
+
+# 전 종족전 3경기+1000경기 통계
+flutter test --name "TvT" test/all_scenarios_test.dart
 ```
 
 ## Architecture
@@ -178,16 +184,21 @@ team_data.dart                 # 팀 초기 데이터
 
 ## 테스트
 
-종족전별 테스트 (test/{matchup}/ 폴더):
-- `test/{matchup}/scenarios_100games_test.dart` - 100경기 통계 검증
-- `test/{matchup}/calibration_test.dart` - 보정 루프용 JSON 로그 내보내기 (전체 빌드 조합 커버)
-- `test/{matchup}/single_test.dart` - 1경기 로그 확인 (빌드 ID 변경하여 사용)
-- 테스트 출력: `test/output/{matchup}/` 디렉토리에 마크다운/JSON 리포트 생성
-- 테스트 패턴: 동일 능력치(~700) + 100% 컨디션 선수로 균형 시나리오 검증, `forcedHomeBuildId`/`forcedAwayBuildId`로 빌드 고정
-
-전역 테스트 (test/ 루트):
+통합 테스트 (test/ 루트):
+- `test/all_scenarios_test.dart` - 전 종족전 3경기 로그 + 1000경기 통계 + 분기 분포 (`--name "ZvZ"` 필터링)
+- `test/calibration_test.dart` - 전 종족전 보정 루프용 JSON 로그 내보내기 (`--name "ZvZ"` 필터링)
+- `test/single_test.dart` - 전 종족전 1경기 로그 확인 (`--name "ZvZ"` 필터링, 빌드 ID 변경하여 사용)
 - `test/season_full_test.dart` - 전 종족전 186경기 시즌 시뮬레이션 (시나리오 매칭 실패/크래시 검증)
 - `test/home_away_bias_test.dart` - 홈/어웨이 편향 검증 (6종족전 × 300경기 × 2방향, ±5%p 이내)
+
+종족전별 특수 테스트 (test/{matchup}/ 폴더):
+- `test/{pvp,pvt,zvp,zvz}/scenarios_100games_test.dart` - 100경기 배치 + 수동 분기 추적
+- `test/tvt/stats_500_test.dart` - TvT 500경기 심층 분석
+- `test/zvz/balance_tuning_test.dart` - ZvZ 밸런스 튜닝
+
+테스트 공통:
+- 테스트 출력: `test/output/{matchup}/` 디렉토리에 마크다운/JSON 리포트 생성
+- 테스트 패턴: 동일 능력치(~700) + 100% 컨디션 선수로 균형 시나리오 검증, `forcedHomeBuildId`/`forcedAwayBuildId`로 빌드 고정
 
 ### 보정 기준
 - 승률: 동일 능력치 기준 30~70% (미러는 45~55%)
@@ -200,8 +211,8 @@ team_data.dart                 # 팀 초기 데이터
 모든 경기는 시나리오 스크립트(`ScenarioScript`)로 진행되며, 빌드 조합마다 고유한 내러티브가 펼쳐진다.
 
 > **시나리오 작성/보정 시 참조 파일** (작성 전 반드시 확인):
-> - `SCENARIO_RULES.md` — 양쪽 동시 비용 반영, 비용 체계, Recovery, 텍스트 규칙
-> - `lib/core/constants/scenarios/build_timings.md` — 빌드별 표준 타이밍 (건물 착공/완성, 첫 유닛, line 매핑). **종족전 공용** — 등재된 빌드는 재조사 금지, 새 빌드 조사 시 즉시 등재
+> - `lib/core/constants/scenarios/docs/SCENARIO_RULES.md` — 양쪽 동시 비용 반영, 비용 체계, Recovery, 텍스트 규칙
+> - `lib/core/constants/scenarios/docs/build_timings.md` — 빌드별 표준 타이밍 (건물 착공/완성, 첫 유닛, line 매핑). **종족전 공용** — 등재된 빌드는 재조사 금지, 새 빌드 조사 시 즉시 등재
 > - `lib/core/constants/scenarios/{matchup}/test_{matchup}.md` — 해당 종족전의 빌드/시나리오 목록 + 보정 현황
 
 ### 시나리오 스크립트 구조
@@ -234,7 +245,7 @@ ScenarioScript
 4. **해설 코멘터리**: `LogOwner.system` 이벤트로 상황 해설 삽입
 5. **건물명 규칙**: 실제 방송 해설 톤에 맞춘 건물 명칭 사용 (아래 표 참조)
 
-> 금지어/마인 규칙/톤(느낌표·콤마)/체크리스트 등 **시나리오 텍스트 작성 세부 규칙**은 `SCENARIO_RULES.md` 참조 — 본 문서에 중복 기재하지 않는다.
+> 금지어/마인 규칙/톤(느낌표·콤마)/체크리스트 등 **시나리오 텍스트 작성 세부 규칙**은 `lib/core/constants/scenarios/docs/SCENARIO_RULES.md` 참조 — 본 문서에 중복 기재하지 않는다.
 
 ### 건물명 표기 기준
 
@@ -315,7 +326,7 @@ ScenarioScript
 
 ```
 1. 시뮬레이션 실행
-   - 해당 종족전 보정 테스트 실행 (flutter test test/{matchup}/calibration_test.dart)
+   - 해당 종족전 보정 테스트 실행 (flutter test --name "{Matchup}" test/calibration_test.dart)
    - 출력: test/output/{matchup}/log.json
 
 2. 검증 기준 체크

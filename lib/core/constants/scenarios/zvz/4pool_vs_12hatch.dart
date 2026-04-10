@@ -25,72 +25,83 @@ const _zvz4PoolVs12hatch = ScenarioScript(
           text: '{away} 선수 드론을 계속 뽑고 있습니다.',
           owner: LogOwner.away,
           awayResource: -5,
+          altText: '{away}, 드론에 집중! 12앞마당을 올리려 합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링 6기 생산! 상대 진영으로 출발합니다!',
           owner: LogOwner.home,
           homeArmy: 2, homeResource: -15,
-          altText: '{home}, 저글링이 달려갑니다!',
+          altText: '{home}, 저글링이 달려갑니다! 12앞마당 상대에게 최악의 타이밍!',
         ),
         ScriptEvent(
           text: '{away} 선수 12드론에 앞마당 해처리를 건설하는 중입니다.',
           owner: LogOwner.away,
           awayResource: -20, awayArmy: 3,
+          altText: '{away}, 12앞마당! 스포닝풀이 아직 없습니다!',
+        ),
+        ScriptEvent(
+          text: '4풀 대 12앞마당! 스포닝풀조차 없는 상태에서 저글링이 옵니다!',
+          owner: LogOwner.system,
+          skipChance: 0.3,
+          altText: '12앞마당은 4풀에 가장 취약한 빌드입니다! 풀이 아예 없어요!',
         ),
       ],
     ),
-    // Phase 1: 저글링 도착 (lines 7-10)
+    // Phase 1: 저글링 도착 (lines 11-16)
     ScriptPhase(
       name: 'ling_rush',
-      startLine: 7,
+      startLine: 11,
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 저글링이 상대 앞마당에 도착합니다! 스포닝풀이 없어요!',
+          text: '{home} 선수 저글링이 상대 앞마당에 도착합니다! 스포닝풀이 없습니다!',
           owner: LogOwner.home,
           favorsStat: 'attack',
-          altText: '{home} 선수 저글링 도착! 상대는 아직 풀도 없습니다!',
+          altText: '{home}, 저글링 도착! 상대는 아직 풀도 없습니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 스포닝풀이 없습니다! 드론으로 막아야 합니다!',
           owner: LogOwner.away,
           awayArmy: 4,
+          altText: '{away}, 드론밖에 없습니다! 풀이 올라오기까지 버텨야 해요!',
         ),
         ScriptEvent(
-          text: '4풀 올인! 12앞마당을 막을 수 있을까요?',
+          text: '4풀 올인! 12앞마당은 드론만으로 막을 수 있을까요?',
           owner: LogOwner.system,
           skipChance: 0.3,
+          altText: '12앞마당의 드론 수가 많지만 저글링 상대로 충분할까요?',
         ),
       ],
     ),
-    // Phase 2: 결과 - 분기 (lines 11-22)
+    // Phase 2: 결과 - 분기 (lines 17-28)
     ScriptPhase(
       name: 'rush_result',
-      startLine: 11,
+      startLine: 17,
       branches: [
         // 분기 A: 4풀 올인 성공
         ScriptBranch(
           id: 'pool_crushes',
-          baseProbability: 1.0,
+          baseProbability: 1.2,
           events: [
             ScriptEvent(
-              text: '{home}, 저글링이 드론을 물어뜯습니다! 앞마당도 파괴!',
+              text: '{home} 선수 저글링이 드론을 물어뜯습니다! 앞마당도 위험합니다!',
               owner: LogOwner.home,
               homeArmy: 4, awayResource: -15, awayArmy: -8, favorsStat: 'attack',
-              altText: '{home} 선수 저글링이 모든 걸 파괴합니다!',
+              altText: '{home}, 저글링이 드론과 앞마당을 동시에 파괴합니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 드론이 전멸하고 있습니다! 막을 수가 없어요!',
+              text: '{away} 선수 드론이 전멸하고 있습니다! 저글링을 막을 수가 없습니다!',
               owner: LogOwner.away,
               awayArmy: -5, awayResource: -10,
+              altText: '{away}, 드론으로 막으려 하지만 저글링이 너무 빠릅니다!',
             ),
             ScriptEvent(
-              text: '{home}, 저글링이 본진까지 들어갑니다!',
+              text: '{home} 선수 저글링이 본진까지 들어갑니다! 남은 드론 추격!',
               owner: LogOwner.home,
               homeArmy: 2, awayResource: -5,
-              altText: '{home} 선수 저글링, 남은 드론까지 추격합니다!',
+              altText: '{home}, 앞마당 파괴 후 본진까지! 막을 수 없습니다!',
             ),
             ScriptEvent(
-              text: '4풀이 12앞마당을 초토화! 올인 성공! 승리를 거둡니다!',
+              text: '4풀이 12앞마당을 초토화합니다! 풀도 없는데 막을 수가 없습니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -102,23 +113,25 @@ const _zvz4PoolVs12hatch = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 드론을 뭉쳐서 저글링과 교전합니다! 드론 컨트롤!',
+              text: '{away} 선수 드론을 뭉쳐서 저글링과 교전합니다! 드론 컨트롤이 좋습니다!',
               owner: LogOwner.away,
               homeArmy: -4, awayArmy: -1, favorsStat: 'control',
-              altText: '{away} 선수 드론 컨트롤! 저글링을 잡아냅니다!',
+              altText: '{away}, 드론 컨트롤! 저글링을 하나씩 잡아냅니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 저글링이 드론에 당하고 있습니다!',
+              text: '{home} 선수 저글링이 드론에 당하고 있습니다! 수가 줄어듭니다!',
               owner: LogOwner.home,
               homeArmy: -3,
+              altText: '{home}, 4풀 저글링이 밀립니다! 드론 물량을 못 이깁니다!',
             ),
             ScriptEvent(
-              text: '{away}, 스포닝풀이 완성됩니다! 저글링으로 반격!',
+              text: '{away} 선수 스포닝풀이 완성됩니다! 저글링으로 반격!',
               owner: LogOwner.away,
               awayArmy: 10, awayResource: -10, favorsStat: 'defense',
+              altText: '{away}, 풀 완성! 저글링이 나오면서 반격에 나섭니다!',
             ),
             ScriptEvent(
-              text: '4풀이 막혔습니다! 드론 수 차이로 12앞마당 유리! 승리를 거둡니다!',
+              text: '4풀이 막혔습니다! 드론 수 차이가 압도적입니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

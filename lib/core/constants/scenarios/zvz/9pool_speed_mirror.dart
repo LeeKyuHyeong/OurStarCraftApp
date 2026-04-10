@@ -77,7 +77,7 @@ const _zvz9poolSpeedMirror = ScenarioScript(
         ScriptEvent(
           text: '상대도 발업입니다! 양쪽 저글링이 동일한 속도! 여기서 판단이 갈립니다!',
           owner: LogOwner.system,
-          altText: '발업 미러! 상대가 확장이 아니라 같은 빌드였습니다! 어떻게 대응할 것인가!',
+          altText: '상대도 발업! 확장이 아니라 같은 빌드였습니다! 어떻게 대응할 것인가!',
         ),
       ],
     ),
@@ -256,7 +256,7 @@ const _zvz9poolSpeedMirror = ScenarioScript(
               altText: '{away}, 저글링 후퇴! 양쪽 다 중반으로 넘어갑니다!',
             ),
             ScriptEvent(
-              text: '양쪽 다 싸움을 피합니다! 레어로 전환하면서 공중전 경쟁 돌입!',
+              text: '양쪽 다 싸움을 피합니다! 레어로 전환하면서 공중전 돌입!',
               owner: LogOwner.system,
               altText: '저글링 싸움 대신 빠른 테크를 선택! 중반전입니다!',
             ),
@@ -354,7 +354,7 @@ const _zvz9poolSpeedMirror = ScenarioScript(
               text: '양쪽 뮤탈이 나옵니다! 3기 대 3기, 초반 뮤탈전 시작!',
               owner: LogOwner.system,
               homeArmy: 4, awayArmy: 4,
-              altText: '뮤탈 미러! 먼저 드론을 더 많이 끊는 쪽이 유리합니다!',
+              altText: '뮤탈 싸움! 먼저 드론을 더 많이 끊는 쪽이 유리합니다!',
             ),
             ScriptEvent(
               text: '{home}, 뮤탈로 상대 미네랄 라인 급습! 드론 2기를 잡습니다!',
@@ -419,7 +419,7 @@ const _zvz9poolSpeedMirror = ScenarioScript(
               text: '양쪽 뮤탈이 나옵니다! 3기 대 3기, 초반 뮤탈전 시작!',
               owner: LogOwner.system,
               homeArmy: 4, awayArmy: 4,
-              altText: '뮤탈 미러! 먼저 드론을 더 많이 끊는 쪽이 유리합니다!',
+              altText: '뮤탈 싸움! 먼저 드론을 더 많이 끊는 쪽이 유리합니다!',
             ),
             ScriptEvent(
               text: '{away}, 뮤탈로 상대 미네랄 라인 급습! 드론 2기를 잡습니다!',
@@ -483,7 +483,7 @@ const _zvz9poolSpeedMirror = ScenarioScript(
               text: '양쪽 뮤탈이 동수! 스커지를 섞으면서 견제를 주고받습니다!',
               owner: LogOwner.system,
               homeResource: -5, awayResource: -5,
-              altText: '뮤탈 미러! 스커지를 생산하면서 기회를 노립니다!',
+              altText: '뮤탈 싸움! 스커지를 생산하면서 기회를 노립니다!',
             ),
             ScriptEvent(
               text: '{home}, 스커지 2기가 상대 뮤탈 뭉치에 정확히 꽂힙니다! 뮤탈 2기 격추!',
@@ -529,7 +529,7 @@ const _zvz9poolSpeedMirror = ScenarioScript(
               text: '양쪽 뮤탈이 동수! 스커지를 섞으면서 견제를 주고받습니다!',
               owner: LogOwner.system,
               homeResource: -5, awayResource: -5,
-              altText: '뮤탈 미러! 스커지를 생산하면서 기회를 노립니다!',
+              altText: '뮤탈 싸움! 스커지를 생산하면서 기회를 노립니다!',
             ),
             ScriptEvent(
               text: '{away}, 스커지 2기가 상대 뮤탈 뭉치에 정확히 꽂힙니다! 뮤탈 2기 격추!',
@@ -597,10 +597,15 @@ const _zvz9poolSpeedMirror = ScenarioScript(
               altText: '{away} 선수 드론까지 동원! 입구에서 저글링을 잡아냅니다!',
             ),
             ScriptEvent(
-              text: '{away}, 레어가 먼저 완성! 스파이어도 빠르게 올립니다!',
+              text: '{away}, 레어가 먼저 완성! 테크가 앞서갑니다!',
               owner: LogOwner.away,
-              awayResource: -20,
-              altText: '{away} 선수 수비 성공! 스파이어를 바로 올립니다!',
+              awayResource: -10,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 스파이어를 빠르게 올립니다!',
+              owner: LogOwner.away,
+              awayResource: -10,
+              altText: '{away} 선수 수비 성공 후 스파이어 건설!',
             ),
             ScriptEvent(
               text: '{away}, 뮤탈이 먼저 나옵니다! 상대는 아직 레어도 없어요!',
@@ -609,9 +614,14 @@ const _zvz9poolSpeedMirror = ScenarioScript(
               altText: '{away} 선수 뮤탈 선점! 드론을 하나씩 끊습니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 뒤늦게 레어, 스파이어를 따라가지만 너무 늦었습니다!',
+              text: '{home} 선수 뒤늦게 레어를 올리지만 너무 늦었습니다!',
               owner: LogOwner.home,
-              homeResource: -40,
+              homeResource: -25,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 스파이어까지 따라가지만 격차가 너무 큽니다!',
+              owner: LogOwner.home,
+              homeResource: -15,
             ),
             ScriptEvent(
               text: '{away}, 스커지를 상대 해처리 앞에 대기! 뮤탈이 나오는 즉시 저격!',
@@ -656,10 +666,15 @@ const _zvz9poolSpeedMirror = ScenarioScript(
               homeResource: -25,
             ),
             ScriptEvent(
-              text: '{away}, 레어가 이미 진행 중! 스파이어를 바로 올립니다!',
+              text: '{away}, 레어가 이미 진행 중! 테크가 앞서갑니다!',
               owner: LogOwner.away,
-              awayResource: -20,
-              altText: '{away} 선수 레어가 먼저 완성! 스파이어 차이가 벌어집니다!',
+              awayResource: -10,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 스파이어를 바로 올립니다!',
+              owner: LogOwner.away,
+              awayResource: -10,
+              altText: '{away} 선수 스파이어 건설! 테크 격차가 벌어집니다!',
             ),
             ScriptEvent(
               text: '{away}, 뮤탈이 먼저 합류! 상대 뮤탈이 나오기 전에 드론을 끊습니다!',
@@ -716,10 +731,15 @@ const _zvz9poolSpeedMirror = ScenarioScript(
               altText: '{home} 선수 드론까지 동원! 입구에서 저글링을 잡아냅니다!',
             ),
             ScriptEvent(
-              text: '{home}, 레어가 먼저 완성! 스파이어도 빠르게 올립니다!',
+              text: '{home}, 레어가 먼저 완성! 테크가 앞서갑니다!',
               owner: LogOwner.home,
-              homeResource: -20,
-              altText: '{home} 선수 수비 성공! 스파이어를 바로 올립니다!',
+              homeResource: -10,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 스파이어를 빠르게 올립니다!',
+              owner: LogOwner.home,
+              homeResource: -10,
+              altText: '{home} 선수 수비 성공 후 스파이어 건설!',
             ),
             ScriptEvent(
               text: '{home}, 뮤탈이 먼저 나옵니다! 상대는 아직 레어도 없어요!',
@@ -728,9 +748,14 @@ const _zvz9poolSpeedMirror = ScenarioScript(
               altText: '{home} 선수 뮤탈 선점! 드론을 하나씩 끊습니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 뒤늦게 레어, 스파이어를 따라가지만 너무 늦었습니다!',
+              text: '{away} 선수 뒤늦게 레어를 올리지만 너무 늦었습니다!',
               owner: LogOwner.away,
-              awayResource: -40,
+              awayResource: -25,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 스파이어까지 따라가지만 격차가 너무 큽니다!',
+              owner: LogOwner.away,
+              awayResource: -15,
             ),
             ScriptEvent(
               text: '{home}, 스커지를 상대 해처리 앞에 대기! 뮤탈이 나오는 즉시 저격!',
@@ -774,10 +799,15 @@ const _zvz9poolSpeedMirror = ScenarioScript(
               awayResource: -25,
             ),
             ScriptEvent(
-              text: '{home}, 레어가 이미 진행 중! 스파이어를 바로 올립니다!',
+              text: '{home}, 레어가 이미 진행 중! 테크가 앞서갑니다!',
               owner: LogOwner.home,
-              homeResource: -20,
-              altText: '{home} 선수 레어가 먼저 완성! 스파이어 차이가 벌어집니다!',
+              homeResource: -10,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 스파이어를 바로 올립니다!',
+              owner: LogOwner.home,
+              homeResource: -10,
+              altText: '{home} 선수 스파이어 건설! 테크 격차가 벌어집니다!',
             ),
             ScriptEvent(
               text: '{home}, 뮤탈이 먼저 합류! 상대 뮤탈이 나오기 전에 드론을 끊습니다!',
