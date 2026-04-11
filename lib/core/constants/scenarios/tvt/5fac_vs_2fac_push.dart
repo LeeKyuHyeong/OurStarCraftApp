@@ -51,7 +51,7 @@ const _tvt5facVs2facPush = ScenarioScript(
           altText: '{home} 선수 5팩 벌처 물량.',
         ),
         ScriptEvent(
-          text: '{away} 선수 투팩에서 벌처 생산, 물량 경쟁.',
+          text: '{away} 선수 투팩에서 벌처 생산, 물량 싸움.',
           owner: LogOwner.away,
           awayArmy: 4, // 벌처 2기 (2sup x2)
           awayResource: -150, // 벌처2(150)

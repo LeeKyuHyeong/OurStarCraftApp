@@ -8,7 +8,7 @@ const _tvtFdRushVs1fac1star = ScenarioScript(
   matchup: 'TvT',
   homeBuildIds: ['tvt_fd_rush'],
   awayBuildIds: ['tvt_1fac_1star'],
-  description: 'FD 러쉬 vs 원팩원스타 테크 경쟁',
+  description: 'FD 러쉬 vs 원팩원스타 테크 싸움',
   phases: [
     // Phase 0: 오프닝 (lines 1-8) - recovery 100/0
     ScriptPhase(

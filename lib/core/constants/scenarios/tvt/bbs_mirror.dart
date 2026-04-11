@@ -9,7 +9,7 @@ const _tvtBbsMirror = ScenarioScript(
   matchup: 'TvT',
   homeBuildIds: ['tvt_bbs'],
   awayBuildIds: ['tvt_bbs'],
-  description: 'BBS 미러 센터 배럭 치즈전',
+  description: 'BBS 같은 빌드 센터 배럭 치즈전',
   phases: [
     // Phase 0: 오프닝 (lines 1-9) - recovery 100/줄
     ScriptPhase(
@@ -18,7 +18,7 @@ const _tvtBbsMirror = ScenarioScript(
       recoveryResourcePerLine: 100,
       linearEvents: [
         ScriptEvent(
-          text: '양쪽 SCV가 센터로 향합니다. BBS 미러입니다.',
+          text: '양쪽 SCV가 센터로 향합니다. BBS 같은 빌드입니다.',
           owner: LogOwner.system,
           altText: '양 선수 SCV를 센터로 보냅니다. 센터 배럭을 노립니다.',
         ),
@@ -36,7 +36,7 @@ const _tvtBbsMirror = ScenarioScript(
           homeResource: -150, // 본진 배럭
           awayResource: -150, // 본진 배럭
           fixedCost: true,
-          altText: '양쪽 본진에도 배럭이 올라갑니다. BBS 미러.',
+          altText: '양쪽 본진에도 배럭이 올라갑니다. BBS 같은 빌드.',
         ),
         ScriptEvent(
           text: '{home} 선수 배럭에서 마린 3기 생산. {away} 선수 배럭에서도 마린 3기.',
@@ -68,12 +68,12 @@ const _tvtBbsMirror = ScenarioScript(
           skipChance: 0.3,
         ),
         ScriptEvent(
-          text: '{home} 선수 벙커 건설. {away} 선수도 벙커를 올립니다. 양쪽 벙커 경쟁입니다.',
+          text: '{home} 선수 벙커 건설. {away} 선수도 벙커를 올립니다. 양쪽 벙커 싸움입니다.',
           owner: LogOwner.system,
           homeResource: -100, // 벙커 100
           awayResource: -100,
           fixedCost: true,
-          altText: '양쪽 벙커가 동시에 올라갑니다. 벙커 경쟁입니다.',
+          altText: '양쪽 벙커가 동시에 올라갑니다. 벙커 싸움입니다.',
         ),
       ],
     ),

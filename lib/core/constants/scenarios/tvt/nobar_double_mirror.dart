@@ -10,7 +10,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
   matchup: 'TvT',
   homeBuildIds: ['tvt_nobar_double'],
   awayBuildIds: ['tvt_nobar_double'],
-  description: '노배럭더블 미러 - 자원 경쟁 장기전',
+  description: '노배럭더블 같은 빌드 - 자원 싸움 장기전',
   phases: [
     // ── Phase 0: 오프닝 (lines 1-12) ── recovery 100/줄
     ScriptPhase(
@@ -38,7 +38,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
           awayResource: -400,
           fixedCost: true,
           awayExpansion: true,
-          altText: '{away} 선수도 노배럭더블, 미러 매치입니다.',
+          altText: '{away} 선수도 노배럭더블, 같은 빌드 대결입니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 배럭 건설합니다.',
@@ -67,10 +67,10 @@ const _tvtNobarDoubleMirror = ScenarioScript(
           altText: '{away} 선수도 리파이너리, 가스 채취 시작.',
         ),
         ScriptEvent(
-          text: '양측 노배럭더블 미러! 초반 교전 없이 자원 싸움이 될 전망입니다.',
+          text: '양측 노배럭더블 같은 빌드! 초반 교전 없이 자원 싸움이 될 전망입니다.',
           owner: LogOwner.system,
           skipChance: 0.3,
-          altText: '노배럭더블 미러, 가장 수비적인 테테전입니다.',
+          altText: '노배럭더블 같은 빌드, 가장 수비적인 테테전입니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 팩토리 건설을 시작합니다.',
@@ -449,7 +449,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
               text: '양측 탱크와 벌처가 대치합니다. 시즈 모드 연구를 기다립니다.',
               owner: LogOwner.system,
               skipChance: 0.3,
-              altText: '노배럭더블 미러, 양측 자원이 비슷해서 탱크 수도 비등합니다.',
+              altText: '노배럭더블 같은 빌드, 양측 자원이 비슷해서 탱크 수도 비등합니다.',
             ),
           ],
         ),

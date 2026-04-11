@@ -8,7 +8,7 @@ const _tvt1fac1starMirror = ScenarioScript(
   matchup: 'TvT',
   homeBuildIds: ['tvt_1fac_1star'],
   awayBuildIds: ['tvt_1fac_1star'],
-  description: '원팩원스타 미러 벌처 탱크 드랍 대결',
+  description: '원팩원스타 같은 빌드 벌처 탱크 드랍 대결',
   phases: [
     // ── Phase 0: 오프닝 (lines 1-11) ── recovery 100/줄
     ScriptPhase(
@@ -41,7 +41,7 @@ const _tvt1fac1starMirror = ScenarioScript(
           owner: LogOwner.away,
           awayResource: -400,
           fixedCost: true,
-          altText: '{away} 선수 팩토리 건설. 원팩원스타 미러가 예상됩니다.',
+          altText: '{away} 선수 팩토리 건설. 원팩원스타 같은 빌드가 예상됩니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 스타포트를 올립니다. 원팩원스타 운영입니다.',
@@ -51,11 +51,11 @@ const _tvt1fac1starMirror = ScenarioScript(
           altText: '{home} 선수 스타포트가 올라갑니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수도 스타포트를 올립니다. 원팩원스타 미러 확정입니다.',
+          text: '{away} 선수도 스타포트를 올립니다. 원팩원스타 같은 빌드 확정입니다.',
           owner: LogOwner.away,
           awayResource: -250,
           fixedCost: true,
-          altText: '{away} 선수 스타포트 건설. 양쪽 원팩원스타 미러입니다.',
+          altText: '{away} 선수 스타포트 건설. 양쪽 원팩원스타 같은 빌드입니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 벌처 생산을 시작합니다.',
@@ -70,7 +70,7 @@ const _tvt1fac1starMirror = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '원팩원스타 미러! 벌처 교전부터 시작됩니다!',
+          text: '원팩원스타 같은 빌드! 벌처 교전부터 시작됩니다!',
           owner: LogOwner.system,
           skipChance: 0.2,
         ),
@@ -90,7 +90,7 @@ const _tvt1fac1starMirror = ScenarioScript(
           altText: '{home} 선수 벌처 기동. 마인을 깔아둡니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수도 벌처로 맞대응. 마인 매설 경쟁입니다.',
+          text: '{away} 선수도 벌처로 맞대응. 마인 매설 싸움입니다.',
           owner: LogOwner.away,
           favorsStat: 'control',
           altText: '{away} 선수 마인 매설. 양쪽 마인밭입니다.',

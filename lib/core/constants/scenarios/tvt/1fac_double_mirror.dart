@@ -8,7 +8,7 @@ const _tvt1facDoubleMirror = ScenarioScript(
   matchup: 'TvT',
   homeBuildIds: ['tvt_1fac_double'],
   awayBuildIds: ['tvt_1fac_double'],
-  description: '원팩확장 미러 마인 기반 장기전',
+  description: '원팩확장 같은 빌드 마인 기반 장기전',
   phases: [
     // ── Phase 0: 오프닝 (배럭 → 가스 → 팩토리 → 벌처와 마인 → CC) ──
     ScriptPhase(
@@ -93,17 +93,17 @@ const _tvt1facDoubleMirror = ScenarioScript(
           altText: '{home} 선수 앞마당 확장, 원팩 더블입니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수도 앞마당 커맨드센터, 원팩 더블 미러입니다.',
+          text: '{away} 선수도 앞마당 커맨드센터, 원팩 더블 같은 빌드입니다.',
           owner: LogOwner.away,
           awayResource: -400,
           fixedCost: true,
           altText: '{away} 선수도 앞마당 확장, 같은 빌드입니다.',
         ),
         ScriptEvent(
-          text: '양측 원팩 더블 미러, 머신샵 연구 선택이 관건입니다.',
+          text: '양측 원팩 더블 같은 빌드, 머신샵 연구 선택이 관건입니다.',
           owner: LogOwner.system,
           skipChance: 0.5,
-          altText: '원팩 더블 미러, 마인이냐 속업이냐 시즈냐.',
+          altText: '원팩 더블 같은 빌드, 마인이냐 속업이냐 시즈냐.',
         ),
       ],
     ),
@@ -245,7 +245,7 @@ const _tvt1facDoubleMirror = ScenarioScript(
               awayArmy: 2, awayResource: -75,
               fixedCost: true,
               favorsStat: 'control',
-              altText: '{away} 선수도 벌처 출격! 속업 미러 벌처전.',
+              altText: '{away} 선수도 벌처 출격! 양쪽 속업 벌처전.',
             ),
             ScriptEvent(
               text: '양측 속업 먼저! 벌처 기동전이 벌어집니다.',
@@ -744,13 +744,13 @@ const _tvt1facDoubleMirror = ScenarioScript(
               owner: LogOwner.away,
               awayResource: -400,
               fixedCost: true,
-              altText: '{away} 선수도 트리플 확장, 양측 자원 경쟁입니다.',
+              altText: '{away} 선수도 트리플 확장, 양측 자원 싸움입니다.',
             ),
             ScriptEvent(
               text: '양측 트리플 확장, 자원 확보를 위한 투자입니다.',
               owner: LogOwner.system,
               skipChance: 0.4,
-              altText: '같은 타이밍에 트리플, 미러답게 진행됩니다.',
+              altText: '같은 타이밍에 트리플, 양쪽 빌드가 맞물려 진행됩니다.',
             ),
             ScriptEvent(
               text: '{home} 선수 확장 직후 벌처로 상대 SCV를 노립니다!',

@@ -5671,7 +5671,7 @@ class BuildOrderData {
 
   /// TvT 매치업 이벤트 (테란 시점)
   static const tvtMidLateEvents = [
-    BuildStep(line: 0, text: '{player}, 탱크 자리잡기 경쟁!', stat: 'strategy', myArmy: 3, myResource: -15),
+    BuildStep(line: 0, text: '{player}, 탱크 자리잡기 싸움!', stat: 'strategy', myArmy: 3, myResource: -15),
     BuildStep(line: 0, text: '{player} 선수 고지대 탱크로 저지대 견제!', stat: 'strategy', myArmy: -1, enemyArmy: -3),
     BuildStep(line: 0, text: '{player}, 레이스로 상대 탱크 뒤 SCV 견제!', stat: 'harass', myArmy: -1, enemyResource: -20),
     BuildStep(line: 0, text: '{player} 선수 벌처 마인으로 벌처 처리!', stat: 'harass', myArmy: -1, enemyArmy: -2),
@@ -5684,7 +5684,7 @@ class BuildOrderData {
     // 확장 이벤트
     BuildStep(line: 0, text: '{player}, 벌처로 상대 확장 견제!', stat: 'harass', myArmy: -1, enemyResource: -20),
     BuildStep(line: 0, text: '{player} 선수 스캔으로 상대 테크 확인!', stat: 'scout', myArmy: 1),
-    BuildStep(line: 0, text: '{player}, 커맨드센터 증설! 확장 경쟁!', stat: 'macro', myArmy: 2, myResource: -20),
+    BuildStep(line: 0, text: '{player}, 커맨드센터 증설! 확장 싸움!', stat: 'macro', myArmy: 2, myResource: -20),
     BuildStep(line: 0, text: '{player} 선수 마인 매설! 벌처 진입로 차단!', stat: 'defense', enemyArmy: -3),
     BuildStep(line: 0, text: '{player}, 레이스로 상대 멀티 SCV 견제!', stat: 'harass', myArmy: -1, enemyResource: -25),
     BuildStep(line: 0, text: '{player} 선수 아머리 업그레이드로 탱크 화력 강화!', stat: 'macro', myArmy: 2, myResource: -15),
@@ -5767,7 +5767,7 @@ class BuildOrderData {
     BuildStep(line: 0, text: '{player}, 옵저버로 상대 진영 정찰!', stat: 'scout', myArmy: 1),
     BuildStep(line: 0, text: '{player} 선수 질럿 아콘 조합으로 전진!', stat: 'attack', myArmy: 4, myResource: -18),
     // 확장 이벤트
-    BuildStep(line: 0, text: '{player}, 넥서스 추가 건설! 확장 경쟁!', stat: 'macro', myArmy: 2, myResource: -20),
+    BuildStep(line: 0, text: '{player}, 넥서스 추가 건설! 확장 싸움!', stat: 'macro', myArmy: 2, myResource: -20),
     BuildStep(line: 0, text: '{player} 선수 캐논으로 드랍 진입로 차단!', stat: 'defense', myArmy: 1, myResource: -12),
     BuildStep(line: 0, text: '{player}, 아비터 스테이시스로 탱크 라인 무력화!', stat: 'sense', enemyArmy: -4),
     BuildStep(line: 0, text: '{player} 선수 포지 업그레이드! 질럿 공격력 강화!', stat: 'macro', myArmy: 2, myResource: -15),

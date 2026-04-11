@@ -9,7 +9,7 @@ const _tvt1facDoubleVsNobarDouble = ScenarioScript(
   matchup: 'TvT',
   homeBuildIds: ['tvt_1fac_double'],
   awayBuildIds: ['tvt_nobar_double'],
-  description: '원팩더블 vs 노배럭더블 - 수비형 미러',
+  description: '원팩더블 vs 노배럭더블 - 수비형 같은 빌드',
   phases: [
     // Phase 0: 오프닝 (lines 1-14) - recovery 100/0
     ScriptPhase(

@@ -8,7 +8,7 @@ const _tvt5facMirror = ScenarioScript(
   matchup: 'TvT',
   homeBuildIds: ['tvt_5fac'],
   awayBuildIds: ['tvt_5fac'],
-  description: '5팩토리 미러 올인 대결',
+  description: '5팩토리 같은 빌드 올인 대결',
   phases: [
     // ── Phase 0: 오프닝 (lines 1-13) - recovery 100/줄 ──
     ScriptPhase(
@@ -80,10 +80,10 @@ const _tvt5facMirror = ScenarioScript(
           skipChance: 0.3,
         ),
         ScriptEvent(
-          text: '양쪽 5팩토리, 확장 없는 올인 미러입니다.',
+          text: '양쪽 5팩토리, 확장 없는 같은 빌드 대결입니다.',
           owner: LogOwner.system,
           skipChance: 0.3,
-          altText: '5팩 미러! 확장 없이 물량으로 맞붙는 구조입니다.',
+          altText: '양쪽 5팩! 확장 없이 물량으로 맞붙는 구조입니다.',
         ),
       ],
     ),
@@ -123,7 +123,7 @@ const _tvt5facMirror = ScenarioScript(
           altText: '양쪽 탱크 라인이 센터에서 대치하고 있습니다.',
         ),
         ScriptEvent(
-          text: '5팩 미러에서는 시야 확보가 곧 승부! 벌처로 눈을 뜨고 탱크로 때려야 합니다!',
+          text: '양쪽 5팩 대결에서는 시야 확보가 곧 승부! 벌처로 눈을 뜨고 탱크로 때려야 합니다!',
           owner: LogOwner.system,
           skipChance: 0.2,
           altText: '시야가 곧 화력! 벌처 컨트롤이 탱크 교전의 승패를 가릅니다!',
@@ -393,10 +393,10 @@ const _tvt5facMirror = ScenarioScript(
               awayResource: -400,
               fixedCost: true,
               awayExpansion: true,
-              altText: '{away} 선수도 앞마당 확장, 양쪽 자원 경쟁입니다.',
+              altText: '{away} 선수도 앞마당 확장, 양쪽 자원 싸움입니다.',
             ),
             ScriptEvent(
-              text: '양쪽 확장을 올립니다. 올인 미러가 장기전으로 넘어갑니다.',
+              text: '양쪽 확장을 올립니다. 올인 대결이 장기전으로 넘어갑니다.',
               owner: LogOwner.system,
               skipChance: 0.4,
               altText: '5팩 올인이 자원전으로 전환되고 있습니다.',
@@ -669,7 +669,7 @@ const _tvt5facMirror = ScenarioScript(
           favorsStat: 'strategy',
           requiresMapTag: 'terrainHigh',
           skipChance: 0.5,
-          altText: '{away} 선수 고지대 확보! 양쪽 지형 경쟁입니다.',
+          altText: '{away} 선수 고지대 확보! 양쪽 지형 싸움입니다.',
         ),
         // 원거리 맵: 자원 보충 여유
         ScriptEvent(

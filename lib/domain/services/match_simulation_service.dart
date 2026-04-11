@@ -1370,7 +1370,7 @@ class MatchSimulationService {
       if (lineCount <= 40) {
         final texts = [
           '${winner.name} 선수 초반 컨트롤 완승! ${loser.name} 선수 병력 차이를 못 좁힙니다!',
-          '${winner.name} 선수 컨트롤이 압도적! ${loser.name} 선수 병력 전멸!',
+          '${winner.name} 선수 컨트롤이 압도적! ${loser.name} 선수 병력 전멸, 함락 직전입니다!',
           '${winner.name} 선수 초반 교전 장악! ${loser.name} 선수 회복 불가!',
         ];
         return texts[_random.nextInt(texts.length)];
@@ -1380,16 +1380,16 @@ class MatchSimulationService {
       if (lineCount >= 80 && winnerHasStarport) {
         if (winnerRes < loserRes) {
           final texts = [
-            '${winner.name} 선수 대규모 후방 기습! ${loser.name} 선수 본진 생산시설 점거! 추가 병력이 끊깁니다!',
-            '${winner.name} 선수 후방 급습 성공! ${loser.name} 선수 생산시설 파괴! 병력 보충 불가!',
-            '${winner.name} 선수 승부수! 후방 기습으로 ${loser.name} 선수 본진 장악! 남은 병력싸움에서 우위!',
+            '${winner.name} 선수 대규모 후방 기습! ${loser.name} 선수 본진이 무너지며 추가 병력이 끊깁니다!',
+            '${winner.name} 선수 후방 급습 성공! ${loser.name} 선수 생산시설 파괴, 병력 보충 불가!',
+            '${winner.name} 선수 승부수! 후방 기습으로 ${loser.name} 선수 본진 장악, 남은 병력싸움에서 우위!',
           ];
           return texts[_random.nextInt(texts.length)];
         }
         final texts = [
           '${winner.name} 선수 후방 기습으로 상대 라인 뒤를 잡습니다! ${loser.name} 선수 지상 병력 괴멸!',
           '${winner.name} 선수 후방 공격! ${loser.name} 선수 라인 뒤쪽이 무너지며 확장기지 장악!',
-          '${winner.name} 선수 다방면 공격! ${loser.name} 선수 앞마당까지 밀리며 수비 붕괴!',
+          '${winner.name} 선수 다방면 공격! ${loser.name} 선수 앞마당까지 밀리며 본진이 무너집니다!',
         ];
         return texts[_random.nextInt(texts.length)];
       }
@@ -1398,7 +1398,7 @@ class MatchSimulationService {
       if (loserArmy <= 10) {
         final texts = [
           '${winner.name} 선수 화력 집중! ${loser.name} 선수 병력 증발!',
-          '${winner.name} 선수 총공격! ${loser.name} 선수 남은 병력이 없습니다!',
+          '${winner.name} 선수 총공격! ${loser.name} 선수 남은 병력 없이 본진이 무너집니다!',
           '${winner.name} 선수 일제 사격! ${loser.name} 선수 병력 괴멸!',
         ];
         return texts[_random.nextInt(texts.length)];
@@ -1407,15 +1407,15 @@ class MatchSimulationService {
       // TvT 중반/후반: 라인 밀어내며 앞마당→본진
       final texts = <String>[
         '${winner.name} 선수 라인 전진! ${loser.name} 선수 밀려나며 앞마당이 무너집니다!',
-        '${winner.name} 선수 수비 라인 돌파! ${loser.name} 선수 앞마당에서 본진까지 밀립니다!',
+        '${winner.name} 선수 수비 라인 돌파 결정타! ${loser.name} 선수 앞마당에서 본진까지 밀립니다!',
         '${winner.name} 선수 거리재기 승리! ${loser.name} 선수 포지션을 내줍니다!',
-        '${winner.name} 선수 견제 성공! ${loser.name} 선수 일꾼을 초토화!',
+        '${winner.name} 선수 견제 성공! ${loser.name} 선수 일꾼 초토화에 함락 직전입니다!',
       ];
       // 스타포트가 있고 후반이면 후방 공격 텍스트도 풀에 추가
       if (winnerHasStarport && lineCount >= 60) {
         texts.addAll([
           '${winner.name} 선수 후방 기습으로 상대 라인 뒤를 잡습니다! ${loser.name} 선수 지상 병력 괴멸!',
-          '${winner.name} 선수 다방면 공격! ${loser.name} 선수 앞마당까지 밀리며 수비 붕괴!',
+          '${winner.name} 선수 다방면 공격! ${loser.name} 선수 앞마당까지 밀리며 본진이 무너집니다!',
         ]);
       }
       return texts[_random.nextInt(texts.length)];

@@ -8,7 +8,7 @@ const _tvtFdRushMirror = ScenarioScript(
   matchup: 'TvT',
   homeBuildIds: ['tvt_fd_rush'],
   awayBuildIds: ['tvt_fd_rush'],
-  description: 'FD 러쉬 미러 탱크 대결',
+  description: 'FD 러쉬 같은 빌드 탱크 대결',
   phases: [
     // ── Phase 0: 오프닝 (lines 1-8) ── recovery 100/줄
     ScriptPhase(
@@ -74,7 +74,7 @@ const _tvtFdRushMirror = ScenarioScript(
           altText: '{away} 선수도 머신샵 착공.',
         ),
         ScriptEvent(
-          text: '양쪽 모두 빠른 팩토리에 머신샵 부착, FD 러쉬 미러입니다.',
+          text: '양쪽 모두 빠른 팩토리에 머신샵 부착, FD 러쉬 같은 빌드입니다.',
           owner: LogOwner.system,
         ),
         ScriptEvent(
@@ -142,7 +142,7 @@ const _tvtFdRushMirror = ScenarioScript(
           altText: '{home} 선수 고지 선점 시도.',
         ),
         ScriptEvent(
-          text: '{away} 선수도 고지를 노립니다, 탱크 배치 경쟁입니다.',
+          text: '{away} 선수도 고지를 노립니다, 탱크 배치 싸움입니다.',
           owner: LogOwner.away,
           favorsStat: 'control',
           altText: '{away} 선수 고지 확보 시도, 먼저 잡는 쪽이 유리합니다.',
@@ -183,7 +183,7 @@ const _tvtFdRushMirror = ScenarioScript(
               altText: '{home} 선수 고지 시즈 포격! 상대 탱크가 폭발합니다!',
             ),
             ScriptEvent(
-              text: '고지 선점 차이! 시즈 라인 미러에서 위치가 결정적입니다.',
+              text: '고지 선점 차이! 시즈 대결에서 위치가 결정적입니다.',
               owner: LogOwner.system,
               altText: '고지를 먼저 잡은 차이가 크게 벌어지고 있습니다.',
             ),
@@ -293,7 +293,7 @@ const _tvtFdRushMirror = ScenarioScript(
               text: '물량전으로 가고 있습니다, 확장이 필요한 시점입니다.',
               owner: LogOwner.system,
               skipChance: 0.3,
-              altText: '탱크 수 경쟁이 치열합니다, 자원 확보가 관건입니다.',
+              altText: '탱크 수 싸움이 치열합니다, 자원 확보가 관건입니다.',
             ),
           ],
         ),
@@ -804,7 +804,7 @@ const _tvtFdRushMirror = ScenarioScript(
               altText: '{home} 선수 정면과 드랍 양면 공격! 상대가 분산됩니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 시즈 미러에서 위치 선점과 드랍으로 승리합니다!',
+              text: '{home} 선수 시즈 대결에서 위치 선점과 드랍으로 승리합니다!',
               owner: LogOwner.home,
               decisive: true,
               altText: '{home} 선수 탱크 운용이 한 수 위였습니다!',
@@ -830,7 +830,7 @@ const _tvtFdRushMirror = ScenarioScript(
               altText: '{away} 선수 시즈 집중 포격! 상대 라인이 무너집니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 탱크 배치와 마인 운용으로 미러를 제압합니다!',
+              text: '{away} 선수 탱크 배치와 마인 운용으로 대결을 제압합니다!',
               owner: LogOwner.away,
               decisive: true,
               altText: '{away} 선수 시즈 거리재기에서 승리합니다!',

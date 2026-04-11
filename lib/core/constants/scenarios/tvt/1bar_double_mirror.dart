@@ -8,7 +8,7 @@ const _tvt1barDoubleMirror = ScenarioScript(
   matchup: 'TvT',
   homeBuildIds: ['tvt_1bar_double'],
   awayBuildIds: ['tvt_1bar_double'],
-  description: '배럭더블 미러 정석 대결',
+  description: '배럭더블 같은 빌드 정석 대결',
   phases: [
     // ── Phase 0: 오프닝 (배럭, CC, 팩토리) ──
     ScriptPhase(
@@ -40,7 +40,7 @@ const _tvt1barDoubleMirror = ScenarioScript(
           altText: '{home} 선수 앞마당 커맨드, 배럭 더블입니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수도 앞마당 커맨드센터, 배럭 더블 미러입니다.',
+          text: '{away} 선수도 앞마당 커맨드센터, 배럭 더블 같은 빌드입니다.',
           owner: LogOwner.away,
           awayResource: -450,
           awayArmy: 1,
@@ -76,10 +76,10 @@ const _tvt1barDoubleMirror = ScenarioScript(
           altText: '{away} 선수도 팩토리 건설, SCV 정찰을 보냅니다.',
         ),
         ScriptEvent(
-          text: '양측 배럭 더블 미러, 정석적인 테테전 전개입니다.',
+          text: '양측 배럭 더블 같은 빌드, 정석적인 테테전 전개입니다.',
           owner: LogOwner.system,
           skipChance: 0.4,
-          altText: '배럭 더블 미러, 이제 벌처 싸움이 관건입니다.',
+          altText: '배럭 더블 같은 빌드, 이제 벌처 싸움이 관건입니다.',
         ),
         ScriptEvent(
           text: '안정적인 운영을 선택했습니다. 실력 싸움 가겠다는 거죠.',
@@ -131,7 +131,7 @@ const _tvt1barDoubleMirror = ScenarioScript(
           awayResource: -200,
           fixedCost: true,
           favorsStat: 'strategy',
-          altText: '{away} 선수도 속업 연구, 타이밍 경쟁입니다.',
+          altText: '{away} 선수도 속업 연구, 타이밍 싸움입니다.',
         ),
         ScriptEvent(
           text: '양측 벌처가 센터에서 조우합니다.',
