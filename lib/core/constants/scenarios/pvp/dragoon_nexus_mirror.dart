@@ -88,7 +88,7 @@ const _pvpDragoonNexusMirror = ScenarioScript(
           awayResource: -30,
         ),
         ScriptEvent(
-          text: '양측 모두 확장을 올립니다! 빌드가 동일한데요, 운영 싸움이 중요하겠습니다!',
+          text: '양측 모두 확장을 올립니다! 운영 싸움이 중요하겠습니다! 작은 실수도 크게 벌어질 수 있는게 같은 빌드 싸움이죠.',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),

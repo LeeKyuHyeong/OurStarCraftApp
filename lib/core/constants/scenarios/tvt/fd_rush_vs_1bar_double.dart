@@ -30,11 +30,12 @@ const _tvtFdRushVs1barDouble = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{home} 선수 가스 채취, 팩토리 건설합니다.',
+          text: '{home} 선수 가스를 올리고 마린을 계속 뽑습니다.',
           owner: LogOwner.home,
-          homeResource: -400, // 리파이너리 100 + 팩토리 300
+          homeResource: -100, // 리파이너리 100
+          homeArmy: 2, // 마린 생산 시작
           fixedCost: true,
-          altText: '{home} 선수 팩토리 건설. 빠른 메카닉을 노립니다.',
+          altText: '{home} 선수 리파이너리 건설, 마린 연속 생산입니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 앞마당 커맨드센터. 빠른 확장입니다.',
@@ -44,19 +45,29 @@ const _tvtFdRushVs1barDouble = ScenarioScript(
           altText: '{away} 선수 앞마당 커맨드센터. 원배럭더블로 확장.',
         ),
         ScriptEvent(
-          text: '{home} 선수 머신샵 부착. 시즈 탱크를 뽑습니다.',
+          text: '{home} 선수 팩토리 건설. 마린은 계속 뽑습니다.',
+          owner: LogOwner.home,
+          homeResource: -300, // 팩토리 300
+          homeArmy: 2, // 마린 추가
+          fixedCost: true,
+          altText: '{home} 선수 팩토리를 올리면서 마린을 모읍니다.',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 머신샵 부착. 벌처 없이 바로 탱크를 노립니다.',
           owner: LogOwner.home,
           homeResource: -100, // 머신샵 100
           fixedCost: true,
-          altText: '{home} 선수 머신샵 부착. 기갑 유닛 생산 준비 완료.',
+          altText: '{home} 선수 머신샵 착공, 빠른 탱크 체제입니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수 확장이 가동됩니다. 일꾼을 추가 생산합니다.',
+          text: '{away} 선수 확장이 가동됩니다. 가스를 올리고 팩토리를 준비합니다.',
           owner: LogOwner.away,
-          awayResource: -10,
+          awayResource: -100, // 리파이너리 100
+          fixedCost: true,
+          altText: '{away} 선수 확장 가동, 리파이너리를 올립니다.',
         ),
         ScriptEvent(
-          text: '빠른 메카닉 vs 빠른 확장! 공격과 수비의 대결!',
+          text: '마린 물량의 FD 러쉬 vs 빠른 확장! 공격과 수비의 대결!',
           owner: LogOwner.system,
           altText: 'SCV 정찰로 상대 팩토리 타이밍을 꼼꼼히 체크합니다.',
         ),
@@ -70,26 +81,25 @@ const _tvtFdRushVs1barDouble = ScenarioScript(
       recoveryArmyPerLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 시즈 탱크 생산. 시즈 모드 연구.',
+          text: '{home} 선수 탱크 생산과 시즈모드 연구를 동시에 시작합니다!',
           owner: LogOwner.home,
           homeArmy: 2, homeResource: -550, // 탱크 250 + 시즈모드 300
           fixedCost: true,
-          altText: '{home} 선수 탱크와 시즈 모드. FD 러쉬 준비.',
+          altText: '{home} 선수 탱크와 시즈모드 동시 진행. FD 러쉬 준비.',
         ),
         ScriptEvent(
-          text: '{away} 선수 가스를 넣고 팩토리를 올립니다. 하지만 늦습니다.',
+          text: '{away} 선수 팩토리를 올립니다. 하지만 탱크는 아직 멀었습니다.',
           owner: LogOwner.away,
-          awayResource: -400, // 리파이너리 100 + 팩토리 300
+          awayResource: -300, // 팩토리 300
           fixedCost: true,
           altText: '{away} 선수 팩토리 건설. 탱크를 빨리 뽑아야 합니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 탱크 2기를 앞세우고 전진합니다! 시즈 모드!',
+          text: '{home} 선수 시즈모드 완료! 마린 6기와 탱크를 앞세워 전진합니다!',
           owner: LogOwner.home,
-          homeArmy: 2, homeResource: -250, // 탱크 1기 추가 250
-          fixedCost: true,
+          homeArmy: 2, // 마린 추가 완성분
           favorsStat: 'attack',
-          altText: '{home} 선수 탱크 전진! 앞마당을 노립니다!',
+          altText: '{home} 선수 마린 물량에 탱크까지! 앞마당을 노립니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 벙커와 마린으로 수비 준비.',
@@ -99,10 +109,10 @@ const _tvtFdRushVs1barDouble = ScenarioScript(
           favorsStat: 'defense',
         ),
         ScriptEvent(
-          text: '시즈 라인이 앞마당 앞에 자리잡습니다! 확장이 위험합니다!',
+          text: '마린과 시즈탱크가 앞마당 앞에 자리잡습니다! 확장이 위험합니다!',
           owner: LogOwner.system,
           skipChance: 0.2,
-          altText: '언덕 위 시즈모드, 테테전에서 가장 무서운 지형지물이죠.',
+          altText: '마린 물량에 시즈 포격까지, 수비 측이 버틸 수 있을까요.',
         ),
       ],
     ),

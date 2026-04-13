@@ -32,15 +32,15 @@ const _zvz12hatchMirror = ScenarioScript(
           altText: '{home}, 12앞마당! 확장을 가져갑니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 12드론에 앞마당 해처리! 같은 빌드입니다!',
+          text: '{away} 선수도 12드론에 앞마당 해처리!',
           owner: LogOwner.away,
           awayResource: -30,
-          altText: '{away}, 12앞마당! 양쪽 다 확장 빌드입니다!',
+          altText: '{away}, 12앞마당! 확장을 가져갑니다!',
         ),
         ScriptEvent(
-          text: '양쪽 다 12앞마당! 상대가 빠른 풀이면 큰일인데 배짱이 대단합니다!',
+          text: '상대가 빠른 풀이면 큰일인데 배짱이 대단합니다!',
           owner: LogOwner.system,
-          altText: '양쪽 다 12앞마당! 상대가 빠른 풀을 올리는 빌드였으면 큰일날 뻔했는데 배짱이 좋습니다!',
+          altText: '상대가 빠른 풀을 올리는 빌드였으면 큰일날 뻔했는데 배짱이 좋습니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 스포닝풀 건설! 저글링을 준비합니다.',
@@ -79,9 +79,9 @@ const _zvz12hatchMirror = ScenarioScript(
           conditionStat: 'harass',
           events: [
             ScriptEvent(
-              text: '오버로드로 서로의 빌드를 확인합니다! 같은 빌드!',
+              text: '오버로드로 서로의 빌드를 확인합니다!',
               owner: LogOwner.system,
-              altText: '오버로드로 상대 빌드가 보입니다! 동일한 12앞마당!',
+              altText: '오버로드로 상대 빌드가 보입니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 저글링으로 상대 앞마당 드론을 노립니다!',
@@ -96,7 +96,7 @@ const _zvz12hatchMirror = ScenarioScript(
               altText: '{away}, 저글링이 들어왔습니다! 드론으로 필사적으로 막습니다!',
             ),
             ScriptEvent(
-              text: '같은 빌드에서 이 정도 드론 차이면 큽니다!',
+              text: '이 정도 드론 차이면 큽니다!',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
@@ -110,9 +110,9 @@ const _zvz12hatchMirror = ScenarioScript(
           homeStatMustBeHigher: false,
           events: [
             ScriptEvent(
-              text: '오버로드로 서로의 빌드를 확인합니다! 같은 빌드!',
+              text: '오버로드로 서로의 빌드를 확인합니다!',
               owner: LogOwner.system,
-              altText: '오버로드로 상대 빌드가 보입니다! 동일한 12앞마당!',
+              altText: '오버로드로 상대 빌드가 보입니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 저글링으로 상대 앞마당 드론을 노립니다!',
@@ -127,7 +127,7 @@ const _zvz12hatchMirror = ScenarioScript(
               altText: '{home}, 저글링이 들어왔습니다! 드론으로 필사적으로 막습니다!',
             ),
             ScriptEvent(
-              text: '같은 빌드에서 이 정도 드론 차이면 큽니다!',
+              text: '이 정도 드론 차이면 큽니다!',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
@@ -140,9 +140,9 @@ const _zvz12hatchMirror = ScenarioScript(
           conditionStat: 'control',
           events: [
             ScriptEvent(
-              text: '오버로드로 서로의 빌드를 확인합니다! 같은 빌드!',
+              text: '오버로드로 서로의 빌드를 확인합니다!',
               owner: LogOwner.system,
-              altText: '오버로드로 상대 빌드가 보입니다! 동일한 12앞마당!',
+              altText: '오버로드로 상대 빌드가 보입니다!',
             ),
             ScriptEvent(
               text: '양쪽 저글링이 센터에서 맞붙습니다! 비슷한 피해를 주고받습니다!',
@@ -164,7 +164,7 @@ const _zvz12hatchMirror = ScenarioScript(
           conditionStat: 'control',
           events: [
             ScriptEvent(
-              text: '오버로드로 서로의 빌드를 확인합니다! 같은 빌드!',
+              text: '오버로드로 서로의 빌드를 확인합니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
@@ -192,7 +192,7 @@ const _zvz12hatchMirror = ScenarioScript(
           homeStatMustBeHigher: false,
           events: [
             ScriptEvent(
-              text: '오버로드로 서로의 빌드를 확인합니다! 같은 빌드!',
+              text: '오버로드로 서로의 빌드를 확인합니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
@@ -349,7 +349,7 @@ const _zvz12hatchMirror = ScenarioScript(
           conditionStat: 'control',
           events: [
             ScriptEvent(
-              text: '뮤탈 소모전! 같은 빌드라 여기서 갈립니다!',
+              text: '뮤탈 소모전! 여기서 승부가 갈립니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
@@ -378,7 +378,7 @@ const _zvz12hatchMirror = ScenarioScript(
           homeStatMustBeHigher: false,
           events: [
             ScriptEvent(
-              text: '뮤탈 소모전! 같은 빌드라 여기서 갈립니다!',
+              text: '뮤탈 소모전! 여기서 승부가 갈립니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(

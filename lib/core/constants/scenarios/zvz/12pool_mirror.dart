@@ -32,10 +32,10 @@ const _zvz12poolMirror = ScenarioScript(
           altText: '{home} 선수, 스포닝풀! 스탠다드한 오프닝입니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 12드론에 스포닝풀! 같은 빌드입니다!',
+          text: '{away} 선수도 12드론에 스포닝풀!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away} 선수도 스포닝풀! 동일한 빌드입니다!',
+          altText: '{away} 선수도 스포닝풀! 스탠다드한 오프닝이네요!',
         ),
         ScriptEvent(
           text: '{home} 선수 익스트랙터 건설! 가스를 채취합니다.',
@@ -60,7 +60,7 @@ const _zvz12poolMirror = ScenarioScript(
           awayArmy: 4, awayResource: -10,
         ),
         ScriptEvent(
-          text: '양쪽 다 12풀! 앞마당 타이밍이 승부의 관건입니다!',
+          text: '앞마당 타이밍이 승부의 관건입니다!',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
@@ -263,7 +263,7 @@ const _zvz12poolMirror = ScenarioScript(
               altText: '{home} 선수 깔끔한 견제! 드론 피해를 주고 빠집니다!',
             ),
             ScriptEvent(
-              text: '소소한 견제 성공! 같은 빌드에서는 이 작은 차이가 중요합니다!',
+              text: '소소한 견제 성공! 이 작은 차이가 중요합니다!',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
@@ -294,7 +294,7 @@ const _zvz12poolMirror = ScenarioScript(
               altText: '{away} 선수 깔끔한 견제! 드론 피해를 주고 빠집니다!',
             ),
             ScriptEvent(
-              text: '소소한 견제 성공! 같은 빌드에서는 이 작은 차이가 중요합니다!',
+              text: '소소한 견제 성공! 이 작은 차이가 중요합니다!',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
@@ -513,7 +513,7 @@ const _zvz12poolMirror = ScenarioScript(
           conditionStat: 'control',
           events: [
             ScriptEvent(
-              text: '뮤탈 소모전! 같은 빌드라 여기서 갈립니다!',
+              text: '뮤탈 소모전! 여기서 승부가 갈립니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
@@ -542,7 +542,7 @@ const _zvz12poolMirror = ScenarioScript(
           homeStatMustBeHigher: false,
           events: [
             ScriptEvent(
-              text: '뮤탈 소모전! 같은 빌드라 여기서 갈립니다!',
+              text: '뮤탈 소모전! 여기서 승부가 갈립니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(

@@ -8,7 +8,7 @@ const _tvt1barDoubleMirror = ScenarioScript(
   matchup: 'TvT',
   homeBuildIds: ['tvt_1bar_double'],
   awayBuildIds: ['tvt_1bar_double'],
-  description: '배럭더블 같은 빌드 정석 대결',
+  description: '배럭더블 정석 대결',
   phases: [
     // ── Phase 0: 오프닝 (배럭, CC, 팩토리) ──
     ScriptPhase(
@@ -40,12 +40,12 @@ const _tvt1barDoubleMirror = ScenarioScript(
           altText: '{home} 선수 앞마당 커맨드, 배럭 더블입니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수도 앞마당 커맨드센터, 배럭 더블 같은 빌드입니다.',
+          text: '{away} 선수도 앞마당 커맨드센터를 올립니다.',
           owner: LogOwner.away,
           awayResource: -450,
           awayArmy: 1,
           fixedCost: true,
-          altText: '{away} 선수도 앞마당 확장, 같은 빌드입니다.',
+          altText: '{away} 선수도 앞마당 확장합니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 가스를 올립니다.',
@@ -76,10 +76,10 @@ const _tvt1barDoubleMirror = ScenarioScript(
           altText: '{away} 선수도 팩토리 건설, SCV 정찰을 보냅니다.',
         ),
         ScriptEvent(
-          text: '양측 배럭 더블 같은 빌드, 정석적인 테테전 전개입니다.',
+          text: '정석적인 테테전 전개입니다. 운영 싸움이 중요하겠습니다.',
           owner: LogOwner.system,
           skipChance: 0.4,
-          altText: '배럭 더블 같은 빌드, 이제 벌처 싸움이 관건입니다.',
+          altText: '이제 벌처 싸움이 관건입니다.',
         ),
         ScriptEvent(
           text: '안정적인 운영을 선택했습니다. 실력 싸움 가겠다는 거죠.',
@@ -360,20 +360,20 @@ const _tvt1barDoubleMirror = ScenarioScript(
           altText: '{away} 선수도 탱크 합류, 양측 탱크와 벌처가 섞입니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 벌처로 시야를 확보하고 탱크가 한 발 쏩니다! 상대 벌처가 맞습니다!',
+          text: '{home} 선수 벌처와 탱크가 센터에서 상대 병력과 맞부딪힙니다! 근소하게 밀어냅니다!',
           owner: LogOwner.home,
           awayArmy: -1,
-          favorsStat: 'sense',
+          favorsStat: 'control',
           skipChance: 0.4,
-          altText: '{home} 선수 벌처 시야 확보, 탱크 포격으로 상대 벌처를 잡습니다!',
+          altText: '{home} 선수 센터 접전에서 살짝 앞서갑니다! 벌처 한 기 차이!',
         ),
         ScriptEvent(
-          text: '{away} 선수 벌처를 빼면서 탱크로 맞포격합니다.',
+          text: '{away} 선수도 탱크와 벌처를 합류시켜 반격합니다! 한 기를 잡아냅니다!',
           owner: LogOwner.away,
           homeArmy: -1,
-          favorsStat: 'sense',
+          favorsStat: 'control',
           skipChance: 0.4,
-          altText: '{away} 선수 탱크 맞포격, {home} 벌처에 피해를 줍니다.',
+          altText: '{away} 선수 반격! 아슬아슬하게 벌처 한 기를 잡습니다!',
         ),
         ScriptEvent(
           text: '아직 시즈 모드가 없어서 탱크가 직접 이동하며 싸우는 구간입니다.',
@@ -385,7 +385,7 @@ const _tvt1barDoubleMirror = ScenarioScript(
           text: '팩토리 랠리 포인트가 센터로 향합니다.',
           owner: LogOwner.system,
           skipChance: 0.6,
-          altText: '서로의 빌드를 다 알고 있습니다. 이제는 컨트롤 싸움이에요.',
+          altText: 'SCV 정찰로 상대 상황을 확인합니다. 이제 컨트롤 싸움이에요.',
         ),
         // 팩토리 추가 (2팩)
         ScriptEvent(
@@ -529,12 +529,12 @@ const _tvt1barDoubleMirror = ScenarioScript(
         ),
         // 거리재기
         ScriptEvent(
-          text: '{home} 선수 벌처를 앞세워 시야를 밝히고 시즈 포격! 상대 탱크 한 대가 맞습니다!',
+          text: '{home} 선수 스캔을 뿌려 상대 탱크 위치를 확인합니다! 시즈 포격! 탱크가 맞습니다!',
           owner: LogOwner.home,
           awayArmy: -2,
           favorsStat: 'sense',
           skipChance: 0.4,
-          altText: '{home} 선수 벌처 시야 확보 후 시즈 포격! 상대 탱크를 깎습니다!',
+          altText: '{home} 선수 스캔으로 상대 탱크를 잡아냅니다! 시즈 포격!',
         ),
         ScriptEvent(
           text: '{away} 선수 탱크를 살짝 전진시켜 사거리를 잡습니다, 시즈 한 방! {home} 탱크가 터집니다!',
@@ -755,7 +755,7 @@ const _tvt1barDoubleMirror = ScenarioScript(
         // 홈 확장 포기 + 공격 (decisive)
         ScriptBranch(
           id: 'home_skip_expand_attack',
-          baseProbability: 0.5,
+          baseProbability: 0.35,
           conditionStat: 'attack',
           events: [
             ScriptEvent(
@@ -801,7 +801,7 @@ const _tvt1barDoubleMirror = ScenarioScript(
         // 어웨이 확장 포기 + 공격 (decisive, 홈의 미러)
         ScriptBranch(
           id: 'away_skip_expand_attack',
-          baseProbability: 0.5,
+          baseProbability: 0.35,
           conditionStat: 'attack',
           events: [
             ScriptEvent(
@@ -856,7 +856,7 @@ const _tvt1barDoubleMirror = ScenarioScript(
         // 시즈 거리재기에서 큰 차이 없이 계속 진행
         ScriptBranch(
           id: 'siege_continues',
-          baseProbability: 1.5,
+          baseProbability: 2.0,
           events: [
             ScriptEvent(
               text: '양측 탱크 라인이 팽팽합니다, 골리앗 전환으로 넘어갑니다.',
@@ -869,7 +869,7 @@ const _tvt1barDoubleMirror = ScenarioScript(
         // 홈 탱크 라인 압도 → 밀어붙여서 끝냄
         ScriptBranch(
           id: 'home_siege_crush',
-          baseProbability: 0.6,
+          baseProbability: 0.4,
           conditionStat: 'attack',
           events: [
             ScriptEvent(
@@ -902,7 +902,7 @@ const _tvt1barDoubleMirror = ScenarioScript(
         // 어웨이 탱크 라인 압도 → 밀어붙여서 끝냄
         ScriptBranch(
           id: 'away_siege_crush',
-          baseProbability: 0.6,
+          baseProbability: 0.4,
           conditionStat: 'attack',
           events: [
             ScriptEvent(
@@ -1006,7 +1006,7 @@ const _tvt1barDoubleMirror = ScenarioScript(
         ),
       ],
     ),
-    // ── Phase 6: 시즈탱크와 골리앗+드랍십 - 분기 ──
+    // ── Phase 6: 시즈탱크와 골리앗+드랍쉽 - 분기 ──
     ScriptPhase(
       name: 'full_mech',
       startLine: 80,
@@ -1014,7 +1014,7 @@ const _tvt1barDoubleMirror = ScenarioScript(
       recoveryResourcePerLine: 200,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 스타포트 건설, 드랍십을 준비합니다.',
+          text: '{home} 선수 스타포트 건설, 드랍쉽을 준비합니다.',
           owner: LogOwner.home,
           homeResource: -250,
           fixedCost: true,
@@ -1028,27 +1028,27 @@ const _tvt1barDoubleMirror = ScenarioScript(
           altText: '{away} 선수도 스타포트 건설, 드랍 준비입니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 드랍십 생산, 벌처로 시야를 확보하면서 타이밍을 재고 있습니다.',
+          text: '{home} 선수 드랍쉽 생산이 시작됩니다. 스캔으로 상대 진형을 살피고 있습니다.',
           owner: LogOwner.home,
           homeArmy: 2, homeResource: -200,
           fixedCost: true,
-          altText: '{home} 선수 드랍십 완성, 언제 출격할지 보고 있습니다.',
+          altText: '{home} 선수 드랍쉽이 쌓이기 시작합니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수도 드랍십 생산, 골리앗을 대공 위치에 배치합니다.',
+          text: '{away} 선수도 드랍쉽 생산, 골리앗을 대공 위치에 배치합니다.',
           owner: LogOwner.away,
           awayArmy: 2, awayResource: -200,
           fixedCost: true,
-          altText: '{away} 선수도 드랍십, 양측 풀 메카닉 체제입니다.',
+          altText: '{away} 선수도 드랍쉽 생산, 양측 풀 메카닉 체제입니다.',
         ),
         ScriptEvent(
-          text: '시즈탱크, 골리앗, 드랍십, 풀 메카닉 체제입니다.',
+          text: '시즈탱크, 골리앗, 드랍쉽, 풀 메카닉 체제입니다.',
           owner: LogOwner.system,
           skipChance: 0.4,
           altText: '양측 풀 메카닉, 이제 드랍이냐 정면이냐가 관건입니다.',
         ),
         ScriptEvent(
-          text: '골리앗 비율을 높여서 드랍십을 원천 봉쇄합니다.',
+          text: '골리앗 비율을 높여서 드랍쉽을 원천 봉쇄합니다.',
           owner: LogOwner.system,
           skipChance: 0.6,
           altText: '팩토리가 쉴 새 없이 돌아갑니다. 물량전 예고입니다.',
@@ -1061,129 +1061,205 @@ const _tvt1barDoubleMirror = ScenarioScript(
         ),
         // 원거리 맵: 드랍 이동 시간이 길어서 탐지 가능
         ScriptEvent(
-          text: '원거리 맵이라 드랍십 이동이 오래 걸립니다, 정찰할 시간이 있습니다.',
+          text: '원거리 맵이라 드랍쉽 이동이 오래 걸립니다, 정찰할 시간이 있습니다.',
           owner: LogOwner.system,
           requiresMapTag: 'rushLong',
         ),
       ],
     ),
-    // ── Phase 7: 드랍/정면 - 분기 ──
+    // ── Phase 7: 드랍 운용 - 분기 ──
     ScriptPhase(
       name: 'drop_or_frontal',
       startLine: 92,
       recoveryArmyPerLine: 2,
       recoveryResourcePerLine: 200,
       branches: [
-        // 홈 드랍 성공
+        // ── 정석 드랍: 상대 방어 병력 위 드랍 + 지상군 합공 (홈) ──
         ScriptBranch(
-          id: 'home_drop_success',
-          baseProbability: 1.0,
+          id: 'home_drop_attack',
+          baseProbability: 3.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수 드랍십 출격! 상대 확장기지에 탱크를 내립니다!',
+              text: '{home} 선수 스캔으로 상대 방어 라인 위치를 확인합니다!',
               owner: LogOwner.home,
-              awayResource: -300,
-              favorsStat: 'strategy',
-              altText: '{home} 선수 탱크 드랍! 상대 확장기지가 위험합니다!',
-            ),
-            ScriptEvent(
-              text: '{away} 선수 확장기지 SCV가 큰 피해! 병력을 돌려야 합니다!',
-              owner: LogOwner.away,
-              awayArmy: -2, awayResource: -200,
-              altText: '{away} 선수 확장기지에 탱크가 내려왔습니다! SCV 피해!',
-            ),
-            ScriptEvent(
-              text: '{home} 선수 드랍 혼란 틈타 정면 탱크도 전진! 시즈 포격!',
-              owner: LogOwner.home,
-              awayArmy: -2,
               favorsStat: 'sense',
-              skipChance: 0.4,
-              altText: '{home} 선수 정면에서도 시즈 포격! 상대 탱크가 터집니다!',
+              altText: '{home} 선수 스캔을 뿌립니다! 상대 탱크 라인이 보입니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 정면에서도 탱크 라인을 전진시킵니다! 멀티포인트 공격!',
+              text: '{home} 선수 드랍쉽 다섯 대가 상대 방어 병력 위로 향합니다! 동시에 지상군도 전진!',
+              owner: LogOwner.home,
+              favorsStat: 'strategy',
+              altText: '{home} 선수 드랍쉽 편대가 상대 탱크 라인 위로! 지상에서도 밀어붙입니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 드랍쉽에서 탱크와 골리앗이 쏟아집니다! 상대 시즈 라인 뒤에 착지!',
+              owner: LogOwner.home,
+              awayArmy: -4, awayResource: -200,
+              favorsStat: 'attack',
+              altText: '{home} 선수 상대 탱크 뒤에 병력 투하! 앞뒤로 포격이 들어갑니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 정면 탱크 라인도 동시에 전진! 상대가 앞뒤로 끼입니다!',
               owner: LogOwner.home,
               homeArmy: 4, awayArmy: -4,
               favorsStat: 'attack',
-              altText: '{home} 선수 드랍과 정면 동시! 수비가 갈립니다!',
+              altText: '{home} 선수 드랍과 정면 동시 합공! 상대 수비가 찢어집니다!',
             ),
             ScriptEvent(
-              text: '드랍과 정면 동시 공격! 수비가 분산됩니다!',
+              text: '드랍과 정면 동시 합공! 방어 병력이 양면에서 녹아내립니다!',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
-            // 공중 개방 맵: 드랍 경로가 다양해서 추가 드랍 피해
+            // 공중 개방 맵: 드랍 경로가 다양해서 추가 효과
             ScriptEvent(
-              text: '공중이 열린 맵이라 드랍십이 다른 경로로 한 번 더 들어갑니다! 추가 피해!',
+              text: '공중이 열린 맵이라 드랍쉽이 다양한 경로로 접근합니다! 골리앗 대응이 늦습니다!',
               owner: LogOwner.home,
-              awayResource: -200,
+              awayArmy: -2,
               requiresMapTag: 'airHigh',
               favorsStat: 'harass',
             ),
           ],
         ),
-        // 어웨이 드랍 성공
+        // ── 정석 드랍: 상대 방어 병력 위 드랍 + 지상군 합공 (어웨이) ──
         ScriptBranch(
-          id: 'away_drop_success',
-          baseProbability: 1.0,
+          id: 'away_drop_attack',
+          baseProbability: 3.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수 드랍십으로 상대 본진을 기습합니다! 탱크 투하!',
+              text: '{away} 선수 스캔으로 상대 방어 라인을 확인합니다!',
               owner: LogOwner.away,
-              homeResource: -300,
-              favorsStat: 'strategy',
-              altText: '{away} 선수 본진 드랍! 생산시설이 위험합니다!',
-            ),
-            ScriptEvent(
-              text: '{home} 선수 본진이 위협받고 있습니다! 탱크를 돌려야!',
-              owner: LogOwner.home,
-              homeArmy: -2, homeResource: -200,
-              altText: '{home} 선수 본진에 탱크가 내려왔습니다! 병력을 빼야!',
-            ),
-            ScriptEvent(
-              text: '{away} 선수 {home} 탱크가 빠진 라인에 시즈 포격! 골리앗을 잡습니다!',
-              owner: LogOwner.away,
-              homeArmy: -2,
               favorsStat: 'sense',
-              skipChance: 0.4,
-              altText: '{away} 선수 라인 빈틈을 노린 포격! {home} 병력이 줄어듭니다!',
+              altText: '{away} 선수 스캔을 뿌립니다! 상대 진형이 보입니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 상대가 흔들리는 사이 정면 탱크 라인도 전진!',
+              text: '{away} 선수 드랍쉽 다섯 대가 상대 탱크 라인 위쪽으로! 지상군도 전진합니다!',
+              owner: LogOwner.away,
+              favorsStat: 'strategy',
+              altText: '{away} 선수 드랍쉽 편대 출격! 상대 방어 병력 위로 향합니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 드랍쉽에서 병력이 내립니다! 상대 시즈 라인 뒤쪽에 착지!',
+              owner: LogOwner.away,
+              homeArmy: -4, homeResource: -200,
+              favorsStat: 'attack',
+              altText: '{away} 선수 상대 탱크 뒤에 투하! 앞뒤 협공입니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 정면에서도 탱크 라인을 밀어넣습니다! 앞뒤로 포격!',
               owner: LogOwner.away,
               awayArmy: 4, homeArmy: -4,
               favorsStat: 'attack',
-              altText: '{away} 선수 견제와 정면 동시! 상대가 갈립니다!',
+              altText: '{away} 선수 드랍과 정면 합공! 수비가 양쪽으로 찢어집니다!',
             ),
             ScriptEvent(
-              text: '본진 견제 성공! 생산력에 타격이 갑니다!',
+              text: '양면 합공! 시즈 라인이 앞뒤에서 녹아내립니다!',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
-            // 공중 개방 맵: 드랍 경로가 다양해서 추가 드랍 피해
             ScriptEvent(
-              text: '공중이 열린 맵이라 드랍십이 우회해서 한 번 더 진입합니다! 추가 피해!',
+              text: '공중이 열린 맵이라 드랍쉽이 다양한 경로로 접근! 대응이 어렵습니다!',
               owner: LogOwner.away,
-              homeResource: -200,
+              homeArmy: -2,
               requiresMapTag: 'airHigh',
               favorsStat: 'harass',
             ),
           ],
         ),
-        // 정면 교전
+        // ── 확장 견제 드랍 (홈) ── 드랍쉽으로 멀티 확장 견제 + 살려나와 재활용
         ScriptBranch(
-          id: 'frontal_clash',
-          baseProbability: 1.0,
+          id: 'home_expansion_harass',
+          baseProbability: 3.0,
           events: [
             ScriptEvent(
-              text: '양측 드랍을 경계하며 골리앗을 대공 위치에 배치합니다, 정면 승부입니다.',
+              text: '{home} 선수 드랍쉽 여섯 대에 병력을 태워 상대 새 확장기지로 향합니다!',
+              owner: LogOwner.home,
+              favorsStat: 'harass',
+              altText: '{home} 선수 드랍쉽 편대가 상대 멀티를 노립니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 확장기지에 탱크를 내립니다! SCV가 큰 피해를 입습니다!',
+              owner: LogOwner.home,
+              awayResource: -300,
+              favorsStat: 'harass',
+              altText: '{home} 선수 멀티 견제 성공! SCV가 줄줄이 터집니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 병력을 돌리지만 드랍쉽이 병력을 회수해서 빠져나갑니다!',
+              owner: LogOwner.away,
+              awayArmy: -1,
+              altText: '{away} 선수 대응 병력이 도착하지만 드랍쉽이 이미 빠졌습니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 드랍쉽이 살아서 돌아옵니다! 다른 방향으로 다시 견제를 준비합니다!',
+              owner: LogOwner.home,
+              favorsStat: 'strategy',
+              skipChance: 0.3,
+              altText: '{home} 선수 드랍쉽 재활용! 이번에는 다른 확장을 노립니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 드랍쉽이 또 다른 확장으로! 상대가 갈리고 있습니다!',
+              owner: LogOwner.home,
+              awayResource: -200,
+              favorsStat: 'harass',
+              skipChance: 0.4,
+              altText: '{home} 선수 드랍쉽 연속 견제! 상대 확장이 안정되지 않습니다!',
+            ),
+          ],
+        ),
+        // ── 확장 견제 드랍 (어웨이) ──
+        ScriptBranch(
+          id: 'away_expansion_harass',
+          baseProbability: 3.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 드랍쉽 여섯 대에 병력을 태워 상대 멀티 확장으로!',
+              owner: LogOwner.away,
+              favorsStat: 'harass',
+              altText: '{away} 선수 드랍쉽 편대가 상대 새 확장기지를 노립니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 확장기지에 탱크를 내려 시즈! SCV를 학살합니다!',
+              owner: LogOwner.away,
+              homeResource: -300,
+              favorsStat: 'harass',
+              altText: '{away} 선수 멀티 견제! SCV가 큰 피해를 입습니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 병력을 돌리지만 드랍쉽이 빠르게 회수해 빠집니다!',
+              owner: LogOwner.home,
+              homeArmy: -1,
+              altText: '{home} 선수 대응이 늦습니다! 드랍쉽이 이미 빠져나갑니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 드랍쉽이 살아 돌아옵니다! 다음 견제를 준비합니다!',
+              owner: LogOwner.away,
+              favorsStat: 'strategy',
+              skipChance: 0.3,
+              altText: '{away} 선수 드랍쉽 재활용! 다른 확장을 노립니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 연속 견제! 드랍쉽이 또 다른 확장으로 향합니다!',
+              owner: LogOwner.away,
+              homeResource: -200,
+              favorsStat: 'harass',
+              skipChance: 0.4,
+              altText: '{away} 선수 드랍쉽 돌려막기가 안 됩니다! 연속 견제!',
+            ),
+          ],
+        ),
+        // ── 정면 교전 ──
+        ScriptBranch(
+          id: 'frontal_clash',
+          baseProbability: 3.0,
+          events: [
+            ScriptEvent(
+              text: '양측 골리앗을 대공 위치에 배치, 드랍을 경계하며 정면 승부입니다.',
               owner: LogOwner.system,
               skipChance: 0.3,
               altText: '드랍 없이 정면 승부, 탱크 라인 싸움입니다.',
             ),
-            // 거리재기
             ScriptEvent(
-              text: '{home} 선수 탱크 한 칸 전진! 시즈 포격! {away} 탱크가 맞습니다!',
+              text: '{home} 선수 스캔으로 상대 라인을 확인합니다! 시즈 포격!',
               owner: LogOwner.home,
               awayArmy: -2,
               favorsStat: 'sense',
@@ -1222,10 +1298,10 @@ const _tvt1barDoubleMirror = ScenarioScript(
             ),
           ],
         ),
-        // 홈 불리 → 본진 한방 뒤집기 드랍
+        // ── 홈 불리 → 본진 올인 드랍 (최후 수단) ──
         ScriptBranch(
           id: 'home_desperate_drop',
-          baseProbability: 0.8,
+          baseProbability: 0.6,
           events: [
             ScriptEvent(
               text: '{home} 선수 정면에서 밀리고 있습니다! 병력 차이가 벌어지고 있습니다!',
@@ -1233,13 +1309,13 @@ const _tvt1barDoubleMirror = ScenarioScript(
               homeArmy: -4,
             ),
             ScriptEvent(
-              text: '{home} 선수 드랍십 두 대에 탱크를 가득 싣습니다! 본진을 노립니다!',
+              text: '{home} 선수 드랍쉽 다섯 대에 남은 병력을 모조리 태웁니다! 상대 본진으로!',
               owner: LogOwner.home,
               favorsStat: 'strategy',
-              altText: '{home} 선수 대규모 드랍! 상대 본진 뒤를 노립니다!',
+              altText: '{home} 선수 최후의 승부수! 드랍쉽 편대가 상대 본진으로 향합니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 상대 본진에 탱크 투하! 시즈 모드 전환! 팩토리가 터집니다!',
+              text: '{home} 선수 상대 본진에 병력 투하! 시즈 모드 전환! 팩토리가 터집니다!',
               owner: LogOwner.home,
               awayResource: -500, awayArmy: -4,
               favorsStat: 'harass',
@@ -1252,17 +1328,17 @@ const _tvt1barDoubleMirror = ScenarioScript(
               altText: '{away} 선수 본진 생산 건물이 파괴됩니다! 생산이 끊깁니다!',
             ),
             ScriptEvent(
-              text: '대역전극! 불리하던 경기를 드랍쉽 한 방으로 뒤집습니다!',
+              text: '마지막 승부수! 불리하던 경기를 본진 드랍으로 뒤집습니다!',
               owner: LogOwner.system,
               skipChance: 0.3,
-              altText: '드랍쉽 한 대의 기적! 본진 팩토리 라인이 마비됐습니다.',
+              altText: '드랍쉽 편대의 역전! 본진 팩토리 라인이 마비됐습니다.',
             ),
           ],
         ),
-        // 어웨이 불리 → 본진 한방 뒤집기 드랍
+        // ── 어웨이 불리 → 본진 올인 드랍 (최후 수단) ──
         ScriptBranch(
           id: 'away_desperate_drop',
-          baseProbability: 0.8,
+          baseProbability: 0.6,
           events: [
             ScriptEvent(
               text: '{away} 선수 정면에서 밀리고 있습니다! 탱크 수가 부족합니다!',
@@ -1270,13 +1346,13 @@ const _tvt1barDoubleMirror = ScenarioScript(
               awayArmy: -4,
             ),
             ScriptEvent(
-              text: '{away} 선수 드랍십 두 대에 탱크를 싣고 상대 본진으로 향합니다!',
+              text: '{away} 선수 드랍쉽 다섯 대에 남은 병력을 태워 상대 본진으로!',
               owner: LogOwner.away,
               favorsStat: 'strategy',
-              altText: '{away} 선수 대규모 드랍! 승부수를 던집니다!',
+              altText: '{away} 선수 최후의 승부수! 드랍쉽 편대가 본진을 노립니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 상대 본진에 탱크 투하! 시즈 모드! 생산시설이 터집니다!',
+              text: '{away} 선수 상대 본진에 병력 투하! 시즈 모드! 생산시설이 터집니다!',
               owner: LogOwner.away,
               homeResource: -500, homeArmy: -4,
               favorsStat: 'harass',
@@ -1292,7 +1368,7 @@ const _tvt1barDoubleMirror = ScenarioScript(
               text: '역전 드랍! 불리했던 쪽이 생산력을 뒤집었습니다!',
               owner: LogOwner.system,
               skipChance: 0.3,
-              altText: '드랍쉽 한 대의 기적! 본진 팩토리 라인이 마비됐습니다.',
+              altText: '드랍쉽 편대의 역습! 본진 팩토리 라인이 마비됐습니다.',
             ),
           ],
         ),
@@ -1307,12 +1383,12 @@ const _tvt1barDoubleMirror = ScenarioScript(
       linearEvents: [
         // 결전 직전 거리재기
         ScriptEvent(
-          text: '{home} 선수 벌처로 시야를 밝히고 탱크 포격! 상대 골리앗이 맞습니다!',
+          text: '{home} 선수 스캔으로 상대 진형을 확인합니다! 시즈 포격! 골리앗이 맞습니다!',
           owner: LogOwner.home,
           awayArmy: -2,
           favorsStat: 'sense',
           skipChance: 0.5,
-          altText: '{home} 선수 결전 직전 거리재기! 시즈 포격으로 상대 병력을 깎습니다!',
+          altText: '{home} 선수 결전 직전 스캔! 시즈 포격으로 상대 병력을 깎습니다!',
         ),
         ScriptEvent(
           text: '{away} 선수도 탱크 위치를 조정합니다, 포격! {home} 탱크가 터집니다!',

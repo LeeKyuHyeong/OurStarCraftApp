@@ -8,7 +8,7 @@ const _tvt1facDoubleMirror = ScenarioScript(
   matchup: 'TvT',
   homeBuildIds: ['tvt_1fac_double'],
   awayBuildIds: ['tvt_1fac_double'],
-  description: '원팩확장 같은 빌드 마인 기반 장기전',
+  description: '원팩확장 마인 기반 장기전',
   phases: [
     // ── Phase 0: 오프닝 (배럭 → 가스 → 팩토리 → 벌처와 마인 → CC) ──
     ScriptPhase(
@@ -46,25 +46,25 @@ const _tvt1facDoubleMirror = ScenarioScript(
           altText: '{away} 선수도 리파이너리, 가스 채취 시작.',
         ),
         ScriptEvent(
-          text: '{home} 선수 팩토리 건설을 시작합니다.',
+          text: '{home} 선수 팩토리를 올리면서 가스에서 SCV를 빼 미네랄로 돌립니다.',
           owner: LogOwner.home,
           homeResource: -300,
           fixedCost: true,
-          altText: '{home} 선수 팩토리를 올립니다.',
+          altText: '{home} 선수 팩토리 착공, 가스 조절로 미네랄을 확보합니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수도 팩토리를 올립니다.',
+          text: '{away} 선수도 팩토리를 올리면서 가스 조절을 합니다.',
           owner: LogOwner.away,
           awayResource: -300,
           fixedCost: true,
-          altText: '{away} 선수도 팩토리 건설.',
+          altText: '{away} 선수도 팩토리 건설, 가스에서 SCV를 빼 미네랄 확보.',
         ),
         ScriptEvent(
-          text: '{home} 선수 벌처 생산, 정찰을 보냅니다.',
+          text: '{home} 선수 벌처 생산, 가스 SCV를 다시 투입합니다.',
           owner: LogOwner.home,
           homeArmy: 2, homeResource: -75,
           fixedCost: true,
-          altText: '{home} 선수 첫 벌처가 나왔습니다, 정찰 나갑니다.',
+          altText: '{home} 선수 첫 벌처가 나왔습니다, 가스 재채취 시작.',
         ),
         ScriptEvent(
           text: '{away} 선수도 벌처 생산, 정찰을 보냅니다.',
@@ -93,17 +93,17 @@ const _tvt1facDoubleMirror = ScenarioScript(
           altText: '{home} 선수 앞마당 확장, 원팩 더블입니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수도 앞마당 커맨드센터, 원팩 더블 같은 빌드입니다.',
+          text: '{away} 선수도 앞마당 커맨드센터를 올립니다.',
           owner: LogOwner.away,
           awayResource: -400,
           fixedCost: true,
-          altText: '{away} 선수도 앞마당 확장, 같은 빌드입니다.',
+          altText: '{away} 선수도 앞마당 확장합니다.',
         ),
         ScriptEvent(
-          text: '양측 원팩 더블 같은 빌드, 머신샵 연구 선택이 관건입니다.',
+          text: '머신샵 연구 선택이 관건입니다. 운영 싸움이 중요하겠습니다.',
           owner: LogOwner.system,
           skipChance: 0.5,
-          altText: '원팩 더블 같은 빌드, 마인이냐 속업이냐 시즈냐.',
+          altText: '마인이냐 속업이냐 시즈냐. 작은 실수도 크게 벌어질 수 있는게 같은 빌드 싸움이죠.',
         ),
       ],
     ),

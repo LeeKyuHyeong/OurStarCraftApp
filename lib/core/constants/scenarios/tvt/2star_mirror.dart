@@ -8,7 +8,7 @@ const _tvt2starMirror = ScenarioScript(
   matchup: 'TvT',
   homeBuildIds: ['tvt_2star'],
   awayBuildIds: ['tvt_2star'],
-  description: '투스타 레이스 같은 빌드 클로킹 공중전',
+  description: '투스타 레이스 클로킹 공중전',
   phases: [
     // ── Phase 0: 오프닝 (lines 1-11) ── recovery 100/줄
     ScriptPhase(
@@ -92,7 +92,7 @@ const _tvt2starMirror = ScenarioScript(
           altText: '양쪽 클로킹 연구. 타이밍이 승부를 가릅니다.',
         ),
         ScriptEvent(
-          text: '투스타 레이스 같은 빌드! 클로킹 타이밍이 승부를 가릅니다.',
+          text: '양쪽 투스타 레이스! 클로킹 타이밍이 승부를 가릅니다.',
           owner: LogOwner.system,
           skipChance: 0.4,
         ),
@@ -445,7 +445,7 @@ const _tvt2starMirror = ScenarioScript(
               awayResource: -400,
               fixedCost: true,
               awayExpansion: true,
-              altText: '{away} 선수도 앞마당 확장. 같은 빌드 전개입니다.',
+              altText: '{away} 선수도 앞마당 확장. 양쪽 비슷한 전개입니다.',
             ),
             ScriptEvent(
               text: '양쪽 앞마당 확장이 올라갑니다. 자원 싸움이 본격화됩니다.',

@@ -8,7 +8,7 @@ const _tvt2facPushMirror = ScenarioScript(
   matchup: 'TvT',
   homeBuildIds: ['tvt_2fac_push'],
   awayBuildIds: ['tvt_2fac_push'],
-  description: '투팩 벌처 같은 빌드 컨트롤 대결',
+  description: '투팩 벌처 컨트롤 대결',
   phases: [
     // ── Phase 0: 오프닝 (배럭, 가스, 팩토리x2, 속업) ──
     ScriptPhase(
@@ -57,7 +57,7 @@ const _tvt2facPushMirror = ScenarioScript(
           owner: LogOwner.away,
           awayResource: -500,
           fixedCost: true,
-          altText: '{away} 선수도 투팩 같은 빌드. 속업 타이밍 싸움입니다.',
+          altText: '{away} 선수도 투팩입니다. 속업 타이밍 싸움입니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 벌처 생산 시작. 2기씩 뽑습니다.',
@@ -74,10 +74,10 @@ const _tvt2facPushMirror = ScenarioScript(
           altText: '{away} 선수도 벌처 양산. 속업 타이밍이 관건입니다.',
         ),
         ScriptEvent(
-          text: '투팩 벌처 같은 빌드! 속업 타이밍과 컨트롤이 승부를 결정합니다.',
+          text: '속업 타이밍과 컨트롤이 승부를 결정합니다. 컨트롤 싸움이 중요하겠습니다.',
           owner: LogOwner.system,
           skipChance: 0.2,
-          altText: '양측 투팩 같은 빌드. 확장 없이 벌처 싸움부터 가겠다는 거죠.',
+          altText: '확장 없이 벌처 싸움부터 가겠다는 거죠.',
         ),
         ScriptEvent(
           text: '투팩은 벌처가 빠른 대신 확장이 늦습니다. 벌처전에서 밀리면 치명적이에요.',
@@ -128,7 +128,7 @@ const _tvt2facPushMirror = ScenarioScript(
           text: '양측 벌처가 교차하며 견제전! 컨트롤이 승부를 가릅니다!',
           owner: LogOwner.system,
           skipChance: 0.2,
-          altText: '투팩 같은 빌드의 꽃, 벌처 교차 견제전입니다.',
+          altText: '투팩의 꽃, 벌처 교차 견제전입니다.',
         ),
         // 마인 플레이
         ScriptEvent(
@@ -194,7 +194,7 @@ const _tvt2facPushMirror = ScenarioScript(
               text: '벌처 싸움에서 밀리면 맵 컨트롤과 일꾼을 동시에 잃습니다.',
               owner: LogOwner.system,
               skipChance: 0.3,
-              altText: '투팩 같은 빌드에서 벌처전 열세는 곧바로 자원 열세로 이어집니다.',
+              altText: '투팩에서 벌처전 열세는 곧바로 자원 열세로 이어집니다.',
             ),
             // 근거리 맵: 벌처 견제 도착 빨라서 추가 피해
             ScriptEvent(
@@ -358,7 +358,7 @@ const _tvt2facPushMirror = ScenarioScript(
               altText: '{away} 선수도 벌처 견제. 서로 SCV를 교환합니다.',
             ),
             ScriptEvent(
-              text: '투팩 같은 빌드 교착. 탱크 전환 타이밍이 관건입니다.',
+              text: '투팩 교착 상태입니다. 탱크 전환 타이밍이 관건입니다.',
               owner: LogOwner.system,
               skipChance: 0.5,
               altText: '벌처전이 비등하면 탱크를 먼저 내는 쪽이 유리합니다.',

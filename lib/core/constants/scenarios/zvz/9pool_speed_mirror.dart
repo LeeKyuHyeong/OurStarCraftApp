@@ -75,9 +75,9 @@ const _zvz9poolSpeedMirror = ScenarioScript(
           altText: '{away} 선수도 발업 끝! 저글링 속도가 같습니다!',
         ),
         ScriptEvent(
-          text: '상대도 발업입니다! 양쪽 저글링이 동일한 속도! 여기서 판단이 갈립니다!',
+          text: '상대도 발업입니다! 양쪽 저글링 속도가 비슷합니다! 여기서 판단이 갈립니다!',
           owner: LogOwner.system,
-          altText: '상대도 발업! 확장이 아니라 같은 빌드였습니다! 어떻게 대응할 것인가!',
+          altText: '상대도 발업! 확장이 아닙니다! 어떻게 대응할 것인가!',
         ),
       ],
     ),
@@ -266,7 +266,7 @@ const _zvz9poolSpeedMirror = ScenarioScript(
               homeResource: -25,
             ),
             ScriptEvent(
-              text: '{away} 선수도 레어! 테크 타이밍이 동일합니다!',
+              text: '{away} 선수도 레어! 테크 타이밍이 비슷합니다!',
               owner: LogOwner.away,
               awayResource: -25,
             ),
@@ -346,7 +346,7 @@ const _zvz9poolSpeedMirror = ScenarioScript(
               homeResource: -20,
             ),
             ScriptEvent(
-              text: '{away} 선수도 스파이어! 뮤탈 타이밍이 동일합니다!',
+              text: '{away} 선수도 스파이어! 뮤탈 타이밍이 비슷합니다!',
               owner: LogOwner.away,
               awayResource: -20,
             ),
@@ -411,7 +411,7 @@ const _zvz9poolSpeedMirror = ScenarioScript(
               awayResource: -20,
             ),
             ScriptEvent(
-              text: '{home} 선수도 스파이어! 뮤탈 타이밍이 동일합니다!',
+              text: '{home} 선수도 스파이어! 뮤탈 타이밍이 비슷합니다!',
               owner: LogOwner.home,
               homeResource: -20,
             ),
@@ -475,12 +475,12 @@ const _zvz9poolSpeedMirror = ScenarioScript(
               homeArmy: 4, homeResource: -20,
             ),
             ScriptEvent(
-              text: '{away} 선수도 스파이어 완성! 뮤탈 수가 동일합니다!',
+              text: '{away} 선수도 스파이어 완성! 뮤탈 수가 엇비슷합니다!',
               owner: LogOwner.away,
               awayArmy: 4, awayResource: -20,
             ),
             ScriptEvent(
-              text: '양쪽 뮤탈이 동수! 스커지를 섞으면서 견제를 주고받습니다!',
+              text: '뮤탈 수가 엇비슷합니다! 스커지를 섞으면서 견제를 주고받습니다!',
               owner: LogOwner.system,
               homeResource: -5, awayResource: -5,
               altText: '뮤탈 싸움! 스커지를 생산하면서 기회를 노립니다!',
@@ -521,12 +521,12 @@ const _zvz9poolSpeedMirror = ScenarioScript(
               awayArmy: 4, awayResource: -20,
             ),
             ScriptEvent(
-              text: '{home} 선수도 스파이어 완성! 뮤탈 수가 동일합니다!',
+              text: '{home} 선수도 스파이어 완성! 뮤탈 수가 엇비슷합니다!',
               owner: LogOwner.home,
               homeArmy: 4, homeResource: -20,
             ),
             ScriptEvent(
-              text: '양쪽 뮤탈이 동수! 스커지를 섞으면서 견제를 주고받습니다!',
+              text: '뮤탈 수가 엇비슷합니다! 스커지를 섞으면서 견제를 주고받습니다!',
               owner: LogOwner.system,
               homeResource: -5, awayResource: -5,
               altText: '뮤탈 싸움! 스커지를 생산하면서 기회를 노립니다!',

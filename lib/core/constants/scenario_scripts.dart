@@ -60,133 +60,114 @@ part 'scenarios/tvz/bbs_vs_mutal_lurker.dart';
 part 'scenarios/tvz/bbs_vs_mutal_ultra.dart';
 part 'scenarios/tvz/bbs_vs_ultra_hive.dart';
 
-// TvT (45 scenarios - 8 mirrors + 37 cross matchups)
-// 미러 (7)
+// TvT (36 scenarios - 8 mirrors + 28 cross matchups)
+// 미러 (8)
 part 'scenarios/tvt/bbs_mirror.dart';
 part 'scenarios/tvt/1bar_double_mirror.dart';
 part 'scenarios/tvt/1fac_double_mirror.dart';
 part 'scenarios/tvt/1fac_1star_mirror.dart';
 part 'scenarios/tvt/2fac_push_mirror.dart';
-part 'scenarios/tvt/5fac_mirror.dart';
 part 'scenarios/tvt/2star_mirror.dart';
-// 기존 1:1 크로스 (4)
-part 'scenarios/tvt/1bar_double_vs_2fac_push.dart';
-part 'scenarios/tvt/1bar_double_vs_1fac_double.dart';
-part 'scenarios/tvt/2fac_push_vs_1fac_double.dart';
-part 'scenarios/tvt/1fac_1star_vs_5fac.dart';
+part 'scenarios/tvt/nobar_double_mirror.dart';
+part 'scenarios/tvt/fd_rush_mirror.dart';
 // BBS 크로스 (6)
 part 'scenarios/tvt/bbs_vs_1bar_double.dart';
 part 'scenarios/tvt/bbs_vs_1fac_double.dart';
 part 'scenarios/tvt/bbs_vs_1fac_1star.dart';
 part 'scenarios/tvt/bbs_vs_2fac_push.dart';
-part 'scenarios/tvt/bbs_vs_5fac.dart';
 part 'scenarios/tvt/bbs_vs_2star.dart';
-// 5팩/원팩원스타 vs 확장 (4)
-part 'scenarios/tvt/5fac_vs_1bar_double.dart';
-part 'scenarios/tvt/5fac_vs_1fac_double.dart';
+part 'scenarios/tvt/bbs_vs_nobar_double.dart';
+// 원팩원스타 크로스 (5)
+part 'scenarios/tvt/1fac_1star_vs_2fac_push.dart';
+part 'scenarios/tvt/1fac_1star_vs_2star.dart';
 part 'scenarios/tvt/1fac_1star_vs_1bar_double.dart';
 part 'scenarios/tvt/1fac_1star_vs_1fac_double.dart';
-// 공격 빌드 크로스 (4)
-part 'scenarios/tvt/1fac_1star_vs_2star.dart';
-part 'scenarios/tvt/1fac_1star_vs_2fac_push.dart';
-part 'scenarios/tvt/5fac_vs_2star.dart';
-part 'scenarios/tvt/5fac_vs_2fac_push.dart';
-// 레이스 크로스 (3)
-part 'scenarios/tvt/2star_vs_1bar_double.dart';
-part 'scenarios/tvt/2star_vs_2fac_push.dart';
-part 'scenarios/tvt/2star_vs_1fac_double.dart';
-// 노배럭더블 크로스 (8)
-part 'scenarios/tvt/nobar_double_mirror.dart';
-part 'scenarios/tvt/nobar_double_vs_1bar_double.dart';
-part 'scenarios/tvt/bbs_vs_nobar_double.dart';
 part 'scenarios/tvt/1fac_1star_vs_nobar_double.dart';
-part 'scenarios/tvt/2star_vs_nobar_double.dart';
+// 투팩 크로스 (4)
+part 'scenarios/tvt/1bar_double_vs_2fac_push.dart';
+part 'scenarios/tvt/2fac_push_vs_1fac_double.dart';
+part 'scenarios/tvt/2star_vs_2fac_push.dart';
 part 'scenarios/tvt/2fac_push_vs_nobar_double.dart';
-part 'scenarios/tvt/5fac_vs_nobar_double.dart';
+// 투스타 크로스 (3)
+part 'scenarios/tvt/2star_vs_1bar_double.dart';
+part 'scenarios/tvt/2star_vs_1fac_double.dart';
+part 'scenarios/tvt/2star_vs_nobar_double.dart';
+// 확장형 크로스 (3)
+part 'scenarios/tvt/1bar_double_vs_1fac_double.dart';
+part 'scenarios/tvt/nobar_double_vs_1bar_double.dart';
 part 'scenarios/tvt/1fac_double_vs_nobar_double.dart';
-// FD러쉬 크로스 (9)
-part 'scenarios/tvt/fd_rush_mirror.dart';
+// FD러쉬 크로스 (7)
 part 'scenarios/tvt/fd_rush_vs_bbs.dart';
 part 'scenarios/tvt/fd_rush_vs_1fac_1star.dart';
 part 'scenarios/tvt/fd_rush_vs_2fac_push.dart';
-part 'scenarios/tvt/fd_rush_vs_5fac.dart';
 part 'scenarios/tvt/fd_rush_vs_2star.dart';
 part 'scenarios/tvt/fd_rush_vs_1bar_double.dart';
 part 'scenarios/tvt/fd_rush_vs_1fac_double.dart';
 part 'scenarios/tvt/fd_rush_vs_nobar_double.dart';
 
-// PvT (63 scenarios - 9P × 7T, 모두 1:1)
-// 센터 게이트 (7)
+// PvT (54 scenarios - 9P × 6T, 모두 1:1)
+// 센터 게이트 (6)
 part 'scenarios/pvt/proxy_gate_vs_bbs.dart';
 part 'scenarios/pvt/proxy_gate_vs_tank_defense.dart';
 part 'scenarios/pvt/proxy_gate_vs_timing_push.dart';
 part 'scenarios/pvt/proxy_gate_vs_upgrade.dart';
 part 'scenarios/pvt/proxy_gate_vs_bio_mech.dart';
-part 'scenarios/pvt/proxy_gate_vs_5fac_mass.dart';
 part 'scenarios/pvt/proxy_gate_vs_anti_carrier.dart';
-// 초패스트다크 (7)
+// 초패스트다크 (6)
 part 'scenarios/pvt/dark_swing_vs_bbs.dart';
 part 'scenarios/pvt/dark_swing_vs_tank_defense.dart';
 part 'scenarios/pvt/dark_swing_vs_timing_push.dart';
 part 'scenarios/pvt/dark_swing_vs_upgrade.dart';
 part 'scenarios/pvt/dark_swing_vs_bio_mech.dart';
-part 'scenarios/pvt/dark_swing_vs_5fac_mass.dart';
 part 'scenarios/pvt/dark_swing_vs_anti_carrier.dart';
-// 선질럿 (7)
+// 선질럿 (6)
 part 'scenarios/pvt/2gate_open_vs_bbs.dart';
 part 'scenarios/pvt/2gate_open_vs_tank_defense.dart';
 part 'scenarios/pvt/2gate_open_vs_timing_push.dart';
 part 'scenarios/pvt/2gate_open_vs_upgrade.dart';
 part 'scenarios/pvt/2gate_open_vs_bio_mech.dart';
-part 'scenarios/pvt/2gate_open_vs_5fac_mass.dart';
 part 'scenarios/pvt/2gate_open_vs_anti_carrier.dart';
-// 5게이트 푸시 (7)
+// 5게이트 푸시 (6)
 part 'scenarios/pvt/5gate_push_vs_bbs.dart';
 part 'scenarios/pvt/5gate_push_vs_tank_defense.dart';
 part 'scenarios/pvt/5gate_push_vs_timing_push.dart';
 part 'scenarios/pvt/5gate_push_vs_upgrade.dart';
 part 'scenarios/pvt/5gate_push_vs_bio_mech.dart';
-part 'scenarios/pvt/5gate_push_vs_5fac_mass.dart';
 part 'scenarios/pvt/5gate_push_vs_anti_carrier.dart';
-// 5게이트 아비터 (7)
+// 5게이트 아비터 (6)
 part 'scenarios/pvt/5gate_arbiter_vs_bbs.dart';
 part 'scenarios/pvt/5gate_arbiter_vs_tank_defense.dart';
 part 'scenarios/pvt/5gate_arbiter_vs_timing_push.dart';
 part 'scenarios/pvt/5gate_arbiter_vs_upgrade.dart';
 part 'scenarios/pvt/5gate_arbiter_vs_bio_mech.dart';
-part 'scenarios/pvt/5gate_arbiter_vs_5fac_mass.dart';
 part 'scenarios/pvt/5gate_arbiter_vs_anti_carrier.dart';
-// 5게이트 캐리어 (7)
+// 5게이트 캐리어 (6)
 part 'scenarios/pvt/5gate_carrier_vs_bbs.dart';
 part 'scenarios/pvt/5gate_carrier_vs_tank_defense.dart';
 part 'scenarios/pvt/5gate_carrier_vs_timing_push.dart';
 part 'scenarios/pvt/5gate_carrier_vs_upgrade.dart';
 part 'scenarios/pvt/5gate_carrier_vs_bio_mech.dart';
-part 'scenarios/pvt/5gate_carrier_vs_5fac_mass.dart';
 part 'scenarios/pvt/5gate_carrier_vs_anti_carrier.dart';
-// 셔틀리버 푸시 (7)
+// 셔틀리버 푸시 (6)
 part 'scenarios/pvt/reaver_push_vs_bbs.dart';
 part 'scenarios/pvt/reaver_push_vs_tank_defense.dart';
 part 'scenarios/pvt/reaver_push_vs_timing_push.dart';
 part 'scenarios/pvt/reaver_push_vs_upgrade.dart';
 part 'scenarios/pvt/reaver_push_vs_bio_mech.dart';
-part 'scenarios/pvt/reaver_push_vs_5fac_mass.dart';
 part 'scenarios/pvt/reaver_push_vs_anti_carrier.dart';
-// 셔틀리버 아비터 (7)
+// 셔틀리버 아비터 (6)
 part 'scenarios/pvt/reaver_arbiter_vs_bbs.dart';
 part 'scenarios/pvt/reaver_arbiter_vs_tank_defense.dart';
 part 'scenarios/pvt/reaver_arbiter_vs_timing_push.dart';
 part 'scenarios/pvt/reaver_arbiter_vs_upgrade.dart';
 part 'scenarios/pvt/reaver_arbiter_vs_bio_mech.dart';
-part 'scenarios/pvt/reaver_arbiter_vs_5fac_mass.dart';
 part 'scenarios/pvt/reaver_arbiter_vs_anti_carrier.dart';
-// 셔틀리버 캐리어 (7)
+// 셔틀리버 캐리어 (6)
 part 'scenarios/pvt/reaver_carrier_vs_bbs.dart';
 part 'scenarios/pvt/reaver_carrier_vs_tank_defense.dart';
 part 'scenarios/pvt/reaver_carrier_vs_timing_push.dart';
 part 'scenarios/pvt/reaver_carrier_vs_upgrade.dart';
 part 'scenarios/pvt/reaver_carrier_vs_bio_mech.dart';
-part 'scenarios/pvt/reaver_carrier_vs_5fac_mass.dart';
 part 'scenarios/pvt/reaver_carrier_vs_anti_carrier.dart';
 
 // PvP (36 scenarios - 8 mirrors + 28 cross, 모두 1:1)
@@ -558,88 +539,78 @@ class ScenarioScriptData {
     // BBS (7)
     _tvzBbsVs2hatchMutal, _tvzBbsVs4pool, _tvzBbsVs530Mutal,
     _tvzBbsVsLurkerDefiler, _tvzBbsVsMutalLurker, _tvzBbsVsMutalUltra, _tvzBbsVsUltraHive,
-    // TvT (scenarios/tvt/) - 45 scenarios
+    // TvT (scenarios/tvt/) - 36 scenarios (8 mirrors + 28 cross)
     // 미러 (8)
     _tvtBbsMirror,
     _tvt1barDoubleMirror,
-    _tvtNobarDoubleMirror,
     _tvt1facDoubleMirror,
     _tvt1fac1starMirror,
     _tvt2facPushMirror,
-    _tvt5facMirror,
     _tvt2starMirror,
-    // 기존 1:1 크로스 (4)
-    _tvt1barDoubleVs2facPush,
-    _tvt1barDoubleVs1facDouble,
-    _tvt2facPushVs1facDouble,
-    _tvt1fac1starVs5fac,
-    // BBS 크로스 (7)
+    _tvtNobarDoubleMirror,
+    _tvtFdRushMirror,
+    // BBS 크로스 (6)
     _tvtBbsVs1barDouble,
-    _tvtBbsVsNobarDouble,
     _tvtBbsVs1facDouble,
     _tvtBbsVs1fac1star,
     _tvtBbsVs2facPush,
-    _tvtBbsVs5fac,
     _tvtBbsVs2star,
-    // 5팩/원팩원스타 vs 확장 (4)
-    _tvt5facVs1barDouble,
-    _tvt5facVs1facDouble,
+    _tvtBbsVsNobarDouble,
+    // 원팩원스타 크로스 (5)
+    _tvt1fac1starVs2facPush,
+    _tvt1fac1starVs2star,
     _tvt1fac1starVs1barDouble,
     _tvt1fac1starVs1facDouble,
-    // 공격 빌드 크로스 (4)
-    _tvt1fac1starVs2star,
-    _tvt1fac1starVs2facPush,
-    _tvt5facVs2star,
-    _tvt5facVs2facPush,
-    // 레이스 크로스 (3)
-    _tvt2starVs1barDouble,
-    _tvt2starVs2facPush,
-    _tvt2starVs1facDouble,
-    // 노배럭더블 크로스 (6)
-    _tvtNobarDoubleVs1barDouble,
     _tvt1fac1starVsNobarDouble,
-    _tvt2starVsNobarDouble,
+    // 투팩 크로스 (4)
+    _tvt1barDoubleVs2facPush,
+    _tvt2facPushVs1facDouble,
+    _tvt2starVs2facPush,
     _tvt2facPushVsNobarDouble,
-    _tvt5facVsNobarDouble,
+    // 투스타 크로스 (3)
+    _tvt2starVs1barDouble,
+    _tvt2starVs1facDouble,
+    _tvt2starVsNobarDouble,
+    // 확장형 크로스 (3)
+    _tvt1barDoubleVs1facDouble,
+    _tvtNobarDoubleVs1barDouble,
     _tvt1facDoubleVsNobarDouble,
-    // FD러쉬 크로스 (9)
-    _tvtFdRushMirror,
+    // FD러쉬 크로스 (7)
     _tvtFdRushVsBbs,
     _tvtFdRushVs1fac1star,
     _tvtFdRushVs2facPush,
-    _tvtFdRushVs5fac,
     _tvtFdRushVs2star,
     _tvtFdRushVs1barDouble,
     _tvtFdRushVs1facDouble,
     _tvtFdRushVsNobarDouble,
-    // PvT (scenarios/pvt/) - 63 scenarios (9P × 7T)
-    // 센터 게이트 (7)
+    // PvT (scenarios/pvt/) - 54 scenarios (9P × 6T)
+    // 센터 게이트 (6)
     _pvtProxyGateVsBbs, _pvtProxyGateVsTankDefense, _pvtProxyGateVsTimingPush,
-    _pvtProxyGateVsUpgrade, _pvtProxyGateVsBioMech, _pvtProxyGateVs5facMass, _pvtProxyGateVsAntiCarrier,
-    // 초패스트다크 (7)
+    _pvtProxyGateVsUpgrade, _pvtProxyGateVsBioMech, _pvtProxyGateVsAntiCarrier,
+    // 초패스트다크 (6)
     _pvtDarkSwingVsBbs, _pvtDarkSwingVsTankDefense, _pvtDarkSwingVsTimingPush,
-    _pvtDarkSwingVsUpgrade, _pvtDarkSwingVsBioMech, _pvtDarkSwingVs5facMass, _pvtDarkSwingVsAntiCarrier,
-    // 선질럿 (7)
+    _pvtDarkSwingVsUpgrade, _pvtDarkSwingVsBioMech, _pvtDarkSwingVsAntiCarrier,
+    // 선질럿 (6)
     _pvt2gateOpenVsBbs, _pvt2gateOpenVsTankDefense, _pvt2gateOpenVsTimingPush,
-    _pvt2gateOpenVsUpgrade, _pvt2gateOpenVsBioMech, _pvt2gateOpenVs5facMass, _pvt2gateOpenVsAntiCarrier,
-    // 5게이트 푸시 (7)
+    _pvt2gateOpenVsUpgrade, _pvt2gateOpenVsBioMech, _pvt2gateOpenVsAntiCarrier,
+    // 5게이트 푸시 (6)
     _pvt5gatePushVsBbs, _pvt5gatePushVsTankDefense, _pvt5gatePushVsTimingPush,
-    _pvt5gatePushVsUpgrade, _pvt5gatePushVsBioMech, _pvt5gatePushVs5facMass, _pvt5gatePushVsAntiCarrier,
-    // 5게이트 아비터 (7)
+    _pvt5gatePushVsUpgrade, _pvt5gatePushVsBioMech, _pvt5gatePushVsAntiCarrier,
+    // 5게이트 아비터 (6)
     _pvt5gateArbiterVsBbs, _pvt5gateArbiterVsTankDefense, _pvt5gateArbiterVsTimingPush,
-    _pvt5gateArbiterVsUpgrade, _pvt5gateArbiterVsBioMech, _pvt5gateArbiterVs5facMass, _pvt5gateArbiterVsAntiCarrier,
-    // 5게이트 캐리어 (7)
+    _pvt5gateArbiterVsUpgrade, _pvt5gateArbiterVsBioMech, _pvt5gateArbiterVsAntiCarrier,
+    // 5게이트 캐리어 (6)
     _pvt5gateCarrierVsBbs, _pvt5gateCarrierVsTankDefense, _pvt5gateCarrierVsTimingPush,
-    _pvt5gateCarrierVsUpgrade, _pvt5gateCarrierVsBioMech, _pvt5gateCarrierVs5facMass, _pvt5gateCarrierVsAntiCarrier,
-    // 셔틀리버 푸시 (7)
+    _pvt5gateCarrierVsUpgrade, _pvt5gateCarrierVsBioMech, _pvt5gateCarrierVsAntiCarrier,
+    // 셔틀리버 푸시 (6)
     _pvtReaverPushVsBbs, _pvtReaverPushVsTankDefense, _pvtReaverPushVsTimingPush,
-    _pvtReaverPushVsUpgrade, _pvtReaverPushVsBioMech, _pvtReaverPushVs5facMass, _pvtReaverPushVsAntiCarrier,
-    // 셔틀리버 아비터 (7)
+    _pvtReaverPushVsUpgrade, _pvtReaverPushVsBioMech, _pvtReaverPushVsAntiCarrier,
+    // 셔틀리버 아비터 (6)
     _pvtReaverArbiterVsBbs, _pvtReaverArbiterVsTankDefense, _pvtReaverArbiterVsTimingPush,
-    _pvtReaverArbiterVsUpgrade, _pvtReaverArbiterVsBioMech, _pvtReaverArbiterVs5facMass, _pvtReaverArbiterVsAntiCarrier,
-    // 셔틀리버 캐리어 (7)
+    _pvtReaverArbiterVsUpgrade, _pvtReaverArbiterVsBioMech, _pvtReaverArbiterVsAntiCarrier,
+    // 셔틀리버 캐리어 (6)
     _pvtReaverCarrierVsBbs, _pvtReaverCarrierVsTankDefense, _pvtReaverCarrierVsTimingPush,
-    _pvtReaverCarrierVsUpgrade, _pvtReaverCarrierVsBioMech, _pvtReaverCarrierVs5facMass, _pvtReaverCarrierVsAntiCarrier,
+    _pvtReaverCarrierVsUpgrade, _pvtReaverCarrierVsBioMech, _pvtReaverCarrierVsAntiCarrier,
     // PvP (scenarios/pvp/) - 36 scenarios (8 mirrors + 28 cross)
     // 미러 (8)
     _pvpDragoonNexusMirror,

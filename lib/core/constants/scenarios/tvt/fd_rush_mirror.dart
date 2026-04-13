@@ -8,7 +8,7 @@ const _tvtFdRushMirror = ScenarioScript(
   matchup: 'TvT',
   homeBuildIds: ['tvt_fd_rush'],
   awayBuildIds: ['tvt_fd_rush'],
-  description: 'FD 러쉬 같은 빌드 탱크 대결',
+  description: 'FD 러쉬 탱크 대결',
   phases: [
     // ── Phase 0: 오프닝 (lines 1-8) ── recovery 100/줄
     ScriptPhase(
@@ -32,108 +32,111 @@ const _tvtFdRushMirror = ScenarioScript(
           altText: '{away} 선수도 배럭을 올립니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 가스를 올립니다.',
+          text: '{home} 선수 가스를 올리고 마린을 계속 뽑습니다.',
           owner: LogOwner.home,
           homeResource: -100, // 리파이너리 100
+          homeArmy: 2, // 마린 생산 시작
           fixedCost: true,
-          altText: '{home} 선수 리파이너리 건설, 가스 채취를 시작합니다.',
+          altText: '{home} 선수 리파이너리 건설, 마린 생산이 계속됩니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수도 가스를 올립니다.',
+          text: '{away} 선수도 가스를 올리고 마린을 뽑습니다.',
           owner: LogOwner.away,
           awayResource: -100,
+          awayArmy: 2,
           fixedCost: true,
-          altText: '{away} 선수도 리파이너리, 가스 채취 시작.',
+          altText: '{away} 선수도 리파이너리, 마린 연속 생산.',
         ),
         ScriptEvent(
-          text: '{home} 선수 팩토리 건설을 시작합니다.',
+          text: '{home} 선수 팩토리 건설. 마린은 계속 생산합니다.',
           owner: LogOwner.home,
           homeResource: -300, // 팩토리 300
+          homeArmy: 2, // 마린 추가
           fixedCost: true,
-          altText: '{home} 선수 팩토리를 올립니다.',
+          altText: '{home} 선수 팩토리를 올리면서 마린을 모읍니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수도 팩토리를 올립니다.',
+          text: '{away} 선수도 팩토리를 올립니다. 마린도 계속 생산.',
           owner: LogOwner.away,
           awayResource: -300,
+          awayArmy: 2,
           fixedCost: true,
-          altText: '{away} 선수도 팩토리 건설.',
+          altText: '{away} 선수도 팩토리 건설, 마린 물량이 늘어납니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 머신샵을 부착합니다.',
+          text: '{home} 선수 머신샵 부착. 벌처를 건너뛰고 바로 탱크를 노립니다.',
           owner: LogOwner.home,
           homeResource: -100, // 머신샵 100
           fixedCost: true,
-          altText: '{home} 선수 머신샵 착공.',
+          altText: '{home} 선수 머신샵 착공, 빠른 탱크 체제입니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수도 머신샵을 부착합니다.',
+          text: '{away} 선수도 머신샵 부착. 벌처 없이 바로 탱크입니다.',
           owner: LogOwner.away,
           awayResource: -100,
           fixedCost: true,
-          altText: '{away} 선수도 머신샵 착공.',
+          altText: '{away} 선수도 머신샵, 탱크를 뽑을 준비입니다.',
         ),
         ScriptEvent(
-          text: '양쪽 모두 빠른 팩토리에 머신샵 부착, FD 러쉬 같은 빌드입니다.',
+          text: '마린을 모으면서 팩토리 머신샵까지, 컨트롤 싸움이 중요하겠습니다.',
           owner: LogOwner.system,
+          altText: '벌처를 건너뛰고 바로 탱크, 마린과 함께 밀겠다는 빌드입니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 시즈 탱크 생산을 시작합니다.',
+          text: '{home} 선수 탱크 생산과 시즈모드 연구를 동시에 시작합니다.',
           owner: LogOwner.home,
-          homeArmy: 2, homeResource: -250, // 시즈탱크 250/2sup
+          homeArmy: 2, homeResource: -550, // 시즈탱크 250 + 시즈모드 300
           fixedCost: true,
-          altText: '{home} 선수 첫 탱크가 나옵니다.',
+          altText: '{home} 선수 탱크와 시즈모드를 동시에 돌립니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수도 시즈 탱크 생산.',
+          text: '{away} 선수도 탱크와 시즈모드를 동시에 시작합니다.',
           owner: LogOwner.away,
-          awayArmy: 2, awayResource: -250,
+          awayArmy: 2, awayResource: -550,
           fixedCost: true,
-          altText: '{away} 선수도 첫 탱크 생산.',
+          altText: '{away} 선수도 탱크 생산과 시즈모드 동시 진행.',
         ),
       ],
     ),
-    // ── Phase 1: 시즈 모드 연구 경쟁 (lines 12-20) ── recovery 150/줄
+    // ── Phase 1: 마린+탱크 전진 (lines 12-20) ── recovery 150/줄
     ScriptPhase(
-      name: 'siege_research_race',
+      name: 'marine_tank_push',
       startLine: 12,
       recoveryArmyPerLine: 1,
       recoveryResourcePerLine: 150,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 시즈 모드 연구를 시작합니다.',
+          text: '{home} 선수 시즈모드 완료! 마린 6기와 탱크를 앞세워 전진합니다!',
           owner: LogOwner.home,
-          homeResource: -300, // 시즈모드 연구 300
-          fixedCost: true,
-          favorsStat: 'strategy',
-          altText: '{home} 선수 시즈 모드 연구 착수.',
+          homeArmy: 2, // 마린 추가 완성분
+          favorsStat: 'attack',
+          altText: '{home} 선수 마린 물량에 탱크까지! 전진 시작!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 시즈 모드 연구를 시작합니다.',
+          text: '{away} 선수도 마린과 탱크로 전진합니다! 센터에서 마주칩니다!',
           owner: LogOwner.away,
-          awayResource: -300,
-          fixedCost: true,
-          favorsStat: 'strategy',
-          altText: '{away} 선수도 시즈 모드 연구.',
+          awayArmy: 2,
+          favorsStat: 'attack',
+          altText: '{away} 선수도 마린과 탱크가 합류! 센터로 향합니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 탱크 추가 생산, 전진 배치합니다.',
+          text: '{home} 선수 뒤에서 앞마당 커맨드센터를 올립니다.',
           owner: LogOwner.home,
-          homeArmy: 2, homeResource: -250, // 탱크 추가 250/2sup
+          homeResource: -400, // CC 400
           fixedCost: true,
-          altText: '{home} 선수 두 번째 탱크가 합류합니다.',
+          altText: '{home} 선수 압박하면서 앞마당 확장을 시작합니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수도 탱크 추가 생산, 센터로 보냅니다.',
+          text: '{away} 선수도 앞마당 커맨드센터를 올립니다.',
           owner: LogOwner.away,
-          awayArmy: 2, awayResource: -250,
+          awayResource: -400,
           fixedCost: true,
-          altText: '{away} 선수도 탱크를 센터로 전진시킵니다.',
+          altText: '{away} 선수도 전진하면서 뒤에서 확장.',
         ),
         ScriptEvent(
-          text: '양측 기갑 유닛이 센터에서 마주칩니다, 거리재기가 시작됩니다.',
+          text: '양측 마린과 탱크가 센터에서 마주칩니다! 컨트롤 싸움이 중요하겠습니다.',
           owner: LogOwner.system,
-          altText: '센터에서 양측 탱크가 조우합니다, 시즈 사거리 싸움입니다.',
+          altText: '마린 물량에 시즈탱크까지, 초반부터 치열한 교전입니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 고지를 먼저 잡으려 합니다, 시즈 거리가 중요합니다.',

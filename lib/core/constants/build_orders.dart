@@ -618,20 +618,7 @@ class BuildOrderData {
         BuildStep(line: 85, text: '{player}, 마린 메딕 메카닉 조합 완성!', stat: 'macro', myArmy: 14, myResource: -40),
       ],
     ),
-    // 5. 5팩 물량 (from tvp_5fac_timing / tvp_11up_8fac)
-    RaceTransition(race: 'T', id: 'tvp_trans_5fac_mass', name: '5팩 물량', vsRace: 'P',
-      style: BuildStyle.aggressive, keyStats: ['attack', 'macro'],
-      steps: [
-        BuildStep(line: 18, text: '{player}, 팩토리 추가! 3번째!', myResource: -20),
-        BuildStep(line: 22, text: '{player} 선수 5번째 팩토리까지!', myResource: -40),
-        BuildStep(line: 26, text: '{player}, 팩토리 풀가동!', stat: 'macro', myResource: -20),
-        BuildStep(line: 32, text: '{player} 선수 탱크 벌처 대량 생산!', stat: 'attack', myArmy: 12, myResource: -35),
-        BuildStep(line: 38, text: '{player}, 메카닉 물량 타이밍!', stat: 'attack', myArmy: 8, myResource: -20, isClash: true),
-        BuildStep(line: 42, text: '{player} 선수 메카닉 대군 전진!', stat: 'control', enemyArmy: -5, isClash: true),
-        BuildStep(line: 45, text: '{player}, 물량으로 밀어붙입니다!', stat: 'attack', myArmy: 6, isClash: true, decisive: true),
-      ],
-    ),
-    // 6. 안티 캐리어 (from tvp_anti_carrier)
+    // 5. 안티 캐리어 (from tvp_anti_carrier)
     RaceTransition(race: 'T', id: 'tvp_trans_anti_carrier', name: '안티 캐리어', vsRace: 'P',
       style: BuildStyle.balanced, keyStats: ['strategy', 'defense'],
       steps: [
@@ -648,7 +635,7 @@ class BuildOrderData {
   ];
 
   // TvP 빌드들
-  // 팩더블 = 수비형, 타이밍 러쉬 = 공격형, 투팩 찌르기 = 공격형, 업테란 = 수비형, 배럭 더블 = 수비형, 5팩 타이밍 = 공격형, 마인 트리플 = 수비형, 노노사 = 치즈, FD테란 = 밸런스, 11업 8팩 = 공격형, 안티 캐리어 = 밸런스
+  // 팩더블 = 수비형, 타이밍 러쉬 = 공격형, 투팩 찌르기 = 공격형, 업테란 = 수비형, 배럭 더블 = 수비형, 마인 트리플 = 수비형, 노노사 = 치즈, FD테란 = 밸런스, 안티 캐리어 = 밸런스
   static const terranVsProtossBuilds = [
     // 0. 센터 8배럭 (tvp_bbs - Cheese, 자체완결)
     // BBS 2배럭 마린 러쉬. 센터 맵에서 높은 성공률
@@ -795,31 +782,7 @@ class BuildOrderData {
       ],
     ),
 
-    // 6. 5팩 타이밍 (tvp_5fac_timing - Aggressive)
-    // 팩토리 5개로 메카닉 물량 타이밍 공격
-    BuildOrder(
-      id: 'tvp_5fac_timing',
-      name: '5팩 타이밍',
-      race: 'T',
-      vsRace: 'P',
-      style: BuildStyle.aggressive,
-      steps: [
-        BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
-        BuildStep(line: 3, text: '{player} 선수 마린 생산!', myArmy: 2, myResource: -5),
-        BuildStep(line: 6, text: '{player} 선수 팩토리 건설!', myResource: -20),
-        BuildStep(line: 9, text: '{player}, 2번째 팩토리!', myResource: -20),
-        BuildStep(line: 12, text: '{player} 선수 3번째 팩토리!', myResource: -20),
-        BuildStep(line: 15, text: '{player}, 4번째 팩토리!', myResource: -20),
-        BuildStep(line: 18, text: '{player} 선수 5번째 팩토리 건설!', myResource: -20),
-        BuildStep(line: 22, text: '{player}, 탱크 벌처 대량 생산!', stat: 'attack', myArmy: 10, myResource: -30),
-        BuildStep(line: 28, text: '{player} 선수 앞마당 확장!', stat: 'macro', myResource: -30),
-        BuildStep(line: 34, text: '{player}, 메카닉 물량 타이밍 공격!', stat: 'attack', myArmy: 8, myResource: -20, isClash: true),
-        BuildStep(line: 40, text: '{player} 선수 상대 앞마당 압박!', stat: 'control', enemyArmy: -5, isClash: true),
-        BuildStep(line: 45, text: '{player}, 5팩 물량으로 밀어붙입니다!', stat: 'attack', myArmy: 6, isClash: true, decisive: true),
-      ],
-    ),
-
-    // 7. 마인 트리플 (tvp_mine_triple - Defensive)
+    // 6. 마인 트리플 (tvp_mine_triple - Defensive)
     // 벌처 마인으로 방어 후 3기지 운영
     BuildOrder(
       id: 'tvp_mine_triple',
@@ -871,31 +834,7 @@ class BuildOrderData {
       ],
     ),
 
-    // 10. 11업 8팩 (tvp_11up_8fac - Aggressive)
-    // 1-1업 후 팩토리 8개. 메카닉 물량 압박
-    BuildOrder(
-      id: 'tvp_11up_8fac',
-      name: '11업 8팩',
-      race: 'T',
-      vsRace: 'P',
-      style: BuildStyle.aggressive,
-      steps: [
-        BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
-        BuildStep(line: 3, text: '{player} 선수 팩토리 건설!', myResource: -20),
-        BuildStep(line: 6, text: '{player} 선수 앞마당 확장!', stat: 'macro', myResource: -30),
-        BuildStep(line: 10, text: '{player}, 아머리 건설!', myResource: -15),
-        BuildStep(line: 14, text: '{player} 선수 1-1 업그레이드 시작!', stat: 'strategy', myResource: -30),
-        BuildStep(line: 18, text: '{player}, 팩토리 추가! 3번째!', myResource: -20),
-        BuildStep(line: 22, text: '{player} 선수 5번째 팩토리까지!', myResource: -40),
-        BuildStep(line: 26, text: '{player}, 8팩토리 완성!', stat: 'macro', myResource: -60),
-        BuildStep(line: 32, text: '{player} 선수 탱크 벌처 대량 생산!', stat: 'attack', myArmy: 12, myResource: -35),
-        BuildStep(line: 38, text: '{player}, 1-1업 완료! 물량 압박!', stat: 'attack', myArmy: 8, myResource: -20, isClash: true),
-        BuildStep(line: 42, text: '{player} 선수 메카닉 대군 전진!', stat: 'control', enemyArmy: -5, isClash: true),
-        BuildStep(line: 45, text: '{player}, 8팩 물량으로 밀어붙입니다!', stat: 'attack', myArmy: 6, isClash: true, decisive: true),
-      ],
-    ),
-
-    // 11. 안티 캐리어 (tvp_anti_carrier - Balanced)
+    // 9. 안티 캐리어 (tvp_anti_carrier - Balanced)
     // 골리앗 중심 대공 + EMP. 캐리어 대비
     BuildOrder(
       id: 'tvp_anti_carrier',
@@ -1079,31 +1018,7 @@ class BuildOrderData {
       ],
     ),
 
-    // 6. 5팩토리 (tvt5Fac - Aggressive)
-    // 팩토리 5개 가동 → 중반 타이밍 물량 푸시
-    BuildOrder(
-      id: 'tvt_5fac',
-      name: '5팩토리',
-      race: 'T',
-      vsRace: 'T',
-      style: BuildStyle.aggressive,
-      steps: [
-        BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
-        BuildStep(line: 4, text: '{player} 선수 팩토리 건설!', myResource: -20),
-        BuildStep(line: 8, text: '{player}, 벌처 생산!', stat: 'attack', myArmy: 3, myResource: -8),
-        BuildStep(line: 12, text: '{player} 선수 2번째 팩토리!', myResource: -20),
-        BuildStep(line: 16, text: '{player}, 3번째 팩토리!', myResource: -20),
-        BuildStep(line: 20, text: '{player} 선수 시즈 탱크 생산 시작!', stat: 'attack', myArmy: 5, myResource: -15),
-        BuildStep(line: 26, text: '{player}, 4번째 팩토리!', stat: 'macro', myResource: -20),
-        BuildStep(line: 32, text: '{player} 선수 5번째 팩토리!', stat: 'macro', myResource: -20),
-        BuildStep(line: 38, text: '{player}, 탱크 물량 생산!', stat: 'attack', myArmy: 8, myResource: -25),
-        BuildStep(line: 48, text: '{player} 선수 5팩 타이밍 푸시!', stat: 'attack', myArmy: -4, enemyArmy: -6, isClash: true),
-        BuildStep(line: 58, text: '{player}, 탱크 추가 밀어붙이기!', stat: 'macro', myArmy: 6, myResource: -20),
-        BuildStep(line: 70, text: '{player} 선수 메카닉 물량으로 압도!', stat: 'attack', myArmy: 4, isClash: true, decisive: true),
-      ],
-    ),
-
-    // 7. BBS (tvtBBS - Cheese)
+    // 6. BBS (tvtBBS - Cheese)
     // 배럭 2개(센터+본진) → 마린 5기 → SCV 끌고 앞마당 벙커링 올인
     BuildOrder(
       id: 'tvt_bbs',
@@ -1134,14 +1049,15 @@ class BuildOrderData {
       style: BuildStyle.aggressive,
       steps: [
         BuildStep(line: 1, text: '{player} 선수 배럭 건설합니다.', myResource: -10),
-        BuildStep(line: 4, text: '{player} 선수 팩토리 건설!', myResource: -20),
+        BuildStep(line: 3, text: '{player} 선수 마린 연속 생산!', myArmy: 2, myResource: -5),
+        BuildStep(line: 5, text: '{player} 선수 팩토리 건설!', myResource: -20),
         BuildStep(line: 8, text: '{player}, 머신샵 부착!', myResource: -10),
-        BuildStep(line: 12, text: '{player} 선수 시즈 탱크 생산!', stat: 'attack', myArmy: 5, myResource: -15),
-        BuildStep(line: 16, text: '{player}, 시즈모드 연구!', myResource: -15),
-        BuildStep(line: 20, text: '{player} 선수 앞마당 커맨드센터!', stat: 'macro', myResource: -40),
-        BuildStep(line: 24, text: '{player}, 2번째 팩토리!', myResource: -20),
-        BuildStep(line: 30, text: '{player} 선수 탱크 더블 생산!', stat: 'attack', myArmy: 5, myResource: -15),
-        BuildStep(line: 38, text: '{player}, FD 러쉬 준비!', stat: 'attack'),
+        BuildStep(line: 10, text: '{player} 선수 탱크 생산과 시즈모드 동시 시작!', stat: 'attack', myArmy: 5, myResource: -30),
+        BuildStep(line: 14, text: '{player}, 마린과 탱크로 전진!', stat: 'attack', myArmy: 3),
+        BuildStep(line: 18, text: '{player} 선수 앞마당 커맨드센터!', stat: 'macro', myResource: -40),
+        BuildStep(line: 22, text: '{player}, 벌처 생산 시작!', myArmy: 3, myResource: -8),
+        BuildStep(line: 28, text: '{player} 선수 추가 팩토리!', myResource: -20),
+        BuildStep(line: 36, text: '{player}, 탱크 물량 전진!', stat: 'attack', myArmy: 5, myResource: -15),
         BuildStep(line: 45, text: '{player} 선수 탱크 라인 전진!', stat: 'attack', myArmy: 3, isClash: true, decisive: true),
       ],
     ),

@@ -1,15 +1,17 @@
 part of '../../scenario_scripts.dart';
 
 // ----------------------------------------------------------
-// 10. BBS 미러 (치즈 미러)
-// 양쪽 센터+본진 배럭 → 마린 SCV 러쉬 → 벙커 경쟁
+// BBS 미러 (치즈 미러)
+// 양쪽 센터+본진 배럭 → 마린 SCV 컨트롤 싸움
+// BBS 미러는 벙커를 짓기 애매 (서로 정찰로 확인됨)
+// 순수 마린+SCV 교전으로 승부가 결정됨
 // ----------------------------------------------------------
 const _tvtBbsMirror = ScenarioScript(
   id: 'tvt_bbs_mirror',
   matchup: 'TvT',
   homeBuildIds: ['tvt_bbs'],
   awayBuildIds: ['tvt_bbs'],
-  description: 'BBS 같은 빌드 센터 배럭 치즈전',
+  description: 'BBS 마린 SCV 컨트롤전',
   phases: [
     // Phase 0: 오프닝 (lines 1-9) - recovery 100/줄
     ScriptPhase(
@@ -18,7 +20,7 @@ const _tvtBbsMirror = ScenarioScript(
       recoveryResourcePerLine: 100,
       linearEvents: [
         ScriptEvent(
-          text: '양쪽 SCV가 센터로 향합니다. BBS 같은 빌드입니다.',
+          text: '양쪽 SCV가 센터로 향합니다.',
           owner: LogOwner.system,
           altText: '양 선수 SCV를 센터로 보냅니다. 센터 배럭을 노립니다.',
         ),
@@ -26,7 +28,7 @@ const _tvtBbsMirror = ScenarioScript(
           text: '{home} 선수 센터에 배럭 건설. {away} 선수도 센터 배럭을 올립니다.',
           owner: LogOwner.system,
           homeResource: -150, // 센터 배럭
-          awayResource: -150, // 센터 배럭
+          awayResource: -150,
           fixedCost: true,
           altText: '양쪽 센터에 배럭이 올라갑니다.',
         ),
@@ -34,9 +36,21 @@ const _tvtBbsMirror = ScenarioScript(
           text: '{home} 선수 본진에도 배럭을 올립니다. {away} 선수도 본진 배럭.',
           owner: LogOwner.system,
           homeResource: -150, // 본진 배럭
-          awayResource: -150, // 본진 배럭
+          awayResource: -150,
           fixedCost: true,
-          altText: '양쪽 본진에도 배럭이 올라갑니다. BBS 같은 빌드.',
+          altText: '양쪽 본진에도 배럭이 올라갑니다.',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 SCV 정찰이 상대 본진에 도착합니다. BBS 확인!',
+          owner: LogOwner.home,
+          favorsStat: 'scout',
+          altText: '{home} 선수 상대 본진을 확인합니다. 배럭 두 개! BBS입니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 정찰 SCV로 확인합니다. 같은 BBS!',
+          owner: LogOwner.away,
+          favorsStat: 'scout',
+          altText: '{away} 선수도 상대 빌드를 확인합니다. 서로 BBS!',
         ),
         ScriptEvent(
           text: '{home} 선수 배럭에서 마린 3기 생산. {away} 선수 배럭에서도 마린 3기.',
@@ -48,9 +62,9 @@ const _tvtBbsMirror = ScenarioScript(
         ),
       ],
     ),
-    // Phase 1: 마린 SCV 전진 (lines 10-17) - recovery 100/줄
+    // Phase 1: 마린 SCV 전진 + 초기 교전 (lines 10-17) - recovery 100/줄
     ScriptPhase(
-      name: 'marine_clash',
+      name: 'marine_scv_clash',
       startLine: 10,
       recoveryResourcePerLine: 100,
       linearEvents: [
@@ -63,115 +77,189 @@ const _tvtBbsMirror = ScenarioScript(
           altText: '양쪽 마린과 SCV가 센터에서 정면으로 부딪칩니다!',
         ),
         ScriptEvent(
-          text: '센터에서 마린과 SCV 대결! 누가 먼저 벙커를 올리느냐!',
+          text: '서로 BBS를 확인한 상황! 벙커를 지을 틈이 없습니다! 순수 마린 싸움!',
           owner: LogOwner.system,
           skipChance: 0.3,
+          altText: '양쪽 다 BBS라 벙커를 세울 여유가 없습니다! 마린 컨트롤이 전부!',
         ),
         ScriptEvent(
-          text: '{home} 선수 벙커 건설. {away} 선수도 벙커를 올립니다. 양쪽 벙커 싸움입니다.',
+          text: '{home} 선수 마린을 흩뿌리면서 상대 마린을 집중 사격합니다!',
+          owner: LogOwner.home,
+          awayArmy: -1,
+          favorsStat: 'control',
+          skipChance: 0.4,
+          altText: '{home} 선수 마린 분산! 상대 마린에 화력을 집중합니다!',
+        ),
+        ScriptEvent(
+          text: '{away} 선수 SCV를 앞세워 마린을 보호합니다! 체력 방패 역할!',
+          owner: LogOwner.away,
+          homeArmy: -1,
+          favorsStat: 'control',
+          skipChance: 0.4,
+          altText: '{away} 선수 SCV 벽! 마린이 안전하게 사격합니다!',
+        ),
+        ScriptEvent(
+          text: '추가 마린이 합류합니다! 양쪽 마린 수가 계속 늘어나고 있어요!',
           owner: LogOwner.system,
-          homeResource: -100, // 벙커 100
-          awayResource: -100,
+          homeArmy: 2, homeResource: -100,
+          awayArmy: 2, awayResource: -100,
           fixedCost: true,
-          altText: '양쪽 벙커가 동시에 올라갑니다. 벙커 싸움입니다.',
+          skipChance: 0.3,
         ),
       ],
     ),
-    // Phase 2: 벙커 전쟁 - 분기 (lines 18-27) - recovery 100/줄
+    // Phase 2: 마린 SCV 컨트롤 결과 - 분기 (lines 18-30) - recovery 100/줄
     ScriptPhase(
-      name: 'bunker_war',
+      name: 'control_battle',
       startLine: 18,
       recoveryResourcePerLine: 100,
       branches: [
-        // 분기 A: 홈 벙커 선점
+        // 분기 A: 홈 마린 컨트롤 우세
         ScriptBranch(
-          id: 'home_bunker_first',
+          id: 'home_marine_win',
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수 벙커 완성! 마린이 먼저 들어갑니다!',
+              text: '{home} 선수 마린 컨트롤이 한 수 위입니다! 상대 마린을 집중 사격!',
               owner: LogOwner.home,
+              awayArmy: -3,
               favorsStat: 'control',
-              altText: '{home} 선수 벙커 선점! 마린이 투입됩니다!',
+              altText: '{home} 선수 마린 분산이 좋습니다! 피해를 줄이면서 상대를 녹입니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 벙커가 아직 짓는 중! 마린이 벙커 화력에 녹고 있어요!',
+              text: '{away} 선수 마린이 줄어듭니다! SCV로 버텨보지만 밀리고 있어요!',
               owner: LogOwner.away,
-              awayArmy: -2, // 마린 2기 사망
-              altText: '{away} 선수 벙커 완성이 늦습니다! 마린이 녹고 있어요!',
+              awayArmy: -2,
+              altText: '{away} 선수 마린 수가 부족합니다! 전선이 밀립니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 SCV 수리! 벙커가 안 무너집니다!',
+              text: '{home} 선수 SCV로 수리하면서 마린을 유지합니다! 상대 쪽이 녹고 있어요!',
               owner: LogOwner.home,
               awayArmy: -1,
               favorsStat: 'control',
+              skipChance: 0.3,
             ),
             ScriptEvent(
-              text: '벙커 선점 차이! 먼저 완성한 쪽이 크게 유리합니다!',
-              owner: LogOwner.home,
-              decisive: true,
+              text: '마린 컨트롤 차이! 한 기 한 기가 승부를 가릅니다!',
+              owner: LogOwner.system,
+              skipChance: 0.4,
+              altText: 'BBS 미러에서는 마린 한 기 차이가 곧 승패입니다!',
             ),
           ],
         ),
-        // 분기 B: 어웨이 벙커 선점
+        // 분기 B: 어웨이 마린 컨트롤 우세
         ScriptBranch(
-          id: 'away_bunker_first',
+          id: 'away_marine_win',
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수 벙커 완성! 마린이 먼저 들어갑니다!',
+              text: '{away} 선수 마린 컨트롤이 좋습니다! 상대 마린을 하나씩 잡아냅니다!',
               owner: LogOwner.away,
+              homeArmy: -3,
               favorsStat: 'control',
-              altText: '{away} 선수 벙커 선점! 마린 투입!',
+              altText: '{away} 선수 마린 집중 사격! 상대 마린이 녹아내립니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 벙커가 늦습니다! 마린이 상대 벙커에 녹고 있어요!',
+              text: '{home} 선수 마린이 줄고 있습니다! SCV로 막아보지만 역부족!',
               owner: LogOwner.home,
               homeArmy: -2,
-              altText: '{home} 선수 벙커 완성이 늦어서 마린 피해가 큽니다!',
+              altText: '{home} 선수 마린 수가 모자랍니다! 전선이 밀립니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 SCV 수리까지! 벙커를 지켜냅니다!',
+              text: '{away} 선수 SCV로 체력 방패를 만들면서 마린을 살립니다!',
               owner: LogOwner.away,
               homeArmy: -1,
               favorsStat: 'control',
+              skipChance: 0.3,
             ),
             ScriptEvent(
-              text: '벙커 선점! 한 발 빠른 완성이 승부를 결정합니다!',
-              owner: LogOwner.away,
-              decisive: true,
+              text: '마린 컨트롤 차이가 벌어지고 있습니다!',
+              owner: LogOwner.system,
+              skipChance: 0.4,
+              altText: 'SCV와 마린의 합이 승부를 가릅니다!',
             ),
           ],
         ),
-        // 분기 C: 양쪽 벙커 교착
+        // 분기 C: 홈 SCV 활용 우세 (SCV 수리+벽)
         ScriptBranch(
-          id: 'both_bunkers',
+          id: 'home_scv_play',
           baseProbability: 0.8,
+          conditionStat: 'defense',
           events: [
             ScriptEvent(
-              text: '양쪽 벙커가 거의 동시에 완성됩니다! 교착 상태!',
-              owner: LogOwner.system,
-            ),
-            ScriptEvent(
-              text: '{home} 선수 추가 마린으로 상대 벙커를 공격합니다!',
+              text: '{home} 선수 SCV를 앞세워 상대 마린 사격을 흡수합니다!',
               owner: LogOwner.home,
-              homeArmy: 1, homeResource: -50, // 마린 1기
-              awayArmy: -1,
-              awayResource: -50, // 어웨이도 마린 추가 생산 중
-              favorsStat: 'attack',
-              altText: '{home} 선수 추가 마린 투입! 상대 벙커를 노립니다!',
-            ),
-            ScriptEvent(
-              text: '{away} 선수도 추가 마린! SCV로 벙커를 수리합니다!',
-              owner: LogOwner.away,
-              awayArmy: 1, awayResource: -50,
-              homeArmy: -1,
-              homeResource: -50, // 홈도 마린 추가 생산 중
+              awayArmy: -2,
               favorsStat: 'defense',
-              altText: '{away} 선수 마린과 SCV로 버팁니다!',
+              altText: '{home} 선수 SCV 벽이 탄탄합니다! 마린이 뒤에서 안전하게 사격!',
             ),
             ScriptEvent(
-              text: '양쪽 벙커 교착! 후반전으로 넘어갑니다!',
+              text: '{away} 선수 SCV를 잡으려 하지만 마린이 밀려납니다!',
+              owner: LogOwner.away,
+              homeArmy: -1, awayArmy: -2,
+              altText: '{away} 선수 SCV를 노리지만 마린 화력에 밀립니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 SCV 활용이 뛰어납니다! 상대 병력이 녹고 있어요!',
+              owner: LogOwner.home,
+              awayArmy: -2,
+              favorsStat: 'control',
+            ),
+          ],
+        ),
+        // 분기 D: 어웨이 SCV 활용 우세
+        ScriptBranch(
+          id: 'away_scv_play',
+          baseProbability: 0.8,
+          conditionStat: 'defense',
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 SCV를 앞세워 상대 마린 화력을 흡수합니다!',
+              owner: LogOwner.away,
+              homeArmy: -2,
+              favorsStat: 'defense',
+              altText: '{away} 선수 SCV 벽! 마린이 안전하게 사격을 퍼붓습니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 SCV를 뚫으려 하지만 마린 화력에 밀립니다!',
+              owner: LogOwner.home,
+              awayArmy: -1, homeArmy: -2,
+              altText: '{home} 선수 SCV에 막혀서 마린이 제대로 사격을 못 합니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 SCV 운용이 압도적! 상대 병력이 무너지고 있어요!',
+              owner: LogOwner.away,
+              homeArmy: -2,
+              favorsStat: 'control',
+            ),
+          ],
+        ),
+        // 분기 E: 교착 - 양쪽 비등
+        ScriptBranch(
+          id: 'marine_stalemate',
+          baseProbability: 0.7,
+          events: [
+            ScriptEvent(
+              text: '양쪽 마린과 SCV가 치열하게 싸우지만 비등합니다!',
+              owner: LogOwner.system,
+              altText: '마린 교환이 계속됩니다! 누가 먼저 틸트하느냐!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 마린 한 기를 잡지만 SCV도 잃습니다!',
+              owner: LogOwner.home,
+              awayArmy: -1, homeArmy: -1,
+              favorsStat: 'attack',
+              altText: '{home} 선수 마린 교환! 양쪽 피해가 비슷합니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수도 반격합니다! 마린 한 기를 잡아냅니다!',
+              owner: LogOwner.away,
+              homeArmy: -1, awayArmy: -1,
+              favorsStat: 'attack',
+              altText: '{away} 선수 맞교환! 서로 마린이 줄어듭니다!',
+            ),
+            ScriptEvent(
+              text: '센터에서 치열한 마린전! 한 기 차이가 승부를 가릅니다!',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
@@ -179,115 +267,142 @@ const _tvtBbsMirror = ScenarioScript(
         ),
       ],
     ),
-    // Phase 3: 후반전 - 팩토리 전환 (lines 28-40) - recovery 150/줄
+    // Phase 3: 본진 침투 시도 - 분기 (lines 26-35) - recovery 100/줄
     ScriptPhase(
-      name: 'aftermath',
-      startLine: 28,
-      recoveryArmyPerLine: 1,
-      recoveryResourcePerLine: 150,
-      linearEvents: [
-        ScriptEvent(
-          text: '{home} 선수 가스를 올리고 팩토리 건설. {away} 선수도 팩토리를 올립니다.',
-          owner: LogOwner.system,
-          homeResource: -400, // 리파이너리(100) + 팩토리(300)
-          awayResource: -400,
-          fixedCost: true,
-          altText: '양쪽 팩토리가 올라갑니다. 벌처로 전환합니다.',
+      name: 'base_push',
+      startLine: 26,
+      recoveryResourcePerLine: 100,
+      branches: [
+        // 홈이 상대 본진 쪽으로 밀어붙임
+        ScriptBranch(
+          id: 'home_push_base',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 마린과 SCV를 이끌고 상대 본진 방향으로 밀어갑니다!',
+              owner: LogOwner.home,
+              homeArmy: 2, homeResource: -100, // 마린 추가
+              fixedCost: true,
+              favorsStat: 'attack',
+              altText: '{home} 선수 병력을 모아서 상대 본진으로 전진합니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 본진 입구에서 마린과 SCV로 방어합니다!',
+              owner: LogOwner.away,
+              awayArmy: 2, awayResource: -100,
+              fixedCost: true,
+              favorsStat: 'defense',
+              altText: '{away} 선수 본진 방어! SCV를 동원해서 막아냅니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 상대 SCV를 노립니다! 일꾼을 잡으면 끝입니다!',
+              owner: LogOwner.home,
+              awayResource: -200,
+              favorsStat: 'attack',
+              altText: '{home} 선수 SCV를 향해 마린을 보냅니다! 일꾼이 죽어갑니다!',
+            ),
+            ScriptEvent(
+              text: '본진까지 밀려들어갑니다! SCV 피해가 심각합니다!',
+              owner: LogOwner.system,
+              skipChance: 0.3,
+            ),
+          ],
         ),
-        ScriptEvent(
-          text: '{home} 선수 벌처 생산. {away} 선수도 벌처를 뽑습니다. 센터에서 교전!',
-          owner: LogOwner.system,
-          homeArmy: 4, homeResource: -150, // 벌처 2기 (75x2)
-          awayArmy: 4, awayResource: -150,
-          fixedCost: true,
-          altText: '양쪽 벌처가 출격합니다. 기동전으로 전환합니다.',
+        // 어웨이가 상대 본진 쪽으로 밀어붙임
+        ScriptBranch(
+          id: 'away_push_base',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 마린과 SCV를 뭉쳐 상대 본진으로 밀고 갑니다!',
+              owner: LogOwner.away,
+              awayArmy: 2, awayResource: -100,
+              fixedCost: true,
+              favorsStat: 'attack',
+              altText: '{away} 선수 병력을 모아 상대 본진 방향으로!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 본진 입구에서 필사적으로 방어합니다!',
+              owner: LogOwner.home,
+              homeArmy: 2, homeResource: -100,
+              fixedCost: true,
+              favorsStat: 'defense',
+              altText: '{home} 선수 SCV까지 동원해서 방어! 마린이 부족합니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 상대 SCV를 잡기 시작합니다! 일꾼이 줄어듭니다!',
+              owner: LogOwner.away,
+              homeResource: -200,
+              favorsStat: 'attack',
+              altText: '{away} 선수 SCV를 노립니다! 자원 채취가 마비됩니다!',
+            ),
+            ScriptEvent(
+              text: '본진이 뚫리고 있습니다! SCV 피해가 치명적이에요!',
+              owner: LogOwner.system,
+              skipChance: 0.3,
+            ),
+          ],
         ),
-        ScriptEvent(
-          text: '{home} 선수 머신샵에서 탱크 생산. 시즈 모드 연구를 시작합니다. {away} 선수도 탱크.',
-          owner: LogOwner.system,
-          homeArmy: 2, homeResource: -550, // 시즈탱크(250) + 시즈모드(300)
-          awayArmy: 2, awayResource: -550,
-          fixedCost: true,
-          altText: '양쪽 팩토리에서 탱크가 나옵니다. 시즈 연구도 시작합니다.',
-        ),
-        ScriptEvent(
-          text: '양측 탱크가 충돌합니다! 최종 교전!',
-          owner: LogOwner.system,
-          skipChance: 0.3,
-        ),
-        ScriptEvent(
-          text: '{home} 선수 시즈 포격! 상대 탱크를 직격!',
-          owner: LogOwner.home,
-          awayArmy: -4, homeArmy: -2,
-          awayResource: -200,
-          favorsStat: 'attack',
-          altText: '{home} 선수 탱크 화력! 상대 병력이 무너집니다!',
-        ),
-        ScriptEvent(
-          text: '{away} 선수 벌처로 우회! 탱크 포격에 맞섭니다!',
-          owner: LogOwner.away,
-          homeArmy: -4, awayArmy: -2,
-          homeResource: -200,
-          favorsStat: 'defense',
-          altText: '{away} 선수 벌처 우회 공격! 반격!',
-        ),
-        // ── 맵 특성 이벤트 ──
-        // 근거리 맵: 벌처/탱크 교전 강화 (공격 능력치 유리)
-        ScriptEvent(
-          text: '{home} 선수 근거리 맵이라 탱크가 바로 사거리에 들어옵니다! 시즈 포격!',
-          owner: LogOwner.home,
-          awayArmy: -2,
-          favorsStat: 'attack',
-          requiresMapTag: 'rushShort',
-          skipChance: 0.5,
-        ),
-        ScriptEvent(
-          text: '{away} 선수도 근거리 맵 이점을 살려 시즈 포격!',
-          owner: LogOwner.away,
-          homeArmy: -2,
-          favorsStat: 'attack',
-          requiresMapTag: 'rushShort',
-          skipChance: 0.5,
-        ),
-        // 복잡 지형 맵: 고지대 시즈 배치
-        ScriptEvent(
-          text: '{home} 선수 고지대를 점령하고 시즈 포격! 아래에서는 사거리가 안 닿습니다!',
-          owner: LogOwner.home,
-          awayArmy: -2,
-          favorsStat: 'strategy',
-          requiresMapTag: 'terrainHigh',
-          skipChance: 0.5,
-        ),
-        ScriptEvent(
-          text: '{away} 선수도 반대편 고지대에 탱크를 올립니다. 지형 싸움.',
-          owner: LogOwner.away,
-          homeArmy: -2,
-          favorsStat: 'strategy',
-          requiresMapTag: 'terrainHigh',
-          skipChance: 0.5,
-        ),
-        // 원거리 맵: 멀티 확장 안전
-        ScriptEvent(
-          text: '원거리 맵이라 멀티 확장이 안전합니다, 양측 자원이 풍부해집니다.',
-          owner: LogOwner.system,
-          homeResource: 200, awayResource: 200,
-          requiresMapTag: 'rushLong',
+        // 센터에서 계속 교전 (본진 침투까지는 안 감)
+        ScriptBranch(
+          id: 'center_grind',
+          baseProbability: 0.8,
+          events: [
+            ScriptEvent(
+              text: '양쪽 센터에서 계속 마린을 교환합니다! 본진까지는 못 밀어갑니다!',
+              owner: LogOwner.system,
+              altText: '센터에서 소모전이 이어집니다! 마린이 계속 녹아내립니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 마린 추가 생산! 센터에서 밀어냅니다!',
+              owner: LogOwner.home,
+              homeArmy: 2, homeResource: -100,
+              fixedCost: true,
+              awayArmy: -2,
+              favorsStat: 'macro',
+              altText: '{home} 선수 추가 마린이 합류! 조금씩 앞서갑니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수도 마린 추가! 밀리지 않으려 안간힘을 씁니다!',
+              owner: LogOwner.away,
+              awayArmy: 2, awayResource: -100,
+              fixedCost: true,
+              homeArmy: -2,
+              favorsStat: 'macro',
+              altText: '{away} 선수도 추가 마린! 센터를 사수합니다!',
+            ),
+          ],
         ),
       ],
     ),
-    // Phase 4: 결전 판정 - 분기 (lines 41+) - recovery 150/줄
+    // Phase 4: 결전 판정 - 분기 (lines 32+) - recovery 100/줄
     ScriptPhase(
       name: 'decisive_outcome',
-      startLine: 41,
-      recoveryResourcePerLine: 150,
+      startLine: 32,
+      recoveryResourcePerLine: 100,
       branches: [
         ScriptBranch(
           id: 'home_wins_decisive',
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수 센터 벙커전 승리! 마린 컨트롤 차이가 결정적입니다!',
-              altText: '{home} 선수 추가 마린이 합류하며 상대 벙커를 무너뜨립니다!',
+              text: '{home} 선수 마린 수에서 앞섭니다! 상대 마린이 전멸 직전!',
+              owner: LogOwner.home,
+              awayArmy: -4,
+              favorsStat: 'control',
+              altText: '{home} 선수 마린 컨트롤 승리! 상대 병력이 녹아내립니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 상대 SCV까지 잡아냅니다! 자원 채취가 불가능합니다!',
+              owner: LogOwner.home,
+              awayResource: -300,
+              favorsStat: 'attack',
+              skipChance: 0.3,
+              altText: '{home} 선수 SCV까지 학살! 게임이 끝나가고 있습니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 마린 컨트롤 차이가 결정적입니다!',
+              altText: '{home} 선수 추가 마린이 합류하며 상대를 완전히 밀어냅니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -298,8 +413,23 @@ const _tvtBbsMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수 센터 벙커전 승리! 마린 수싸움에서 앞섭니다!',
-              altText: '{away} 선수 SCV 수리 타이밍이 적절했습니다! 벙커를 사수합니다!',
+              text: '{away} 선수 마린 수싸움에서 앞섭니다! 상대 마린이 녹고 있습니다!',
+              owner: LogOwner.away,
+              homeArmy: -4,
+              favorsStat: 'control',
+              altText: '{away} 선수 마린 컨트롤 승리! 상대 병력이 무너집니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 상대 SCV까지 잡습니다! 자원이 끊깁니다!',
+              owner: LogOwner.away,
+              homeResource: -300,
+              favorsStat: 'attack',
+              skipChance: 0.3,
+              altText: '{away} 선수 SCV 학살! 생산이 마비됩니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 SCV 수리 타이밍이 적절했습니다! 마린 수싸움 승리!',
+              altText: '{away} 선수 마린 컨트롤이 한 수 위! 완벽한 승리입니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

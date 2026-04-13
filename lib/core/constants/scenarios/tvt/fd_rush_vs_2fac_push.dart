@@ -18,9 +18,10 @@ const _tvtFdRushVs2facPush = ScenarioScript(
       recoveryArmyPerLine: 0,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 배럭 건설합니다.',
+          text: '{home} 선수 배럭 건설합니다. 마린을 계속 뽑습니다.',
           owner: LogOwner.home,
           homeResource: -150, // 배럭 150
+          homeArmy: 2, // 마린 생산 시작
           fixedCost: true,
         ),
         ScriptEvent(
@@ -30,11 +31,12 @@ const _tvtFdRushVs2facPush = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{home} 선수 팩토리 건설. 머신샵 부착.',
+          text: '{home} 선수 가스를 올리고 팩토리 건설. 마린은 계속 생산합니다.',
           owner: LogOwner.home,
-          homeResource: -400, // 팩토리 300 + 머신샵 100
+          homeResource: -400, // 리파이너리 100 + 팩토리 300
+          homeArmy: 2, // 마린 추가
           fixedCost: true,
-          altText: '{home} 선수 팩토리에 머신샵. 시즈 모드를 노립니다.',
+          altText: '{home} 선수 팩토리를 올리면서 마린을 모읍니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리 건설. 바로 두 번째 팩토리도.',
@@ -44,10 +46,11 @@ const _tvtFdRushVs2facPush = ScenarioScript(
           altText: '{away} 선수 팩토리 투팩. 벌처를 대량 생산할 준비.',
         ),
         ScriptEvent(
-          text: '{home} 선수 시즈 탱크 생산 시작. 시즈 모드 연구도.',
+          text: '{home} 선수 머신샵 부착 후 탱크와 시즈모드를 동시에 시작합니다!',
           owner: LogOwner.home,
-          homeArmy: 2, homeResource: -550, // 탱크 250 + 시즈모드 300
+          homeArmy: 2, homeResource: -650, // 머신샵 100 + 탱크 250 + 시즈모드 300
           fixedCost: true,
+          altText: '{home} 선수 머신샵에서 탱크와 시즈모드 동시 진행.',
         ),
         ScriptEvent(
           text: '{away} 선수 벌처가 쏟아져 나옵니다! 속업 연구.',
@@ -57,7 +60,7 @@ const _tvtFdRushVs2facPush = ScenarioScript(
           altText: '{away} 선수 벌처 속업. 투팩에서 벌처가 물 밀듯이!',
         ),
         ScriptEvent(
-          text: '탱크 시즈 vs 벌처 물량! 정면 대결이 예고됩니다!',
+          text: '마린과 탱크의 FD 러쉬 vs 벌처 물량! 정면 대결이 예고됩니다!',
           owner: LogOwner.system,
         ),
       ],

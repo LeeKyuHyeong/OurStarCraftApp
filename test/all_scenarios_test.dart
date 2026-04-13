@@ -112,7 +112,7 @@ final _configs = <MatchupConfig>[
     homeTag: '[홈]  ', awayTag: '[어웨이]',
     homeLabel: '홈', awayLabel: '어웨이',
     scenarios: _mirrorScenarios([
-      'tvt_bbs', 'tvt_1fac_1star', 'tvt_2fac_push', 'tvt_5fac',
+      'tvt_bbs', 'tvt_1fac_1star', 'tvt_2fac_push',
       'tvt_2star', 'tvt_1bar_double', 'tvt_1fac_double',
       'tvt_nobar_double', 'tvt_fd_rush',
     ], 'tvt'),
@@ -149,7 +149,7 @@ final _configs = <MatchupConfig>[
        'pvt_trans_5gate_push', 'pvt_dark_swing', 'pvt_proxy_gate',
        'pvt_trans_reaver_arbiter', 'pvt_trans_reaver_carrier', 'pvt_trans_reaver_push'],
       ['tvp_bbs', 'tvp_trans_tank_defense', 'tvp_trans_timing_push',
-       'tvp_trans_anti_carrier', 'tvp_trans_bio_mech', 'tvp_trans_5fac_mass',
+       'tvp_trans_anti_carrier', 'tvp_trans_bio_mech',
        'tvp_trans_upgrade'],
       'pvt', 'tvp',
     ),

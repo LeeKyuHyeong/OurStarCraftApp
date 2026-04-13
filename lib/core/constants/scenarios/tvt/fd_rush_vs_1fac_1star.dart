@@ -18,9 +18,10 @@ const _tvtFdRushVs1fac1star = ScenarioScript(
       recoveryArmyPerLine: 0,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 배럭 건설 후 가스를 넣습니다.',
+          text: '{home} 선수 배럭 건설 후 가스를 넣습니다. 마린을 계속 뽑습니다.',
           owner: LogOwner.home,
           homeResource: -250, // 배럭 150 + 리파이너리 100
+          homeArmy: 2, // 마린 생산 시작
           fixedCost: true,
         ),
         ScriptEvent(
@@ -30,11 +31,12 @@ const _tvtFdRushVs1fac1star = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{home} 선수 팩토리 건설. 머신샵을 부착합니다.',
+          text: '{home} 선수 팩토리 건설. 마린은 계속 생산합니다.',
           owner: LogOwner.home,
-          homeResource: -400, // 팩토리 300 + 머신샵 100
+          homeResource: -300, // 팩토리 300
+          homeArmy: 2, // 마린 추가
           fixedCost: true,
-          altText: '{home} 선수 팩토리에 머신샵. 빠른 시즈를 노립니다.',
+          altText: '{home} 선수 팩토리를 올리면서 마린을 모읍니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리 건설 후 스타포트도 올립니다.',
@@ -44,14 +46,22 @@ const _tvtFdRushVs1fac1star = ScenarioScript(
           altText: '{away} 선수 팩토리와 스타포트. 원팩원스타 체제.',
         ),
         ScriptEvent(
-          text: '양쪽 팩토리 빌드! 하지만 방향이 다릅니다!',
+          text: '{home} 선수 머신샵 부착. 벌처 없이 바로 탱크를 노립니다.',
+          owner: LogOwner.home,
+          homeResource: -100, // 머신샵 100
+          fixedCost: true,
+          altText: '{home} 선수 머신샵 착공, 빠른 탱크 체제입니다.',
+        ),
+        ScriptEvent(
+          text: '마린을 모으는 FD 러쉬 vs 팩토리 스타포트 체제! 방향이 다릅니다!',
           owner: LogOwner.system,
         ),
         ScriptEvent(
-          text: '{home} 선수 시즈 탱크 생산. 탱크에 올인합니다.',
+          text: '{home} 선수 탱크 생산과 시즈모드 연구를 동시에 시작합니다!',
           owner: LogOwner.home,
-          homeArmy: 2, homeResource: -250, // 탱크 250
+          homeArmy: 2, homeResource: -550, // 탱크 250 + 시즈모드 300
           fixedCost: true,
+          altText: '{home} 선수 탱크와 시즈모드 동시 진행. 마린과 함께 밀겠다는 빌드.',
         ),
         ScriptEvent(
           text: '{away} 선수 벌처 생산. 스타포트에서 레이스도 준비.',

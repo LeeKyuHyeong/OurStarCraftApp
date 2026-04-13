@@ -23,7 +23,7 @@ const _zvz9poolLairMirror = ScenarioScript(
           altText: '{home}, 9풀에 가스! 빠른 테크를 노리는 빌드!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 9풀에 가스! 동일한 빌드를 선택했는데요~',
+          text: '{away} 선수도 9풀에 가스까지! 레어를 노리는데요~',
           owner: LogOwner.away,
           awayResource: -15,
           altText: '{away}, 똑같이 9풀 가스! 양쪽 다 선 레어 선택!',
@@ -38,7 +38,7 @@ const _zvz9poolLairMirror = ScenarioScript(
           text: '{away} 선수도 레어 진화 시작! 양쪽 다 테크를 올립니다!',
           owner: LogOwner.away,
           awayResource: -20,
-          altText: '{away}, 선 레어 선택! 동일한 빌드입니다!',
+          altText: '{away}, 선 레어 선택! 레어를 선택합니다!',
         ),
         ScriptEvent(
           text: '{home}, 저글링 6기 생산하면서 가스 100이 모이자마자 발업도 눌러줍니다!',
@@ -50,13 +50,13 @@ const _zvz9poolLairMirror = ScenarioScript(
           text: '{away}, 저글링 6기! 발업도 같이 돌립니다! 레어가 올라가는 동안 견제!',
           owner: LogOwner.away,
           awayArmy: 6, awayResource: -15,
-          altText: '{away} 선수도 저글링에 발업! 양쪽 동일한 타이밍!',
+          altText: '{away} 선수도 저글링에 발업! 비슷한 타이밍입니다!',
         ),
         ScriptEvent(
-          text: '양쪽 다 선 레어 선택 후 발업! 테크 타이밍이 동일합니다!',
+          text: '양쪽 다 선 레어 선택 후 발업! 테크 타이밍이 비슷합니다!',
           owner: LogOwner.system,
           skipChance: 0.3,
-          altText: '동일한 빌드! 발업도 같은 타이밍에 끝납니다!',
+          altText: '발업도 비슷한 타이밍에 끝납니다!',
         ),
       ],
     ),
@@ -149,7 +149,7 @@ const _zvz9poolLairMirror = ScenarioScript(
           altText: '{home}, 레어 완성! 다음 단계로 넘어갑니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 레어 완성! 양쪽 테크가 동일합니다!',
+          text: '{away} 선수도 레어 완성! 테크가 비슷합니다!',
           owner: LogOwner.away,
           awayResource: -10,
           altText: '{away}, 레어 완성! 테크 타이밍이 같습니다!',
@@ -164,7 +164,7 @@ const _zvz9poolLairMirror = ScenarioScript(
           text: '{away} 선수도 스파이어 건설!',
           owner: LogOwner.away,
           awayResource: -10,
-          altText: '{away}, 스파이어! 타이밍이 동일합니다!',
+          altText: '{away}, 스파이어! 타이밍이 비슷합니다!',
         ),
         ScriptEvent(
           text: '오버로드로 상대 빌드가 다 보이죠! 양쪽 저글링으로 눈치를 봅니다!',
@@ -194,14 +194,14 @@ const _zvz9poolLairMirror = ScenarioScript(
               homeArmy: 4, homeResource: -15,
             ),
             ScriptEvent(
-              text: '{away} 선수도 스파이어 완성! 뮤탈 수가 동일합니다!',
+              text: '{away} 선수도 스파이어 완성! 뮤탈 수가 엇비슷합니다!',
               owner: LogOwner.away,
               awayArmy: 4, awayResource: -15,
             ),
             ScriptEvent(
               text: '뮤탈 싸움 시작! 드론 견제를 주고받으면서 서서히 차이가 벌어집니다!',
               owner: LogOwner.system,
-              altText: '양쪽 뮤탈이 동수! 여기서부터 긴 싸움입니다!',
+              altText: '뮤탈 수가 엇비슷합니다! 여기서부터 긴 싸움입니다!',
             ),
             ScriptEvent(
               text: '{home}, 뮤탈로 상대 미네랄 라인 급습! 드론 2기를 잡습니다!',
@@ -257,14 +257,14 @@ const _zvz9poolLairMirror = ScenarioScript(
               awayArmy: 4, awayResource: -15,
             ),
             ScriptEvent(
-              text: '{home} 선수도 스파이어 완성! 뮤탈 수가 동일합니다!',
+              text: '{home} 선수도 스파이어 완성! 뮤탈 수가 엇비슷합니다!',
               owner: LogOwner.home,
               homeArmy: 4, homeResource: -15,
             ),
             ScriptEvent(
               text: '뮤탈 싸움 시작! 드론 견제를 주고받으면서 서서히 차이가 벌어집니다!',
               owner: LogOwner.system,
-              altText: '양쪽 뮤탈이 동수! 여기서부터 긴 싸움입니다!',
+              altText: '뮤탈 수가 엇비슷합니다! 여기서부터 긴 싸움입니다!',
             ),
             ScriptEvent(
               text: '{away}, 뮤탈로 상대 미네랄 라인 급습! 드론 2기를 잡습니다!',

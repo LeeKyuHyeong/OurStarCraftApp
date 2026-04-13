@@ -32,10 +32,10 @@ const _zvz9overpoolMirror = ScenarioScript(
           altText: '{home}, 9오버풀! 오버로드를 먼저 올리고 스포닝풀을 짓습니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 9오버풀 스포닝풀! 같은 빌드입니다!',
+          text: '{away} 선수도 9오버풀 스포닝풀!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 9오버풀 스포닝풀! 동일한 빌드! 드론 수가 같습니다!',
+          altText: '{away}, 9오버풀 스포닝풀! 드론 수가 같습니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링 생산과 발업 연구 시작!',
@@ -43,12 +43,12 @@ const _zvz9overpoolMirror = ScenarioScript(
           homeArmy: 4, homeResource: -10,
         ),
         ScriptEvent(
-          text: '{away} 선수도 저글링과 발업! 완전한 대칭!',
+          text: '{away} 선수도 저글링과 발업! 드론 수가 같습니다!',
           owner: LogOwner.away,
           awayArmy: 4, awayResource: -10,
         ),
         ScriptEvent(
-          text: '양쪽 다 9오버풀! 드론 수까지 같은 완벽한 대칭입니다!',
+          text: '드론 수도 비슷합니다! 운영 싸움이 중요하겠습니다!',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
@@ -121,7 +121,7 @@ const _zvz9overpoolMirror = ScenarioScript(
               altText: '{home} 선수 깔끔한 견제! 드론 피해를 주고 빠집니다!',
             ),
             ScriptEvent(
-              text: '소소한 견제 성공! 같은 빌드에서는 이 작은 차이가 중요합니다!',
+              text: '소소한 견제 성공! 이 작은 차이가 중요합니다!',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
@@ -152,7 +152,7 @@ const _zvz9overpoolMirror = ScenarioScript(
               altText: '{away} 선수 깔끔한 견제! 드론 피해를 주고 빠집니다!',
             ),
             ScriptEvent(
-              text: '소소한 견제 성공! 같은 빌드에서는 이 작은 차이가 중요합니다!',
+              text: '소소한 견제 성공! 이 작은 차이가 중요합니다!',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
@@ -350,7 +350,7 @@ const _zvz9overpoolMirror = ScenarioScript(
           conditionStat: 'control',
           events: [
             ScriptEvent(
-              text: '뮤탈 소모전! 양쪽 같은 빌드라 여기서 갈립니다!',
+              text: '뮤탈 소모전! 여기서 승부가 갈립니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
@@ -379,7 +379,7 @@ const _zvz9overpoolMirror = ScenarioScript(
           homeStatMustBeHigher: false,
           events: [
             ScriptEvent(
-              text: '뮤탈 소모전! 양쪽 같은 빌드라 여기서 갈립니다!',
+              text: '뮤탈 소모전! 여기서 승부가 갈립니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(

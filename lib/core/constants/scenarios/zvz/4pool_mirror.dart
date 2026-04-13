@@ -37,10 +37,10 @@ const _zvz4PoolMirror = ScenarioScript(
           text: '{away} 선수도 저글링 6기 생산! 서로를 향해 출발!',
           owner: LogOwner.away,
           awayArmy: 6, awayResource: -15,
-          altText: '{away}, 저글링이 쏟아집니다! 양쪽 다 4풀!',
+          altText: '{away}, 저글링이 쏟아집니다!',
         ),
         ScriptEvent(
-          text: '양쪽 다 4풀! 극초반 저글링 싸움이 모든 걸 결정합니다!',
+          text: '극초반 저글링 싸움이 모든 걸 결정합니다! 컨트롤 싸움이 중요하겠습니다!',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
@@ -68,7 +68,7 @@ const _zvz4PoolMirror = ScenarioScript(
               altText: '{away}, 저글링 맞대결! 한 기 차이가 승패를 가릅니다!',
             ),
             ScriptEvent(
-              text: '동일한 빌드에서는 저글링 컨트롤이 곧 승패입니다!',
+              text: '저글링 컨트롤이 곧 승패입니다! 컨트롤 싸움이 중요하겠습니다!',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
@@ -114,7 +114,7 @@ const _zvz4PoolMirror = ScenarioScript(
               altText: '{away}, 저글링 맞대결! 드론 수가 적어서 이게 전부예요!',
             ),
             ScriptEvent(
-              text: '동일한 빌드에서는 저글링 컨트롤이 곧 승패입니다!',
+              text: '저글링 컨트롤이 곧 승패입니다! 컨트롤 싸움이 중요하겠습니다!',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),

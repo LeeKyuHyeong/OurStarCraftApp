@@ -18,9 +18,10 @@ const _tvtFdRushVs2star = ScenarioScript(
       recoveryArmyPerLine: 0,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 배럭 건설합니다.',
+          text: '{home} 선수 배럭 건설합니다. 마린을 계속 뽑습니다.',
           owner: LogOwner.home,
           homeResource: -150, // 배럭 150
+          homeArmy: 2, // 마린 생산 시작
           fixedCost: true,
         ),
         ScriptEvent(
@@ -30,11 +31,12 @@ const _tvtFdRushVs2star = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{home} 선수 팩토리 건설. 머신샵 부착합니다.',
+          text: '{home} 선수 가스를 올리고 팩토리 건설. 마린은 계속 생산합니다.',
           owner: LogOwner.home,
-          homeResource: -400, // 팩토리 300 + 머신샵 100
+          homeResource: -400, // 리파이너리 100 + 팩토리 300
+          homeArmy: 2, // 마린 추가
           fixedCost: true,
-          altText: '{home} 선수 팩토리에 머신샵. 빠른 메카닉.',
+          altText: '{home} 선수 팩토리를 올리면서 마린을 모읍니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리에서 바로 스타포트로! 두 번째 스타포트도!',
@@ -44,17 +46,18 @@ const _tvtFdRushVs2star = ScenarioScript(
           altText: '{away} 선수 스타포트 2개. 투스타 공중 체제.',
         ),
         ScriptEvent(
-          text: '{home} 선수 시즈 탱크 생산 시작.',
+          text: '{home} 선수 머신샵 부착 후 탱크와 시즈모드를 동시에 시작합니다!',
           owner: LogOwner.home,
-          homeArmy: 2, homeResource: -250, // 탱크 250
+          homeArmy: 2, homeResource: -650, // 머신샵 100 + 탱크 250 + 시즈모드 300
           fixedCost: true,
+          altText: '{home} 선수 머신샵에서 탱크와 시즈모드 동시 진행.',
         ),
         ScriptEvent(
-          text: '{away} 선수 스타포트에서 기다립니다! 클로킹도 연구합니다.',
+          text: '{away} 선수 컨트롤타워 부착, 클로킹 연구를 시작합니다.',
           owner: LogOwner.away,
           awayResource: -400, // 컨트롤타워 100 + 클로킹 300
           fixedCost: true,
-          altText: '{away} 선수 스타포트 클로킹 연구. 은신 공격을 노립니다.',
+          altText: '{away} 선수 클로킹 연구. 은신 레이스를 노립니다.',
         ),
         ScriptEvent(
           text: '지상 화력 vs 공중 기동! 전혀 다른 빌드가 맞붙습니다!',

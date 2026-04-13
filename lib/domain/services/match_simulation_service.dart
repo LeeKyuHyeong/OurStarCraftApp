@@ -1408,9 +1408,16 @@ class MatchSimulationService {
       final texts = <String>[
         '${winner.name} 선수 라인 전진! ${loser.name} 선수 밀려나며 앞마당이 무너집니다!',
         '${winner.name} 선수 수비 라인 돌파 결정타! ${loser.name} 선수 앞마당에서 본진까지 밀립니다!',
-        '${winner.name} 선수 거리재기 승리! ${loser.name} 선수 포지션을 내줍니다!',
+        '${winner.name} 선수 기민한 병력 운용! ${loser.name} 선수 대응이 한 발 늦습니다!',
         '${winner.name} 선수 견제 성공! ${loser.name} 선수 일꾼 초토화에 함락 직전입니다!',
       ];
+      // 스타포트 보유 시 드랍쉽 운용 텍스트 추가
+      if (winnerHasStarport) {
+        texts.addAll([
+          '${winner.name} 선수 드랍쉽 운용의 승리! ${loser.name} 선수 견제를 버텨내지 못합니다!',
+          '${winner.name} 선수 드랍쉽 견제가 결정적이었습니다! ${loser.name} 선수 자원 차이를 극복하지 못합니다!',
+        ]);
+      }
       // 스타포트가 있고 후반이면 후방 공격 텍스트도 풀에 추가
       if (winnerHasStarport && lineCount >= 60) {
         texts.addAll([
