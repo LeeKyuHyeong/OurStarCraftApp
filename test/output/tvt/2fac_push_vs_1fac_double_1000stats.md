@@ -3,10 +3,10 @@
 | 항목 | 값 |
 |------|-----|
 | 총 경기 | 1000 |
-| 홈 승률 | 57.7% (577승) |
-| 어웨이 승률 | 42.3% (423승) |
+| 홈 승률 | 56.2% (562승) |
+| 어웨이 승률 | 43.8% (438승) |
 | 평균 로그 길이 | 36.2줄 |
-| 평균 최종 병력 | 홈 58.8 / 어웨이 46.2 |
+| 평균 최종 병력 | 홈 55.8 / 어웨이 47.6 |
 | 고유 로그 수 | 1000 / 1000 |
 
 ## 종료 시점 분포
@@ -21,11 +21,11 @@
 
 | 분기 ID | 발동 | 비율 |
 |---------|------|------|
-| harass_success | 506 | 50.6% |
-| mine_defense | 494 | 49.4% |
-| home_wins_decisive | 445 | 44.5% |
-| away_wins_decisive | 423 | 42.3% |
-| guerrilla_drop | 387 | 38.7% |
-| frontal_stalemate | 286 | 28.6% |
-| desperate_drop | 195 | 19.5% |
-| finishing_drop | 132 | 13.2% |
+| harass_success | 523 | 52.3% |
+| mine_defense | 477 | 47.7% |
+| away_wins_decisive | 438 | 43.8% |
+| home_wins_decisive | 415 | 41.5% |
+| guerrilla_drop | 366 | 36.6% |
+| frontal_stalemate | 290 | 29.0% |
+| desperate_drop | 197 | 19.7% |
+| finishing_drop | 147 | 14.7% |

@@ -40,7 +40,7 @@ const _tvzNobarDoubleVsMutalUltra = ScenarioScript(
           owner: LogOwner.home,
           homeResource: -400,
           fixedCost: true,
-          altText: '{home} 선수 리파이너리와 팩토리를 착공합니다.',
+          altText: '{home} 선수 리파이너리와 팩토리를 짓기 시작합니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 해처리에서 드론을 생산합니다.',

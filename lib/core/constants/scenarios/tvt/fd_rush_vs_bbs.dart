@@ -55,7 +55,7 @@ const _tvtFdRushVsBbs = ScenarioScript(
           owner: LogOwner.home,
           homeResource: -100, // 머신샵 100
           fixedCost: true,
-          altText: '{home} 선수 머신샵 착공, 빠른 탱크 체제입니다.',
+          altText: '{home} 선수 머신샵을 올립니다, 빠른 탱크 체제입니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 마린이 모입니다. SCV도 끌고 전진 준비.',

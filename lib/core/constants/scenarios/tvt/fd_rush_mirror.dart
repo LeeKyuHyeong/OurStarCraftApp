@@ -68,7 +68,7 @@ const _tvtFdRushMirror = ScenarioScript(
           owner: LogOwner.home,
           homeResource: -100, // 머신샵 100
           fixedCost: true,
-          altText: '{home} 선수 머신샵 착공, 빠른 탱크 체제입니다.',
+          altText: '{home} 선수 머신샵을 올립니다, 빠른 탱크 체제입니다.',
         ),
         ScriptEvent(
           text: '{away} 선수도 머신샵 부착. 벌처 없이 바로 탱크입니다.',

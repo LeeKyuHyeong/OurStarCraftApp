@@ -143,7 +143,7 @@ const _tvtBbsMirror = ScenarioScript(
               text: '마린 컨트롤 차이! 한 기 한 기가 승부를 가릅니다!',
               owner: LogOwner.system,
               skipChance: 0.4,
-              altText: 'BBS 미러에서는 마린 한 기 차이가 곧 승패입니다!',
+              altText: 'BBS 같은 빌드에서는 마린 한 기 차이가 곧 승패입니다!',
             ),
           ],
         ),

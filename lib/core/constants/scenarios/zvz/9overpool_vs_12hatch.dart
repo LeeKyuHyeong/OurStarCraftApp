@@ -35,7 +35,7 @@ const _zvz9overpoolVs12hatch = ScenarioScript(
           altText: '{away}, 12앞마당! 해처리를 먼저 가져갑니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 스포닝풀 건설합니다. 익스트랙터도 착공합니다.',
+          text: '{home} 선수 스포닝풀 건설합니다. 익스트랙터도 올립니다.',
           owner: LogOwner.home,
           homeResource: -20,
           altText: '{home}, 스포닝풀과 가스를 올립니다.',

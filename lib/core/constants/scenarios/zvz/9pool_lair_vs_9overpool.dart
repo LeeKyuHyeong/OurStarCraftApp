@@ -155,7 +155,7 @@ const _zvz9poolLairVs9overpool = ScenarioScript(
               altText: '{home}, 레어 완성! 바로 테크를 올립니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 스파이어 착공! 뮤탈이 빠르게 나옵니다!',
+              text: '{home} 선수 스파이어를 올립니다! 뮤탈이 빠르게 나옵니다!',
               owner: LogOwner.home,
               homeArmy: 0, awayArmy: 0,
             ),
@@ -225,7 +225,7 @@ const _zvz9poolLairVs9overpool = ScenarioScript(
               altText: '{home}, 레어 챙기고 확장! 테크를 준비합니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 스파이어도 착공합니다!',
+              text: '{home} 선수 스파이어도 올립니다!',
               owner: LogOwner.home,
               homeArmy: 0, awayArmy: 0,
             ),

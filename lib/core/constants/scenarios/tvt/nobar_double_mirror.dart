@@ -22,7 +22,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
         ScriptEvent(
           text: '양 선수 모두 배럭 없이 앞마당 커맨드센터를 올립니다.',
           owner: LogOwner.system,
-          altText: '배럭 없이 커맨드센터부터 착공합니다.',
+          altText: '배럭 없이 커맨드센터부터 짓기 시작합니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 앞마당에 커맨드센터를 올립니다.',
@@ -91,14 +91,14 @@ const _tvtNobarDoubleMirror = ScenarioScript(
           owner: LogOwner.home,
           homeResource: -100,
           fixedCost: true,
-          altText: '{home} 선수 머신샵 착공.',
+          altText: '{home} 선수 머신샵을 올립니다.',
         ),
         ScriptEvent(
           text: '{away} 선수도 머신샵을 건설합니다.',
           owner: LogOwner.away,
           awayResource: -100,
           fixedCost: true,
-          altText: '{away} 선수도 머신샵 착공.',
+          altText: '{away} 선수도 머신샵을 올립니다.',
         ),
         ScriptEvent(
           text: '배럭도 없이 시작한 게임, 이제 팩토리까지 올라왔습니다.',

@@ -3,10 +3,10 @@
 | 항목 | 값 |
 |------|-----|
 | 총 경기 | 1000 |
-| 홈 승률 | 44.7% (447승) |
-| 어웨이 승률 | 55.3% (553승) |
+| 홈 승률 | 41.8% (418승) |
+| 어웨이 승률 | 58.2% (582승) |
 | 평균 로그 길이 | 33.3줄 |
-| 평균 최종 병력 | 홈 21.6 / 어웨이 24.8 |
+| 평균 최종 병력 | 홈 20.2 / 어웨이 26.2 |
 | 고유 로그 수 | 1000 / 1000 |
 
 ## 종료 시점 분포
@@ -21,11 +21,11 @@
 
 | 분기 ID | 발동 | 비율 |
 |---------|------|------|
-| tank_defends_bbs | 503 | 50.3% |
-| bbs_breaks_through | 497 | 49.7% |
-| bbs_recovery_wins | 447 | 44.7% |
-| guerrilla_vulture | 389 | 38.9% |
-| fd_rush_wins | 377 | 37.7% |
-| bbs_recovery_counter | 251 | 25.1% |
-| desperate_allin | 184 | 18.4% |
-| frontal_push | 176 | 17.6% |
+| tank_defends_bbs | 538 | 53.8% |
+| bbs_breaks_through | 462 | 46.2% |
+| bbs_recovery_wins | 418 | 41.8% |
+| fd_rush_wins | 414 | 41.4% |
+| guerrilla_vulture | 396 | 39.6% |
+| bbs_recovery_counter | 227 | 22.7% |
+| desperate_allin | 209 | 20.9% |
+| frontal_push | 168 | 16.8% |

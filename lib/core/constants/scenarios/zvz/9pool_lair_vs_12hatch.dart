@@ -168,7 +168,7 @@ const _zvz9poolLairVs12hatch = ScenarioScript(
               altText: '{home}, 레어 완성! 압박을 이어갑니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 스파이어 착공! 테크 전환이 빠릅니다!',
+              text: '{home} 선수 스파이어를 올립니다! 테크 전환이 빠릅니다!',
               owner: LogOwner.home,
               homeArmy: 0, awayArmy: 0,
               altText: '{home}, 스파이어를 올립니다! 공중 유닛이 곧 나옵니다!',
@@ -233,7 +233,7 @@ const _zvz9poolLairVs12hatch = ScenarioScript(
               altText: '{home}, 레어 챙기고 확장! 테크를 준비합니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 스파이어도 착공합니다!',
+              text: '{home} 선수 스파이어도 올립니다!',
               owner: LogOwner.home,
               homeArmy: 0, awayArmy: 0,
             ),
@@ -260,7 +260,7 @@ const _zvz9poolLairVs12hatch = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수도 스파이어를 올립니다! 대공 전환을 서두릅니다!',
           owner: LogOwner.away,
-          altText: '{away}, 스파이어 착공! 대공 준비에 들어갑니다!',
+          altText: '{away}, 스파이어를 올립니다! 대공 준비에 들어갑니다!',
         ),
       ],
     ),

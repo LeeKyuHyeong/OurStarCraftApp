@@ -64,7 +64,7 @@ const _tvt1fac1starMirror = ScenarioScript(
           owner: LogOwner.home,
           homeArmy: 2, homeResource: -175, // 벌처(75) + 머신샵(100)
           fixedCost: true,
-          altText: '{home} 선수 벌처 생산, 머신샵 착공. 탱크 체제 진입입니다.',
+          altText: '{home} 선수 벌처 생산, 머신샵을 올립니다. 탱크 체제 진입입니다.',
         ),
         ScriptEvent(
           text: '{away} 선수도 벌처와 머신샵. 탱크를 준비합니다.',
@@ -104,24 +104,10 @@ const _tvt1fac1starMirror = ScenarioScript(
           altText: '{away} 선수도 탱크와 시즈모드를 동시에 시작합니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 스타포트에서 드랍쉽 생산을 시작합니다!',
-          owner: LogOwner.home,
-          homeArmy: 1, homeResource: -200, // 드랍쉽 200
-          fixedCost: true,
-          altText: '{home} 선수 드랍쉽이 나옵니다. 어디를 노릴까요.',
-        ),
-        ScriptEvent(
-          text: '{away} 선수도 스타포트에서 드랍쉽을 생산합니다.',
-          owner: LogOwner.away,
-          awayArmy: 1, awayResource: -200,
-          fixedCost: true,
-          altText: '{away} 선수도 드랍쉽 생산. 견제를 준비합니다.',
-        ),
-        ScriptEvent(
-          text: '양쪽 드랍쉽이 나왔습니다. 원팩원스타의 꽃, 첫 드랍 타이밍입니다.',
+          text: '스타포트가 완성됐습니다. 드랍쉽이냐 레이스냐, 선택이 갈립니다.',
           owner: LogOwner.system,
           skipChance: 0.2,
-          altText: '드랍쉽에 뭘 태울 것인가, 어디로 보낼 것인가가 관건입니다.',
+          altText: '원팩원스타의 핵심, 스타포트 유닛 선택 타이밍입니다.',
         ),
       ],
     ),
@@ -137,6 +123,14 @@ const _tvt1fac1starMirror = ScenarioScript(
           id: 'home_drop_success',
           baseProbability: 1.0,
           events: [
+            ScriptEvent(
+              text: '양쪽 드랍쉽이 나왔습니다! 원팩원스타의 꽃, 드랍 타이밍입니다!',
+              owner: LogOwner.system,
+              homeArmy: 1, homeResource: -200, // 드랍쉽 200
+              awayArmy: 1, awayResource: -200,
+              fixedCost: true,
+              altText: '양 선수 모두 드랍쉽을 뽑았습니다. 견제전이 시작됩니다.',
+            ),
             ScriptEvent(
               text: '{home} 선수 드랍쉽에 탱크 한 기와 벌처 두 기를 태워 상대 본진으로!',
               owner: LogOwner.home,
@@ -169,6 +163,14 @@ const _tvt1fac1starMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
+              text: '양쪽 드랍쉽이 나왔습니다! 어디로 보내느냐가 관건입니다!',
+              owner: LogOwner.system,
+              homeArmy: 1, homeResource: -200,
+              awayArmy: 1, awayResource: -200,
+              fixedCost: true,
+              altText: '양 선수 모두 드랍쉽을 선택했습니다. 견제 싸움입니다.',
+            ),
+            ScriptEvent(
               text: '{away} 선수 드랍쉽에 벌처 네 기를 태워 상대 본진으로 향합니다!',
               owner: LogOwner.away,
               favorsStat: 'harass',
@@ -199,6 +201,14 @@ const _tvt1fac1starMirror = ScenarioScript(
           id: 'both_drop_damage',
           baseProbability: 1.2,
           events: [
+            ScriptEvent(
+              text: '양쪽 드랍쉽이 나왔습니다! 서로의 후방을 노립니다!',
+              owner: LogOwner.system,
+              homeArmy: 1, homeResource: -200,
+              awayArmy: 1, awayResource: -200,
+              fixedCost: true,
+              altText: '양 선수 모두 드랍쉽 선택! 동시에 견제에 들어갑니다!',
+            ),
             ScriptEvent(
               text: '{home} 선수 드랍쉽에 탱크와 벌처를 태워 상대 본진으로!',
               owner: LogOwner.home,
@@ -240,6 +250,14 @@ const _tvt1fac1starMirror = ScenarioScript(
           baseProbability: 0.8,
           events: [
             ScriptEvent(
+              text: '양쪽 드랍쉽이 나왔습니다! 드랍 견제가 시작됩니다!',
+              owner: LogOwner.system,
+              homeArmy: 1, homeResource: -200,
+              awayArmy: 1, awayResource: -200,
+              fixedCost: true,
+              altText: '양 선수 모두 드랍쉽을 뽑았습니다. 견제에 들어갑니다.',
+            ),
+            ScriptEvent(
               text: '{home} 선수 드랍쉽에서 탱크와 벌처를 내리지만, {away} 선수 SCV를 재빨리 빼고 추가 벌처가 정리합니다!',
               owner: LogOwner.home,
               favorsStat: 'harass',
@@ -264,9 +282,11 @@ const _tvt1fac1starMirror = ScenarioScript(
           baseProbability: 0.8,
           events: [
             ScriptEvent(
-              text: '{home} 선수 드랍쉽으로 견제를 시도합니다.',
+              text: '{home} 선수 드랍쉽을 생산합니다. 견제를 시도합니다.',
               owner: LogOwner.home,
+              homeArmy: 1, homeResource: -200, // 드랍쉽 200
               awayResource: -150,
+              fixedCost: true,
               favorsStat: 'harass',
               altText: '{home} 선수 드랍쉽으로 상대 후방을 노립니다.',
             ),
@@ -298,9 +318,11 @@ const _tvt1fac1starMirror = ScenarioScript(
           baseProbability: 0.8,
           events: [
             ScriptEvent(
-              text: '{away} 선수 드랍쉽으로 견제를 시도합니다.',
+              text: '{away} 선수 드랍쉽을 생산합니다. 견제를 시도합니다.',
               owner: LogOwner.away,
+              awayArmy: 1, awayResource: -200, // 드랍쉽 200
               homeResource: -150,
+              fixedCost: true,
               favorsStat: 'harass',
               altText: '{away} 선수 드랍쉽으로 상대 후방을 노립니다.',
             ),
@@ -352,10 +374,10 @@ const _tvt1fac1starMirror = ScenarioScript(
           altText: '{away} 선수도 앞마당 커맨드센터를 건설하죠.',
         ),
         ScriptEvent(
-          text: '양쪽 확장은 갔지만, 드랍에서 SCV를 많이 잃은 쪽은 자원 채취 속도가 느릴 수밖에 없습니다.',
+          text: '양쪽 확장이 가동됩니다. 초반 스타포트 운용 차이가 중반 운영을 좌우합니다.',
           owner: LogOwner.system,
-          skipChance: 0.2,
-          altText: '확장은 갔지만 SCV 차이가 곧 자원 차이로 이어집니다. 드랍 피해가 뼈아프네요.',
+          skipChance: 0.3,
+          altText: '확장은 갔습니다. 이제 탱크 라인과 견제전이 본격화됩니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 아머리를 올리고 골리앗 생산을 준비합니다.',

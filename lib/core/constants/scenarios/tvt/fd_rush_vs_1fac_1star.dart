@@ -50,7 +50,7 @@ const _tvtFdRushVs1fac1star = ScenarioScript(
           owner: LogOwner.home,
           homeResource: -100, // 머신샵 100
           fixedCost: true,
-          altText: '{home} 선수 머신샵 착공, 빠른 탱크 체제입니다.',
+          altText: '{home} 선수 머신샵을 올립니다, 빠른 탱크 체제입니다.',
         ),
         ScriptEvent(
           text: '마린을 모으는 FD 러쉬 vs 팩토리 스타포트 체제! 방향이 다릅니다!',

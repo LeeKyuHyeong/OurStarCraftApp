@@ -3,11 +3,11 @@
 | 항목 | 값 |
 |------|-----|
 | 총 경기 | 1000 |
-| 홈 승률 | 53.6% (536승) |
-| 어웨이 승률 | 46.4% (464승) |
-| 평균 로그 길이 | 19.9줄 |
-| 평균 최종 병력 | 홈 2.6 / 어웨이 2.5 |
-| 고유 로그 수 | 999 / 1000 |
+| 홈 승률 | 54.6% (546승) |
+| 어웨이 승률 | 45.4% (454승) |
+| 평균 로그 길이 | 19.8줄 |
+| 평균 최종 병력 | 홈 2.6 / 어웨이 2.4 |
+| 고유 로그 수 | 1000 / 1000 |
 
 ## 종료 시점 분포
 
@@ -21,13 +21,13 @@
 
 | 분기 ID | 발동 | 비율 |
 |---------|------|------|
-| home_marine_win | 236 | 23.6% |
-| away_marine_win | 220 | 22.0% |
-| home_wins_decisive | 210 | 21.0% |
-| away_wins_decisive | 209 | 20.9% |
-| away_scv_play | 187 | 18.7% |
-| home_scv_play | 182 | 18.2% |
-| home_push_base | 178 | 17.8% |
-| marine_stalemate | 175 | 17.5% |
-| away_push_base | 154 | 15.4% |
-| center_grind | 135 | 13.5% |
+| home_wins_decisive | 228 | 22.8% |
+| home_marine_win | 226 | 22.6% |
+| away_marine_win | 217 | 21.7% |
+| home_scv_play | 194 | 19.4% |
+| away_scv_play | 193 | 19.3% |
+| away_wins_decisive | 192 | 19.2% |
+| marine_stalemate | 170 | 17.0% |
+| away_push_base | 165 | 16.5% |
+| home_push_base | 164 | 16.4% |
+| center_grind | 129 | 12.9% |

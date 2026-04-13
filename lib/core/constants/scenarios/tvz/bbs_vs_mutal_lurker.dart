@@ -118,7 +118,7 @@ const _tvzBbsVsMutalLurker = ScenarioScript(
               owner: LogOwner.home,
               homeResource: -100, awayArmy: -1,
               favorsStat: 'attack',
-              altText: '{home} 선수 벙커 착공! SCV가 적 병력에 쫓기고 있습니다!',
+              altText: '{home} 선수 벙커 건설 시작! SCV가 적 병력에 쫓기고 있습니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 성큰 건설로 방어선을 구축합니다.',

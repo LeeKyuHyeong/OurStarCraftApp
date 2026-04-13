@@ -57,7 +57,7 @@ const _tvtFdRushVs1barDouble = ScenarioScript(
           owner: LogOwner.home,
           homeResource: -100, // 머신샵 100
           fixedCost: true,
-          altText: '{home} 선수 머신샵 착공, 빠른 탱크 체제입니다.',
+          altText: '{home} 선수 머신샵을 올립니다, 빠른 탱크 체제입니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 확장이 가동됩니다. 가스를 올리고 팩토리를 준비합니다.',

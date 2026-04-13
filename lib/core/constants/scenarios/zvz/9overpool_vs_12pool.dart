@@ -38,7 +38,7 @@ const _zvz9overpoolVs12pool = ScenarioScript(
           text: '{home} 선수 오버로드 이후 스포닝풀 건설합니다.',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 스포닝풀 착공! 저글링이 곧 나옵니다.',
+          altText: '{home}, 스포닝풀 건설 시작! 저글링이 곧 나옵니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 12드론에 스포닝풀을 건설합니다.',

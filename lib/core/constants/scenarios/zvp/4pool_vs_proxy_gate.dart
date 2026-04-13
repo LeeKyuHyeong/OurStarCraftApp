@@ -19,7 +19,7 @@ const _zvp4poolVsProxyGate = ScenarioScript(
           text: '{home} 선수 드론 4마리에서 바로 스포닝풀을 올립니다!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 스포닝풀 착공! 극초반 올인 빌드!',
+          altText: '{home}, 스포닝풀 건설 시작! 극초반 올인 빌드!',
         ),
         ScriptEvent(
           text: '{away} 선수 프로브를 보내 전진 파일런과 게이트웨이를 건설합니다!',

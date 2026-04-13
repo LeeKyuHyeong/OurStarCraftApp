@@ -50,7 +50,7 @@ const _tvt1facDoubleMirror = ScenarioScript(
           owner: LogOwner.home,
           homeResource: -300,
           fixedCost: true,
-          altText: '{home} 선수 팩토리 착공, 가스 조절로 미네랄을 확보합니다.',
+          altText: '{home} 선수 팩토리 건설 시작, 가스 조절로 미네랄을 확보합니다.',
         ),
         ScriptEvent(
           text: '{away} 선수도 팩토리를 올리면서 가스 조절을 합니다.',
@@ -77,13 +77,13 @@ const _tvt1facDoubleMirror = ScenarioScript(
           text: '{home} 선수 머신샵을 건설합니다.',
           owner: LogOwner.home,
           fixedCost: true,
-          altText: '{home} 선수 머신샵 착공, 연구 선택이 관건입니다.',
+          altText: '{home} 선수 머신샵을 올립니다, 연구 선택이 관건입니다.',
         ),
         ScriptEvent(
           text: '{away} 선수도 머신샵을 건설합니다.',
           owner: LogOwner.away,
           fixedCost: true,
-          altText: '{away} 선수도 머신샵 착공.',
+          altText: '{away} 선수도 머신샵을 올립니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 앞마당에 커맨드센터를 건설합니다.',

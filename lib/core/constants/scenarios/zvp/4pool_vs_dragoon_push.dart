@@ -25,7 +25,7 @@ const _zvp4poolVsDragoonPush = ScenarioScript(
           text: '{away} 선수 게이트웨이를 건설하고 질럿 생산을 준비합니다.',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 게이트웨이 착공! 질럿을 빠르게 뽑으려 합니다!',
+          altText: '{away}, 게이트웨이 건설 시작! 질럿을 빠르게 뽑으려 합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링 6마리가 부화합니다!',

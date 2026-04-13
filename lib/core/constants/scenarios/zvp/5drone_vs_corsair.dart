@@ -19,7 +19,7 @@ const _zvp5droneVsCorsair = ScenarioScript(
           text: '{home} 선수 스포닝풀을 건설합니다! 9투 올인!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 스포닝풀 착공! 저글링 물량 러시를 노립니다!',
+          altText: '{home}, 스포닝풀 건설 시작! 저글링 물량 러시를 노립니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 사이버네틱스 코어를 올리고 스타게이트를 준비합니다.',
