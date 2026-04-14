@@ -40,6 +40,18 @@ flutter test --name "ZvZ" test/calibration_test.dart
 flutter test --name "TvT" test/all_scenarios_test.dart
 ```
 
+## Flutter 실행 환경 (Bash에서 실행 시 필수)
+
+Git Bash 환경에서 flutter 명령어 실행 시 반드시 아래 PATH를 먼저 설정해야 한다.
+flutter.bat이 내부적으로 `WHERE`(Windows CMD 전용)와 `PowerShell.exe`를 PATH에서 찾기 때문.
+
+```bash
+export PATH="$PATH:/c/flutter/bin:/c/Program Files/Git/bin:/c/Windows/System32:/c/Windows/System32/WindowsPowerShell/v1.0"
+```
+
+이 설정 없이 `flutter` 명령어를 실행하면 `WHERE not found` 또는 `PowerShell not found` 오류가 발생한다.
+**모든 flutter 명령어(test, analyze, run 등) 실행 전에 위 export를 반드시 앞에 붙일 것.**
+
 ## Architecture
 
 **Stack**: Flutter + Riverpod (상태관리) + Hive (로컬 저장) + GoRouter (라우팅)
