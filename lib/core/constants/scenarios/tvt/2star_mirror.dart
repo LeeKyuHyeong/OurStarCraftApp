@@ -171,18 +171,18 @@ const _tvt2starMirror = ScenarioScript(
           altText: '{away} 선수도 아카데미를 올립니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 커맨드센터에 코맷 스테이션을 올립니다.',
+          text: '{home} 선수 커맨드센터에 컴셋을 올립니다.',
           owner: LogOwner.home,
-          homeResource: -50, // 코맷 스테이션 50
+          homeResource: -50, // 컴셋 50
           fixedCost: true,
-          altText: '{home} 선수 코맷 스테이션 완성. 스캔 준비 됐습니다.',
+          altText: '{home} 선수 컴셋 완성. 스캔 준비 됐습니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수도 코맷 스테이션을 올립니다.',
+          text: '{away} 선수도 컴셋을 올립니다.',
           owner: LogOwner.away,
           awayResource: -50,
           fixedCost: true,
-          altText: '{away} 선수 코맷 스테이션. 스캔 체제 완성입니다.',
+          altText: '{away} 선수 컴셋. 스캔 체제 완성입니다.',
         ),
         ScriptEvent(
           text: '양 선수 모두 스캔 체제를 갖춰갑니다. 클로킹 타이밍과의 레이스입니다.',

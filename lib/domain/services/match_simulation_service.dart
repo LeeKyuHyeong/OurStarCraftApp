@@ -3025,7 +3025,7 @@ class MatchSimulationService {
       return '${text.substring(0, text.length - 4)}$ending';
     }
     if (text.endsWith('합니다!')) {
-      final endings = ['하죠!!', '한데요!', '합니다!', '하네요!'];
+      final endings = ['하죠!!', '하는데요!', '합니다!', '하네요!'];
       final ending = endings[_random.nextInt(endings.length)];
       return '${text.substring(0, text.length - 4)}$ending';
     }
