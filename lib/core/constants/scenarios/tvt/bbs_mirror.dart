@@ -2,7 +2,7 @@ part of '../../scenario_scripts.dart';
 
 // ----------------------------------------------------------
 // BBS 미러 (치즈 미러)
-// 양쪽 센터+본진 배럭 → 마린 SCV 컨트롤 싸움
+// 양쪽 센터 2배럭 → 마린 SCV 컨트롤 싸움
 // BBS 미러는 벙커를 짓기 애매 (서로 정찰로 확인됨)
 // 순수 마린+SCV 교전으로 승부가 결정됨
 // ----------------------------------------------------------
@@ -33,18 +33,18 @@ const _tvtBbsMirror = ScenarioScript(
           altText: '양쪽 센터에 배럭이 올라갑니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 본진에도 배럭을 올립니다. {away} 선수도 본진 배럭.',
+          text: '{home} 선수 센터에 두 번째 배럭을 올립니다. {away} 선수도 센터에 두 번째 배럭.',
           owner: LogOwner.system,
-          homeResource: -150, // 본진 배럭
+          homeResource: -150, // 센터 두 번째 배럭
           awayResource: -150,
           fixedCost: true,
-          altText: '양쪽 본진에도 배럭이 올라갑니다.',
+          altText: '양쪽 센터에 두 번째 배럭이 올라갑니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 SCV 정찰이 상대 본진에 도착합니다. 배럭 두 개 확인!',
+          text: '{home} 선수 SCV 정찰이 센터에서 상대 배럭 두 개를 확인합니다!',
           owner: LogOwner.home,
           favorsStat: 'scout',
-          altText: '{home} 선수 상대 본진을 확인합니다. 배럭이 두 개입니다!',
+          altText: '{home} 선수 센터를 지나가다 상대 배럭 두 개를 발견합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수도 정찰 SCV로 확인합니다. 상대도 배럭 두 개!',

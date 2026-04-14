@@ -42,7 +42,7 @@ const _tvtBbsVs2facPush = ScenarioScript(
           altText: '{away} 선수 팩토리 두 개를 올립니다. 벌처 물량으로 승부합니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 본진에도 배럭 건설. 배럭을 두 개 올립니다.',
+          text: '{home} 선수 센터에 두 번째 배럭 건설. 센터 배럭 두 개입니다.',
           owner: LogOwner.home,
           homeResource: -150, // 배럭
           fixedCost: true,

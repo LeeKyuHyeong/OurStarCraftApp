@@ -36,11 +36,11 @@ const _tvtFdRushVsBbs = ScenarioScript(
           altText: '{home} 선수 리파이너리 건설, 마린 연속 생산입니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수 센터와 본진에 배럭 건설. 배럭을 두 개 올립니다.',
+          text: '{away} 선수 센터에 배럭 두 개 건설. 센터 배럭 두 개입니다.',
           owner: LogOwner.away,
           awayResource: -300, // 배럭 x2 (150+150)
           fixedCost: true,
-          altText: '{away} 선수 센터 배럭, 본진 배럭. 마린에 올인하네요!',
+          altText: '{away} 선수 센터 배럭 두 개. 마린에 올인하네요!',
         ),
         ScriptEvent(
           text: '{home} 선수 팩토리 건설. 마린은 계속 생산합니다.',

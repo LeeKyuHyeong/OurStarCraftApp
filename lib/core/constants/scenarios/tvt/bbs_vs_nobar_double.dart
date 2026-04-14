@@ -40,7 +40,7 @@ const _tvtBbsVsNobarDouble = ScenarioScript(
           owner: LogOwner.system,
         ),
         ScriptEvent(
-          text: '{home} 선수 본진에도 배럭 건설. 배럭을 두 개 올립니다. 초반에 승부를 보겠다는 거죠.',
+          text: '{home} 선수 센터에 두 번째 배럭 건설. 센터 배럭 두 개입니다. 초반에 승부를 보겠다는 거죠.',
           owner: LogOwner.home,
           homeResource: -150, // 배럭
           fixedCost: true,
@@ -53,7 +53,7 @@ const _tvtBbsVsNobarDouble = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{home} 선수 마린이 모이고 있습니다. 센터배럭 3기, 본진 2기.',
+          text: '{home} 선수 센터 배럭 두 개에서 마린이 빠르게 모이고 있습니다.',
           owner: LogOwner.home,
           homeArmy: 5, // 마린 5기 (1sup each)
           homeResource: -250, // 마린 5기 (50x5)

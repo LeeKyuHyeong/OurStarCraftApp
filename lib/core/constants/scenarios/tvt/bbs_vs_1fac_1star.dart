@@ -42,7 +42,7 @@ const _tvtBbsVs1fac1star = ScenarioScript(
           altText: '{away} 선수 팩토리가 올라갑니다. 기계화 유닛을 노리네요.',
         ),
         ScriptEvent(
-          text: '{home} 선수 본진에도 배럭 건설. 배럭을 두 개 올립니다.',
+          text: '{home} 선수 센터에 두 번째 배럭 건설. 센터 배럭 두 개입니다.',
           owner: LogOwner.home,
           homeResource: -150, // 배럭
           fixedCost: true,
