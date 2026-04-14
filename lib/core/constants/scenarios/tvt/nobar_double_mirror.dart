@@ -1091,6 +1091,255 @@ const _tvtNobarDoubleMirror = ScenarioScript(
         ),
       ],
     ),
+    // ── Phase 8.5: 배틀크루저 전환 (lines 89-92) ── 희박한 장기전 분기
+    ScriptPhase(
+      name: 'battlecruiser_war',
+      startLine: 89,
+      recoveryArmyPerLine: 3,
+      recoveryResourcePerLine: 300,
+      branches: [
+        // 홈 먼저 배틀크루저 완성 → 야마토로 탱크 점진 제거
+        ScriptBranch(
+          id: 'home_bc_first',
+          description: '홈 배틀크루저 먼저 완성, 야마토로 탱크 라인 붕괴 decisive',
+          baseProbability: 0.08,
+          conditionStat: 'macro',
+          homeStatMustBeHigher: true,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 사이언스 퍼실리티를 건설합니다. 피직스 랩까지 달아놓습니다.',
+              owner: LogOwner.home,
+              homeResource: -300,
+              fixedCost: true,
+              altText: '{home} 선수 사이언스 퍼실리티 건설, 장기전 준비 완료입니다.',
+            ),
+            ScriptEvent(
+              text: '이 장기전, 끝이 보이질 않습니다!',
+              owner: LogOwner.system,
+              altText: '노배럭더블의 극한 장기전! 아직도 더 남았습니다.',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 배틀크루저 완성! {away} 선수보다 한발 앞섰습니다!',
+              owner: LogOwner.home,
+              homeArmy: 6,
+              altText: '{home} 선수 배틀크루저가 나왔습니다! 먼저 뽑았습니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 야마토 충전, 상대 탱크를 조준합니다!',
+              owner: LogOwner.home,
+              favorsStat: 'control',
+            ),
+            ScriptEvent(
+              text: '야마토 발사! 상대 시즈탱크 한 대가 터집니다!',
+              owner: LogOwner.system,
+              awayArmy: -3,
+              altText: '야마토 명중! 상대 탱크가 한 방에 폭발합니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 계속 야마토! 탱크가 하나씩 사라집니다!',
+              owner: LogOwner.home,
+              awayArmy: -3,
+              favorsStat: 'control',
+              altText: '{home} 선수 야마토를 연속으로 사용합니다! 탱크 라인이 줄어들고 있습니다!',
+            ),
+            ScriptEvent(
+              text: '탱크 수가 줄어들면서 {away} 선수 라인이 흔들리기 시작합니다.',
+              owner: LogOwner.system,
+              altText: '{away} 선수 탱크가 계속 터집니다! 라인 유지가 점점 어렵습니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 지상 병력도 전진! 배틀크루저와 함께 밀어붙입니다!',
+              owner: LogOwner.home,
+              decisive: true,
+              altText: '{home} 선수 배틀크루저와 지상 병력이 동시에 쏟아집니다!',
+            ),
+          ],
+        ),
+        // 어웨이 먼저 배틀크루저 완성 → 야마토로 탱크 점진 제거
+        ScriptBranch(
+          id: 'away_bc_first',
+          description: '어웨이 배틀크루저 먼저 완성, 야마토로 탱크 라인 붕괴 decisive',
+          baseProbability: 0.08,
+          conditionStat: 'macro',
+          homeStatMustBeHigher: false,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 사이언스 퍼실리티를 건설합니다. 피직스 랩까지 달아놓습니다.',
+              owner: LogOwner.away,
+              awayResource: -300,
+              fixedCost: true,
+              altText: '{away} 선수 사이언스 퍼실리티 건설, 장기전 준비 완료입니다.',
+            ),
+            ScriptEvent(
+              text: '이 장기전, 끝이 보이질 않습니다!',
+              owner: LogOwner.system,
+              altText: '노배럭더블의 극한 장기전! 아직도 더 남았습니다.',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 배틀크루저 완성! {home} 선수보다 한발 앞섰습니다!',
+              owner: LogOwner.away,
+              awayArmy: 6,
+              altText: '{away} 선수 배틀크루저가 나왔습니다! 먼저 뽑았습니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 야마토 충전, 상대 탱크를 조준합니다!',
+              owner: LogOwner.away,
+              favorsStat: 'control',
+            ),
+            ScriptEvent(
+              text: '야마토 발사! 상대 시즈탱크 한 대가 터집니다!',
+              owner: LogOwner.system,
+              homeArmy: -3,
+              altText: '야마토 명중! 상대 탱크가 한 방에 폭발합니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 계속 야마토! 탱크가 하나씩 사라집니다!',
+              owner: LogOwner.away,
+              homeArmy: -3,
+              favorsStat: 'control',
+              altText: '{away} 선수 야마토를 연속으로 사용합니다! 탱크 라인이 줄어들고 있습니다!',
+            ),
+            ScriptEvent(
+              text: '탱크 수가 줄어들면서 {home} 선수 라인이 흔들리기 시작합니다.',
+              owner: LogOwner.system,
+              altText: '{home} 선수 탱크가 계속 터집니다! 라인 유지가 점점 어렵습니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 지상 병력도 전진! 배틀크루저와 함께 밀어붙입니다!',
+              owner: LogOwner.away,
+              decisive: true,
+              altText: '{away} 선수 배틀크루저와 지상 병력이 동시에 쏟아집니다!',
+            ),
+          ],
+        ),
+        // 양측 배틀크루저 동시 등장 → 야마토 교환 → 홈 승리
+        ScriptBranch(
+          id: 'bc_home_wins',
+          description: '양측 배틀크루저 등장, 야마토 교환 후 홈 승리 decisive',
+          baseProbability: 0.06,
+          conditionStat: 'control',
+          homeStatMustBeHigher: true,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 사이언스 퍼실리티를 건설합니다.',
+              owner: LogOwner.home,
+              homeResource: -250,
+              fixedCost: true,
+            ),
+            ScriptEvent(
+              text: '{away} 선수도 사이언스 퍼실리티! 눈치를 챘습니다!',
+              owner: LogOwner.away,
+              awayResource: -250,
+              fixedCost: true,
+            ),
+            ScriptEvent(
+              text: '양측 배틀크루저를 준비하고 있습니다! 이 경기, 끝까지 갑니다!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 배틀크루저 완성!',
+              owner: LogOwner.home,
+              homeArmy: 6,
+            ),
+            ScriptEvent(
+              text: '{away} 선수도 배틀크루저 완성! 거의 동시입니다!',
+              owner: LogOwner.away,
+              awayArmy: 6,
+            ),
+            ScriptEvent(
+              text: '배틀크루저 vs 배틀크루저! 공중전이 시작됩니다!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 야마토 발사! 상대 배틀크루저에 명중!',
+              owner: LogOwner.home,
+              awayArmy: -6,
+              favorsStat: 'control',
+            ),
+            ScriptEvent(
+              text: '{away} 선수도 야마토! {home} 배틀크루저에 직격!',
+              owner: LogOwner.away,
+              homeArmy: -6,
+              favorsStat: 'control',
+            ),
+            ScriptEvent(
+              text: '야마토 교환! 양측 배틀크루저가 크게 흔들립니다!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 배틀크루저 수에서 앞서기 시작합니다! 추가 야마토!',
+              owner: LogOwner.home,
+              awayArmy: -4,
+              decisive: true,
+              altText: '{home} 선수 배틀크루저가 남습니다! 야마토 한 방 더!',
+            ),
+          ],
+        ),
+        // 양측 배틀크루저 동시 등장 → 야마토 교환 → 어웨이 승리
+        ScriptBranch(
+          id: 'bc_away_wins',
+          description: '양측 배틀크루저 등장, 야마토 교환 후 어웨이 승리 decisive',
+          baseProbability: 0.06,
+          conditionStat: 'control',
+          homeStatMustBeHigher: false,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 사이언스 퍼실리티를 건설합니다.',
+              owner: LogOwner.home,
+              homeResource: -250,
+              fixedCost: true,
+            ),
+            ScriptEvent(
+              text: '{away} 선수도 사이언스 퍼실리티! 눈치를 챘습니다!',
+              owner: LogOwner.away,
+              awayResource: -250,
+              fixedCost: true,
+            ),
+            ScriptEvent(
+              text: '양측 배틀크루저를 준비하고 있습니다! 이 경기, 끝까지 갑니다!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 배틀크루저 완성!',
+              owner: LogOwner.home,
+              homeArmy: 6,
+            ),
+            ScriptEvent(
+              text: '{away} 선수도 배틀크루저 완성! 거의 동시입니다!',
+              owner: LogOwner.away,
+              awayArmy: 6,
+            ),
+            ScriptEvent(
+              text: '배틀크루저 vs 배틀크루저! 공중전이 시작됩니다!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{home} 선수 야마토 발사! 상대 배틀크루저에 명중!',
+              owner: LogOwner.home,
+              awayArmy: -6,
+              favorsStat: 'control',
+            ),
+            ScriptEvent(
+              text: '{away} 선수도 야마토! {home} 배틀크루저에 직격!',
+              owner: LogOwner.away,
+              homeArmy: -6,
+              favorsStat: 'control',
+            ),
+            ScriptEvent(
+              text: '야마토 교환! 양측 배틀크루저가 크게 흔들립니다!',
+              owner: LogOwner.system,
+            ),
+            ScriptEvent(
+              text: '{away} 선수 배틀크루저 수에서 앞서기 시작합니다! 추가 야마토!',
+              owner: LogOwner.away,
+              homeArmy: -4,
+              decisive: true,
+              altText: '{away} 선수 배틀크루저가 남습니다! 야마토 한 방 더!',
+            ),
+          ],
+        ),
+      ],
+    ),
     // ── Phase 9: 드랍 운영 분기 (lines 92-110) ── recovery 200/줄
     ScriptPhase(
       name: 'drop_warfare',
