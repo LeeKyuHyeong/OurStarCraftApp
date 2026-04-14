@@ -171,18 +171,18 @@ const _tvt2starMirror = ScenarioScript(
           altText: '{away} 선수도 아카데미를 올립니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 커맨드센터에 컴셋을 올립니다.',
+          text: '{home} 선수 커맨드센터에 컴샛을 올립니다.',
           owner: LogOwner.home,
-          homeResource: -50, // 컴셋 50
+          homeResource: -50, // 컴샛 50
           fixedCost: true,
-          altText: '{home} 선수 컴셋 완성. 스캔 준비 됐습니다.',
+          altText: '{home} 선수 컴샛 완성. 스캔 준비 됐습니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수도 컴셋을 올립니다.',
+          text: '{away} 선수도 컴샛을 올립니다.',
           owner: LogOwner.away,
           awayResource: -50,
           fixedCost: true,
-          altText: '{away} 선수 컴셋. 스캔 체제 완성입니다.',
+          altText: '{away} 선수 컴샛. 스캔 체제 완성입니다.',
         ),
         ScriptEvent(
           text: '양 선수 모두 스캔 체제를 갖춰갑니다. 클로킹 타이밍과의 레이스입니다.',
@@ -205,6 +205,7 @@ const _tvt2starMirror = ScenarioScript(
         // ── 분기 1: 양쪽 스캔 준비 완료, 비등한 교환 후 지상 전환 (가장 빈번)
         ScriptBranch(
           id: 'both_scan_even',
+          description: '양쪽 스캔 비등 교환 → 지상 전환',
           baseProbability: 1.5,
           events: [
             ScriptEvent(
@@ -238,6 +239,7 @@ const _tvt2starMirror = ScenarioScript(
         // ── 분기 2a: 홈 컨트롤/센스 우위, 약간의 레이스 교환 차이
         ScriptBranch(
           id: 'home_scan_edge',
+          description: '홈 스캔·컨트롤 우위로 레이스 교전 앞섬',
           baseProbability: 0.7,
           conditionStat: 'sense',
           homeStatMustBeHigher: true,
@@ -267,6 +269,7 @@ const _tvt2starMirror = ScenarioScript(
         // ── 분기 2b: 어웨이 컨트롤/센스 우위
         ScriptBranch(
           id: 'away_scan_edge',
+          description: '어웨이 스캔·컨트롤 우위로 레이스 교전 앞섬',
           baseProbability: 0.7,
           conditionStat: 'sense',
           homeStatMustBeHigher: false,
@@ -296,6 +299,7 @@ const _tvt2starMirror = ScenarioScript(
         // ── 분기 3a: 홈이 스캔 실수/긴장으로 미달성 → 클로킹 레이스에 크게 밀림
         ScriptBranch(
           id: 'home_no_scan',
+          description: '홈 스캔 실수 → 클로킹 레이스에 크게 밀림',
           baseProbability: 0.5,
           conditionStat: 'sense',
           homeStatMustBeHigher: false,
@@ -324,6 +328,7 @@ const _tvt2starMirror = ScenarioScript(
         // ── 분기 3b: 어웨이가 스캔 실수/긴장으로 미달성
         ScriptBranch(
           id: 'away_no_scan',
+          description: '어웨이 스캔 실수 → 클로킹 레이스에 크게 밀림',
           baseProbability: 0.5,
           conditionStat: 'sense',
           homeStatMustBeHigher: true,
@@ -460,6 +465,7 @@ const _tvt2starMirror = ScenarioScript(
         // 비등 - 양쪽 라인 유지 (가장 빈번)
         ScriptBranch(
           id: 'tank_even',
+          description: '탱크·골리앗 라인 비등 대치',
           baseProbability: 1.5,
           events: [
             ScriptEvent(
@@ -503,6 +509,7 @@ const _tvt2starMirror = ScenarioScript(
         // 홈 탱크 푸시 (레이스 우위 → 시야 확보 → 시즈 전진)
         ScriptBranch(
           id: 'home_tank_push',
+          description: '홈 레이스 시야 확보 후 시즈 라인 전진',
           baseProbability: 0.5,
           conditionStat: 'attack',
           events: [
@@ -535,6 +542,7 @@ const _tvt2starMirror = ScenarioScript(
         // 어웨이 탱크 푸시
         ScriptBranch(
           id: 'away_tank_push',
+          description: '어웨이 레이스 시야 확보 후 시즈 라인 전진',
           baseProbability: 0.5,
           conditionStat: 'attack',
           events: [
@@ -576,6 +584,7 @@ const _tvt2starMirror = ScenarioScript(
         // 동시 확장 (가장 빈번)
         ScriptBranch(
           id: 'both_expand',
+          description: '양쪽 동시 앞마당 확장',
           baseProbability: 1.5,
           events: [
             ScriptEvent(
@@ -619,6 +628,7 @@ const _tvt2starMirror = ScenarioScript(
         // 홈 빠른 확장 (자원 우위 노림)
         ScriptBranch(
           id: 'home_fast_expand',
+          description: '홈 선 확장 → 어웨이 병력 압박 대응',
           baseProbability: 0.7,
           conditionStat: 'macro',
           events: [
@@ -657,6 +667,7 @@ const _tvt2starMirror = ScenarioScript(
         // 어웨이 빠른 확장
         ScriptBranch(
           id: 'away_fast_expand',
+          description: '어웨이 선 확장 → 홈 병력 압박 대응',
           baseProbability: 0.7,
           conditionStat: 'macro',
           events: [
@@ -695,6 +706,7 @@ const _tvt2starMirror = ScenarioScript(
         // 홈 확장 스킵 공격 (올인)
         ScriptBranch(
           id: 'home_skip_expand_attack',
+          description: '홈 확장 포기 후 탱크 올인 공격',
           baseProbability: 0.4,
           conditionStat: 'attack',
           events: [
@@ -726,6 +738,7 @@ const _tvt2starMirror = ScenarioScript(
         // 어웨이 확장 스킵 공격 (올인)
         ScriptBranch(
           id: 'away_skip_expand_attack',
+          description: '어웨이 확장 포기 후 탱크 올인 공격',
           baseProbability: 0.4,
           conditionStat: 'attack',
           events: [
@@ -850,6 +863,7 @@ const _tvt2starMirror = ScenarioScript(
         // 게릴라 드랍 (가장 빈번, 자잘한 피해)
         ScriptBranch(
           id: 'guerrilla',
+          description: '드랍십 맞견제 게릴라전',
           baseProbability: 1.2,
           events: [
             ScriptEvent(
@@ -897,6 +911,7 @@ const _tvt2starMirror = ScenarioScript(
         // 마무리 드랍 (유리한 쪽이 드랍과 정면 동시)
         ScriptBranch(
           id: 'finishing',
+          description: '홈 드랍+정면 동시 다방면 마무리 공격',
           baseProbability: 0.7,
           conditionStat: 'strategy',
           events: [
@@ -928,6 +943,7 @@ const _tvt2starMirror = ScenarioScript(
         // 정면 돌파 (드랍 없이 탱크 물량 밀어붙이기)
         ScriptBranch(
           id: 'frontal',
+          description: '탱크 물량 정면 돌파',
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -963,6 +979,7 @@ const _tvt2starMirror = ScenarioScript(
         // 역전 드랍 (불리한 쪽 승부수)
         ScriptBranch(
           id: 'desperate',
+          description: '어웨이 불리한 상황에서 역전 드랍 승부수',
           baseProbability: 0.6,
           events: [
             ScriptEvent(
@@ -1007,6 +1024,7 @@ const _tvt2starMirror = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'home_wins_decisive',
+          description: '홈 최종 결전 승리',
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -1019,6 +1037,7 @@ const _tvt2starMirror = ScenarioScript(
         ),
         ScriptBranch(
           id: 'away_wins_decisive',
+          description: '어웨이 최종 결전 승리',
           baseProbability: 1.0,
           events: [
             ScriptEvent(

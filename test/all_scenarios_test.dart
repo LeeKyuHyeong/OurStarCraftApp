@@ -262,6 +262,7 @@ void main() {
         List<int> homeFinalArmy = [], awayFinalArmy = [];
         Set<String> uniqueTexts = {};
         final branchCounts = <String, int>{};
+        final branchDescMap = <String, String>{}; // ID → 한국어 설명 누적
 
         for (int i = 0; i < totalGames; i++) {
           final service = MatchSimulationService();
@@ -285,6 +286,9 @@ void main() {
           for (final bid in state.selectedBranchIds) {
             branchCounts[bid] = (branchCounts[bid] ?? 0) + 1;
           }
+          state.branchDescriptions.forEach((id, desc) {
+            branchDescMap[id] = desc;
+          });
         }
 
         final homeWinRate = (homeWins / totalGames * 100).toStringAsFixed(1);
@@ -316,12 +320,13 @@ void main() {
           buf.writeln();
           buf.writeln('## 분기 분포');
           buf.writeln();
-          buf.writeln('| 분기 ID | 발동 | 비율 |');
-          buf.writeln('|---------|------|------|');
+          buf.writeln('| 분기 ID | 분기 설명 | 발동 | 비율 |');
+          buf.writeln('|---------|----------|------|------|');
           final sorted = branchCounts.entries.toList()
             ..sort((a, b) => b.value.compareTo(a.value));
           for (final e in sorted) {
-            buf.writeln('| ${e.key} | ${e.value} | ${(e.value / totalGames * 100).toStringAsFixed(1)}% |');
+            final desc = branchDescMap[e.key] ?? '';
+            buf.writeln('| ${e.key} | $desc | ${e.value} | ${(e.value / totalGames * 100).toStringAsFixed(1)}% |');
           }
         }
 

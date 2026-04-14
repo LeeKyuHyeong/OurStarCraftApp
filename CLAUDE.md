@@ -279,7 +279,7 @@ ScenarioScript
 | Control Tower | `컨트롤타워` | 붙여쓰기 |
 | Science Facility | `사이언스 퍼실리티` | |
 | Nuclear Silo | `뉴클리어` | |
-| Comsat Station | `컴셋` | ~~코맷 스테이션~~ 사용 금지 |
+| Comsat Station | `컴샛` | ~~코맷 스테이션~~ 사용 금지 |
 
 #### 프로토스
 | 건물 | 표기 | 비고 |

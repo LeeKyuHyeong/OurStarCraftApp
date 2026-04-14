@@ -32,36 +32,34 @@ const _tvtFdRushMirror = ScenarioScript(
           altText: '{away} 선수도 배럭을 올립니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 가스를 올리고 마린을 계속 뽑습니다.',
+          text: '{home} 선수 배럭에 이어 리파이너리를 올립니다.',
           owner: LogOwner.home,
           homeResource: -100, // 리파이너리 100
-          homeArmy: 2, // 마린 생산 시작
           fixedCost: true,
-          altText: '{home} 선수 리파이너리 건설, 마린 생산이 계속됩니다.',
+          altText: '{home} 선수 가스를 올립니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수도 가스를 올리고 마린을 뽑습니다.',
+          text: '{away} 선수도 리파이너리를 올립니다.',
           owner: LogOwner.away,
           awayResource: -100,
-          awayArmy: 2,
           fixedCost: true,
-          altText: '{away} 선수도 리파이너리, 마린 연속 생산.',
+          altText: '{away} 선수도 가스를 올립니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 팩토리 건설. 마린은 계속 생산합니다.',
+          text: '{home} 선수 배럭이 완성됩니다. 마린 생산을 시작하며 팩토리도 올립니다.',
           owner: LogOwner.home,
           homeResource: -300, // 팩토리 300
-          homeArmy: 2, // 마린 추가
+          homeArmy: 4, // 배럭 완성분 마린 + 팩토리 건설
           fixedCost: true,
-          altText: '{home} 선수 팩토리를 올리면서 마린을 모읍니다.',
+          altText: '{home} 선수 배럭 완성, 마린을 뽑으면서 팩토리를 올립니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수도 팩토리를 올립니다. 마린도 계속 생산.',
+          text: '{away} 선수도 배럭이 완성됩니다. 마린 생산과 팩토리 건설을 동시에 진행합니다.',
           owner: LogOwner.away,
           awayResource: -300,
-          awayArmy: 2,
+          awayArmy: 4,
           fixedCost: true,
-          altText: '{away} 선수도 팩토리 건설, 마린 물량이 늘어납니다.',
+          altText: '{away} 선수도 배럭 완성, 마린과 팩토리 동시 진행.',
         ),
         ScriptEvent(
           text: '{home} 선수 머신샵 부착. 벌처를 건너뛰고 바로 탱크를 노립니다.',
@@ -80,7 +78,7 @@ const _tvtFdRushMirror = ScenarioScript(
         ScriptEvent(
           text: '마린을 모으면서 팩토리 머신샵까지, 컨트롤 싸움이 중요하겠습니다.',
           owner: LogOwner.system,
-          altText: '벌처를 건너뛰고 바로 탱크, 마린과 함께 밀겠다는 빌드입니다.',
+          altText: '벌처를 건너뛰고 바로 탱크, 마린과 함께 압박하겠다는 빌드입니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 탱크 생산과 시즈모드 연구를 동시에 시작합니다.',
@@ -106,7 +104,7 @@ const _tvtFdRushMirror = ScenarioScript(
       recoveryResourcePerLine: 150,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 시즈모드 완료! 마린 6기와 탱크를 앞세워 전진합니다!',
+          text: '{home} 선수 시즈모드 완료! 마린 다수와 탱크를 앞세워 전진합니다!',
           owner: LogOwner.home,
           homeArmy: 2, // 마린 추가 완성분
           favorsStat: 'attack',
@@ -152,110 +150,161 @@ const _tvtFdRushMirror = ScenarioScript(
         ),
       ],
     ),
-    // ── Phase 2: 시즈 대치 분기 (lines 22-32) ── recovery 150/줄
+    // ── Phase 2: 압박 결과 분기 (lines 22-32) ── recovery 150/줄
     ScriptPhase(
-      name: 'siege_standoff',
+      name: 'push_result',
       startLine: 22,
       recoveryArmyPerLine: 1,
       recoveryResourcePerLine: 150,
       branches: [
-        // 분기 A: 홈 고지 선점
+        // 분기 A: 비등 교전 → 탱크 생존, 각자 귀환
         ScriptBranch(
-          id: 'home_high_ground',
-          baseProbability: 1.0,
+          id: 'push_even',
+          description: '비등 교전, 마린 소모 후 탱크 살려 귀환',
+          baseProbability: 1.5,
           events: [
             ScriptEvent(
-              text: '{home} 선수 고지를 먼저 잡았습니다! 시즈 모드!',
-              owner: LogOwner.home,
-              homeArmy: 2, homeResource: -250, // 탱크 추가
-              fixedCost: true,
-              favorsStat: 'control',
-              altText: '{home} 선수 고지 선점! 시즈 화력이 내려다봅니다!',
-            ),
-            ScriptEvent(
-              text: '{away} 선수 아래에서 시즈를 잡지만 사거리가 불리합니다.',
-              owner: LogOwner.away,
-              awayArmy: -2, homeArmy: -2, // 탱크 교전
-              altText: '{away} 선수 저지대에서 시즈 모드, 사거리 열세입니다.',
-            ),
-            ScriptEvent(
-              text: '{home} 선수 시즈 포격! 상대 탱크를 직격합니다!',
-              owner: LogOwner.home,
-              awayArmy: -2,
-              favorsStat: 'attack',
-              altText: '{home} 선수 고지 시즈 포격! 상대 탱크가 폭발합니다!',
-            ),
-            ScriptEvent(
-              text: '고지 선점 차이! 시즈 대결에서 위치가 결정적입니다.',
+              text: '센터에서 양측 병력이 맞붙습니다! 치열한 교환이 일어납니다.',
               owner: LogOwner.system,
-              altText: '고지를 먼저 잡은 차이가 크게 벌어지고 있습니다.',
-            ),
-          ],
-        ),
-        // 분기 B: 어웨이 고지 선점
-        ScriptBranch(
-          id: 'away_high_ground',
-          baseProbability: 1.0,
-          events: [
-            ScriptEvent(
-              text: '{away} 선수 고지를 먼저 잡았습니다! 시즈 모드!',
-              owner: LogOwner.away,
-              awayArmy: 2, awayResource: -250,
-              fixedCost: true,
-              favorsStat: 'control',
-              altText: '{away} 선수 고지 선점! 시즈 사거리 우위!',
+              altText: '양쪽 병력이 센터에서 충돌합니다, 손실이 발생합니다.',
             ),
             ScriptEvent(
-              text: '{home} 선수 아래에서 올려다보는 형국, 불리합니다.',
+              text: '{home} 선수 마린이 집중 사격, 상대 마린을 처리하지만 손실도 있습니다.',
               owner: LogOwner.home,
               homeArmy: -2, awayArmy: -2,
-              altText: '{home} 선수 저지대에서 시즈, 화력이 불리합니다.',
+              favorsStat: 'control',
+              altText: '{home} 선수 마린 교환, 피해가 양쪽에 발생합니다.',
             ),
             ScriptEvent(
-              text: '{away} 선수 고지에서 포격! 상대 탱크를 맞춥니다!',
+              text: '{away} 선수도 마린으로 맞대응, 비슷한 손실입니다.',
               owner: LogOwner.away,
-              homeArmy: -2,
-              favorsStat: 'attack',
-              altText: '{away} 선수 고지 시즈! 상대 탱크가 무너집니다!',
+              homeArmy: -2, awayArmy: -2,
+              favorsStat: 'control',
+              altText: '{away} 선수 마린 집중 사격, 양쪽 피해가 엇비슷합니다.',
             ),
             ScriptEvent(
-              text: '고지 선점! 한 발 빠른 배치가 판도를 가릅니다.',
+              text: '탱크는 양쪽 모두 살아남았습니다, 각자 귀환하며 재정비합니다.',
               owner: LogOwner.system,
-              altText: '위치 선점 차이로 전세가 기울고 있습니다.',
+              skipChance: 0.2,
+              altText: '마린 소모전 이후 탱크는 생존, 대치 국면이 이어집니다.',
             ),
           ],
         ),
-        // 분기 C: 양쪽 교착
+        // 분기 B: 홈 컨트롤 우위 → 어웨이 탱크 제거
         ScriptBranch(
-          id: 'siege_stalemate',
+          id: 'home_push_edge',
+          description: '홈 컨트롤 우위, 어웨이 탱크 제거',
           baseProbability: 0.8,
+          conditionStat: 'control',
+          homeStatMustBeHigher: true,
           events: [
             ScriptEvent(
-              text: '양쪽 탱크가 비슷한 거리에서 시즈를 잡습니다, 교착 상태입니다.',
-              owner: LogOwner.system,
-              altText: '양측 탱크 대치, 시즈 사거리가 맞물립니다.',
-            ),
-            ScriptEvent(
-              text: '{home} 선수 벌처를 생산해 우회를 시도합니다.',
+              text: '{home} 선수 마린 컨트롤이 예리합니다! 상대 마린을 효율적으로 처리합니다.',
               owner: LogOwner.home,
-              homeArmy: 2, homeResource: -75, // 벌처 75/2sup
-              fixedCost: true,
-              favorsStat: 'harass',
-              altText: '{home} 선수 벌처 추가, 옆길로 돌아갑니다.',
+              awayArmy: -2, homeArmy: -1,
+              favorsStat: 'control',
+              altText: '{home} 선수 마린 컨트롤 우위, 상대보다 효율적입니다.',
             ),
             ScriptEvent(
-              text: '{away} 선수도 벌처로 대응, 마인을 매설합니다.',
-              owner: LogOwner.away,
-              awayArmy: 2, awayResource: -75,
-              fixedCost: true,
-              favorsStat: 'defense',
-              altText: '{away} 선수 벌처 마인 매설, 우회 경로를 차단합니다.',
+              text: '{home} 선수 남은 마린으로 탱크 사거리를 잡아냅니다! {away} 선수 탱크가 위험합니다!',
+              owner: LogOwner.home,
+              awayArmy: -3, homeArmy: -1,
+              favorsStat: 'control',
+              altText: '{home} 선수 마린을 이용해 탱크를 잡아냅니다!',
             ),
             ScriptEvent(
-              text: '시즈 교착! 누가 먼저 실수하느냐가 관건입니다.',
+              text: '초반 교전에서 탱크 한 대를 잡아냈습니다, {home} 선수가 유리해졌습니다.',
               owner: LogOwner.system,
-              skipChance: 0.2,
-              altText: '교착 상태가 길어집니다, 집중력 싸움입니다.',
+              altText: '{home} 선수 컨트롤로 상대 탱크를 제거, 교전 우위를 가져갑니다.',
+            ),
+          ],
+        ),
+        // 분기 C: 어웨이 컨트롤 우위 → 홈 탱크 제거
+        ScriptBranch(
+          id: 'away_push_edge',
+          description: '어웨이 컨트롤 우위, 홈 탱크 제거',
+          baseProbability: 0.8,
+          conditionStat: 'control',
+          homeStatMustBeHigher: false,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 마린 컨트롤이 한 수 위입니다! 상대 마린을 빠르게 처리합니다.',
+              owner: LogOwner.away,
+              homeArmy: -2, awayArmy: -1,
+              favorsStat: 'control',
+              altText: '{away} 선수 컨트롤 우위, 마린 교환에서 앞섭니다.',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 마린으로 탱크를 잡아냅니다! {home} 선수 탱크가 터집니다!',
+              owner: LogOwner.away,
+              homeArmy: -3, awayArmy: -1,
+              favorsStat: 'control',
+              altText: '{away} 선수 탱크를 노려 잡아냅니다!',
+            ),
+            ScriptEvent(
+              text: '탱크 한 대 차이! {away} 선수가 초반 교전을 가져갑니다.',
+              owner: LogOwner.system,
+              altText: '{away} 선수 컨트롤로 {home} 선수 탱크를 제거, 전세가 기울었습니다.',
+            ),
+          ],
+        ),
+        // 분기 D: 홈 압도 → 어웨이 병력 괴멸 + 앞마당 취소
+        ScriptBranch(
+          id: 'home_push_dominates',
+          description: '홈 압도, 어웨이 병력 괴멸 및 앞마당 취소',
+          baseProbability: 0.5,
+          conditionStat: 'control',
+          homeStatMustBeHigher: true,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 마린 컨트롤이 압도적입니다! 상대 병력이 무너지기 시작합니다!',
+              owner: LogOwner.home,
+              awayArmy: -3, homeArmy: -1,
+              favorsStat: 'control',
+              altText: '{home} 선수 완벽한 마린 컨트롤! 상대가 버티질 못합니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 탱크까지 앞세워 밀어붙입니다! {away} 선수 병력이 괴멸합니다!',
+              owner: LogOwner.home,
+              awayArmy: -4, homeArmy: -1,
+              favorsStat: 'attack',
+              altText: '{home} 선수 탱크가 합류! {away} 선수 병력을 완전히 쓸어버립니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 상대 앞마당까지 진격합니다! 앞마당 커맨드센터가 취소됩니다!',
+              owner: LogOwner.home,
+              decisive: true,
+              altText: '{home} 선수 초반 압도로 상대 앞마당을 파괴합니다! 경기가 끝났습니다!',
+            ),
+          ],
+        ),
+        // 분기 E: 어웨이 압도 → 홈 병력 괴멸 + 앞마당 취소
+        ScriptBranch(
+          id: 'away_push_dominates',
+          description: '어웨이 압도, 홈 병력 괴멸 및 앞마당 취소',
+          baseProbability: 0.5,
+          conditionStat: 'control',
+          homeStatMustBeHigher: false,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 마린 컨트롤이 압도적입니다! {home} 선수 병력이 순식간에 무너집니다!',
+              owner: LogOwner.away,
+              homeArmy: -3, awayArmy: -1,
+              favorsStat: 'control',
+              altText: '{away} 선수 완벽한 컨트롤! {home} 선수 마린이 버티질 못합니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 탱크를 앞세워 계속 밀어붙입니다! {home} 선수 병력이 괴멸합니다!',
+              owner: LogOwner.away,
+              homeArmy: -4, awayArmy: -1,
+              favorsStat: 'attack',
+              altText: '{away} 선수 탱크까지 합류! {home} 선수 병력을 완전히 쓸어버립니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 {home} 앞마당까지 진격합니다! 앞마당 커맨드센터가 취소됩니다!',
+              owner: LogOwner.away,
+              decisive: true,
+              altText: '{away} 선수 초반 압도로 {home} 선수 앞마당을 파괴합니다! 경기가 끝났습니다!',
             ),
           ],
         ),
@@ -403,7 +452,7 @@ const _tvtFdRushMirror = ScenarioScript(
               altText: '{away} 선수도 팩토리 두 개로 전환.',
             ),
             ScriptEvent(
-              text: '양측 확장과 팩토리 두 개 체제, 물량전으로 이어집니다.',
+              text: '양측 확장과 팩토리 두 개 체제, 무난한 중후반 싸움으로 진행되겠습니다.',
               owner: LogOwner.system,
               skipChance: 0.3,
               altText: '양쪽 다 확장을 올렸습니다, 자원 싸움이 본격화됩니다.',
@@ -664,9 +713,9 @@ const _tvtFdRushMirror = ScenarioScript(
               altText: '{home} 선수 드랍 견제! 일꾼 피해를 주고 빠져나갑니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 골리앗이 도착했지만 이미 빠져나간 뒤입니다.',
+              text: '{away} 선수 수비 병력이 달려왔지만 드랍십은 이미 빠져나갔습니다.',
               owner: LogOwner.away,
-              awayArmy: 2, awayResource: -150, // 골리앗 150/2sup
+              awayArmy: 2, awayResource: -150, // 수비 병력 생산
               fixedCost: true,
               altText: '{away} 선수 대응이 늦었습니다, 피해가 남았습니다.',
             ),

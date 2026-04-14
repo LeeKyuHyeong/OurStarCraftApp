@@ -383,6 +383,10 @@ class ScriptEvent {
 /// 조건부 분기
 class ScriptBranch {
   final String id;
+
+  /// 분기 한국어 설명 (통계 리포트용)
+  final String? description;
+
   final String? conditionStat;
   final bool homeStatMustBeHigher;
   final double baseProbability;
@@ -395,6 +399,7 @@ class ScriptBranch {
 
   const ScriptBranch({
     required this.id,
+    this.description,
     this.conditionStat,
     this.homeStatMustBeHigher = true,
     this.baseProbability = 1.0,

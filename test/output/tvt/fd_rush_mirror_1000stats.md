@@ -3,38 +3,40 @@
 | 항목 | 값 |
 |------|-----|
 | 총 경기 | 1000 |
-| 홈 승률 | 51.1% (511승) |
-| 어웨이 승률 | 48.9% (489승) |
-| 평균 로그 길이 | 38.0줄 |
-| 평균 최종 병력 | 홈 19.8 / 어웨이 18.9 |
+| 홈 승률 | 54.5% (545승) |
+| 어웨이 승률 | 45.5% (455승) |
+| 평균 로그 길이 | 34.7줄 |
+| 평균 최종 병력 | 홈 17.1 / 어웨이 13.9 |
 | 고유 로그 수 | 1000 / 1000 |
 
 ## 종료 시점 분포
 
 | 시점 | 경기 수 | 비율 |
 |------|---------|------|
-| 초반 (~28줄) | 0 | 0.0% |
-| 중반 (29~42줄) | 553 | 55.3% |
-| 후반 (43줄~) | 447 | 44.7% |
+| 초반 (~28줄) | 238 | 23.8% |
+| 중반 (29~42줄) | 429 | 42.9% |
+| 후반 (43줄~) | 333 | 33.3% |
 
 ## 분기 분포
 
-| 분기 ID | 발동 | 비율 |
-|---------|------|------|
-| tank_even | 604 | 60.4% |
-| home_high_ground | 355 | 35.5% |
-| away_high_ground | 340 | 34.0% |
-| siege_stalemate | 305 | 30.5% |
-| both_expand | 247 | 24.7% |
-| away_wins_decisive | 214 | 21.4% |
-| home_tank_push | 203 | 20.3% |
-| away_tank_push | 193 | 19.3% |
-| home_wins_decisive | 170 | 17.0% |
-| guerrilla | 161 | 16.1% |
-| frontal | 130 | 13.0% |
-| home_fast_expand | 116 | 11.6% |
-| desperate | 93 | 9.3% |
-| away_fast_expand | 91 | 9.1% |
-| away_skip_expand_attack | 82 | 8.2% |
-| finishing | 70 | 7.0% |
-| home_skip_expand_attack | 68 | 6.8% |
+| 분기 ID | 분기 설명 | 발동 | 비율 |
+|---------|----------|------|------|
+| tank_even |  | 467 | 46.7% |
+| push_even | 비등 교전, 마린 소모 후 탱크 살려 귀환 | 355 | 35.5% |
+| home_push_edge | 홈 컨트롤 우위, 어웨이 탱크 제거 | 211 | 21.1% |
+| away_push_edge | 어웨이 컨트롤 우위, 홈 탱크 제거 | 196 | 19.6% |
+| both_expand |  | 176 | 17.6% |
+| home_tank_push |  | 154 | 15.4% |
+| away_wins_decisive |  | 144 | 14.4% |
+| away_tank_push |  | 141 | 14.1% |
+| home_wins_decisive |  | 134 | 13.4% |
+| home_push_dominates | 홈 압도, 어웨이 병력 괴멸 및 앞마당 취소 | 126 | 12.6% |
+| guerrilla |  | 118 | 11.8% |
+| away_push_dominates | 어웨이 압도, 홈 병력 괴멸 및 앞마당 취소 | 112 | 11.2% |
+| frontal |  | 96 | 9.6% |
+| home_fast_expand |  | 93 | 9.3% |
+| away_fast_expand |  | 76 | 7.6% |
+| finishing |  | 67 | 6.7% |
+| home_skip_expand_attack |  | 64 | 6.4% |
+| desperate |  | 64 | 6.4% |
+| away_skip_expand_attack |  | 58 | 5.8% |

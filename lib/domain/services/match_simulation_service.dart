@@ -33,6 +33,10 @@ class SimulationState {
   final int awayExpansions;
   final List<BattleLogEntry> battleLogEntries;
   final List<String> selectedBranchIds;
+
+  /// 분기 ID → 한국어 설명 (통계 리포트용, description 미설정 시 비어 있음)
+  final Map<String, String> branchDescriptions;
+
   final bool isFinished;
   final bool? homeWin;
 
@@ -45,6 +49,7 @@ class SimulationState {
     this.awayExpansions = 0,
     this.battleLogEntries = const [],
     this.selectedBranchIds = const [],
+    this.branchDescriptions = const {},
     this.isFinished = false,
     this.homeWin,
   });
@@ -61,6 +66,7 @@ class SimulationState {
     int? awayExpansions,
     List<BattleLogEntry>? battleLogEntries,
     List<String>? selectedBranchIds,
+    Map<String, String>? branchDescriptions,
     bool? isFinished,
     bool? homeWin,
   }) {
@@ -73,6 +79,7 @@ class SimulationState {
       awayExpansions: awayExpansions ?? this.awayExpansions,
       battleLogEntries: battleLogEntries ?? this.battleLogEntries,
       selectedBranchIds: selectedBranchIds ?? this.selectedBranchIds,
+      branchDescriptions: branchDescriptions ?? this.branchDescriptions,
       isFinished: isFinished ?? this.isFinished,
       homeWin: homeWin ?? this.homeWin,
     );
@@ -3864,8 +3871,12 @@ class MatchSimulationService {
           state: state,
         );
         activeEvents = branch.events;
+        final updatedDescriptions = branch.description != null
+            ? {...state.branchDescriptions, branch.id: branch.description!}
+            : state.branchDescriptions;
         state = state.copyWith(
           selectedBranchIds: [...state.selectedBranchIds, branch.id],
+          branchDescriptions: updatedDescriptions,
         );
       } else {
         // 이벤트 없는 페이즈 → 다음 페이즈로
