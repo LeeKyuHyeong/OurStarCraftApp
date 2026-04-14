@@ -41,6 +41,11 @@ const _tvtNobarDoubleMirror = ScenarioScript(
           altText: '{away} 선수도 배럭 없이 커맨드센터를 먼저 올립니다.',
         ),
         ScriptEvent(
+          text: '대규모 물량전이 펼쳐지겠는데요! 하지만 상대방 빌드를 아직까지는 모릅니다.',
+          owner: LogOwner.system,
+          altText: '양쪽 모두 앞마당을 올렸습니다, 서로 어떤 운영을 할지 아직 모르는 상황이죠.',
+        ),
+        ScriptEvent(
           text: '{home} 선수 배럭 건설합니다.',
           owner: LogOwner.home,
           homeResource: -150,
@@ -174,6 +179,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
         // 홈 벌처 우세
         ScriptBranch(
           id: 'home_vulture_win',
+          description: '홈 벌처 컨트롤 우세, SCV 견제 성공',
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -214,6 +220,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
         // 어웨이 벌처 우세
         ScriptBranch(
           id: 'away_vulture_win',
+          description: '어웨이 벌처 컨트롤 우세, SCV 견제 성공',
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -253,6 +260,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
         // 홈 벌처 압살 → 조기 종료
         ScriptBranch(
           id: 'home_vulture_crush',
+          description: '홈 벌처 압도, SCV 대량 피해 decisive',
           baseProbability: 0.5,
           conditionStat: 'harass',
           events: [
@@ -292,6 +300,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
         // 어웨이 벌처 압살 → 조기 종료
         ScriptBranch(
           id: 'away_vulture_crush',
+          description: '어웨이 벌처 압도, SCV 대량 피해 decisive',
           baseProbability: 0.5,
           conditionStat: 'harass',
           events: [
@@ -331,6 +340,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
         // 교착
         ScriptBranch(
           id: 'vulture_stalemate',
+          description: '벌처 교착, 서로 마인만 깔고 물러남',
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -443,6 +453,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'tank_even',
+          description: '탱크 비등, 시즈모드 대기',
           baseProbability: 2.0,
           events: [
             ScriptEvent(
@@ -455,6 +466,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
         ),
         ScriptBranch(
           id: 'home_tank_push',
+          description: '홈 탱크+벌처 전진 decisive',
           baseProbability: 0.5,
           conditionStat: 'attack',
           events: [
@@ -492,6 +504,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
         ),
         ScriptBranch(
           id: 'away_tank_push',
+          description: '어웨이 탱크+벌처 전진 decisive',
           baseProbability: 0.5,
           conditionStat: 'attack',
           events: [
@@ -643,6 +656,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
         // 양측 동시 확장 (가장 일반적)
         ScriptBranch(
           id: 'both_expand',
+          description: '양측 트리플 확장',
           baseProbability: 1.5,
           events: [
             ScriptEvent(
@@ -688,6 +702,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
         // 홈 선확장
         ScriptBranch(
           id: 'home_fast_expand',
+          description: '홈 선 트리플, 어웨이 병력 압박',
           baseProbability: 0.7,
           events: [
             ScriptEvent(
@@ -732,6 +747,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
         // 어웨이 선확장
         ScriptBranch(
           id: 'away_fast_expand',
+          description: '어웨이 선 트리플, 홈 병력 압박',
           baseProbability: 0.7,
           events: [
             ScriptEvent(
@@ -776,6 +792,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
         // 홈 확장 포기 + 공격 (decisive)
         ScriptBranch(
           id: 'home_skip_expand_attack',
+          description: '홈 확장 포기 올인 decisive',
           baseProbability: 0.4,
           conditionStat: 'attack',
           events: [
@@ -822,6 +839,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
         // 어웨이 확장 포기 + 공격 (decisive)
         ScriptBranch(
           id: 'away_skip_expand_attack',
+          description: '어웨이 확장 포기 올인 decisive',
           baseProbability: 0.4,
           conditionStat: 'attack',
           events: [
@@ -877,6 +895,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
         // 시즈 거리재기에서 큰 차이 없이 계속 진행
         ScriptBranch(
           id: 'siege_continues',
+          description: '시즈 교착 지속, 골리앗 전환',
           baseProbability: 1.5,
           events: [
             ScriptEvent(
@@ -890,6 +909,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
         // 홈 시즈 압도 → decisive
         ScriptBranch(
           id: 'home_siege_crush',
+          description: '홈 탱크 라인 압도 decisive',
           baseProbability: 0.6,
           conditionStat: 'attack',
           events: [
@@ -923,6 +943,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
         // 어웨이 시즈 압도 → decisive
         ScriptBranch(
           id: 'away_siege_crush',
+          description: '어웨이 탱크 라인 압도 decisive',
           baseProbability: 0.6,
           conditionStat: 'attack',
           events: [
@@ -1080,6 +1101,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
         // 게릴라 드랍 (확장 견제 후 회수)
         ScriptBranch(
           id: 'home_guerrilla_drop',
+          description: '홈 게릴라 드랍, 확장기지 SCV 피해',
           baseProbability: 1.2,
           events: [
             ScriptEvent(
@@ -1119,6 +1141,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
         // 어웨이 게릴라 드랍
         ScriptBranch(
           id: 'away_guerrilla_drop',
+          description: '어웨이 게릴라 드랍, 확장기지 SCV 피해',
           baseProbability: 1.2,
           events: [
             ScriptEvent(
@@ -1158,6 +1181,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
         // 마무리 드랍 (유리한 쪽이 드랍과 정면으로 끝냄) → decisive
         ScriptBranch(
           id: 'home_finishing_drop',
+          description: '홈 마무리 드랍, 정면 동시 압박 decisive',
           baseProbability: 0.7,
           conditionStat: 'strategy',
           events: [
@@ -1196,6 +1220,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
         // 어웨이 마무리 드랍 → decisive
         ScriptBranch(
           id: 'away_finishing_drop',
+          description: '어웨이 마무리 드랍, 정면 동시 압박 decisive',
           baseProbability: 0.7,
           conditionStat: 'strategy',
           events: [
@@ -1234,6 +1259,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
         // 정면 교전
         ScriptBranch(
           id: 'frontal_clash',
+          description: '드랍 없이 정면 라인전',
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -1285,6 +1311,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
         // 홈 역전 드랍 (불리한 쪽이 올인 본진 드랍)
         ScriptBranch(
           id: 'home_desperate_drop',
+          description: '홈 불리, 역전 본진 드랍 승부수',
           baseProbability: 0.6,
           events: [
             ScriptEvent(
@@ -1322,6 +1349,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
         // 어웨이 역전 드랍
         ScriptBranch(
           id: 'away_desperate_drop',
+          description: '어웨이 불리, 역전 본진 드랍 승부수',
           baseProbability: 0.6,
           events: [
             ScriptEvent(
@@ -1444,6 +1472,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'home_wins_decisive',
+          description: '홈 최종 결전 승리',
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -1456,6 +1485,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
         ),
         ScriptBranch(
           id: 'away_wins_decisive',
+          description: '어웨이 최종 결전 승리',
           baseProbability: 1.0,
           events: [
             ScriptEvent(

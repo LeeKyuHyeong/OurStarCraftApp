@@ -28,8 +28,8 @@
 | 3 | 2fac_push_mirror | tvt_2fac_push | tvt_2fac_push | O |
 | 4 | 2star_mirror | tvt_2star | tvt_2star | O |
 | 5 | 1bar_double_mirror | tvt_1bar_double | tvt_1bar_double | O |
-| 6 | 1fac_double_mirror | tvt_1fac_double | tvt_1fac_double | X |
-| 7 | nobar_double_mirror | tvt_nobar_double | tvt_nobar_double | X |
+| 6 | 1fac_double_mirror | tvt_1fac_double | tvt_1fac_double | O |
+| 7 | nobar_double_mirror | tvt_nobar_double | tvt_nobar_double | O |
 | 8 | fd_rush_mirror | tvt_fd_rush | tvt_fd_rush | O |
 
 ### BBS 크로스 (6개)
