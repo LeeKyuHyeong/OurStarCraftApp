@@ -10,7 +10,8 @@ const _tvt2facPushMirror = ScenarioScript(
   awayBuildIds: ['tvt_2fac_push'],
   description: '투팩 벌처 컨트롤 대결',
   phases: [
-    // ── Phase 0: 오프닝 (배럭, 가스, 팩토리x2, 속업) ──
+    // ── Phase 0: 오프닝 (가스 먼저 → 배럭 → 가스 채취 → 팩토리 → 2번째 팩토리 → 머신샵) ──
+    // build_timings.md: 리파이너리(1:18) → 배럭(1:38) → 팩토리(2:31) → 2팩(3:05) → 머신샵(3:22)
     ScriptPhase(
       name: 'opening',
       startLine: 1,
@@ -18,138 +19,306 @@ const _tvt2facPushMirror = ScenarioScript(
       recoveryArmyPerLine: 0,
       linearEvents: [
         ScriptEvent(
+          text: '{home} 선수 가스를 먼저 올립니다. 가스가 많이 드는 빌드인가봅니다.',
+          owner: LogOwner.home,
+          homeResource: -100, // 리파이너리(100)
+          fixedCost: true,
+          altText: '{home} 선수 가스부터 건설합니다. 한번 지켜보죠.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 가스를 먼저 올립니다. 일반적으로 가지는 않겠다 이거죠.',
+          owner: LogOwner.away,
+          awayResource: -100,
+          fixedCost: true,
+          altText: '{away} 선수도 가스부터. 가스가 많이 필요한 빌드를 준비하고 있는 것 같습니다.',
+        ),
+        ScriptEvent(
           text: '{home} 선수 배럭 건설합니다.',
           owner: LogOwner.home,
-          homeResource: -150, // 배럭 150
+          homeResource: -150, // 배럭(150)
           fixedCost: true,
           altText: '{home} 선수 배럭을 올립니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수 배럭 건설합니다.',
+          text: '{away} 선수도 배럭 건설합니다.',
           owner: LogOwner.away,
           awayResource: -150,
           fixedCost: true,
           altText: '{away} 선수도 배럭을 올립니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 가스 채취 후 팩토리 건설합니다.',
+          text: '{home} 선수 가스가 모이고 팩토리 건설합니다.',
           owner: LogOwner.home,
-          homeResource: -400, // 리파이너리(100) + 팩토리(300)
+          homeResource: -300, // 팩토리(300)
           fixedCost: true,
-          altText: '{home} 선수 가스와 팩토리. 빠른 메카닉입니다.',
+          altText: '{home} 선수 가스 100이 모여 팩토리를 올립니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수도 가스 채취, 팩토리 건설.',
+          text: '{away} 선수도 팩토리 건설.',
           owner: LogOwner.away,
-          awayResource: -400,
+          awayResource: -300,
           fixedCost: true,
-          altText: '{away} 선수도 가스와 팩토리를 올립니다.',
+          altText: '{away} 선수도 팩토리를 올립니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 두 번째 팩토리 건설. 벌처 속업 연구.',
+          text: '{home} 선수 두 번째 팩토리 건설합니다.',
           owner: LogOwner.home,
-          homeResource: -500, // 팩토리(300) + 벌처 속업(200)
+          homeResource: -300, // 팩토리(300)
           fixedCost: true,
-          altText: '{home} 선수 투팩. 벌처 대량 생산 체제.',
+          altText: '{home} 선수 두 번째 팩토리를 올립니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수도 두 번째 팩토리. 벌처 속업 연구 시작.',
+          text: '{away} 선수도 두 번째 팩토리를 올립니다.',
           owner: LogOwner.away,
-          awayResource: -500,
+          awayResource: -300,
           fixedCost: true,
-          altText: '{away} 선수도 투팩입니다. 속업 타이밍 싸움입니다.',
+          altText: '{away} 선수도 두 번째 팩토리 건설.',
         ),
         ScriptEvent(
-          text: '{home} 선수 벌처 생산 시작. 2기씩 뽑습니다.',
+          text: '{home} 선수 마린 한두 기 뽑고 배럭을 띄웁니다. 첫 팩토리에 머신샵을 붙입니다.',
           owner: LogOwner.home,
-          homeArmy: 4, homeResource: -150, // 벌처 2기 (75x2, 2sup x2=4)
+          homeArmy: 1, // 마린 1기 (1sup)
+          homeResource: -150, // 마린(50) + 머신샵(100)
           fixedCost: true,
-          altText: '{home} 선수 벌처 양산. 팩토리 두 개가 풀가동입니다.',
+          altText: '{home} 선수 마린 생산 후 배럭 플로팅. 머신샵 부착합니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수도 벌처 생산. 양측 벌처가 쏟아집니다.',
+          text: '{away} 선수도 마린 생산 후 배럭을 띄웁니다. 머신샵을 붙이죠.',
           owner: LogOwner.away,
-          awayArmy: 4, awayResource: -150,
+          awayArmy: 1,
+          awayResource: -150,
           fixedCost: true,
-          altText: '{away} 선수도 벌처 양산. 속업 타이밍이 관건입니다.',
+          altText: '{away} 선수도 마린 뽑고 배럭 플로팅. 머신샵 부착.',
         ),
         ScriptEvent(
-          text: '속업 타이밍과 컨트롤이 승부를 결정합니다. 컨트롤 싸움이 중요하겠습니다.',
+          text: '두 선수 모두 공격적인 빌드를 선택했습니다! 병력 구성이나 컨트롤로 승패가 갈릴 수 있습니다!',
           owner: LogOwner.system,
           skipChance: 0.2,
-          altText: '확장 없이 벌처 싸움부터 가겠다는 거죠.',
-        ),
-        ScriptEvent(
-          text: '투팩은 벌처가 빠른 대신 확장이 늦습니다. 벌처전에서 밀리면 치명적이에요.',
-          owner: LogOwner.system,
-          skipChance: 0.6,
-          altText: '속업이 먼저 끝나는 쪽이 주도권을 잡습니다.',
+          altText: '양쪽 다 공격적인 선택입니다! 팩토리 두 개로 빠르게 밀겠다는 거죠.',
         ),
       ],
     ),
-    // ── Phase 1: 벌처 센터 장악 + 마인 플레이 ──
+    // ── Phase 1: 빌드 변형 분기 ──
+    // 변형1: 탱크+벌처 러쉬 (머신샵→탱크→시즈모드→탱크2기 추가→속업+마인 후 벌처 충원)
+    // 변형2: 마인+속업 벌처 러쉬 (머신샵→마인업→벌처 양산→속업→벌처 물량 압박)
+    // 변형3: 혼합 메카닉 (머신샵+아머리→탱크+시즈모드→벌처+골리앗 혼합 압박)
     ScriptPhase(
-      name: 'vulture_center',
-      startLine: 14,
+      name: 'build_variant',
+      startLine: 12,
       recoveryArmyPerLine: 1,
       recoveryResourcePerLine: 150,
-      linearEvents: [
-        ScriptEvent(
-          text: '{home} 선수 벌처 4기로 센터 진출. 마인을 깔면서 전진합니다.',
-          owner: LogOwner.home,
-          homeArmy: 4, homeResource: -150, // 벌처 2기 추가 (75x2)
-          fixedCost: true,
-          favorsStat: 'strategy',
-          altText: '{home} 선수 벌처 4기 센터 장악. 마인 매설.',
+      branches: [
+        // ── 변형1: 3탱크+벌처 러쉬 (홈) ──
+        ScriptBranch(
+          id: 'home_tank_rush',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 머신샵에서 탱크 생산을 시작합니다. 시즈모드 연구도 들어갑니다.',
+              owner: LogOwner.home,
+              homeArmy: 2, homeResource: -550, // 탱크(250) + 시즈모드(300)
+              fixedCost: true,
+              altText: '{home} 선수 탱크부터 뽑습니다. 시즈모드 연구 시작.',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 탱크 2기를 더 생산합니다. 두 번째 팩토리에서도 벌처가 나옵니다.',
+              owner: LogOwner.home,
+              homeArmy: 6, // 탱크 2기(4sup) + 벌처 1기(2sup)
+              homeResource: -575, // 탱크 2기(500) + 벌처(75)
+              fixedCost: true,
+              altText: '{home} 선수 탱크 3기 편성 완료. 벌처도 충원합니다.',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 시즈모드 완료! 탱크 3기와 벌처로 전진합니다!',
+              owner: LogOwner.home,
+              homeArmy: 2, homeResource: -75, // 벌처 1기 추가
+              fixedCost: true,
+              favorsStat: 'attack',
+              altText: '{home} 선수 시즈 탱크 3기 러쉬! 벌처가 호위합니다!',
+            ),
+            ScriptEvent(
+              text: '탱크 3기에 시즈모드! 벌처가 시야를 밝히며 호위합니다!',
+              owner: LogOwner.system,
+              skipChance: 0.3,
+              altText: '무거운 병력이 나왔습니다! 탱크 화력으로 밀겠다는 겁니다!',
+            ),
+          ],
         ),
-        ScriptEvent(
-          text: '{away} 선수 벌처 4기로 맞대응. 마인을 피하면서 기동합니다.',
-          owner: LogOwner.away,
-          awayArmy: 4, awayResource: -150,
-          fixedCost: true,
-          favorsStat: 'control',
-          altText: '{away} 선수 벌처 4기. 마인을 피해 우회 기동.',
+        // ── 변형1: 3탱크+벌처 러쉬 (어웨이) ──
+        ScriptBranch(
+          id: 'away_tank_rush',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 머신샵에서 탱크 생산을 시작합니다. 시즈모드 연구도 들어갑니다.',
+              owner: LogOwner.away,
+              awayArmy: 2, awayResource: -550,
+              fixedCost: true,
+              altText: '{away} 선수 탱크부터 뽑습니다. 시즈모드 연구 시작.',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 탱크 2기를 더 생산합니다. 두 번째 팩토리에서 벌처도 나옵니다.',
+              owner: LogOwner.away,
+              awayArmy: 6,
+              awayResource: -575,
+              fixedCost: true,
+              altText: '{away} 선수 탱크 3기 편성 완료. 벌처도 충원합니다.',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 시즈모드 완료! 탱크 3기와 벌처로 전진합니다!',
+              owner: LogOwner.away,
+              awayArmy: 2, awayResource: -75,
+              fixedCost: true,
+              favorsStat: 'attack',
+              altText: '{away} 선수 시즈 탱크 3기 러쉬! 벌처가 호위합니다!',
+            ),
+            ScriptEvent(
+              text: '탱크 3기에 시즈모드! 정면 화력으로 밀겠다는 겁니다!',
+              owner: LogOwner.system,
+              skipChance: 0.3,
+              altText: '무거운 병력이 나왔습니다! 시즈 화력이 강력합니다!',
+            ),
+          ],
         ),
-        ScriptEvent(
-          text: '{home} 선수 벌처로 상대 앞마당 SCV를 노립니다. 견제 시도.',
-          owner: LogOwner.home,
-          favorsStat: 'harass',
-          altText: '{home} 선수 SCV 견제! 상대 앞마당 침투!',
-          skipChance: 0.3,
+        // ── 변형2: 마인+속업 벌처 물량 러쉬 (홈) ──
+        ScriptBranch(
+          id: 'home_mine_vulture',
+          baseProbability: 1.2,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 머신샵에서 마인 업그레이드를 시작합니다. 벌처도 계속 생산.',
+              owner: LogOwner.home,
+              homeArmy: 2, homeResource: -175, // 마인업(100) + 벌처(75)
+              fixedCost: true,
+              altText: '{home} 선수 마인 업글. 벌처와 마인으로 견제하겠다는 겁니다.',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 두 번째 팩토리에서도 벌처를 뽑습니다. 속업 연구도 시작합니다.',
+              owner: LogOwner.home,
+              homeArmy: 4, homeResource: -350, // 벌처 2기(150) + 속업(200)
+              fixedCost: true,
+              altText: '{home} 선수 속업 연구. 팩토리 두 개에서 벌처가 쏟아집니다.',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 속업 완료! 마인을 깔면서 벌처로 상대를 압박합니다!',
+              owner: LogOwner.home,
+              homeArmy: 4, homeResource: -150, // 벌처 2기 추가
+              fixedCost: true,
+              favorsStat: 'harass',
+              altText: '{home} 선수 속업 벌처가 쏟아집니다! 마인을 깔며 전진!',
+            ),
+            ScriptEvent(
+              text: '마인과 속업 벌처! 기동력으로 상대를 괴롭히겠다는 겁니다!',
+              owner: LogOwner.system,
+              skipChance: 0.3,
+              altText: '벌처 물량에 마인까지! 상대 SCV가 위험합니다!',
+            ),
+          ],
         ),
-        ScriptEvent(
-          text: '{away} 선수도 상대 앞마당을 벌처로 찌릅니다. 맞견제.',
-          owner: LogOwner.away,
-          favorsStat: 'harass',
-          altText: '{away} 선수 맞견제. 벌처로 상대 일꾼을 노립니다.',
-          skipChance: 0.3,
+        // ── 변형2: 마인+속업 벌처 물량 러쉬 (어웨이) ──
+        ScriptBranch(
+          id: 'away_mine_vulture',
+          baseProbability: 1.2,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 머신샵에서 마인 업그레이드를 시작합니다. 벌처도 계속 생산.',
+              owner: LogOwner.away,
+              awayArmy: 2, awayResource: -175,
+              fixedCost: true,
+              altText: '{away} 선수 마인 업글. 벌처와 마인으로 견제하겠다는 겁니다.',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 두 번째 팩토리에서도 벌처를 뽑습니다. 속업 연구도 시작합니다.',
+              owner: LogOwner.away,
+              awayArmy: 4, awayResource: -350,
+              fixedCost: true,
+              altText: '{away} 선수 속업 연구. 팩토리 두 개에서 벌처가 쏟아집니다.',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 속업 완료! 마인을 깔면서 벌처로 상대를 압박합니다!',
+              owner: LogOwner.away,
+              awayArmy: 4, awayResource: -150,
+              fixedCost: true,
+              favorsStat: 'harass',
+              altText: '{away} 선수 속업 벌처가 쏟아집니다! 마인을 깔며 전진!',
+            ),
+            ScriptEvent(
+              text: '마인과 속업 벌처! 기동력으로 상대를 괴롭히겠다는 겁니다!',
+              owner: LogOwner.system,
+              skipChance: 0.3,
+              altText: '벌처 물량에 마인까지! 상대 SCV가 위험합니다!',
+            ),
+          ],
         ),
-        ScriptEvent(
-          text: '양측 벌처가 교차하며 견제전! 컨트롤이 승부를 가릅니다!',
-          owner: LogOwner.system,
-          skipChance: 0.2,
-          altText: '투팩의 꽃, 벌처 교차 견제전입니다.',
+        // ── 변형3: 혼합 메카닉 (홈) ──
+        ScriptBranch(
+          id: 'home_mixed_mech',
+          baseProbability: 0.8,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 머신샵에서 탱크 생산, 아머리도 건설합니다.',
+              owner: LogOwner.home,
+              homeArmy: 2, homeResource: -550, // 탱크(250) + 시즈모드(300) (아머리는 뒤에)
+              fixedCost: true,
+              altText: '{home} 선수 탱크와 아머리를 동시에. 다양한 병력 조합을 노립니다.',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 아머리가 완성됩니다. 골리앗도 생산 시작합니다.',
+              owner: LogOwner.home,
+              homeArmy: 4, homeResource: -450, // 아머리(150) + 골리앗(150) + 벌처(75x2)
+              fixedCost: true,
+              altText: '{home} 선수 골리앗이 나옵니다. 탱크 벌처 골리앗 혼합 편성입니다.',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 탱크, 골리앗, 벌처 혼합 편성으로 전진합니다!',
+              owner: LogOwner.home,
+              homeArmy: 2, homeResource: -150, // 골리앗(150)
+              fixedCost: true,
+              favorsStat: 'strategy',
+              altText: '{home} 선수 다양한 병력 구성! 상대가 대응하기 까다롭습니다!',
+            ),
+            ScriptEvent(
+              text: '탱크, 골리앗, 벌처 혼합입니다! 어떤 상황에도 대응할 수 있는 구성이죠.',
+              owner: LogOwner.system,
+              skipChance: 0.3,
+              altText: '다양한 병력 구성! 정면에서도 견제에서도 강한 편성입니다.',
+            ),
+          ],
         ),
-        // 마인 플레이
-        ScriptEvent(
-          text: '{home} 선수 마인을 상대 이동 경로에 심어둡니다. 나중에 탱크가 밟으면 큰일입니다.',
-          owner: LogOwner.home,
-          favorsStat: 'strategy',
-          skipChance: 0.4,
-          altText: '{home} 선수 마인 매설. 탱크 전환 이후를 노리는 포석입니다.',
-        ),
-        ScriptEvent(
-          text: '{away} 선수도 마인으로 응수. 양측 맵 곳곳에 마인이 깔립니다.',
-          owner: LogOwner.away,
-          favorsStat: 'strategy',
-          skipChance: 0.4,
-          altText: '{away} 선수도 마인 매설. 서로 이동 경로를 제한합니다.',
-        ),
-        ScriptEvent(
-          text: '마인 싸움이 치열합니다. 탱크가 나오면 마인 위치가 승부를 가릅니다.',
-          owner: LogOwner.system,
-          skipChance: 0.5,
-          altText: '마인은 벌처는 못 잡지만, 탱크와 골리앗에게는 치명적이죠.',
+        // ── 변형3: 혼합 메카닉 (어웨이) ──
+        ScriptBranch(
+          id: 'away_mixed_mech',
+          baseProbability: 0.8,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 머신샵에서 탱크 생산, 아머리도 건설합니다.',
+              owner: LogOwner.away,
+              awayArmy: 2, awayResource: -550,
+              fixedCost: true,
+              altText: '{away} 선수 탱크와 아머리를 동시에. 다양한 조합을 노립니다.',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 아머리가 완성됩니다. 골리앗도 생산 시작합니다.',
+              owner: LogOwner.away,
+              awayArmy: 4, awayResource: -450,
+              fixedCost: true,
+              altText: '{away} 선수 골리앗이 나옵니다. 탱크 벌처 골리앗 혼합 편성입니다.',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 탱크, 골리앗, 벌처 혼합 편성으로 전진합니다!',
+              owner: LogOwner.away,
+              awayArmy: 2, awayResource: -150,
+              fixedCost: true,
+              favorsStat: 'strategy',
+              altText: '{away} 선수 다양한 병력 구성! 상대가 대응하기 까다롭습니다!',
+            ),
+            ScriptEvent(
+              text: '탱크, 골리앗, 벌처 혼합입니다! 다양한 구성으로 압박합니다!',
+              owner: LogOwner.system,
+              skipChance: 0.3,
+              altText: '혼합 편성! 정면에서도 견제에서도 강한 구성이죠.',
+            ),
+          ],
         ),
       ],
     ),
@@ -194,7 +363,7 @@ const _tvt2facPushMirror = ScenarioScript(
               text: '벌처 싸움에서 밀리면 맵 컨트롤과 일꾼을 동시에 잃습니다.',
               owner: LogOwner.system,
               skipChance: 0.3,
-              altText: '투팩에서 벌처전 열세는 곧바로 자원 열세로 이어집니다.',
+              altText: '벌처전 열세는 곧바로 자원 열세로 이어집니다.',
             ),
             // 근거리 맵: 벌처 견제 도착 빨라서 추가 피해
             ScriptEvent(
@@ -358,7 +527,7 @@ const _tvt2facPushMirror = ScenarioScript(
               altText: '{away} 선수도 벌처 견제. 서로 SCV를 교환합니다.',
             ),
             ScriptEvent(
-              text: '투팩 교착 상태입니다. 탱크 전환 타이밍이 관건입니다.',
+              text: '교착 상태입니다. 탱크 전환 타이밍이 관건입니다.',
               owner: LogOwner.system,
               skipChance: 0.5,
               altText: '벌처전이 비등하면 탱크를 먼저 내는 쪽이 유리합니다.',
@@ -367,32 +536,32 @@ const _tvt2facPushMirror = ScenarioScript(
         ),
       ],
     ),
-    // ── Phase 3: 탱크 전환 ──
+    // ── Phase 3: 병력 보충 + 추가 생산 ──
     ScriptPhase(
-      name: 'tank_transition',
+      name: 'reinforcement',
       startLine: 40,
       recoveryArmyPerLine: 2,
       recoveryResourcePerLine: 200,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 시즈 탱크 생산 시작. 시즈 모드 연구.',
+          text: '{home} 선수 탱크와 벌처를 추가 생산합니다. 병력을 보충합니다.',
           owner: LogOwner.home,
-          homeArmy: 2, homeResource: -550, // 시즈탱크(250/2sup) + 시즈모드 연구(300)
+          homeArmy: 4, homeResource: -325, // 탱크(250) + 벌처(75)
           fixedCost: true,
-          altText: '{home} 선수 탱크로 전환. 시즈 연구 중.',
+          altText: '{home} 선수 병력 충원. 팩토리 두 개가 쉬지 않고 돌아갑니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수도 탱크 전환. 시즈 모드 연구.',
+          text: '{away} 선수도 병력을 보충합니다. 팩토리 두 개에서 유닛이 쏟아집니다.',
           owner: LogOwner.away,
-          awayArmy: 2, awayResource: -550,
+          awayArmy: 4, awayResource: -325,
           fixedCost: true,
-          altText: '{away} 선수도 시즈 탱크 생산. 양측 탱크 싸움.',
+          altText: '{away} 선수도 탱크와 벌처를 추가합니다.',
         ),
         ScriptEvent(
-          text: '양측 탱크가 나오기 시작합니다. 확장 타이밍이 관건입니다.',
+          text: '팩토리 두 개의 생산력! 병력이 빠르게 불어납니다. 확장 타이밍이 관건입니다.',
           owner: LogOwner.system,
           skipChance: 0.4,
-          altText: '탱크 전환과 확장, 어느 쪽을 먼저 가느냐가 승부입니다.',
+          altText: '병력이 쌓이고 있습니다. 확장을 언제 가느냐가 승부입니다.',
         ),
       ],
     ),
@@ -1034,7 +1203,7 @@ const _tvt2facPushMirror = ScenarioScript(
               altText: '{away} 선수 드랍십 출격. 상대 확장을 노립니다.',
             ),
             ScriptEvent(
-              text: '{away} 선수 확장기지에 탱크를 내려 SCV를 태웁니다! 빠르게 회수!',
+              text: '{away} 선수 확장기지에 탱크를 내려 SCV를 잡아냅니다! 빠르게 회수!',
               owner: LogOwner.away,
               homeResource: -200,
               favorsStat: 'harass',
@@ -1266,6 +1435,132 @@ const _tvt2facPushMirror = ScenarioScript(
               owner: LogOwner.system,
               skipChance: 0.3,
               altText: '드랍쉽 한 대의 기적! 본진 팩토리 라인이 마비됐습니다.',
+            ),
+          ],
+        ),
+        // ── 멀티 앞 수비병력 밀어내기 (홈): 드랍+지상 합공으로 멀티 파괴 ──
+        ScriptBranch(
+          id: 'home_multi_push',
+          baseProbability: 0.8,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 스캔으로 상대 추가 확장 앞 수비 라인을 확인합니다!',
+              owner: LogOwner.home,
+              favorsStat: 'sense',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 드랍쉽 편대가 수비 병력 위로! 동시에 지상 탱크도 전진합니다!',
+              owner: LogOwner.home,
+              favorsStat: 'strategy',
+              altText: '{home} 선수 드랍과 지상 동시 공격! 상대 추가 확장을 노립니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 수비 병력 뒤에 탱크 투하! 앞뒤로 시즈 포격이 쏟아집니다!',
+              owner: LogOwner.home,
+              awayArmy: -6, homeArmy: -2,
+              favorsStat: 'attack',
+              altText: '{home} 선수 양면 합공! 수비 라인이 무너집니다!',
+            ),
+            ScriptEvent(
+              text: '수비 병력이 밀려나면서 추가 확장이 끊겼습니다! {away} 선수 자원 라인에 타격이 크네요.',
+              owner: LogOwner.system,
+              awayResource: -300,
+              altText: '추가 확장을 지킬 수 없게 됐습니다! {away} 선수 멀티가 끊기면서 불리해집니다.',
+            ),
+          ],
+        ),
+        // ── 멀티 앞 수비병력 밀어내기 (어웨이) ──
+        ScriptBranch(
+          id: 'away_multi_push',
+          baseProbability: 0.8,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 스캔으로 상대 추가 확장 앞 수비 라인을 확인합니다!',
+              owner: LogOwner.away,
+              favorsStat: 'sense',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 드랍쉽 편대가 수비 병력 위로! 정면에서도 탱크를 밀어붙입니다!',
+              owner: LogOwner.away,
+              favorsStat: 'strategy',
+              altText: '{away} 선수 드랍과 지상 동시 공격! 상대 추가 확장을 끊으려 합니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 수비 병력 뒤에 착지! 앞뒤로 시즈 포격!',
+              owner: LogOwner.away,
+              homeArmy: -6, awayArmy: -2,
+              favorsStat: 'attack',
+              altText: '{away} 선수 양면 합공! 수비 라인이 무너집니다!',
+            ),
+            ScriptEvent(
+              text: '수비 병력이 녹아내리면서 추가 확장이 끊겼습니다! {home} 선수 멀티가 날아가면서 불리해집니다.',
+              owner: LogOwner.system,
+              homeResource: -300,
+              altText: '추가 확장을 지킬 수가 없습니다! {home} 선수 자원 라인이 끊기면서 수비가 어려워지네요.',
+            ),
+          ],
+        ),
+        // ── 레이스 대공 (홈): 몰래 레이스를 모아 드랍쉽 격추 ──
+        ScriptBranch(
+          id: 'home_wraith_intercept',
+          baseProbability: 0.5,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 스타포트에서 레이스를 조용히 생산하고 있었습니다!',
+              owner: LogOwner.home,
+              homeArmy: 4, homeResource: -300, // 레이스 2기 (150x2, 2sup x2)
+              fixedCost: true,
+              altText: '{home} 선수 레이스를 몰래 뽑고 있었습니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 드랍쉽이 출격합니다! 상대 확장을 노립니다!',
+              owner: LogOwner.away,
+              favorsStat: 'harass',
+              altText: '{away} 선수 드랍쉽에 병력을 싣고 출발합니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 레이스가 드랍쉽을 포착! 드랍쉽이 격추됩니다!',
+              owner: LogOwner.home,
+              awayArmy: -6,
+              favorsStat: 'sense',
+              altText: '{home} 선수 레이스 매복! 드랍쉽이 터지면서 병력이 전부 떨어집니다!',
+            ),
+            ScriptEvent(
+              text: '드랍쉽 격추! 안에 실린 병력까지 전부 잃었습니다! 큰 손실이에요.',
+              owner: LogOwner.system,
+              altText: '레이스 매복에 드랍쉽이 당했습니다! 병력 손실이 막대합니다.',
+            ),
+          ],
+        ),
+        // ── 레이스 대공 (어웨이): 몰래 레이스를 모아 드랍쉽 격추 ──
+        ScriptBranch(
+          id: 'away_wraith_intercept',
+          baseProbability: 0.5,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 스타포트에서 레이스를 조용히 모으고 있었습니다!',
+              owner: LogOwner.away,
+              awayArmy: 4, awayResource: -300,
+              fixedCost: true,
+              altText: '{away} 선수 레이스를 몰래 뽑아두었습니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 드랍쉽이 출격합니다! 상대 확장으로 향합니다!',
+              owner: LogOwner.home,
+              favorsStat: 'harass',
+              altText: '{home} 선수 드랍쉽에 병력을 싣고 출발합니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 레이스가 드랍쉽을 포착! 드랍쉽이 격추됩니다!',
+              owner: LogOwner.away,
+              homeArmy: -6,
+              favorsStat: 'sense',
+              altText: '{away} 선수 레이스 매복! 드랍쉽이 터지면서 병력이 전부 떨어집니다!',
+            ),
+            ScriptEvent(
+              text: '드랍쉽 격추! 안에 실린 병력까지 전부 잃었습니다! 큰 손실이에요.',
+              owner: LogOwner.system,
+              altText: '레이스 매복에 드랍쉽이 당했습니다! 병력 손실이 막대합니다.',
             ),
           ],
         ),

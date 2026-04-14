@@ -27,10 +27,10 @@ const _pvt2gateOpenVsTimingPush = ScenarioScript(
           altText: '{away}, 배럭 건설 후 빠르게 가스!',
         ),
         ScriptEvent(
-          text: '{home} 선수 두 번째 게이트웨이! 투게이트로 갑니다!',
+          text: '{home} 선수 두 번째 게이트웨이를 올립니다! 질럿 물량으로 가겠네요!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 투게이트 확정!',
+          altText: '{home}, 게이트웨이가 두 개! 공격적입니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리 건설! 머신샵을 붙이고 시즈 모드를 연구합니다!',

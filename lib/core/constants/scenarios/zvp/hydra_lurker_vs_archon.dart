@@ -27,7 +27,7 @@ const _zvpHydraLurkerVsArchon = ScenarioScript(
           awayResource: -25,
         ),
         ScriptEvent(
-          text: '{home} 선수 히드라덴을 올립니다! 히드라리스크 빌드로 갑니다!',
+          text: '{home} 선수 히드라덴을 올립니다! 히드라리스크를 준비하는군요!',
           owner: LogOwner.home,
           homeResource: -20,
           favorsStat: 'strategy',

@@ -27,16 +27,16 @@ const _pvt2gateOpenVsBbs = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '{home} 선수 두 번째 게이트웨이까지! 투게이트입니다!',
+          text: '{home} 선수 두 번째 게이트웨이까지 올립니다! 질럿 생산이 빨라지겠네요!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 투게이트 확정! 질럿을 모으겠다는 겁니다!',
+          altText: '{home}, 게이트웨이가 두 개! 질럿을 모으겠다는 겁니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 본진 배럭까지! BBS입니다! 양쪽 다 공격 빌드네요!',
+          text: '{away} 선수 본진에도 배럭을 올립니다! 배럭이 두 개네요! 양쪽 다 공격적입니다!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 센터배럭에 본진배럭까지! BBS 올인!',
+          altText: '{away}, 센터배럭에 본진배럭까지! 마린을 빠르게 모으겠다는 겁니다!',
         ),
         ScriptEvent(
           text: '양쪽 모두 초반부터 공격적입니다! 질럿 vs 마린, 정면충돌이 예상됩니다!',
@@ -76,7 +76,7 @@ const _pvt2gateOpenVsBbs = ScenarioScript(
           text: '{home} 선수 추가 질럿이 합류합니다! 게이트웨이 2개의 힘이죠!',
           owner: LogOwner.home,
           homeArmy: 2,
-          altText: '{home}, 질럿이 계속 나옵니다! 투게이트의 장점!',
+          altText: '{home}, 질럿이 계속 나옵니다! 게이트웨이 두 개의 힘이죠!',
         ),
         ScriptEvent(
           text: '{away} 선수 벙커를 올리려 합니다! 마린이 들어가면 상황이 달라지죠!',
@@ -104,7 +104,7 @@ const _pvt2gateOpenVsBbs = ScenarioScript(
           altText: '{home}, 사이버네틱스 코어가 올라갑니다! 드라군이 나오면 판이 바뀝니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 가스도 없이 마린만 뽑고 있습니다! BBS의 한계죠!',
+          text: '{away} 선수 가스도 없이 마린만 뽑고 있습니다! 배럭만 올린 대가죠!',
           owner: LogOwner.away,
           awayArmy: 2,
           awayResource: -5,
@@ -113,7 +113,7 @@ const _pvt2gateOpenVsBbs = ScenarioScript(
           text: '{home} 선수 넥서스 건설! 자원 확보에 나섭니다!',
           owner: LogOwner.home,
           homeResource: -30,
-          altText: '{home}, 앞마당 넥서스! 투게이트로 상대를 막고 확장까지!',
+          altText: '{home}, 앞마당 넥서스! 상대를 막아내고 확장까지 가네요!',
         ),
         ScriptEvent(
           text: '{home} 선수 드라군이 나오기 시작합니다! 사정거리의 차이가 느껴지죠!',
@@ -164,12 +164,12 @@ const _pvt2gateOpenVsBbs = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{home} 선수 투게이트 드라군 물량! BBS를 완전히 제압합니다!',
+              text: '{home} 선수 드라군 물량이 쏟아집니다! 테란 마린으로는 상대가 안 됩니다!',
               owner: LogOwner.home,
               homeArmy: 25,
               awayArmy: -15,
               decisive: true,
-              altText: '{home} 선수 드라군이 쏟아집니다! BBS는 답이 없습니다!',
+              altText: '{home} 선수 드라군이 쏟아집니다! 마린만으로는 답이 없습니다!',
             ),
           ],
         ),
@@ -200,7 +200,7 @@ const _pvt2gateOpenVsBbs = ScenarioScript(
               homeArmy: -3,
             ),
             ScriptEvent(
-              text: 'BBS 공격이 프로토스 확장을 완전히 차단했습니다!',
+              text: '마린 물량 공격이 프로토스 확장을 완전히 차단했습니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
@@ -209,7 +209,7 @@ const _pvt2gateOpenVsBbs = ScenarioScript(
               awayArmy: 25,
               homeArmy: -15,
               decisive: true,
-              altText: '{away} 선수 BBS 올인 성공! 프로토스를 제압합니다!',
+              altText: '{away} 선수 초반 올인 성공! 프로토스를 제압합니다!',
             ),
           ],
         ),

@@ -26,7 +26,7 @@ const _pvp1gateMultiVs3gateSpeedzealot = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '{home} 선수 넥서스를 빠르게 건설합니다! 원게이트 멀티!',
+          text: '{home} 선수 게이트웨이 하나만 짓고 바로 넥서스를 올립니다!',
           owner: LogOwner.home,
           homeResource: -30,
           altText: '{home}, 빠른 확장! 자원을 먼저 가져갑니다!',
@@ -38,10 +38,10 @@ const _pvp1gateMultiVs3gateSpeedzealot = ScenarioScript(
           altText: '{away}, 아둔! 스피드질럿을 준비합니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 게이트웨이를 추가합니다! 쓰리게이트!',
+          text: '{away} 선수 세 번째 게이트웨이를 올립니다!',
           owner: LogOwner.away,
           awayResource: -30,
-          altText: '{away}, 게이트웨이 3개! 스피드질럿 물량!',
+          altText: '{away}, 게이트웨이가 벌써 세 개! 질럿 물량이 나오겠네요!',
         ),
         ScriptEvent(
           text: '운영형 멀티 vs 공격형 스피드질럿! 앞마당이 위험합니다!',

@@ -43,7 +43,7 @@ const _tvtFdRushVs2star = ScenarioScript(
           owner: LogOwner.away,
           awayResource: -800, // 팩토리 300 + 스타포트 x2 (250+250)
           fixedCost: true,
-          altText: '{away} 선수 스타포트 2개. 투스타 공중 체제.',
+          altText: '{away} 선수 스타포트 두 개. 공중 유닛을 대량 생산합니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 머신샵 부착 후 탱크와 시즈모드를 동시에 시작합니다!',

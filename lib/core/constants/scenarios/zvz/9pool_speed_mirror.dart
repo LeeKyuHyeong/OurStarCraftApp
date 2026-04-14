@@ -19,13 +19,13 @@ const _zvz9poolSpeedMirror = ScenarioScript(
           text: '{home} 선수 9드론에 스포닝풀, 가스도 같이 올립니다!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 9풀에 가스까지! 발업이 핵심입니다!',
+          altText: '{home}, 9드론에 스포닝풀과 가스까지! 저글링 속업을 노리나봅니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 9풀, 가스 동시 진입!',
+          text: '{away} 선수도 9드론에 스포닝풀, 가스 동시 진입!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 똑같이 9풀 발업! 라바 분배 싸움입니다!',
+          altText: '{away}, 똑같이 9드론에 스포닝풀과 속업! 라바 분배 싸움입니다!',
         ),
         ScriptEvent(
           text: '{home}, 저글링 6기 생산! 발업이 끝나면 바로 압박하겠다는 의도!',

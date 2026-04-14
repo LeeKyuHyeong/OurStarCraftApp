@@ -44,7 +44,7 @@ const _pvt5gateCarrierVsBioMech = ScenarioScript(
           homeArmy: 2, homeResource: -15,
         ),
         ScriptEvent(
-          text: '테란이 바이오 메카닉 조합을 준비합니다.',
+          text: '테란이 마린 탱크 골리앗 복합 조합을 준비합니다.',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
@@ -61,7 +61,7 @@ const _pvt5gateCarrierVsBioMech = ScenarioScript(
           text: '{away} 선수 마린 메딕에 탱크, 골리앗까지! 풀조합입니다!',
           owner: LogOwner.away,
           awayArmy: 4, awayResource: -20, favorsStat: 'macro',
-          altText: '{away}, 바이오 메카닉 풀조합! 지상 공중 모두 커버!',
+          altText: '{away}, 마린 탱크 골리앗 풀조합! 지상 공중 모두 커버!',
         ),
         ScriptEvent(
           text: '{home} 선수 스타게이트 건설! 공중 테크를 올립니다.',
@@ -108,7 +108,7 @@ const _pvt5gateCarrierVsBioMech = ScenarioScript(
           altText: '{away}, 골리앗이 늘어납니다! 캐리어 대비!',
         ),
         ScriptEvent(
-          text: '{home} 선수 5게이트에서 드라군과 질럿도 계속 나옵니다.',
+          text: '{home} 선수 게이트웨이 다섯 개에서 드라군과 질럿도 계속 나옵니다.',
           owner: LogOwner.home,
           homeArmy: 3, homeResource: -15,
         ),
@@ -146,7 +146,7 @@ const _pvt5gateCarrierVsBioMech = ScenarioScript(
               awayResource: -25, favorsStat: 'macro',
             ),
             ScriptEvent(
-              text: '공중과 지상 동시 압박! 바이오 메카닉이 분산되어 무너집니다!',
+              text: '공중과 지상 동시 압박! 테란 복합 편성이 분산되어 무너집니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -174,7 +174,7 @@ const _pvt5gateCarrierVsBioMech = ScenarioScript(
               altText: '{away} 선수 마린 메딕 돌격! 프로토스를 밀어냅니다!',
             ),
             ScriptEvent(
-              text: '바이오 메카닉의 복합 화력! 캐리어도 드라군도 막아냅니다!',
+              text: '마린 탱크 골리앗의 복합 화력! 캐리어도 드라군도 막아냅니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

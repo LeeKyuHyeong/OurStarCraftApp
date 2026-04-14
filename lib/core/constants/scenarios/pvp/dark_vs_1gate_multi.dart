@@ -32,7 +32,7 @@ const _pvpDarkVs1gateMulti = ScenarioScript(
           altText: '{home}, 아둔! 다크 올인 빌드!',
         ),
         ScriptEvent(
-          text: '{away} 선수 넥서스를 빠르게 건설합니다! 원게이트 멀티!',
+          text: '{away} 선수 게이트웨이 하나 짓고 바로 넥서스를 올립니다!',
           owner: LogOwner.away,
           awayResource: -30,
           altText: '{away}, 빠른 확장! 멀티를 먼저 가져갑니다!',

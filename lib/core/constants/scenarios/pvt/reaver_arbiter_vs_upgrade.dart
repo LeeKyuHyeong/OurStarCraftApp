@@ -25,7 +25,7 @@ const _pvtReaverArbiterVsUpgrade = ScenarioScript(
           text: '{away} 선수 엔지니어링 베이를 건설합니다! 업그레이드 빌드!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 엔지니어링 베이! 더블 업그레이드를 노립니다!',
+          altText: '{away}, 엔지니어링 베이! 공방 업그레이드를 노립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 로보틱스와 서포트 베이를 건설하고 넥서스를 확장합니다.',

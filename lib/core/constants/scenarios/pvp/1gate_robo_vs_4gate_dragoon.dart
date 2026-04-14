@@ -42,10 +42,10 @@ const _pvp1gateRoboVs4gateDragoon = ScenarioScript(
           altText: '{home}, 로보틱스에 서포트 베이! 리버를 준비합니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 게이트웨이를 연달아 추가! 포게이트!',
+          text: '{away} 선수 게이트웨이를 연달아 추가합니다! 벌써 네 개!',
           owner: LogOwner.away,
           awayResource: -45, awayArmy: 3,
-          altText: '{away}, 포게이트! 드라군 물량으로 밀어붙이겠다!',
+          altText: '{away}, 게이트웨이 네 개! 드라군 물량으로 밀어붙이겠다!',
         ),
         ScriptEvent(
           text: '{home} 선수 셔틀 리버 생산 시작!',
@@ -53,7 +53,7 @@ const _pvp1gateRoboVs4gateDragoon = ScenarioScript(
           homeArmy: 2, homeResource: -25,
         ),
         ScriptEvent(
-          text: '{away} 선수 드라군이 밀려옵니다! 4게이트 물량!',
+          text: '{away} 선수 드라군이 밀려옵니다! 게이트웨이 네 개의 물량!',
           owner: LogOwner.away,
           awayArmy: 5, homeArmy: 2, awayResource: -30,
           altText: '{away}, 드라군이 쏟아져 나옵니다!',
@@ -66,7 +66,7 @@ const _pvp1gateRoboVs4gateDragoon = ScenarioScript(
       startLine: 17,
       linearEvents: [
         ScriptEvent(
-          text: '{away}, 드라군 대편대가 전진! 4게이트의 위력!',
+          text: '{away}, 드라군 대편대가 전진! 게이트 네 개의 위력!',
           owner: LogOwner.away,
           homeArmy: 2, awayArmy: 3, favorsStat: 'attack',
           altText: '{away} 선수 드라군 전진! 수가 엄청나게 많습니다!',
@@ -78,7 +78,7 @@ const _pvp1gateRoboVs4gateDragoon = ScenarioScript(
           altText: '{home}, 리버가 나왔지만 호위 드라군이 부족합니다!',
         ),
         ScriptEvent(
-          text: '4게이트 물량 vs 로보 테크! 리버가 버틸 수 있을까요?',
+          text: '드라군 물량 vs 로보틱스 테크! 리버가 버틸 수 있을까요?',
           owner: LogOwner.system,
           skipChance: 0.2,
         ),
@@ -110,7 +110,7 @@ const _pvp1gateRoboVs4gateDragoon = ScenarioScript(
               homeArmy: -3, favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '4게이트 물량이 압도적! 테크가 완성되기 전에!',
+              text: '드라군 물량이 압도적! 테크가 완성되기 전에!',
               owner: LogOwner.away,
               homeArmy: -10,
               decisive: true,
@@ -138,7 +138,7 @@ const _pvp1gateRoboVs4gateDragoon = ScenarioScript(
               awayArmy: -3, favorsStat: 'control',
             ),
             ScriptEvent(
-              text: '리버 화력이 물량을 역전! 4게이트를 막아냅니다!',
+              text: '리버 화력이 물량을 역전! 드라군 러시를 막아냅니다!',
               owner: LogOwner.home,
               awayArmy: -10,
               decisive: true,

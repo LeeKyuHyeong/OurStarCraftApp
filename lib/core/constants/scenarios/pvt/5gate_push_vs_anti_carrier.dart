@@ -69,11 +69,11 @@ const _pvt5gatePushVsAntiCarrier = ScenarioScript(
           altText: '{away}, 골리앗 합류! 대공뿐 아니라 지상에서도 쓸만합니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 5게이트 완성! 드라군과 질럿이 본격적으로 나옵니다!',
+          text: '{home} 선수 게이트웨이 다섯 개 완성! 드라군과 질럿이 본격적으로 나옵니다!',
           owner: LogOwner.home,
           homeArmy: 3,
           homeResource: -20,
-          altText: '{home}, 5게이트 가동! 공중 유닛 대신 지상 물량으로 갑니다!',
+          altText: '{home}, 게이트웨이 다섯 개 가동! 공중 유닛 대신 지상 물량으로 갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 탱크도 섞습니다! 골리앗과 탱크의 조합!',
@@ -96,7 +96,7 @@ const _pvt5gatePushVsAntiCarrier = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 스피드 질럿 완료! 5게이트 물량이 모였습니다!',
+          text: '{home} 선수 스피드 질럿 완료! 게이트웨이 물량이 모였습니다!',
           owner: LogOwner.home,
           homeArmy: 4,
           homeResource: -15,
@@ -112,7 +112,7 @@ const _pvt5gatePushVsAntiCarrier = ScenarioScript(
           text: '{home} 선수 전군 전진합니다! 지상전에서 승부를 봅니다!',
           owner: LogOwner.home,
           favorsStat: 'attack',
-          altText: '{home}, 5게이트 전진! 공중 없이 지상으로만 밀어붙입니다!',
+          altText: '{home}, 전군 전진! 공중 없이 지상으로만 밀어붙입니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 커맨드센터를 건설합니다! 골리앗 물량을 더 뽑아야 합니다!',
@@ -162,7 +162,7 @@ const _pvt5gatePushVsAntiCarrier = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{home} 선수 5게이트 물량으로 골리앗 편성을 돌파합니다!',
+              text: '{home} 선수 게이트웨이 물량으로 골리앗 편성을 돌파합니다!',
               owner: LogOwner.home,
               homeArmy: 25,
               awayArmy: -15,
@@ -206,7 +206,7 @@ const _pvt5gatePushVsAntiCarrier = ScenarioScript(
               awayArmy: 25,
               homeArmy: -15,
               decisive: true,
-              altText: '{away} 선수 골리앗 물량! 5게이트 지상 푸시를 막아냅니다!',
+              altText: '{away} 선수 골리앗 물량! 프로토스 지상 푸시를 막아냅니다!',
             ),
           ],
         ),

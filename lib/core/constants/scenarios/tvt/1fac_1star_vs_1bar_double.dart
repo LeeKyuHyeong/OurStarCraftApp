@@ -33,14 +33,14 @@ const _tvt1fac1starVs1barDouble = ScenarioScript(
           owner: LogOwner.home,
           homeResource: -400, // 가스 100 + 팩토리 300
           fixedCost: true,
-          altText: '{home} 선수 팩토리가 올라갑니다. 원팩 푸시 운영입니다.',
+          altText: '{home} 선수 팩토리가 올라갑니다. 공격적인 운영이네요.',
         ),
         ScriptEvent(
-          text: '{away} 선수 배럭에 이어 팩토리를 건설합니다. CC퍼스트의 안정적 테크 운영입니다.',
+          text: '{away} 선수 배럭에 이어 팩토리를 건설합니다. 확장 후 안정적인 테크 운영이네요.',
           owner: LogOwner.away,
           awayResource: -550, // 배럭 150 + 가스 100 + 팩토리 300
           fixedCost: true,
-          altText: '{away} 선수 CC퍼스트에서 팩토리 건설. 안정적으로 테크를 올립니다.',
+          altText: '{away} 선수 확장 후 팩토리 건설. 안정적으로 테크를 올립니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 벌처를 뽑으면서 마인을 깔고 있습니다.',
@@ -54,7 +54,7 @@ const _tvt1fac1starVs1barDouble = ScenarioScript(
           owner: LogOwner.home,
           homeArmy: 4, homeResource: -725, // 머신샵 100 + 시즈모드 300 + 탱크 250 + 벌처 75
           fixedCost: true,
-          altText: '{home} 선수 머신샵에서 시즈 연구를 시작합니다. 원팩에서 탱크 벌처가 나옵니다.',
+          altText: '{home} 선수 머신샵에서 시즈 연구를 시작합니다. 탱크 벌처가 나옵니다.',
         ),
         ScriptEvent(
           text: '안정적인 운영을 선택했습니다. 실력 싸움 가겠다는 거죠.',
@@ -64,7 +64,7 @@ const _tvt1fac1starVs1barDouble = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 앞마당 자원이 들어옵니다. 마인으로 시간을 벌면서.',
           owner: LogOwner.away,
-          altText: '{away} 선수 CC퍼스트 자원 가동. 수비하면서 물량을 쌓습니다.',
+          altText: '{away} 선수 확장 자원 가동. 수비하면서 물량을 쌓습니다.',
         ),
       ],
     ),
@@ -94,7 +94,7 @@ const _tvt1fac1starVs1barDouble = ScenarioScript(
           owner: LogOwner.home,
           homeArmy: 6, homeResource: -575, // 탱크 250 + 벌처 75x2 + 스타포트 250 (원팩원스타)
           fixedCost: true,
-          altText: '{home} 선수 원팩 푸시. 탱크와 벌처가 모입니다.',
+          altText: '{home} 선수 탱크와 벌처가 모이고 있습니다. 빠르게 밀어보려는 것 같습니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 벌처로 센터를 장악합니다. 마인 매설.',
@@ -155,7 +155,7 @@ const _tvt1fac1starVs1barDouble = ScenarioScript(
           homeArmy: 4, homeResource: -325, // 탱크 250 + 벌처 75
           fixedCost: true,
           favorsStat: 'attack',
-          altText: '{home} 선수 원팩 푸시. 탱크 라인이 밀려갑니다.',
+          altText: '{home} 선수 탱크 라인이 밀려갑니다. 빠른 타이밍 공격.',
         ),
         ScriptEvent(
           text: '{away} 선수 마인 지대에서 수비 준비. 탱크도 배치.',
@@ -183,7 +183,7 @@ const _tvt1fac1starVs1barDouble = ScenarioScript(
           altText: '{home} 선수 탱크 시즈! 사거리 안에 들어왔습니다!',
         ),
         ScriptEvent(
-          text: '원팩 푸시 vs CC퍼스트 수비! 공수 대결!',
+          text: '빠른 타이밍 공격 vs 확장 수비! 공수 대결!',
           owner: LogOwner.system,
           skipChance: 0.2,
           altText: '서로의 빌드를 다 알고 있습니다. 이제는 컨트롤 싸움이에요.',
@@ -294,7 +294,7 @@ const _tvt1fac1starVs1barDouble = ScenarioScript(
               skipChance: 0.3,
             ),
             ScriptEvent(
-              text: '{home} 선수 원팩 푸시 타이밍으로 수비 라인을 돌파합니다!',
+              text: '{home} 선수 타이밍 공격으로 수비 라인을 돌파합니다!',
               owner: LogOwner.home,
               awayResource: -300, // 팩토리 파괴
               favorsStat: 'attack',
@@ -325,17 +325,17 @@ const _tvt1fac1starVs1barDouble = ScenarioScript(
               fixedCost: true,
             ),
             ScriptEvent(
-              text: '{away} 선수 CC퍼스트 자원 우위. 아머리에서 골리앗이 쌓입니다.',
+              text: '{away} 선수 확장 자원 우위. 아머리에서 골리앗이 쌓입니다.',
               owner: LogOwner.away,
               awayArmy: 4, awayResource: -300, // 골리앗 2기 (150x2)
               fixedCost: true,
             ),
             ScriptEvent(
-              text: '{away} 선수 마인과 더블 자원으로 원팩 푸시를 버텨냅니다!',
+              text: '{away} 선수 마인과 더블 자원으로 타이밍 공격을 버텨냅니다!',
               owner: LogOwner.away,
               awayArmy: 4, homeArmy: -4,
               decisive: true,
-              altText: '{away} 선수 CC퍼스트 자원 가동! 물량 역전에 성공합니다!',
+              altText: '{away} 선수 확장 자원 가동! 물량 역전에 성공합니다!',
             ),
           ],
         ),

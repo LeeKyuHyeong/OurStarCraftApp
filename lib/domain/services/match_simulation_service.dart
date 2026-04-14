@@ -615,7 +615,7 @@ class MatchSimulationService {
 
           if (scriptResult.entry != null) {
             // 이벤트 적용 + 매 줄 recovery (채광은 건설과 동시 진행)
-            final phase = scenarioScript!.phases[scriptResult.nextPhaseIndex < scenarioScript.phases.length
+            final phase = scenarioScript.phases[scriptResult.nextPhaseIndex < scenarioScript.phases.length
                 ? scriptResult.nextPhaseIndex : scenarioScript.phases.length - 1];
             final eventState = scriptResult.newState;
             // 확장 이벤트 반영 (expansion → recovery 증가)
@@ -640,7 +640,7 @@ class MatchSimulationService {
             // decisiveWeight로 시나리오별 decisive 종료 비율 제어
             // > 1.0: 항상 decisive 종료 (기본값), < 1.0: 확률적으로 무시하여 경기 계속
             final effectiveDecisive = scriptResult.decisive &&
-                (scenarioScript!.decisiveWeight >= 1.0 ||
+                (scenarioScript.decisiveWeight >= 1.0 ||
                  _random.nextDouble() < scenarioScript.decisiveWeight);
             if (effectiveDecisive) {
               // decisive 이벤트: 시나리오 주체가 확정적으로 승리

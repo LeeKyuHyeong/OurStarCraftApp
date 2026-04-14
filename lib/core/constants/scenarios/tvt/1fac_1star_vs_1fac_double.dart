@@ -29,18 +29,18 @@ const _tvt1fac1starVs1facDouble = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{home} 선수 팩토리를 올립니다. 빠른 메카닉을 노립니다.',
+          text: '{home} 선수 팩토리를 올립니다. 가스를 많이 쓰는 빌드인가 봅니다.',
           owner: LogOwner.home,
           homeResource: -400, // 가스 100 + 팩토리 300
           fixedCost: true,
-          altText: '{home} 선수 팩토리가 올라갑니다. 원팩 푸시 운영입니다.',
+          altText: '{home} 선수 팩토리가 올라갑니다. 공격적인 운영이네요.',
         ),
         ScriptEvent(
           text: '{away} 선수도 팩토리를 올립니다. 하지만 앞마당 확장도 같이 갑니다.',
           owner: LogOwner.away,
           awayResource: -800, // 가스 100 + 팩토리 300 + 커맨드센터 400
           fixedCost: true,
-          altText: '{away} 선수 팩토리 후 확장. 원팩 확장입니다.',
+          altText: '{away} 선수 팩토리 후 확장을 가져갑니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 벌처를 뽑으면서 마인을 깔고 있습니다.',
@@ -59,7 +59,7 @@ const _tvt1fac1starVs1facDouble = ScenarioScript(
         ScriptEvent(
           text: '{away} 선수 앞마당 자원이 들어옵니다. 마인으로 시간을 벌면서.',
           owner: LogOwner.away,
-          altText: '{away} 선수 원팩 확장 자원 가동. 수비하면서 물량을 쌓습니다.',
+          altText: '{away} 선수 확장 자원 가동. 수비하면서 물량을 쌓습니다.',
         ),
       ],
     ),
@@ -89,7 +89,7 @@ const _tvt1fac1starVs1facDouble = ScenarioScript(
           owner: LogOwner.home,
           homeArmy: 6, homeResource: -575, // 탱크 250 + 벌처 75x2 + 스타포트 250 (원팩원스타)
           fixedCost: true,
-          altText: '{home} 선수 원팩 푸시. 탱크와 벌처가 모입니다.',
+          altText: '{home} 선수 탱크와 벌처가 모이고 있습니다. 빠르게 밀어보려는 것 같습니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 벌처로 센터를 장악합니다. 마인 매설.',
@@ -140,7 +140,7 @@ const _tvt1fac1starVs1facDouble = ScenarioScript(
           homeArmy: 4, homeResource: -325, // 탱크 250 + 벌처 75
           fixedCost: true,
           favorsStat: 'attack',
-          altText: '{home} 선수 원팩 푸시! 탱크 라인이 밀려갑니다!',
+          altText: '{home} 선수 탱크 라인이 밀려갑니다! 빠른 타이밍 공격!',
         ),
         ScriptEvent(
           text: '{away} 선수 마인 지대에서 수비 준비! 탱크도 배치!',
@@ -168,7 +168,7 @@ const _tvt1fac1starVs1facDouble = ScenarioScript(
           altText: '{home} 선수 탱크 시즈! 사거리 안에 들어왔습니다!',
         ),
         ScriptEvent(
-          text: '원팩 푸시 vs 원팩 확장! 같은 빌드 다른 선택의 대결!',
+          text: '공격적인 타이밍 vs 확장 수비! 같은 팩토리 다른 선택의 대결!',
           owner: LogOwner.system,
           skipChance: 0.2,
         ),
@@ -263,7 +263,7 @@ const _tvt1fac1starVs1facDouble = ScenarioScript(
               skipChance: 0.3,
             ),
             ScriptEvent(
-              text: '{home} 선수 원팩 푸시 타이밍으로 확장 수비를 뚫습니다!',
+              text: '{home} 선수 타이밍 공격으로 확장 수비를 뚫습니다!',
               owner: LogOwner.home,
               awayResource: -300, // 팩토리 파괴
               favorsStat: 'attack',
@@ -300,7 +300,7 @@ const _tvt1fac1starVs1facDouble = ScenarioScript(
               fixedCost: true,
             ),
             ScriptEvent(
-              text: '{away} 선수 마인과 확장 자원으로 원팩 푸시를 버텨냅니다!',
+              text: '{away} 선수 마인과 확장 자원으로 타이밍 공격을 버텨냅니다!',
               owner: LogOwner.away,
               awayArmy: 4, homeArmy: -4,
               decisive: true,

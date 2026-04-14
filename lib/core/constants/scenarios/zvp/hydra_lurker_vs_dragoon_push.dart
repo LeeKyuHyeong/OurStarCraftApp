@@ -31,7 +31,7 @@ const _zvpHydraLurkerVsDragoonPush = ScenarioScript(
           owner: LogOwner.home,
           homeResource: -20,
           favorsStat: 'strategy',
-          altText: '{home}, 히드라덴을 올립니다! 히드라리스크 빌드로 가는군요!',
+          altText: '{home}, 히드라덴을 올립니다! 히드라리스크를 준비하는군요!',
         ),
         ScriptEvent(
           text: '{away} 선수 드라군 생산이 시작됩니다. 물량을 모으고 있습니다.',
@@ -40,7 +40,7 @@ const _zvpHydraLurkerVsDragoonPush = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '양쪽 모두 안정적인 빌드입니다. 중반 교전이 기대되네요!',
+          text: '양쪽 모두 안정적인 구성입니다. 중반 교전이 기대되네요!',
           owner: LogOwner.system,
         ),
       ],

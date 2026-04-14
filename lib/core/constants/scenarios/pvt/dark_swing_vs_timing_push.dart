@@ -39,7 +39,7 @@ const _pvtDarkSwingVsTimingPush = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '타이밍 푸시 vs 다크 스윙! 먼저 결정타를 날리는 쪽이 유리!',
+          text: '타이밍 푸시 vs 다크 템플러 잠입! 먼저 결정타를 날리는 쪽이 유리!',
           owner: LogOwner.system,
         ),
       ],

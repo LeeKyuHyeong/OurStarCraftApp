@@ -24,7 +24,7 @@ const _zvpMutalHydraVsForgeExpand = ScenarioScript(
           text: '{away} 선수 포지를 먼저 건설합니다!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 포지 건설! 포지더블입니다!',
+          altText: '{away}, 포지를 올리고 앞마당 확장을 노립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 앞마당 해처리를 올립니다.',
@@ -44,7 +44,7 @@ const _zvpMutalHydraVsForgeExpand = ScenarioScript(
           homeResource: -25,
         ),
         ScriptEvent(
-          text: '국룰 포지더블! 저그는 공중 견제로 판을 열어갑니다!',
+          text: '국룰 구도! 저그는 공중 견제로 판을 열어갑니다!',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),

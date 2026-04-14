@@ -43,18 +43,24 @@ const _tvt2facPushVs1facDouble = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{home} 선수 두 번째 팩토리 건설, 투팩 체제입니다.',
+          text: '{home} 선수 두 번째 팩토리 건설. 벌처 대량 생산 체제입니다.',
           owner: LogOwner.home,
           homeResource: -300, // 팩토리(300)
           fixedCost: true,
-          altText: '{home} 선수 팩토리가 하나 더, 투팩 벌처 체제.',
+          altText: '{home} 선수 팩토리가 하나 더. 벌처 물량으로 밀겠다는 겁니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수 앞마당 커맨드센터 건설. 원팩으로 확장을 가져갑니다.',
+          text: '{away} 선수 앞마당 커맨드센터 건설. 확장을 가져갑니다.',
           owner: LogOwner.away,
           awayResource: -400, // CC(400)
           fixedCost: true,
-          altText: '{away} 선수 원팩 확장, 안정적인 운영을 선택합니다.',
+          altText: '{away} 선수 앞마당 확장, 안정적인 운영을 선택합니다.',
+        ),
+        ScriptEvent(
+          text: '공격적인 빌드 선택! 피해를 얼마나 줄 수 있을까요?',
+          owner: LogOwner.system,
+          skipChance: 0.3,
+          altText: '빌드가 갈렸습니다! 공격적인 선택 vs 안정적인 운영입니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 벌처 2기 생산 시작, 속업 연구도 시작합니다.',
@@ -97,7 +103,7 @@ const _tvt2facPushVs1facDouble = ScenarioScript(
           altText: '{away} 선수 마인과 벙커, 병력 접근에 대비합니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 투팩 벌처 4기가 센터를 장악합니다. 상대 이동 경로를 차단.',
+          text: '{home} 선수 벌처 4기가 센터를 장악합니다. 상대 이동 경로를 차단.',
           owner: LogOwner.home,
           homeArmy: 4, // 벌처 2기 추가 (2sup x2)
           homeResource: -150, // 벌처 2기 (75x2)
@@ -114,7 +120,7 @@ const _tvt2facPushVs1facDouble = ScenarioScript(
           altText: '{away} 선수 시즈 탱크, 벌처 견제를 막아낼 준비.',
         ),
         ScriptEvent(
-          text: '투팩 벌처의 기동력 vs 원팩 확장의 수비. 견제 싸움이 시작됩니다.',
+          text: '벌처 물량의 기동력 vs 확장 수비. 견제 싸움이 시작됩니다.',
           owner: LogOwner.system,
           skipChance: 0.2,
         ),
@@ -165,14 +171,14 @@ const _tvt2facPushVs1facDouble = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수 마인에 {home} 탱크가 걸립니다! 투팩 병력에 큰 피해!',
+              text: '{away} 선수 마인에 {home} 탱크가 걸립니다! 공격 측 병력에 큰 피해!',
               owner: LogOwner.away,
               homeArmy: -4, // 탱크 2기 손실 (2sup x2)
               favorsStat: 'defense',
               altText: '{away} 선수 마인 매설 성공! {home} 탱크가 큰 피해를 입습니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 병력 손실이 큽니다! 투팩 투자가 아까운데요!',
+              text: '{home} 선수 병력 손실이 큽니다! 공격적인 투자가 아까운데요!',
               owner: LogOwner.home,
               homeArmy: -2, // 벌처 1기 추가 손실 (2sup)
             ),
@@ -185,7 +191,7 @@ const _tvt2facPushVs1facDouble = ScenarioScript(
               altText: '{away} 선수 수비 성공, 세 번째 확장을 가져갑니다.',
             ),
             ScriptEvent(
-              text: '마인에 병력 피해! 원팩 확장 측이 안정을 찾았습니다!',
+              text: '마인에 병력 피해! 확장 측이 안정을 찾았습니다!',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
@@ -322,7 +328,7 @@ const _tvt2facPushVs1facDouble = ScenarioScript(
               altText: '{away} 선수 자원 우위. 병력이 빠르게 늘어납니다.',
             ),
             ScriptEvent(
-              text: '{home} 선수 투팩 체제로는 물량을 따라잡기 어렵습니다.',
+              text: '{home} 선수 팩토리 두 개 체제로는 확장 없이 물량을 따라잡기 어렵습니다.',
               owner: LogOwner.home,
               homeArmy: -2,
             ),
@@ -465,7 +471,7 @@ const _tvt2facPushVs1facDouble = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수 투팩 벌처 견제 성공! 상대 일꾼을 초토화합니다!',
+              text: '{home} 선수 벌처 견제 성공! 상대 일꾼을 초토화합니다!',
               owner: LogOwner.home,
               decisive: true,
               altText: '{home} 선수 벌처 물량으로 맵을 장악하며 밀어냅니다!',

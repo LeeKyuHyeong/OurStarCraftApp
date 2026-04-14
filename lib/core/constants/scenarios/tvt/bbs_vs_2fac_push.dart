@@ -35,18 +35,18 @@ const _tvtBbsVs2facPush = ScenarioScript(
           altText: '{home} 선수 센터 배럭을 올립니다. 공격적인 빌드.',
         ),
         ScriptEvent(
-          text: '{away} 선수 팩토리 2개 건설. 투팩 벌처입니다.',
+          text: '{away} 선수 팩토리 2개 건설. 벌처 대량 생산 체제입니다.',
           owner: LogOwner.away,
           awayResource: -600, // 팩토리 x2 (300x2)
           fixedCost: true,
-          altText: '{away} 선수 팩토리 두 개를 올립니다. 투팩 벌처로 승부합니다.',
+          altText: '{away} 선수 팩토리 두 개를 올립니다. 벌처 물량으로 승부합니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 본진에도 배럭 건설. BBS입니다.',
+          text: '{home} 선수 본진에도 배럭 건설. 배럭을 두 개 올립니다.',
           owner: LogOwner.home,
           homeResource: -150, // 배럭
           fixedCost: true,
-          altText: '{home} 선수 BBS 확정. 마린을 모읍니다.',
+          altText: '{home} 선수 배럭 두 개 확인. 마린을 모읍니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 마린이 모이고 있습니다.',
@@ -54,6 +54,12 @@ const _tvtBbsVs2facPush = ScenarioScript(
           homeArmy: 3, // 마린 3기
           homeResource: -150, // 마린 3기 (50x3)
           fixedCost: true,
+        ),
+        ScriptEvent(
+          text: '양쪽 다 공격적인 빌드입니다! 누가 먼저 피해를 주느냐가 승부를 가릅니다!',
+          owner: LogOwner.system,
+          skipChance: 0.3,
+          altText: '빌드가 극과극으로 갈렸습니다! 마린 러쉬 vs 메카닉 물량!',
         ),
       ],
     ),
@@ -74,7 +80,7 @@ const _tvtBbsVs2facPush = ScenarioScript(
           altText: '{home} 선수 마린과 SCV 돌진! 빠른 공격!',
         ),
         ScriptEvent(
-          text: '{away} 선수 투팩에서 벌처가 쏟아집니다.',
+          text: '{away} 선수 두 팩토리에서 벌처가 쏟아집니다.',
           owner: LogOwner.away,
           awayArmy: 4, // 벌처 2대 (2sup x2)
           awayResource: -150, // 벌처 2대 (75x2)
@@ -111,7 +117,7 @@ const _tvtBbsVs2facPush = ScenarioScript(
               owner: LogOwner.away,
               homeArmy: -3, // 마린 3기 사망
               favorsStat: 'defense',
-              altText: '{away} 선수 투팩 벌처로 마린 격퇴!',
+              altText: '{away} 선수 벌처 물량으로 마린 격퇴!',
             ),
             ScriptEvent(
               text: '{home} 선수 마린이 녹고 있습니다! 기동력을 따라잡지 못해요!',
@@ -119,13 +125,13 @@ const _tvtBbsVs2facPush = ScenarioScript(
               homeArmy: -2, // 마린 2기 사망
             ),
             ScriptEvent(
-              text: '{away} 선수 추가 벌처 합류! BBS를 완전히 막아냅니다!',
+              text: '{away} 선수 추가 벌처 합류! 마린 공격을 완전히 막아냅니다!',
               owner: LogOwner.away,
               awayArmy: 2, // 벌처 1대 (2sup)
               awayResource: -75, // 벌처
               fixedCost: true,
               homeArmy: -1, // 마린 1기 사망
-              altText: '{away} 선수 벌처 물량! BBS를 완전히 차단합니다!',
+              altText: '{away} 선수 벌처 물량! 초반 공격을 완전히 차단합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 후퇴합니다... 자원도 병력도 뒤처졌습니다.',
@@ -133,7 +139,7 @@ const _tvtBbsVs2facPush = ScenarioScript(
               homeResource: -150, // SCV 손실
             ),
             ScriptEvent(
-              text: 'BBS가 막혔습니다. 전환기에 들어갑니다.',
+              text: '초반 공격이 막혔습니다. 전환기에 들어갑니다.',
               owner: LogOwner.system,
             ),
           ],
@@ -169,7 +175,7 @@ const _tvtBbsVs2facPush = ScenarioScript(
               awayResource: -200, // SCV 손실
             ),
             ScriptEvent(
-              text: 'BBS 공격이 큰 피해를 줬습니다. 하지만 끝나진 않았습니다.',
+              text: '초반 공격이 큰 피해를 줬습니다. 하지만 끝나진 않았습니다.',
               owner: LogOwner.system,
             ),
           ],
@@ -197,7 +203,7 @@ const _tvtBbsVs2facPush = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{home} 선수 탱크 생산 시작. BBS 이후 전환합니다.',
+          text: '{home} 선수 탱크 생산 시작. 초반 이후 전환합니다.',
           owner: LogOwner.home,
           homeArmy: 2, // 탱크 1대 (2sup)
           homeResource: -250, // 탱크
@@ -205,7 +211,7 @@ const _tvtBbsVs2facPush = ScenarioScript(
           altText: '{home} 선수 탱크 체제로 전환합니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수 투팩에서 벌처 탱크가 쏟아집니다.',
+          text: '{away} 선수 두 팩토리에서 벌처 탱크가 쏟아집니다.',
           owner: LogOwner.away,
           awayArmy: 6, // 탱크 1대(2sup) + 벌처 2대(2sup x2)
           awayResource: -400, // 탱크(250) + 벌처 2대(75x2)

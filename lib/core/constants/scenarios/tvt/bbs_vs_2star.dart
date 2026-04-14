@@ -42,11 +42,11 @@ const _tvtBbsVs2star = ScenarioScript(
           altText: '{away} 선수 팩토리에 이어 스타포트가 올라갑니다. 공중 테크.',
         ),
         ScriptEvent(
-          text: '{home} 선수 본진에도 배럭 건설. BBS입니다.',
+          text: '{home} 선수 본진에도 배럭 건설. 배럭을 두 개 올립니다.',
           owner: LogOwner.home,
           homeResource: -150, // 배럭
           fixedCost: true,
-          altText: '{home} 선수 BBS 확정. 마린을 모읍니다.',
+          altText: '{home} 선수 배럭 두 개 확인. 마린을 모읍니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 상대 스타포트를 정찰합니다. 공중 유닛이 나올 수 있습니다.',
@@ -123,13 +123,13 @@ const _tvtBbsVs2star = ScenarioScript(
               homeArmy: -2, // 마린 2기 사망
             ),
             ScriptEvent(
-              text: '{away} 선수 추가 레이스 생산. BBS를 완전히 막아냅니다!',
+              text: '{away} 선수 추가 레이스 생산. 마린 공격을 완전히 막아냅니다!',
               owner: LogOwner.away,
               awayArmy: 2, // 레이스 1대 (2sup)
               awayResource: -250, // 레이스
               fixedCost: true,
               homeArmy: -1, // 마린 1기 사망
-              altText: '{away} 선수 레이스 물량! BBS를 완전히 차단합니다!',
+              altText: '{away} 선수 레이스 물량! 초반 공격을 완전히 차단합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 후퇴합니다... 자원도 병력도 뒤처졌습니다.',
@@ -137,7 +137,7 @@ const _tvtBbsVs2star = ScenarioScript(
               homeResource: -150, // SCV 손실
             ),
             ScriptEvent(
-              text: 'BBS가 막혔습니다. 전환기에 들어갑니다.',
+              text: '초반 공격이 막혔습니다. 전환기에 들어갑니다.',
               owner: LogOwner.system,
             ),
           ],
@@ -173,7 +173,7 @@ const _tvtBbsVs2star = ScenarioScript(
               awayResource: -200, // SCV 손실
             ),
             ScriptEvent(
-              text: 'BBS 공격이 큰 피해를 줬습니다. 공중 테크가 전세를 뒤집을 수 있을까요.',
+              text: '초반 공격이 큰 피해를 줬습니다. 공중 테크가 전세를 뒤집을 수 있을까요.',
               owner: LogOwner.system,
             ),
           ],
@@ -201,7 +201,7 @@ const _tvtBbsVs2star = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{home} 선수 탱크 생산 시작. BBS 이후 전환합니다.',
+          text: '{home} 선수 탱크 생산 시작. 초반 이후 전환합니다.',
           owner: LogOwner.home,
           homeArmy: 2, // 탱크 1대 (2sup)
           homeResource: -250, // 탱크
@@ -278,7 +278,7 @@ const _tvtBbsVs2star = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '{home} 선수 BBS 초반 피해에 대공 방어까지! 상대가 무너집니다!',
+              text: '{home} 선수 초반 피해에 대공 방어까지! 상대가 무너집니다!',
               owner: LogOwner.home,
               decisive: true,
               altText: '{home} 선수 초반 마린 화력과 탱크로 상대를 압살합니다!',
@@ -301,7 +301,7 @@ const _tvtBbsVs2star = ScenarioScript(
               altText: '{away} 선수 클로킹 견제! 스캔이 없는 곳을 노립니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 BBS 투자가 무겁습니다. 대공도 늦습니다.',
+              text: '{home} 선수 초반 투자가 무겁습니다. 대공도 늦습니다.',
               owner: LogOwner.home,
               homeArmy: -2, // 마린 2기 사망
             ),
@@ -316,7 +316,7 @@ const _tvtBbsVs2star = ScenarioScript(
               text: '{away} 선수 클로킹 견제로 상대를 흔들어 놓고 탱크로 마무리합니다!',
               owner: LogOwner.away,
               decisive: true,
-              altText: '{away} 선수 레이스 견제로 BBS를 역전합니다!',
+              altText: '{away} 선수 레이스 견제로 초반을 역전합니다!',
             ),
           ],
         ),

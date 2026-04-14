@@ -393,17 +393,17 @@ const _tvtFdRushMirror = ScenarioScript(
               owner: LogOwner.home,
               homeResource: -300, // 팩토리 300
               fixedCost: true,
-              altText: '{home} 선수 투팩 체제로 전환합니다.',
+              altText: '{home} 선수 팩토리 두 개 체제로 전환합니다.',
             ),
             ScriptEvent(
               text: '{away} 선수도 팩토리를 추가합니다.',
               owner: LogOwner.away,
               awayResource: -300,
               fixedCost: true,
-              altText: '{away} 선수도 투팩 전환.',
+              altText: '{away} 선수도 팩토리 두 개로 전환.',
             ),
             ScriptEvent(
-              text: '양측 확장과 투팩 체제, 물량전으로 이어집니다.',
+              text: '양측 확장과 팩토리 두 개 체제, 물량전으로 이어집니다.',
               owner: LogOwner.system,
               skipChance: 0.3,
               altText: '양쪽 다 확장을 올렸습니다, 자원 싸움이 본격화됩니다.',

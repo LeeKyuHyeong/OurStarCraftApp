@@ -20,13 +20,13 @@ const _zvz9poolLairMirror = ScenarioScript(
           text: '{home} 선수 9드론에 스포닝풀, 가스도 같이 올립니다!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 9풀에 가스! 빠른 테크를 노리는 빌드!',
+          altText: '{home}, 9드론에 스포닝풀과 가스! 빠른 테크를 노리는 빌드!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 9풀에 가스까지! 레어를 노리는데요~',
+          text: '{away} 선수도 9드론에 스포닝풀과 가스까지! 레어를 노리는데요~',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 똑같이 9풀 가스! 양쪽 다 선 레어 선택!',
+          altText: '{away}, 똑같이 9드론에 스포닝풀과 가스! 양쪽 다 선 레어 선택!',
         ),
         ScriptEvent(
           text: '{home}, 가스 100이 모이자마자 레어 진화! 발업보다 테크를 우선합니다!',

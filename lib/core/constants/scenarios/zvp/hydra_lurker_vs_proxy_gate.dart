@@ -25,7 +25,7 @@ const _zvpHydraLurkerVsProxyGate = ScenarioScript(
           text: '{away} 선수 파일런을 저그 앞마당 근처에 숨겨서 건설합니다!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 파일런이 숨겨진 위치에 올라갑니다! 프록시 빌드인가요?',
+          altText: '{away}, 파일런이 숨겨진 위치에 올라갑니다! 전진 건설인가요?',
         ),
         ScriptEvent(
           text: '{home} 선수 스포닝풀 건설을 시작합니다.',
@@ -33,14 +33,14 @@ const _zvpHydraLurkerVsProxyGate = ScenarioScript(
           homeResource: -15,
         ),
         ScriptEvent(
-          text: '{away} 선수 프록시 게이트웨이 건설! 본진이 아닌 전방입니다!',
+          text: '{away} 선수 전진 게이트웨이 건설! 본진이 아닌 전방입니다!',
           owner: LogOwner.away,
           awayResource: -20,
           favorsStat: 'attack',
           altText: '{away}, 게이트웨이가 전방에 세워집니다! 빠른 질럿을 노리고 있습니다!',
         ),
         ScriptEvent(
-          text: '프로토스의 프록시 게이트웨이! 정찰이 관건이 될 것 같습니다!',
+          text: '프로토스의 전진 게이트웨이! 정찰이 관건이 될 것 같습니다!',
           owner: LogOwner.system,
         ),
       ],
@@ -186,7 +186,7 @@ const _zvpHydraLurkerVsProxyGate = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '프록시 게이트 질럿 러시 성공! 럴커가 나오기 전에 끝냈습니다! GG!',
+              text: '전진 질럿 러시 성공! 럴커가 나오기 전에 끝냈습니다! GG!',
               owner: LogOwner.away,
               decisive: true,
             ),

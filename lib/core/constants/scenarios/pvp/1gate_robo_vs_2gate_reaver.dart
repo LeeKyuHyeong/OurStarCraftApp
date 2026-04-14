@@ -34,10 +34,10 @@ const _pvp1gateRoboVs2gateReaver = ScenarioScript(
           text: '{away} 선수 게이트웨이 추가! 사이버네틱스 코어!',
           owner: LogOwner.away,
           awayResource: -30,
-          altText: '{away}, 투게이트! 공격적인 리버 빌드!',
+          altText: '{away}, 게이트웨이가 두 개! 공격적으로 나오겠네요!',
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스 건설! 원게이트 로보!',
+          text: '{home} 선수 게이트웨이 후 로보틱스를 올립니다!',
           owner: LogOwner.home,
           homeResource: -20, homeArmy: 2,
           altText: '{home}, 로보틱스! 안정적인 테크!',
@@ -69,7 +69,7 @@ const _pvp1gateRoboVs2gateReaver = ScenarioScript(
           text: '{away}, 셔틀 리버 출격! 드라군 호위까지!',
           owner: LogOwner.away,
           awayArmy: 3, awayResource: -25, favorsStat: 'harass',
-          altText: '{away} 선수 셔틀 리버! 투게이트 드라군과 함께!',
+          altText: '{away} 선수 셔틀 리버! 드라군 호위까지 붙었습니다!',
         ),
         ScriptEvent(
           text: '{home} 선수도 셔틀 리버! 교차 견제!',
@@ -78,7 +78,7 @@ const _pvp1gateRoboVs2gateReaver = ScenarioScript(
           altText: '{home}, 셔틀 리버 출발! 양쪽 리버 대결!',
         ),
         ScriptEvent(
-          text: '리버 대결! 투게이트 쪽이 드라군이 더 많습니다!',
+          text: '리버 대결! 게이트웨이 두 개 쪽이 드라군이 더 많습니다!',
           owner: LogOwner.system,
           skipChance: 0.2,
         ),
@@ -121,7 +121,7 @@ const _pvp1gateRoboVs2gateReaver = ScenarioScript(
           baseProbability: 1.05,
           events: [
             ScriptEvent(
-              text: '{away}, 리버에 드라군 호위! 투게이트의 힘!',
+              text: '{away}, 리버에 드라군 호위! 게이트웨이 두 개의 힘!',
               owner: LogOwner.away,
               homeResource: -25, homeArmy: -2, favorsStat: 'harass',
               altText: '{away} 선수 리버 견제! 드라군이 셔틀을 지킵니다!',
@@ -132,12 +132,12 @@ const _pvp1gateRoboVs2gateReaver = ScenarioScript(
               homeArmy: -2, favorsStat: 'control',
             ),
             ScriptEvent(
-              text: '{away}, 투게이트 드라군 물량으로 전진합니다!',
+              text: '{away}, 드라군 물량으로 전진합니다! 게이트가 두 개라 빠릅니다!',
               owner: LogOwner.away,
               homeArmy: -2, awayArmy: 2, favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '투게이트의 드라군 물량 차이가 앞섭니다!',
+              text: '드라군 물량 차이가 앞서기 시작합니다!',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
@@ -204,13 +204,13 @@ const _pvp1gateRoboVs2gateReaver = ScenarioScript(
           baseProbability: 1.05,
           events: [
             ScriptEvent(
-              text: '{away}, 스톰에 리버까지! 투게이트의 화력!',
+              text: '{away}, 스톰에 리버까지! 두꺼운 병력의 화력!',
               owner: LogOwner.away,
               homeArmy: -10, awayArmy: -5, favorsStat: 'strategy',
               altText: '{away} 선수 스톰과 스캐럽! 압도적!',
             ),
             ScriptEvent(
-              text: '투게이트 리버의 화력이 빛납니다! 결정적!',
+              text: '리버의 화력이 빛납니다! 결정적!',
               owner: LogOwner.away,
               homeArmy: -10,
               decisive: true,

@@ -24,7 +24,7 @@ const _zvp5hatchHydraVsForgeExpand = ScenarioScript(
           text: '{away} 선수 포지를 먼저 건설합니다!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 포지! 포지더블이군요!',
+          altText: '{away}, 포지를 올리고 앞마당 확장을 준비합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 앞마당 해처리를 올립니다.',
@@ -44,7 +44,7 @@ const _zvp5hatchHydraVsForgeExpand = ScenarioScript(
           homeResource: -20,
         ),
         ScriptEvent(
-          text: '국룰 포지더블! 저그 타이밍 어택이냐 캐논 수비냐!',
+          text: '국룰 구도! 저그 타이밍 어택이냐 캐논 수비냐!',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
@@ -64,7 +64,7 @@ const _zvp5hatchHydraVsForgeExpand = ScenarioScript(
           altText: '{home}, 히드라덴! 업그레이드를 서둡니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 해처리를 추가합니다! 5해처리 체제!',
+          text: '{home} 선수 해처리를 추가합니다! 물량 체제 가동!',
           owner: LogOwner.home,
           homeResource: -30,
         ),

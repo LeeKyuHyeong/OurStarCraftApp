@@ -42,7 +42,7 @@ const _tvtFdRushVs1barDouble = ScenarioScript(
           owner: LogOwner.away,
           awayResource: -400, // CC 400
           fixedCost: true,
-          altText: '{away} 선수 앞마당 커맨드센터. 원배럭더블로 확장.',
+          altText: '{away} 선수 앞마당 커맨드센터. 배럭 후 확장을 가져갑니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 팩토리 건설. 마린은 계속 뽑습니다.',
@@ -67,7 +67,7 @@ const _tvtFdRushVs1barDouble = ScenarioScript(
           altText: '{away} 선수 확장 가동, 리파이너리를 올립니다.',
         ),
         ScriptEvent(
-          text: '마린 물량의 FD 러쉬 vs 빠른 확장! 공격과 수비의 대결!',
+          text: '마린 메카닉 조합 빠른 공격 vs 앞마당 확장! 공격과 수비의 대결!',
           owner: LogOwner.system,
           altText: 'SCV 정찰로 상대 팩토리 타이밍을 꼼꼼히 체크합니다.',
         ),
@@ -85,7 +85,7 @@ const _tvtFdRushVs1barDouble = ScenarioScript(
           owner: LogOwner.home,
           homeArmy: 2, homeResource: -550, // 탱크 250 + 시즈모드 300
           fixedCost: true,
-          altText: '{home} 선수 탱크와 시즈모드 동시 진행. FD 러쉬 준비.',
+          altText: '{home} 선수 탱크와 시즈모드 동시 진행. 빠른 공격 준비.',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리를 올립니다. 하지만 탱크는 아직 멀었습니다.',
@@ -173,7 +173,7 @@ const _tvtFdRushVs1barDouble = ScenarioScript(
               homeArmy: -2, awayArmy: -1,
             ),
             ScriptEvent(
-              text: '{away} 선수 벙커 마린 화력까지! FD 러쉬를 막아냅니다!',
+              text: '{away} 선수 벙커 마린 화력까지! 초반 공격을 막아냅니다!',
               owner: LogOwner.away,
               homeArmy: -2, favorsStat: 'defense',
               altText: '{away} 선수 벙커와 탱크 수비! 러쉬를 방어합니다!',
@@ -405,7 +405,7 @@ const _tvtFdRushVs1barDouble = ScenarioScript(
               awayArmy: -2,
             ),
             ScriptEvent(
-              text: '{home} 선수 FD 러쉬의 탱크가 확장 빌드를 무너뜨립니다!',
+              text: '{home} 선수 빠른 탱크가 확장을 무너뜨립니다!',
               owner: LogOwner.home,
               decisive: true,
               altText: '{home} 선수 탱크 푸시로 확장을 파괴하며 승리!',

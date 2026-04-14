@@ -30,7 +30,7 @@ const _pvtProxyGateVsTankDefense = ScenarioScript(
           text: '{home} 선수 상대 근처에 게이트웨이를 숨겨서 건설합니다!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 프록시 게이트웨이! 발각되지 않았습니다!',
+          altText: '{home}, 숨겨진 게이트웨이! 발각되지 않았습니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리 건설합니다. 머신샵을 붙이고 있습니다!',
@@ -45,7 +45,7 @@ const _pvtProxyGateVsTankDefense = ScenarioScript(
           altText: '{home}, 질럿이 나옵니다! 테란이 아직 모르고 있어요!',
         ),
         ScriptEvent(
-          text: '프록시 게이트! 테란이 정찰하지 못하면 위험합니다!',
+          text: '전진 게이트웨이! 테란이 정찰하지 못하면 위험합니다!',
           owner: LogOwner.system,
         ),
       ],
@@ -163,7 +163,7 @@ const _pvtProxyGateVsTankDefense = ScenarioScript(
               homeArmy: 20,
               awayArmy: -15,
               decisive: true,
-              altText: '{home}, 프록시 게이트 성공! 질럿이 테란을 초토화!',
+              altText: '{home}, 전진 게이트웨이 성공! 질럿이 테란을 초토화!',
             ),
           ],
         ),
@@ -199,7 +199,7 @@ const _pvtProxyGateVsTankDefense = ScenarioScript(
               homeArmy: -8,
             ),
             ScriptEvent(
-              text: '프록시 게이트 실패! 프로토스에 남은 게 없습니다!',
+              text: '전진 게이트웨이 실패! 프로토스에 남은 게 없습니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
@@ -208,7 +208,7 @@ const _pvtProxyGateVsTankDefense = ScenarioScript(
               awayArmy: 20,
               homeArmy: -15,
               decisive: true,
-              altText: '{away}, 탱크 시즈 모드! 프록시를 완벽히 막아냈습니다!',
+              altText: '{away}, 탱크 시즈 모드! 전진 질럿을 완벽히 막아냈습니다!',
             ),
           ],
         ),

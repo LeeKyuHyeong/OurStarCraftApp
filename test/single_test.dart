@@ -14,8 +14,8 @@ import 'package:mystar/domain/services/match_simulation_service.dart';
 
 // ── 빌드 ID 설정 (여기만 수정) ──
 
-const _tvtHome = 'tvt_bbs';
-const _tvtAway = 'tvt_1bar_double';
+const _tvtHome = 'tvt_1fac_1star';
+const _tvtAway = 'tvt_1fac_1star';
 
 const _tvzHome = 'tvz_sk';
 const _tvzAway = 'zvt_2hatch_mutal';

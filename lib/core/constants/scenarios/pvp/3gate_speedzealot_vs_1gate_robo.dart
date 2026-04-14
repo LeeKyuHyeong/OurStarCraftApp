@@ -38,7 +38,7 @@ const _pvp3gateSpeedzealotVs1gateRobo = ScenarioScript(
           altText: '{away}, 로보틱스! 리버를 노립니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 게이트웨이를 추가! 3게이트!',
+          text: '{home} 선수 세 번째 게이트웨이를 올립니다!',
           owner: LogOwner.home,
           homeResource: -30,
         ),
@@ -54,7 +54,7 @@ const _pvp3gateSpeedzealotVs1gateRobo = ScenarioScript(
           altText: '{home}, 다리 업그레이드! 스피드 질럿을 만듭니다!',
         ),
         ScriptEvent(
-          text: '쓰리게이트 스피드질럿 vs 원게이트 로보! 속도 vs 테크!',
+          text: '스피드질럿 물량 vs 로보틱스 테크! 속도 vs 테크의 대결!',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),

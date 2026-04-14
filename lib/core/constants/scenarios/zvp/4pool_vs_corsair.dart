@@ -16,7 +16,7 @@ const _zvp4poolVsCorsair = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 4풀! 스포닝풀을 바로 건설합니다!',
+          text: '{home} 선수 4드론에 스포닝풀! 바로 건설합니다!',
           owner: LogOwner.home,
           homeResource: -15,
           altText: '{home}, 극초반 스포닝풀! 저글링 러시를 준비합니다!',
@@ -60,7 +60,7 @@ const _zvp4poolVsCorsair = ScenarioScript(
           altText: '{away}, 프로브까지 동원! 시간을 벌어야 합니다!',
         ),
         ScriptEvent(
-          text: '커세어 빌드의 약점! 지상 유닛이 부족합니다!',
+          text: '스타게이트에 자원을 쓴 만큼 지상 유닛이 부족합니다!',
           owner: LogOwner.system,
           skipChance: 0.2,
         ),
@@ -124,7 +124,7 @@ const _zvp4poolVsCorsair = ScenarioScript(
               altText: '{home} 선수 넥서스 공격! 프로토스가 흔들립니다!',
             ),
             ScriptEvent(
-              text: '커세어가 나왔지만 이미 늦었습니다! 4풀 성공!',
+              text: '커세어가 나왔지만 이미 늦었습니다! 저글링 러시 성공!',
               owner: LogOwner.home,
               decisive: true,
             ),

@@ -39,13 +39,13 @@ const _pvp1gateRoboVs2gateDragoon = ScenarioScript(
           text: '{home} 선수 로보틱스 건설! 테크를 올립니다!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 로보틱스! 테크를 올리는 빌드!',
+          altText: '{home}, 로보틱스! 테크를 올리네요!',
         ),
         ScriptEvent(
           text: '{away} 선수 게이트웨이 추가! 드라군을 빠르게 모읍니다!',
           owner: LogOwner.away,
           homeArmy: 2, awayArmy: 3, awayResource: -20,
-          altText: '{away}, 투게이트! 드라군 물량으로 밀어붙이려는 의도!',
+          altText: '{away}, 두 번째 게이트웨이! 드라군 물량으로 밀어붙이려는 의도!',
         ),
         ScriptEvent(
           text: '{home} 선수 서포트 베이 건설! 셔틀과 리버를 준비합니다!',

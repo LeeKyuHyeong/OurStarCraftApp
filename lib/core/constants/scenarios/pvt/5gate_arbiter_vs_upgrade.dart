@@ -44,7 +44,7 @@ const _pvt5gateArbiterVsUpgrade = ScenarioScript(
           skipChance: 0.3,
         ),
         ScriptEvent(
-          text: '{home} 선수 게이트웨이를 추가합니다. 5게이트 체제를 만들어야죠.',
+          text: '{home} 선수 게이트웨이를 추가합니다. 다섯 개까지 늘리겠네요.',
           owner: LogOwner.home,
           homeArmy: 2, homeResource: -15,
         ),
@@ -58,7 +58,7 @@ const _pvt5gateArbiterVsUpgrade = ScenarioScript(
       recoveryResourcePerLine: 8,
       linearEvents: [
         ScriptEvent(
-          text: '{away} 선수 아머리 건설! 더블 업그레이드를 시작합니다!',
+          text: '{away} 선수 아머리 건설! 공방 업그레이드를 시작합니다!',
           owner: LogOwner.away,
           awayResource: -20,
           altText: '{away}, 아머리가 올라갑니다! 공방 업그레이드가 핵심!',
@@ -174,7 +174,7 @@ const _pvt5gateArbiterVsUpgrade = ScenarioScript(
               homeArmy: -6, awayArmy: -2, favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '더블 업그레이드의 위력! 풀업 바이오닉이 프로토스를 압도합니다!',
+              text: '업그레이드의 위력! 풀업 바이오닉이 프로토스를 압도합니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

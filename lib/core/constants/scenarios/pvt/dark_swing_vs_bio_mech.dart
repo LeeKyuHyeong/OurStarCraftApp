@@ -35,7 +35,7 @@ const _pvtDarkSwingVsBioMech = ScenarioScript(
           text: '{away} 선수 팩토리에 아카데미까지! 밸런스 있는 빌드!',
           owner: LogOwner.away,
           awayResource: -20,
-          altText: '{away}, 팩토리 아카데미! 바이오 메카닉을 준비합니다!',
+          altText: '{away}, 팩토리에 아카데미! 복합 편성을 준비합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 템플러 아카이브가 올라갑니다!',
@@ -43,7 +43,7 @@ const _pvtDarkSwingVsBioMech = ScenarioScript(
           homeResource: -20,
         ),
         ScriptEvent(
-          text: '바이오 메카닉은 디텍 수단이 다양합니다! 다크가 통할까요?',
+          text: '복합 편성은 디텍 수단이 다양합니다! 다크가 통할까요?',
           owner: LogOwner.system,
         ),
       ],
@@ -60,7 +60,7 @@ const _pvtDarkSwingVsBioMech = ScenarioScript(
           owner: LogOwner.home,
           homeArmy: 3,
           homeResource: -15,
-          altText: '{home}, 다크 출발! 바이오 메카닉 상대로 통할까요?',
+          altText: '{home}, 다크 출발! 복합 편성 상대로 통할까요?',
         ),
         ScriptEvent(
           text: '{away} 선수 컴샛이 가능합니다! 아카데미가 있어요!',
@@ -81,7 +81,7 @@ const _pvtDarkSwingVsBioMech = ScenarioScript(
           favorsStat: 'scout',
         ),
         ScriptEvent(
-          text: '바이오 메카닉의 다양한 디텍 수단! 스캔, 터렛, 사이언스 베슬!',
+          text: '복합 편성의 다양한 디텍 수단! 스캔, 터렛, 사이언스 베슬!',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
@@ -162,7 +162,7 @@ const _pvtDarkSwingVsBioMech = ScenarioScript(
               homeArmy: 20,
               awayArmy: -15,
               decisive: true,
-              altText: '{home}, 다크 견제 + 드라군 공격! 바이오 메카닉을 무너뜨립니다!',
+              altText: '{home}, 다크 견제 + 드라군 공격! 복합 편성을 무너뜨립니다!',
             ),
           ],
         ),
@@ -198,7 +198,7 @@ const _pvtDarkSwingVsBioMech = ScenarioScript(
               homeArmy: -5,
             ),
             ScriptEvent(
-              text: '바이오 메카닉의 완성형! 프로토스가 막기 힘든 편성!',
+              text: '마린 탱크 골리앗의 완성형! 프로토스가 막기 힘든 편성!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
@@ -207,7 +207,7 @@ const _pvtDarkSwingVsBioMech = ScenarioScript(
               awayArmy: 20,
               homeArmy: -15,
               decisive: true,
-              altText: '{away}, 바이오 메카닉 완성! 사이언스 베슬이 다크를 봉인!',
+              altText: '{away}, 복합 편성 완성! 사이언스 베슬이 다크를 봉인!',
             ),
           ],
         ),

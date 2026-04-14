@@ -129,7 +129,7 @@ const _zvp5droneVsCannonRush = ScenarioScript(
               altText: '{home} 선수 프로브 전멸! 캐논만 남았습니다!',
             ),
             ScriptEvent(
-              text: '캐논 러쉬 실패! 저글링 올인의 승리!',
+              text: '전진 캐논 실패! 저글링이 프로토스를 밀어붙입니다!',
               owner: LogOwner.home,
               decisive: true,
             ),

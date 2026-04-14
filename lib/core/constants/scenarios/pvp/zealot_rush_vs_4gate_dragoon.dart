@@ -40,13 +40,13 @@ const _pvpZealotRushVs4gateDragoon = ScenarioScript(
           text: '{home} 선수 질럿 생산 시작!',
           owner: LogOwner.home,
           homeArmy: 3, homeResource: -10,
-          altText: '{home}, 질럿이 나옵니다! 포게이트 전에 밀어야 합니다!',
+          altText: '{home}, 질럿이 나옵니다! 드라군 물량이 나오기 전에 밀어야 합니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 게이트웨이를 빠르게 추가합니다! 포게이트!',
+          text: '{away} 선수 게이트웨이를 빠르게 추가합니다! 벌써 네 개!',
           owner: LogOwner.away,
           awayResource: -45,
-          altText: '{away}, 게이트웨이 4개! 드라군 물량 빌드!',
+          altText: '{away}, 게이트웨이가 네 개! 드라군 물량이 나옵니다!',
         ),
       ],
     ),
@@ -56,7 +56,7 @@ const _pvpZealotRushVs4gateDragoon = ScenarioScript(
       startLine: 13,
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 질럿 3기가 돌진합니다! 포게이트가 돌기 전에!',
+          text: '{home}, 질럿 3기가 돌진합니다! 게이트웨이가 다 돌기 전에!',
           owner: LogOwner.home,
           homeArmy: 2, favorsStat: 'attack',
           altText: '{home} 선수 질럿 러시! 드라군 물량이 나오기 전에 끝내야!',
@@ -67,7 +67,7 @@ const _pvpZealotRushVs4gateDragoon = ScenarioScript(
           awayArmy: 2,
         ),
         ScriptEvent(
-          text: '질럿 러시 vs 포게이트! 초반 타이밍 싸움입니다!',
+          text: '질럿 러시 vs 드라군 물량! 초반 타이밍 싸움입니다!',
           owner: LogOwner.system,
         ),
       ],
@@ -99,7 +99,7 @@ const _pvpZealotRushVs4gateDragoon = ScenarioScript(
               homeArmy: 2, awayResource: -15, favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '포게이트에 자원을 쏟은 대가! 질럿 러시가 본진을 초토화!',
+              text: '게이트웨이에 자원을 쏟은 대가! 질럿 러시가 본진을 초토화!',
               owner: LogOwner.home,
               awayArmy: -10,
               decisive: true,
@@ -123,12 +123,12 @@ const _pvpZealotRushVs4gateDragoon = ScenarioScript(
               homeArmy: -2,
             ),
             ScriptEvent(
-              text: '{away}, 포게이트에서 드라군이 쏟아집니다! 압도적 물량!',
+              text: '{away}, 게이트웨이 네 개에서 드라군이 쏟아집니다! 압도적 물량!',
               owner: LogOwner.away,
               awayArmy: 5, awayResource: -20,
             ),
             ScriptEvent(
-              text: '포게이트 드라군 물량! 질럿 러시를 완벽하게 막아냅니다!',
+              text: '드라군 물량! 질럿 러시를 완벽하게 막아냅니다!',
               owner: LogOwner.away,
               homeArmy: -10,
               decisive: true,

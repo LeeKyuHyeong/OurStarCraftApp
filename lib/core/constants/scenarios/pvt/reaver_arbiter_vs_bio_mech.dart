@@ -21,13 +21,13 @@ const _pvtReaverArbiterVsBioMech = ScenarioScript(
           homeResource: -15,
         ),
         ScriptEvent(
-          text: '{away} 선수 배럭과 팩토리를 함께 건설합니다! 바이오 메카닉!',
+          text: '{away} 선수 배럭과 팩토리를 함께 건설합니다! 복합 편성이군요!',
           owner: LogOwner.away,
           awayResource: -25,
           altText: '{away}, 배럭과 팩토리! 복합 병력을 준비하는군요!',
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스와 서포트 베이를 건설합니다. 로보 아비터 빌드입니다.',
+          text: '{home} 선수 로보틱스와 서포트 베이를 건설합니다. 리버를 노리는군요.',
           owner: LogOwner.home,
           homeResource: -15,
           altText: '{home}, 로보틱스와 서포트 베이가 올라갑니다!',
@@ -40,7 +40,7 @@ const _pvtReaverArbiterVsBioMech = ScenarioScript(
           favorsStat: 'macro',
         ),
         ScriptEvent(
-          text: '바이오 메카닉의 다양한 병력 vs 풀테크 프로토스! 어떤 전개가 펼쳐질까요!',
+          text: '마린 탱크 골리앗의 다양한 병력 vs 풀테크 프로토스! 어떤 전개가 펼쳐질까요!',
           owner: LogOwner.system,
         ),
       ],
@@ -64,7 +64,7 @@ const _pvtReaverArbiterVsBioMech = ScenarioScript(
           owner: LogOwner.away,
           awayArmy: 3,
           awayResource: -15,
-          altText: '{away}, 마린 탱크 골리앗! 풀세트 바이오 메카닉!',
+          altText: '{away}, 마린 탱크 골리앗! 풀세트 복합 편성!',
         ),
         ScriptEvent(
           text: '{home} 선수 템플러 아카이브를 건설합니다! 스톰을 노립니다!',

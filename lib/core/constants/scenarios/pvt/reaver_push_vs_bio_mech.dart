@@ -26,7 +26,7 @@ const _pvtReaverPushVsBioMech = ScenarioScript(
           owner: LogOwner.away,
           awayArmy: 2,
           awayResource: -20,
-          altText: '{away}, 마린과 팩토리를 동시에! 바이오 메카닉 빌드입니다!',
+          altText: '{away}, 마린과 팩토리를 동시에! 복합 편성을 준비하는군요!',
         ),
         ScriptEvent(
           text: '{home} 선수 로보틱스와 서포트 베이를 빠르게 올립니다!',
@@ -42,7 +42,7 @@ const _pvtReaverPushVsBioMech = ScenarioScript(
           favorsStat: 'macro',
         ),
         ScriptEvent(
-          text: '바이오 메카닉의 복합 병력 vs 로보틱스 셔틀 견제! 흥미로운 조합이네요!',
+          text: '마린 탱크 복합 병력 vs 로보틱스 셔틀 견제! 흥미로운 조합이네요!',
           owner: LogOwner.system,
         ),
       ],
@@ -66,7 +66,7 @@ const _pvtReaverPushVsBioMech = ScenarioScript(
           owner: LogOwner.away,
           awayArmy: 3,
           awayResource: -15,
-          altText: '{away}, 마린이 앞에, 시즈탱크가 뒤에! 전형적인 바이오 메카닉 진형!',
+          altText: '{away}, 마린이 앞에, 시즈탱크가 뒤에! 전형적인 복합 진형!',
         ),
         ScriptEvent(
           text: '{home} 선수 셔틀이 마린 뭉치 뒤편으로 접근합니다!',

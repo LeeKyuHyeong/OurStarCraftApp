@@ -38,7 +38,7 @@ const _pvtDarkSwingVsAntiCarrier = ScenarioScript(
           altText: '{away}, 아머리! 대공 준비를 하고 있습니다!',
         ),
         ScriptEvent(
-          text: '골리앗 빌드는 대공에 특화! 하지만 다크에 대한 대비는?',
+          text: '골리앗 중심 편성은 대공에 특화! 하지만 다크에 대한 대비는?',
           owner: LogOwner.system,
         ),
         ScriptEvent(
@@ -60,7 +60,7 @@ const _pvtDarkSwingVsAntiCarrier = ScenarioScript(
           owner: LogOwner.home,
           homeArmy: 3,
           homeResource: -15,
-          altText: '{home}, 다크 출발! 골리앗 빌드를 방해하러 갑니다!',
+          altText: '{home}, 다크 출발! 골리앗 편성을 방해하러 갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 골리앗 1기 생산! 아직 물량이 적어요!',
@@ -158,7 +158,7 @@ const _pvtDarkSwingVsAntiCarrier = ScenarioScript(
               homeArmy: 20,
               awayArmy: -15,
               decisive: true,
-              altText: '{home}, 다크 스윙이 골리앗 빌드를 완전히 무너뜨렸습니다!',
+              altText: '{home}, 다크 템플러의 활약이 테란을 완전히 무너뜨렸습니다!',
             ),
           ],
         ),

@@ -19,13 +19,13 @@ const _zvp4poolVs2starCorsair = ScenarioScript(
           text: '{home} 선수 드론 4마리에서 바로 스포닝풀! 올인입니다!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 4풀 빌드! 극초반 러시를 노립니다!',
+          altText: '{home}, 4드론에 스포닝풀! 극초반 러시를 노립니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 넥서스 뒤에 스타게이트를 건설합니다.',
           owner: LogOwner.away,
           awayResource: -20,
-          altText: '{away}, 스타게이트 건설! 커세어를 준비하는 빌드입니다!',
+          altText: '{away}, 스타게이트 건설! 커세어를 준비하고 있습니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링 6마리가 부화! 프로토스 본진으로 달립니다!',
@@ -67,7 +67,7 @@ const _zvp4poolVs2starCorsair = ScenarioScript(
           text: '{home} 선수 프로브를 집중 공격! 일꾼이 줄어듭니다!',
           owner: LogOwner.home,
           awayResource: -10, favorsStat: 'harass',
-          altText: '{home}, 프로브를 잡습니다! 스타게이트 빌드의 약점!',
+          altText: '{home}, 프로브를 잡습니다! 스타게이트에 자원을 쓴 게 약점!',
         ),
         ScriptEvent(
           text: '{away}, 질럿이 추가로 나오면서 저글링을 잡기 시작합니다!',
@@ -121,10 +121,10 @@ const _zvp4poolVs2starCorsair = ScenarioScript(
               text: '{home}, 저글링이 질럿 사이를 뚫고 프로브를 전멸시킵니다!',
               owner: LogOwner.home,
               awayResource: -20, awayArmy: -2, favorsStat: 'control',
-              altText: '{home} 선수 프로브 전멸! 스타게이트 빌드가 무너집니다!',
+              altText: '{home} 선수 프로브 전멸! 스타게이트에 투자한 게 독이 됐습니다!',
             ),
             ScriptEvent(
-              text: '일꾼이 사라진 프로토스! 4풀 러시 성공입니다!',
+              text: '일꾼이 사라진 프로토스! 극초반 저글링 러시 성공입니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -142,7 +142,7 @@ const _zvp4poolVs2starCorsair = ScenarioScript(
               altText: '{away} 선수 완벽한 수비! 커세어로 오버로드까지 사냥합니다!',
             ),
             ScriptEvent(
-              text: '4풀 실패! 프로토스가 커세어로 하늘을 장악합니다!',
+              text: '저글링 러시 실패! 프로토스가 커세어로 하늘을 장악합니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

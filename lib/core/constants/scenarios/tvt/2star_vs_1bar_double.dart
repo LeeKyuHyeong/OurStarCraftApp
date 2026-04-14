@@ -36,7 +36,7 @@ const _tvt2starVs1barDouble = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{away} 선수 배럭에 이어 팩토리 건설. CC퍼스트의 안정적 테크.',
+          text: '{away} 선수 배럭에 이어 팩토리 건설. 확장 후 안정적인 테크.',
           owner: LogOwner.away,
           awayResource: -450, // 배럭(150) + 팩토리(300)
           fixedCost: true,
@@ -47,7 +47,7 @@ const _tvt2starVs1barDouble = ScenarioScript(
           awayArmy: 2, // 벌처 1기 (2sup)
           awayResource: -75, // 벌처(75)
           fixedCost: true,
-          altText: '{away} 선수 팩토리가 올라갑니다. CC퍼스트 운영.',
+          altText: '{away} 선수 팩토리가 올라갑니다. 확장 후 안정적 운영.',
         ),
         ScriptEvent(
           text: '{home} 선수 스타포트 건설.',
@@ -76,7 +76,7 @@ const _tvt2starVs1barDouble = ScenarioScript(
           altText: '{home} 선수 레이스가 나옵니다. 스타포트가 하나 더.',
         ),
         ScriptEvent(
-          text: '투스타포트! 레이스를 대량으로 뽑겠다는 의도!',
+          text: '스타포트가 두 개! 레이스를 대량으로 뽑겠다는 의도!',
           owner: LogOwner.system,
           skipChance: 0.2,
           altText: '서플라이 위치 하나하나가 다 빌드고 전략입니다.',
@@ -221,7 +221,7 @@ const _tvt2starVs1barDouble = ScenarioScript(
               altText: '상대 골리앗 숫자를 파악했습니다. 없습니다! 큰일이에요!',
             ),
             ScriptEvent(
-              text: '{home} 선수 레이스가 5기 이상. 투스타포트에서 쉬지 않고 뽑아냅니다.',
+              text: '{home} 선수 레이스가 5기 이상. 스타포트 두 개에서 쉬지 않고 뽑아냅니다.',
               owner: LogOwner.home,
               homeArmy: 4, // 레이스 2기 (2sup x2)
               homeResource: -500, // 레이스2(500)
@@ -275,7 +275,7 @@ const _tvt2starVs1barDouble = ScenarioScript(
               skipChance: 0.3,
             ),
             ScriptEvent(
-              text: '공중 견제가 막혔습니다! 하지만 투스타 측은 수송선이 빠릅니다!',
+              text: '공중 견제가 막혔습니다! 하지만 스타포트 두 개라 수송선이 빠릅니다!',
               owner: LogOwner.system,
               altText: '서로의 빌드를 다 알고 있습니다. 이제는 컨트롤 싸움이에요.',
             ),
@@ -325,12 +325,12 @@ const _tvt2starVs1barDouble = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{away} 선수 탱크가 모이고 있습니다. CC퍼스트 자원으로 라인 방어.',
+          text: '{away} 선수 탱크가 모이고 있습니다. 확장 자원으로 라인 방어.',
           owner: LogOwner.away,
           awayArmy: 2, // 탱크 1기 (2sup)
           awayResource: -250, // 탱크(250)
           fixedCost: true,
-          altText: '{away} 선수 탱크 라인 구축. CC퍼스트 자원 가동.',
+          altText: '{away} 선수 탱크 라인 구축. 확장 자원 가동.',
         ),
         ScriptEvent(
           text: '중반 전환기. 양쪽 다 메카닉 체제에 들어갑니다.',
@@ -473,10 +473,10 @@ const _tvt2starVs1barDouble = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수 CC퍼스트 자원이 풀가동! 물량 차이가 벌어집니다!',
+              text: '{away} 선수 확장 자원이 풀가동! 물량 차이가 벌어집니다!',
               owner: LogOwner.away,
               awayArmy: 4, favorsStat: 'macro',
-              altText: '{away} 선수 CC퍼스트 풀가동! 물량이 쌓입니다!',
+              altText: '{away} 선수 더블 자원 풀가동! 물량이 쌓입니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 지상병력이 부족합니다! 스타포트 투자가 무겁네요!',
@@ -497,7 +497,7 @@ const _tvt2starVs1barDouble = ScenarioScript(
               text: '{away} 선수 골리앗과 터렛으로 공중 유닛을 격추! 지상전에서 승리합니다!',
               owner: LogOwner.away,
               decisive: true,
-              altText: '{away} 선수 대공 수비 성공! CC퍼스트 자원 우위로 밀어냅니다!',
+              altText: '{away} 선수 대공 수비 성공! 확장 자원 우위로 밀어냅니다!',
             ),
           ],
         ),

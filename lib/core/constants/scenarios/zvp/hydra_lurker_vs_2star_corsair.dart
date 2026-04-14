@@ -27,7 +27,7 @@ const _zvpHydraLurkerVs2starCorsair = ScenarioScript(
           awayResource: -25,
         ),
         ScriptEvent(
-          text: '{away} 선수 두 번째 스타게이트까지! 2스타 빌드입니다!',
+          text: '{away} 선수 두 번째 스타게이트까지! 커세어를 대량으로 뽑으려 합니다!',
           owner: LogOwner.away,
           awayResource: -20,
           altText: '{away}, 스타게이트가 2개! 커세어를 빠르게 쏟아낼 준비를 합니다!',
@@ -39,7 +39,7 @@ const _zvpHydraLurkerVs2starCorsair = ScenarioScript(
           favorsStat: 'strategy',
         ),
         ScriptEvent(
-          text: '2스타게이트 커세어 빌드! 오버로드 사냥이 시작될 것 같습니다!',
+          text: '스타게이트가 두 개! 오버로드 사냥이 시작될 것 같습니다!',
           owner: LogOwner.system,
         ),
       ],

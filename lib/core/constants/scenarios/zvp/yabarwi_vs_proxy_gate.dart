@@ -24,10 +24,10 @@ const _zvpYabarwiVsProxyGate = ScenarioScript(
           text: '{away} 선수 프로브를 센터 근처로 보냅니다! 게이트웨이가 올라갑니다!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 프록시 게이트웨이 건설! 질럿 러시 준비!',
+          altText: '{away}, 전진 게이트웨이 건설! 질럿 러시 준비!',
         ),
         ScriptEvent(
-          text: '{home} 선수 저글링으로 정찰에 나섭니다. 프록시를 찾아야 합니다!',
+          text: '{home} 선수 저글링으로 정찰에 나섭니다. 전진 건물을 찾아야 합니다!',
           owner: LogOwner.home,
           homeArmy: 1,
           favorsStat: 'scout',
@@ -41,7 +41,7 @@ const _zvpYabarwiVsProxyGate = ScenarioScript(
           favorsStat: 'attack',
         ),
         ScriptEvent(
-          text: '프록시 질럿이 출발합니다! 저그가 막아낼 수 있을까요!',
+          text: '전진 질럿이 출발합니다! 저그가 막아낼 수 있을까요!',
           owner: LogOwner.system,
         ),
       ],
@@ -151,7 +151,7 @@ const _zvpYabarwiVsProxyGate = ScenarioScript(
               awayResource: -10,
             ),
             ScriptEvent(
-              text: '럴커와 저글링의 다면 공격! 프록시 올인 실패의 대가입니다! GG!',
+              text: '럴커와 저글링의 다면 공격! 초반 질럿 러시 실패의 대가입니다! GG!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -184,7 +184,7 @@ const _zvpYabarwiVsProxyGate = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '프록시 질럿의 초반 압박이 저그를 무너뜨립니다! GG!',
+              text: '전진 질럿의 초반 압박이 저그를 무너뜨립니다! GG!',
               owner: LogOwner.away,
               decisive: true,
             ),

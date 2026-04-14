@@ -16,10 +16,10 @@ const _zvp973HydraVsProxyGate = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 9서플라이에서 스포닝풀을 올립니다! 973 빌드!',
+          text: '{home} 선수 9드론에 스포닝풀을 올립니다! 빠른 스포닝풀이군요!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 9풀! 빠른 스포닝풀을 선택했습니다!',
+          altText: '{home}, 9드론에 스포닝풀! 빠르게 저글링을 뽑으려 합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 파일런을 상대 본진 근처에 숨깁니다!',
@@ -28,7 +28,7 @@ const _zvp973HydraVsProxyGate = ScenarioScript(
           favorsStat: 'scout',
         ),
         ScriptEvent(
-          text: '{away} 선수 프록시 게이트웨이를 건설합니다! 질럿 러시!',
+          text: '{away} 선수 전진 게이트웨이를 건설합니다! 질럿 러시!',
           owner: LogOwner.away,
           awayResource: -15,
           altText: '{away}, 게이트웨이가 저그 앞에서 올라갑니다!',
@@ -83,7 +83,7 @@ const _zvp973HydraVsProxyGate = ScenarioScript(
           skipChance: 0.3,
         ),
         ScriptEvent(
-          text: '프록시 질럿이 막혔습니다! 히드라 타이밍이 오면 역전될 수 있어요!',
+          text: '전진 질럿이 막혔습니다! 히드라 타이밍이 오면 역전될 수 있어요!',
           owner: LogOwner.system,
         ),
       ],
@@ -116,7 +116,7 @@ const _zvp973HydraVsProxyGate = ScenarioScript(
           favorsStat: 'attack',
         ),
         ScriptEvent(
-          text: '프록시 게이트에 자원을 썼기 때문에 프로토스 본진 수비가 약합니다!',
+          text: '전진 게이트웨이에 자원을 썼기 때문에 프로토스 본진 수비가 약합니다!',
           owner: LogOwner.system,
         ),
       ],
@@ -140,7 +140,7 @@ const _zvp973HydraVsProxyGate = ScenarioScript(
               altText: '{home}, 히드라리스크의 집중 사격! 캐논이 무너집니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 수비 병력이 부족합니다! 프록시에 자원을 너무 썼어요!',
+              text: '{away} 선수 수비 병력이 부족합니다! 전진 게이트웨이에 자원을 너무 썼어요!',
               owner: LogOwner.away,
               awayArmy: -2,
               awayResource: -20,
@@ -153,7 +153,7 @@ const _zvp973HydraVsProxyGate = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '히드라 타이밍 성공! 프록시 실패 후 복구가 안 됩니다! GG!',
+              text: '히드라 타이밍 성공! 초반 질럿 러시 실패 후 복구가 안 됩니다! GG!',
               owner: LogOwner.home,
               decisive: true,
             ),

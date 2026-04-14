@@ -29,12 +29,12 @@ const _tvzBbsVsUltraHive = ScenarioScript(
           altText: '{away} 선수 스포닝풀을 올립니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 두 번째 배럭을 올립니다! BBS입니다!',
+          text: '{home} 선수 두 번째 배럭을 올립니다! 배럭을 두 개 올립니다!',
           owner: LogOwner.home,
           homeResource: -150,
           homeArmy: 2,
           fixedCost: true,
-          altText: '{home} 선수 더블배럭! BBS 올인입니다!',
+          altText: '{home} 선수 배럭 두 개에서 마린이 쏟아집니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 저글링을 생산합니다.',
@@ -48,10 +48,10 @@ const _tvzBbsVsUltraHive = ScenarioScript(
           owner: LogOwner.home,
           homeArmy: 4,
           fixedCost: true,
-          altText: '{home} 선수 전 병력 돌진! BBS 올인!',
+          altText: '{home} 선수 전 병력 돌진! 마린을 계속 모으고 있습니다!',
         ),
         ScriptEvent(
-          text: 'BBS 올인! 초반에 승부를 걸겠다는 겁니다!',
+          text: '마린을 계속 모으고 있습니다! 초반에 승부를 걸겠다는 겁니다!',
           owner: LogOwner.system,
           skipChance: 0.3,
           altText: '마린과 SCV를 끌고 갑니다! 올인 러쉬!',
@@ -135,7 +135,7 @@ const _tvzBbsVsUltraHive = ScenarioScript(
               altText: '{away} 선수 드론 합세! 벙커를 집중 공격합니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 BBS를 막아냈습니다! 테란이 후속이 없습니다!',
+              text: '{away} 선수 초반 공격을 막아냈습니다! 테란이 후속이 없습니다!',
               owner: LogOwner.away,
               homeArmy: -2,
               favorsStat: 'macro',
@@ -151,10 +151,10 @@ const _tvzBbsVsUltraHive = ScenarioScript(
           homeStatMustBeHigher: false,
           events: [
             ScriptEvent(
-              text: '{away} 선수 정찰 드론으로 BBS를 미리 파악합니다!',
+              text: '{away} 선수 정찰 드론으로 배럭 두 개를 미리 파악합니다!',
               owner: LogOwner.away,
               favorsStat: 'scout',
-              altText: '{away} 선수 드론 정찰! BBS를 읽었습니다!',
+              altText: '{away} 선수 드론 정찰! 배럭 두 개를 읽었습니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 성큰을 미리 건설하고 저글링을 모읍니다!',
@@ -178,7 +178,7 @@ const _tvzBbsVsUltraHive = ScenarioScript(
               altText: '{away} 선수 저글링이 마린을 쓸어냅니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 BBS를 완벽히 막아냈습니다! 자원 차이가 압도적입니다!',
+              text: '{away} 선수 초반 공격을 완벽히 막아냈습니다! 자원 차이가 압도적입니다!',
               owner: LogOwner.away,
               decisive: true,
               altText: '{away} 선수 완벽 수비! 테란은 할 수 있는 게 없습니다!',

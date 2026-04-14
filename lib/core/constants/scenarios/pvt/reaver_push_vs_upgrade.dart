@@ -24,7 +24,7 @@ const _pvtReaverPushVsUpgrade = ScenarioScript(
           text: '{away} 선수 엔지니어링 베이를 올립니다! 업그레이드 빌드입니다!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 엔지니어링 베이가 올라갑니다! 더블 업그레이드를 노리는군요!',
+          altText: '{away}, 엔지니어링 베이가 올라갑니다! 공방 업그레이드를 노리는군요!',
         ),
         ScriptEvent(
           text: '{home} 선수 드라군 생산을 시작하면서 정찰을 보냅니다.',

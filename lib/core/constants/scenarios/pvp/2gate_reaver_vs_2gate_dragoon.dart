@@ -26,16 +26,16 @@ const _pvp2gateReaverVs2gateDragoon = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '{home} 선수 게이트웨이 추가! 투게이트!',
+          text: '{home} 선수 두 번째 게이트웨이를 올립니다!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 투게이트! 리버를 노리는 빌드!',
+          altText: '{home}, 게이트웨이가 두 개! 리버를 노리는 모습!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 게이트웨이 추가! 투게이트 드라군!',
+          text: '{away} 선수도 두 번째 게이트웨이! 드라군을 모읍니다!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 투게이트! 드라군 물량!',
+          altText: '{away}, 게이트웨이 두 개! 드라군 물량!',
         ),
         ScriptEvent(
           text: '{home} 선수 사이버네틱스 코어! 로보틱스 건설!',
@@ -79,7 +79,7 @@ const _pvp2gateReaverVs2gateDragoon = ScenarioScript(
           altText: '{home} 선수 셔틀 리버! 겨우 간에 맞았습니다!',
         ),
         ScriptEvent(
-          text: '투게이트 드라군 vs 투게이트 리버! 화력 대결!',
+          text: '드라군 물량 vs 리버 화력! 양쪽 게이트 두 개씩 화력 대결!',
           owner: LogOwner.system,
           skipChance: 0.2,
         ),

@@ -29,14 +29,14 @@ const _tvt2facPushVsNobarDouble = ScenarioScript(
           owner: LogOwner.away,
           awayResource: -400, // CC(400)
           fixedCost: true,
-          altText: '{away} 선수 CC퍼스트, 노배럭더블.',
+          altText: '{away} 선수 배럭 없이 커맨드센터를 먼저 올립니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 2번째 팩토리 건설, 벌처를 대량 생산하겠다는 겁니다.',
           owner: LogOwner.home,
           homeResource: -300, // 팩토리(300)
           fixedCost: true,
-          altText: '{home} 선수 투팩. 벌처 물량으로 압박하겠다는 겁니다.',
+          altText: '{home} 선수 팩토리가 하나 더. 벌처 물량으로 압박하겠다는 겁니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 배럭 건설... 마린이 한참 늦습니다.',
@@ -45,7 +45,7 @@ const _tvt2facPushVsNobarDouble = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '투팩 vs 노배럭더블, 마린 없이 기동 유닛을 막을 수 있을까요?',
+          text: '후반을 바라보는 상대에게 공격적인 빌드입니다! 마린 없이 기동 유닛을 막을 수 있을까요?',
           owner: LogOwner.system,
         ),
       ],
@@ -166,7 +166,7 @@ const _tvt2facPushVsNobarDouble = ScenarioScript(
               favorsStat: 'control',
             ),
             ScriptEvent(
-              text: '노배럭더블의 약점. 마린이 없어 기동 유닛을 잡을 수 없습니다.',
+              text: '배럭 없이 확장한 약점. 마린이 없어 기동 유닛을 잡을 수 없습니다.',
               owner: LogOwner.system,
             ),
             ScriptEvent(
@@ -175,7 +175,7 @@ const _tvt2facPushVsNobarDouble = ScenarioScript(
               homeArmy: 25,
               awayArmy: -15,
               decisive: true,
-              altText: '{home} 선수 투팩 벌처 완승! 상대가 무너집니다!',
+              altText: '{home} 선수 벌처 물량 완승! 상대가 무너집니다!',
             ),
           ],
         ),

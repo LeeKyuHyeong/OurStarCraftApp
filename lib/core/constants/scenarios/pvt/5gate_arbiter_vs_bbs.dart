@@ -21,7 +21,7 @@ const _pvt5gateArbiterVsBbs = ScenarioScript(
           homeResource: -15,
         ),
         ScriptEvent(
-          text: '{away} 선수 배럭을 2개 건설합니다! BBS 빌드!',
+          text: '{away} 선수 배럭을 두 개 건설합니다! 마린을 빠르게 모으겠네요!',
           owner: LogOwner.away,
           awayResource: -15,
           altText: '{away}, 배럭 2개가 올라갑니다! 공격적인 빌드입니다!',
@@ -39,7 +39,7 @@ const _pvt5gateArbiterVsBbs = ScenarioScript(
           altText: '{away}, 마린을 끌고 나갑니다! 일꾼까지 동원한 올인!',
         ),
         ScriptEvent(
-          text: '테란 BBS 러시입니다! 프로토스가 막아낼 수 있을까요?',
+          text: '테란이 배럭 두 개로 마린 러시를 합니다! 프로토스가 막아낼 수 있을까요?',
           owner: LogOwner.system,
         ),
         ScriptEvent(
@@ -70,7 +70,7 @@ const _pvt5gateArbiterVsBbs = ScenarioScript(
           altText: '{home}, 드라군이 나왔습니다! 마린 상대로 효과적이죠!',
         ),
         ScriptEvent(
-          text: '{home} 선수 BBS를 막아냈습니다! 게이트웨이를 추가합니다!',
+          text: '{home} 선수 마린 러시를 막아냈습니다! 게이트웨이를 추가합니다!',
           owner: LogOwner.home,
           homeResource: -20,
           altText: '{home}, 수비 성공! 이제 게이트웨이를 늘립니다!',
@@ -98,7 +98,7 @@ const _pvt5gateArbiterVsBbs = ScenarioScript(
           text: '{home} 선수 게이트웨이 5개 가동! 아둔에 템플러 아카이브까지 올립니다!',
           owner: LogOwner.home,
           homeArmy: 3, homeResource: -25,
-          altText: '{home}, 5게이트 체제! 템플러 아카이브도 건설!',
+          altText: '{home}, 게이트웨이 다섯 개 체제! 템플러 아카이브도 건설!',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리에서 시즈 탱크 생산! 방어선을 구축합니다.',

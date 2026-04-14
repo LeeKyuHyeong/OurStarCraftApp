@@ -16,7 +16,7 @@ const _zvp5droneVsArchon = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 스포닝풀을 올립니다! 9투 올인 빌드!',
+          text: '{home} 선수 스포닝풀을 올립니다! 빠른 저글링을 준비합니다!',
           owner: LogOwner.home,
           homeResource: -15,
           altText: '{home}, 드론 5마리 후 스포닝풀 건설! 빠른 저글링!',

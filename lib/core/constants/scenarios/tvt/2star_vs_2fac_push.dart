@@ -42,12 +42,12 @@ const _tvt2starVs2facPush = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{away} 선수 투팩에서 벌처 생산 시작.',
+          text: '{away} 선수 팩토리 두 개에서 벌처 생산 시작.',
           owner: LogOwner.away,
           awayArmy: 4, // 벌처 2기 (2sup x2)
           awayResource: -150, // 벌처2(150)
           fixedCost: true,
-          altText: '{away} 선수 투팩 벌처 물량! 지상을 장악합니다!',
+          altText: '{away} 선수 벌처가 물 밀듯이! 지상을 장악합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 스타포트 건설.',
@@ -69,12 +69,13 @@ const _tvt2starVs2facPush = ScenarioScript(
           homeArmy: 2, // 레이스 1기 (2sup)
           homeResource: -500, // 레이스(250) + 스타포트(250)
           fixedCost: true,
-          altText: '{home} 선수 레이스가 나옵니다. 투스타포트.',
+          altText: '{home} 선수 레이스가 나옵니다. 두 번째 스타포트도 건설합니다.',
         ),
         ScriptEvent(
-          text: '투스타 공중 vs 투팩 지상. 공중과 지상의 대결.',
+          text: '양쪽 다 공격적인 선택입니다! 공중과 지상의 대결이네요!',
           owner: LogOwner.system,
           skipChance: 0.2,
+          altText: '공격적인 빌드 선택! 피해를 얼마나 줄 수 있을까요?',
         ),
       ],
     ),
@@ -128,7 +129,7 @@ const _tvt2starVs2facPush = ScenarioScript(
           altText: '{home} 선수 견제와 동시에 앞마당 확장. 멀티를 챙깁니다.',
         ),
         ScriptEvent(
-          text: '피해는 누적되고 있지만 {away} 선수 투팩 벌처로 지상을 장악합니다.',
+          text: '피해는 누적되고 있지만 {away} 선수 벌처 물량으로 지상을 장악합니다.',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
@@ -212,7 +213,7 @@ const _tvt2starVs2facPush = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{home} 선수 레이스가 5기 이상. 투스타포트에서 쉬지 않고 뽑아냅니다.',
+              text: '{home} 선수 레이스가 5기 이상. 스타포트 두 개에서 쉬지 않고 뽑아냅니다.',
               owner: LogOwner.home,
               homeArmy: 4, // 레이스 2기 (2sup x2)
               homeResource: -500, // 레이스2(500)
@@ -266,7 +267,7 @@ const _tvt2starVs2facPush = ScenarioScript(
               skipChance: 0.3,
             ),
             ScriptEvent(
-              text: '공중 견제가 막혔습니다. 투팩 지상병력이 맵을 장악합니다.',
+              text: '공중 견제가 막혔습니다. 팩토리 두 개의 지상 병력이 맵을 장악합니다.',
               owner: LogOwner.system,
             ),
           ],
@@ -288,7 +289,7 @@ const _tvt2starVs2facPush = ScenarioScript(
           altText: '{home} 선수 머신샵 부착. 탱크를 준비합니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수 투팩에서 탱크 벌처가 쏟아집니다.',
+          text: '{away} 선수 팩토리 두 개에서 탱크 벌처가 쏟아집니다.',
           owner: LogOwner.away,
           awayArmy: 2, // 탱크 1기 (2sup)
           awayResource: -250, // 탱크(250)
@@ -316,12 +317,12 @@ const _tvt2starVs2facPush = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{away} 선수 투팩 물량으로 탱크 라인 구축. 방어 태세.',
+          text: '{away} 선수 물량으로 탱크 라인 구축. 방어 태세.',
           owner: LogOwner.away,
           awayArmy: 2, // 탱크 1기 (2sup)
           awayResource: -250, // 탱크(250)
           fixedCost: true,
-          altText: '{away} 선수 투팩 물량. 탱크 라인이 두껍습니다.',
+          altText: '{away} 선수 생산력이 높아 탱크 라인이 두껍습니다.',
         ),
         ScriptEvent(
           text: '중반 전환기. 공중 vs 지상 물량 대결.',
@@ -418,10 +419,10 @@ const _tvt2starVs2facPush = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수 투팩 물량이 풀가동. 탱크 벌처가 압도적입니다.',
+              text: '{away} 선수 팩토리 두 개 풀가동. 탱크 벌처가 압도적입니다.',
               owner: LogOwner.away,
               awayArmy: 4, favorsStat: 'macro',
-              altText: '{away} 선수 투팩 풀가동! 물량이 쌓입니다!',
+              altText: '{away} 선수 생산시설 풀가동! 물량이 쌓입니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 지상병력이 부족합니다. 스타포트 투자가 무겁습니다.',
@@ -439,10 +440,10 @@ const _tvt2starVs2facPush = ScenarioScript(
               awayArmy: 2, homeArmy: -2,
             ),
             ScriptEvent(
-              text: '{away} 선수 투팩 골리앗과 터렛으로 공중 유닛을 격추! 지상전 승리!',
+              text: '{away} 선수 골리앗과 터렛으로 공중 유닛을 격추! 지상전 승리!',
               owner: LogOwner.away,
               decisive: true,
-              altText: '{away} 선수 대공 수비 성공! 투팩 물량으로 밀어냅니다!',
+              altText: '{away} 선수 대공 수비 성공! 물량으로 밀어냅니다!',
             ),
           ],
         ),

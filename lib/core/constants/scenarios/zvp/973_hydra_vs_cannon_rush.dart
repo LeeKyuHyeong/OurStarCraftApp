@@ -24,7 +24,7 @@ const _zvp973HydraVsCannonRush = ScenarioScript(
           text: '{away} 선수 포지를 먼저 건설합니다! 캐논 러시일까요?',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 포지부터 올립니다! 수상한 빌드입니다.',
+          altText: '{away}, 포지부터 올립니다! 수상한 움직임입니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 프로브가 저그 진영으로 이동합니다!',

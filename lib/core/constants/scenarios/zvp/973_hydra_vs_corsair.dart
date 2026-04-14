@@ -16,16 +16,16 @@ const _zvp973HydraVsCorsair = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 9풀 오프닝! 스포닝풀을 올리고 앞마당을 확보합니다.',
+          text: '{home} 선수 9드론에 스포닝풀! 앞마당까지 확보합니다.',
           owner: LogOwner.home,
           homeResource: -25,
-          altText: '{home}, 973 빌드! 빠른 히드라를 노리는군요.',
+          altText: '{home}, 빠른 스포닝풀에 앞마당까지! 히드라를 노리는군요.',
         ),
         ScriptEvent(
           text: '{away} 선수 게이트웨이와 사이버네틱스 코어를 올리고 스타게이트를 건설합니다! 커세어를 준비합니다.',
           owner: LogOwner.away,
           awayResource: -20,
-          altText: '{away}, 게이트웨이 뒤로 스타게이트가 올라갑니다! 커세어 빌드!',
+          altText: '{away}, 게이트웨이 뒤로 스타게이트가 올라갑니다! 커세어를 준비하는군요!',
         ),
         ScriptEvent(
           text: '{home} 선수 히드라덴을 건설하며 히드라 타이밍을 노립니다.',
@@ -41,7 +41,7 @@ const _zvp973HydraVsCorsair = ScenarioScript(
           altText: '{away}, 커세어와 함께 드라군을 생산합니다.',
         ),
         ScriptEvent(
-          text: '커세어 빌드업이 완성되기 전에 히드라가 들어갈 수 있을까요?',
+          text: '커세어와 지상군이 모이기 전에 히드라가 들어갈 수 있을까요?',
           owner: LogOwner.system,
         ),
       ],
@@ -84,7 +84,7 @@ const _zvp973HydraVsCorsair = ScenarioScript(
           altText: '{away}, 질럿과 드라군이 앞마당 앞에 진을 칩니다!',
         ),
         ScriptEvent(
-          text: '히드라 타이밍! 커세어 빌드가 완성되기 전에 끝낼 수 있을까요?',
+          text: '히드라 타이밍! 커세어와 지상군이 완성되기 전에 끝낼 수 있을까요?',
           owner: LogOwner.system,
         ),
       ],
@@ -157,7 +157,7 @@ const _zvp973HydraVsCorsair = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '히드라 타이밍 성공! 빌드업 완성 전에 끝냈습니다! GG!',
+              text: '히드라 타이밍 성공! 프로토스 전력이 완성되기 전에 끝냈습니다! GG!',
               owner: LogOwner.home,
               decisive: true,
             ),

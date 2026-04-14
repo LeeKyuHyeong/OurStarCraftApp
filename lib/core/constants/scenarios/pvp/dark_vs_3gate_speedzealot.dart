@@ -38,10 +38,10 @@ const _pvpDarkVs3gateSpeedzealot = ScenarioScript(
           altText: '{away}, 아둔! 질럿 각속 업그레이드를 노립니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 게이트웨이를 추가합니다! 쓰리게이트!',
+          text: '{away} 선수 세 번째 게이트웨이를 올립니다!',
           owner: LogOwner.away,
           awayResource: -30,
-          altText: '{away}, 게이트웨이 3개! 스피드질럿 물량 빌드!',
+          altText: '{away}, 게이트웨이가 벌써 세 개! 질럿 물량이 나옵니다!',
         ),
         ScriptEvent(
           text: '양쪽 다 아둔을 갔지만 목적이 다릅니다! 다크 vs 스피드질럿!',

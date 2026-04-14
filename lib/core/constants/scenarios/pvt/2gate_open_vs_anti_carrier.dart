@@ -27,10 +27,10 @@ const _pvt2gateOpenVsAntiCarrier = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '{home} 선수 두 번째 게이트웨이! 투게이트 질럿입니다!',
+          text: '{home} 선수 두 번째 게이트웨이! 질럿을 빠르게 모으겠네요!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 투게이트! 질럿 압박을 가합니다!',
+          altText: '{home}, 게이트웨이가 두 개! 질럿 압박을 가합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리에서 아머리를 올립니다! 골리앗을 준비하네요!',
@@ -169,7 +169,7 @@ const _pvt2gateOpenVsAntiCarrier = ScenarioScript(
               homeArmy: 25,
               awayArmy: -15,
               decisive: true,
-              altText: '{home} 선수 투게이트 드라군의 힘! 골리앗 편성을 꺾습니다!',
+              altText: '{home} 선수 드라군 물량의 힘! 골리앗 편성을 꺾습니다!',
             ),
           ],
         ),

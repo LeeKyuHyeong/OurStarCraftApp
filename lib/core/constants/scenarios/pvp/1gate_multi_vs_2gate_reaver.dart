@@ -26,7 +26,7 @@ const _pvp1gateMultiVs2gateReaver = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '{home} 선수 넥서스를 빠르게 건설합니다! 원게이트 멀티!',
+          text: '{home} 선수 게이트웨이 하나만 짓고 바로 넥서스를 올립니다!',
           owner: LogOwner.home,
           homeResource: -30,
           altText: '{home}, 빠른 확장! 자원 이점을 가져갑니다!',
@@ -45,7 +45,7 @@ const _pvp1gateMultiVs2gateReaver = ScenarioScript(
           text: '{away} 선수 로보틱스 건설! 셔틀 리버를 준비합니다!',
           owner: LogOwner.away,
           awayResource: -20,
-          altText: '{away}, 로보틱스! 리버로 견제하겠다는 빌드!',
+          altText: '{away}, 로보틱스! 리버로 견제하겠다는 의도!',
         ),
       ],
     ),

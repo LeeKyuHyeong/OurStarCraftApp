@@ -36,19 +36,19 @@ const _pvp4gateDragoonMirror = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '{home} 선수 게이트웨이를 연달아 추가! 3게이트, 4게이트!',
+          text: '{home} 선수 게이트웨이를 연달아 추가합니다! 세 개, 네 개!',
           owner: LogOwner.home,
           homeResource: -45, homeArmy: 2,
-          altText: '{home}, 게이트웨이를 빠르게 늘립니다! 포게이트!',
+          altText: '{home}, 게이트웨이를 빠르게 늘립니다! 벌써 네 개!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 게이트웨이 추가! 포게이트! 양쪽 물량 경쟁!',
+          text: '{away} 선수도 게이트웨이 네 개! 양쪽 물량 경쟁!',
           owner: LogOwner.away,
           awayResource: -45, awayArmy: 2,
-          altText: '{away}, 포게이트! 양쪽 드라군 물량 싸움이 됩니다!',
+          altText: '{away}, 게이트웨이 네 개! 양쪽 드라군 물량 싸움이 됩니다!',
         ),
         ScriptEvent(
-          text: '양쪽 포게이트! 드라군 생산 속도 경쟁입니다!',
+          text: '양쪽 게이트웨이 네 개씩! 드라군 생산 속도 경쟁입니다!',
           owner: LogOwner.system,
           skipChance: 0.2,
         ),
@@ -60,7 +60,7 @@ const _pvp4gateDragoonMirror = ScenarioScript(
       startLine: 15,
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 드라군 편대가 모입니다! 4게이트에서 쏟아져 나옵니다!',
+          text: '{home}, 드라군 편대가 모입니다! 게이트웨이에서 쏟아져 나옵니다!',
           owner: LogOwner.home,
           homeArmy: 5, homeResource: -30,
           altText: '{home} 선수 드라군이 빠르게 모입니다!',

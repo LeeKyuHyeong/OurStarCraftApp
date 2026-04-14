@@ -37,11 +37,11 @@ const _tvz2starVsLurkerDefiler = ScenarioScript(
           altText: '{home} 선수 스타포트를 올립니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 두 번째 스타포트를 올립니다! 2스타포트입니다.',
+          text: '{home} 선수 두 번째 스타포트를 올립니다! 스타포트를 두 개나 올립니다.',
           owner: LogOwner.home,
           homeResource: -300,
           fixedCost: true,
-          altText: '{home} 선수 더블 스타포트! 공중 유닛 운영입니다.',
+          altText: '{home} 선수 스타포트를 두 개나 올립니다! 공중 유닛 운영이네요.',
         ),
         ScriptEvent(
           text: '{away} 선수 해처리에서 드론을 생산합니다.',
@@ -73,10 +73,10 @@ const _tvz2starVsLurkerDefiler = ScenarioScript(
           altText: '{away} 선수 히드라덴을 올립니다.',
         ),
         ScriptEvent(
-          text: '2스타포트 vs 매복 최종테크, 치열한 대결이 예상됩니다.',
+          text: '양측 전개가 마무리되고 있습니다. 치열한 대결이 예상됩니다.',
           owner: LogOwner.system,
           skipChance: 0.4,
-          altText: '양측 빌드가 확인됩니다. 본격적인 전개가 시작됩니다.',
+          altText: '양측 전개가 마무리되고 있습니다. 본격적인 승부가 시작됩니다.',
         ),
       ],
     ),
@@ -151,11 +151,11 @@ const _tvz2starVsLurkerDefiler = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수 팩토리를 추가 건설하고 메카닉으로 전환합니다.',
+              text: '{home} 선수 팩토리를 추가 건설하고 시즈탱크 중심으로 전환합니다.',
               owner: LogOwner.home,
               homeResource: -300,
               fixedCost: true,
-              altText: '{home} 선수 메카닉 전환입니다.',
+              altText: '{home} 선수 기계화 부대로 전환합니다.',
             ),
             ScriptEvent(
               text: '{home} 선수 시즈탱크 생산을 시작합니다.',

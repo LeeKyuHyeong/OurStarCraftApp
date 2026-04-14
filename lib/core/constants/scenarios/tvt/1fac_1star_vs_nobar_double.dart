@@ -28,7 +28,7 @@ const _tvt1fac1starVsNobarDouble = ScenarioScript(
           owner: LogOwner.away,
           awayResource: -400, // 커맨드센터 400
           fixedCost: true,
-          altText: '{away} 선수 CC퍼스트! 노배럭더블입니다!',
+          altText: '{away} 선수 배럭 없이 커맨드센터를 먼저 올립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 팩토리를 올리고 머신샵을 부착합니다.',
@@ -44,7 +44,7 @@ const _tvt1fac1starVsNobarDouble = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '원팩원스타 vs 노배럭더블! 초반 푸시를 막을 수 있을까요?',
+          text: '빠른 테크 공격 vs 배럭 없는 확장! 초반 푸시를 막을 수 있을까요?',
           owner: LogOwner.system,
         ),
       ],
@@ -79,7 +79,7 @@ const _tvt1fac1starVsNobarDouble = ScenarioScript(
           text: '{home} 선수 탱크와 벌처를 이끌고 전진합니다!',
           owner: LogOwner.home,
           favorsStat: 'attack',
-          altText: '{home} 선수 원팩 푸시를 시작합니다. 상대는 탱크가 없습니다.',
+          altText: '{home} 선수 탱크를 앞세워 밀어갑니다. 상대는 탱크가 없습니다.',
         ),
         // ── 맵 특성 이벤트 ──
         // 근거리 맵: 교전 강화 (공격 능력치 유리)
@@ -163,7 +163,7 @@ const _tvt1fac1starVsNobarDouble = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{home} 선수 앞마당을 밀어버립니다! 원팩 푸시 성공!',
+              text: '{home} 선수 앞마당을 밀어버립니다! 빠른 타이밍 공격 성공!',
               owner: LogOwner.home,
               awayArmy: -4,
               awayResource: -300, // 팩토리 등 건물 파괴

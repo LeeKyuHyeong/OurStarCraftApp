@@ -157,7 +157,7 @@ const _pvtDarkSwingVsTankDefense = ScenarioScript(
               homeArmy: 20,
               awayArmy: -15,
               decisive: true,
-              altText: '{home}, 다크 스윙 대성공! 수비형 테란을 무너뜨렸습니다!',
+              altText: '{home}, 다크 잠입 대성공! 수비형 테란을 무너뜨렸습니다!',
             ),
           ],
         ),

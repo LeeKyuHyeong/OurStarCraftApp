@@ -33,13 +33,13 @@ const _pvtReaverCarrierVsBbs = ScenarioScript(
           altText: '{home}, 사이버네틱스 코어가 올라가면서 드라군 생산을 준비합니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수 본진에도 배럭을 건설합니다! BBS 확정입니다!',
+          text: '{away} 선수 본진에도 배럭을 건설합니다! 배럭이 두 개네요!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 두 번째 배럭! BBS 빌드입니다!',
+          altText: '{away}, 두 번째 배럭! 마린을 빠르게 모으려는 거군요!',
         ),
         ScriptEvent(
-          text: '테란이 BBS를 선택했습니다! 프로토스는 초반 수비가 매우 중요하겠네요.',
+          text: '테란이 배럭 두 개로 마린을 빠르게 모읍니다! 프로토스는 초반 수비가 매우 중요하겠네요.',
           owner: LogOwner.system,
         ),
         ScriptEvent(
@@ -89,7 +89,7 @@ const _pvtReaverCarrierVsBbs = ScenarioScript(
           skipChance: 0.2,
         ),
         ScriptEvent(
-          text: 'BBS 러시를 막느냐 못 막느냐! 이 경기의 분수령입니다!',
+          text: '마린 러시를 막느냐 못 막느냐! 이 경기의 분수령입니다!',
           owner: LogOwner.system,
         ),
       ],
@@ -126,7 +126,7 @@ const _pvtReaverCarrierVsBbs = ScenarioScript(
           homeResource: -25,
         ),
         ScriptEvent(
-          text: '프로토스가 BBS를 버텨냈습니다! 이제 리버 캐리어 조합이 나오면 테란은 답이 없습니다!',
+          text: '프로토스가 마린 러시를 버텨냈습니다! 이제 리버와 캐리어가 나오면 테란은 답이 없습니다!',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
@@ -162,7 +162,7 @@ const _pvtReaverCarrierVsBbs = ScenarioScript(
               awayArmy: -3,
             ),
             ScriptEvent(
-              text: '캐리어의 인터셉터가 테란 병력을 녹이고 있습니다! BBS의 한계가 드러납니다!',
+              text: '캐리어의 인터셉터가 테란 병력을 녹이고 있습니다! 마린만으로는 한계가 드러납니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
@@ -212,7 +212,7 @@ const _pvtReaverCarrierVsBbs = ScenarioScript(
               awayArmy: 25,
               homeArmy: -15,
               decisive: true,
-              altText: '{away}, BBS 완벽한 성공! 프로토스를 초반에 끝냅니다!',
+              altText: '{away}, 마린 러시 완벽한 성공! 프로토스를 초반에 끝냅니다!',
             ),
           ],
         ),

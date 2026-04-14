@@ -23,13 +23,13 @@ const _zvz9poolLairVs12hatch = ScenarioScript(
           text: '{home} 선수 9드론에 스포닝풀과 익스트랙터를 동시에 건설합니다!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 9풀 레어! 풀과 가스를 동시에!',
+          altText: '{home}, 9드론에 스포닝풀과 가스를 동시에! 빠른 레어를 노리나봅니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 12드론에 앞마당 해처리를 먼저 건설합니다!',
           owner: LogOwner.away,
           awayResource: -30,
-          altText: '{away}, 12앞마당! 해처리를 먼저 올리고 풀은 나중에!',
+          altText: '{away}, 앞마당 해처리를 먼저 올리고 풀은 나중에!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링 6기 생산! 가스 100에서 레어 진화 시작!',
@@ -44,10 +44,10 @@ const _zvz9poolLairVs12hatch = ScenarioScript(
           altText: '{away}, 앞마당 해처리 후 스포닝풀! 저글링이 한참 뒤에 나옵니다!',
         ),
         ScriptEvent(
-          text: '9풀 레어 대 12앞마당! 풀 완성 시점에 저글링이 도착합니다!',
+          text: '스포닝풀 완성 시점에 저글링이 도착합니다! 앞마당부터 올린 상대에겐 위험한 타이밍!',
           owner: LogOwner.system,
           skipChance: 0.3,
-          altText: '12앞마당의 풀이 막 완성되려는 시점에 저글링이 도착합니다!',
+          altText: '상대 풀이 막 완성되려는 시점에 저글링이 도착합니다!',
         ),
       ],
     ),
@@ -57,7 +57,7 @@ const _zvz9poolLairVs12hatch = ScenarioScript(
       startLine: 11,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 저글링이 도착합니다! 12앞마당의 풀이 막 완성되는 시점입니다!',
+          text: '{home} 선수 저글링이 도착합니다! 상대 풀이 막 완성되는 시점입니다!',
           owner: LogOwner.home,
           favorsStat: 'attack',
           altText: '{home}, 저글링 도착! 상대 풀은 완성됐지만 저글링은 아직 없습니다!',
@@ -72,7 +72,7 @@ const _zvz9poolLairVs12hatch = ScenarioScript(
           text: '풀은 완성됐는데 저글링이 안 나왔습니다! 드론으로 버텨야!',
           owner: LogOwner.system,
           skipChance: 0.3,
-          altText: '12앞마당의 드론이 많지만 저글링 없이 버틸 수 있을까요?',
+          altText: '앞마당부터 올린 쪽은 드론이 많지만 저글링 없이 버틸 수 있을까요?',
         ),
       ],
     ),
@@ -174,7 +174,7 @@ const _zvz9poolLairVs12hatch = ScenarioScript(
               altText: '{home}, 스파이어를 올립니다! 공중 유닛이 곧 나옵니다!',
             ),
             ScriptEvent(
-              text: '저글링 압박에 뮤탈까지! 12앞마당이 버틸 수 없습니다!',
+              text: '저글링 압박에 뮤탈까지! 앞마당 해처리가 버틸 수 없습니다!',
               owner: LogOwner.home,
               decisive: true,
               altText: '초반 압박으로 드론을 줄이고 뮤탈로 마무리! 레어 빌드의 승리!',
@@ -207,10 +207,10 @@ const _zvz9poolLairVs12hatch = ScenarioScript(
               altText: '{away}, 라바 이점이 폭발합니다! 저글링 물량이 다릅니다!',
             ),
             ScriptEvent(
-              text: '12앞마당 수비 성공! 해처리 라바 이점으로 결착!',
+              text: '수비 성공! 해처리 라바 이점으로 결착!',
               owner: LogOwner.away,
               decisive: true,
-              altText: '드론 컨트롤로 버텨낸 12앞! 해처리 2개가 빛을 발합니다!',
+              altText: '드론 컨트롤로 버텨냈습니다! 해처리 2개가 빛을 발합니다!',
             ),
           ],
         ),
@@ -276,7 +276,7 @@ const _zvz9poolLairVs12hatch = ScenarioScript(
           conditionStat: 'harass',
           events: [
             ScriptEvent(
-              text: '{home} 선수 뮤탈리스크가 나옵니다! 12앞마당은 아직 대공이 전혀 없습니다!',
+              text: '{home} 선수 뮤탈리스크가 나옵니다! 상대는 아직 대공이 전혀 없습니다!',
               owner: LogOwner.home,
               homeArmy: 5, homeResource: -20,
               altText: '{home}, 뮤탈 등장! 상대는 대공 유닛이 전혀 없어요!',
@@ -285,7 +285,7 @@ const _zvz9poolLairVs12hatch = ScenarioScript(
               text: '{home} 선수 뮤탈이 드론을 자유롭게 견제합니다! 대공 유닛이 없습니다!',
               owner: LogOwner.home,
               awayResource: -20, favorsStat: 'harass',
-              altText: '{home}, 대공이 없는 12앞을 뮤탈이 마음껏 견제합니다!',
+              altText: '{home}, 상대에게 대공이 없습니다! 뮤탈이 마음껏 견제합니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 스커지를 급하게 뽑지만 수가 부족합니다!',
@@ -294,7 +294,7 @@ const _zvz9poolLairVs12hatch = ScenarioScript(
               altText: '{away}, 스커지로 대응하려 하지만 뮤탈이 너무 많습니다!',
             ),
             ScriptEvent(
-              text: '일방적인 뮤탈 견제! 12앞마당의 드론이 전멸합니다!',
+              text: '일방적인 뮤탈 견제! 상대 드론이 전멸합니다!',
               owner: LogOwner.home,
               decisive: true,
               altText: '뮤탈을 막을 수단이 없습니다! 레어 빌드의 일방적 승리!',
@@ -337,7 +337,7 @@ const _zvz9poolLairVs12hatch = ScenarioScript(
               text: '스커지로 뮤탈을 잡고 저글링 반격! 해처리 라바 이점의 승리!',
               owner: LogOwner.away,
               decisive: true,
-              altText: '뮤탈을 스커지로 무력화하고 저글링으로 결착! 12앞의 반격 승리!',
+              altText: '뮤탈을 스커지로 무력화하고 저글링으로 결착! 해처리 이점을 살린 반격 승리!',
             ),
           ],
         ),

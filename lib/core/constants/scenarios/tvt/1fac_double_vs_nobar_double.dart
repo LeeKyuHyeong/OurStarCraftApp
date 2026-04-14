@@ -19,7 +19,7 @@ const _tvt1facDoubleVsNobarDouble = ScenarioScript(
       recoveryArmyPerLine: 0,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 배럭 건설 후 팩토리. 원팩더블입니다.',
+          text: '{home} 선수 배럭 건설 후 팩토리를 올립니다.',
           owner: LogOwner.home,
           homeResource: -450, // 배럭(150) + 팩토리(300)
           fixedCost: true,
@@ -29,7 +29,7 @@ const _tvt1facDoubleVsNobarDouble = ScenarioScript(
           owner: LogOwner.away,
           awayResource: -400, // CC(400)
           fixedCost: true,
-          altText: '{away} 선수 CC퍼스트. 노배럭더블!',
+          altText: '{away} 선수 배럭 없이 커맨드센터를 먼저 올립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 메카닉 체제 가동. 앞마당 확장.',

@@ -29,7 +29,7 @@ const _pvp3gateSpeedzealotVs2gateDragoon = ScenarioScript(
           text: '{home} 선수 아둔 건설! 각속 업그레이드를 노립니다!',
           owner: LogOwner.home,
           homeResource: -20,
-          altText: '{home}, 아둔! 스피드질럿 빌드입니다!',
+          altText: '{home}, 아둔! 질럿 각속 업그레이드를 노리네요!',
         ),
         ScriptEvent(
           text: '{away} 선수 사이버네틱스 코어 건설! 드라군 준비!',
@@ -37,13 +37,13 @@ const _pvp3gateSpeedzealotVs2gateDragoon = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '{home} 선수 게이트웨이를 추가합니다! 쓰리게이트!',
+          text: '{home} 선수 세 번째 게이트웨이를 올립니다!',
           owner: LogOwner.home,
           homeResource: -30,
-          altText: '{home}, 게이트웨이 3개! 스피드질럿 물량!',
+          altText: '{home}, 게이트웨이가 벌써 세 개! 질럿 물량이 나오겠네요!',
         ),
         ScriptEvent(
-          text: '{away} 선수 게이트웨이 추가! 투게이트 드라군!',
+          text: '{away} 선수 두 번째 게이트웨이! 드라군을 모읍니다!',
           owner: LogOwner.away,
           awayResource: -15,
         ),

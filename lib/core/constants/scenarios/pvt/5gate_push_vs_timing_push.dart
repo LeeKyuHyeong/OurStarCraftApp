@@ -70,7 +70,7 @@ const _pvt5gatePushVsTimingPush = ScenarioScript(
           favorsStat: 'attack',
         ),
         ScriptEvent(
-          text: '{home} 선수 4번째 게이트웨이 건설! 5게이트를 향해!',
+          text: '{home} 선수 네 번째 게이트웨이 건설! 계속 늘리고 있습니다!',
           owner: LogOwner.home,
           homeResource: -10,
         ),
@@ -82,7 +82,7 @@ const _pvt5gatePushVsTimingPush = ScenarioScript(
           altText: '{away}, 마린 탱크 전진! 프로토스 앞마당을 노립니다!',
         ),
         ScriptEvent(
-          text: '테란 타이밍과 프로토스 5게이트! 시간 싸움이 치열합니다!',
+          text: '테란 타이밍과 프로토스 게이트웨이 물량! 시간 싸움이 치열합니다!',
           owner: LogOwner.system,
           skipChance: 0.2,
         ),
@@ -96,12 +96,12 @@ const _pvt5gatePushVsTimingPush = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 5게이트 완성! 드라군과 질럿이 쏟아집니다!',
+          text: '{home} 선수 게이트웨이 다섯 개 완성! 드라군과 질럿이 쏟아집니다!',
           owner: LogOwner.home,
           homeArmy: 5,
           homeResource: -20,
           favorsStat: 'macro',
-          altText: '{home}, 5게이트 가동! 병력이 폭발적으로 늘어납니다!',
+          altText: '{home}, 게이트웨이 다섯 개 가동! 병력이 폭발적으로 늘어납니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 시즈 모드로 전환! 포격 준비 완료!',
@@ -151,23 +151,23 @@ const _pvt5gatePushVsTimingPush = ScenarioScript(
               homeArmy: -2,
             ),
             ScriptEvent(
-              text: '{home} 선수 5게이트 물량이 계속 합류합니다! 끊이지 않는 생산!',
+              text: '{home} 선수 게이트웨이 물량이 계속 합류합니다! 끊이지 않는 생산!',
               owner: LogOwner.home,
               homeArmy: 4,
               awayArmy: -3,
               favorsStat: 'macro',
             ),
             ScriptEvent(
-              text: '5게이트 생산력! 한 번의 교전으로 끝나지 않습니다!',
+              text: '게이트웨이 다섯 개의 생산력! 한 번의 교전으로 끝나지 않습니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{home} 선수 5게이트 물량으로 타이밍 푸시를 분쇄합니다!',
+              text: '{home} 선수 압도적인 물량으로 타이밍 푸시를 분쇄합니다!',
               owner: LogOwner.home,
               homeArmy: 25,
               awayArmy: -15,
               decisive: true,
-              altText: '{home} 선수 5게이트 타이밍 승리! 테란 푸시를 역으로 깨부숩니다!',
+              altText: '{home} 선수 게이트웨이 물량 승리! 테란 푸시를 역으로 깨부숩니다!',
             ),
           ],
         ),
@@ -197,7 +197,7 @@ const _pvt5gatePushVsTimingPush = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '타이밍 푸시가 5게이트를 뚫었습니다!',
+              text: '타이밍 푸시가 프로토스 물량을 뚫었습니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
@@ -206,7 +206,7 @@ const _pvt5gatePushVsTimingPush = ScenarioScript(
               awayArmy: 25,
               homeArmy: -15,
               decisive: true,
-              altText: '{away} 선수 타이밍 푸시 성공! 5게이트 완성 전에 끝냅니다!',
+              altText: '{away} 선수 타이밍 푸시 성공! 프로토스 물량이 모이기 전에 끝냅니다!',
             ),
           ],
         ),

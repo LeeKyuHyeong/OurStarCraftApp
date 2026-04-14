@@ -38,7 +38,7 @@ const _pvt5gatePushVsUpgrade = ScenarioScript(
           awayResource: -30,
         ),
         ScriptEvent(
-          text: '테란이 업그레이드에 투자합니다! 프로토스는 5게이트 타이밍으로 치기 전에 깨야 합니다!',
+          text: '테란이 업그레이드에 투자합니다! 프로토스는 게이트웨이 물량으로 치기 전에 깨야 합니다!',
           owner: LogOwner.system,
         ),
         ScriptEvent(
@@ -70,10 +70,10 @@ const _pvt5gatePushVsUpgrade = ScenarioScript(
           altText: '{away}, 1업 완료! 2차 업그레이드까지 올라갑니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 게이트웨이 4개, 5개까지! 5게이트 완성입니다!',
+          text: '{home} 선수 게이트웨이 네 개, 다섯 개까지 올립니다!',
           owner: LogOwner.home,
           homeResource: -20,
-          altText: '{home}, 5게이트 완성! 이제 물량을 모읍니다!',
+          altText: '{home}, 게이트웨이 다섯 개 완성! 이제 물량을 모읍니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 아카데미를 건설합니다! 메딕과 스팀팩 준비!',
@@ -81,7 +81,7 @@ const _pvt5gatePushVsUpgrade = ScenarioScript(
           awayResource: -10,
         ),
         ScriptEvent(
-          text: '업그레이드가 2단계로 올라가기 전에 5게이트가 완성됐습니다! 시간 싸움!',
+          text: '업그레이드가 2단계로 올라가기 전에 게이트웨이가 다 완성됐습니다! 시간 싸움!',
           owner: LogOwner.system,
           skipChance: 0.2,
         ),
@@ -95,7 +95,7 @@ const _pvt5gatePushVsUpgrade = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 5게이트에서 드라군과 스피드 질럿이 쏟아집니다!',
+          text: '{home} 선수 게이트웨이 다섯 개에서 드라군과 스피드 질럿이 쏟아집니다!',
           owner: LogOwner.home,
           homeArmy: 5,
           homeResource: -20,
@@ -121,7 +121,7 @@ const _pvt5gatePushVsUpgrade = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '5게이트 타이밍 윈도우! 업그레이드 완성 전이 마지막 기회입니다!',
+          text: '게이트웨이 물량 타이밍 윈도우! 업그레이드 완성 전이 마지막 기회입니다!',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
@@ -151,7 +151,7 @@ const _pvt5gatePushVsUpgrade = ScenarioScript(
               homeArmy: -1,
             ),
             ScriptEvent(
-              text: '{home} 선수 드라군이 탱크를 처리합니다! 5게이트 물량!',
+              text: '{home} 선수 드라군이 탱크를 처리합니다! 게이트웨이 다섯 개의 물량!',
               owner: LogOwner.home,
               homeArmy: 4,
               awayArmy: -4,
@@ -162,12 +162,12 @@ const _pvt5gatePushVsUpgrade = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{home} 선수 5게이트 물량으로 테란을 제압합니다! 타이밍 승리!',
+              text: '{home} 선수 게이트웨이 물량으로 테란을 제압합니다! 타이밍 승리!',
               owner: LogOwner.home,
               homeArmy: 25,
               awayArmy: -15,
               decisive: true,
-              altText: '{home} 선수 업그레이드 완성 전에 끝냅니다! 5게이트 타이밍!',
+              altText: '{home} 선수 업그레이드 완성 전에 끝냅니다! 게이트웨이 물량 타이밍!',
             ),
           ],
         ),
@@ -190,14 +190,14 @@ const _pvt5gatePushVsUpgrade = ScenarioScript(
               awayArmy: -1,
             ),
             ScriptEvent(
-              text: '{away} 선수 메딕이 마린을 치료합니다! 5게이트 물량에도 안 밀립니다!',
+              text: '{away} 선수 메딕이 마린을 치료합니다! 게이트웨이 물량에도 안 밀립니다!',
               owner: LogOwner.away,
               awayArmy: 3,
               homeArmy: -3,
               favorsStat: 'defense',
             ),
             ScriptEvent(
-              text: '업그레이드의 힘! 5게이트 타이밍이 늦었습니다!',
+              text: '업그레이드의 힘! 게이트웨이 물량 타이밍이 늦었습니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
@@ -206,7 +206,7 @@ const _pvt5gatePushVsUpgrade = ScenarioScript(
               awayArmy: 25,
               homeArmy: -15,
               decisive: true,
-              altText: '{away} 선수 업그레이드 완성! 5게이트 물량도 감당합니다!',
+              altText: '{away} 선수 업그레이드 완성! 게이트웨이 물량도 감당합니다!',
             ),
           ],
         ),

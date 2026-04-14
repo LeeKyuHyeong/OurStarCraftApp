@@ -26,13 +26,13 @@ const _pvp1gateMultiMirror = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '{home} 선수 넥서스를 빠르게 건설! 원게이트 멀티!',
+          text: '{home} 선수 게이트웨이 하나 짓자마자 넥서스를 올립니다!',
           owner: LogOwner.home,
           homeResource: -30,
           altText: '{home}, 빠른 확장! 자원 이점을 가져갑니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 넥서스! 양쪽 원게이트 멀티!',
+          text: '{away} 선수도 넥서스를 올립니다! 양쪽 빠른 확장이네요!',
           owner: LogOwner.away,
           awayResource: -30,
           altText: '{away}, 빠른 확장! 미러 운영전!',
@@ -48,7 +48,7 @@ const _pvp1gateMultiMirror = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '양쪽 원게이트 멀티! 장기 운영전이 예상됩니다!',
+          text: '양쪽 빠른 확장! 장기 운영전이 예상됩니다!',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),

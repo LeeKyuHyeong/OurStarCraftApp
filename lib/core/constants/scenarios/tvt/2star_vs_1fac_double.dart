@@ -47,7 +47,7 @@ const _tvt2starVs1facDouble = ScenarioScript(
           awayArmy: 2, // 벌처 1기 (2sup)
           awayResource: -75, // 벌처(75)
           fixedCost: true,
-          altText: '{away} 선수 원팩 확장. 벌처 생산하면서 확장.',
+          altText: '{away} 선수 팩토리 후 확장. 벌처 생산하면서 확장.',
         ),
         ScriptEvent(
           text: '{home} 선수 스타포트 건설.',
@@ -76,7 +76,7 @@ const _tvt2starVs1facDouble = ScenarioScript(
           altText: '{home} 선수 레이스가 나옵니다. 스타포트가 하나 더.',
         ),
         ScriptEvent(
-          text: '투스타포트! 레이스를 대량으로 뽑겠다는 의도!',
+          text: '스타포트가 두 개! 레이스를 대량으로 뽑겠다는 의도!',
           owner: LogOwner.system,
           skipChance: 0.2,
         ),
@@ -216,7 +216,7 @@ const _tvt2starVs1facDouble = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{home} 선수 레이스가 5기 이상. 투스타포트에서 쉬지 않고 뽑아냅니다.',
+              text: '{home} 선수 레이스가 5기 이상. 스타포트 두 개에서 쉬지 않고 뽑아냅니다.',
               owner: LogOwner.home,
               homeArmy: 4, // 레이스 2기 (2sup x2)
               homeResource: -500, // 레이스2(500)
@@ -270,7 +270,7 @@ const _tvt2starVs1facDouble = ScenarioScript(
               skipChance: 0.3,
             ),
             ScriptEvent(
-              text: '공중 견제가 막혔습니다! 하지만 투스타 측은 수송선이 빠릅니다!',
+              text: '공중 견제가 막혔습니다! 하지만 스타포트 두 개라 수송선이 빠릅니다!',
               owner: LogOwner.system,
             ),
           ],
@@ -324,7 +324,7 @@ const _tvt2starVs1facDouble = ScenarioScript(
           awayArmy: 2, // 탱크 1기 (2sup)
           awayResource: -250, // 탱크(250)
           fixedCost: true,
-          altText: '{away} 선수 원팩 확장 자원 가동. 탱크 라인 구축.',
+          altText: '{away} 선수 확장 자원 가동. 탱크 라인 구축.',
         ),
         ScriptEvent(
           text: '중반 전환기. 양쪽 다 메카닉 체제에 들어갑니다.',
@@ -447,7 +447,7 @@ const _tvt2starVs1facDouble = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수 원팩 확장 자원이 풀가동! 물량 차이가 벌어집니다!',
+              text: '{away} 선수 확장 자원이 풀가동! 물량 차이가 벌어집니다!',
               owner: LogOwner.away,
               awayArmy: 4, favorsStat: 'macro',
               altText: '{away} 선수 확장 자원 풀가동! 물량이 쌓입니다!',

@@ -41,16 +41,16 @@ const _tvtBbsMirror = ScenarioScript(
           altText: '양쪽 본진에도 배럭이 올라갑니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 SCV 정찰이 상대 본진에 도착합니다. BBS 확인!',
+          text: '{home} 선수 SCV 정찰이 상대 본진에 도착합니다. 배럭 두 개 확인!',
           owner: LogOwner.home,
           favorsStat: 'scout',
-          altText: '{home} 선수 상대 본진을 확인합니다. 배럭 두 개! BBS입니다!',
+          altText: '{home} 선수 상대 본진을 확인합니다. 배럭이 두 개입니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 정찰 SCV로 확인합니다. 같은 BBS!',
+          text: '{away} 선수도 정찰 SCV로 확인합니다. 상대도 배럭 두 개!',
           owner: LogOwner.away,
           favorsStat: 'scout',
-          altText: '{away} 선수도 상대 빌드를 확인합니다. 서로 BBS!',
+          altText: '{away} 선수도 상대 빌드를 확인합니다. 서로 같은 빌드네요!',
         ),
         ScriptEvent(
           text: '{home} 선수 배럭에서 마린 3기 생산. {away} 선수 배럭에서도 마린 3기.',
@@ -77,10 +77,10 @@ const _tvtBbsMirror = ScenarioScript(
           altText: '양쪽 마린과 SCV가 센터에서 정면으로 부딪칩니다!',
         ),
         ScriptEvent(
-          text: '서로 BBS를 확인한 상황! 벙커를 지을 틈이 없습니다! 순수 마린 싸움!',
+          text: '서로 같은 빌드를 확인한 상황! 벙커를 지을 틈이 없습니다! 순수 마린 싸움!',
           owner: LogOwner.system,
           skipChance: 0.3,
-          altText: '양쪽 다 BBS라 벙커를 세울 여유가 없습니다! 마린 컨트롤이 전부!',
+          altText: '양쪽 다 마린에 올인한 상황이라 벙커를 세울 여유가 없습니다! 마린 컨트롤이 전부!',
         ),
         ScriptEvent(
           text: '{home} 선수 마린을 흩뿌리면서 상대 마린을 집중 사격합니다!',
@@ -143,7 +143,7 @@ const _tvtBbsMirror = ScenarioScript(
               text: '마린 컨트롤 차이! 한 기 한 기가 승부를 가릅니다!',
               owner: LogOwner.system,
               skipChance: 0.4,
-              altText: 'BBS 같은 빌드에서는 마린 한 기 차이가 곧 승패입니다!',
+              altText: '이런 빌드에서는 마린 한 기 차이가 곧 승패입니다!',
             ),
           ],
         ),

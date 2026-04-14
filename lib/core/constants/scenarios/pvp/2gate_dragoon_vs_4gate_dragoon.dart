@@ -29,22 +29,22 @@ const _pvp2gateDragoonVs4gateDragoon = ScenarioScript(
           text: '{home} 선수 사이버네틱스 코어 완성! 드라군 생산 시작!',
           owner: LogOwner.home,
           homeArmy: 2, homeResource: -15,
-          altText: '{home}, 투게이트에서 드라군이 나옵니다!',
+          altText: '{home}, 게이트웨이 두 개에서 드라군이 나옵니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 게이트웨이를 계속 증설합니다! 3개째! 4개째!',
           owner: LogOwner.away,
           awayArmy: 1, awayResource: -30,
-          altText: '{away}, 포게이트! 대규모 드라군 물량을 준비합니다!',
+          altText: '{away}, 게이트웨이가 벌써 네 개! 대규모 드라군 물량을 준비합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 앞마당 넥서스 건설! 확장을 가져갑니다!',
           owner: LogOwner.home,
           homeResource: -30,
-          altText: '{home}, 투게이트 후 빠른 확장!',
+          altText: '{home}, 게이트웨이 두 개 후 빠른 확장!',
         ),
         ScriptEvent(
-          text: '투게이트 확장 vs 포게이트 물량! 타이밍 싸움입니다!',
+          text: '확장 vs 드라군 물량! 타이밍 싸움입니다!',
           owner: LogOwner.system,
         ),
       ],
@@ -57,7 +57,7 @@ const _pvp2gateDragoonVs4gateDragoon = ScenarioScript(
       recoveryResourcePerLine: 8,
       linearEvents: [
         ScriptEvent(
-          text: '{away} 선수 포게이트에서 드라군이 쏟아집니다! 전진!',
+          text: '{away} 선수 게이트웨이 네 개에서 드라군이 쏟아집니다! 전진!',
           owner: LogOwner.away,
           awayArmy: 4, favorsStat: 'attack',
           altText: '{away}, 드라군 물량! 상대 앞마당을 노립니다!',
@@ -68,7 +68,7 @@ const _pvp2gateDragoonVs4gateDragoon = ScenarioScript(
           homeArmy: 2, favorsStat: 'defense',
         ),
         ScriptEvent(
-          text: '{away} 선수 드라군이 계속 합류합니다! 포게이트 물량!',
+          text: '{away} 선수 드라군이 계속 합류합니다! 엄청난 물량!',
           owner: LogOwner.away,
           awayArmy: 2,
           skipChance: 0.3,
@@ -79,7 +79,7 @@ const _pvp2gateDragoonVs4gateDragoon = ScenarioScript(
           homeArmy: 2, homeResource: -15,
         ),
         ScriptEvent(
-          text: '포게이트 물량이 밀려옵니다! 투게이트 확장이 버틸 수 있을까요?',
+          text: '드라군 물량이 밀려옵니다! 확장이 버틸 수 있을까요?',
           owner: LogOwner.system,
           skipChance: 0.2,
         ),
@@ -112,7 +112,7 @@ const _pvp2gateDragoonVs4gateDragoon = ScenarioScript(
           text: '{away} 선수 드라군으로 센터를 장악합니다!',
           owner: LogOwner.away,
           awayArmy: 2, favorsStat: 'control',
-          altText: '{away}, 포게이트 드라군으로 맵 컨트롤!',
+          altText: '{away}, 드라군 물량으로 맵 컨트롤!',
         ),
       ],
     ),
@@ -132,7 +132,7 @@ const _pvp2gateDragoonVs4gateDragoon = ScenarioScript(
               altText: '{home}, 확장 자원 차이! 물량이 쌓입니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 포게이트 물량이 한계에 다다랐습니다!',
+              text: '{away} 선수 드라군 물량이 한계에 다다랐습니다!',
               owner: LogOwner.away,
               awayArmy: -2,
             ),
@@ -143,10 +143,10 @@ const _pvp2gateDragoonVs4gateDragoon = ScenarioScript(
               altText: '{home}, 리버 스카랩! 드라군이 녹습니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 확장 자원으로 물량 역전! 포게이트를 꺾습니다!',
+              text: '{home} 선수 확장 자원으로 물량 역전! 상대를 꺾습니다!',
               owner: LogOwner.home,
               decisive: true,
-              altText: '{home} 선수 투게이트 확장의 힘! 자원 차이로 밀어냅니다!',
+              altText: '{home} 선수 확장의 힘! 자원 차이로 밀어냅니다!',
             ),
           ],
         ),
@@ -155,7 +155,7 @@ const _pvp2gateDragoonVs4gateDragoon = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 포게이트 물량으로 앞마당을 압박합니다!',
+              text: '{away}, 드라군 물량으로 앞마당을 압박합니다!',
               owner: LogOwner.away,
               homeArmy: -3, favorsStat: 'attack',
               altText: '{away} 선수 드라군 물량! 앞마당이 위험합니다!',
@@ -171,10 +171,10 @@ const _pvp2gateDragoonVs4gateDragoon = ScenarioScript(
               homeResource: -20, awayArmy: 2, favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '{away} 선수 포게이트 타이밍 성공! 확장 전에 끝냅니다!',
+              text: '{away} 선수 타이밍 공격 성공! 확장이 자리잡기 전에 끝냅니다!',
               owner: LogOwner.away,
               decisive: true,
-              altText: '{away} 선수 포게이트 물량! 상대 확장을 무너뜨립니다!',
+              altText: '{away} 선수 드라군 물량! 상대 확장을 무너뜨립니다!',
             ),
           ],
         ),

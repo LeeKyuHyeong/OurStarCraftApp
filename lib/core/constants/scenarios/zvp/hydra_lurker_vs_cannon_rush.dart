@@ -21,7 +21,7 @@ const _zvpHydraLurkerVsCannonRush = ScenarioScript(
           homeResource: 10,
         ),
         ScriptEvent(
-          text: '{away} 선수 포지를 먼저 건설합니다! 캐논 빌드 냄새가 나네요!',
+          text: '{away} 선수 포지를 먼저 건설합니다! 캐논 냄새가 나네요!',
           owner: LogOwner.away,
           awayResource: -15,
           altText: '{away}, 포지가 올라갑니다! 일반적인 타이밍은 아닙니다!',

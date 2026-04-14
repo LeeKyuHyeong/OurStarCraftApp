@@ -39,7 +39,7 @@ const _pvt5gatePushVsBioMech = ScenarioScript(
           awayResource: -10,
         ),
         ScriptEvent(
-          text: '프로토스 5게이트 vs 테란 바이오 메카닉! 물량 vs 다양성의 대결!',
+          text: '프로토스 게이트웨이 물량 vs 테란 복합 편성! 물량 vs 다양성의 대결!',
           owner: LogOwner.system,
         ),
         ScriptEvent(
@@ -70,11 +70,11 @@ const _pvt5gatePushVsBioMech = ScenarioScript(
           favorsStat: 'macro',
         ),
         ScriptEvent(
-          text: '{home} 선수 5게이트 완성! 드라군과 질럿을 동시에 생산합니다!',
+          text: '{home} 선수 게이트웨이 다섯 개 완성! 드라군과 질럿을 동시에 생산합니다!',
           owner: LogOwner.home,
           homeArmy: 3,
           homeResource: -20,
-          altText: '{home}, 5게이트 가동! 병력이 쏟아집니다!',
+          altText: '{home}, 게이트웨이 다섯 개 가동! 병력이 쏟아집니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 벌처로 프로토스 확장을 정찰합니다!',
@@ -83,7 +83,7 @@ const _pvt5gatePushVsBioMech = ScenarioScript(
           skipChance: 0.2,
         ),
         ScriptEvent(
-          text: '5게이트 물량이 모이고 있습니다! 바이오 메카닉이 대응할 수 있을까요?',
+          text: '게이트웨이 물량이 모이고 있습니다! 테란 복합 편성이 대응할 수 있을까요?',
           owner: LogOwner.system,
         ),
       ],
@@ -107,10 +107,10 @@ const _pvt5gatePushVsBioMech = ScenarioScript(
           owner: LogOwner.away,
           awayArmy: 3,
           awayResource: -15,
-          altText: '{away}, 바이오 메카닉 풀편성! 다양한 유닛이 갖춰졌습니다!',
+          altText: '{away}, 마린 탱크 골리앗 풀편성! 다양한 유닛이 갖춰졌습니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 전군 전진합니다! 5게이트 타이밍!',
+          text: '{home} 선수 전군 전진합니다! 물량 타이밍이네요!',
           owner: LogOwner.home,
           favorsStat: 'attack',
         ),
@@ -120,7 +120,7 @@ const _pvt5gatePushVsBioMech = ScenarioScript(
           awayResource: -30,
         ),
         ScriptEvent(
-          text: '프로토스 물량이 쏟아집니다! 바이오 메카닉이 막아낼 수 있을까요?',
+          text: '프로토스 물량이 쏟아집니다! 테란 복합 편성이 막아낼 수 있을까요?',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
@@ -157,16 +157,16 @@ const _pvt5gatePushVsBioMech = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '5게이트 물량이 바이오 메카닉을 압도합니다!',
+              text: '게이트웨이 물량이 복합 편성을 압도합니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{home} 선수 5게이트 대군으로 테란을 밀어냅니다!',
+              text: '{home} 선수 압도적인 물량으로 테란을 밀어냅니다!',
               owner: LogOwner.home,
               homeArmy: 25,
               awayArmy: -15,
               decisive: true,
-              altText: '{home} 선수 5게이트 물량! 바이오 메카닉을 분쇄합니다!',
+              altText: '{home} 선수 게이트웨이 물량! 복합 편성을 분쇄합니다!',
             ),
           ],
         ),
@@ -196,7 +196,7 @@ const _pvt5gatePushVsBioMech = ScenarioScript(
               favorsStat: 'defense',
             ),
             ScriptEvent(
-              text: '바이오 메카닉의 다양한 유닛 조합이 5게이트를 막아냈습니다!',
+              text: '마린 탱크 골리앗의 다양한 유닛 조합이 프로토스 물량을 막아냈습니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
@@ -205,7 +205,7 @@ const _pvt5gatePushVsBioMech = ScenarioScript(
               awayArmy: 25,
               homeArmy: -15,
               decisive: true,
-              altText: '{away} 선수 바이오 메카닉 완성! 5게이트 푸시를 막고 역공합니다!',
+              altText: '{away} 선수 복합 편성 완성! 프로토스 물량 푸시를 막고 역공합니다!',
             ),
           ],
         ),

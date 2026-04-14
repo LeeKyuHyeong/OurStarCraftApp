@@ -36,7 +36,7 @@ const _pvt5gateCarrierVsUpgrade = ScenarioScript(
           text: '{away} 선수 엔지니어링 베이 건설! 업그레이드를 시작합니다!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 엔지니어링 베이! 더블 업그레이드 빌드군요!',
+          altText: '{away}, 엔지니어링 베이! 공방 업그레이드를 올리겠네요!',
         ),
         ScriptEvent(
           text: '{home} 선수 게이트웨이를 늘리면서 드라군을 생산합니다.',

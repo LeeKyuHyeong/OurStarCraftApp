@@ -30,20 +30,20 @@ const _pvtProxyGateVsBbs = ScenarioScript(
           text: '{home} 선수 상대 본진 근처에 게이트웨이 건설!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 프록시 게이트웨이! 아주 공격적입니다!',
+          altText: '{home}, 전진 게이트웨이! 아주 공격적입니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 본진에 배럭 2개를 동시에 올립니다! BBS!',
+          text: '{away} 선수 본진에 배럭을 두 개 올립니다! 마린을 빠르게 뽑겠다는 거죠!',
           owner: LogOwner.away,
           awayResource: -20,
-          altText: '{away}, 더블 배럭! 마린 올인을 준비합니다!',
+          altText: '{away}, 배럭이 두 개! 마린 올인을 준비합니다!',
         ),
         ScriptEvent(
           text: '양쪽 모두 공격적인 빌드! 누가 먼저 도착하느냐가 승부처!',
           owner: LogOwner.system,
         ),
         ScriptEvent(
-          text: '{home} 선수 질럿 생산 시작! 프록시라 이동 거리가 짧습니다!',
+          text: '{home} 선수 질럿 생산 시작! 전진 건물이라 이동 거리가 짧습니다!',
           owner: LogOwner.home,
           homeArmy: 2,
           homeResource: -10,
@@ -98,11 +98,11 @@ const _pvtProxyGateVsBbs = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 질럿 추가 생산! 프록시라 바로 합류합니다!',
+          text: '{home} 선수 질럿 추가 생산! 전진 건물이라 바로 합류합니다!',
           owner: LogOwner.home,
           homeArmy: 3,
           homeResource: -10,
-          altText: '{home}, 질럿이 계속 나옵니다! 프록시 게이트웨이의 위력!',
+          altText: '{home}, 질럿이 계속 나옵니다! 전진 게이트웨이의 위력!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린이 프로브를 잡아냅니다! 프로토스 일꾼이 줄고 있어요!',
@@ -155,7 +155,7 @@ const _pvtProxyGateVsBbs = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '프록시 게이트 성공! 테란이 더 이상 버틸 수 없습니다!',
+              text: '전진 게이트웨이 성공! 테란이 더 이상 버틸 수 없습니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
@@ -195,7 +195,7 @@ const _pvtProxyGateVsBbs = ScenarioScript(
               altText: '{away} 선수 마린 마이크로! 질럿을 하나씩 잡아냅니다!',
             ),
             ScriptEvent(
-              text: 'BBS가 프로토스 본진을 먼저 무너뜨립니다!',
+              text: '마린 러시가 프로토스 본진을 먼저 무너뜨립니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
@@ -204,7 +204,7 @@ const _pvtProxyGateVsBbs = ScenarioScript(
               awayArmy: 20,
               homeArmy: -15,
               decisive: true,
-              altText: '{away}, 넥서스가 무너집니다! BBS 완승!',
+              altText: '{away}, 넥서스가 무너집니다! 마린 러시 완승!',
             ),
           ],
         ),

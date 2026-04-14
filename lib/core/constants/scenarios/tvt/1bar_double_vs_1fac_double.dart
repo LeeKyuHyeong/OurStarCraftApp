@@ -45,7 +45,7 @@ const _tvt1barDoubleVs1facDouble = ScenarioScript(
           owner: LogOwner.away,
           awayResource: -400,
           fixedCost: true,
-          altText: '{away} 선수 팩토리가 올라갑니다. 원팩 체제.',
+          altText: '{away} 선수 팩토리가 올라갑니다. 가스를 빠르게 썼네요.',
         ),
         // 홈: 마린 2기(+2sup, -100) + 벙커(-100) = -200
         ScriptEvent(
@@ -70,17 +70,17 @@ const _tvt1barDoubleVs1facDouble = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '배럭더블 vs 원팩확장. 초반 자원 vs 빠른 메카닉의 대결입니다.',
+          text: '양측 서로 다른 방향으로 가고 있습니다. 초반 자원 vs 테크의 대결이네요.',
           owner: LogOwner.system,
           skipChance: 0.5,
         ),
         // 어웨이: 앞마당 커맨드센터 (-400)
         ScriptEvent(
-          text: '{away} 선수 앞마당에 커맨드센터. 원팩 확장입니다.',
+          text: '{away} 선수 앞마당에 커맨드센터를 올립니다. 팩토리 후 확장이네요.',
           owner: LogOwner.away,
           awayResource: -400,
           fixedCost: true,
-          altText: '{away} 선수 원팩으로 확장까지. 수비적인 운영.',
+          altText: '{away} 선수 팩토리 이후 확장까지. 수비적인 운영.',
         ),
       ],
     ),
@@ -165,7 +165,7 @@ const _tvt1barDoubleVs1facDouble = ScenarioScript(
               altText: '{home} 선수 탱크 합류! 압박이 강해집니다!',
             ),
             ScriptEvent(
-              text: '압박이 효과를 봤습니다! 하지만 원팩 측 테크 우위가 있습니다!',
+              text: '압박이 효과를 봤습니다! 하지만 상대 테크 우위가 있습니다!',
               owner: LogOwner.system,
               skipChance: 0.3,
               altText: '자원 타격이 큽니다. 일꾼 피해가 막심해요.',
@@ -306,7 +306,7 @@ const _tvt1barDoubleVs1facDouble = ScenarioScript(
           conditionStat: 'attack',
           events: [
             ScriptEvent(
-              text: '{away} 선수 원팩 테크 우위! 탱크가 먼저 모입니다!',
+              text: '{away} 선수 테크 우위! 탱크가 먼저 모입니다!',
               owner: LogOwner.away,
               awayArmy: 4, awayResource: -500,
               fixedCost: true,
@@ -318,10 +318,10 @@ const _tvt1barDoubleVs1facDouble = ScenarioScript(
               homeArmy: -4, awayArmy: -2,
             ),
             ScriptEvent(
-              text: '{away} 선수 탱크 물량으로 정면 돌파! 배럭더블 라인이 무너집니다!',
+              text: '{away} 선수 탱크 물량으로 정면 돌파! 상대 라인이 무너집니다!',
               owner: LogOwner.away,
               decisive: true,
-              altText: '{away} 선수 중반 탱크 푸시! 원팩 테크가 빛을 발합니다!',
+              altText: '{away} 선수 중반 탱크 푸시! 빠른 테크가 빛을 발합니다!',
             ),
           ],
         ),
@@ -535,7 +535,7 @@ const _tvt1barDoubleVs1facDouble = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수 원팩 테크 우위! 탱크 시즈로 라인을 뚫습니다!',
+              text: '{away} 선수 테크 우위! 탱크 시즈로 라인을 뚫습니다!',
               owner: LogOwner.away,
               decisive: true,
               altText: '{away} 선수 확장 자원이 뒤늦게 가동되며 물량 역전에 성공합니다!',

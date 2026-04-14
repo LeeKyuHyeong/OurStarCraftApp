@@ -101,7 +101,7 @@ const _zvp5hatchHydraVsDragoonPush = ScenarioScript(
           altText: '{home}, 히드라 합류! 드라군과 정면 대결!',
         ),
         ScriptEvent(
-          text: '{home} 선수 해처리 추가! 5해처리에서 히드라를 찍어냅니다!',
+          text: '{home} 선수 해처리 추가! 해처리마다 히드라를 찍어냅니다!',
           owner: LogOwner.home,
           homeArmy: 3, homeResource: -30, favorsStat: 'macro',
         ),
@@ -145,7 +145,7 @@ const _zvp5hatchHydraVsDragoonPush = ScenarioScript(
               awayArmy: -2,
             ),
             ScriptEvent(
-              text: '5해처리의 물량 차이가 결정적이었습니다!',
+              text: '해처리 숫자에서 오는 물량 차이가 결정적이었습니다!',
               owner: LogOwner.home,
               decisive: true,
             ),

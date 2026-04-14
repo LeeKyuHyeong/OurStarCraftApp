@@ -19,13 +19,13 @@ const _zvz4PoolMirror = ScenarioScript(
           text: '{home} 선수 드론 4기만에 스포닝풀 건설!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 4풀! 극초반 스포닝풀입니다!',
+          altText: '{home}, 4드론에 스포닝풀을 올립니다! 극초반 스포닝풀이에요!',
         ),
         ScriptEvent(
           text: '{away} 선수도 4드론에 스포닝풀!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 4풀! 양쪽 다 올인입니다!',
+          altText: '{away}, 역시 4드론에 스포닝풀! 양쪽 다 올인입니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링 6기 생산! 바로 출발합니다!',

@@ -29,13 +29,13 @@ const _zvz12hatchMirror = ScenarioScript(
           text: '{home} 선수 12드론에 앞마당 해처리 건설!',
           owner: LogOwner.home,
           homeResource: -30,
-          altText: '{home}, 12앞마당! 확장을 가져갑니다!',
+          altText: '{home}, 앞마당 해처리를 먼저 가네요! 확장을 가져갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수도 12드론에 앞마당 해처리!',
           owner: LogOwner.away,
           awayResource: -30,
-          altText: '{away}, 12앞마당! 확장을 가져갑니다!',
+          altText: '{away}, 앞마당 해처리를 먼저 가네요! 확장을 가져갑니다!',
         ),
         ScriptEvent(
           text: '상대가 빠른 풀이면 큰일인데 배짱이 대단합니다!',
@@ -413,7 +413,7 @@ const _zvz12hatchMirror = ScenarioScript(
               text: '{home} 선수 라바가 넉넉합니다! 저글링을 대량으로 보충합니다!',
               owner: LogOwner.home,
               homeArmy: 8, homeResource: -15, favorsStat: 'macro',
-              altText: '{home}, 12앞마당의 라바 이점! 저글링 물량이 쏟아집니다!',
+              altText: '{home}, 해처리가 일찍 올라간 이점! 라바에서 저글링이 쏟아집니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 저글링 서라운드! 상대 본진까지 밀고 들어갑니다!',
@@ -442,7 +442,7 @@ const _zvz12hatchMirror = ScenarioScript(
               text: '{away} 선수 라바가 넉넉합니다! 저글링을 대량으로 보충합니다!',
               owner: LogOwner.away,
               awayArmy: 8, awayResource: -15, favorsStat: 'macro',
-              altText: '{away}, 12앞마당의 라바 이점! 저글링 물량이 쏟아집니다!',
+              altText: '{away}, 해처리가 일찍 올라간 이점! 라바에서 저글링이 쏟아집니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 저글링 서라운드! 상대 본진까지 밀고 들어갑니다!',

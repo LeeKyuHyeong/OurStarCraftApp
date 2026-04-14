@@ -26,7 +26,7 @@ const _tvtBbsVs1barDouble = ScenarioScript(
           owner: LogOwner.away,
           awayResource: -400, // 커맨드센터
           fixedCost: true,
-          altText: '{away} 선수 CC퍼스트입니다. 배럭 없이 커맨드 먼저 짓습니다.',
+          altText: '{away} 선수 배럭 없이 커맨드센터를 먼저 짓습니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 센터에 배럭 건설.',
@@ -40,11 +40,11 @@ const _tvtBbsVs1barDouble = ScenarioScript(
           owner: LogOwner.system,
         ),
         ScriptEvent(
-          text: '{home} 선수 본진에도 배럭 건설. BBS로 초반에 승부를 보겠다는 거죠.',
+          text: '{home} 선수 본진에도 배럭 건설. 배럭을 두 개 올립니다. 초반에 승부를 보겠다는 거죠.',
           owner: LogOwner.home,
           homeResource: -150, // 배럭
           fixedCost: true,
-          altText: '{home} 선수 BBS입니다. 가스도 안 짓고 마린에 올인합니다.',
+          altText: '{home} 선수 배럭 두 개입니다. 가스도 안 짓고 마린에 올인하네요.',
         ),
         ScriptEvent(
           text: '{away} 선수 뒤늦게 배럭 건설합니다.',
@@ -160,7 +160,7 @@ const _tvtBbsVs1barDouble = ScenarioScript(
               awayArmy: -1, // 마린 1기 사망
             ),
             ScriptEvent(
-              text: 'BBS 공격이 성공하고 있습니다! 앞마당이 위험합니다!',
+              text: '마린 공격이 성공하고 있습니다! 앞마당이 위험합니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
@@ -216,7 +216,7 @@ const _tvtBbsVs1barDouble = ScenarioScript(
               altText: '{away} 선수 SCV 컨트롤로 벙커 짓는 SCV를 잡아냅니다.',
             ),
             ScriptEvent(
-              text: '{home} 선수 마린이 녹고 있습니다! BBS가 실패합니다!',
+              text: '{home} 선수 마린이 녹고 있습니다! 초반 공격이 실패합니다!',
               owner: LogOwner.home,
               homeArmy: -2, // 마린 2기 사망
             ),
@@ -233,15 +233,15 @@ const _tvtBbsVs1barDouble = ScenarioScript(
               homeResource: -150, // SCV 손실
             ),
             ScriptEvent(
-              text: '{away} 선수 앞마당 커맨드를 지켜냅니다! BBS 완전 차단!',
+              text: '{away} 선수 앞마당 커맨드를 지켜냅니다! 초반 러시 완전 차단!',
               owner: LogOwner.away,
               awayArmy: 2, // 마린 2기 생산
               awayResource: -100, // 마린 2기 (50x2)
               fixedCost: true,
-              altText: '{away} 선수 앞마당이 가동됩니다. BBS를 막아냈습니다.',
+              altText: '{away} 선수 앞마당이 가동됩니다. 초반 공격을 막아냈습니다.',
             ),
             ScriptEvent(
-              text: 'BBS 방어 성공. BBS 측은 가스도 없고 테크도 없습니다.',
+              text: '방어 성공. 공격 측은 가스도 없고 테크도 없습니다.',
               owner: LogOwner.system,
             ),
             ScriptEvent(
@@ -258,7 +258,7 @@ const _tvtBbsVs1barDouble = ScenarioScript(
               homeArmy: -2, // 마린 2기 사망
               homeResource: -100, // 리파이너리
               fixedCost: true,
-              altText: '{home} 선수 BBS 실패 후 테크 전환이 너무 늦습니다.',
+              altText: '{home} 선수 초반 공격 실패 후 테크 전환이 너무 늦습니다.',
             ),
             ScriptEvent(
               text: '{away} 선수 시즈 탱크 생산. {home} 선수는 탱크가 한참 멀었습니다.',
@@ -267,10 +267,10 @@ const _tvtBbsVs1barDouble = ScenarioScript(
               awayResource: -625, // 시즈모드(300) + 탱크(250) + 벌처(75)
               fixedCost: true,
               homeArmy: -3, // 마린 3기 사망
-              altText: '{away} 선수 탱크가 나옵니다. BBS 측은 아직 팩토리 건설 중.',
+              altText: '{away} 선수 탱크가 나옵니다. 상대는 아직 팩토리 건설 중.',
             ),
             ScriptEvent(
-              text: 'CC퍼스트 자원과 빠른 테크. BBS 측이 따라잡을 수 없는 격차입니다.',
+              text: '빠른 확장의 자원과 테크 우위. 공격 측이 따라잡을 수 없는 격차입니다.',
               owner: LogOwner.system,
               homeArmy: -2, // 마린 2기 사망
             ),
@@ -285,7 +285,7 @@ const _tvtBbsVs1barDouble = ScenarioScript(
               altText: '{away} 선수 벌처 기동력! {home} 선수 마린이 잡혀나갑니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 시즈 탱크가 도착합니다! BBS 측은 대응할 수단이 없습니다!',
+              text: '{away} 선수 시즈 탱크가 도착합니다! 상대는 대응할 수단이 없습니다!',
               owner: LogOwner.away,
               awayArmy: 4, // 탱크 2대 (2sup x2)
               awayResource: -500, // 탱크 2대 (250x2)

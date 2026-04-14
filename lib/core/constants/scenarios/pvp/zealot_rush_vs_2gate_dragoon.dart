@@ -37,7 +37,7 @@ const _pvpZealotRushVs2gateDragoon = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '{away} 선수 게이트웨이를 추가합니다! 투게이트!',
+          text: '{away} 선수 두 번째 게이트웨이를 올립니다!',
           owner: LogOwner.away,
           awayResource: -15,
         ),
@@ -66,7 +66,7 @@ const _pvpZealotRushVs2gateDragoon = ScenarioScript(
           awayArmy: 2,
         ),
         ScriptEvent(
-          text: '질럿 러시 vs 투게이트 드라군! 드라군이 나오면 막힙니다!',
+          text: '질럿 러시 vs 드라군! 드라군이 나오면 막힙니다!',
           owner: LogOwner.away,
         ),
       ],
@@ -120,7 +120,7 @@ const _pvpZealotRushVs2gateDragoon = ScenarioScript(
               homeArmy: -3,
             ),
             ScriptEvent(
-              text: '{away}, 투게이트에서 드라군이 쏟아집니다! 반격 개시!',
+              text: '{away}, 게이트웨이 두 개에서 드라군이 쏟아집니다! 반격 개시!',
               owner: LogOwner.away,
               awayArmy: 3, awayResource: -15,
             ),

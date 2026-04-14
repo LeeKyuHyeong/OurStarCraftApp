@@ -28,7 +28,7 @@ const _zvpHiveDefilerVsProxyGate = ScenarioScript(
           favorsStat: 'scout',
         ),
         ScriptEvent(
-          text: '{away} 선수 프록시 게이트웨이 건설! 질럿 러시를 준비합니다!',
+          text: '{away} 선수 전진 게이트웨이 건설! 질럿 러시를 준비합니다!',
           owner: LogOwner.away,
           awayResource: -15,
           altText: '{away}, 앞마당 근처에 게이트웨이가 올라갑니다!',
@@ -39,7 +39,7 @@ const _zvpHiveDefilerVsProxyGate = ScenarioScript(
           homeResource: -15,
         ),
         ScriptEvent(
-          text: '프로토스가 프록시 게이트를 선택했습니다! 저그가 발견할 수 있을까요?',
+          text: '프로토스가 전진 게이트웨이를 올렸습니다! 저그가 발견할 수 있을까요?',
           owner: LogOwner.system,
         ),
       ],
@@ -151,7 +151,7 @@ const _zvpHiveDefilerVsProxyGate = ScenarioScript(
               awayResource: -10,
             ),
             ScriptEvent(
-              text: '프록시 게이트 실패! 저그가 하이브 테크로 압도합니다! GG!',
+              text: '전진 질럿 러시 실패! 저그가 하이브 테크로 압도합니다! GG!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -184,7 +184,7 @@ const _zvpHiveDefilerVsProxyGate = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '프록시 질럿이 저그를 무너뜨렸습니다! GG!',
+              text: '전진 질럿이 저그를 무너뜨렸습니다! GG!',
               owner: LogOwner.away,
               decisive: true,
             ),

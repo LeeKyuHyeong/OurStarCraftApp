@@ -31,7 +31,7 @@ const _pvp1gateRoboVs1gateMulti = ScenarioScript(
           homeResource: -15,
         ),
         ScriptEvent(
-          text: '{away} 선수 넥서스를 빠르게 건설합니다! 원게이트 멀티!',
+          text: '{away} 선수 게이트웨이 하나 짓고 바로 넥서스를 건설합니다!',
           owner: LogOwner.away,
           awayResource: -30,
           altText: '{away}, 빠른 확장! 자원 이점을 가져갑니다!',
@@ -40,7 +40,7 @@ const _pvp1gateRoboVs1gateMulti = ScenarioScript(
           text: '{home} 선수 로보틱스 건설! 셔틀 리버를 노립니다!',
           owner: LogOwner.home,
           homeResource: -20,
-          altText: '{home}, 로보틱스! 셔틀 리버로 견제하겠다는 빌드!',
+          altText: '{home}, 로보틱스! 셔틀 리버를 노리는 모습입니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 사이버네틱스 코어 건설! 드라군 준비!',

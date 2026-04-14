@@ -29,7 +29,7 @@ const _pvtReaverArbiterVsTimingPush = ScenarioScript(
           altText: '{away}, 타이밍 공격을 준비하고 있습니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 로보틱스와 서포트 베이를 건설합니다! 로보 아비터 빌드의 시작!',
+          text: '{home} 선수 로보틱스와 서포트 베이를 건설합니다! 리버를 준비하네요!',
           owner: LogOwner.home,
           homeResource: -15,
         ),

@@ -30,7 +30,7 @@ const _zvpMutalHydraVsProxyGate = ScenarioScript(
           text: '{away} 선수 전진 파일런과 게이트웨이를 건설합니다!',
           owner: LogOwner.away,
           awayResource: -25,
-          altText: '{away}, 프록시 게이트웨이! 질럿 러시를 준비합니다!',
+          altText: '{away}, 전진 게이트웨이! 질럿 러시를 준비합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 앞마당 해처리를 올립니다.',
@@ -98,10 +98,10 @@ const _zvpMutalHydraVsProxyGate = ScenarioScript(
           text: '{home} 선수 스파이어 완성! 뮤탈리스크를 생산합니다!',
           owner: LogOwner.home,
           homeArmy: 4, homeResource: -25, favorsStat: 'harass',
-          altText: '{home}, 뮤탈리스크! 프록시가 막혔으니 뮤탈로 견제!',
+          altText: '{home}, 뮤탈리스크! 질럿 러시가 막혔으니 뮤탈로 견제!',
         ),
         ScriptEvent(
-          text: '{away} 선수 프록시 실패 후 본진에서 재건합니다. 넥서스를 올립니다.',
+          text: '{away} 선수 질럿 러시 실패 후 본진에서 재건합니다. 넥서스를 올립니다.',
           owner: LogOwner.away,
           awayResource: -30,
         ),
@@ -139,7 +139,7 @@ const _zvpMutalHydraVsProxyGate = ScenarioScript(
               awayArmy: -3,
             ),
             ScriptEvent(
-              text: '프록시 실패 후 뮤탈에 무방비! 저그의 완승입니다!',
+              text: '질럿 러시 실패 후 뮤탈에 무방비! 저그의 완승입니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -166,7 +166,7 @@ const _zvpMutalHydraVsProxyGate = ScenarioScript(
               homeArmy: -2,
             ),
             ScriptEvent(
-              text: '프록시 질럿이 앞마당을 파괴하고 자원을 앞섰습니다!',
+              text: '전진 질럿이 앞마당을 파괴하고 자원을 앞섰습니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

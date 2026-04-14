@@ -26,7 +26,7 @@ const _pvtProxyGateVsAntiCarrier = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '{home} 선수 프록시 게이트웨이 건설! 상대 진영 근처!',
+          text: '{home} 선수 상대 진영 근처에 게이트웨이를 숨겨서 건설합니다!',
           owner: LogOwner.home,
           homeResource: -15,
           altText: '{home}, 숨겨진 게이트웨이! 발각되지 않았습니다!',
@@ -38,7 +38,7 @@ const _pvtProxyGateVsAntiCarrier = ScenarioScript(
           altText: '{away}, 팩토리 아머리! 골리앗을 준비하는 빌드!',
         ),
         ScriptEvent(
-          text: '프록시 게이트 vs 아머리 빌드! 초반 결전이 되겠습니다!',
+          text: '전진 게이트웨이 vs 아머리 골리앗 준비! 초반 결전이 되겠습니다!',
           owner: LogOwner.system,
         ),
         ScriptEvent(
@@ -152,7 +152,7 @@ const _pvtProxyGateVsAntiCarrier = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{home} 선수 프록시 게이트 대성공! 테란이 GG!',
+              text: '{home} 선수 전진 게이트웨이 대성공! 테란이 GG!',
               owner: LogOwner.home,
               homeArmy: 20,
               awayArmy: -15,
@@ -195,7 +195,7 @@ const _pvtProxyGateVsAntiCarrier = ScenarioScript(
               homeArmy: -5,
             ),
             ScriptEvent(
-              text: '프록시 게이트를 막아냈습니다! 테란의 화력이 압도적!',
+              text: '전진 게이트웨이를 막아냈습니다! 테란의 화력이 압도적!',
               owner: LogOwner.system,
             ),
             ScriptEvent(

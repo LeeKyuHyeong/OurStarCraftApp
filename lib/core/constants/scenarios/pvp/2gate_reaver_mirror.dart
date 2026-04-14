@@ -26,16 +26,16 @@ const _pvp2gateReaverMirror = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '{home} 선수 게이트웨이 추가! 투게이트!',
+          text: '{home} 선수 두 번째 게이트웨이를 올립니다!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 투게이트! 드라군을 빠르게 모읍니다!',
+          altText: '{home}, 게이트웨이가 두 개! 드라군을 빠르게 모읍니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 게이트웨이 추가! 양쪽 투게이트!',
+          text: '{away} 선수도 두 번째 게이트웨이! 양쪽 같은 구성!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 투게이트! 미러 매치!',
+          altText: '{away}, 게이트웨이 두 개! 양쪽 같네요!',
         ),
         ScriptEvent(
           text: '{home} 선수 사이버네틱스 코어! 로보틱스 건설!',
@@ -66,7 +66,7 @@ const _pvp2gateReaverMirror = ScenarioScript(
       startLine: 17,
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 셔틀에 리버를 태웁니다! 투게이트 드라군과 함께!',
+          text: '{home}, 셔틀에 리버를 태웁니다! 드라군 호위와 함께!',
           owner: LogOwner.home,
           homeArmy: 3, homeResource: -25, favorsStat: 'harass',
           altText: '{home} 선수 셔틀 리버! 드라군 호위까지!',
@@ -78,7 +78,7 @@ const _pvp2gateReaverMirror = ScenarioScript(
           altText: '{away}, 셔틀 리버! 양쪽 다 공격적입니다!',
         ),
         ScriptEvent(
-          text: '양쪽 투게이트 리버! 누가 먼저 치명타를 입힐까요?',
+          text: '양쪽 셔틀 리버! 누가 먼저 치명타를 입힐까요?',
           owner: LogOwner.system,
           skipChance: 0.2,
         ),

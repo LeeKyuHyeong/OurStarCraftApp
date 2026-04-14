@@ -25,7 +25,7 @@ const _zvpMukerjiVsProxyGate = ScenarioScript(
           text: '{away} 선수 프로브를 센터 쪽으로 보냅니다! 게이트웨이가 앞에 올라갑니다!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 프록시 게이트웨이! 아주 공격적인 위치구요!',
+          altText: '{away}, 전진 게이트웨이! 아주 공격적인 위치구요!',
         ),
         ScriptEvent(
           text: '{home} 선수 오버로드가 프로토스 본진을 정찰합니다.',
@@ -34,14 +34,14 @@ const _zvpMukerjiVsProxyGate = ScenarioScript(
           favorsStat: 'scout',
         ),
         ScriptEvent(
-          text: '{away} 선수 질럿 생산 시작! 프록시라 이동 거리가 짧습니다!',
+          text: '{away} 선수 질럿 생산 시작! 전진 건물이라 이동 거리가 짧습니다!',
           owner: LogOwner.away,
           awayArmy: 3,
           awayResource: -10,
           favorsStat: 'attack',
         ),
         ScriptEvent(
-          text: '프록시 게이트웨이가 발견되지 않았습니다! 저그 입장에서 위험한 상황!',
+          text: '전진 게이트웨이가 발견되지 않았습니다! 저그 입장에서 위험한 상황!',
           owner: LogOwner.system,
         ),
       ],
@@ -116,7 +116,7 @@ const _zvpMukerjiVsProxyGate = ScenarioScript(
           altText: '{home}, 뮤탈리스크가 하늘을 가릅니다! 역습 시작!',
         ),
         ScriptEvent(
-          text: '프록시 올인을 막아낸 저그! 뮤탈리스크로 반격에 나섭니다!',
+          text: '초반 질럿 러시를 막아낸 저그! 뮤탈리스크로 반격에 나섭니다!',
           owner: LogOwner.system,
         ),
       ],
@@ -139,7 +139,7 @@ const _zvpMukerjiVsProxyGate = ScenarioScript(
               altText: '{home}, 뮤탈리스크가 프로브를 사냥합니다! 일꾼이 녹아내려요!',
             ),
             ScriptEvent(
-              text: '{away} 선수 대공 유닛이 없습니다! 프록시에 자원을 다 썼어요!',
+              text: '{away} 선수 대공 유닛이 없습니다! 전진 건물에 자원을 다 썼어요!',
               owner: LogOwner.away,
               awayArmy: -3,
               awayResource: -10,
@@ -152,7 +152,7 @@ const _zvpMukerjiVsProxyGate = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '뮤탈과 저글링의 협공! 프록시 올인 실패로 프로토스가 무너집니다!',
+              text: '뮤탈과 저글링의 협공! 초반 질럿 러시 실패로 프로토스가 무너집니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -185,7 +185,7 @@ const _zvpMukerjiVsProxyGate = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '프록시 질럿의 압도적 물량! 저그가 무너집니다! GG!',
+              text: '전진 질럿의 압도적 물량! 저그가 무너집니다! GG!',
               owner: LogOwner.away,
               decisive: true,
             ),

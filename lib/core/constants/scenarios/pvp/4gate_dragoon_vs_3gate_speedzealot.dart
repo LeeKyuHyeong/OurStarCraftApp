@@ -29,22 +29,22 @@ const _pvp4gateDragoonVs3gateSpeedzealot = ScenarioScript(
           text: '{home} 선수 사이버네틱스 코어 건설! 드라군 사업!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 사이버네틱스 코어! 포게이트 드라군을 준비합니다!',
+          altText: '{home}, 사이버네틱스 코어! 드라군 물량을 준비합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 아둔 건설! 각속 업그레이드를 노립니다!',
           owner: LogOwner.away,
           awayResource: -20,
-          altText: '{away}, 아둔! 스피드질럿 빌드입니다!',
+          altText: '{away}, 아둔! 질럿 각속 업그레이드를 노리네요!',
         ),
         ScriptEvent(
-          text: '{home} 선수 게이트웨이를 빠르게 추가합니다! 포게이트!',
+          text: '{home} 선수 게이트웨이를 빠르게 추가합니다! 벌써 네 개!',
           owner: LogOwner.home,
           homeResource: -45,
           altText: '{home}, 게이트웨이 4개! 드라군 물량!',
         ),
         ScriptEvent(
-          text: '{away} 선수 게이트웨이를 추가합니다! 쓰리게이트!',
+          text: '{away} 선수 세 번째 게이트웨이를 올립니다!',
           owner: LogOwner.away,
           awayResource: -30,
         ),
@@ -56,7 +56,7 @@ const _pvp4gateDragoonVs3gateSpeedzealot = ScenarioScript(
       startLine: 15,
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 포게이트에서 드라군이 쏟아집니다!',
+          text: '{home}, 게이트웨이 네 개에서 드라군이 쏟아집니다!',
           owner: LogOwner.home,
           homeArmy: 5, awayArmy: 3, homeResource: -20, favorsStat: 'attack',
           altText: '{home} 선수 드라군 편대! 사정거리로 밀어냅니다!',
@@ -100,7 +100,7 @@ const _pvp4gateDragoonVs3gateSpeedzealot = ScenarioScript(
               homeArmy: 2, awayResource: -10, favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '포게이트 드라군! 사정거리로 스피드질럿을 제압합니다!',
+              text: '드라군 물량! 사정거리로 스피드질럿을 제압합니다!',
               owner: LogOwner.home,
               awayArmy: -10,
               decisive: true,

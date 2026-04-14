@@ -24,13 +24,13 @@ const _zvz9poolSpeedVs12pool = ScenarioScript(
           text: '{home} 선수 9드론에 스포닝풀과 익스트랙터를 동시에 건설합니다!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 9풀 발업! 풀과 가스를 동시에!',
+          altText: '{home}, 9드론에 스포닝풀과 가스를 동시에! 저글링 속업을 노리나봅니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 드론을 12기까지 뽑고 스포닝풀을 올립니다!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 12풀! 드론이 3기 더 많은 상태에서 풀 진입!',
+          altText: '{away}, 12드론까지 모은 후 스포닝풀! 드론이 3기 더 많은 상태에서 풀 진입!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링 6기 생산! 발업도 연구 시작합니다!',
@@ -39,13 +39,13 @@ const _zvz9poolSpeedVs12pool = ScenarioScript(
           altText: '{home}, 저글링에 발업! 상대 진영으로 출발합니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 12풀 스포닝풀이 완성됩니다! 저글링 생산 시작!',
+          text: '{away} 선수 스포닝풀이 완성됩니다! 저글링 생산 시작!',
           owner: LogOwner.away,
           awayArmy: 4, awayResource: -10,
-          altText: '{away}, 12풀이라 풀이 늦었지만 드론이 많습니다! 저글링도 나옵니다!',
+          altText: '{away}, 드론을 많이 뽑아서 풀이 늦었지만 드론이 많습니다! 저글링도 나옵니다!',
         ),
         ScriptEvent(
-          text: '9풀 발업 대 12풀! 저글링은 9풀이 먼저지만 드론은 12풀이 3기 많습니다!',
+          text: '저글링은 스포닝풀이 빨랐던 쪽이 먼저지만 드론은 상대가 3기 많습니다!',
           owner: LogOwner.system,
           skipChance: 0.3,
           altText: '발업 타이밍 대 드론 우위! 어느 쪽이 유리할까요?',
@@ -58,10 +58,10 @@ const _zvz9poolSpeedVs12pool = ScenarioScript(
       startLine: 11,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 저글링이 도착합니다! 12풀도 이미 저글링이 나와있습니다!',
+          text: '{home} 선수 저글링이 도착합니다! 상대도 이미 저글링이 나와있습니다!',
           owner: LogOwner.home,
           favorsStat: 'attack',
-          altText: '{home}, 저글링 도착! 하지만 12풀 저글링이 수비하고 있습니다!',
+          altText: '{home}, 저글링 도착! 하지만 상대 저글링이 수비하고 있습니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 저글링으로 수비합니다! 드론 수도 12기로 여유있습니다!',
@@ -70,7 +70,7 @@ const _zvz9poolSpeedVs12pool = ScenarioScript(
           altText: '{away}, 저글링이 준비되어 있고 드론도 많습니다!',
         ),
         ScriptEvent(
-          text: '노발업 저글링 대 노발업 저글링! 하지만 12풀이 드론 우위!',
+          text: '노발업 저글링 대 노발업 저글링! 하지만 드론 수에서 차이가 납니다!',
           owner: LogOwner.system,
           skipChance: 0.3,
           altText: '아직 발업이 안 끝났습니다! 노발업 상태에서 교전!',
@@ -108,12 +108,12 @@ const _zvz9poolSpeedVs12pool = ScenarioScript(
               text: '{home} 선수 저글링이 수비 저글링을 피해 드론을 물어뜯습니다!',
               owner: LogOwner.home,
               homeArmy: -2, awayArmy: -1, awayResource: -10, favorsStat: 'attack',
-              altText: '{home}, 저글링 컨트롤! 12풀의 드론을 몇 기 잡아냅니다!',
+              altText: '{home}, 저글링 컨트롤! 상대 드론을 몇 기 잡아냅니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 드론이 빠졌지만 아직 드론 우위가 남아있습니다!',
               owner: LogOwner.away,
-              altText: '{away}, 드론 손실이 있지만 12풀의 드론 우위는 건재합니다!',
+              altText: '{away}, 드론 손실이 있지만 드론 우위는 건재합니다!',
             ),
           ],
         ),
@@ -124,10 +124,10 @@ const _zvz9poolSpeedVs12pool = ScenarioScript(
           homeStatMustBeHigher: false,
           events: [
             ScriptEvent(
-              text: '{away} 선수 드론과 저글링으로 상대 저글링을 잡아냅니다! 12풀의 드론 물량!',
+              text: '{away} 선수 드론과 저글링으로 상대 저글링을 잡아냅니다! 드론 물량이 다릅니다!',
               owner: LogOwner.away,
               homeArmy: -3, awayArmy: -1, favorsStat: 'defense',
-              altText: '{away}, 드론 합세로 9풀 저글링을 잡습니다! 물량이 다릅니다!',
+              altText: '{away}, 드론 합세로 상대 저글링을 잡습니다! 물량이 다릅니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 저글링이 좀 빠졌습니다! 발업 완료를 기다려야 합니다!',
@@ -150,7 +150,7 @@ const _zvz9poolSpeedVs12pool = ScenarioScript(
           conditionStat: 'attack',
           events: [
             ScriptEvent(
-              text: '{home} 선수 발업 완료! 12풀은 아직 발업이 멀었습니다!',
+              text: '{home} 선수 발업 완료! 상대는 아직 발업이 멀었습니다!',
               owner: LogOwner.home,
               homeArmy: 3, favorsStat: 'control',
               altText: '{home}, 발업 저글링! 속도 차이가 나기 시작합니다!',
@@ -165,13 +165,13 @@ const _zvz9poolSpeedVs12pool = ScenarioScript(
               text: '{away} 선수 드론 손실이 커집니다! 발업 완료까지 시간이 남았는데!',
               owner: LogOwner.away,
               awayResource: -10,
-              altText: '{away}, 12풀 발업 완료까지 아직 멀었는데 드론이 빠지고 있습니다!',
+              altText: '{away}, 발업 완료까지 아직 멀었는데 드론이 빠지고 있습니다!',
             ),
             ScriptEvent(
-              text: '발업 속도 차이 구간에서 드론 격차를 뒤집었습니다! 9풀 발업의 타이밍 승리!',
+              text: '발업 속도 차이 구간에서 드론 격차를 뒤집었습니다! 발업 타이밍의 승리!',
               owner: LogOwner.home,
               decisive: true,
-              altText: '12풀의 드론 우위가 사라졌습니다! 발업 타이밍이 적중!',
+              altText: '드론 우위가 사라졌습니다! 발업 타이밍이 적중!',
             ),
           ],
         ),
@@ -183,7 +183,7 @@ const _zvz9poolSpeedVs12pool = ScenarioScript(
           homeStatMustBeHigher: false,
           events: [
             ScriptEvent(
-              text: '{home} 선수 발업 완료! 압박을 넣지만 12풀의 수비가 단단합니다!',
+              text: '{home} 선수 발업 완료! 압박을 넣지만 상대의 수비가 단단합니다!',
               owner: LogOwner.home,
               homeArmy: 2, homeResource: -8,
               altText: '{home}, 발업 저글링으로 압박! 하지만 상대 물량이 많습니다!',
@@ -192,19 +192,19 @@ const _zvz9poolSpeedVs12pool = ScenarioScript(
               text: '{away} 선수 드론 3기 우위로 저글링을 충분히 보충합니다!',
               owner: LogOwner.away,
               homeArmy: -3, awayArmy: 3, favorsStat: 'defense',
-              altText: '{away}, 12풀의 드론 물량! 저글링 보충이 빠릅니다!',
+              altText: '{away}, 드론 물량의 이점! 저글링 보충이 빠릅니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 발업도 완료됩니다! 속도가 같아지면 드론 우위가 결정적!',
               owner: LogOwner.away,
               awayArmy: 2, awayResource: -10, favorsStat: 'macro',
-              altText: '{away}, 12풀도 발업 완료! 이제 드론 3기 차이만 남았습니다!',
+              altText: '{away}, 발업도 완료! 이제 드론 3기 차이만 남았습니다!',
             ),
             ScriptEvent(
-              text: '12풀이 발업 구간을 버텨냈습니다! 드론 우위로 결착!',
+              text: '발업 구간을 버텨냈습니다! 드론 우위로 결착!',
               owner: LogOwner.away,
               decisive: true,
-              altText: '드론 3기 차이를 지켜냈습니다! 12풀의 경기 운영 승리!',
+              altText: '드론 3기 차이를 지켜냈습니다! 경기 운영의 승리!',
             ),
           ],
         ),
@@ -225,7 +225,7 @@ const _zvz9poolSpeedVs12pool = ScenarioScript(
               owner: LogOwner.away,
               awayResource: -20,
               awayExpansion: true,
-              altText: '{away}, 12풀도 확장! 드론 우위로 중반전을 가져갑니다!',
+              altText: '{away}, 드론 우위를 살려서 확장! 중반전을 가져갑니다!',
             ),
             ScriptEvent(
               text: '양쪽 모두 확장! 이제 테크 싸움이 시작됩니다!',
@@ -269,7 +269,7 @@ const _zvz9poolSpeedVs12pool = ScenarioScript(
               text: '{away} 선수도 레어 진화! 가스를 모읍니다!',
               owner: LogOwner.away,
               awayResource: -15,
-              altText: '{away}, 레어 진화! 12풀의 드론 우위로 가스도 빠릅니다!',
+              altText: '{away}, 레어 진화! 드론 우위로 가스도 빠릅니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 스파이어 완성! 뮤탈리스크가 나옵니다!',
@@ -287,7 +287,7 @@ const _zvz9poolSpeedVs12pool = ScenarioScript(
               text: '뮤탈 컨트롤 차이! 드론 견제가 누적되면서 결착!',
               owner: LogOwner.home,
               decisive: true,
-              altText: '드론 견제에서 앞서면서 물량 차이를 벌립니다! 9풀 발업의 승리!',
+              altText: '드론 견제에서 앞서면서 물량 차이를 벌립니다! 발업 타이밍의 승리!',
             ),
           ],
         ),
@@ -298,7 +298,7 @@ const _zvz9poolSpeedVs12pool = ScenarioScript(
           homeStatMustBeHigher: false,
           events: [
             ScriptEvent(
-              text: '{away} 선수 레어 진화! 12풀의 드론 우위로 가스가 빠르게 모입니다!',
+              text: '{away} 선수 레어 진화! 드론 우위로 가스가 빠르게 모입니다!',
               owner: LogOwner.away,
               awayResource: -15,
               altText: '{away}, 레어 진화! 드론이 많아서 가스도 빠릅니다!',
@@ -313,7 +313,7 @@ const _zvz9poolSpeedVs12pool = ScenarioScript(
               text: '{away} 선수 스파이어 완성! 뮤탈리스크가 나옵니다! 드론이 많아 보충도 빠릅니다!',
               owner: LogOwner.away,
               awayArmy: 6, awayResource: -20,
-              altText: '{away}, 뮤탈 등장! 12풀의 자원 우위로 뮤탈 추가가 빠릅니다!',
+              altText: '{away}, 뮤탈 등장! 자원 우위로 뮤탈 추가가 빠릅니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 뮤탈로 드론 견제! 스커지도 정확히 적중합니다!',
@@ -322,10 +322,10 @@ const _zvz9poolSpeedVs12pool = ScenarioScript(
               altText: '{away}, 뮤탈 물량에서 앞섭니다! 드론 견제가 누적됩니다!',
             ),
             ScriptEvent(
-              text: '12풀의 자원 우위가 뮤탈전에서 빛을 발합니다! 물량 차이로 결착!',
+              text: '자원 우위가 뮤탈전에서 빛을 발합니다! 물량 차이로 결착!',
               owner: LogOwner.away,
               decisive: true,
-              altText: '드론이 많은 12풀! 뮤탈 보충이 빨라 물량에서 앞섭니다!',
+              altText: '드론이 많은 쪽이 뮤탈 보충이 빨라 물량에서 앞섭니다!',
             ),
           ],
         ),

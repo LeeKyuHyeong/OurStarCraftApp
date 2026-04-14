@@ -16,7 +16,7 @@ const _zvp973HydraVsDragoonPush = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 9풀로 스포닝풀을 올리고 앞마당을 확보합니다.',
+          text: '{home} 선수 9드론에 스포닝풀을 올리고 앞마당을 확보합니다.',
           owner: LogOwner.home,
           homeResource: -25,
         ),
@@ -27,7 +27,7 @@ const _zvp973HydraVsDragoonPush = ScenarioScript(
           altText: '{away}, 게이트웨이와 사이버네틱스 코어! 드라군을 준비합니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 히드라덴을 건설합니다! 973 히드라 빌드!',
+          text: '{home} 선수 히드라덴을 건설합니다! 히드라 타이밍을 노리는군요!',
           owner: LogOwner.home,
           homeResource: -15,
           favorsStat: 'macro',

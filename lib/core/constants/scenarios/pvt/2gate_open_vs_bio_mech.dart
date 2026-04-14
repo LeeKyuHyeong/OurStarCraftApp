@@ -30,7 +30,7 @@ const _pvt2gateOpenVsBioMech = ScenarioScript(
           text: '{home} 선수 두 번째 게이트웨이! 질럿을 빠르게 뽑겠다는 겁니다!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 투게이트! 질럿 생산에 집중합니다!',
+          altText: '{home}, 게이트웨이가 두 개! 질럿 생산에 집중합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리를 올립니다! 바이오닉과 메카닉을 섞을 준비!',
@@ -38,7 +38,7 @@ const _pvt2gateOpenVsBioMech = ScenarioScript(
           awayResource: -20,
         ),
         ScriptEvent(
-          text: '프로토스 투게이트 질럿 vs 테란 바이오 메카닉 복합! 전형적인 PvT입니다!',
+          text: '프로토스 질럿 물량 vs 테란 복합 편성! 전형적인 PvT입니다!',
           owner: LogOwner.system,
         ),
         ScriptEvent(
@@ -105,7 +105,7 @@ const _pvt2gateOpenVsBioMech = ScenarioScript(
           owner: LogOwner.away,
           awayArmy: 3,
           awayResource: -20,
-          altText: '{away}, 마린 탱크 골리앗! 바이오 메카닉 편성 완성!',
+          altText: '{away}, 마린 탱크 골리앗! 복합 편성 완성!',
         ),
         ScriptEvent(
           text: '{home} 선수 드라군 물량을 모으고 있습니다!',
@@ -117,7 +117,7 @@ const _pvt2gateOpenVsBioMech = ScenarioScript(
           text: '{away} 선수 커맨드센터를 건설합니다! 자원을 확보합니다!',
           owner: LogOwner.away,
           awayResource: -30,
-          altText: '{away}, 앞마당 확장! 바이오 메카닉으로 안전하게 운영합니다!',
+          altText: '{away}, 앞마당 확장! 복합 편성으로 안전하게 운영합니다!',
         ),
         ScriptEvent(
           text: '양쪽 확장을 마쳤습니다! 본격적인 교전이 다가옵니다!',
@@ -156,7 +156,7 @@ const _pvt2gateOpenVsBioMech = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '프로토스 드라군이 바이오 메카닉 편성을 뚫었습니다!',
+              text: '프로토스 드라군이 복합 편성을 뚫었습니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
@@ -165,7 +165,7 @@ const _pvt2gateOpenVsBioMech = ScenarioScript(
               homeArmy: 25,
               awayArmy: -15,
               decisive: true,
-              altText: '{home} 선수 드라군 물량 압도! 바이오 메카닉을 분쇄합니다!',
+              altText: '{home} 선수 드라군 물량 압도! 복합 편성을 분쇄합니다!',
             ),
           ],
         ),
@@ -194,7 +194,7 @@ const _pvt2gateOpenVsBioMech = ScenarioScript(
               favorsStat: 'macro',
             ),
             ScriptEvent(
-              text: '바이오 메카닉의 다양한 유닛이 프로토스를 압박합니다!',
+              text: '복합 편성의 다양한 유닛이 프로토스를 압박합니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
@@ -203,7 +203,7 @@ const _pvt2gateOpenVsBioMech = ScenarioScript(
               awayArmy: 25,
               homeArmy: -15,
               decisive: true,
-              altText: '{away} 선수 바이오 메카닉의 완성! 프로토스를 밀어냅니다!',
+              altText: '{away} 선수 복합 편성의 완성! 프로토스를 밀어냅니다!',
             ),
           ],
         ),

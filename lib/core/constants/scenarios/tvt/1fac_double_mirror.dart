@@ -90,7 +90,7 @@ const _tvt1facDoubleMirror = ScenarioScript(
           owner: LogOwner.home,
           homeResource: -400,
           fixedCost: true,
-          altText: '{home} 선수 앞마당 확장, 원팩 더블입니다.',
+          altText: '{home} 선수 앞마당 확장을 가져갑니다.',
         ),
         ScriptEvent(
           text: '{away} 선수도 앞마당 커맨드센터를 올립니다.',

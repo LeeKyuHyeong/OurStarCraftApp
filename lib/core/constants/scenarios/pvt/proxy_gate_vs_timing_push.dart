@@ -26,7 +26,7 @@ const _pvtProxyGateVsTimingPush = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '{home} 선수 프록시 게이트웨이 건설! 상대 근처입니다!',
+          text: '{home} 선수 상대 근처에 게이트웨이를 숨겨서 건설합니다!',
           owner: LogOwner.home,
           homeResource: -15,
           altText: '{home}, 게이트웨이를 숨겨서 짓습니다!',
@@ -141,7 +141,7 @@ const _pvtProxyGateVsTimingPush = ScenarioScript(
               awayArmy: -3,
             ),
             ScriptEvent(
-              text: '프록시 게이트가 타이밍 푸시를 사전에 차단했습니다!',
+              text: '전진 게이트웨이가 타이밍 푸시를 사전에 차단했습니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
@@ -181,7 +181,7 @@ const _pvtProxyGateVsTimingPush = ScenarioScript(
               altText: '{away} 선수 타이밍 푸시! 마린 탱크 편대가 출발!',
             ),
             ScriptEvent(
-              text: '프록시에 자원을 소모한 프로토스에 남은 게 없습니다!',
+              text: '전진 건물에 자원을 소모한 프로토스에 남은 게 없습니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(

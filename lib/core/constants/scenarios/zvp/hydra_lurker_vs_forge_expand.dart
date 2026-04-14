@@ -21,10 +21,10 @@ const _zvpHydraLurkerVsForgeExpand = ScenarioScript(
           homeResource: -20,
         ),
         ScriptEvent(
-          text: '{away} 선수 포지 먼저 건설합니다! 캐논으로 방어하며 확장하는 빌드입니다!',
+          text: '{away} 선수 포지 먼저 건설합니다! 캐논으로 방어하며 확장하려는 모습!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 포지가 올라갑니다! 포지 확장 빌드로 가는군요!',
+          altText: '{away}, 포지가 올라갑니다! 캐논으로 앞마당을 지키려는 모습!',
         ),
         ScriptEvent(
           text: '{away} 선수 넥서스 확장! 캐논 2기로 입구를 막습니다!',

@@ -28,7 +28,7 @@ const _pvt2gateOpenVsUpgrade = ScenarioScript(
           altText: '{away}, 빠른 앞마당! 업그레이드를 준비하는 운영형 빌드네요!',
         ),
         ScriptEvent(
-          text: '{home} 선수 두 번째 게이트웨이! 투게이트입니다!',
+          text: '{home} 선수 두 번째 게이트웨이를 올립니다! 질럿을 빠르게 모으겠네요!',
           owner: LogOwner.home,
           homeResource: -15,
         ),

@@ -23,13 +23,13 @@ const _zvz9poolSpeedVs9poolLair = ScenarioScript(
           text: '{home} 선수 9드론에 스포닝풀과 익스트랙터를 동시에 건설합니다!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 9풀 발업! 스포닝풀과 가스를 올립니다!',
+          altText: '{home}, 9드론에 스포닝풀과 가스를 동시에! 저글링 속업을 노리나봅니다!',
         ),
         ScriptEvent(
           text: '{away} 선수도 9드론에 스포닝풀과 익스트랙터! 같은 타이밍이에요!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 9풀 레어! 역시 스포닝풀과 가스를 동시에!',
+          altText: '{away}, 역시 9드론에 스포닝풀과 가스를 동시에! 레어를 노리는 빌드!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링 6기 생산! 가스 100에서 발업 연구 시작!',
@@ -44,7 +44,7 @@ const _zvz9poolSpeedVs9poolLair = ScenarioScript(
           altText: '{away}, 저글링은 같은 수! 하지만 가스는 레어에 투자합니다!',
         ),
         ScriptEvent(
-          text: '같은 9풀에서 갈라집니다! 발업 대 레어, 라바 분배가 다릅니다!',
+          text: '같은 타이밍 스포닝풀에서 갈라집니다! 발업 대 레어, 라바 분배가 다릅니다!',
           owner: LogOwner.system,
           skipChance: 0.3,
           altText: '발업은 저글링 속도에, 레어는 빠른 테크에 투자하는 갈림길!',
@@ -206,7 +206,7 @@ const _zvz9poolSpeedVs9poolLair = ScenarioScript(
               altText: '{away}, 스파이어 건설! 뮤탈리스크 생산이 시작됩니다!',
             ),
             ScriptEvent(
-              text: '뮤탈이 먼저 나온 9풀 레어! 대공 없는 상대를 견제합니다!',
+              text: '뮤탈이 먼저 나왔습니다! 대공 없는 상대를 견제합니다!',
               owner: LogOwner.away,
               homeResource: -15,
               decisive: true,
@@ -306,7 +306,7 @@ const _zvz9poolSpeedVs9poolLair = ScenarioScript(
               text: '뮤탈 컨트롤 차이로 역전! 발업 쪽이 드론 견제에서 앞섭니다!',
               owner: LogOwner.home,
               decisive: true,
-              altText: '뮤탈은 늦었지만 컨트롤로 뒤집었습니다! 9풀 발업의 승리!',
+              altText: '뮤탈은 늦었지만 컨트롤로 뒤집었습니다! 발업 타이밍의 승리!',
             ),
           ],
         ),
@@ -348,7 +348,7 @@ const _zvz9poolSpeedVs9poolLair = ScenarioScript(
               altText: '{away}, 뮤탈 물량에서 압도! 스커지도 정확히 적중합니다!',
             ),
             ScriptEvent(
-              text: '뮤탈 타이밍 차이가 결정적! 9풀 레어의 테크가 빛을 발합니다!',
+              text: '뮤탈 타이밍 차이가 결정적! 빠른 레어 테크가 빛을 발합니다!',
               owner: LogOwner.away,
               decisive: true,
               altText: '레어 빌드의 뮤탈 선점! 타이밍 차이를 좁힐 수 없습니다!',

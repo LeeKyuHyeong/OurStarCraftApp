@@ -48,7 +48,7 @@ const _tvzNobarDoubleVs2hatchMutal = ScenarioScript(
           awayResource: -300,
           fixedCost: true,
           awayExpansion: true,
-          altText: '{away} 선수 앞마당 확장, 투해처리입니다.',
+          altText: '{away} 선수 앞마당 확장, 두 번째 해처리가 올라갑니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 가스를 올리고 팩토리 건설을 시작합니다.',
@@ -69,7 +69,7 @@ const _tvzNobarDoubleVs2hatchMutal = ScenarioScript(
           text: '양측 안정적인 운영을 선택했습니다.',
           owner: LogOwner.system,
           skipChance: 0.4,
-          altText: '노배럭더블 vs 투해처리, 장기전이 예상됩니다.',
+          altText: '양측 모두 확장을 갔습니다. 장기전이 예상됩니다.',
         ),
       ],
     ),
@@ -181,11 +181,11 @@ const _tvzNobarDoubleVs2hatchMutal = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수 배럭을 추가 건설합니다. 5배럭 체제입니다.',
+              text: '{home} 선수 배럭을 추가 건설합니다. 배럭을 대량으로 늘립니다.',
               owner: LogOwner.home,
               homeResource: -300,
               fixedCost: true,
-              altText: '{home} 선수 5배럭 푸시 전환입니다.',
+              altText: '{home} 선수 마린 물량으로 밀어붙이려 합니다.',
             ),
             ScriptEvent(
               text: '{home} 선수 마린 생산을 시작합니다.',

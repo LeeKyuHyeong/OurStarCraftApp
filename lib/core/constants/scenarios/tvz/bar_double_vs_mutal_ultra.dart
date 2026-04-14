@@ -28,7 +28,7 @@ const _tvzBarDoubleVsMutalUltra = ScenarioScript(
           homeArmy: 1,
           fixedCost: true,
           homeExpansion: true,
-          altText: '{home} 선수 배럭 더블, 앞마당 커맨드입니다.',
+          altText: '{home} 선수 배럭 후 앞마당 확장을 가네요.',
         ),
         ScriptEvent(
           text: '{home} 선수 가스를 올립니다.',
@@ -74,10 +74,10 @@ const _tvzBarDoubleVsMutalUltra = ScenarioScript(
           altText: '{away} 선수 익스트랙터와 저글링 생산입니다.',
         ),
         ScriptEvent(
-          text: '배럭더블 vs 공중 최종��기, 치열한 대결이 예상됩니다.',
+          text: '양측 전개가 마무리되고 있습니다. 치열한 대결이 예상됩니다.',
           owner: LogOwner.system,
           skipChance: 0.4,
-          altText: '양측 빌드가 확인됩니다. 본격적인 전개가 시작됩니다.',
+          altText: '양측 전개가 마무리되고 있습니다. 본격적인 승부가 시작됩니다.',
         ),
       ],
     ),
@@ -189,11 +189,11 @@ const _tvzBarDoubleVsMutalUltra = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수 배럭을 추가 건설합니다. 5배럭 체제합니다.',
+              text: '{home} 선수 배럭을 추가 건설합니다. 배럭을 대량으로 늘립니다.',
               owner: LogOwner.home,
               homeResource: -300,
               fixedCost: true,
-              altText: '{home} 선수 5배럭 푸시 전환입니다.',
+              altText: '{home} 선수 마린 물량으로 밀어붙이려 합니다.',
             ),
             ScriptEvent(
               text: '{home} 선수 마린 생산을 시작합니다.',

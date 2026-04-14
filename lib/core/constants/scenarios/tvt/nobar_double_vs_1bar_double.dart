@@ -23,14 +23,14 @@ const _tvtNobarDoubleVs1barDouble = ScenarioScript(
           owner: LogOwner.home,
           homeResource: -400, // CC 400
           fixedCost: true,
-          altText: '{home} 선수 CC퍼스트. 극도로 공격적인 자원 운영!',
+          altText: '{home} 선수 배럭 없이 커맨드센터를 먼저 올립니다. 과감한 자원 운영!',
         ),
         ScriptEvent(
           text: '{away} 선수는 배럭을 먼저 짓고 앞마당 확장.',
           owner: LogOwner.away,
           awayResource: -150, // 배럭 150
           fixedCost: true,
-          altText: '{away} 선수 원배럭더블. 배럭을 먼저 올립니다.',
+          altText: '{away} 선수 배럭을 먼저 올리고 확장합니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 마린이 먼저 나옵니다! {home} 선수는 아직 배럭도 없습니다.',
@@ -122,7 +122,7 @@ const _tvtNobarDoubleVs1barDouble = ScenarioScript(
               homeArmy: 4, homeResource: -500, // 탱크 2기 (250x2)
               fixedCost: true,
               favorsStat: 'macro',
-              altText: '{home} 선수 노배럭더블의 자원 우위가 빛을 발합니다!',
+              altText: '{home} 선수 빠른 확장의 자원 우위가 빛을 발합니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 탱크를 추가하지만 물량에서 밀립니다.',
@@ -144,7 +144,7 @@ const _tvtNobarDoubleVs1barDouble = ScenarioScript(
               favorsStat: 'strategy',
             ),
             ScriptEvent(
-              text: '노배럭더블의 자원 우위가 결정적입니다! 병력 수에서 차이가 벌어집니다!',
+              text: '빠른 확장의 자원 우위가 결정적입니다! 병력 수에서 차이가 벌어집니다!',
               owner: LogOwner.system,
               altText: '테테전의 꽃, 시즈 탱크 라인 긋기 싸움입니다.',
             ),
@@ -192,7 +192,7 @@ const _tvtNobarDoubleVs1barDouble = ScenarioScript(
               fixedCost: true,
             ),
             ScriptEvent(
-              text: '원배럭더블의 초반 병력 우위가 결정적이었습니다!',
+              text: '초반 병력 우위가 결정적이었습니다! 배럭을 먼저 올린 차이!',
               owner: LogOwner.system,
               altText: '벌처 돌리기! 상대 시선을 분산시키는 고도의 심리전입니다.',
             ),

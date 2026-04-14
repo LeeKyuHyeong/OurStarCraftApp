@@ -35,18 +35,18 @@ const _tvtBbsVs1fac1star = ScenarioScript(
           altText: '{home} 선수 센터 배럭을 올립니다. 공격적인 빌드.',
         ),
         ScriptEvent(
-          text: '{away} 선수 팩토리 건설. 원팩 푸시를 준비합니다.',
+          text: '{away} 선수 팩토리 건설. 메카닉 유닛을 준비합니다.',
           owner: LogOwner.away,
           awayResource: -300, // 팩토리
           fixedCost: true,
-          altText: '{away} 선수 팩토리가 올라갑니다. 빠른 메카닉을 노립니다.',
+          altText: '{away} 선수 팩토리가 올라갑니다. 기계화 유닛을 노리네요.',
         ),
         ScriptEvent(
-          text: '{home} 선수 본진에도 배럭 건설. BBS입니다.',
+          text: '{home} 선수 본진에도 배럭 건설. 배럭을 두 개 올립니다.',
           owner: LogOwner.home,
           homeResource: -150, // 배럭
           fixedCost: true,
-          altText: '{home} 선수 BBS 확정. 마린을 모읍니다.',
+          altText: '{home} 선수 배럭 두 개 확인. 마린을 모읍니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 마린이 모이고 있습니다.',
@@ -119,13 +119,13 @@ const _tvtBbsVs1fac1star = ScenarioScript(
               homeArmy: -2, // 마린 2기 사망
             ),
             ScriptEvent(
-              text: '{away} 선수 탱크까지 합류! BBS를 완전히 막아냅니다!',
+              text: '{away} 선수 탱크까지 합류! 마린 공격을 완전히 막아냅니다!',
               owner: LogOwner.away,
               awayArmy: 2, // 탱크 1대 (2sup)
               awayResource: -250, // 탱크
               fixedCost: true,
               homeArmy: -1, // 마린 1기 사망
-              altText: '{away} 선수 탱크가 도착합니다! BBS를 완전히 차단합니다!',
+              altText: '{away} 선수 탱크가 도착합니다! 초반 공격을 완전히 차단합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 후퇴합니다... 자원도 병력도 뒤처졌습니다.',
@@ -133,7 +133,7 @@ const _tvtBbsVs1fac1star = ScenarioScript(
               homeResource: -150, // SCV 손실
             ),
             ScriptEvent(
-              text: 'BBS가 막혔습니다. 전환기에 들어갑니다.',
+              text: '초반 공격이 막혔습니다. 전환기에 들어갑니다.',
               owner: LogOwner.system,
             ),
           ],
@@ -169,7 +169,7 @@ const _tvtBbsVs1fac1star = ScenarioScript(
               awayResource: -200, // SCV 손실
             ),
             ScriptEvent(
-              text: 'BBS 공격이 큰 피해를 줬습니다. 하지만 끝나진 않았습니다.',
+              text: '초반 공격이 큰 피해를 줬습니다. 하지만 끝나진 않았습니다.',
               owner: LogOwner.system,
             ),
           ],
@@ -197,7 +197,7 @@ const _tvtBbsVs1fac1star = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{home} 선수 탱크 생산 시작. BBS 이후 전환합니다.',
+          text: '{home} 선수 탱크 생산 시작. 초반 이후 전환합니다.',
           owner: LogOwner.home,
           homeArmy: 4, // 탱크 1대(2sup) + 벌처 1대(2sup)
           homeResource: -325, // 탱크(250) + 벌처(75)
@@ -205,7 +205,7 @@ const _tvtBbsVs1fac1star = ScenarioScript(
           altText: '{home} 선수 탱크와 벌처로 전환합니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수 탱크 벌처가 모입니다. 원팩 푸시의 장점이 나옵니다.',
+          text: '{away} 선수 탱크 벌처가 모입니다. 빠른 팩토리의 장점이 나옵니다.',
           owner: LogOwner.away,
           awayArmy: 4, // 탱크 1대(2sup) + 벌처 1대(2sup)
           awayResource: -325, // 탱크(250) + 벌처(75)
@@ -310,12 +310,12 @@ const _tvtBbsVs1fac1star = ScenarioScript(
               favorsStat: 'harass',
             ),
             ScriptEvent(
-              text: '{home} 선수 탱크 시즈! 원팩 측 생산 건물을 포격합니다!',
+              text: '{home} 선수 탱크 시즈! 상대 생산 건물을 포격합니다!',
               owner: LogOwner.home,
               awayResource: -150,
               awayArmy: -1,
               favorsStat: 'harass',
-              altText: '{home} 선수 드랍 피해가 큽니다! 원팩 측이 당황합니다.',
+              altText: '{home} 선수 드랍 피해가 큽니다! 상대가 당황합니다.',
             ),
             ScriptEvent(
               text: '{away} 선수 대응합니다. {home} 선수 드랍십을 회수합니다.',
@@ -356,7 +356,7 @@ const _tvtBbsVs1fac1star = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '{home} 선수 BBS 초반 피해를 이어갑니다! 원팩 측이 회복하지 못합니다!',
+              text: '{home} 선수 초반 피해를 이어갑니다! 상대가 회복하지 못합니다!',
               owner: LogOwner.home,
               decisive: true,
               altText: '{home} 선수 양면 공격으로 상대를 압살합니다!',
@@ -375,7 +375,7 @@ const _tvtBbsVs1fac1star = ScenarioScript(
               awayResource: -325, // 탱크(250) + 벌처(75)
               fixedCost: true,
               favorsStat: 'macro',
-              altText: '{away} 선수 물량 차이. 원팩 푸시의 힘이 나옵니다.',
+              altText: '{away} 선수 물량 차이. 빠른 테크의 힘이 나옵니다.',
             ),
             ScriptEvent(
               text: '{away} 선수 탱크 라인으로 전진! 시즈 포격!',
@@ -385,7 +385,7 @@ const _tvtBbsVs1fac1star = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '{away} 선수 탱크 벌처로 밀어냅니다! BBS를 역전합니다!',
+              text: '{away} 선수 탱크 벌처로 밀어냅니다! 초반을 역전합니다!',
               owner: LogOwner.away,
               decisive: true,
               altText: '{away} 선수 초반을 버텨내고 물량 차이로 밀어냅니다!',

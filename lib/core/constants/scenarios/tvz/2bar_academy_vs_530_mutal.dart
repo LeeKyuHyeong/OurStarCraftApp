@@ -22,12 +22,12 @@ const _tvz2barAcademyVs530Mutal = ScenarioScript(
           altText: '{home} 선수 배럭을 올립니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 두 번째 배럭을 올립니다! 2배럭입니다.',
+          text: '{home} 선수 두 번째 배럭을 올립니다! 배럭을 두 개 올립니다.',
           owner: LogOwner.home,
           homeResource: -150,
           homeArmy: 1,
           fixedCost: true,
-          altText: '{home} 선수 더블배럭! 공격적인 오프닝입니다.',
+          altText: '{home} 선수 배럭 두 개에서 마린이 쏟아져 나옵니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 가스를 올리고 아카데미 건설을 시작합니다.',
@@ -72,10 +72,10 @@ const _tvz2barAcademyVs530Mutal = ScenarioScript(
           altText: '{away} 선수 레어로 업그레이드합니다.',
         ),
         ScriptEvent(
-          text: '2배럭 아카데미 vs 원해처리 속공, 치열한 대결이 예상됩니다.',
+          text: '양측 전개가 마무리되고 있습니다. 치열한 대결이 예상됩니다.',
           owner: LogOwner.system,
           skipChance: 0.4,
-          altText: '양측 빌드가 확인됩니다. 본격적인 전개가 시작됩니다.',
+          altText: '양측 전개가 마무리되고 있습니다. 본격적인 승부가 시작됩니다.',
         ),
       ],
     ),
@@ -151,11 +151,11 @@ const _tvz2barAcademyVs530Mutal = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수 배럭을 추가 건설합니다. 5배럭 체제합니다.',
+              text: '{home} 선수 배럭을 추가 건설합니다. 배럭을 대량으로 늘립니다.',
               owner: LogOwner.home,
               homeResource: -300,
               fixedCost: true,
-              altText: '{home} 선수 5배럭 푸시 전환입니다.',
+              altText: '{home} 선수 마린 물량으로 밀어붙이려 합니다.',
             ),
             ScriptEvent(
               text: '{home} 선수 마린 생산을 시작합니다.',
@@ -186,11 +186,11 @@ const _tvz2barAcademyVs530Mutal = ScenarioScript(
           baseProbability: 0.8,
           events: [
             ScriptEvent(
-              text: '{home} 선수 팩토리를 건설하고 메카닉으로 전환합니다.',
+              text: '{home} 선수 팩토리를 건설하고 시즈탱크 중심으로 전환합니다.',
               owner: LogOwner.home,
               homeResource: -300,
               fixedCost: true,
-              altText: '{home} 선수 메카닉 전환입니다.',
+              altText: '{home} 선수 기계화 부대로 전환합니다.',
             ),
             ScriptEvent(
               text: '{home} 선수 시즈탱크 생산을 시작합니다.',

@@ -29,7 +29,7 @@ const _pvp2gateReaverVs4gateDragoon = ScenarioScript(
           text: '{home} 선수 게이트웨이 추가! 사이버네틱스 코어!',
           owner: LogOwner.home,
           homeResource: -30,
-          altText: '{home}, 투게이트! 리버를 빠르게 준비합니다!',
+          altText: '{home}, 게이트웨이가 두 개! 리버를 빠르게 준비합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 사이버네틱스 코어! 게이트웨이를 추가합니다!',
@@ -42,10 +42,10 @@ const _pvp2gateReaverVs4gateDragoon = ScenarioScript(
           homeResource: -25, homeArmy: 2,
         ),
         ScriptEvent(
-          text: '{away} 선수 게이트웨이를 연달아 추가! 포게이트!',
+          text: '{away} 선수 게이트웨이를 연달아 추가합니다! 벌써 네 개!',
           owner: LogOwner.away,
           awayResource: -45, awayArmy: 3,
-          altText: '{away}, 포게이트! 드라군을 쏟아냅니다!',
+          altText: '{away}, 게이트웨이 네 개! 드라군을 쏟아냅니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 셔틀 리버 생산!',
@@ -54,7 +54,7 @@ const _pvp2gateReaverVs4gateDragoon = ScenarioScript(
           altText: '{home}, 셔틀 리버! 드라군 호위와 함께!',
         ),
         ScriptEvent(
-          text: '{away} 선수 드라군이 4게이트에서 밀려옵니다!',
+          text: '{away} 선수 드라군이 게이트웨이 네 개에서 밀려옵니다!',
           owner: LogOwner.away,
           awayArmy: 5, awayResource: -30,
         ),
@@ -66,7 +66,7 @@ const _pvp2gateReaverVs4gateDragoon = ScenarioScript(
       startLine: 17,
       linearEvents: [
         ScriptEvent(
-          text: '{away}, 드라군 대편대가 전진! 4게이트 타이밍!',
+          text: '{away}, 드라군 대편대가 전진! 물량 타이밍!',
           owner: LogOwner.away,
           awayArmy: 3, favorsStat: 'attack',
           altText: '{away} 선수 드라군 전진! 엄청난 물량!',
@@ -78,7 +78,7 @@ const _pvp2gateReaverVs4gateDragoon = ScenarioScript(
           altText: '{home} 선수 리버와 드라군으로 맞섭니다!',
         ),
         ScriptEvent(
-          text: '투게이트 리버 vs 포게이트 드라군! 물량 vs 화력!',
+          text: '리버 화력 vs 드라군 물량! 누가 이길 수 있을까요?',
           owner: LogOwner.system,
           skipChance: 0.2,
         ),
@@ -110,7 +110,7 @@ const _pvp2gateReaverVs4gateDragoon = ScenarioScript(
               homeArmy: -3, favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '4게이트 물량이 압도적! 리버를 막아냅니다!',
+              text: '드라군 물량이 압도적! 리버를 막아냅니다!',
               owner: LogOwner.away,
               homeArmy: -10,
               decisive: true,
@@ -138,7 +138,7 @@ const _pvp2gateReaverVs4gateDragoon = ScenarioScript(
               awayArmy: -4, favorsStat: 'control',
             ),
             ScriptEvent(
-              text: '투게이트 리버가 물량을 녹입니다! 화력 차이!',
+              text: '리버가 드라군 물량을 녹입니다! 화력 차이!',
               owner: LogOwner.home,
               awayArmy: -10,
               decisive: true,

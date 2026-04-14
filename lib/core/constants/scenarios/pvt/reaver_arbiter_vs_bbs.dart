@@ -21,11 +21,11 @@ const _pvtReaverArbiterVsBbs = ScenarioScript(
           homeResource: -20,
         ),
         ScriptEvent(
-          text: '{away} 선수 배럭 두 개를 빠르게 건설합니다! BBS 러시!',
+          text: '{away} 선수 배럭 두 개를 빠르게 건설합니다! 마린이 쏟아질 준비!',
           owner: LogOwner.away,
           awayResource: -20,
           awayArmy: 2,
-          altText: '{away}, 배럭이 두 개! BBS입니다! 마린이 쏟아질 준비!',
+          altText: '{away}, 배럭이 두 개! 마린을 빠르게 모으겠다는 의지!',
         ),
         ScriptEvent(
           text: '{home} 선수 질럿을 생산해서 입구를 막습니다.',
@@ -82,10 +82,10 @@ const _pvtReaverArbiterVsBbs = ScenarioScript(
           text: '{home} 선수 로보틱스와 서포트 베이를 올리기 시작합니다! 공성 빌드를 향한 첫걸음!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, BBS를 막으면서 로보틱스와 서포트 베이를 건설합니다!',
+          altText: '{home}, 마린 러시를 막으면서 로보틱스와 서포트 베이를 건설합니다!',
         ),
         ScriptEvent(
-          text: 'BBS를 버텼다면 테크 차이가 게임을 결정할 겁니다!',
+          text: '마린 러시를 버텼다면 테크 차이가 게임을 결정할 겁니다!',
           owner: LogOwner.system,
         ),
       ],
@@ -111,14 +111,14 @@ const _pvtReaverArbiterVsBbs = ScenarioScript(
           altText: '{home}, 템플러 아카이브가 올라갑니다! 아비터까지 가려는 건가요!',
         ),
         ScriptEvent(
-          text: '{away} 선수 BBS 이후 확장을 시도하지만 테크가 뒤처져 있습니다.',
+          text: '{away} 선수 마린 러시 이후 확장을 시도하지만 테크가 뒤처져 있습니다.',
           owner: LogOwner.away,
           awayResource: -20,
           awayArmy: 2,
           skipChance: 0.3,
         ),
         ScriptEvent(
-          text: '프로토스의 테크가 빠르게 올라가고 있습니다! BBS의 대가가 크네요!',
+          text: '프로토스의 테크가 빠르게 올라가고 있습니다! 초반 올인의 대가가 크네요!',
           owner: LogOwner.system,
         ),
       ],
@@ -167,12 +167,12 @@ const _pvtReaverArbiterVsBbs = ScenarioScript(
           conditionStat: 'attack',
           events: [
             ScriptEvent(
-              text: '{away} 선수 BBS 피해가 컸습니다! 프로토스 상대 일꾼이 많이 죽었어요!',
+              text: '{away} 선수 초반 러시 피해가 컸습니다! 프로토스 일꾼이 많이 죽었어요!',
               owner: LogOwner.away,
               homeResource: -25,
               awayArmy: 3,
               favorsStat: 'attack',
-              altText: '{away}, BBS 공격이 프로브에 큰 피해를 입혔습니다!',
+              altText: '{away}, 마린 공격이 프로브에 큰 피해를 입혔습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 테크를 올리고 싶지만 자원이 부족합니다!',
@@ -187,7 +187,7 @@ const _pvtReaverArbiterVsBbs = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: 'BBS 후속 공격에 프로토스가 무너집니다! GG!',
+              text: '마린 러시 후속 공격에 프로토스가 무너집니다! GG!',
               owner: LogOwner.away,
               decisive: true,
             ),

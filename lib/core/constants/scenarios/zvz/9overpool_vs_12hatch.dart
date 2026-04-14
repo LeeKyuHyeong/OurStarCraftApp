@@ -25,14 +25,14 @@ const _zvz9overpoolVs12hatch = ScenarioScript(
           text: '{home} 선수 9드론에 오버로드를 먼저 올립니다.',
           owner: LogOwner.home,
           homeResource: -5,
-          altText: '{home}, 9오버풀! 오버로드를 먼저 생산합니다.',
+          altText: '{home}, 9드론에 오버로드를 먼저 생산합니다.',
           skipChance: 0.3,
         ),
         ScriptEvent(
           text: '{away} 선수 12드론에 앞마당 해처리를 먼저 건설합니다.',
           owner: LogOwner.away,
           awayResource: -30,
-          altText: '{away}, 12앞마당! 해처리를 먼저 가져갑니다.',
+          altText: '{away}, 앞마당 해처리를 먼저 가네요! 확장을 가져갑니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 스포닝풀 건설합니다. 익스트랙터도 올립니다.',
@@ -50,13 +50,13 @@ const _zvz9overpoolVs12hatch = ScenarioScript(
           text: '{home} 선수 스포닝풀 완성! 저글링 4기 생산합니다.',
           owner: LogOwner.home,
           homeArmy: 4, homeResource: -8,
-          altText: '{home}, 저글링이 나옵니다! 12앞마당보다 먼저!',
+          altText: '{home}, 저글링이 나옵니다! 앞마당부터 올린 상대보다 먼저!',
         ),
         ScriptEvent(
-          text: '9오버풀 대 12앞마당! 저글링 타이밍이 관건입니다.',
+          text: '저글링 타이밍이 관건입니다! 스포닝풀이 빠른 쪽이 유리한 타이밍이에요.',
           owner: LogOwner.system,
           skipChance: 0.3,
-          altText: '12앞마당의 풀이 아직 건설 중입니다. 저글링 도착 타이밍이 중요합니다.',
+          altText: '앞마당부터 올린 쪽은 풀이 아직 건설 중입니다. 저글링 도착 타이밍이 중요합니다.',
         ),
       ],
     ),
@@ -66,7 +66,7 @@ const _zvz9overpoolVs12hatch = ScenarioScript(
       startLine: 11,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 저글링이 상대 앞마당에 도착합니다! 12앞마당의 풀이 막 완성되는 시점입니다!',
+          text: '{home} 선수 저글링이 상대 앞마당에 도착합니다! 상대 풀이 막 완성되는 시점입니다!',
           owner: LogOwner.home,
           favorsStat: 'attack',
           altText: '{home}, 저글링 도착! 상대 저글링이 막 나오려는 타이밍!',
@@ -78,10 +78,10 @@ const _zvz9overpoolVs12hatch = ScenarioScript(
           altText: '{away}, 풀 완성! 저글링이 나오기 시작합니다!',
         ),
         ScriptEvent(
-          text: '12앞마당의 저글링이 막 나오기 시작합니다! 드론으로 조금만 버티면 됩니다!',
+          text: '상대 저글링이 막 나오기 시작합니다! 드론으로 조금만 버티면 됩니다!',
           owner: LogOwner.system,
           skipChance: 0.3,
-          altText: '9오버풀 저글링과 12앞 저글링이 거의 동시에 만납니다!',
+          altText: '양쪽 저글링이 거의 동시에 만납니다!',
         ),
       ],
     ),
@@ -99,7 +99,7 @@ const _zvz9overpoolVs12hatch = ScenarioScript(
               text: '{home} 선수 저글링이 앞마당 드론을 노리지만 {away} 선수 저글링이 합류합니다!',
               owner: LogOwner.system,
               homeArmy: -1, awayArmy: -1, awayResource: -5,
-              altText: '저글링 대 저글링! 12앞마당의 저글링이 막 합류했습니다!',
+              altText: '저글링 대 저글링! 상대 저글링이 막 합류했습니다!',
             ),
             ScriptEvent(
               text: '비등한 교전! 양쪽 모두 저글링을 잃었습니다.',
@@ -137,7 +137,7 @@ const _zvz9overpoolVs12hatch = ScenarioScript(
           homeStatMustBeHigher: false,
           events: [
             ScriptEvent(
-              text: '{away} 선수 드론과 저글링을 뭉쳐서 수비합니다! 9오버풀 저글링이 밀립니다!',
+              text: '{away} 선수 드론과 저글링을 뭉쳐서 수비합니다! 상대 저글링이 밀립니다!',
               owner: LogOwner.away,
               homeArmy: -2, favorsStat: 'defense',
               altText: '{away}, 드론과 저글링 합세! 상대 저글링을 잡아냅니다!',
@@ -145,7 +145,7 @@ const _zvz9overpoolVs12hatch = ScenarioScript(
             ScriptEvent(
               text: '{home} 선수 저글링이 밀렸습니다. 드론이 많은 상대를 뚫지 못 합니다.',
               owner: LogOwner.home,
-              altText: '{home}, 12앞마당의 드론 물량이 수비에서 빛났습니다.',
+              altText: '{home}, 상대 드론 물량이 수비에서 빛났습니다.',
               skipChance: 0.3,
             ),
           ],
@@ -184,7 +184,7 @@ const _zvz9overpoolVs12hatch = ScenarioScript(
               altText: '{home}, 드론 견제 성공! 앞마당 해처리까지 위험합니다!',
             ),
             ScriptEvent(
-              text: '발업 저글링 압박에 앞마당이 무너집니다! 9오버풀의 타이밍!',
+              text: '발업 저글링 압박에 앞마당이 무너집니다! 타이밍이 적중했습니다!',
               owner: LogOwner.home,
               decisive: true,
               altText: '확장 타이밍을 노린 압박이 성공합니다! 앞마당이 파괴!',
@@ -217,10 +217,10 @@ const _zvz9overpoolVs12hatch = ScenarioScript(
               altText: '{away}, 라바 이점이 폭발합니다! 물량 차이가 벌어집니다!',
             ),
             ScriptEvent(
-              text: '12앞마당 수비 성공! 해처리 라바 이점으로 물량을 앞섭니다!',
+              text: '수비 성공! 해처리 라바 이점으로 물량을 앞섭니다!',
               owner: LogOwner.away,
               decisive: true,
-              altText: '드론과 저글링으로 버텨낸 12앞! 해처리 2개가 빛을 발합니다!',
+              altText: '드론과 저글링으로 버텨냈습니다! 해처리 2개가 빛을 발합니다!',
             ),
           ],
         ),
@@ -290,7 +290,7 @@ const _zvz9overpoolVs12hatch = ScenarioScript(
               text: '{away} 선수도 레어 진화! 해처리가 먼저라 라바 이점이 있습니다.',
               owner: LogOwner.away,
               awayResource: -15,
-              altText: '{away}, 레어 진화! 12앞의 라바 이점으로 드론과 유닛 동시 생산!',
+              altText: '{away}, 레어 진화! 해처리가 먼저 올라간 라바 이점으로 드론과 유닛 동시 생산!',
             ),
             ScriptEvent(
               text: '{home} 선수 스파이어 완성! 뮤탈리스크가 나옵니다!',
@@ -312,7 +312,7 @@ const _zvz9overpoolVs12hatch = ScenarioScript(
               altText: '{home}, 뮤탈 컨트롤이 좋습니다! 스커지를 피하면서 드론을 잡습니다!',
             ),
             ScriptEvent(
-              text: '뮤탈 컨트롤 차이로 결착! 드론 견제에서 앞선 9오버풀의 승리!',
+              text: '뮤탈 컨트롤 차이로 결착! 드론 견제에서 앞선 쪽의 승리!',
               owner: LogOwner.home,
               decisive: true,
               altText: '뮤탈 컨트롤로 라바 이점을 극복합니다! 스커지를 피한 견제의 승리!',
@@ -366,7 +366,7 @@ const _zvz9overpoolVs12hatch = ScenarioScript(
               text: '해처리 라바 이점! 뮤탈 물량에서 앞서면서 결착!',
               owner: LogOwner.away,
               decisive: true,
-              altText: '12앞마당의 라바 이점이 뮤탈전에서 빛을 발합니다!',
+              altText: '앞마당 해처리의 라바 이점이 뮤탈전에서 빛을 발합니다!',
             ),
           ],
         ),

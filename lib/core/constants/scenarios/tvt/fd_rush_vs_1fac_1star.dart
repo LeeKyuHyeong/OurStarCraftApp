@@ -43,7 +43,7 @@ const _tvtFdRushVs1fac1star = ScenarioScript(
           owner: LogOwner.away,
           awayResource: -550, // 팩토리 300 + 스타포트 250
           fixedCost: true,
-          altText: '{away} 선수 팩토리와 스타포트. 원팩원스타 체제.',
+          altText: '{away} 선수 팩토리와 스타포트를 올립니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 머신샵 부착. 벌처 없이 바로 탱크를 노립니다.',
@@ -53,7 +53,7 @@ const _tvtFdRushVs1fac1star = ScenarioScript(
           altText: '{home} 선수 머신샵을 올립니다, 빠른 탱크 체제입니다.',
         ),
         ScriptEvent(
-          text: '마린을 모으는 FD 러쉬 vs 팩토리 스타포트 체제! 방향이 다릅니다!',
+          text: '마린과 탱크를 모으는 빠른 공격 vs 팩토리 스타포트 체제! 방향이 다릅니다!',
           owner: LogOwner.system,
         ),
         ScriptEvent(

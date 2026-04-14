@@ -29,7 +29,7 @@ const _pvp2gateReaverVs3gateSpeedzealot = ScenarioScript(
           text: '{home} 선수 게이트웨이 추가! 사이버네틱스 코어!',
           owner: LogOwner.home,
           homeResource: -30,
-          altText: '{home}, 투게이트! 리버를 준비합니다!',
+          altText: '{home}, 게이트웨이가 두 개! 리버를 준비합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 사이버네틱스 코어! 아둔!',
@@ -43,7 +43,7 @@ const _pvp2gateReaverVs3gateSpeedzealot = ScenarioScript(
           homeResource: -25, homeArmy: 2,
         ),
         ScriptEvent(
-          text: '{away} 선수 게이트웨이 추가! 3게이트!',
+          text: '{away} 선수 세 번째 게이트웨이를 올립니다!',
           owner: LogOwner.away,
           awayResource: -30,
         ),
@@ -67,7 +67,7 @@ const _pvp2gateReaverVs3gateSpeedzealot = ScenarioScript(
       startLine: 15,
       linearEvents: [
         ScriptEvent(
-          text: '{away}, 스피드 질럿이 쏟아집니다! 3게이트 물량!',
+          text: '{away}, 스피드 질럿이 쏟아집니다! 게이트웨이 세 개의 물량!',
           owner: LogOwner.away,
           awayArmy: 5, awayResource: -25, favorsStat: 'attack',
           altText: '{away} 선수 스피드 질럿! 빠른 속도로 돌진!',
@@ -79,7 +79,7 @@ const _pvp2gateReaverVs3gateSpeedzealot = ScenarioScript(
           altText: '{home} 선수 리버를 내려 질럿을 잡습니다!',
         ),
         ScriptEvent(
-          text: '투게이트 리버 vs 3게이트 스피드질럿! 화력 vs 속도!',
+          text: '리버 화력 vs 스피드질럿 물량! 화력 vs 속도의 대결!',
           owner: LogOwner.system,
           skipChance: 0.2,
         ),

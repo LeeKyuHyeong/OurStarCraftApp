@@ -19,13 +19,13 @@ const _zvp4poolVsForgeExpand = ScenarioScript(
           text: '{home} 선수 드론 4마리에서 스포닝풀을 올립니다!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 4풀! 역대급 빠른 스포닝풀입니다!',
+          altText: '{home}, 4드론에 스포닝풀! 역대급으로 빠릅니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 포지를 먼저 건설하고 앞마당 넥서스를 준비합니다.',
           owner: LogOwner.away,
           awayResource: -20,
-          altText: '{away}, 포지 확장 빌드! 캐논으로 수비하려 합니다!',
+          altText: '{away}, 포지를 먼저 올리고 앞마당 확장! 캐논으로 수비하려 합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링 6마리 부화! 프로토스 앞마당으로!',
@@ -39,7 +39,7 @@ const _zvp4poolVsForgeExpand = ScenarioScript(
           altText: '{away}, 캐논 건설을 서두릅니다! 입구를 막아야 해요!',
         ),
         ScriptEvent(
-          text: '4풀 vs 포지 확장! ZvP 클래식 대결입니다!',
+          text: '극초반 저글링 러시 vs 캐논 수비! ZvP 클래식 대결입니다!',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
@@ -129,7 +129,7 @@ const _zvp4poolVsForgeExpand = ScenarioScript(
               altText: '{home} 선수 캐논 파괴! 앞마당이 무너집니다!',
             ),
             ScriptEvent(
-              text: '포지 확장 방어 실패! 4풀 저글링의 승리!',
+              text: '캐논 수비 실패! 극초반 저글링의 승리!',
               owner: LogOwner.home,
               decisive: true,
             ),

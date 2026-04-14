@@ -43,7 +43,7 @@ const _tvtFdRushVs2facPush = ScenarioScript(
           owner: LogOwner.away,
           awayResource: -600, // 팩토리 x2 (300+300)
           fixedCost: true,
-          altText: '{away} 선수 팩토리 투팩. 벌처를 대량 생산할 준비.',
+          altText: '{away} 선수 팩토리가 하나 더. 벌처를 대량 생산할 준비입니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 머신샵 부착 후 탱크와 시즈모드를 동시에 시작합니다!',
@@ -57,11 +57,12 @@ const _tvtFdRushVs2facPush = ScenarioScript(
           owner: LogOwner.away,
           awayArmy: 4, awayResource: -350, // 벌처 2기 (75x2) + 속업 200
           fixedCost: true,
-          altText: '{away} 선수 벌처 속업. 투팩에서 벌처가 물 밀듯이!',
+          altText: '{away} 선수 벌처 속업. 팩토리 두 개에서 벌처가 물 밀듯이!',
         ),
         ScriptEvent(
-          text: '마린과 탱크의 FD 러쉬 vs 벌처 물량! 정면 대결이 예고됩니다!',
+          text: '양쪽 다 공격적인 선택입니다! 마린과 탱크 vs 벌처 물량, 정면 대결이 예고됩니다!',
           owner: LogOwner.system,
+          altText: '공격적인 빌드끼리 맞붙었습니다! 피해를 얼마나 줄 수 있을까요?',
         ),
       ],
     ),
@@ -200,7 +201,7 @@ const _tvtFdRushVs2facPush = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{home} 선수 FD 러쉬 준비 완료. 탱크 라인 전진!',
+          text: '{home} 선수 마린과 탱크가 모였습니다. 탱크 라인 전진!',
           owner: LogOwner.home,
           homeArmy: 2, homeResource: -250, // 탱크 1기 250
           fixedCost: true,
@@ -356,7 +357,7 @@ const _tvtFdRushVs2facPush = ScenarioScript(
               altText: '{away} 선수 양면 공격! 탱크 라인이 갈립니다!',
             ),
             ScriptEvent(
-              text: '투팩의 물량이 한꺼번에 몰려옵니다!',
+              text: '팩토리 두 개의 물량이 한꺼번에 몰려옵니다!',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),

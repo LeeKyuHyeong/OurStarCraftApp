@@ -19,7 +19,7 @@ const _zvp4poolVsCannonRush = ScenarioScript(
           text: '{home} 선수 드론 4마리에서 스포닝풀을 올립니다!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 4풀! 극초반 러시 빌드입니다!',
+          altText: '{home}, 4드론에 스포닝풀! 극초반 러시입니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 프로브를 보내 저그 앞마당 근처에 포지를 건설합니다!',

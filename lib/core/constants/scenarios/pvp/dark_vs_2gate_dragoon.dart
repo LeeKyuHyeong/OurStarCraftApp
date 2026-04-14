@@ -37,7 +37,7 @@ const _pvpDarkVs2gateDragoon = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '{away} 선수 게이트웨이를 추가합니다! 투게이트 드라군!',
+          text: '{away} 선수 두 번째 게이트웨이를 올립니다! 드라군을 모읍니다!',
           owner: LogOwner.away,
           awayArmy: 4, awayResource: -15,
           altText: '{away}, 게이트웨이 추가! 드라군을 빠르게 모읍니다!',
@@ -99,7 +99,7 @@ const _pvpDarkVs2gateDragoon = ScenarioScript(
               awayResource: -15, favorsStat: 'harass',
             ),
             ScriptEvent(
-              text: '다크 올인 대성공! 투게이트 드라군의 일꾼이 파괴됐습니다!',
+              text: '다크 올인 대성공! 상대 일꾼이 파괴됐습니다!',
               owner: LogOwner.home,
               awayArmy: -10,
               decisive: true,

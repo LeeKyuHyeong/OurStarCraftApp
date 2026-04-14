@@ -29,7 +29,7 @@ const _tvtFdRushVsNobarDouble = ScenarioScript(
           owner: LogOwner.away,
           awayResource: -400, // CC 400
           fixedCost: true,
-          altText: '{away} 선수 커맨드센터 퍼스트. 노배럭더블입니다.',
+          altText: '{away} 선수 배럭 없이 커맨드센터를 먼저 올립니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 가스를 올리고 팩토리 건설. 마린은 계속 생산합니다.',
@@ -59,7 +59,7 @@ const _tvtFdRushVsNobarDouble = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '노배럭더블이 위험합니다! 상대 병력이 빨리 도착하면 큰일!',
+          text: '배럭 없이 확장한 쪽이 위험합니다! 상대 병력이 빨리 도착하면 큰일!',
           owner: LogOwner.system,
         ),
       ],
@@ -89,7 +89,7 @@ const _tvtFdRushVsNobarDouble = ScenarioScript(
           text: '{home} 선수 탱크를 앞세우고 전진합니다! 앞마당을 노립니다!',
           owner: LogOwner.home,
           favorsStat: 'attack',
-          altText: '{home} 선수 탱크 전진! 노배럭더블의 약점을 찌릅니다!',
+          altText: '{home} 선수 탱크 전진! 배럭 없이 확장한 약점을 찌릅니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 SCV를 벙커 수리에 투입합니다.',
@@ -98,7 +98,7 @@ const _tvtFdRushVsNobarDouble = ScenarioScript(
           altText: '{away} 선수 SCV 수리! 벙커를 지켜야 합니다!',
         ),
         ScriptEvent(
-          text: '노배럭더블의 초반 취약점! 기갑 유닛이 도착했습니다!',
+          text: '초반 수비가 취약합니다! 기갑 유닛이 도착했습니다!',
           owner: LogOwner.system,
           skipChance: 0.2,
         ),
@@ -134,7 +134,7 @@ const _tvtFdRushVsNobarDouble = ScenarioScript(
               altText: '{home} 선수 SCV까지 잡아냅니다! 일꾼 피해!',
             ),
             ScriptEvent(
-              text: '노배럭더블이 큰 피해를 입었습니다! 확장 투자가 수포로!',
+              text: '빠른 확장이 큰 피해를 입었습니다! 확장 투자가 수포로!',
               owner: LogOwner.system,
             ),
           ],
@@ -165,7 +165,7 @@ const _tvtFdRushVsNobarDouble = ScenarioScript(
               altText: '{away} 선수 팩토리 건설. 탱크로 대응 준비.',
             ),
             ScriptEvent(
-              text: '벙커 수비 성공! 노배럭더블이 살아남았습니다!',
+              text: '벙커 수비 성공! 확장을 지켜냈습니다!',
               owner: LogOwner.system,
             ),
           ],
@@ -184,7 +184,7 @@ const _tvtFdRushVsNobarDouble = ScenarioScript(
           owner: LogOwner.home,
           homeArmy: 2, homeResource: -550, // 팩토리 300 + 탱크 250
           fixedCost: true,
-          altText: '{home} 선수 투팩 체제! 탱크를 밀어냅니다!',
+          altText: '{home} 선수 팩토리 두 개 체제! 탱크를 밀어냅니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리 건설. 더블 자원이 풀가동됩니다.',
@@ -219,7 +219,7 @@ const _tvtFdRushVsNobarDouble = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '노배럭더블의 자원 우위가 나타나기 시작합니다.',
+          text: '빠른 확장의 자원 우위가 나타나기 시작합니다.',
           owner: LogOwner.system,
           skipChance: 0.25,
         ),
@@ -291,7 +291,7 @@ const _tvtFdRushVsNobarDouble = ScenarioScript(
               altText: '{away} 선수 드랍 견제 성공! 피해를 주고 빠집니다!',
             ),
             ScriptEvent(
-              text: '노배럭더블의 자원으로 드랍 견제가 가능합니다.',
+              text: '빠른 확장의 자원으로 드랍 견제가 가능합니다.',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
@@ -318,7 +318,7 @@ const _tvtFdRushVsNobarDouble = ScenarioScript(
               text: '{away} 선수 자원 우위로 물량 역전합니다!',
               owner: LogOwner.away,
               decisive: true,
-              altText: '{away} 선수 노배럭더블의 자원이 결정적이었습니다!',
+              altText: '{away} 선수 빠른 확장의 자원이 결정적이었습니다!',
             ),
           ],
         ),
@@ -340,7 +340,7 @@ const _tvtFdRushVsNobarDouble = ScenarioScript(
               awayArmy: -2,
             ),
             ScriptEvent(
-              text: '{home} 선수 FD 러쉬의 초반 피해가 결정적이었습니다!',
+              text: '{home} 선수 빠른 탱크의 초반 피해가 결정적이었습니다!',
               owner: LogOwner.home,
               decisive: true,
               altText: '{home} 선수 빠른 탱크로 확장 빌드를 무너뜨립니다!',
@@ -391,7 +391,7 @@ const _tvtFdRushVsNobarDouble = ScenarioScript(
               altText: '{home} 선수 초반 시즈 피해! 상대가 따라잡지 못합니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 FD 러쉬가 노배럭더블을 초토화합니다!',
+              text: '{home} 선수 빠른 공격이 확장을 초토화합니다!',
               owner: LogOwner.home,
               decisive: true,
               altText: '{home} 선수 빠른 탱크로 확장 빌드를 무너뜨립니다!',
@@ -412,7 +412,7 @@ const _tvtFdRushVsNobarDouble = ScenarioScript(
               text: '{away} 선수 초반을 버틴 뒤 자원 차이로 역전합니다!',
               owner: LogOwner.away,
               decisive: true,
-              altText: '{away} 선수 노배럭더블의 자원이 모든 것을 뒤집습니다!',
+              altText: '{away} 선수 빠른 확장의 자원이 모든 것을 뒤집습니다!',
             ),
           ],
         ),

@@ -39,7 +39,7 @@ const _pvt5gatePushVsTankDefense = ScenarioScript(
           altText: '{away}, 시즈 모드 연구! 탱크가 자리 잡으면 뚫기 어렵습니다!',
         ),
         ScriptEvent(
-          text: '프로토스 5게이트 vs 테란 탱크 수비! 고전적인 대결 구도입니다!',
+          text: '프로토스 게이트웨이 물량 vs 테란 탱크 수비! 고전적인 대결 구도입니다!',
           owner: LogOwner.system,
         ),
         ScriptEvent(
@@ -69,10 +69,10 @@ const _pvt5gatePushVsTankDefense = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '{home} 선수 4번째, 5번째 게이트웨이까지! 5게이트 완성!',
+          text: '{home} 선수 네 번째, 다섯 번째 게이트웨이까지 올립니다!',
           owner: LogOwner.home,
           homeResource: -20,
-          altText: '{home}, 5게이트 완성! 병력 생산 속도가 빨라집니다!',
+          altText: '{home}, 게이트웨이 다섯 개 완성! 병력 생산 속도가 빨라집니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 벙커를 세우고 터렛도 올립니다! 수비가 단단합니다!',
@@ -82,7 +82,7 @@ const _pvt5gatePushVsTankDefense = ScenarioScript(
           favorsStat: 'defense',
         ),
         ScriptEvent(
-          text: '탱크 시즈 라인을 5게이트 물량으로 뚫을 수 있을까요?',
+          text: '탱크 시즈 라인을 게이트웨이 물량으로 뚫을 수 있을까요?',
           owner: LogOwner.system,
           skipChance: 0.2,
         ),
@@ -96,7 +96,7 @@ const _pvt5gatePushVsTankDefense = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 5게이트에서 드라군과 질럿이 쏟아집니다!',
+          text: '{home} 선수 게이트웨이 다섯 개에서 드라군과 질럿이 쏟아집니다!',
           owner: LogOwner.home,
           homeArmy: 5,
           homeResource: -20,
@@ -120,7 +120,7 @@ const _pvt5gatePushVsTankDefense = ScenarioScript(
           altText: '{away}, 확장! 탱크 수비를 믿고 자원을 확보합니다!',
         ),
         ScriptEvent(
-          text: '5게이트 물량이 모였습니다! 돌파할 수 있을지 지켜봅시다!',
+          text: '게이트웨이 물량이 모였습니다! 돌파할 수 있을지 지켜봅시다!',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
@@ -157,16 +157,16 @@ const _pvt5gatePushVsTankDefense = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '시즈 라인이 무너졌습니다! 5게이트 물량이 쏟아져 들어갑니다!',
+              text: '시즈 라인이 무너졌습니다! 프로토스 물량이 쏟아져 들어갑니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{home} 선수 5게이트 드라군 질럿으로 탱크 수비를 돌파합니다!',
+              text: '{home} 선수 드라군 질럿 물량으로 탱크 수비를 돌파합니다!',
               owner: LogOwner.home,
               homeArmy: 25,
               awayArmy: -15,
               decisive: true,
-              altText: '{home} 선수 시즈 라인 붕괴! 5게이트 물량에 테란이 무너집니다!',
+              altText: '{home} 선수 시즈 라인 붕괴! 게이트웨이 물량에 테란이 무너집니다!',
             ),
           ],
         ),
@@ -195,7 +195,7 @@ const _pvt5gatePushVsTankDefense = ScenarioScript(
               favorsStat: 'harass',
             ),
             ScriptEvent(
-              text: '탱크 수비가 5게이트 푸시를 막아냈습니다! 테란이 역공합니다!',
+              text: '탱크 수비가 프로토스 물량 푸시를 막아냈습니다! 테란이 역공합니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
@@ -204,7 +204,7 @@ const _pvt5gatePushVsTankDefense = ScenarioScript(
               awayArmy: 25,
               homeArmy: -15,
               decisive: true,
-              altText: '{away} 선수 철벽 수비! 5게이트 푸시를 완벽히 막고 역공합니다!',
+              altText: '{away} 선수 철벽 수비! 프로토스 물량 푸시를 완벽히 막고 역공합니다!',
             ),
           ],
         ),

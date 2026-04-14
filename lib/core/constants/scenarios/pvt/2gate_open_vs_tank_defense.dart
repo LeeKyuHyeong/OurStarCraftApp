@@ -27,10 +27,10 @@ const _pvt2gateOpenVsTankDefense = ScenarioScript(
           altText: '{away}, 배럭에 가스! 테크를 준비합니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 두 번째 게이트웨이 건설! 투게이트입니다!',
+          text: '{home} 선수 두 번째 게이트웨이 건설! 질럿을 빠르게 뽑겠네요!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 투게이트 확정! 질럿 압박을 준비하구요!',
+          altText: '{home}, 게이트웨이가 두 개! 질럿 압박을 준비하구요!',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리 건설! 머신샵을 붙입니다!',

@@ -19,13 +19,13 @@ const _zvp5droneVsProxyGate = ScenarioScript(
           text: '{home} 선수 드론을 5마리까지 뽑고 스포닝풀을 올립니다!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 스포닝풀 건설! 9투 올인 빌드입니다!',
+          altText: '{home}, 스포닝풀 건설! 빠른 저글링을 준비합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 프로브를 보내 전진 파일런을 세웁니다!',
           owner: LogOwner.away,
           awayResource: -10,
-          altText: '{away}, 전진 파일런! 프록시 게이트웨이를 노립니다!',
+          altText: '{away}, 전진 파일런! 앞에서 게이트웨이를 올리려 합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링이 부화합니다! 발업도 함께 연구!',
@@ -33,7 +33,7 @@ const _zvp5droneVsProxyGate = ScenarioScript(
           homeArmy: 5, homeResource: -15,
         ),
         ScriptEvent(
-          text: '{away} 선수 프록시 게이트웨이에서 질럿이 나옵니다!',
+          text: '{away} 선수 전진 게이트웨이에서 질럿이 나옵니다!',
           owner: LogOwner.away,
           awayArmy: 4, awayResource: -15,
           altText: '{away}, 전진 질럿 완성! 저그 본진을 향합니다!',
@@ -129,7 +129,7 @@ const _zvp5droneVsProxyGate = ScenarioScript(
               altText: '{home} 선수 건물 파괴! 프로토스가 무너집니다!',
             ),
             ScriptEvent(
-              text: '발업 저글링의 속도 차이! 9투 올인 성공!',
+              text: '발업 저글링의 속도 차이! 저글링 러시 성공!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -146,7 +146,7 @@ const _zvp5droneVsProxyGate = ScenarioScript(
               altText: '{away} 선수 해처리 파괴! 저그 건물이 남지 않았습니다!',
             ),
             ScriptEvent(
-              text: '프록시 질럿이 저그 본진을 완파! 질럿의 화력 승!',
+              text: '전진 질럿이 저그 본진을 완파! 질럿의 화력 승!',
               owner: LogOwner.away,
               decisive: true,
             ),

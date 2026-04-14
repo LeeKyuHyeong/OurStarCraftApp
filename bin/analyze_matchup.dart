@@ -326,10 +326,8 @@ void main(List<String> args) {
   // ── 클래시 이벤트 분석 ──
   print('');
   print('[클래시 이벤트 풀 분석]');
-  int totalClashUnique = 0;
   for (final phase in GamePhase.values) {
     final uniqueCount = allClashTexts[phase.name]!.length;
-    totalClashUnique += uniqueCount;
     final poolSizes = clashPoolSizes[phase.name]!;
     final avgPool = poolSizes.isNotEmpty
         ? poolSizes.reduce((a, b) => a + b) / poolSizes.length

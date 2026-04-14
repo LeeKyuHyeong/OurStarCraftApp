@@ -16,7 +16,7 @@ const _zvp973HydraVsArchon = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 9풀로 스포닝풀을 올립니다! 973 빌드!',
+          text: '{home} 선수 9드론에 스포닝풀을 올립니다! 빠른 히드라를 노리는군요!',
           owner: LogOwner.home,
           homeResource: -15,
           altText: '{home}, 빠른 스포닝풀! 히드라 타이밍을 노립니다.',

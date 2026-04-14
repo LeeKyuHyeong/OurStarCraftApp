@@ -49,10 +49,10 @@ const _pvp1gateRoboMirror = ScenarioScript(
           text: '{home} 선수 로보틱스 건설! 테크를 올립니다!',
           owner: LogOwner.home,
           homeResource: -20,
-          altText: '{home}, 로보틱스! 원게이트 로보 빌드입니다!',
+          altText: '{home}, 게이트웨이 후에 바로 로보틱스를 올리네요!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 로보틱스! 양쪽 원게이트 로보!',
+          text: '{away} 선수도 로보틱스를 올립니다! 양쪽 같은 테크!',
           owner: LogOwner.away,
           awayResource: -20,
           altText: '{away}, 로보틱스! 미러 매치가 되겠네요!',

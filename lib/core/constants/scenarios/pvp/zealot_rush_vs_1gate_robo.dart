@@ -79,7 +79,7 @@ const _pvpZealotRushVs1gateRobo = ScenarioScript(
           altText: '{away}, 수비! 리버가 나올 때까지!',
         ),
         ScriptEvent(
-          text: '질럿 러시 vs 원게이트 로보! 시간 싸움입니다!',
+          text: '질럿 러시 vs 로보틱스 테크! 시간 싸움입니다!',
           owner: LogOwner.system,
           skipChance: 0.2,
         ),

@@ -25,7 +25,7 @@ const _zvpHiveDefilerVsForgeExpand = ScenarioScript(
           text: '{away} 선수 포지를 먼저 올리고 넥서스 확장을 준비합니다!',
           owner: LogOwner.away,
           awayResource: -20,
-          altText: '{away}, 포지 확장! 국룰 빌드를 선택했습니다.',
+          altText: '{away}, 포지를 올리고 앞마당 확장! 국룰 구성을 선택했습니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 스포닝풀을 올리고 드론 생산을 계속합니다.',

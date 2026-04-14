@@ -29,7 +29,7 @@ const _pvtProxyGateVsBioMech = ScenarioScript(
           text: '{home} 선수 상대 근처에 게이트웨이를 숨겨서 올립니다!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 프록시 게이트웨이! 들키지 않았습니다!',
+          altText: '{home}, 숨겨진 게이트웨이! 들키지 않았습니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 가스를 올리고 팩토리를 준비합니다!',
@@ -38,13 +38,13 @@ const _pvtProxyGateVsBioMech = ScenarioScript(
           altText: '{away}, 가스 팩토리! 밸런스 있는 빌드!',
         ),
         ScriptEvent(
-          text: '{home} 선수 질럿 생산 시작! 프록시라서 빨리 도착합니다!',
+          text: '{home} 선수 질럿 생산 시작! 전진 건물이라서 빨리 도착합니다!',
           owner: LogOwner.home,
           homeArmy: 2,
           homeResource: -10,
         ),
         ScriptEvent(
-          text: '프록시 게이트가 발각되지 않았다면 큰일입니다!',
+          text: '전진 게이트웨이가 발각되지 않았다면 큰일입니다!',
           owner: LogOwner.system,
         ),
       ],
@@ -110,7 +110,7 @@ const _pvtProxyGateVsBioMech = ScenarioScript(
           altText: '{away}, 마린이 벙커로! 화력이 집중됩니다!',
         ),
         ScriptEvent(
-          text: '{home}, 질럿을 추가합니다! 프록시에서 바로 합류!',
+          text: '{home}, 질럿을 추가합니다! 전진 건물에서 바로 합류!',
           owner: LogOwner.home,
           homeArmy: 2,
           homeResource: -10,
@@ -153,7 +153,7 @@ const _pvtProxyGateVsBioMech = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '프록시 게이트 대성공! 테란 본진이 초토화!',
+              text: '전진 게이트웨이 대성공! 테란 본진이 초토화!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
@@ -162,7 +162,7 @@ const _pvtProxyGateVsBioMech = ScenarioScript(
               homeArmy: 20,
               awayArmy: -15,
               decisive: true,
-              altText: '{home}, 프록시 질럿! 바이오 메카닉이 구성되기도 전에 끝!',
+              altText: '{home}, 전진 질럿! 테란 복합 편성이 구성되기도 전에 끝!',
             ),
           ],
         ),
@@ -186,7 +186,7 @@ const _pvtProxyGateVsBioMech = ScenarioScript(
               homeArmy: -4,
             ),
             ScriptEvent(
-              text: '{away}, 벌처와 탱크가 나옵니다! 바이오 메카닉 편성!',
+              text: '{away}, 벌처와 탱크가 나옵니다! 복합 편성이 갖춰지고 있어요!',
               owner: LogOwner.away,
               awayArmy: 6,
               awayResource: -15,
@@ -199,7 +199,7 @@ const _pvtProxyGateVsBioMech = ScenarioScript(
               homeArmy: -5,
             ),
             ScriptEvent(
-              text: '프록시에 투자한 자원이 전부 날아갔습니다!',
+              text: '전진 건물에 투자한 자원이 전부 날아갔습니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
@@ -208,7 +208,7 @@ const _pvtProxyGateVsBioMech = ScenarioScript(
               awayArmy: 20,
               homeArmy: -15,
               decisive: true,
-              altText: '{away}, 바이오 메카닉의 화력! 프로토스를 압도합니다!',
+              altText: '{away}, 복합 편성의 화력! 프로토스를 압도합니다!',
             ),
           ],
         ),

@@ -30,7 +30,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
           homeResource: -400,
           fixedCost: true,
           homeExpansion: true,
-          altText: '{home} 선수 CC퍼스트, 배럭 없이 커맨드센터 먼저.',
+          altText: '{home} 선수 배럭 없이 커맨드센터를 먼저 올립니다.',
         ),
         ScriptEvent(
           text: '{away} 선수도 앞마당 커맨드센터.',
@@ -38,7 +38,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
           awayResource: -400,
           fixedCost: true,
           awayExpansion: true,
-          altText: '{away} 선수도 노배럭더블입니다.',
+          altText: '{away} 선수도 배럭 없이 커맨드센터를 먼저 올립니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 배럭 건설합니다.',
@@ -160,7 +160,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
           text: '양측 벌처가 센터에서 조우합니다. 마인을 경계하며 움직입니다.',
           owner: LogOwner.system,
           skipChance: 0.3,
-          altText: '노배럭더블답게 벌처가 늦게 나왔습니다. 조심스러운 초반입니다.',
+          altText: '배럭 없이 확장을 했기 때문에 벌처가 늦게 나왔습니다. 조심스러운 초반입니다.',
         ),
       ],
     ),
@@ -197,7 +197,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
               altText: '{home} 선수 벌처 견제! SCV를 잡아냅니다!',
             ),
             ScriptEvent(
-              text: '노배럭더블이라 앞마당 방어가 특히 취약합니다.',
+              text: '배럭 없이 확장한 만큼 앞마당 방어가 특히 취약합니다.',
               owner: LogOwner.system,
               skipChance: 0.3,
               altText: '벌처전에서 밀리면 앞마당 SCV가 위험합니다.',
@@ -237,7 +237,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
               altText: '{away} 선수 벌처 침투! SCV를 솎아냅니다!',
             ),
             ScriptEvent(
-              text: '노배럭더블은 벌처 견제에 특히 약합니다.',
+              text: '배럭 없이 확장해서 벌처 견제에 특히 약합니다.',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
@@ -278,7 +278,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
               altText: '{home} 선수 본진 SCV까지 타격! 자원 채취가 마비됩니다!',
             ),
             ScriptEvent(
-              text: '노배럭더블이라 마린 수비가 전혀 없습니다! 벌처에 속수무책!',
+              text: '마린 수비가 전혀 없습니다! 벌처에 속수무책!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
@@ -317,7 +317,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
               altText: '{away} 선수 본진 SCV까지 타격! 자원 채취가 마비됩니다!',
             ),
             ScriptEvent(
-              text: '노배럭더블이라 마린 수비가 전혀 없습니다! 벌처에 속수무책!',
+              text: '마린 수비가 없는 약점! 벌처에 속수무책!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
@@ -662,7 +662,7 @@ const _tvtNobarDoubleMirror = ScenarioScript(
               altText: '{away} 선수도 트리플 커맨드센터, 양측 자원 확보에 나섭니다.',
             ),
             ScriptEvent(
-              text: '양측 트리플 확장, 노배럭더블답게 자원 싸움이 치열합니다.',
+              text: '양측 트리플 확장, 자원 싸움이 치열합니다.',
               owner: LogOwner.system,
               skipChance: 0.4,
               altText: '서로 비슷한 타이밍에 세 번째 확장을 가져갑니다.',

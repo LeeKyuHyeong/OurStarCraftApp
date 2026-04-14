@@ -16,7 +16,7 @@ const _zvp4poolVsArchon = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 4풀 빌드! 스포닝풀이 올라갑니다!',
+          text: '{home} 선수 4드론에 스포닝풀! 극초반부터 공격적입니다!',
           owner: LogOwner.home,
           homeResource: -15,
           altText: '{home}, 드론 4마리에서 스포닝풀! 극초반 러시!',
@@ -25,7 +25,7 @@ const _zvp4poolVsArchon = ScenarioScript(
           text: '{away} 선수 게이트웨이와 사이버네틱스 코어를 올립니다.',
           owner: LogOwner.away,
           awayResource: -20,
-          altText: '{away}, 건물을 올리기 시작합니다. 템플러 아카이브로 가는 테크 빌드!',
+          altText: '{away}, 건물을 올리기 시작합니다. 템플러 아카이브를 향한 테크 구성이군요!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링 6마리가 나옵니다! 출발!',

@@ -36,7 +36,7 @@ const _pvtReaverCarrierVsUpgrade = ScenarioScript(
           text: '{away} 선수 엔지니어링 베이를 건설합니다! 업그레이드에 투자하는군요!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 엔지니어링 베이! 더블 업그레이드를 노리고 있습니다!',
+          altText: '{away}, 엔지니어링 베이! 공방 업그레이드를 노리고 있습니다!',
         ),
         ScriptEvent(
           text: '테란이 업그레이드에 투자합니다! 후반을 바라보는 빌드네요.',
@@ -208,7 +208,7 @@ const _pvtReaverCarrierVsUpgrade = ScenarioScript(
               awayArmy: 25,
               homeArmy: -15,
               decisive: true,
-              altText: '{away}, 더블 업그레이드의 가치! 프로토스를 압도합니다!',
+              altText: '{away}, 공방 업그레이드의 가치! 프로토스를 압도합니다!',
             ),
           ],
         ),

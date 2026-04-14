@@ -35,7 +35,7 @@ const _pvpZealotRushVs2gateReaver = ScenarioScript(
           text: '{away} 선수 게이트웨이 추가! 사이버네틱스 코어!',
           owner: LogOwner.away,
           awayResource: -30,
-          altText: '{away}, 투게이트! 리버를 빠르게 올립니다!',
+          altText: '{away}, 게이트웨이가 두 개! 리버를 빠르게 올립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 질럿 생산 시작!',
@@ -78,7 +78,7 @@ const _pvpZealotRushVs2gateReaver = ScenarioScript(
           altText: '{away}, 수비! 리버가 곧 나옵니다!',
         ),
         ScriptEvent(
-          text: '질럿 러시 vs 투게이트 리버! 리버가 나오면 끝!',
+          text: '질럿 러시 vs 리버! 리버가 나오면 끝입니다!',
           owner: LogOwner.system,
           skipChance: 0.2,
         ),

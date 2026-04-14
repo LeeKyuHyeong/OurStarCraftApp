@@ -70,7 +70,7 @@ const _zvp5hatchHydraVsCorsair = ScenarioScript(
           altText: '{home}, 히드라덴! 커세어를 잡으려면 히드라가 필요합니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 해처리를 추가합니다! 5해처리 체제를 향해!',
+          text: '{home} 선수 해처리를 추가합니다! 물량 체제를 향해!',
           owner: LogOwner.home,
           homeResource: -30,
         ),
@@ -101,7 +101,7 @@ const _zvp5hatchHydraVsCorsair = ScenarioScript(
           altText: '{away}, 드라군과 질럿을 보충합니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 히드라 대량 생산! 5해처리 가동!',
+          text: '{home} 선수 히드라 대량 생산! 해처리 전부 가동!',
           owner: LogOwner.home,
           homeArmy: 5, homeResource: -25, favorsStat: 'macro',
           altText: '{home}, 히드라가 쏟아집니다!',

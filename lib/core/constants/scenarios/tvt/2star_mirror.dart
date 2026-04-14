@@ -10,7 +10,7 @@ const _tvt2starMirror = ScenarioScript(
   awayBuildIds: ['tvt_2star'],
   description: '투스타 레이스 클로킹 공중전',
   phases: [
-    // ── Phase 0: 오프닝 (lines 1-11) ── recovery 100/줄
+    // ── Phase 0: 오프닝 (lines 1-12) ── recovery 100/줄
     ScriptPhase(
       name: 'opening',
       startLine: 1,
@@ -18,301 +18,442 @@ const _tvt2starMirror = ScenarioScript(
       recoveryArmyPerLine: 0,
       linearEvents: [
         ScriptEvent(
-          text: '양쪽 SCV가 정찰을 나갑니다. 양쪽 투스타 냄새가 납니다.',
-          owner: LogOwner.system,
-          altText: '양 선수 SCV 정찰. 상대 빌드를 확인합니다.',
-        ),
-        ScriptEvent(
-          text: '{home} 선수 배럭 건설합니다. {away} 선수도 배럭.',
-          owner: LogOwner.system,
-          homeResource: -150, // 배럭 150
-          awayResource: -150,
-          fixedCost: true,
-          altText: '양쪽 배럭이 올라갑니다.',
-        ),
-        ScriptEvent(
-          text: '{home} 선수 가스를 올립니다. {away} 선수도 가스.',
-          owner: LogOwner.system,
+          text: '{home} 선수 가스를 먼저 올립니다.',
+          owner: LogOwner.home,
           homeResource: -100, // 리파이너리 100
+          fixedCost: true,
+          altText: '{home} 선수 리파이너리부터 건설합니다.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 가스를 먼저 올립니다.',
+          owner: LogOwner.away,
           awayResource: -100,
           fixedCost: true,
-          altText: '양쪽 가스를 넣습니다.',
+          altText: '{away} 선수도 리파이너리부터입니다.',
         ),
         ScriptEvent(
-          text: '가스가 모이기 시작합니다. 테크 빌딩이 곧 올라오겠죠.',
+          text: '양 선수 모두 가스를 먼저 올렸습니다. 가스가 많이 드는 빌드인가봅니다.',
           owner: LogOwner.system,
           skipChance: 0.3,
+          altText: '두 선수 모두 배럭보다 가스가 먼저입니다. 어떤 빌드가 나올지 지켜보죠.',
         ),
         ScriptEvent(
-          text: '{home} 선수 팩토리 건설합니다. {away} 선수도 팩토리.',
-          owner: LogOwner.system,
+          text: '{home} 선수 배럭 건설합니다.',
+          owner: LogOwner.home,
+          homeResource: -150, // 배럭 150
+          fixedCost: true,
+          altText: '{home} 선수 배럭을 올립니다.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 배럭 건설합니다.',
+          owner: LogOwner.away,
+          awayResource: -150,
+          fixedCost: true,
+          altText: '{away} 선수 배럭이 올라갑니다.',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 팩토리 건설합니다.',
+          owner: LogOwner.home,
           homeResource: -300, // 팩토리 300
+          fixedCost: true,
+          altText: '{home} 선수 팩토리를 올립니다.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 팩토리 건설합니다.',
+          owner: LogOwner.away,
           awayResource: -300,
           fixedCost: true,
-          altText: '양쪽 팩토리가 올라갑니다.',
+          altText: '{away} 선수 팩토리가 올라갑니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 스타포트 건설합니다. {away} 선수도 스타포트.',
-          owner: LogOwner.system,
+          text: '{home} 선수 스타포트 건설합니다.',
+          owner: LogOwner.home,
           homeResource: -250, // 스타포트 250
+          fixedCost: true,
+          altText: '{home} 선수 스타포트를 올립니다.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 스타포트 건설합니다.',
+          owner: LogOwner.away,
           awayResource: -250,
           fixedCost: true,
-          altText: '양쪽 스타포트. 공중 유닛 생산 준비.',
+          altText: '{away} 선수 스타포트가 올라갑니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 2번째 스타포트. {away} 선수도 투스타포트 완성.',
-          owner: LogOwner.system,
+          text: '{home} 선수 스타포트가 두 개로 늘어납니다.',
+          owner: LogOwner.home,
           homeResource: -250, // 스타포트 250
+          fixedCost: true,
+          altText: '{home} 선수 스타포트 하나 더. 레이스 대량 생산 체제입니다.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 스타포트 두 번째입니다.',
+          owner: LogOwner.away,
           awayResource: -250,
           fixedCost: true,
-          altText: '양쪽 투스타포트. 대량 생산 체제에 돌입합니다.',
+          altText: '{away} 선수도 스타포트가 두 개. 공중 전력 집중입니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 레이스 생산합니다. {away} 선수도 레이스.',
+          text: '양 선수 모두 스타포트를 두 개씩 올렸습니다. 공중전이 펼쳐지겠습니다.',
           owner: LogOwner.system,
-          homeArmy: 2, homeResource: -250, // 레이스 250 (2sup)
-          awayArmy: 2, awayResource: -250,
+          skipChance: 0.3,
+          altText: '스타포트 두 개씩. 레이스 물량 싸움이 시작됩니다.',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 레이스 생산합니다. 컨트롤타워도 올립니다.',
+          owner: LogOwner.home,
+          homeArmy: 2, homeResource: -350, // 레이스 250 + 컨트롤타워 100
           fixedCost: true,
-          altText: '양쪽 레이스가 출격합니다.',
+          altText: '{home} 선수 레이스가 나옵니다. 컨트롤타워도 함께.',
         ),
         ScriptEvent(
-          text: '{home} 선수 컨트롤타워 건설합니다. {away} 선수도 컨트롤타워.',
-          owner: LogOwner.system,
-          homeResource: -100, // 컨트롤타워 100
-          awayResource: -100,
+          text: '{away} 선수도 레이스를 생산합니다. 컨트롤타워를 올립니다.',
+          owner: LogOwner.away,
+          awayArmy: 2, awayResource: -350,
           fixedCost: true,
-          altText: '양쪽 컨트롤타워. 클로킹 연구를 준비합니다.',
+          altText: '{away} 선수 레이스 출격. 컨트롤타워도 올라갑니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 클로킹 연구 시작합니다. {away} 선수도 클로킹.',
-          owner: LogOwner.system,
+          text: '{home} 선수 클로킹 연구를 시작합니다.',
+          owner: LogOwner.home,
           homeResource: -300, // 클로킹 300
-          awayResource: -300,
           fixedCost: true,
-          altText: '양쪽 클로킹 연구. 타이밍이 승부를 가릅니다.',
+          altText: '{home} 선수 클로킹 연구 시작. 타이밍이 관건입니다.',
         ),
         ScriptEvent(
-          text: '양쪽 투스타 레이스! 클로킹 타이밍이 승부를 가릅니다.',
-          owner: LogOwner.system,
-          skipChance: 0.4,
+          text: '{away} 선수도 클로킹 연구를 시작합니다.',
+          owner: LogOwner.away,
+          awayResource: -300,
+          fixedCost: true,
+          altText: '{away} 선수 클로킹 연구 시작. 누가 먼저 완성하느냐입니다.',
         ),
       ],
     ),
-    // ── Phase 1: 레이스 공중전 (lines 12-19) ── recovery 150/줄 (early-mid)
+    // ── Phase 1: 레이스 공중전 + 스캔 준비 (lines 17-25) ── recovery 150/줄
     ScriptPhase(
-      name: 'wraith_clash',
-      startLine: 12,
+      name: 'wraith_battle_setup',
+      startLine: 17,
       recoveryArmyPerLine: 1,
       recoveryResourcePerLine: 150,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 레이스 추가 생산합니다. {away} 선수도 레이스 추가.',
-          owner: LogOwner.system,
-          homeArmy: 2, homeResource: -250, // 레이스 추가 (250/2sup)
+          text: '{home} 선수 레이스를 추가 생산합니다.',
+          owner: LogOwner.home,
+          homeArmy: 2, homeResource: -250, // 레이스 (250/2sup)
+          fixedCost: true,
+          altText: '{home} 선수 레이스가 계속 나옵니다.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 레이스를 추가 생산합니다.',
+          owner: LogOwner.away,
           awayArmy: 2, awayResource: -250,
           fixedCost: true,
-          altText: '양쪽 레이스가 추가 출격. 공중전이 시작됩니다.',
+          altText: '{away} 선수 레이스도 계속 출격합니다.',
         ),
         ScriptEvent(
-          text: '레이스 대 레이스! 컨트롤 대결이 펼쳐집니다!',
+          text: '레이스 대 레이스, 공중전이 본격화됩니다.',
           owner: LogOwner.system,
           skipChance: 0.3,
+          altText: '양쪽 레이스 물량이 늘어갑니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 레이스 컨트롤! 상대 레이스를 집중 공격!',
+          text: '{home} 선수 아카데미를 건설합니다. 스캔을 준비하는 겁니다.',
           owner: LogOwner.home,
-          awayArmy: -2, // 레이스 1기 격파 (2sup)
-          favorsStat: 'control',
-          altText: '{home} 선수 레이스 컨트롤이 좋습니다!',
-          skipChance: 0.3,
+          homeResource: -150, // 아카데미 150
+          fixedCost: true,
+          altText: '{home} 선수 아카데미가 올라갑니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수도 레이스 컨트롤! 맞교환!',
+          text: '{away} 선수도 아카데미 건설합니다.',
           owner: LogOwner.away,
-          homeArmy: -2,
-          favorsStat: 'control',
-          altText: '{away} 선수 레이스 반격! 한 기를 잡아냅니다!',
-          skipChance: 0.3,
+          awayResource: -150,
+          fixedCost: true,
+          altText: '{away} 선수도 아카데미를 올립니다.',
         ),
         ScriptEvent(
-          text: '양쪽 클로킹 연구가 곧 완성됩니다. 타이밍이 중요해요.',
+          text: '{home} 선수 커맨드센터에 코맷 스테이션을 올립니다.',
+          owner: LogOwner.home,
+          homeResource: -50, // 코맷 스테이션 50
+          fixedCost: true,
+          altText: '{home} 선수 코맷 스테이션 완성. 스캔 준비 됐습니다.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 코맷 스테이션을 올립니다.',
+          owner: LogOwner.away,
+          awayResource: -50,
+          fixedCost: true,
+          altText: '{away} 선수 코맷 스테이션. 스캔 체제 완성입니다.',
+        ),
+        ScriptEvent(
+          text: '양 선수 모두 스캔 체제를 갖춰갑니다. 클로킹 타이밍과의 레이스입니다.',
           owner: LogOwner.system,
-          skipChance: 0.4,
+          skipChance: 0.3,
+          altText: '클로킹이 먼저냐, 스캔이 먼저냐. 타이밍 싸움입니다.',
         ),
       ],
     ),
-    // ── Phase 2: 클로킹 전쟁 - 분기 (lines 20-31) ── recovery 150/줄
+    // ── Phase 2: 스캔 분기 (lines 26-38) ── recovery 150/줄
+    // 분기 1: 양쪽 모두 스캔 준비 완료 → 비등한 공중전 → 메카닉 전환
+    // 분기 2: 양쪽 스캔 있지만 한쪽 컨트롤/센스 우위 → 약간의 피해 차이
+    // 분기 3: 한쪽이 스캔 실수/긴장으로 미달성 → 클로킹 레이스에 크게 밀림
     ScriptPhase(
-      name: 'cloak_war',
-      startLine: 20,
+      name: 'scan_war',
+      startLine: 26,
       recoveryArmyPerLine: 1,
       recoveryResourcePerLine: 150,
       branches: [
-        // 분기 A: 홈 클로킹 먼저
+        // ── 분기 1: 양쪽 스캔 준비 완료, 비등한 교환 후 지상 전환 (가장 빈번)
         ScriptBranch(
-          id: 'home_cloak_first',
-          baseProbability: 1.0,
-          conditionStat: 'harass',
+          id: 'both_scan_even',
+          baseProbability: 1.5,
           events: [
             ScriptEvent(
-              text: '{home} 선수 클로킹 완성! 레이스가 투명해집니다! 상대 진영 침투!',
+              text: '{home} 선수 클로킹 레이스 침투! 즉시 스캔을 씁니다!',
               owner: LogOwner.home,
-              awayResource: -300, // SCV 학살
-              favorsStat: 'harass',
-              altText: '{home} 선수 클로킹 레이스 침투! SCV를 잡아냅니다!',
-            ),
-            ScriptEvent(
-              text: '{away} 선수 디텍이 늦습니다. SCV가 녹고 있어요.',
-              owner: LogOwner.away,
-              awayArmy: -2, awayResource: -200,
-              altText: '{away} 선수 터렛이 아직입니다. 일꾼 피해가 심각합니다.',
-            ),
-            ScriptEvent(
-              text: '{home} 선수 클로킹 레이스로 SCV를 학살합니다! 대참사!',
-              owner: LogOwner.home,
-              awayResource: -200,
-              favorsStat: 'harass',
-              altText: '{home} 선수 레이스 학살! 일꾼이 전멸 직전!',
-            ),
-            ScriptEvent(
-              text: '클로킹 한 발 차이. 디텍이 늦으면 이렇게 됩니다.',
-              owner: LogOwner.system,
-              skipChance: 0.3,
-            ),
-          ],
-        ),
-        // 분기 B: 어웨이 클로킹 먼저
-        ScriptBranch(
-          id: 'away_cloak_first',
-          baseProbability: 1.0,
-          conditionStat: 'harass',
-          events: [
-            ScriptEvent(
-              text: '{away} 선수 클로킹 완성! 레이스가 상대 진영에 침투합니다!',
-              owner: LogOwner.away,
-              homeResource: -300,
-              favorsStat: 'harass',
-              altText: '{away} 선수 클로킹 레이스! SCV를 노립니다!',
-            ),
-            ScriptEvent(
-              text: '{home} 선수 디텍이 없습니다. SCV가 녹고 있어요.',
-              owner: LogOwner.home,
-              homeArmy: -2, homeResource: -200,
-              altText: '{home} 선수 터렛이 아직입니다. 일꾼 피해가 심각합니다.',
-            ),
-            ScriptEvent(
-              text: '{away} 선수 클로킹 레이스로 SCV 학살! 상대 자원줄이 무너집니다!',
-              owner: LogOwner.away,
-              homeResource: -200,
-              favorsStat: 'harass',
-              altText: '{away} 선수 레이스 학살! 상대 일꾼이 녹습니다!',
-            ),
-            ScriptEvent(
-              text: '클로킹 타이밍 차이! 한 발 빠른 쪽이 크게 앞섭니다.',
-              owner: LogOwner.system,
-              skipChance: 0.3,
-            ),
-          ],
-        ),
-        // 분기 C: 양쪽 클로킹 동시
-        ScriptBranch(
-          id: 'both_cloak',
-          baseProbability: 0.8,
-          events: [
-            ScriptEvent(
-              text: '양쪽 클로킹이 거의 동시에 완성됩니다.',
-              owner: LogOwner.system,
-              skipChance: 0.3,
-            ),
-            ScriptEvent(
-              text: '{home} 선수 클로킹 레이스로 상대 레이스와 공중전! 보이지 않는 전투!',
-              owner: LogOwner.home,
-              awayArmy: -2, homeArmy: -2,
+              awayArmy: -2, homeArmy: -2, // 레이스 교환
               favorsStat: 'control',
-              altText: '{home} 선수 클로킹 레이스 대 레이스! 컨트롤 대결!',
+              altText: '{home} 선수 클로킹 레이스가 들어가지만 상대도 스캔으로 바로 잡아냅니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 레이스 컨트롤로 반격! 치열한 공중전!',
+              text: '{away} 선수도 클로킹 레이스로 맞받습니다! 상대도 스캔!',
               owner: LogOwner.away,
               homeArmy: -2, awayArmy: -2,
               favorsStat: 'control',
-              altText: '{away} 선수 레이스 컨트롤! 클로킹 공중전이 뜨겁습니다!',
+              altText: '{away} 선수 클로킹 레이스 투입. 양쪽 스캔으로 맞교환.',
             ),
             ScriptEvent(
-              text: '클로킹 레이스 대 클로킹 레이스. 순수 컨트롤 대결입니다.',
+              text: '양쪽 모두 스캔이 있으니 클로킹 레이스도 오래 못 버팁니다.',
               owner: LogOwner.system,
-              skipChance: 0.4,
+              skipChance: 0.3,
+              altText: '스캔과 클로킹의 정면 대결. 소모전입니다.',
+            ),
+            ScriptEvent(
+              text: '공중전이 소강상태로 접어듭니다. 레이스 피해는 비슷합니다.',
+              owner: LogOwner.system,
+              skipChance: 0.3,
+              altText: '비등한 공중전. 양쪽 지상 병력 체제로 전환합니다.',
+            ),
+          ],
+        ),
+        // ── 분기 2a: 홈 컨트롤/센스 우위, 약간의 레이스 교환 차이
+        ScriptBranch(
+          id: 'home_scan_edge',
+          baseProbability: 0.7,
+          conditionStat: 'sense',
+          homeStatMustBeHigher: true,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 클로킹 레이스 침투! 스캔 타이밍이 절묘합니다!',
+              owner: LogOwner.home,
+              awayArmy: -4, homeArmy: -2, // 홈이 더 적은 피해
+              favorsStat: 'sense',
+              altText: '{home} 선수 클로킹 레이스와 스캔을 능숙하게 운용합니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 스캔으로 레이스를 탐지했지만, 대응이 한 박자 늦습니다.',
+              owner: LogOwner.away,
+              awayArmy: -2,
+              altText: '{away} 선수 스캔은 있지만 컨트롤에서 밀립니다.',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 레이스 수에서 앞서기 시작합니다. 공중 우위를 잡아갑니다.',
+              owner: LogOwner.home,
+              awayArmy: -2,
+              favorsStat: 'control',
+              altText: '{home} 선수 레이스 컨트롤 우위. 상대가 수세에 몰립니다.',
+            ),
+          ],
+        ),
+        // ── 분기 2b: 어웨이 컨트롤/센스 우위
+        ScriptBranch(
+          id: 'away_scan_edge',
+          baseProbability: 0.7,
+          conditionStat: 'sense',
+          homeStatMustBeHigher: false,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 클로킹 레이스 침투! 스캔 타이밍이 절묘합니다!',
+              owner: LogOwner.away,
+              homeArmy: -4, awayArmy: -2,
+              favorsStat: 'sense',
+              altText: '{away} 선수 클로킹 레이스와 스캔을 능숙하게 운용합니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 스캔으로 탐지했지만 컨트롤에서 밀립니다.',
+              owner: LogOwner.home,
+              homeArmy: -2,
+              altText: '{home} 선수 스캔은 있지만 대응이 한 박자 늦습니다.',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 레이스 수에서 앞서기 시작합니다. 공중 우위입니다.',
+              owner: LogOwner.away,
+              homeArmy: -2,
+              favorsStat: 'control',
+              altText: '{away} 선수 레이스 컨트롤 우위. 상대를 수세로 몰아넣습니다.',
+            ),
+          ],
+        ),
+        // ── 분기 3a: 홈이 스캔 실수/긴장으로 미달성 → 클로킹 레이스에 크게 밀림
+        ScriptBranch(
+          id: 'home_no_scan',
+          baseProbability: 0.5,
+          conditionStat: 'sense',
+          homeStatMustBeHigher: false,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 클로킹 레이스 침투! {home} 선수... 스캔이 없습니다!',
+              owner: LogOwner.away,
+              homeArmy: -4, homeResource: -300, // SCV 대량 피해
+              favorsStat: 'harass',
+              altText: '{away} 선수 클로킹 레이스! {home} 선수 스캔을 못 달았습니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 터렛을 급하게 올리지만... SCV가 이미 녹고 있습니다!',
+              owner: LogOwner.home,
+              homeArmy: -4, homeResource: -275, // 터렛(75) + SCV 피해(200)
+              altText: '{home} 선수 터렛 건설! 하지만 이미 일꾼 피해가 심각합니다.',
+            ),
+            ScriptEvent(
+              text: '실수 하나가 이렇게 무섭습니다. 스캔 하나 차이로 흐름이 완전히 바뀝니다.',
+              owner: LogOwner.system,
+              skipChance: 0.3,
+              altText: '긴장이 부른 실수. 클로킹 레이스에 무방비로 당했습니다.',
+            ),
+          ],
+        ),
+        // ── 분기 3b: 어웨이가 스캔 실수/긴장으로 미달성
+        ScriptBranch(
+          id: 'away_no_scan',
+          baseProbability: 0.5,
+          conditionStat: 'sense',
+          homeStatMustBeHigher: true,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 클로킹 레이스 침투! {away} 선수... 스캔이 없습니다!',
+              owner: LogOwner.home,
+              awayArmy: -4, awayResource: -300,
+              favorsStat: 'harass',
+              altText: '{home} 선수 클로킹 레이스! {away} 선수 스캔을 못 달았습니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 터렛을 급하게 올리지만... SCV가 이미 녹고 있습니다!',
+              owner: LogOwner.away,
+              awayArmy: -4, awayResource: -275, // 터렛(75) + SCV 피해(200)
+              altText: '{away} 선수 터렛 건설! 하지만 이미 일꾼 피해가 심각합니다.',
+            ),
+            ScriptEvent(
+              text: '실수 하나가 이렇게 무섭습니다. 스캔 하나 차이로 흐름이 완전히 바뀝니다.',
+              owner: LogOwner.system,
+              skipChance: 0.3,
+              altText: '긴장이 부른 실수. 클로킹 레이스에 무방비로 당했습니다.',
             ),
           ],
         ),
       ],
     ),
-    // ── Phase 3: 지상 전환 + 터렛 (lines 32-39) ── recovery 200/줄 (mid-game)
+    // ── Phase 3: 지상 전환 (lines 40-52) ── recovery 200/줄 (mid-game)
     ScriptPhase(
       name: 'ground_transition',
-      startLine: 32,
+      startLine: 40,
       recoveryArmyPerLine: 2,
       recoveryResourcePerLine: 200,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 터렛을 세웁니다. {away} 선수도 터렛.',
-          owner: LogOwner.system,
-          homeResource: -75, // 터렛 75
-          awayResource: -75,
-          fixedCost: true,
-          altText: '양쪽 터렛 건설. 클로킹 대비입니다.',
-        ),
-        ScriptEvent(
-          text: '{home} 선수 아머리 건설합니다. {away} 선수도 아머리.',
-          owner: LogOwner.system,
-          homeResource: -150, // 아머리 150
-          awayResource: -150,
-          fixedCost: true,
-          altText: '양쪽 아머리가 올라갑니다. 골리앗 준비.',
-        ),
-        ScriptEvent(
-          text: '{home} 선수 골리앗 생산합니다. {away} 선수도 골리앗.',
-          owner: LogOwner.system,
-          homeArmy: 2, homeResource: -150, // 골리앗(150/2sup)
-          awayArmy: 2, awayResource: -150,
-          fixedCost: true,
-          altText: '양쪽 골리앗이 생산됩니다. 대공 방어 준비.',
-        ),
-        ScriptEvent(
-          text: '{home} 선수 머신샵 건설합니다. {away} 선수도 머신샵.',
-          owner: LogOwner.system,
-          homeResource: -100, // 머신샵 100
-          awayResource: -100,
-          fixedCost: true,
-          altText: '양쪽 머신샵. 시즈 모드 연구를 준비합니다.',
-        ),
-        ScriptEvent(
-          text: '{home} 선수 시즈탱크 생산합니다. {away} 선수도 시즈탱크.',
-          owner: LogOwner.system,
-          homeArmy: 2, homeResource: -250, // 시즈탱크(250/2sup)
-          awayArmy: 2, awayResource: -250,
-          fixedCost: true,
-          altText: '양쪽 시즈탱크가 나옵니다. 지상전 전환.',
-        ),
-        ScriptEvent(
-          text: '{home} 선수 시즈 모드 연구합니다. {away} 선수도 시즈 모드.',
-          owner: LogOwner.system,
-          homeResource: -300, // 시즈모드 300
-          awayResource: -300,
-          fixedCost: true,
-          altText: '양쪽 시즈 모드 연구. 포격전이 다가옵니다.',
-        ),
-        ScriptEvent(
-          text: '레이스 교전이 끝나고 지상전으로 전환합니다. 레이스를 잃은 쪽이 불리합니다.',
+          text: '레이스 교전이 소강상태로 접어들었습니다. 지상 병력 체제로 전환합니다.',
           owner: LogOwner.system,
           skipChance: 0.4,
+          altText: '공중전이 끝나갑니다. 지상전으로 전환되는 흐름입니다.',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 터렛을 세웁니다.',
+          owner: LogOwner.home,
+          homeResource: -75, // 터렛 75
+          fixedCost: true,
+          altText: '{home} 선수 터렛 건설. 클로킹 레이스 대비입니다.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 터렛을 세웁니다.',
+          owner: LogOwner.away,
+          awayResource: -75,
+          fixedCost: true,
+          altText: '{away} 선수도 터렛. 잔여 레이스를 막습니다.',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 아머리 건설합니다.',
+          owner: LogOwner.home,
+          homeResource: -150, // 아머리 150
+          fixedCost: true,
+          altText: '{home} 선수 아머리가 올라갑니다.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 아머리 건설합니다.',
+          owner: LogOwner.away,
+          awayResource: -150,
+          fixedCost: true,
+          altText: '{away} 선수 아머리가 올라갑니다.',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 골리앗 생산합니다. 대공 방어를 갖춥니다.',
+          owner: LogOwner.home,
+          homeArmy: 2, homeResource: -150, // 골리앗(150/2sup)
+          fixedCost: true,
+          altText: '{home} 선수 골리앗이 나옵니다.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 골리앗 생산합니다.',
+          owner: LogOwner.away,
+          awayArmy: 2, awayResource: -150,
+          fixedCost: true,
+          altText: '{away} 선수 골리앗도 나옵니다.',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 머신샵을 부착합니다.',
+          owner: LogOwner.home,
+          homeResource: -100, // 머신샵 100
+          fixedCost: true,
+          altText: '{home} 선수 머신샵 건설. 시즈 모드를 준비합니다.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 머신샵을 부착합니다.',
+          owner: LogOwner.away,
+          awayResource: -100,
+          fixedCost: true,
+          altText: '{away} 선수 머신샵 건설. 탱크 체제 진입입니다.',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 시즈탱크 생산합니다.',
+          owner: LogOwner.home,
+          homeArmy: 2, homeResource: -250, // 시즈탱크(250/2sup)
+          fixedCost: true,
+          altText: '{home} 선수 시즈탱크가 나옵니다.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 시즈탱크 생산합니다.',
+          owner: LogOwner.away,
+          awayArmy: 2, awayResource: -250,
+          fixedCost: true,
+          altText: '{away} 선수 시즈탱크도 나옵니다.',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 시즈 모드 연구를 시작합니다.',
+          owner: LogOwner.home,
+          homeResource: -300, // 시즈모드 300
+          fixedCost: true,
+          altText: '{home} 선수 시즈 모드 연구 시작.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 시즈 모드 연구를 시작합니다.',
+          owner: LogOwner.away,
+          awayResource: -300,
+          fixedCost: true,
+          altText: '{away} 선수 시즈 모드 연구 시작.',
         ),
       ],
     ),
-    // ── Phase 4: 탱크 푸시 체크 - 분기 (lines 40-49) ── recovery 200/줄
+    // ── Phase 4: 탱크 푸시 체크 - 분기 (lines 55-65) ── recovery 200/줄
     ScriptPhase(
       name: 'tank_push_check',
-      startLine: 40,
+      startLine: 55,
       recoveryArmyPerLine: 2,
       recoveryResourcePerLine: 200,
       branches: [
@@ -322,12 +463,18 @@ const _tvt2starMirror = ScenarioScript(
           baseProbability: 1.5,
           events: [
             ScriptEvent(
-              text: '{home} 선수 탱크 골리앗 추가 생산합니다. {away} 선수도 병력 보강.',
-              owner: LogOwner.system,
+              text: '{home} 선수 탱크 골리앗 추가 생산합니다.',
+              owner: LogOwner.home,
               homeArmy: 4, homeResource: -400, // 탱크(250) + 골리앗(150)
+              fixedCost: true,
+              altText: '{home} 선수 탱크 골리앗 조합. 라인을 잡아갑니다.',
+            ),
+            ScriptEvent(
+              text: '{away} 선수도 탱크 골리앗 병력을 보강합니다.',
+              owner: LogOwner.away,
               awayArmy: 4, awayResource: -400,
               fixedCost: true,
-              altText: '양쪽 탱크 골리앗 조합. 라인을 잡아갑니다.',
+              altText: '{away} 선수 탱크 골리앗도 나옵니다.',
             ),
             ScriptEvent(
               text: '양쪽 시즈 라인이 대치합니다. 누가 먼저 움직이느냐가 관건이죠.',
@@ -422,7 +569,7 @@ const _tvt2starMirror = ScenarioScript(
     // ── Phase 5: 확장 타이밍 - 분기 (lines 50-61) ── recovery 200/줄
     ScriptPhase(
       name: 'expansion_timing',
-      startLine: 50,
+      startLine: 68,
       recoveryArmyPerLine: 2,
       recoveryResourcePerLine: 200,
       branches: [
@@ -434,7 +581,7 @@ const _tvt2starMirror = ScenarioScript(
             ScriptEvent(
               text: '{home} 선수 앞마당에 커맨드센터를 건설합니다.',
               owner: LogOwner.home,
-              homeResource: -400, // 커맨드센터 400
+              homeResource: -400,
               fixedCost: true,
               homeExpansion: true,
               altText: '{home} 선수 앞마당 확장. 자원 보충이 필요합니다.',
@@ -445,7 +592,7 @@ const _tvt2starMirror = ScenarioScript(
               awayResource: -400,
               fixedCost: true,
               awayExpansion: true,
-              altText: '{away} 선수도 앞마당 확장. 양쪽 비슷한 전개입니다.',
+              altText: '{away} 선수도 앞마당 확장. 비슷한 타이밍입니다.',
             ),
             ScriptEvent(
               text: '양쪽 앞마당 확장이 올라갑니다. 자원 싸움이 본격화됩니다.',
@@ -454,12 +601,18 @@ const _tvt2starMirror = ScenarioScript(
               altText: '양쪽 확장이 비슷한 타이밍. 균형 잡힌 전개입니다.',
             ),
             ScriptEvent(
-              text: '{home} 선수 탱크 골리앗 추가 보강합니다. {away} 선수도 병력 추가.',
-              owner: LogOwner.system,
-              homeArmy: 4, homeResource: -400, // 탱크와 골리앗
+              text: '{home} 선수 탱크 골리앗 추가 보강합니다.',
+              owner: LogOwner.home,
+              homeArmy: 4, homeResource: -400,
+              fixedCost: true,
+              altText: '{home} 선수 탱크 골리앗 물량이 늘어갑니다.',
+            ),
+            ScriptEvent(
+              text: '{away} 선수도 탱크 골리앗 병력을 추가합니다.',
+              owner: LogOwner.away,
               awayArmy: 4, awayResource: -400,
               fixedCost: true,
-              altText: '양쪽 탱크 골리앗 물량이 늘어갑니다.',
+              altText: '{away} 선수 탱크 골리앗도 계속 나옵니다.',
             ),
           ],
         ),
@@ -606,17 +759,23 @@ const _tvt2starMirror = ScenarioScript(
     // ── Phase 6: 결전 + 맵 특성 (lines 62-75) ── recovery 200/줄
     ScriptPhase(
       name: 'decisive_battle',
-      startLine: 62,
+      startLine: 80,
       recoveryArmyPerLine: 2,
       recoveryResourcePerLine: 200,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 탱크 골리앗 총동원합니다. {away} 선수도 전 병력 배치.',
-          owner: LogOwner.system,
+          text: '{home} 선수 탱크 골리앗을 총동원합니다.',
+          owner: LogOwner.home,
           homeArmy: 6, homeResource: -650, // 탱크2+골리앗1
+          fixedCost: true,
+          altText: '{home} 선수 전 병력을 결집합니다.',
+        ),
+        ScriptEvent(
+          text: '{away} 선수도 전 병력을 배치합니다.',
+          owner: LogOwner.away,
           awayArmy: 6, awayResource: -650,
           fixedCost: true,
-          altText: '양측 전 병력 결집. 최종 교전 준비.',
+          altText: '{away} 선수 총력전 준비 완료.',
         ),
         ScriptEvent(
           text: '양측 탱크 골리앗이 정면으로 부딪칩니다!',
@@ -681,10 +840,10 @@ const _tvt2starMirror = ScenarioScript(
         ),
       ],
     ),
-    // ── Phase 7: 드랍 운영 - 분기 (lines 76-89) ── recovery 300/줄 (late)
+    // ── Phase 7: 드랍 운영 - 분기 (lines 95-108) ── recovery 300/줄 (late)
     ScriptPhase(
       name: 'drop_phase',
-      startLine: 76,
+      startLine: 95,
       recoveryArmyPerLine: 3,
       recoveryResourcePerLine: 300,
       branches: [
@@ -694,9 +853,15 @@ const _tvt2starMirror = ScenarioScript(
           baseProbability: 1.2,
           events: [
             ScriptEvent(
-              text: '{home} 선수 드랍십 생산합니다. {away} 선수도 드랍십.',
-              owner: LogOwner.system,
+              text: '{home} 선수 드랍십을 생산합니다.',
+              owner: LogOwner.home,
               homeArmy: 2, homeResource: -200, // 드랍십 200/2sup
+              fixedCost: true,
+              altText: '{home} 선수 드랍십이 나옵니다.',
+            ),
+            ScriptEvent(
+              text: '{away} 선수도 드랍십을 생산합니다.',
+              owner: LogOwner.away,
               awayArmy: 2, awayResource: -200,
               fixedCost: true,
               altText: '양쪽 드랍십이 생산됩니다. 견제전이 시작됩니다.',
@@ -833,10 +998,10 @@ const _tvt2starMirror = ScenarioScript(
         ),
       ],
     ),
-    // ── Phase 8: 최종 결전 판정 - 분기 (lines 90+) ── recovery 300/줄
+    // ── Phase 8: 최종 결전 판정 - 분기 (lines 115+) ── recovery 300/줄
     ScriptPhase(
       name: 'decisive_outcome',
-      startLine: 90,
+      startLine: 115,
       recoveryArmyPerLine: 3,
       recoveryResourcePerLine: 300,
       branches: [

@@ -27,10 +27,10 @@ const _zvp5hatchHydraVsProxyGate = ScenarioScript(
           altText: '{away}, 프로브가 빠르게 이동합니다! 전진 건물?',
         ),
         ScriptEvent(
-          text: '{away} 선수 전진 파일런! 프록시 게이트웨이를 건설합니다!',
+          text: '{away} 선수 전진 파일런! 게이트웨이를 앞에서 올립니다!',
           owner: LogOwner.away,
           awayResource: -25,
-          altText: '{away}, 전진 파일런에 게이트웨이! 프록시입니다!',
+          altText: '{away}, 전진 파일런에 게이트웨이! 앞에서 질럿을 뽑으려 합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 앞마당 해처리를 올립니다.',
@@ -44,7 +44,7 @@ const _zvp5hatchHydraVsProxyGate = ScenarioScript(
           homeResource: -15,
         ),
         ScriptEvent(
-          text: '프록시 게이트웨이가 완성되면 질럿이 빠르게 도착합니다!',
+          text: '전진 게이트웨이가 완성되면 질럿이 빠르게 도착합니다!',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
@@ -81,7 +81,7 @@ const _zvp5hatchHydraVsProxyGate = ScenarioScript(
           altText: '{home}, 성큰이 올라갑니다! 질럿을 막아야 합니다!',
         ),
         ScriptEvent(
-          text: '프록시 질럿 러시! 성큰 완성이 관건입니다!',
+          text: '전진 질럿 러시! 성큰 완성이 관건입니다!',
           owner: LogOwner.system,
           skipChance: 0.2,
         ),
@@ -101,13 +101,13 @@ const _zvp5hatchHydraVsProxyGate = ScenarioScript(
           altText: '{home}, 성큰 수비 성공! 히드라덴을 올립니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 해처리를 추가로 올립니다! 5해처리 체제!',
+          text: '{home} 선수 해처리를 추가로 올립니다! 물량 체제!',
           owner: LogOwner.home,
           homeResource: -30,
           altText: '{home}, 해처리 추가! 물량을 준비합니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 프록시가 들켜서 본진으로 전환합니다! 넥서스 건설!',
+          text: '{away} 선수 전진 건물이 들켜서 본진으로 전환합니다! 넥서스 건설!',
           owner: LogOwner.away,
           awayResource: -30,
         ),
@@ -118,7 +118,7 @@ const _zvp5hatchHydraVsProxyGate = ScenarioScript(
           altText: '{home}, 히드라가 쏟아집니다! 업그레이드도 진행!',
         ),
         ScriptEvent(
-          text: '프록시 실패 후 프로토스가 뒤처진 상황입니다!',
+          text: '전진 질럿 실패 후 프로토스가 뒤처진 상황입니다!',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
@@ -151,7 +151,7 @@ const _zvp5hatchHydraVsProxyGate = ScenarioScript(
               awayArmy: -2, homeArmy: -1,
             ),
             ScriptEvent(
-              text: '5해처리 히드라의 물량이 프로토스를 압도합니다!',
+              text: '히드라 물량이 프로토스를 압도합니다! 해처리 숫자의 차이!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -162,7 +162,7 @@ const _zvp5hatchHydraVsProxyGate = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수 프록시 질럿이 성큰 완성 전에 앞마당을 파괴합니다!',
+              text: '{away} 선수 전진 질럿이 성큰 완성 전에 앞마당을 파괴합니다!',
               owner: LogOwner.away,
               homeArmy: -3, awayArmy: 2, favorsStat: 'attack',
               altText: '{away}, 질럿이 앞마당 해처리를 부숩니다!',
@@ -178,7 +178,7 @@ const _zvp5hatchHydraVsProxyGate = ScenarioScript(
               homeArmy: -2,
             ),
             ScriptEvent(
-              text: '프록시 질럿이 저그의 확장을 완전히 차단했습니다!',
+              text: '전진 질럿이 저그의 확장을 완전히 차단했습니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

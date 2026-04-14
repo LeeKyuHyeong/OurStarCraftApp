@@ -24,7 +24,7 @@ const _pvtDarkSwingVsUpgrade = ScenarioScript(
           text: '{away} 선수 배럭 건설 후 앞마당 커맨드센터까지 올립니다!',
           owner: LogOwner.away,
           awayResource: -30,
-          altText: '{away}, 더블! 자원을 빠르게 확보하려는 빌드!',
+          altText: '{away}, 앞마당 확장! 자원을 빠르게 확보하려는 거군요!',
         ),
         ScriptEvent(
           text: '{home} 선수 사이버네틱스 코어 건설! 이어서 아둔!',
@@ -38,7 +38,7 @@ const _pvtDarkSwingVsUpgrade = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '더블 업그레이드 빌드! 하지만 스캔 에너지 관리가 핵심!',
+          text: '업그레이드에 투자한 테란! 하지만 스캔 에너지 관리가 핵심!',
           owner: LogOwner.system,
         ),
         ScriptEvent(
@@ -76,7 +76,7 @@ const _pvtDarkSwingVsUpgrade = ScenarioScript(
           altText: '{home} 선수 다크가 앞마당 미네랄 라인으로!',
         ),
         ScriptEvent(
-          text: '더블 빌드라 자원은 많지만 스캔을 아껴야 합니다!',
+          text: '앞마당 확장이라 자원은 많지만 스캔을 아껴야 합니다!',
           owner: LogOwner.system,
           skipChance: 0.2,
         ),
@@ -151,7 +151,7 @@ const _pvtDarkSwingVsUpgrade = ScenarioScript(
               homeArmy: 20,
               awayArmy: -15,
               decisive: true,
-              altText: '{home}, 다크 스윙 완벽! 업그레이드 테란의 약점을 찔렀습니다!',
+              altText: '{home}, 다크 잠입 완벽! 업그레이드 테란의 약점을 찔렀습니다!',
             ),
           ],
         ),
@@ -183,7 +183,7 @@ const _pvtDarkSwingVsUpgrade = ScenarioScript(
               owner: LogOwner.away,
               awayArmy: 6,
               awayResource: -10,
-              altText: '{away}, 더블 업그레이드 마린! 화력이 크게 올랐습니다!',
+              altText: '{away}, 공방 업그레이드 마린! 화력이 크게 올랐습니다!',
             ),
             ScriptEvent(
               text: '업그레이드 마린 메딕의 화력! 프로토스가 막기 어렵습니다!',

@@ -36,11 +36,11 @@ const _tvtFdRushVsBbs = ScenarioScript(
           altText: '{home} 선수 리파이너리 건설, 마린 연속 생산입니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수 센터와 본진에 배럭 건설. BBS입니다.',
+          text: '{away} 선수 센터와 본진에 배럭 건설. 배럭을 두 개 올립니다.',
           owner: LogOwner.away,
           awayResource: -300, // 배럭 x2 (150+150)
           fixedCost: true,
-          altText: '{away} 선수 센터 배럭, 본진 배럭. BBS 확정!',
+          altText: '{away} 선수 센터 배럭, 본진 배럭. 마린에 올인하네요!',
         ),
         ScriptEvent(
           text: '{home} 선수 팩토리 건설. 마린은 계속 생산합니다.',
@@ -64,7 +64,7 @@ const _tvtFdRushVsBbs = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '마린 물량의 FD 러쉬 vs BBS! 기갑이 먼저냐 병력이 먼저냐!',
+          text: '메카닉 병력이 먼저냐 바이오닉 병력이 먼저냐! 타이밍 싸움입니다!',
           owner: LogOwner.system,
         ),
       ],
@@ -82,7 +82,7 @@ const _tvtFdRushVsBbs = ScenarioScript(
           awayArmy: 2, awayResource: -100, // 마린 2기 추가 (50x2)
           fixedCost: true,
           favorsStat: 'attack',
-          altText: '{away} 선수 마린과 SCV 돌진! BBS 공격 시작!',
+          altText: '{away} 선수 마린과 SCV 돌진! 마린 올인 공격 시작!',
         ),
         ScriptEvent(
           text: '{home} 선수 팩토리에서 시즈 탱크 생산 시작.',
@@ -129,7 +129,7 @@ const _tvtFdRushVsBbs = ScenarioScript(
               homeArmy: 2, homeResource: -300, // 시즈모드 연구 300
               fixedCost: true,
               favorsStat: 'defense',
-              altText: '{home} 선수 탱크 합류! BBS 마린을 녹입니다!',
+              altText: '{home} 선수 탱크 합류! 상대 마린을 녹입니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 마린이 포격에 녹고 있습니다!',
@@ -141,10 +141,10 @@ const _tvtFdRushVsBbs = ScenarioScript(
               owner: LogOwner.home,
               homeResource: -100, // 벙커 100
               fixedCost: true,
-              altText: '{home} 선수 벙커까지! BBS를 완전히 막아냅니다!',
+              altText: '{home} 선수 벙커까지! 마린 올인을 완전히 막아냅니다!',
             ),
             ScriptEvent(
-              text: 'BBS가 기갑 유닛에 막혔습니다! 빠른 팩토리의 승리!',
+              text: '마린 올인이 기갑 유닛에 막혔습니다! 빠른 팩토리의 승리!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
@@ -179,7 +179,7 @@ const _tvtFdRushVsBbs = ScenarioScript(
               altText: '{away} 선수 SCV 공격! 상대 일꾼이 큰 피해!',
             ),
             ScriptEvent(
-              text: 'BBS가 먼저 들어갔습니다! 큰 피해를 줍니다!',
+              text: '마린 올인이 먼저 들어갔습니다! 큰 피해를 줍니다!',
               owner: LogOwner.system,
             ),
           ],
@@ -198,7 +198,7 @@ const _tvtFdRushVsBbs = ScenarioScript(
           owner: LogOwner.home,
           homeResource: -400, // CC 400
           fixedCost: true,
-          altText: '{home} 선수 앞마당 확장. FD 러쉬의 다음 단계.',
+          altText: '{home} 선수 앞마당 확장을 가져갑니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리 건설. 메카닉으로 전환합니다.',
@@ -313,18 +313,18 @@ const _tvtFdRushVsBbs = ScenarioScript(
           conditionStat: 'attack',
           events: [
             ScriptEvent(
-              text: '{home} 선수 탱크 물량으로 밀어붙입니다! BBS 잔재를 정리!',
+              text: '{home} 선수 탱크 물량으로 밀어붙입니다! 상대 잔여 병력을 정리!',
               owner: LogOwner.home,
               homeArmy: 2, awayArmy: -3, favorsStat: 'attack',
               altText: '{home} 선수 탱크 시즈! 상대 병력을 녹입니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 탱크가 부족합니다! BBS 투자가 무겁습니다!',
+              text: '{away} 선수 탱크가 부족합니다! 초반 투자가 무겁습니다!',
               owner: LogOwner.away,
               awayArmy: -2,
             ),
             ScriptEvent(
-              text: '{home} 선수 FD 러쉬의 탱크 물량이 압도합니다!',
+              text: '{home} 선수 빠른 탱크 물량이 압도합니다!',
               owner: LogOwner.home,
               decisive: true,
               altText: '{home} 선수 빠른 팩토리의 탱크 우위로 밀어냅니다!',
@@ -349,7 +349,7 @@ const _tvtFdRushVsBbs = ScenarioScript(
               homeArmy: -2, homeResource: -10,
             ),
             ScriptEvent(
-              text: 'BBS 회복 후 벌처 견제가 효과적입니다!',
+              text: '초반 공격 이후 회복하면서 벌처 견제가 효과적입니다!',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
@@ -362,7 +362,7 @@ const _tvtFdRushVsBbs = ScenarioScript(
           conditionStat: 'sense',
           events: [
             ScriptEvent(
-              text: '{away} 선수 BBS 피해를 딛고 마지막 승부수!',
+              text: '{away} 선수 초반 피해를 딛고 마지막 승부수!',
               owner: LogOwner.away,
               awayArmy: 4, awayResource: -500, // 탱크 250 + 벌처 150 + 잔여
               fixedCost: true,
@@ -375,7 +375,7 @@ const _tvtFdRushVsBbs = ScenarioScript(
               altText: '{away} 선수 올인 정면 공격! 탱크 라인에 돌진합니다!',
             ),
             ScriptEvent(
-              text: '마지막 승부! BBS의 초반 피해를 만회할 수 있을까요?',
+              text: '마지막 승부! 초반 피해를 만회할 수 있을까요?',
               owner: LogOwner.system,
               skipChance: 0.3,
             ),
@@ -395,18 +395,18 @@ const _tvtFdRushVsBbs = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수 탱크 물량으로 밀어붙입니다! BBS 잔재를 정리!',
+              text: '{home} 선수 탱크 물량으로 밀어붙입니다! 잔여 병력을 정리합니다!',
               owner: LogOwner.home,
               homeArmy: 2, awayArmy: -3, favorsStat: 'attack',
               altText: '{home} 선수 탱크 시즈! 상대 병력을 녹입니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 탱크가 부족합니다! BBS 투자가 무겁습니다!',
+              text: '{away} 선수 탱크가 부족합니다! 초반에 마린에 쏟은 투자가 무겁습니다!',
               owner: LogOwner.away,
               awayArmy: -2,
             ),
             ScriptEvent(
-              text: '{home} 선수 FD 러쉬의 탱크 물량이 압도합니다!',
+              text: '{home} 선수 탱크 물량이 압도합니다! 빠른 팩토리의 승리!',
               owner: LogOwner.home,
               decisive: true,
               altText: '{home} 선수 빠른 팩토리의 탱크 우위로 밀어냅니다!',
@@ -418,7 +418,7 @@ const _tvtFdRushVsBbs = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수 BBS 피해를 회복! 벌처로 견제합니다!',
+              text: '{away} 선수 초반 피해를 회복! 벌처로 견제합니다!',
               owner: LogOwner.away,
               awayArmy: 2, homeResource: -15, favorsStat: 'harass',
               altText: '{away} 선수 벌처 견제! 상대 후방을 기습!',
@@ -429,7 +429,7 @@ const _tvtFdRushVsBbs = ScenarioScript(
               homeArmy: -2, homeResource: -10,
             ),
             ScriptEvent(
-              text: '{away} 선수 BBS 초반 피해를 딛고 역전합니다!',
+              text: '{away} 선수 초반 피해를 딛고 역전합니다!',
               owner: LogOwner.away,
               decisive: true,
               altText: '{away} 선수 기동력으로 탱크 라인을 무력화합니다!',

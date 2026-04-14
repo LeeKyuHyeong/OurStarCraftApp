@@ -36,7 +36,7 @@ const _pvt5gateArbiterVsBioMech = ScenarioScript(
           text: '{away} 선수 팩토리 건설! 마린과 탱크를 섞는 빌드입니다.',
           owner: LogOwner.away,
           awayResource: -20,
-          altText: '{away}, 팩토리가 올라갑니다! 바이오 메카닉 조합이군요.',
+          altText: '{away}, 팩토리가 올라갑니다! 마린과 탱크를 섞는 조합이군요.',
         ),
         ScriptEvent(
           text: '{home} 선수 게이트웨이를 추가하면서 드라군을 뽑습니다.',
@@ -62,7 +62,7 @@ const _pvt5gateArbiterVsBioMech = ScenarioScript(
           text: '{away} 선수 마린 탱크 편대가 중앙으로 전진합니다.',
           owner: LogOwner.away,
           awayArmy: 3, favorsStat: 'attack',
-          altText: '{away}, 바이오 메카닉 부대가 이동합니다! 탱크 배치!',
+          altText: '{away}, 마린 탱크 부대가 이동합니다! 탱크 배치!',
         ),
         ScriptEvent(
           text: '{home} 선수 드라군으로 견제하면서 시간을 벌고 있습니다.',
@@ -82,7 +82,7 @@ const _pvt5gateArbiterVsBioMech = ScenarioScript(
           altText: '{home}, 아둔에서 템플러 아카이브! 바이오닉엔 스톰이 답이죠.',
         ),
         ScriptEvent(
-          text: '바이오 메카닉 복합 편성, 프로토스가 어떻게 대응할까요?',
+          text: '마린 탱크 골리앗 복합 편성, 프로토스가 어떻게 대응할까요?',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
@@ -99,7 +99,7 @@ const _pvt5gateArbiterVsBioMech = ScenarioScript(
           text: '{home} 선수 게이트웨이 5개 풀가동! 하이 템플러도 합류합니다!',
           owner: LogOwner.home,
           homeArmy: 3, homeResource: -20,
-          altText: '{home}, 5게이트에서 병력이 쏟아집니다! 하이 템플러도!',
+          altText: '{home}, 게이트웨이 다섯 개에서 병력이 쏟아집니다! 하이 템플러도!',
         ),
         ScriptEvent(
           text: '{home} 선수 스타게이트 건설! 아비터 트리뷰널까지!',
@@ -147,7 +147,7 @@ const _pvt5gateArbiterVsBioMech = ScenarioScript(
               awayArmy: -4,
             ),
             ScriptEvent(
-              text: '스톰과 리콜의 이중 타격! 바이오 메카닉이 무너집니다!',
+              text: '스톰과 리콜의 이중 타격! 테란 복합 편성이 무너집니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -175,7 +175,7 @@ const _pvt5gateArbiterVsBioMech = ScenarioScript(
               homeArmy: -5, awayArmy: -2, favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '바이오 메카닉의 복합 화력이 프로토스를 압도합니다!',
+              text: '테란 복합 화력이 프로토스를 압도합니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

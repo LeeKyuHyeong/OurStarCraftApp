@@ -21,7 +21,7 @@ const _zvpHiveDefilerVsCorsair = ScenarioScript(
           homeResource: -30,
         ),
         ScriptEvent(
-          text: '{away} 선수 스타게이트를 건설합니다! 커세어 빌드입니다.',
+          text: '{away} 선수 스타게이트를 건설합니다! 커세어를 준비하는군요.',
           owner: LogOwner.away,
           awayResource: -20,
           altText: '{away}, 스타게이트가 올라갑니다! 커세어를 준비하는 모습이네요.',

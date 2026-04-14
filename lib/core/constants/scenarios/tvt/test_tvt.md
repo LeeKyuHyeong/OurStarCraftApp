@@ -24,8 +24,8 @@
 | # | 파일명 | Home | Away | 보정 |
 |---|--------|------|------|:--:|
 | 1 | bbs_mirror | tvt_bbs | tvt_bbs | O |
-| 2 | 1fac_1star_mirror | tvt_1fac_1star | tvt_1fac_1star | X |
-| 3 | 2fac_push_mirror | tvt_2fac_push | tvt_2fac_push | X |
+| 2 | 1fac_1star_mirror | tvt_1fac_1star | tvt_1fac_1star | O |
+| 3 | 2fac_push_mirror | tvt_2fac_push | tvt_2fac_push | O |
 | 4 | 2star_mirror | tvt_2star | tvt_2star | X  |
 | 5 | 1bar_double_mirror | tvt_1bar_double | tvt_1bar_double | O |
 | 6 | 1fac_double_mirror | tvt_1fac_double | tvt_1fac_double | X |

@@ -29,14 +29,14 @@ const _tvt2starVsNobarDouble = ScenarioScript(
           owner: LogOwner.away,
           awayResource: -400, // CC(400)
           fixedCost: true,
-          altText: '{away} 선수 CC퍼스트. 노배럭더블.',
+          altText: '{away} 선수 배럭 없이 커맨드센터를 먼저 올립니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 스타포트 건설. 공중 테크를 노립니다.',
           owner: LogOwner.home,
           homeResource: -250, // 스타포트(250)
           fixedCost: true,
-          altText: '{home} 선수 스타포트가 올라갑니다. 투스타 빌드.',
+          altText: '{home} 선수 스타포트가 올라갑니다. 공중 유닛을 노립니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 배럭 건설 시작. 배럭도 터렛도 없습니다.',
@@ -45,7 +45,7 @@ const _tvt2starVsNobarDouble = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '{home} 선수 2번째 스타포트까지 올립니다. 투스타 확정.',
+          text: '{home} 선수 두 번째 스타포트까지 올립니다. 스타포트가 두 개입니다.',
           owner: LogOwner.home,
           homeResource: -250, // 스타포트(250)
           fixedCost: true,
@@ -95,7 +95,7 @@ const _tvt2starVsNobarDouble = ScenarioScript(
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '노배럭더블이라 터렛도 엔지니어링 베이도 없습니다. 클로킹이 나오면 큰일입니다.',
+          text: '배럭을 안 지었기 때문에 터렛도 엔지니어링 베이도 없습니다. 클로킹이 나오면 큰일입니다.',
           owner: LogOwner.system,
         ),
         // ── 맵 특성 이벤트 ──
@@ -178,7 +178,7 @@ const _tvt2starVsNobarDouble = ScenarioScript(
               favorsStat: 'harass',
             ),
             ScriptEvent(
-              text: 'SCV 피해가 심각합니다! 노배럭더블의 약점이 드러납니다!',
+              text: 'SCV 피해가 심각합니다! 배럭 없이 확장한 약점이 드러납니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(
@@ -226,7 +226,7 @@ const _tvt2starVsNobarDouble = ScenarioScript(
               favorsStat: 'macro',
             ),
             ScriptEvent(
-              text: '공중 견제를 막아냈습니다! 노배럭더블의 자원이 빛을 발합니다!',
+              text: '공중 견제를 막아냈습니다! 빠른 확장의 자원이 빛을 발합니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(

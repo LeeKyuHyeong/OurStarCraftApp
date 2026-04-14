@@ -98,7 +98,7 @@ const _pvt5gateArbiterVsTankDefense = ScenarioScript(
           text: '{home} 선수 게이트웨이 5개 가동 중! 스타게이트도 건설합니다!',
           owner: LogOwner.home,
           homeArmy: 3, homeResource: -25,
-          altText: '{home}, 5게이트에 스타게이트! 아비터를 노리는 겁니다!',
+          altText: '{home}, 게이트웨이 다섯 개에 스타게이트까지! 아비터를 노리는 겁니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 아비터 트리뷰널 건설! 최종 테크입니다!',

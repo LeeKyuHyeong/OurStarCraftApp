@@ -33,7 +33,7 @@ const _tvt1fac1starVs2facPush = ScenarioScript(
           owner: LogOwner.home,
           homeResource: -400, // 가스 100 + 팩토리 300
           fixedCost: true,
-          altText: '{home} 선수 팩토리가 올라갑니다. 원팩 푸시 운영입니다.',
+          altText: '{home} 선수 팩토리가 올라갑니다.',
         ),
         ScriptEvent(
           text: '{away} 선수도 팩토리를 올립니다. 두 번째 팩토리까지 건설합니다.',
@@ -49,13 +49,13 @@ const _tvt1fac1starVs2facPush = ScenarioScript(
           altText: '{home} 선수 벌처가 나옵니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수 투팩에서 벌처가 쏟아집니다. 물량 차이.',
+          text: '{away} 선수 팩토리 두 개에서 벌처가 쏟아집니다. 물량 차이가 납니다.',
           owner: LogOwner.away,
           awayArmy: 4, awayResource: -150, // 벌처 2기 (75x2)
           fixedCost: true,
         ),
         ScriptEvent(
-          text: '원팩 vs 투팩! 팩토리 수 차이가 관건입니다!',
+          text: '공격적인 빌드 선택! 팩토리 수 차이로 피해를 얼마나 줄 수 있을까요?',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
@@ -76,7 +76,7 @@ const _tvt1fac1starVs2facPush = ScenarioScript(
           altText: '{home} 선수 머신샵에서 시즈 연구를 시작합니다. 탱크를 노립니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수도 머신샵을 부착합니다. 투팩에서 벌처 탱크를 생산합니다.',
+          text: '{away} 선수도 머신샵을 부착합니다. 팩토리 두 개에서 벌처 탱크를 생산합니다.',
           owner: LogOwner.away,
           awayArmy: 4, awayResource: -450, // 머신샵 100 + 탱크 250 + 머신샵 100
           fixedCost: true,
@@ -89,7 +89,7 @@ const _tvt1fac1starVs2facPush = ScenarioScript(
           altText: '{home} 선수 시즈 연구와 아머리 건설. 후반을 준비합니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수도 아머리를 올립니다. 투팩 벌처 탱크로 압박합니다.',
+          text: '{away} 선수도 아머리를 올립니다. 벌처 탱크 물량으로 압박합니다.',
           owner: LogOwner.away,
           awayResource: -150, // 아머리 150
           fixedCost: true,
@@ -168,10 +168,10 @@ const _tvt1fac1starVs2facPush = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수 투팩 벌처 물량! 숫자로 밀어붙입니다!',
+              text: '{away} 선수 벌처 물량이 압도적입니다! 숫자로 밀어붙입니다!',
               owner: LogOwner.away,
               homeArmy: -4, favorsStat: 'control',
-              altText: '{away} 선수 투팩 벌처 물량 승리!',
+              altText: '{away} 선수 벌처 물량 승리! 팩토리 두 개의 힘!',
             ),
             ScriptEvent(
               text: '{home} 선수 벌처 피해! 물량 차이에 밀립니다!',
@@ -205,7 +205,7 @@ const _tvt1fac1starVs2facPush = ScenarioScript(
           altText: '{home} 선수 탱크 라인 구축! 시즈 모드!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 탱크 시즈! 투팩 물량으로 맞섭니다!',
+          text: '{away} 선수도 탱크 시즈! 팩토리 두 개의 물량으로 맞섭니다!',
           owner: LogOwner.away,
           awayArmy: 4, awayResource: -500, // 탱크 2기 (250x2) 투팩
           fixedCost: true,
@@ -301,7 +301,7 @@ const _tvt1fac1starVs2facPush = ScenarioScript(
               altText: '{home} 선수 탱크 화력 차이! 상대 라인을 뚫습니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 탱크가 녹습니다! 투팩 물량이 빠져도 화력에서 밀려요!',
+              text: '{away} 선수 탱크가 녹습니다! 물량이 빠져도 화력에서 밀려요!',
               owner: LogOwner.away,
               awayArmy: -2,
             ),
@@ -310,7 +310,7 @@ const _tvt1fac1starVs2facPush = ScenarioScript(
               owner: LogOwner.home,
               awayResource: -300, // 팩토리 파괴
               decisive: true,
-              altText: '{home} 선수 시즈 화력으로 밀어냅니다! 투팩이 힘을 못 씁니다!',
+              altText: '{home} 선수 시즈 화력으로 밀어냅니다! 상대 물량이 힘을 못 씁니다!',
             ),
           ],
         ),
@@ -320,10 +320,10 @@ const _tvt1fac1starVs2facPush = ScenarioScript(
           conditionStat: 'attack',
           events: [
             ScriptEvent(
-              text: '{away} 선수 투팩 물량으로 탱크 수가 앞서갑니다! 시즈 포격!',
+              text: '{away} 선수 탱크 수가 앞서갑니다! 팩토리 두 개의 생산력! 시즈 포격!',
               owner: LogOwner.away,
               homeArmy: -4, awayArmy: -2, favorsStat: 'attack',
-              altText: '{away} 선수 투팩 탱크 물량! 숫자로 밀어붙입니다!',
+              altText: '{away} 선수 탱크 물량이 압도적! 숫자로 밀어붙입니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 탱크가 터집니다! 물량 차이를 감당하기 어렵습니다!',
@@ -335,7 +335,7 @@ const _tvt1fac1starVs2facPush = ScenarioScript(
               owner: LogOwner.away,
               homeResource: -300, // 팩토리 파괴
               decisive: true,
-              altText: '{away} 선수 투팩 화력! 원팩으로는 막을 수 없습니다!',
+              altText: '{away} 선수 물량 화력! 생산력 차이를 막을 수 없습니다!',
             ),
           ],
         ),
@@ -474,7 +474,7 @@ const _tvt1fac1starVs2facPush = ScenarioScript(
               altText: '{home} 선수 골리앗 화력 추가! 압도적입니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 원팩 푸시 타이밍으로 투팩을 꺾습니다!',
+              text: '{home} 선수 타이밍 공격으로 상대 물량을 꺾습니다!',
               owner: LogOwner.home,
               decisive: true,
               altText: '{home} 선수 벌처 컨트롤 차이! 상대 병력을 압도합니다!',
@@ -486,10 +486,10 @@ const _tvt1fac1starVs2facPush = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수 투팩 물량! 병력이 더 빠르게 모입니다!',
+              text: '{away} 선수 병력이 더 빠르게 모입니다! 생산력 차이!',
               owner: LogOwner.away,
               homeArmy: -4, awayArmy: -2, favorsStat: 'attack',
-              altText: '{away} 선수 투팩 물량 역습! 상대 라인을 무너뜨립니다!',
+              altText: '{away} 선수 물량 역습! 상대 라인을 무너뜨립니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 라인이 뚫립니다! 후퇴!',
@@ -503,7 +503,7 @@ const _tvt1fac1starVs2facPush = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '{away} 선수 투팩 물량으로 원팩 푸시를 꺾습니다!',
+              text: '{away} 선수 물량으로 타이밍 공격을 꺾습니다!',
               owner: LogOwner.away,
               decisive: true,
               altText: '{away} 선수 벌처로 시야를 잡고 탱크로 밀어냅니다!',

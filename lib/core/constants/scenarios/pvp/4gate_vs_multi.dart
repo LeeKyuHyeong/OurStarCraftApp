@@ -35,7 +35,7 @@ const _pvp4gateVsMulti = ScenarioScript(
           text: '{away} 선수 넥서스를 빠르게 건설합니다! 원겟 멀티!',
           owner: LogOwner.away,
           awayResource: -30,
-          altText: '{away}, 빠른 확장! 자원 이점을 가져가겠다는 빌드!',
+          altText: '{away}, 빠른 확장! 자원 이점을 가져가겠다는 의도!',
         ),
         ScriptEvent(
           text: '{away} 선수 사이버네틱스 코어 건설! 드라군 준비!',
@@ -43,7 +43,7 @@ const _pvp4gateVsMulti = ScenarioScript(
           awayArmy: 3, awayResource: -15,
         ),
         ScriptEvent(
-          text: '{home} 선수 게이트웨이를 빠르게 추가합니다! 3게이트!',
+          text: '{home} 선수 게이트웨이를 빠르게 추가합니다! 세 번째!',
           owner: LogOwner.home,
           homeArmy: 4, homeResource: -30,
           altText: '{home}, 게이트웨이 추가! 드라군을 빠르게 모읍니다!',
@@ -68,7 +68,7 @@ const _pvp4gateVsMulti = ScenarioScript(
           altText: '{away}, 드라군 수가 부족합니다! 시간을 벌어야 해요!',
         ),
         ScriptEvent(
-          text: '4게이트 물량 vs 멀티 확장! 시간이 핵심입니다!',
+          text: '드라군 물량 vs 확장! 시간이 핵심입니다!',
           owner: LogOwner.system,
           skipChance: 0.2,
         ),
@@ -101,7 +101,7 @@ const _pvp4gateVsMulti = ScenarioScript(
               awayResource: -15, favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '4게이트 타이밍! 멀티가 자리잡기 전에 밀어냅니다!',
+              text: '드라군 타이밍! 확장이 자리잡기 전에 밀어냅니다!',
               owner: LogOwner.home,
               awayArmy: -8,
               decisive: true,

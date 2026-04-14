@@ -29,13 +29,13 @@ const _zvz9overpoolMirror = ScenarioScript(
           text: '{home} 선수 9드론에 오버로드 먼저! 이후 스포닝풀!',
           owner: LogOwner.home,
           homeResource: -15,
-          altText: '{home}, 9오버풀! 오버로드를 먼저 올리고 스포닝풀을 짓습니다!',
+          altText: '{home}, 9드론에 오버로드를 먼저 올리고 스포닝풀을 짓습니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 9오버풀 스포닝풀!',
+          text: '{away} 선수도 오버로드 후 스포닝풀!',
           owner: LogOwner.away,
           awayResource: -15,
-          altText: '{away}, 9오버풀 스포닝풀! 드론 수가 같습니다!',
+          altText: '{away}, 역시 오버로드 후 스포닝풀! 드론 수가 같습니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링 생산과 발업 연구 시작!',

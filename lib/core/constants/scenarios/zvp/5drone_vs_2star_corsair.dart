@@ -16,7 +16,7 @@ const _zvp5droneVs2starCorsair = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 스포닝풀을 올립니다! 9투 올인 빌드!',
+          text: '{home} 선수 스포닝풀을 올립니다! 빠른 저글링을 노리는군요!',
           owner: LogOwner.home,
           homeResource: -15,
           altText: '{home}, 드론 5마리 후 스포닝풀! 올인을 준비합니다!',
@@ -25,7 +25,7 @@ const _zvp5droneVs2starCorsair = ScenarioScript(
           text: '{away} 선수 스타게이트 두 기를 건설합니다! 커세어 대량 생산!',
           owner: LogOwner.away,
           awayResource: -25,
-          altText: '{away}, 투스타게이트! 커세어를 빠르게 모으려 합니다!',
+          altText: '{away}, 스타게이트가 두 개! 커세어를 빠르게 모으려 합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링과 발업이 동시에 나옵니다!',
@@ -130,7 +130,7 @@ const _zvp5droneVs2starCorsair = ScenarioScript(
               altText: '{home} 선수 프로브 전멸! 투스타의 약점을 찔렀습니다!',
             ),
             ScriptEvent(
-              text: '투스타게이트 빌드의 지상 취약점! 저글링 올인 성공!',
+              text: '스타게이트 두 기에 투자한 대가! 지상이 뚫립니다!',
               owner: LogOwner.home,
               decisive: true,
             ),

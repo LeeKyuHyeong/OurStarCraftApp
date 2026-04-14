@@ -53,14 +53,14 @@ const _tvtFdRushVs1facDouble = ScenarioScript(
           altText: '{home} 선수 머신샵에서 탱크와 시즈모드 동시 진행.',
         ),
         ScriptEvent(
-          text: '{away} 선수 앞마당 커맨드센터. 원팩으로 확장합니다.',
+          text: '{away} 선수 앞마당 커맨드센터. 팩토리 후 확장합니다.',
           owner: LogOwner.away,
           awayResource: -400, // CC 400
           fixedCost: true,
           altText: '{away} 선수 앞마당 확장. 안정적 운영!',
         ),
         ScriptEvent(
-          text: '마린과 탱크의 FD 러쉬 vs 원팩 확장! 공격과 수비의 대결!',
+          text: '마린 메카닉 빠른 공격 vs 팩토리 확장! 공격과 수비의 대결!',
           owner: LogOwner.system,
         ),
       ],
@@ -97,7 +97,7 @@ const _tvtFdRushVs1facDouble = ScenarioScript(
           owner: LogOwner.home,
           homeResource: -300, // 팩토리 300
           fixedCost: true,
-          altText: '{home} 선수 투팩 체제! 탱크를 밀어냅니다!',
+          altText: '{home} 선수 팩토리 두 개 체제! 탱크를 밀어냅니다!',
         ),
         ScriptEvent(
           text: '병력 물량에서 FD가 앞섭니다! 확장 측이 버틸 수 있을까요?',

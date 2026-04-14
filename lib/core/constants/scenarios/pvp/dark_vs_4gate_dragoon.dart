@@ -37,10 +37,10 @@ const _pvpDarkVs4gateDragoon = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '{away} 선수 게이트웨이를 빠르게 추가합니다! 포게이트 드라군!',
+          text: '{away} 선수 게이트웨이를 빠르게 추가합니다! 벌써 네 개!',
           owner: LogOwner.away,
           awayResource: -45,
-          altText: '{away}, 게이트웨이 4개! 드라군 물량 빌드!',
+          altText: '{away}, 게이트웨이가 네 개! 드라군 물량이 나옵니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 템플러 아카이브 건설! 다크 확정!',
@@ -55,10 +55,10 @@ const _pvpDarkVs4gateDragoon = ScenarioScript(
       startLine: 15,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 다크 템플러 2기 생산! 포게이트 상대에게 다크!',
+          text: '{home} 선수 다크 템플러 2기 생산! 게이트웨이만 늘린 상대에게 다크!',
           owner: LogOwner.home,
           homeArmy: 3, awayArmy: 3, homeResource: -20,
-          altText: '{home}, 다크 출격! 포게이트에 자원을 쏟은 상대를 노립니다!',
+          altText: '{home}, 다크 출격! 게이트웨이에 자원을 쏟은 상대를 노립니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 드라군을 빠르게 모으고 있습니다! 옵저버는 없어요!',
@@ -66,7 +66,7 @@ const _pvpDarkVs4gateDragoon = ScenarioScript(
           awayArmy: 3, awayResource: -20,
         ),
         ScriptEvent(
-          text: '포게이트는 로보틱스를 안 갔습니다! 디텍이 없을 가능성이 높아요!',
+          text: '로보틱스를 안 갔습니다! 디텍이 없을 가능성이 높아요!',
           owner: LogOwner.system,
         ),
       ],
@@ -85,7 +85,7 @@ const _pvpDarkVs4gateDragoon = ScenarioScript(
               text: '{home}, 다크가 프로브를 학살합니다! 디텍이 없습니다!',
               owner: LogOwner.home,
               awayResource: -30, favorsStat: 'harass',
-              altText: '{home} 선수 다크 대성공! 포게이트 빌드라 로보틱스가 없어요!',
+              altText: '{home} 선수 다크 대성공! 게이트웨이만 늘려서 로보틱스가 없어요!',
             ),
             ScriptEvent(
               text: '{away} 선수 드라군으로 쫓지만 다크가 보이지 않습니다!',
@@ -98,7 +98,7 @@ const _pvpDarkVs4gateDragoon = ScenarioScript(
               awayResource: -10, favorsStat: 'harass',
             ),
             ScriptEvent(
-              text: '다크 올인 성공! 포게이트의 약점을 정확히 찌릅니다!',
+              text: '다크 올인 성공! 디텍이 없는 약점을 정확히 찌릅니다!',
               owner: LogOwner.home,
               awayArmy: -10,
               decisive: true,
@@ -122,12 +122,12 @@ const _pvpDarkVs4gateDragoon = ScenarioScript(
               homeArmy: -4,
             ),
             ScriptEvent(
-              text: '{away}, 포게이트 드라군이 전진합니다! 다크 실패 후 물량 차이!',
+              text: '{away}, 드라군 물량이 전진합니다! 다크 실패 후 물량 차이!',
               owner: LogOwner.away,
               awayArmy: 5, awayResource: -15,
             ),
             ScriptEvent(
-              text: '다크 올인 실패! 포게이트 드라군 물량이 밀려옵니다!',
+              text: '다크 올인 실패! 드라군 물량이 밀려옵니다!',
               owner: LogOwner.away,
               homeArmy: -10,
               decisive: true,

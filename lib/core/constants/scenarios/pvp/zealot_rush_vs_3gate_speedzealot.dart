@@ -38,7 +38,7 @@ const _pvpZealotRushVs3gateSpeedzealot = ScenarioScript(
           altText: '{away}, 아둔! 각속 업그레이드를 노립니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 게이트웨이를 추가합니다! 쓰리게이트!',
+          text: '{away} 선수 세 번째 게이트웨이를 올립니다!',
           owner: LogOwner.away,
           awayResource: -30,
         ),
@@ -122,7 +122,7 @@ const _pvpZealotRushVs3gateSpeedzealot = ScenarioScript(
               homeArmy: -3,
             ),
             ScriptEvent(
-              text: '{away}, 쓰리게이트에서 스피드질럿이 끊임없이 나옵니다!',
+              text: '{away}, 게이트웨이 세 개에서 스피드질럿이 끊임없이 나옵니다!',
               owner: LogOwner.away,
               awayArmy: 3, awayResource: -15,
             ),

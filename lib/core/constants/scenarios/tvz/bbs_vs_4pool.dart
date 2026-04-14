@@ -22,19 +22,19 @@ const _tvzBbsVs4pool = ScenarioScript(
           altText: '{home} 선수 배럭을 올립니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수 스포닝풀 건설을 시작합니다! 4풀입니다!',
+          text: '{away} 선수 스포닝풀 건설을 시작합니다! 4드론입니다!',
           owner: LogOwner.away,
           awayResource: -200,
           fixedCost: true,
-          altText: '{away} 선수 즉시 스포닝풀! 4풀 올인!',
+          altText: '{away} 선수 즉시 스포닝풀! 저글링을 계속 모으고 있습니다!',
         ),
         ScriptEvent(
-          text: '{home} 선수 두 번째 배럭을 올립니다! BBS입니다!',
+          text: '{home} 선수 두 번째 배럭을 올립니다! 배럭을 두 개 올립니다!',
           owner: LogOwner.home,
           homeResource: -150,
           homeArmy: 2,
           fixedCost: true,
-          altText: '{home} 선수 더블배럭! BBS 올인!',
+          altText: '{home} 선수 배럭 두 개에서 마린이 쏟아집니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 저글링 6마리가 쏟아져 나옵니다!',
@@ -44,10 +44,10 @@ const _tvzBbsVs4pool = ScenarioScript(
           altText: '{away} 선수 저글링이 터져 나옵니다!',
         ),
         ScriptEvent(
-          text: '양측 올인 빌드! 어느 쪽이 먼저 무너질까요?',
+          text: '양쪽 다 공격적입니다! 어느 쪽이 먼저 무너질까요?',
           owner: LogOwner.system,
           skipChance: 0.3,
-          altText: '올인 vs 올인! 살벌한 초반 대결입니다!',
+          altText: '양쪽 다 올인입니다! 살벌한 초반 대결입니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 마린을 모아 방어 준비를 합니다.',

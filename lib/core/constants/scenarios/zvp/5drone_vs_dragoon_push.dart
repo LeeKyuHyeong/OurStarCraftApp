@@ -16,7 +16,7 @@ const _zvp5droneVsDragoonPush = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 스포닝풀을 올립니다! 9투 올인!',
+          text: '{home} 선수 스포닝풀을 올립니다! 저글링 물량으로 밀어붙이려 합니다!',
           owner: LogOwner.home,
           homeResource: -15,
           altText: '{home}, 드론 5마리 후 스포닝풀! 저글링 러시를 준비합니다!',
@@ -39,7 +39,7 @@ const _zvp5droneVsDragoonPush = ScenarioScript(
           altText: '{away}, 질럿 연속 생산! 수비와 역공을 동시에 준비!',
         ),
         ScriptEvent(
-          text: '질럿 물량이 빠른 빌드입니다! 저글링이 뚫을 수 있을까요?',
+          text: '질럿이 빠르게 나오고 있습니다! 저글링이 뚫을 수 있을까요?',
           owner: LogOwner.system,
           skipChance: 0.3,
         ),
@@ -129,7 +129,7 @@ const _zvp5droneVsDragoonPush = ScenarioScript(
               altText: '{home} 선수 프로브 전멸! 드라군 뒤를 파고들었습니다!',
             ),
             ScriptEvent(
-              text: '일꾼이 사라진 프로토스! 9투 올인 성공!',
+              text: '일꾼이 사라진 프로토스! 저글링 러시 성공!',
               owner: LogOwner.home,
               decisive: true,
             ),

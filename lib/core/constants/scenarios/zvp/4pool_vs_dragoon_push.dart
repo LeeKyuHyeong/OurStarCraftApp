@@ -16,7 +16,7 @@ const _zvp4poolVsDragoonPush = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 4풀! 스포닝풀이 바로 올라갑니다!',
+          text: '{home} 선수 4드론에 스포닝풀이 바로 올라갑니다!',
           owner: LogOwner.home,
           homeResource: -15,
           altText: '{home}, 드론 4마리에서 스포닝풀 건설! 올인입니다!',
@@ -129,7 +129,7 @@ const _zvp4poolVsDragoonPush = ScenarioScript(
               altText: '{home} 선수 프로브 사냥! 질럿 뒤를 파고들었습니다!',
             ),
             ScriptEvent(
-              text: '일꾼 피해가 크다! 4풀 저글링의 돌파 성공!',
+              text: '일꾼 피해가 크다! 극초반 저글링의 돌파 성공!',
               owner: LogOwner.home,
               decisive: true,
             ),

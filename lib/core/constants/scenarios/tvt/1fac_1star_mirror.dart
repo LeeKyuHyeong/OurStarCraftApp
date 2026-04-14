@@ -42,7 +42,7 @@ const _tvt1fac1starMirror = ScenarioScript(
           owner: LogOwner.away,
           awayResource: -400,
           fixedCost: true,
-          altText: '{away} 선수 팩토리 건설. 원팩원스타가 예상됩니다.',
+          altText: '{away} 선수도 팩토리 건설합니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 스타포트를 올립니다.',
@@ -107,7 +107,7 @@ const _tvt1fac1starMirror = ScenarioScript(
           text: '스타포트가 완성됐습니다. 드랍쉽이냐 레이스냐, 선택이 갈립니다.',
           owner: LogOwner.system,
           skipChance: 0.2,
-          altText: '원팩원스타의 핵심, 스타포트 유닛 선택 타이밍입니다.',
+          altText: '스타포트가 올라갑니다. 드랍쉽이냐 레이스냐 갈리겠네요.',
         ),
       ],
     ),
@@ -124,7 +124,7 @@ const _tvt1fac1starMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '양쪽 드랍쉽이 나왔습니다! 원팩원스타의 꽃, 드랍 타이밍입니다!',
+              text: '양쪽 드랍쉽이 나왔습니다! 서로의 후방을 노립니다!',
               owner: LogOwner.system,
               homeArmy: 1, homeResource: -200, // 드랍쉽 200
               awayArmy: 1, awayResource: -200,
@@ -374,10 +374,10 @@ const _tvt1fac1starMirror = ScenarioScript(
           altText: '{away} 선수도 앞마당 커맨드센터를 건설하죠.',
         ),
         ScriptEvent(
-          text: '양쪽 확장이 가동됩니다. 초반 스타포트 운용 차이가 중반 운영을 좌우합니다.',
+          text: '양쪽 확장이 같습니다. 초반 스타포트 운용 차이가 중반 운영을 좌우합니다.',
           owner: LogOwner.system,
           skipChance: 0.3,
-          altText: '확장은 갔습니다. 이제 탱크 라인과 견제전이 본격화됩니다.',
+          altText: '확장이 같으니 이제 탱크 라인과 견제전이 본격화됩니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 아머리를 올리고 골리앗 생산을 준비합니다.',
@@ -480,63 +480,65 @@ const _tvt1fac1starMirror = ScenarioScript(
             ),
           ],
         ),
-        // ── 홈 드랍쉽 합공 (방어병력 위 드랍 + 정면 동시) ──
+        // ── 홈 드랍쉽 합공 (추가 확장 앞 수비병력 밀어내기) ──
         ScriptBranch(
           id: 'home_drop_attack',
           baseProbability: 1.2,
           events: [
             ScriptEvent(
-              text: '{home} 선수 스캔으로 상대 탱크 라인을 확인합니다!',
+              text: '{home} 선수 스캔으로 상대 추가 확장 앞 수비 라인을 확인합니다!',
               owner: LogOwner.home,
               favorsStat: 'sense',
             ),
             ScriptEvent(
-              text: '{home} 선수 드랍쉽 편대가 상대 탱크 라인 위로! 동시에 정면 탱크도 전진!',
+              text: '{home} 선수 드랍쉽 편대가 상대 수비 병력 위로! 동시에 정면 탱크도 전진! 추가 확장을 끊겠다는 겁니다!',
               owner: LogOwner.home,
               favorsStat: 'strategy',
-              altText: '{home} 선수 드랍쉽과 정면 동시 공격! 상대가 양면에서 끼입니다!',
+              altText: '{home} 선수 드랍쉽과 정면 동시 공격! 상대 추가 확장을 노립니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 상대 시즈 라인 뒤에 병력 투하! 앞뒤로 포격!',
+              text: '{home} 선수 수비 병력 뒤에 병력 투하! 앞뒤로 포격이 들어갑니다!',
               owner: LogOwner.home,
               awayArmy: -6, homeArmy: -2,
               favorsStat: 'attack',
-              altText: '{home} 선수 드랍과 정면 합공! 상대 방어가 무너집니다!',
+              altText: '{home} 선수 드랍과 정면 합공! 상대 수비 라인이 무너집니다!',
             ),
             ScriptEvent(
-              text: '드랍쉽 합공! 앞뒤에서 포격이 들어갑니다!',
+              text: '수비 병력이 밀려나면서 추가 확장이 끊겼습니다! {away} 선수 자원 라인에 타격이 크네요.',
               owner: LogOwner.system,
               skipChance: 0.3,
+              altText: '추가 확장을 지킬 수 없게 됐습니다! {away} 선수 멀티가 끊기면서 불리해집니다.',
             ),
           ],
         ),
-        // ── 어웨이 드랍쉽 합공 ──
+        // ── 어웨이 드랍쉽 합공 (추가 확장 앞 수비병력 밀어내기) ──
         ScriptBranch(
           id: 'away_drop_attack',
           baseProbability: 1.2,
           events: [
             ScriptEvent(
-              text: '{away} 선수 스캔으로 상대 방어 라인을 확인합니다!',
+              text: '{away} 선수 스캔으로 상대 추가 확장 앞 수비 라인을 확인합니다!',
               owner: LogOwner.away,
               favorsStat: 'sense',
             ),
             ScriptEvent(
-              text: '{away} 선수 드랍쉽 편대가 상대 방어 병력 위로! 정면에서도 밀어붙입니다!',
+              text: '{away} 선수 드랍쉽 편대가 상대 수비 병력 위로! 정면에서도 밀어붙입니다! 추가 확장을 끊으려 합니다!',
               owner: LogOwner.away,
               favorsStat: 'strategy',
-              altText: '{away} 선수 드랍쉽과 지상 동시 공격! 상대가 갈립니다!',
+              altText: '{away} 선수 드랍쉽과 지상 동시 공격! 상대 추가 확장을 노립니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 상대 탱크 뒤에 착지! 정면에서도 시즈 포격!',
+              text: '{away} 선수 수비 병력 뒤에 착지! 정면에서도 시즈 포격!',
               owner: LogOwner.away,
               homeArmy: -6, awayArmy: -2,
               favorsStat: 'attack',
-              altText: '{away} 선수 양면 합공! 상대 시즈 라인이 무너집니다!',
+              altText: '{away} 선수 양면 합공! 상대 수비 라인이 무너집니다!',
             ),
             ScriptEvent(
-              text: '양면 합공! 방어 병력이 녹아내립니다!',
+              text: '수비 병력이 녹아내리면서 추가 확장이 끊겼습니다! {home} 선수 멀티가 날아가면서 불리해집니다.',
               owner: LogOwner.system,
               skipChance: 0.3,
+              altText: '추가 확장을 지킬 수가 없습니다! {home} 선수 자원 라인이 끊기면서 수비가 어려워지네요.',
             ),
           ],
         ),

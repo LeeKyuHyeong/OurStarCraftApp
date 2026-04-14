@@ -203,7 +203,7 @@ const _pvtReaverCarrierVsBioMech = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '바이오 메카닉 복합 편성! 공중도 지상도 다 잡습니다!',
+              text: '마린 탱크 골리앗 복합 편성! 공중도 지상도 다 잡습니다!',
               owner: LogOwner.system,
             ),
             ScriptEvent(

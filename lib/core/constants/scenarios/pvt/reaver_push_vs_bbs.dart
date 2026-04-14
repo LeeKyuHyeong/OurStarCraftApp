@@ -22,7 +22,7 @@ const _pvtReaverPushVsBbs = ScenarioScript(
           altText: '{home}, 게이트웨이가 올라갑니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수 배럭 두 개를 연달아 건설합니다! BBS입니다!',
+          text: '{away} 선수 배럭 두 개를 연달아 건설합니다! 마린을 빠르게 뽑겠다는 거군요!',
           owner: LogOwner.away,
           awayResource: -20,
           altText: '{away}, 배럭이 두 개! 빠른 마린 생산을 노리는군요!',
@@ -88,7 +88,7 @@ const _pvtReaverPushVsBbs = ScenarioScript(
           altText: '{home}, 서포트 베이 건설 완료! 셔틀과 리버가 나올 준비!',
         ),
         ScriptEvent(
-          text: 'BBS를 버텨낸다면 리버 셔틀이 게임을 뒤집을 수 있습니다!',
+          text: '마린 러시를 버텨낸다면 리버 셔틀이 게임을 뒤집을 수 있습니다!',
           owner: LogOwner.system,
         ),
       ],
@@ -157,7 +157,7 @@ const _pvtReaverPushVsBbs = ScenarioScript(
               favorsStat: 'control',
             ),
             ScriptEvent(
-              text: '리버 견제가 완벽했습니다! BBS의 후유증까지 겹쳐 GG!',
+              text: '리버 견제가 완벽했습니다! 초반 올인의 후유증까지 겹쳐 GG!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -169,7 +169,7 @@ const _pvtReaverPushVsBbs = ScenarioScript(
           conditionStat: 'attack',
           events: [
             ScriptEvent(
-              text: '{away} 선수 BBS 이후 추가 마린이 쏟아져 나옵니다!',
+              text: '{away} 선수 배럭 두 개에서 추가 마린이 쏟아져 나옵니다!',
               owner: LogOwner.away,
               awayArmy: 4,
               awayResource: -15,

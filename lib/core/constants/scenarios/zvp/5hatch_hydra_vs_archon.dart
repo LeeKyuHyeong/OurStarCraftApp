@@ -95,7 +95,7 @@ const _zvp5hatchHydraVsArchon = ScenarioScript(
       recoveryResourcePerLine: 10,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 5해처리에서 히드라를 쏟아냅니다! 지금 밀어야 합니다!',
+          text: '{home} 선수 해처리에서 히드라를 쏟아냅니다! 물량이 압도적! 지금 밀어야 합니다!',
           owner: LogOwner.home,
           homeArmy: 6, homeResource: -30, favorsStat: 'macro',
           altText: '{home}, 히드라 대량 생산! 타이밍 공격!',
