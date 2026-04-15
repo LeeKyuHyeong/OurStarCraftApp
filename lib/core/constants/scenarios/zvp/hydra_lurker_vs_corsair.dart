@@ -151,7 +151,7 @@ const _zvpHydraLurkerVsCorsair = ScenarioScript(
               awayResource: -15,
             ),
             ScriptEvent(
-              text: '히드라 대공 + 럴커 지상! 완벽한 조합입니다! GG!',
+              text: '히드라 대공 + 럴커 지상! 완벽한 조합입니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -184,7 +184,7 @@ const _zvpHydraLurkerVsCorsair = ScenarioScript(
               homeResource: -20,
             ),
             ScriptEvent(
-              text: '커세어 감지 + 드라군 화력! 럴커를 완전히 무력화했습니다! GG!',
+              text: '커세어 감지 + 드라군 화력! 럴커를 완전히 무력화했습니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

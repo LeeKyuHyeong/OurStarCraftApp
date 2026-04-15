@@ -151,7 +151,7 @@ const _zvpHiveDefilerVsCorsair = ScenarioScript(
               awayResource: -15,
             ),
             ScriptEvent(
-              text: '플레이그와 다크 스웜의 콤보! 프로토스가 무너집니다! GG!',
+              text: '플레이그와 다크 스웜의 콤보! 프로토스가 무너집니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -184,7 +184,7 @@ const _zvpHiveDefilerVsCorsair = ScenarioScript(
               homeResource: -25,
             ),
             ScriptEvent(
-              text: '커세어의 시야 장악이 결정적이었습니다! 프로토스 승리! GG!',
+              text: '커세어의 시야 장악이 결정적이었습니다! 프로토스 승리!',
               owner: LogOwner.away,
               decisive: true,
             ),

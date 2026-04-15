@@ -155,7 +155,7 @@ const _zvpMukerjiVs2starCorsair = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '공중과 지상 동시 공격! 프로토스가 GG를 선언합니다!',
+              text: '공중과 지상 동시 공격이 들어갑니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -188,7 +188,7 @@ const _zvpMukerjiVs2starCorsair = ScenarioScript(
               homeResource: -15,
             ),
             ScriptEvent(
-              text: '제공권 장악 완료! 커세어가 하늘을 지배합니다! GG!',
+              text: '제공권 장악 완료! 커세어가 하늘을 지배합니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

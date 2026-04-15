@@ -151,7 +151,7 @@ const _zvpYabarwiVsProxyGate = ScenarioScript(
               awayResource: -10,
             ),
             ScriptEvent(
-              text: '럴커와 저글링의 다면 공격! 초반 질럿 러시 실패의 대가입니다! GG!',
+              text: '럴커와 저글링의 다면 공격! 초반 질럿 러시 실패의 대가입니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -184,7 +184,7 @@ const _zvpYabarwiVsProxyGate = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '전진 질럿의 초반 압박이 저그를 무너뜨립니다! GG!',
+              text: '전진 질럿의 초반 압박이 저그를 무너뜨립니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

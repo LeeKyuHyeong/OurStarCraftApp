@@ -151,7 +151,7 @@ const _zvpHiveDefilerVsProxyGate = ScenarioScript(
               awayResource: -10,
             ),
             ScriptEvent(
-              text: '전진 질럿 러시 실패! 저그가 하이브 테크로 압도합니다! GG!',
+              text: '전진 질럿 러시 실패! 저그가 하이브 테크로 압도합니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -184,7 +184,7 @@ const _zvpHiveDefilerVsProxyGate = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '전진 질럿이 저그를 무너뜨렸습니다! GG!',
+              text: '전진 질럿이 저그를 무너뜨렸습니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

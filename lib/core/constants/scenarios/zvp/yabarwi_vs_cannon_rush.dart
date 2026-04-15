@@ -151,7 +151,7 @@ const _zvpYabarwiVsCannonRush = ScenarioScript(
               awayResource: -10,
             ),
             ScriptEvent(
-              text: '야바위 전술 대성공! 캐논 러시의 실패가 결정적이었습니다! GG!',
+              text: '야바위 전술 대성공! 캐논 러시의 실패가 결정적이었습니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -185,7 +185,7 @@ const _zvpYabarwiVsCannonRush = ScenarioScript(
               favorsStat: 'strategy',
             ),
             ScriptEvent(
-              text: '캐논 러시 성공! 저그 앞마당이 무너집니다! GG!',
+              text: '캐논 러시 성공! 저그 앞마당이 무너집니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

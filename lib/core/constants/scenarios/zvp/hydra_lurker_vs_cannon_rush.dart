@@ -151,7 +151,7 @@ const _zvpHydraLurkerVsCannonRush = ScenarioScript(
               awayResource: -20,
             ),
             ScriptEvent(
-              text: '캐논 러시 실패! 히드라 럴커가 맵을 장악합니다! GG!',
+              text: '캐논 러시 실패! 히드라 럴커가 맵을 장악합니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -184,7 +184,7 @@ const _zvpHydraLurkerVsCannonRush = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '캐논 러시 성공! 저그 앞마당이 무너졌습니다! GG!',
+              text: '캐논 러시 성공! 저그 앞마당이 무너졌습니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

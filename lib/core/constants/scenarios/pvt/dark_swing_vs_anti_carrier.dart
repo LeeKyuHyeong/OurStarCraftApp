@@ -153,7 +153,7 @@ const _pvtDarkSwingVsAntiCarrier = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{home} 선수 다크가 테란을 초토화합니다! GG!',
+              text: '{home} 선수 다크가 테란을 초토화합니다!',
               owner: LogOwner.home,
               homeArmy: 20,
               awayArmy: -15,
@@ -197,7 +197,7 @@ const _pvtDarkSwingVsAntiCarrier = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{away} 선수 골리앗 편대로 밀어냅니다! 프로토스가 GG!',
+              text: '{away} 선수 골리앗 편대로 밀어냅니다! 프로토스가',
               owner: LogOwner.away,
               awayArmy: 20,
               homeArmy: -15,

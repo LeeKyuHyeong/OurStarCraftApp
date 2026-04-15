@@ -151,7 +151,7 @@ const _zvpMukerjiVsCorsair = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '뮤커지의 다면 공격이 프로토스를 무너뜨립니다! GG!',
+              text: '뮤커지의 다면 공격이 프로토스를 무너뜨립니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -184,7 +184,7 @@ const _zvpMukerjiVsCorsair = ScenarioScript(
               homeResource: -15,
             ),
             ScriptEvent(
-              text: '커세어와 드라군 조합이 뮤커지를 완벽히 봉쇄합니다! GG!',
+              text: '커세어와 드라군 조합이 뮤커지를 완벽히 봉쇄합니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

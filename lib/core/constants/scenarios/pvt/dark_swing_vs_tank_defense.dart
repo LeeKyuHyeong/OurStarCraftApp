@@ -152,7 +152,7 @@ const _pvtDarkSwingVsTankDefense = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{home} 선수 다크가 일꾼을 전멸시킵니다! 테란이 GG!',
+              text: '{home} 선수 다크가 일꾼을 전멸시킵니다! 테란이',
               owner: LogOwner.home,
               homeArmy: 20,
               awayArmy: -15,
@@ -196,7 +196,7 @@ const _pvtDarkSwingVsTankDefense = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{away} 선수 탱크 화력으로 프로토스를 밀어냅니다! GG!',
+              text: '{away} 선수 탱크 화력으로 프로토스를 밀어냅니다!',
               owner: LogOwner.away,
               awayArmy: 20,
               homeArmy: -15,

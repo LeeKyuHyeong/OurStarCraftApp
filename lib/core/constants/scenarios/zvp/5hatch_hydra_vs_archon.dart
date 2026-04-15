@@ -171,7 +171,7 @@ const _zvp5hatchHydraVsArchon = ScenarioScript(
               homeArmy: -2,
             ),
             ScriptEvent(
-              text: '아콘이 앞장서고 스톰이 뒤를 받칩니다! 프로토스의 완벽한 수비! GG!',
+              text: '아콘이 앞장서고 스톰이 뒤를 받칩니다! 프로토스의 완벽한 수비!',
               owner: LogOwner.away,
               decisive: true,
             ),

@@ -152,7 +152,7 @@ const _zvpYabarwiVsForgeExpand = ScenarioScript(
               awayResource: -10,
             ),
             ScriptEvent(
-              text: '야바위 전술이 캐논 라인을 무력화합니다! 포지 확장이 무너집니다! GG!',
+              text: '야바위 전술이 캐논 라인을 무력화합니다! 포지 확장이 무너집니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -185,7 +185,7 @@ const _zvpYabarwiVsForgeExpand = ScenarioScript(
               homeResource: -15,
             ),
             ScriptEvent(
-              text: '캐논 라인 방어 완벽! 야바위가 통하지 않았습니다! 프로토스 반격! GG!',
+              text: '캐논 라인 방어 완벽! 야바위가 통하지 않았습니다! 프로토스 반격!',
               owner: LogOwner.away,
               decisive: true,
             ),

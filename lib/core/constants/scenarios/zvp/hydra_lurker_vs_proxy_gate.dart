@@ -153,7 +153,7 @@ const _zvpHydraLurkerVsProxyGate = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '럴커 매몰! 질럿이 아무것도 할 수 없습니다! GG!',
+              text: '럴커 매몰! 질럿이 아무것도 할 수 없습니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -186,7 +186,7 @@ const _zvpHydraLurkerVsProxyGate = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '전진 질럿 러시 성공! 럴커가 나오기 전에 끝냈습니다! GG!',
+              text: '전진 질럿 러시 성공! 럴커가 나오기 전에 끝냈습니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

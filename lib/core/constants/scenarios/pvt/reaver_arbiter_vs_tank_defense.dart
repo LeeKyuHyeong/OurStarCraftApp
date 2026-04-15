@@ -152,7 +152,7 @@ const _pvtReaverArbiterVsTankDefense = ScenarioScript(
               favorsStat: 'harass',
             ),
             ScriptEvent(
-              text: '리콜이 시즈 라인을 무력화했습니다! GG!',
+              text: '리콜이 시즈 라인을 무력화했습니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -184,7 +184,7 @@ const _pvtReaverArbiterVsTankDefense = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '시즈 라인이 무적입니다! 프로토스가 무너집니다! GG!',
+              text: '시즈 라인이 무적입니다! 프로토스가 무너집니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

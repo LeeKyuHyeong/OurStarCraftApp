@@ -191,7 +191,7 @@ const _pvtDarkSwingVsBbs = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{away} 선수 마린 러시 성공! 프로토스가 GG!',
+              text: '{away} 선수 마린 러시 성공! 프로토스가',
               owner: LogOwner.away,
               awayArmy: 20,
               homeArmy: -15,

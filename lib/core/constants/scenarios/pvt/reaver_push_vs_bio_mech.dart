@@ -153,7 +153,7 @@ const _pvtReaverPushVsBioMech = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '스캐럽 한 방이 승부를 갈랐습니다! GG!',
+              text: '스캐럽 한 방이 승부를 갈랐습니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -185,7 +185,7 @@ const _pvtReaverPushVsBioMech = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '복합 병력에 밀려 프로토스가 무너집니다! GG!',
+              text: '복합 병력에 밀려 프로토스가 무너집니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

@@ -289,7 +289,7 @@ const _tvzFacDoubleVsMutalLurker = ScenarioScript(
               altText: '{home} 선수 돌파! 저그가 무너집니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 본진까지 밀고 들어갑니다! GG!',
+              text: '{home} 선수 본진까지 밀고 들어갑니다!',
               owner: LogOwner.home,
               awayArmy: -3,
               decisive: true,
@@ -325,7 +325,7 @@ const _tvzFacDoubleVsMutalLurker = ScenarioScript(
               altText: '{away} 선수 물량 공세! 테란이 막기 힘듭니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 테란의 방어선을 완전히 돌파합니다! GG!',
+              text: '{away} 선수 테란의 방어선을 완전히 돌파합니다!',
               owner: LogOwner.away,
               homeArmy: -3,
               decisive: true,
@@ -395,7 +395,7 @@ const _tvzFacDoubleVsMutalLurker = ScenarioScript(
               altText: '{away} 선수 물량 공세! 테란이 버티지 못합니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 테란을 완전히 제압합니다! GG!',
+              text: '{away} 선수 테란을 완전히 제압합니다!',
               owner: LogOwner.away,
               decisive: true,
               altText: '{away} 선수 압도적인 물량! 저그 승리!',

@@ -155,7 +155,7 @@ const _zvpMukerjiVsDragoonPush = ScenarioScript(
               awayArmy: -5,
             ),
             ScriptEvent(
-              text: '뮤탈과 저글링의 다면 공격에 드라군 푸시가 무너집니다! GG!',
+              text: '뮤탈과 저글링의 다면 공격에 드라군 푸시가 무너집니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -188,7 +188,7 @@ const _zvpMukerjiVsDragoonPush = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '드라군 타이밍 푸시 대성공! 저그가 GG! ',
+              text: '드라군 타이밍 푸시 대성공! 저그가 ',
               owner: LogOwner.away,
               decisive: true,
             ),

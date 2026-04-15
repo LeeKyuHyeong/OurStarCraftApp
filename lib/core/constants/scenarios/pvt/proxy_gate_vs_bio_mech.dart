@@ -157,7 +157,7 @@ const _pvtProxyGateVsBioMech = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{home} 선수 질럿이 커맨드센터를 부숩니다! GG!',
+              text: '{home} 선수 질럿이 커맨드센터를 부숩니다!',
               owner: LogOwner.home,
               homeArmy: 20,
               awayArmy: -15,
@@ -203,7 +203,7 @@ const _pvtProxyGateVsBioMech = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{away} 선수 마린 탱크 골리앗! 프로토스가 GG!',
+              text: '{away} 선수 마린 탱크 골리앗! 프로토스가',
               owner: LogOwner.away,
               awayArmy: 20,
               homeArmy: -15,

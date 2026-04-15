@@ -151,7 +151,7 @@ const _pvtReaverArbiterVsTimingPush = ScenarioScript(
               awayResource: -15,
             ),
             ScriptEvent(
-              text: '리콜이 타이밍 공격을 무력화했습니다! GG!',
+              text: '리콜이 타이밍 공격을 무력화했습니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -184,7 +184,7 @@ const _pvtReaverArbiterVsTimingPush = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '타이밍 공격 성공! 아비터 전에 끝났습니다! GG!',
+              text: '타이밍 공격 성공! 아비터 전에 끝났습니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

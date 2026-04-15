@@ -151,7 +151,7 @@ const _zvpMukerjiVsCannonRush = ScenarioScript(
               awayResource: -10,
             ),
             ScriptEvent(
-              text: '뮤탈과 저글링의 다방면 공격! 캐논 러시의 대가를 치릅니다! GG!',
+              text: '뮤탈과 저글링의 다방면 공격! 캐논 러시의 대가를 치릅니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -184,7 +184,7 @@ const _zvpMukerjiVsCannonRush = ScenarioScript(
               favorsStat: 'strategy',
             ),
             ScriptEvent(
-              text: '캐논 러시 성공! 저그 앞마당이 무너집니다! GG!',
+              text: '캐논 러시 성공! 저그 앞마당이 무너집니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

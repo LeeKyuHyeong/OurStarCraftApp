@@ -152,7 +152,7 @@ const _pvtProxyGateVsAntiCarrier = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{home} 선수 전진 게이트웨이 대성공! 테란이 GG!',
+              text: '{home} 선수 전진 게이트웨이 대성공! 테란이',
               owner: LogOwner.home,
               homeArmy: 20,
               awayArmy: -15,
@@ -199,7 +199,7 @@ const _pvtProxyGateVsAntiCarrier = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{away} 선수 골리앗 화력으로 밀어냅니다! 프로토스가 GG!',
+              text: '{away} 선수 골리앗 화력으로 밀어냅니다! 프로토스가',
               owner: LogOwner.away,
               awayArmy: 20,
               homeArmy: -15,

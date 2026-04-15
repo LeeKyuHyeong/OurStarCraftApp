@@ -397,6 +397,10 @@ class ScriptBranch {
   final List<String>? conditionHomeBuildIds;
   final List<String>? conditionAwayBuildIds;
 
+  /// 분기 체인 조건: 이전 Phase들에서 선택된 분기 ID 중 이 리스트의 모든 항목이 존재해야 후보에 포함
+  /// 미설정(null/빈 리스트) → 체인 조건 없음 (기존 동작 유지)
+  final List<String>? conditionPriorBranchIds;
+
   const ScriptBranch({
     required this.id,
     this.description,
@@ -406,6 +410,7 @@ class ScriptBranch {
     required this.events,
     this.conditionHomeBuildIds,
     this.conditionAwayBuildIds,
+    this.conditionPriorBranchIds,
   });
 }
 

@@ -153,7 +153,7 @@ const _zvpHiveDefilerVsDragoonPush = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '다크 스웜으로 드라군을 완벽 차단! 저그의 승리입니다! GG!',
+              text: '다크 스웜으로 드라군을 완벽 차단! 저그의 승리입니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -186,7 +186,7 @@ const _zvpHiveDefilerVsDragoonPush = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '드라군 푸시 성공! 하이브 전에 끝냈습니다! GG!',
+              text: '드라군 푸시 성공! 하이브 전에 끝냈습니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

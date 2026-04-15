@@ -151,7 +151,7 @@ const _pvtReaverArbiterVsBioMech = ScenarioScript(
               awayArmy: -3,
             ),
             ScriptEvent(
-              text: '스톰과 리콜! 풀테크의 위력입니다! GG!',
+              text: '스톰과 리콜! 풀테크의 위력입니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -185,7 +185,7 @@ const _pvtReaverArbiterVsBioMech = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: 'EMP로 테크를 무력화! 복합 병력이 밀어냅니다! GG!',
+              text: 'EMP로 테크를 무력화! 복합 병력이 밀어냅니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

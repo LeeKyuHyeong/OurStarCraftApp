@@ -152,7 +152,7 @@ const _zvpHydraLurkerVsForgeExpand = ScenarioScript(
               awayResource: -20,
             ),
             ScriptEvent(
-              text: '히드라가 옵저버를 격추합니다! 럴커 위치를 파악할 수 없어요! GG!',
+              text: '히드라가 옵저버를 격추합니다! 럴커 위치를 파악할 수 없어요!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -185,7 +185,7 @@ const _zvpHydraLurkerVsForgeExpand = ScenarioScript(
               homeResource: -20,
             ),
             ScriptEvent(
-              text: '옵저버 감지 + 캐논 수비! 포지 확장이 럴커를 막아냈습니다! GG!',
+              text: '옵저버 감지 + 캐논 수비! 포지 확장이 럴커를 막아냈습니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

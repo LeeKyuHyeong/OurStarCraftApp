@@ -157,7 +157,7 @@ const _pvtDarkSwingVsBioMech = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{home} 선수 다크 + 드라군으로 테란을 밀어냅니다! GG!',
+              text: '{home} 선수 다크 + 드라군으로 테란을 밀어냅니다!',
               owner: LogOwner.home,
               homeArmy: 20,
               awayArmy: -15,
@@ -202,7 +202,7 @@ const _pvtDarkSwingVsBioMech = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{away} 선수 풀 편성으로 밀어냅니다! 프로토스가 GG!',
+              text: '{away} 선수 풀 편성으로 밀어냅니다! 프로토스가',
               owner: LogOwner.away,
               awayArmy: 20,
               homeArmy: -15,

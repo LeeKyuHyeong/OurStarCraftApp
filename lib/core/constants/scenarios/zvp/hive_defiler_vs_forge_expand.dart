@@ -158,7 +158,7 @@ const _zvpHiveDefilerVsForgeExpand = ScenarioScript(
               homeArmy: -1,
             ),
             ScriptEvent(
-              text: '다크 스웜이 스톰을 이겼습니다! 저그의 후반 파워! GG!',
+              text: '다크 스웜이 스톰을 이겼습니다! 저그의 후반 파워!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -191,7 +191,7 @@ const _zvpHiveDefilerVsForgeExpand = ScenarioScript(
               homeResource: -20,
             ),
             ScriptEvent(
-              text: '스톰의 위력! 프로토스 한방 병력이 저그를 압도합니다! GG!',
+              text: '스톰의 위력! 프로토스 한방 병력이 저그를 압도합니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

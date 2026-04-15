@@ -162,7 +162,7 @@ const _pvtReaverPushVsTimingPush = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '리버 한 방이 타이밍을 박살냈습니다! GG!',
+              text: '리버 한 방이 타이밍을 박살냈습니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -194,7 +194,7 @@ const _pvtReaverPushVsTimingPush = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '타이밍 공격이 성공합니다! 프로토스 무너집니다! GG!',
+              text: '타이밍 공격이 성공합니다! 프로토스 무너집니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

@@ -153,7 +153,7 @@ const _pvtReaverPushVsAntiCarrier = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '지상 리버 푸시가 골리앗을 꺾었습니다! GG!',
+              text: '지상 리버 푸시가 골리앗을 꺾었습니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -185,7 +185,7 @@ const _pvtReaverPushVsAntiCarrier = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '골리앗 물량에 프로토스가 밀립니다! GG!',
+              text: '골리앗 물량에 프로토스가 밀립니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

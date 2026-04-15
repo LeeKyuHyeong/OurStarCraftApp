@@ -185,7 +185,7 @@ const _zvpMukerjiVsProxyGate = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '전진 질럿의 압도적 물량! 저그가 무너집니다! GG!',
+              text: '전진 질럿의 압도적 물량! 저그가 무너집니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

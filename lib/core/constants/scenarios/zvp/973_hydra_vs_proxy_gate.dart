@@ -153,7 +153,7 @@ const _zvp973HydraVsProxyGate = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '히드라 타이밍 성공! 초반 질럿 러시 실패 후 복구가 안 됩니다! GG!',
+              text: '히드라 타이밍 성공! 초반 질럿 러시 실패 후 복구가 안 됩니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -186,7 +186,7 @@ const _zvp973HydraVsProxyGate = ScenarioScript(
               homeResource: -15,
             ),
             ScriptEvent(
-              text: '히드라 타이밍 실패! 프로토스가 수비 후 역전합니다! GG!',
+              text: '히드라 타이밍 실패! 프로토스가 수비 후 역전합니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

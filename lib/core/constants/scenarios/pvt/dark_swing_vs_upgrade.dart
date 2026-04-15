@@ -146,7 +146,7 @@ const _pvtDarkSwingVsUpgrade = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{home} 선수 다크가 일꾼을 전멸시킵니다! 테란이 GG!',
+              text: '{home} 선수 다크가 일꾼을 전멸시킵니다! 테란이',
               owner: LogOwner.home,
               homeArmy: 20,
               awayArmy: -15,
@@ -190,7 +190,7 @@ const _pvtDarkSwingVsUpgrade = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{away} 선수 업그레이드 마린으로 밀어냅니다! 프로토스가 GG!',
+              text: '{away} 선수 업그레이드 마린으로 밀어냅니다! 프로토스가',
               owner: LogOwner.away,
               awayArmy: 20,
               homeArmy: -15,

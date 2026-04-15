@@ -1,19 +1,24 @@
 part of '../../scenario_scripts.dart';
 
 // ----------------------------------------------------------
-// BBS 센터 2배럭 올인 vs 원배럭더블
-// 1배럭더블은 배럭이 먼저 완성(2:14)되어 마린이 있고, 가스도 올라가는 중
-// 노배럭더블보다 방어력이 높음 (마린 + 빠른 팩토리 전환)
-// 벙커 완성 전에 BBS가 도착하지만, 마린 수비가 가능
+// BBS vs 원배럭더블 (BBS 압박으로 앞마당 커맨드는 사실상 포기, 팩토리 후 수비 올인)
+// 타이밍: BBS 첫 마린 2:10, 마린 3기 ~2:25 / 비BBS 빌드 첫 마린 2:23
+//
+// 분기 4개 (Phase 1 non-decisive, baseProbability 75/25 비율):
+//   center_def_wins      : 센터 정찰 + SCV 컨트롤로 BBS 마린 줄임 → 수비 우세 (basePr 0.375)
+//   center_atk_wins      : 센터 정찰이지만 BBS 컨트롤 우위 → SCV 괴멸, BBS 압박 (basePr 0.125)
+//   base_bunker_success  : 본진 정찰 → 1vs3 교전 + 벙커 성공 → BBS 큰 피해 (basePr 0.375)
+//   base_defended        : 본진 정찰이지만 SCV 컨트롤로 막음 → 수비 우세 (basePr 0.125)
+//
+// Phase 2: army state shortcut (totalArmy > 10, homeRatio < 0.15 → away / > 0.85 → home)
 // ----------------------------------------------------------
 const _tvtBbsVs1barDouble = ScenarioScript(
   id: 'tvt_bbs_vs_1bar_double',
   matchup: 'TvT',
   homeBuildIds: ['tvt_bbs'],
   awayBuildIds: ['tvt_1bar_double'],
-  description: 'BBS 센터 올인 vs 원배럭더블',
+  description: 'BBS vs 원배럭더블',
   phases: [
-    // Phase 0: 오프닝 (lines 1-7) - recovery 100/줄
     ScriptPhase(
       name: 'opening',
       startLine: 1,
@@ -21,289 +26,356 @@ const _tvtBbsVs1barDouble = ScenarioScript(
       recoveryArmyPerLine: 0,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 SCV를 센터로 보냅니다.',
+          text: '{home} 선수 SCV 한 기를 센터로 보냅니다.',
           owner: LogOwner.home,
+          altText: '{home} 선수 초반부터 SCV를 센터로 올립니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수 배럭 건설합니다. {home} 선수는 센터에 배럭을 올립니다.',
-          owner: LogOwner.system,
-          homeResource: -150, // 센터 배럭
-          awayResource: -150, // 본진 배럭
-          fixedCost: true,
-          altText: '양쪽 배럭이 올라갑니다. {home} 선수는 센터, {away} 선수는 본진.',
-        ),
-        ScriptEvent(
-          text: '{home} 선수 센터에 두 번째 배럭 건설. 센터 배럭 두 개입니다.',
+          text: '{home} 선수 센터에 첫 배럭을 올립니다. 빠른 배럭입니다.',
           owner: LogOwner.home,
-          homeResource: -150, // 두 번째 센터 배럭
+          homeResource: -150,
           fixedCost: true,
-          altText: '{home} 선수 배럭 두 개입니다. 가스도 안 짓고 마린에 올인하네요.',
+          altText: '{home} 선수 센터 첫 배럭 건설. 공격적인 빌드입니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수 배럭 완성 후 앞마당 커맨드센터를 건설합니다.',
+          text: '{away} 선수 본진에 배럭을 올립니다. 정찰 SCV도 함께 출발합니다.',
           owner: LogOwner.away,
-          awayResource: -400, // CC
+          awayResource: -250,
           fixedCost: true,
-          awayExpansion: true,
-          altText: '{away} 선수 앞마당 커맨드센터를 올립니다. 표준적인 원배럭더블.',
+          altText: '{away} 선수 배럭 건설하면서 정찰을 보냅니다.',
         ),
         ScriptEvent(
-          text: '{away} 선수 리파이너리 건설합니다. 첫 마린이 나옵니다.',
-          owner: LogOwner.away,
-          awayResource: -150, // 리파이너리(100) + 마린(50)
-          awayArmy: 1, // 마린 1기
-          fixedCost: true,
-          altText: '{away} 선수 가스를 올리고 마린 생산을 시작합니다.',
-        ),
-        ScriptEvent(
-          text: '{away} 선수 SCV 정찰로 센터를 확인합니다. 배럭 두 개! BBS입니다!',
-          owner: LogOwner.away,
-          favorsStat: 'scout',
-          altText: '{away} 선수 상대 빌드를 확인합니다. 센터 배럭 두 개네요.',
-        ),
-        ScriptEvent(
-          text: '{home} 선수 센터 배럭 두 개에서 마린이 빠르게 모이고 있습니다.',
+          text: '{home} 선수 센터에 두 번째 배럭. 뒤가 없는 빌드 선택입니다.',
           owner: LogOwner.home,
-          homeArmy: 5, // 마린 5기
-          homeResource: -250, // 마린 5기 (50x5)
+          homeResource: -150,
           fixedCost: true,
-          altText: '{home} 선수 마린 5기가 빠르게 모입니다.',
+          altText: '{home} 선수 센터 배럭 두 개! 초반 공격에 모든 걸 겁니다.',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 마린 추가 생산 하며 상대방 위치를 찾기 위해 배럭 건설한 SCV가 정찰을 나섭니다.',
+          owner: LogOwner.home,
+          homeArmy: 3,
+          homeResource: -150,
+          fixedCost: true,
+          altText: '{home} 선수 마린을 모으며 상대방 위치를 찾기 위해 정찰을 진행합니다.',
         ),
       ],
     ),
-    // Phase 1: BBS 공격 (lines 10-14) - recovery 100/줄
+
     ScriptPhase(
-      name: 'bbs_attack',
-      startLine: 10,
+      name: 'scout_and_engage',
+      startLine: 9,
       recoveryResourcePerLine: 100,
       recoveryArmyPerLine: 0,
-      linearEvents: [
-        ScriptEvent(
-          text: '{home} 선수 마린과 SCV를 끌고 전진합니다.',
-          owner: LogOwner.home,
-          homeArmy: 1, // 마린 1기 추가
-          homeResource: -50, // 마린 1기
-          fixedCost: true,
-          favorsStat: 'attack',
-          altText: '{home} 선수 마린 5기에 SCV를 끌고 상대 앞마당으로 향합니다.',
-        ),
-        ScriptEvent(
-          text: '{away} 선수 마린 2기로 앞마당을 지킵니다. 급하게 벙커를 올립니다.',
-          owner: LogOwner.away,
-          awayArmy: 1, // 마린 1기 추가 (총 2기)
-          awayResource: -150, // 마린(50) + 벙커(100)
-          fixedCost: true,
-          favorsStat: 'defense',
-          altText: '{away} 선수 벙커 건설 시작. BBS를 확인했으니 서두릅니다.',
-        ),
-        ScriptEvent(
-          text: '{away} 선수 SCV를 끌어모아 마린 진격을 늦춥니다.',
-          owner: LogOwner.away,
-          homeArmy: -2, // 마린 2기 사망 (SCV 방어)
-          favorsStat: 'defense',
-          altText: '{away} 선수 SCV 컨트롤로 시간을 법니다. 벙커가 올라오고 있습니다.',
-        ),
-        ScriptEvent(
-          text: '{home} 선수 상대 앞마당에 벙커 건설 시도합니다.',
-          owner: LogOwner.home,
-          homeResource: -100, // 벙커
-          fixedCost: true,
-          favorsStat: 'attack',
-          altText: '{home} 선수도 벙커를 올립니다. 앞마당 벙커 경쟁이네요.',
-        ),
-        ScriptEvent(
-          text: '벙커 경쟁입니다! 어느 쪽 벙커가 먼저 완성되느냐가 승부를 가릅니다.',
-          owner: LogOwner.system,
-          skipChance: 0.2,
-        ),
-      ],
-    ),
-    // Phase 2: 결과 분기 (lines 16+) - recovery 150/줄
-    ScriptPhase(
-      name: 'bbs_result',
-      startLine: 16,
-      recoveryResourcePerLine: 150,
-      recoveryArmyPerLine: 1,
       branches: [
-        // 분기 A: BBS 벙커 먼저 완성 → 마린 화력 집중 → 앞마당 파괴 → 홈 승리
         ScriptBranch(
-          id: 'bbs_bunker_wins',
-          conditionStat: 'attack',
-          homeStatMustBeHigher: true,
-          baseProbability: 0.6,
+          id: 'center_def_wins',
+          description: '센터 정찰 + SCV 컨트롤로 BBS 마린 줄임 → 수비 우세',
+          baseProbability: 0.375,
           events: [
             ScriptEvent(
-              text: '{home} 선수 벙커 완성! 마린이 들어갑니다!',
-              owner: LogOwner.home,
-              homeArmy: 2, // 마린 2기 추가
-              homeResource: -100, // 마린 2기
-              fixedCost: true,
-              favorsStat: 'attack',
-              altText: '{home} 선수 벙커에 마린 투입. 화력이 집중됩니다.',
-            ),
-            ScriptEvent(
-              text: '{away} 선수 벙커도 올라오지만 마린 수가 적습니다. 화력 열세.',
+              text: '{away} 선수 정찰 SCV가 센터 쪽으로 향합니다. 눈치를 챘나요!',
               owner: LogOwner.away,
-              awayArmy: -2, // 마린 2기 사망
-              homeArmy: -1, // 마린 교환
-              favorsStat: 'control',
-              altText: '{away} 선수 마린으로 벙커를 공격하지만 수가 부족합니다.',
+              altText: '{away} 선수 센터배럭을 의심했나요! SCV가 센터로 정찰을 갑니다.',
             ),
             ScriptEvent(
-              text: '{home} 선수 SCV 수리까지! 벙커가 버팁니다!',
-              owner: LogOwner.home,
-              homeArmy: 2, // 마린 2기 추가
-              homeResource: -100, // 마린 2기
-              fixedCost: true,
-              favorsStat: 'control',
-              altText: '{home} 선수 마린이 벙커에서 화력을 쏟아냅니다!',
-            ),
-            ScriptEvent(
-              text: '{away} 선수 SCV를 끌어모아 막아보지만 마린 수 차이가 큽니다.',
+              text: '{away} 선수 앞마당에 커맨드 센터를 건설합니다.',
               owner: LogOwner.away,
-              awayArmy: -3, // 마린 3기 사망
-              awayResource: -200, // SCV 손실
-              homeArmy: -1, // 마린 1기 교환
-            ),
-            ScriptEvent(
-              text: '{home} 선수 커맨드센터를 직접 노립니다! 앞마당에 큰 피해!',
-              owner: LogOwner.home,
-              homeArmy: 2, // 마린 2기 추가
-              homeResource: -100, // 마린 2기
+              awayArmy: 1,
+              awayResource: -400,
               fixedCost: true,
-              awayResource: -300, // CC 피해 + SCV 손실
-              favorsStat: 'attack',
-              altText: '{home} 선수 앞마당 커맨드센터를 직접 공격합니다!',
+              altText: '{away} 선수 앞마당 올립니다.',
             ),
             ScriptEvent(
-              text: '마린 물량이 압도적입니다. 커맨드센터가 위험하네요.',
+              text: '{away} 선수 SCV가 센터에서 배럭 두 기를 발견합니다! 본진 SCV 이끌고 수비해야죠!',
               owner: LogOwner.system,
-              skipChance: 0.3,
+              awayArmy: 1,
+              awayResource: -50,
+              fixedCost: true,
+              altText: '{away} 선수 센터 배럭 두 기 확인! 막으면 이긴다는 마인드로 다수의 SCV를 끌고 나옵니다',
             ),
             ScriptEvent(
-              text: '{away} 선수 팩토리를 짓고 있지만 벌처가 나오려면 아직 멀었습니다.',
+              text: '벌써 마린 수가 차이가 납니다! {home} 선수는 3기, {away} 선수는 1기!',
+              owner: LogOwner.system,
+              altText: '{home} 마린이 3기 모이는 사이 {away}는 1기뿐! 컨트롤로 극복할 수 있을까요?',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 SCV로 BBS 마린을 감싸 잡아냅니다! 마린이 모이지 못하게 만들죠.',
               owner: LogOwner.away,
-              awayResource: -300, // 팩토리
-              fixedCost: true,
-              awayArmy: -2, // 마린 사망
+              homeArmy: -3,
+              favorsStat: 'control',
+              altText: '{away} 선수 SCV 컨트롤! {home} 선수의 마린이 모이질 못합니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 추가 마린 투입! 앞마당을 끝장내려 합니다!',
+              text: '{home} 선수 SCV도 잃고 마린도 부족합니다. 이대로 후퇴하면 가망이 없는데요!',
               owner: LogOwner.home,
-              homeArmy: 3, // 마린 3기 추가
-              homeResource: -150, // 마린 3기
-              fixedCost: true,
-              awayArmy: -3, // 마린/SCV 사망
-              awayResource: -200, // SCV 손실
-              favorsStat: 'attack',
+              homeResource: -150,
+              awayArmy: -1,
+              altText: '{home} 선수 마린이 다 잡히고 초반 전략이 막힙니다.',
             ),
             ScriptEvent(
-              text: '{home} 선수 앞마당 커맨드센터 파괴! 일꾼 피해도 심각합니다!',
-              owner: LogOwner.home,
-              homeArmy: 4, // 마린 4기 추가
-              homeResource: -200, // 마린 4기
+              text: '{away} 선수 앞마당 완성, 굉장한 수비력입니다.',
+              owner: LogOwner.away,
+              awayArmy: 6,
+              awayResource: -75,
               fixedCost: true,
-              awayArmy: -5, // 대량 사상
-              decisive: true,
-              altText: '{home} 선수 벙커 마린 화력이 쏟아집니다! 상대가 버틸 수 없습니다!',
+              altText: '{away} 선수 확장 성공, {home} 선수 확장 차이로 인한 병력 압박이 예상되는데요.',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 가스 건설 하며 팩토리 준비합니다. 사실상 BBS가 막힌 순간 승기를 잡았죠.',
+              owner: LogOwner.away,
+              awayArmy: 6,
+              awayResource: -75,
+              fixedCost: true,
+              altText: '{away} 선수 여유롭게 테크를 올리며 {home} 선수를 궁지로 몰아넣습니다.',
             ),
           ],
         ),
-        // 분기 B: 수비 벙커 완성 → 마린 방어 성공 → 팩토리 전환 → 어웨이 승리
+
         ScriptBranch(
-          id: 'bbs_defense_holds',
-          conditionStat: 'defense',
-          homeStatMustBeHigher: false,
-          baseProbability: 1.5,
+          id: 'center_atk_wins',
+          description: '센터 정찰 했지만 BBS 컨트롤 우위 → SCV 괴멸, 마린 압박',
+          baseProbability: 0.125,
           events: [
             ScriptEvent(
-              text: '{away} 선수 벙커가 먼저 완성됩니다! 마린을 넣습니다!',
+              text: '{away} 선수 정찰 SCV가 센터 쪽으로 향합니다. 확실하게 정찰하고 가려고 합니다.',
               owner: LogOwner.away,
-              awayArmy: 2, // 마린 2기 추가
-              awayResource: -100, // 마린 2기
-              fixedCost: true,
-              favorsStat: 'defense',
-              altText: '{away} 선수 벙커에 마린 투입. 화력이 집중됩니다.',
+              altText: '{away} 선수 센터배럭을 의심했나요! SCV가 센터로 정찰을 갑니다.',
             ),
             ScriptEvent(
-              text: '{home} 선수 마린이 벙커 화력에 녹습니다! 수가 줄어들고 있습니다!',
-              owner: LogOwner.home,
-              homeArmy: -3, // 마린 3기 사망
-              favorsStat: 'attack',
-              altText: '{home} 선수 마린이 벙커에 막힙니다.',
-            ),
-            ScriptEvent(
-              text: '{away} 선수 SCV 수리로 벙커를 지킵니다. 마린도 계속 나옵니다.',
+              text: '{away} 앞마당을 건설합니다.',
               owner: LogOwner.away,
-              awayArmy: 2, // 마린 2기 추가
-              awayResource: -100, // 마린 2기
+              awayArmy: 1,
+              awayResource: -300,
               fixedCost: true,
-              homeArmy: -2, // 마린 2기 사망
-              favorsStat: 'defense',
+              altText: '{away} 선수 앞마당에 커맨드 센터 올립니다.',
             ),
             ScriptEvent(
-              text: '{home} 선수 벙커가 안 뚫립니다... 마린도 SCV도 손실이 큽니다.',
-              owner: LogOwner.home,
-              homeArmy: -2, // 마린 2기 사망
-              homeResource: -150, // SCV 손실
-            ),
-            ScriptEvent(
-              text: '{home} 선수 후퇴합니다. 초반 공격이 실패합니다.',
-              owner: LogOwner.home,
-              homeArmy: -1, // 후퇴 중 마린 1기 사망
-              altText: '{home} 선수 더 이상 밀어붙일 수 없습니다. 물러납니다.',
-            ),
-            ScriptEvent(
-              text: '방어 성공입니다. {away} 선수 앞마당이 가동됩니다.',
+              text: '{away} 선수 SCV가 센터에서 배럭 두 기를 발견합니다! 본진 SCV 이끌고 수비해야죠!',
               owner: LogOwner.system,
-            ),
-            ScriptEvent(
-              text: '{away} 선수 팩토리 건설합니다. 가스가 이미 올라와 있어 빠릅니다.',
-              owner: LogOwner.away,
-              awayResource: -300, // 팩토리
+              awayArmy: 1,
+              awayResource: -50,
               fixedCost: true,
-              altText: '{away} 선수 팩토리 건설. 가스 채취가 진행중이라 빠른 전환입니다.',
+              altText: '{away} 선수 센터 배럭 두 기 확인! 막으면 이긴다는 마인드로 다수의 SCV를 끌고 나옵니다',
             ),
             ScriptEvent(
-              text: '{home} 선수 이제야 가스를 올립니다... 한참 늦었네요.',
+              text: '벌써 마린 수가 차이가 납니다! {home} 선수는 3기, {away} 선수는 1기!',
+              owner: LogOwner.system,
+              altText: '{home} 마린이 3기 모이는 사이 {away}는 1기뿐! 컨트롤로 극복할 수 있을까요?',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 SCV를 끌고 센터로 진출. {home} 선수의 마린을 모이기전에 끊어줄 심산이죠.',
+              owner: LogOwner.away,
+              altText: '{away} 선수 SCV 부대를 끌고 나갑니다. 마린이 모이지 않게 해야합니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 마린 컨트롤로 수비측 SCV가 마린을 감싸지 못하게 합니다.',
               owner: LogOwner.home,
-              homeResource: -100, // 리파이너리
-              fixedCost: true,
-              altText: '{home} 선수 초반 공격 실패 후 테크 전환이 너무 늦습니다.',
-            ),
-            ScriptEvent(
-              text: '{away} 선수 팩토리에서 벌처가 나옵니다. 마린으로는 상대가 안 됩니다.',
-              owner: LogOwner.away,
-              awayArmy: 4, // 벌처 2대 (2sup x2)
-              awayResource: -150, // 벌처 2대 (75x2)
-              fixedCost: true,
-              homeArmy: -3, // 마린 3기 사망
+              awayResource: -300,
+              awayArmy: -2,
               favorsStat: 'control',
-              altText: '{away} 선수 벌처 기동력! {home} 선수 마린이 잡혀나갑니다.',
+              altText: '{home} 선수 마린 컨트롤이 대단합니다. 수비측 SCV 피해가 큽니다.',
             ),
             ScriptEvent(
-              text: '{away} 선수 시즈 탱크 생산합니다. 앞마당 자원과 테크 격차가 벌어집니다.',
-              owner: LogOwner.away,
-              awayArmy: 4, // 탱크 1대(2sup) + 벌처 1대(2sup)
-              awayResource: -325, // 탱크(250) + 벌처(75)
+              text: '{home} 선수 마린이 계속 쌓입니다! 수비측 앞마당까지 압박이 들어옵니다!',
+              owner: LogOwner.home,
+              homeArmy: 3,
+              homeResource: -150,
               fixedCost: true,
-              homeArmy: -3, // 마린 3기 사망
-              altText: '{away} 선수 탱크가 나옵니다. {home} 선수는 아직 팩토리 건설 중입니다.',
+              favorsStat: 'attack',
+              altText: '{home} 선수 마린 추가 생산! 수비측 앞마당에 벙커를 지으며 압박합니다!',
             ),
             ScriptEvent(
-              text: '앞마당 자원과 테크 우위가 결정적입니다. {home} 선수가 따라잡을 수 없는 격차네요.',
+              text: '{away} 선수 본인의 앞마당에 벙커를 지으며 버텨보려하지만 상대방 마린이 너무 많습니다',
+              owner: LogOwner.away,
+              homeResource: -100,
+              fixedCost: true,
+              homeArmy: -2,
+              awayArmy: -4,
+              awayResource: -300,
+              altText: '{away} 선수 앞마당 벙커로 수비 시도하지만 쉽지않습니다.',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 추가 마린 투입! 상대방의 앞마당을 파괴합니다.',
+              owner: LogOwner.home,
+              homeArmy: 5,
+              homeResource: -250,
+              fixedCost: true,
+              awayArmy: -3,
+              altText: '{home} 선수 초반 승부수가 통했습니다! 본진까지 진격!',
+            ),
+          ],
+        ),
+
+        ScriptBranch(
+          id: 'base_bunker_success',
+          description: '본진 정찰 → 1vs3 교전 + 벙커 성공 + 마린 진입 → BBS 큰 피해',
+          baseProbability: 0.375,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 이상함을 느끼지 못하고 일반적인 정찰 루트를 선택합니다.',
+              owner: LogOwner.away,
+              altText: '{away} 선수 정찰 SCV로 상대 본진을 찾으려고 합니다.',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 배럭 완성, 첫 마린 1기. 상대방의 공격적인 빌드를 아직은 전혀 눈치채지 못합니다.',
+              owner: LogOwner.away,
+              awayArmy: 1,
+              awayResource: -50,
+              fixedCost: true,
+              altText: '{away} 선수 마린 1기로 상대방 정찰 SCV를 몰아내려합니다.',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 앞마당에 커맨드 센터를 건설합니다.',
+              owner: LogOwner.away,
+              awayArmy: 1,
+              awayResource: -400,
+              fixedCost: true,
+              altText: '{away} 선수 앞마당 올립니다.',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 마린 3기로 정찰을 끊으려던 {away} 선수의 마린을 덮칩니다.',
+              owner: LogOwner.home,
+              favorsStat: 'attack',
+              altText: '{home} 선수 마린 숫자 차이로 {away} 선수 압박하기 시작합니다.',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 첫 마린 1기로 막아보지만 숫자 차이로 인해 3마린이 압도합니다!',
+              owner: LogOwner.away,
+              awayArmy: -1,
+              altText: '{away} 선수 1마린인데 {home} 선수는 마린이 3기, 화력 차이가 납니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 {away} 선수의 앞마당에 벙커 건설 시도!',
+              owner: LogOwner.home,
+              homeResource: -100,
+              fixedCost: true,
+              altText: '{home} 선수 벙커를 지으며 SCV 나오라고 압박합니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 SCV 다 끌고 나와서 수비하려 합니다.',
+              owner: LogOwner.away,
+              altText: '{away} SCV 빨리 나와야죠!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 벙커 완성, 마린 진입! 화력이 쏟아집니다!',
+              owner: LogOwner.home,
+              homeArmy: 3,
+              homeResource: -150,
+              fixedCost: true,
+              awayResource: -200,
+              awayArmy: -2,
+              favorsStat: 'attack',
+              altText: '{home} 선수 벙커 마린 화력! 수비측 앞마당이 장악당합니다.',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 추가 마린 투입! 앞마당 취소 시킵니다!',
+              owner: LogOwner.home,
+              homeArmy: 6,
+              homeResource: -300,
+              fixedCost: true,
+              awayResource: -300,
+              altText: '{home} 선수 벙커링 성공! {away} 선수 앞마당 취소!.',
+            ),
+          ],
+        ),
+
+        ScriptBranch(
+          id: 'base_defended',
+          description: '본진 정찰이지만 SCV 컨트롤로 벙커/마린 진입 막음 → 수비 우세',
+          baseProbability: 0.125,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 이상함을 느끼지 못하고 일반적인 정찰 루트를 선택합니다.',
+              owner: LogOwner.away,
+              altText: '{away} 선수 정찰 SCV로 상대 본진을 찾으려고 합니다.',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 앞마당에 커맨드 센터를 건설합니다.',
+              owner: LogOwner.away,
+              awayArmy: 1,
+              awayResource: -400,
+              fixedCost: true,
+              altText: '{away} 선수 앞마당 올립니다.',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 SCV가 상대 본진을 원서치로 찾아냅니다. 배럭이 없는 걸 발견, SCV 다수를 수비적으로 배치합니다!',
               owner: LogOwner.system,
-              homeArmy: -2, // 마린 2기 사망
+              awayResource: -50,
+              fixedCost: true,
+              altText: '{away} 선수 원서치에 성공합니다. 배럭이 없음에 이상함을 느끼고 다수의 SCV를 수비대기 시킵니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 탱크 시즈 모드! {home} 선수는 대응할 수단이 없습니다!',
+              text: '{home} 선수 마린 3기와 SCV가 수비 진영 도착 직전입니다!',
+              owner: LogOwner.home,
+              favorsStat: 'attack',
+              altText: '{home} 선수 마린과 SCV 상대방을 압박하기 위해 이동합니다.',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 첫 마린과 SCV를 동원해 시간을 법니다!',
               owner: LogOwner.away,
-              awayArmy: 4, // 탱크 2대 (2sup x2)
-              awayResource: -500, // 탱크 2대 (250x2)
+              awayArmy: 1,
+              awayResource: -50,
               fixedCost: true,
-              homeArmy: -5, // 대량 사상
+              homeArmy: -1,
+              altText: '{away} 선수 마린 추가 생산하면서 SCV 뭉치기로 막아봅니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 {away} 선수의 앞마당에 벙커 건설 시도!',
+              owner: LogOwner.home,
+              homeResource: -100,
+              fixedCost: true,
+              altText: '{home} 선수 벙커를 지으며 압박 진행합니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 SCV 컨트롤! 벙커 짓는 SCV 잡고, 진입하려는 마린도 잡습니다!',
+              owner: LogOwner.away,
+              homeArmy: -2,
+              favorsStat: 'control',
+              altText: '{away} 선수 SCV 컨트롤이 미쳤는데요, 벙커 진입을 막습니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 작은 피해로 막아냅니다! 이렇게 막히면 자원차이가 크게 벌어집니다!',
+              owner: LogOwner.away,
+              awayArmy: 12,
+              homeResource: -100,
+              fixedCost: true,
+              altText: '{away} 선수 수비력이 빛난 순간입니다! {home} 선수는 이후에 자원차이로 쏟아질 병력이 감당안될텐데요!',
+            ),
+          ],
+        ),
+      ],
+    ),
+
+    ScriptPhase(
+      name: 'finisher',
+      startLine: 17,
+      recoveryResourcePerLine: 0,
+      recoveryArmyPerLine: 0,
+      branches: [
+        ScriptBranch(
+          id: 'finisher_home',
+          description: 'BBS 측 마무리',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{home} 선수 초반 전략이 통했습니다! {away} 선수 마우스를 놓습니다.',
+              owner: LogOwner.home,
               decisive: true,
-              altText: '{away} 선수 더블 자원 가동! 물량 차이로 밀어냅니다!',
+              altText: '{home} 선수 마무리! 경기 종료입니다!',
+            ),
+          ],
+        ),
+        ScriptBranch(
+          id: 'finisher_away',
+          description: '수비 측 마무리',
+          baseProbability: 1.0,
+          events: [
+            ScriptEvent(
+              text: '{away} 선수 수비력이 돋보이는 경기입니다! {home} 선수 키보드에서 손을 뗍니다.',
+              owner: LogOwner.away,
+              decisive: true,
+              altText: '{away} 선수 마무리! 경기 종료입니다!',
             ),
           ],
         ),

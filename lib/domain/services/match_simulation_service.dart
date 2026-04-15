@@ -1276,15 +1276,6 @@ class MatchSimulationService {
     final winner = isHomeWinner ? homePlayer : awayPlayer;
     final loser = isHomeWinner ? awayPlayer : homePlayer;
 
-    final finishingBlow = _getFinishingBlow(
-      winner: winner,
-      loser: loser,
-      state: state,
-      lineCount: lineCount,
-    );
-
-    final effectiveFinishingBlow = finishingBlow;
-
     // 최종 목표값 계산
     final loserFinalArmy = _random.nextInt(4); // 0~3
     final loserFinalResource = _random.nextInt(50); // 0~49
@@ -1310,14 +1301,12 @@ class MatchSimulationService {
     int homeR(double t) => isHomeWinner ? wRes(t) : lRes(t);
     int awayR(double t) => isHomeWinner ? lRes(t) : wRes(t);
 
-    // 1. 결정타 (60% 진행)
+    // 1. 병력/자원 보간 (결정타 텍스트 제거됨, 시나리오 decisive 이벤트로 충분)
     state = state.copyWith(
       homeArmy: homeA(0.6),
       awayArmy: awayA(0.6),
       homeResources: homeR(0.6),
       awayResources: awayR(0.6),
-      battleLogEntries: [...state.battleLogEntries,
-        BattleLogEntry(text: effectiveFinishingBlow, owner: isHomeWinner ? LogOwner.home : LogOwner.away)],
     );
     yield state;
     await Future.delayed(Duration(milliseconds: getIntervalMs()));
@@ -4074,6 +4063,34 @@ class MatchSimulationService {
       candidates = buildMatched.isNotEmpty ? buildMatched : noCondition;
     }
 
+    // 1-2단계: 분기 체인 조건(conditionPriorBranchIds) 필터링
+    final priorIds = state?.selectedBranchIds ?? const <String>[];
+    final hasChainCondition = candidates.any((b) =>
+      b.conditionPriorBranchIds != null && b.conditionPriorBranchIds!.isNotEmpty);
+    if (hasChainCondition) {
+      final chainMatched = <ScriptBranch>[];
+      final noChainCond = <ScriptBranch>[];
+      for (final branch in candidates) {
+        final cond = branch.conditionPriorBranchIds;
+        if (cond == null || cond.isEmpty) {
+          noChainCond.add(branch);
+          continue;
+        }
+        if (cond.every(priorIds.contains)) {
+          chainMatched.add(branch);
+        }
+      }
+      // 체인 조건을 충족한 분기가 있으면 그것 + 조건 없는 분기로 후보 구성
+      // 없으면 조건 없는 분기만 사용 (체인 실패한 분기는 제외)
+      candidates = chainMatched.isNotEmpty
+          ? [...chainMatched, ...noChainCond]
+          : noChainCond;
+      if (candidates.isEmpty) {
+        // 모두 제외되었으면 원본으로 복귀 (안전장치)
+        candidates = branches.toList();
+      }
+    }
+
     // 2단계: conditionStat 조건 처리
     // 기존 이진 필터(높은 쪽만 eligible)는 능력치가 조금만 차이나도 100% 쏠림 발생.
     // 변경: conditionStat가 있는 분기는 항상 eligible 유지하되, 능력치 차이를 baseProbability에
@@ -4412,10 +4429,6 @@ class MatchSimulationService {
       if (result != null) {
         final winner = result ? homePlayer : awayPlayer;
         final loser = result ? awayPlayer : homePlayer;
-        final finishingBlow = _getFinishingBlow(
-          winner: winner, loser: loser, state: state, lineCount: lineCount,
-        );
-
         // 패배자 병력/자원 소진 + 승리자 전투 비용 반영
         final fbLoserArmy = _random.nextInt(10);
         final fbLoserResource = _random.nextInt(30);
@@ -4441,7 +4454,6 @@ class MatchSimulationService {
           homeWin: result,
           battleLogEntries: [
             ...state.battleLogEntries,
-            BattleLogEntry(text: finishingBlow, owner: result ? LogOwner.home : LogOwner.away),
             BattleLogEntry(text: '${loser.name} 선수, GG를 선언합니다.', owner: result ? LogOwner.away : LogOwner.home),
             BattleLogEntry(text: '${winner.name} 선수 승리!', owner: LogOwner.system),
           ],
@@ -4456,10 +4468,6 @@ class MatchSimulationService {
       final homeWin = _random.nextDouble() < winRate;
       final winner = homeWin ? homePlayer : awayPlayer;
       final loser = homeWin ? awayPlayer : homePlayer;
-      final finishingBlow = _getFinishingBlow(
-        winner: winner, loser: loser, state: state, lineCount: lineCount,
-      );
-
       // 패배자 병력/자원 소진 + 승리자 전투 비용 반영
       final fbLoserArmy2 = _random.nextInt(10);
       final fbLoserResource2 = _random.nextInt(30);
@@ -4485,7 +4493,6 @@ class MatchSimulationService {
         homeWin: homeWin,
         battleLogEntries: [
           ...state.battleLogEntries,
-          BattleLogEntry(text: finishingBlow, owner: homeWin ? LogOwner.home : LogOwner.away),
           BattleLogEntry(text: '${loser.name} 선수, GG를 선언합니다.', owner: homeWin ? LogOwner.away : LogOwner.home),
           BattleLogEntry(text: '${winner.name} 선수 승리!', owner: LogOwner.system),
         ],

@@ -150,7 +150,7 @@ const _zvpYabarwiVs2starCorsair = ScenarioScript(
               awayResource: -10,
             ),
             ScriptEvent(
-              text: '지상 기만 전술 성공! 커세어만으로는 야바위를 막을 수 없었습니다! GG!',
+              text: '지상 기만 전술 성공! 커세어만으로는 야바위를 막을 수 없었습니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -183,7 +183,7 @@ const _zvpYabarwiVs2starCorsair = ScenarioScript(
               homeResource: -10,
             ),
             ScriptEvent(
-              text: '커세어의 오버로드 사냥이 결정적! 야바위가 통하지 않았습니다! GG!',
+              text: '커세어의 오버로드 사냥이 결정적! 야바위가 통하지 않았습니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

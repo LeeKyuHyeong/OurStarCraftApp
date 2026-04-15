@@ -149,7 +149,7 @@ const _zvpYabarwiVsCorsair = ScenarioScript(
               awayResource: -10,
             ),
             ScriptEvent(
-              text: '커세어의 정찰을 속였습니다! 야바위 전술 대성공! GG!',
+              text: '커세어의 정찰을 속였습니다! 야바위 전술 대성공!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -181,7 +181,7 @@ const _zvpYabarwiVsCorsair = ScenarioScript(
               homeResource: -15,
             ),
             ScriptEvent(
-              text: '커세어의 정찰이 야바위를 간파합니다! 프로토스 역습! GG!',
+              text: '커세어의 정찰이 야바위를 간파합니다! 프로토스 역습!',
               owner: LogOwner.away,
               decisive: true,
             ),

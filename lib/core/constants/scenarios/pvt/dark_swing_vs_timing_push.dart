@@ -149,7 +149,7 @@ const _pvtDarkSwingVsTimingPush = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{home} 선수 드라군 편대로 밀어냅니다! 테란이 GG!',
+              text: '{home} 선수 드라군 편대로 밀어냅니다! 테란이',
               owner: LogOwner.home,
               homeArmy: 20,
               awayArmy: -15,
@@ -192,7 +192,7 @@ const _pvtDarkSwingVsTimingPush = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{away} 선수 마린 탱크 푸시! 프로토스가 GG!',
+              text: '{away} 선수 마린 탱크 푸시! 프로토스가',
               owner: LogOwner.away,
               awayArmy: 20,
               homeArmy: -15,

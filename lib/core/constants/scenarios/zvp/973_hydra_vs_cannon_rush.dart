@@ -146,7 +146,7 @@ const _zvp973HydraVsCannonRush = ScenarioScript(
               awayResource: -15,
             ),
             ScriptEvent(
-              text: '히드라의 사거리 승리! 캐논 러시를 완벽하게 격파했습니다! GG!',
+              text: '히드라의 사거리 승리! 캐논 러시를 완벽하게 격파했습니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -179,7 +179,7 @@ const _zvp973HydraVsCannonRush = ScenarioScript(
               favorsStat: 'control',
             ),
             ScriptEvent(
-              text: '캐논이 해처리를 먼저 밀었습니다! 프로토스 승리! GG!',
+              text: '캐논이 해처리를 먼저 밀었습니다! 프로토스 승리!',
               owner: LogOwner.away,
               decisive: true,
             ),

@@ -151,7 +151,7 @@ const _zvp973HydraVs2starCorsair = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '히드라 타이밍 성공! 커세어로는 지상을 막을 수 없었습니다! GG!',
+              text: '히드라 타이밍 성공! 커세어로는 지상을 막을 수 없었습니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -184,7 +184,7 @@ const _zvp973HydraVs2starCorsair = ScenarioScript(
               homeResource: -15,
             ),
             ScriptEvent(
-              text: '히드라 타이밍 실패! 커세어의 공중 장악이 승리를 가져옵니다! GG!',
+              text: '히드라 타이밍 실패! 커세어의 공중 장악이 승리를 가져옵니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

@@ -232,6 +232,10 @@ void main() {
               : '어웨이(${config.awayPlayer.name})';
           buf.writeln('---');
           buf.writeln('## Game $game | $winner 승 | 병력: ${state.homeArmy} vs ${state.awayArmy}');
+          if (state.selectedBranchIds.isNotEmpty) {
+            buf.writeln();
+            buf.writeln('**분기 체인**: ${state.selectedBranchIds.join(" → ")}');
+          }
           buf.writeln();
           buf.writeln('```');
           for (int i = 0; i < state.battleLogEntries.length; i++) {

@@ -151,7 +151,7 @@ const _pvtReaverPushVsTankDefense = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '리버 견제로 자원이 말라버렸습니다! 시즈 라인이 무너지며 GG!',
+              text: '리버 견제로 자원이 말라버렸습니다! 시즈 라인이 무너지며',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -183,7 +183,7 @@ const _pvtReaverPushVsTankDefense = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '시즈탱크 라인이 프로토스를 밀어냅니다! GG!',
+              text: '시즈탱크 라인이 프로토스를 밀어냅니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

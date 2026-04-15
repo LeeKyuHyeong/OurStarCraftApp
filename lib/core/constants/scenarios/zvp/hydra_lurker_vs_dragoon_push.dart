@@ -153,7 +153,7 @@ const _zvpHydraLurkerVsDragoonPush = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '럴커 스파이크 데미지! 옵저버 없이는 답이 없습니다! GG!',
+              text: '럴커 스파이크 데미지! 옵저버 없이는 답이 없습니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -185,7 +185,7 @@ const _zvpHydraLurkerVsDragoonPush = ScenarioScript(
               homeResource: -15,
             ),
             ScriptEvent(
-              text: '옵저버 감지 성공! 드라군이 럴커를 모두 처리합니다! GG!',
+              text: '옵저버 감지 성공! 드라군이 럴커를 모두 처리합니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

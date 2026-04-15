@@ -152,7 +152,7 @@ const _zvpHydraLurkerVs2starCorsair = ScenarioScript(
               awayResource: -15,
             ),
             ScriptEvent(
-              text: '히드라 대공 + 럴커 지상 장악! 커세어만으로는 답이 없습니다! GG!',
+              text: '히드라 대공 + 럴커 지상 장악! 커세어만으로는 답이 없습니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -186,7 +186,7 @@ const _zvpHydraLurkerVs2starCorsair = ScenarioScript(
               homeResource: -15,
             ),
             ScriptEvent(
-              text: '커세어 제공권 장악! 오버로드 전멸로 저그가 무너집니다! GG!',
+              text: '커세어 제공권 장악! 오버로드 전멸로 저그가 무너집니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

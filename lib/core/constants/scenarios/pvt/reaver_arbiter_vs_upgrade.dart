@@ -149,7 +149,7 @@ const _pvtReaverArbiterVsUpgrade = ScenarioScript(
               awayArmy: -3,
             ),
             ScriptEvent(
-              text: '스톰과 리콜의 콤보! 업그레이드가 소용없었습니다! GG!',
+              text: '스톰과 리콜의 콤보! 업그레이드가 소용없었습니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -183,7 +183,7 @@ const _pvtReaverArbiterVsUpgrade = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '업그레이드 물량에 테크가 밀립니다! GG!',
+              text: '업그레이드 물량에 테크가 밀립니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

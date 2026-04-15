@@ -155,7 +155,7 @@ const _zvpMukerjiVsArchon = ScenarioScript(
               awayArmy: -3,
             ),
             ScriptEvent(
-              text: '뮤탈과 크래클링의 속도전! 프로토스 병력이 무너집니다! GG!',
+              text: '뮤탈과 크래클링의 속도전! 프로토스 병력이 무너집니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -187,7 +187,7 @@ const _zvpMukerjiVsArchon = ScenarioScript(
               homeResource: -15,
             ),
             ScriptEvent(
-              text: '아콘과 사이오닉 스톰, 한방 병력의 위력! 저그가 무너집니다! GG!',
+              text: '아콘과 사이오닉 스톰, 한방 병력의 위력! 저그가 무너집니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

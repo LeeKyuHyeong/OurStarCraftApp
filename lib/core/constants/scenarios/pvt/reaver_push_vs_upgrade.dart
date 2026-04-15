@@ -146,7 +146,7 @@ const _pvtReaverPushVsUpgrade = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '자원이 말라버린 테란! 업그레이드가 무색합니다! GG!',
+              text: '자원이 말라버린 테란! 업그레이드가 무색합니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -178,7 +178,7 @@ const _pvtReaverPushVsUpgrade = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '업그레이드 차이가 압도적입니다! 프로토스가 무너집니다! GG!',
+              text: '업그레이드 차이가 압도적입니다! 프로토스가 무너집니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

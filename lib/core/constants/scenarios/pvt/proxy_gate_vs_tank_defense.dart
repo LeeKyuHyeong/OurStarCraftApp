@@ -158,7 +158,7 @@ const _pvtProxyGateVsTankDefense = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{home} 선수 질럿이 커맨드센터까지 도달! 테란이 GG!',
+              text: '{home} 선수 질럿이 커맨드센터까지 도달! 테란이',
               owner: LogOwner.home,
               homeArmy: 20,
               awayArmy: -15,
@@ -203,7 +203,7 @@ const _pvtProxyGateVsTankDefense = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{away} 선수 탱크를 앞세워 전진! 프로토스가 GG!',
+              text: '{away} 선수 탱크를 앞세워 전진! 프로토스가',
               owner: LogOwner.away,
               awayArmy: 20,
               homeArmy: -15,

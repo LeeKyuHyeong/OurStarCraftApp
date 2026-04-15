@@ -195,7 +195,7 @@ const _pvtProxyGateVsUpgrade = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{away} 선수 업그레이드 화력으로 밀어냅니다! 프로토스가 GG!',
+              text: '{away} 선수 업그레이드 화력으로 밀어냅니다! 프로토스가',
               owner: LogOwner.away,
               awayArmy: 20,
               homeArmy: -15,

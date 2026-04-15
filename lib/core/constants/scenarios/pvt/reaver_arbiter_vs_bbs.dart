@@ -155,7 +155,7 @@ const _pvtReaverArbiterVsBbs = ScenarioScript(
               favorsStat: 'strategy',
             ),
             ScriptEvent(
-              text: '풀테크 프로토스! 아비터 리콜에 테란이 무너집니다! GG!',
+              text: '풀테크 프로토스! 아비터 리콜에 테란이 무너집니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -187,7 +187,7 @@ const _pvtReaverArbiterVsBbs = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '마린 러시 후속 공격에 프로토스가 무너집니다! GG!',
+              text: '마린 러시 후속 공격에 프로토스가 무너집니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

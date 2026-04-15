@@ -145,7 +145,7 @@ const _pvtProxyGateVsTimingPush = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{home} 선수 질럿이 건물까지 파괴합니다! 테란이 GG!',
+              text: '{home} 선수 질럿이 건물까지 파괴합니다! 테란이',
               owner: LogOwner.home,
               homeArmy: 20,
               awayArmy: -15,
@@ -185,7 +185,7 @@ const _pvtProxyGateVsTimingPush = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{away} 선수 탱크 시즈! 프로토스가 GG!',
+              text: '{away} 선수 탱크 시즈! 프로토스가',
               owner: LogOwner.away,
               awayArmy: 20,
               homeArmy: -15,

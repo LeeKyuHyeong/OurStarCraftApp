@@ -149,7 +149,7 @@ const _zvpHydraLurkerVsArchon = ScenarioScript(
               awayArmy: -2,
             ),
             ScriptEvent(
-              text: '럴커 매몰이 아콘 조합을 완벽히 상대합니다! GG!',
+              text: '럴커 매몰이 아콘 조합을 완벽히 상대합니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -182,7 +182,7 @@ const _zvpHydraLurkerVsArchon = ScenarioScript(
               homeResource: -15,
             ),
             ScriptEvent(
-              text: '스톰 + 아콘 스플래시! 히드라 럴커를 완전히 녹여버렸습니다! GG!',
+              text: '스톰 + 아콘 스플래시! 히드라 럴커를 완전히 녹여버렸습니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

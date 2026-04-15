@@ -157,7 +157,7 @@ const _zvp973HydraVsCorsair = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '히드라 타이밍 성공! 프로토스 전력이 완성되기 전에 끝냈습니다! GG!',
+              text: '히드라 타이밍 성공! 프로토스 전력이 완성되기 전에 끝냈습니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -190,7 +190,7 @@ const _zvp973HydraVsCorsair = ScenarioScript(
               homeResource: -15,
             ),
             ScriptEvent(
-              text: '타이밍 어택 실패! 커세어와 지상군이 완성됩니다! GG!',
+              text: '타이밍 어택 실패! 커세어와 지상군이 완성됩니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

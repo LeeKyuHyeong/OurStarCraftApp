@@ -152,7 +152,7 @@ const _zvpYabarwiVsArchon = ScenarioScript(
               awayResource: -10,
             ),
             ScriptEvent(
-              text: '야바위의 다면 공격이 아콘과 스톰을 분산시킵니다! GG!',
+              text: '야바위의 다면 공격이 아콘과 스톰을 분산시킵니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -184,7 +184,7 @@ const _zvpYabarwiVsArchon = ScenarioScript(
               homeResource: -15,
             ),
             ScriptEvent(
-              text: '아콘과 스톰의 범위 공격! 야바위가 통하지 않았습니다! GG!',
+              text: '아콘과 스톰의 범위 공격! 야바위가 통하지 않았습니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

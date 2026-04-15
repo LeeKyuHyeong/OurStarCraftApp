@@ -159,12 +159,12 @@ const _pvtProxyGateVsBbs = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{home} 선수 질럿이 커맨드센터를 파괴합니다! GG!',
+              text: '{home} 선수 질럿이 커맨드센터를 파괴합니다!',
               owner: LogOwner.home,
               homeArmy: 20,
               awayArmy: -15,
               decisive: true,
-              altText: '{home}, 질럿 러시 대성공! 테란이 GG!',
+              altText: '{home}, 질럿 러시 대성공! 테란이',
             ),
           ],
         ),
@@ -199,7 +199,7 @@ const _pvtProxyGateVsBbs = ScenarioScript(
               owner: LogOwner.system,
             ),
             ScriptEvent(
-              text: '{away} 선수 넥서스를 파괴! 프로토스가 GG!',
+              text: '{away} 선수 넥서스를 파괴! 프로토스가',
               owner: LogOwner.away,
               awayArmy: 20,
               homeArmy: -15,

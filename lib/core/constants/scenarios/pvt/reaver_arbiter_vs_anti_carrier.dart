@@ -151,7 +151,7 @@ const _pvtReaverArbiterVsAntiCarrier = ScenarioScript(
               awayArmy: -2,
             ),
             ScriptEvent(
-              text: '스테이시스와 리콜 콤보! 골리앗이 손도 못 씁니다! GG!',
+              text: '스테이시스와 리콜 콤보! 골리앗이 손도 못 씁니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -183,7 +183,7 @@ const _pvtReaverArbiterVsAntiCarrier = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '대공 빌드가 아비터를 완벽히 막았습니다! GG!',
+              text: '대공 빌드가 아비터를 완벽히 막았습니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

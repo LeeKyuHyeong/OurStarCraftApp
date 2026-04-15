@@ -3,10 +3,10 @@
 | 항목 | 값 |
 |------|-----|
 | 총 경기 | 1000 |
-| 홈 승률 | 49.4% (494승) |
-| 어웨이 승률 | 50.6% (506승) |
+| 홈 승률 | 48.5% (485승) |
+| 어웨이 승률 | 51.5% (515승) |
 | 평균 로그 길이 | 37.1줄 |
-| 평균 최종 병력 | 홈 25.6 / 어웨이 26.4 |
+| 평균 최종 병력 | 홈 25.3 / 어웨이 26.9 |
 | 고유 로그 수 | 1000 / 1000 |
 
 ## 종료 시점 분포
@@ -19,18 +19,18 @@
 
 ## 분기 분포
 
-| 분기 ID | 발동 | 비율 |
-|---------|------|------|
-| away_wins_decisive | 506 | 50.6% |
-| home_wins_decisive | 494 | 49.4% |
-| away_multi_drop | 228 | 22.8% |
-| both_drop_damage | 225 | 22.5% |
-| home_multi_drop | 214 | 21.4% |
-| away_drop_attack | 207 | 20.7% |
-| home_drop_success | 178 | 17.8% |
-| home_drop_attack | 178 | 17.8% |
-| away_drop_success | 168 | 16.8% |
-| frontal_siege | 166 | 16.6% |
-| home_drop_away_wraith | 162 | 16.2% |
-| both_drop_defended | 154 | 15.4% |
-| away_drop_home_wraith | 113 | 11.3% |
+| 분기 ID | 분기 설명 | 발동 | 비율 |
+|---------|----------|------|------|
+| away_wins_decisive |  | 515 | 51.5% |
+| home_wins_decisive |  | 485 | 48.5% |
+| home_multi_drop |  | 234 | 23.4% |
+| away_multi_drop |  | 221 | 22.1% |
+| away_drop_attack |  | 211 | 21.1% |
+| both_drop_damage |  | 200 | 20.0% |
+| home_drop_success |  | 171 | 17.1% |
+| away_drop_success |  | 167 | 16.7% |
+| frontal_siege |  | 164 | 16.4% |
+| home_drop_attack |  | 160 | 16.0% |
+| away_drop_home_wraith |  | 155 | 15.5% |
+| home_drop_away_wraith |  | 154 | 15.4% |
+| both_drop_defended |  | 153 | 15.3% |

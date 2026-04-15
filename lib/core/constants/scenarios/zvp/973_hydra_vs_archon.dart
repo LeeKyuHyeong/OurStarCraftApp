@@ -154,7 +154,7 @@ const _zvp973HydraVsArchon = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '스톰 전에 끝냈습니다! 히드라 타이밍의 승리! GG!',
+              text: '스톰 전에 끝냈습니다! 히드라 타이밍의 승리!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -187,7 +187,7 @@ const _zvp973HydraVsArchon = ScenarioScript(
               homeResource: -20,
             ),
             ScriptEvent(
-              text: '스톰의 위력! 히드라 뭉치가 한 방에 사라졌습니다! GG!',
+              text: '스톰의 위력! 히드라 뭉치가 한 방에 사라졌습니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

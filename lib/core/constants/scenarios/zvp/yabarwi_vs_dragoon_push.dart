@@ -153,7 +153,7 @@ const _zvpYabarwiVsDragoonPush = ScenarioScript(
               awayResource: -10,
             ),
             ScriptEvent(
-              text: '야바위 전술 대성공! 드라군 푸시가 분산되어 무너집니다! GG!',
+              text: '야바위 전술 대성공! 드라군 푸시가 분산되어 무너집니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -186,7 +186,7 @@ const _zvpYabarwiVsDragoonPush = ScenarioScript(
               homeResource: -10,
             ),
             ScriptEvent(
-              text: '드라군의 정면 돌파! 야바위가 통하지 않았습니다! GG!',
+              text: '드라군의 정면 돌파! 야바위가 통하지 않았습니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

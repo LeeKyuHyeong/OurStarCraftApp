@@ -152,7 +152,7 @@ const _zvpMukerjiVsForgeExpand = ScenarioScript(
               awayResource: -15,
             ),
             ScriptEvent(
-              text: '뮤커지의 다면 견제가 포지 확장을 무너뜨립니다! GG!',
+              text: '뮤커지의 다면 견제가 포지 확장을 무너뜨립니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -185,7 +185,7 @@ const _zvpMukerjiVsForgeExpand = ScenarioScript(
               homeResource: -15,
             ),
             ScriptEvent(
-              text: '캐논 라인 수비 성공! 프로토스 반격이 저그를 무너뜨립니다! GG!',
+              text: '캐논 라인 수비 성공! 프로토스 반격이 저그를 무너뜨립니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

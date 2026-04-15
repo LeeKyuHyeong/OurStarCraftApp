@@ -154,7 +154,7 @@ const _zvp973HydraVsDragoonPush = ScenarioScript(
               awayResource: -15,
             ),
             ScriptEvent(
-              text: '히드라의 물량과 저글링 서라운드! 드라군을 압도합니다! GG!',
+              text: '히드라의 물량과 저글링 서라운드! 드라군을 압도합니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -187,7 +187,7 @@ const _zvp973HydraVsDragoonPush = ScenarioScript(
               homeResource: -15,
             ),
             ScriptEvent(
-              text: '드라군 화력의 승리! 히드라를 정면에서 격파합니다! GG!',
+              text: '드라군 화력의 승리! 히드라를 정면에서 격파합니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

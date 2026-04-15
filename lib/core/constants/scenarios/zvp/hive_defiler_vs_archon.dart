@@ -149,7 +149,7 @@ const _zvpHiveDefilerVsArchon = ScenarioScript(
               awayResource: -20,
             ),
             ScriptEvent(
-              text: '다크 스웜이 아콘을 완벽 봉쇄! 울트라가 짓밟습니다! GG!',
+              text: '다크 스웜이 아콘을 완벽 봉쇄! 울트라가 짓밟습니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -182,7 +182,7 @@ const _zvpHiveDefilerVsArchon = ScenarioScript(
               homeResource: -20,
             ),
             ScriptEvent(
-              text: '아콘의 화력 앞에 저그가 무너집니다! GG!',
+              text: '아콘의 화력 앞에 저그가 무너집니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

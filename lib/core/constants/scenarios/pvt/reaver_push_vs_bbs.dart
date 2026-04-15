@@ -157,7 +157,7 @@ const _pvtReaverPushVsBbs = ScenarioScript(
               favorsStat: 'control',
             ),
             ScriptEvent(
-              text: '리버 견제가 완벽했습니다! 초반 올인의 후유증까지 겹쳐 GG!',
+              text: '리버 견제가 완벽했습니다! 초반 올인의 후유증까지 겹쳐',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -190,7 +190,7 @@ const _pvtReaverPushVsBbs = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '마린 물량에 프로토스가 무너집니다! GG!',
+              text: '마린 물량에 프로토스가 무너집니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

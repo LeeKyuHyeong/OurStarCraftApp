@@ -149,7 +149,7 @@ const _zvpHiveDefilerVsCannonRush = ScenarioScript(
               awayResource: -10,
             ),
             ScriptEvent(
-              text: '캐논 러시 실패! 하이브 디파일러가 경기를 지배합니다! GG!',
+              text: '캐논 러시 실패! 하이브 디파일러가 경기를 지배합니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -182,7 +182,7 @@ const _zvpHiveDefilerVsCannonRush = ScenarioScript(
               favorsStat: 'control',
             ),
             ScriptEvent(
-              text: '캐논 러시 성공! 저그가 무너졌습니다! GG!',
+              text: '캐논 러시 성공! 저그가 무너졌습니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

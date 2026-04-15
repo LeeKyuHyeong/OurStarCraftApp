@@ -155,7 +155,7 @@ const _zvp973HydraVsForgeExpand = ScenarioScript(
               awayResource: -20,
             ),
             ScriptEvent(
-              text: '히드라 타이밍으로 포지 확장을 박살냈습니다! GG!',
+              text: '히드라 타이밍으로 포지 확장을 박살냈습니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -188,7 +188,7 @@ const _zvp973HydraVsForgeExpand = ScenarioScript(
               homeResource: -20,
             ),
             ScriptEvent(
-              text: '포지 확장의 수비 성공! 히드라 타이밍을 막아냈습니다! GG!',
+              text: '포지 확장의 수비 성공! 히드라 타이밍을 막아냈습니다!',
               owner: LogOwner.away,
               decisive: true,
             ),

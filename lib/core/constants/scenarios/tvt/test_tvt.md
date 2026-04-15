@@ -36,12 +36,12 @@
 
 | # | 파일명 | Home | Away | 보정 |
 |---|--------|------|------|:----:|
-| 9 | bbs_vs_1bar_double | tvt_bbs | tvt_1bar_double | X |
-| 10 | bbs_vs_1fac_double | tvt_bbs | tvt_1fac_double | X |
-| 11 | bbs_vs_1fac_1star | tvt_bbs | tvt_1fac_1star | X |
-| 12 | bbs_vs_2fac_push | tvt_bbs | tvt_2fac_push | X |
-| 13 | bbs_vs_2star | tvt_bbs | tvt_2star | X |
-| 14 | bbs_vs_nobar_double | tvt_bbs | tvt_nobar_double | X |
+| 9 | bbs_vs_1bar_double | tvt_bbs | tvt_1bar_double | Y |
+| 10 | bbs_vs_1fac_double | tvt_bbs | tvt_1fac_double | Y |
+| 11 | bbs_vs_1fac_1star | tvt_bbs | tvt_1fac_1star | Y |
+| 12 | bbs_vs_2fac_push | tvt_bbs | tvt_2fac_push | Y |
+| 13 | bbs_vs_2star | tvt_bbs | tvt_2star | Y |
+| 14 | bbs_vs_nobar_double | tvt_bbs | tvt_nobar_double | Y |
 
 ### 원팩원스타 크로스 (5개)
 

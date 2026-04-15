@@ -150,7 +150,7 @@ const _zvpHiveDefilerVs2starCorsair = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '디파일러의 활약! 커세어가 무력화되고 저그가 밀어냅니다! GG!',
+              text: '디파일러의 활약! 커세어가 무력화되고 저그가 밀어냅니다!',
               owner: LogOwner.home,
               decisive: true,
             ),
@@ -183,7 +183,7 @@ const _zvpHiveDefilerVs2starCorsair = ScenarioScript(
               homeResource: -20,
             ),
             ScriptEvent(
-              text: '커세어의 시야 장악! 프로토스가 경기를 가져갑니다! GG!',
+              text: '커세어의 시야 장악! 프로토스가 경기를 가져갑니다!',
               owner: LogOwner.away,
               decisive: true,
             ),
