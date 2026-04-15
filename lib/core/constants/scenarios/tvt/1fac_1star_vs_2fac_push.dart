@@ -229,13 +229,13 @@ const _tvt1fac1starVs2facPush = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home} 선수 스타포트에서 드랍쉽 생산, 본진에는 추가 탱크/벌처도 꾸준히 쌓습니다.',
+              text: '{home} 선수 스타포트에서 드랍쉽 생산, 견제 병력이 빠진 만큼 수비가 중요합니다.',
               owner: LogOwner.home,
               homeArmy: 8,
               homeResource: -700, // 드랍쉽 200 + 탱크 + 벌처 추가
               fixedCost: true,
               favorsStat: 'harass',
-              altText: '{home} 선수 드랍쉽 + 본진 병력 누적. 기동전으로 끌고 갑니다.',
+              altText: '{home} 선수 드랍쉽 생산. 기동전으로 끌고 가려고 합니다.',
             ),
             ScriptEvent(
               text: '{home} 선수 드랍쉽이 나오자마자 4벌쳐를 태워서 상대방 본진으로 이동합니다.',

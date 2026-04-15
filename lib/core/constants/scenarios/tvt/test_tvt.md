@@ -46,12 +46,12 @@
 ### 원팩원스타 크로스 (5개)
 
 | # | 파일명 | Home | Away | 보정 |
-|---|--------|------|------|:----:|
-| 15 | 1fac_1star_vs_2fac_push | tvt_1fac_1star | tvt_2fac_push | X |
-| 16 | 1fac_1star_vs_2star | tvt_1fac_1star | tvt_2star | X |
-| 17 | 1fac_1star_vs_1bar_double | tvt_1fac_1star | tvt_1bar_double | X |
-| 18 | 1fac_1star_vs_1fac_double | tvt_1fac_1star | tvt_1fac_double | X |
-| 19 | 1fac_1star_vs_nobar_double | tvt_1fac_1star | tvt_nobar_double | X |
+|---|--------|------|------|:--:|
+| 15 | 1fac_1star_vs_2fac_push | tvt_1fac_1star | tvt_2fac_push | X  |
+| 16 | 1fac_1star_vs_2star | tvt_1fac_1star | tvt_2star | X  |
+| 17 | 1fac_1star_vs_1bar_double | tvt_1fac_1star | tvt_1bar_double | X  |
+| 18 | 1fac_1star_vs_1fac_double | tvt_1fac_1star | tvt_1fac_double | X  |
+| 19 | 1fac_1star_vs_nobar_double | tvt_1fac_1star | tvt_nobar_double | X  |
 
 ### 투팩 크로스 (4개)
 
