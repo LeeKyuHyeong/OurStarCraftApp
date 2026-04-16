@@ -6,6 +6,7 @@
 
 | # | 시나리오명 | Home 빌드 | Away 빌드 | 보정횟수 | 비고 | 완료 |
 |---|-----------|----------|----------|---------|------|:----:|
+
 | 1 | 2gate_open_vs_anti_carrier | pvt_2gate_open, pvt_2gate_zealot | tvp_trans_anti_carrier, tvp_anti_carrier | 0 | | X |
 | 2 | 2gate_open_vs_bbs | pvt_2gate_open, pvt_2gate_zealot | tvp_bbs | 0 | | X |
 | 3 | 2gate_open_vs_bio_mech | pvt_2gate_open, pvt_2gate_zealot | tvp_trans_bio_mech, tvp_bar_double | 0 | | X |
