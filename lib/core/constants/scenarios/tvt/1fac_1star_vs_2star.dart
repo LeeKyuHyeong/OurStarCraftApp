@@ -101,13 +101,13 @@ const _tvt1fac1starVs2star = ScenarioScript(
           altText: '{away} 선수 스타포트 완성 후 컨트롤타워 부착합니다.',
         ),
         ScriptEvent(
-          text: '{home} 선수 탱크 생산 시작, 스타포트에도 컨트롤타워를 부착합니다.',
+          text: '{home} 선수 팩토리 애드온 시작, 스타포트에도 컨트롤타워를 부착합니다.',
           owner: LogOwner.home,
           homeArmy: 2,
-          homeResource: -350, // 탱크 250 + 컨트롤타워 100
+          homeResource: -200, // 애드온 100 + 컨트롤타워 100
           fixedCost: true,
           favorsStat: 'strategy',
-          altText: '{home} 선수 탱크를 뽑으면서 컨트롤타워를 올립니다. 레이스일까요, 드랍쉽일까요? 지켜봅시다.',
+          altText: '{home} 선수 애드온을 붙이면서 컨트롤타워를 올립니다. 레이스일까요, 드랍쉽일까요? 지켜봅시다.',
         ),
         ScriptEvent(
           text: '{away} 선수 클로킹 연구 진행 중, 두 번째 스타포트에서도 레이스 생산합니다.',
@@ -225,7 +225,7 @@ const _tvt1fac1starVs2star = ScenarioScript(
               text: '{away} 선수 공중과 지상 동시 압박, 본진까지 밀어붙입니다. 드랍쉽 선택이 치명적이었습니다.',
               owner: LogOwner.away,
               decisive: true,
-              altText: '{away} 선수 레이스의 강점을 완벽히 살렸네요. 전략이 통했습니다.',
+              altText: '{away} 선수 레이스의 물량의 강점을 완벽히 살렸네요. 전략이 통했습니다!',
             ),
           ],
         ),
@@ -315,11 +315,18 @@ const _tvt1fac1starVs2star = ScenarioScript(
           conditionPriorBranchIds: ['home_picks_wraith'],
           events: [
             ScriptEvent(
-              text: '{home} 선수 상대 레이스를 확인하자마자 엔지니어링 베이, 아머리, 아카데미를 나눠서 올립니다.',
+              text: '{home} 선수 상대 레이스를 확인하자마자 엔지니어링 베이부터 올립니다.',
               owner: LogOwner.home,
-              homeResource: -400, // 엔베 125 + 아머리 150 + 아카데미 125
+              homeResource: -125, // 엔베
               fixedCost: true,
-              altText: '{home} 선수 대공 건물 분산 건설, {away} 선수는 최대한 건설을 방해하며 피해를 입혀야죠.',
+              altText: '{home} 선수 대공 대비, 엔지니어링 베이를 먼저 올립니다.',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 이어서 아카데미와 아머리까지 분산 배치합니다.',
+              owner: LogOwner.home,
+              homeResource: -275, // 아카데미 125 + 아머리 150
+              fixedCost: true,
+              altText: '{home} 선수 아카데미, 아머리도 동시에 분산 건설합니다.',
             ),
             ScriptEvent(
               text: '{away} 선수 레이스가 계속 합류하면서 건물 건설하는 {home} 선수의 SCV를 견제 계속합니다.',
@@ -518,7 +525,7 @@ const _tvt1fac1starVs2star = ScenarioScript(
               owner: LogOwner.home,
               homeResource: -900, // 팩토리 3
               fixedCost: true,
-              altText: '{away} 선수 팩토리 한번에 늘려줍니다. 시즈모드 업그레이드도 진행.',
+              altText: '{home} 선수 팩토리 한번에 늘려줍니다. 시즈모드 업그레이드도 진행.',
             ),
             ScriptEvent(
               text: '{away} 선수 팩토리 한번에 늘려주며 지상군 싸움을 예고합니다. 시즈모드 업그레이드도 진행합니다.',
@@ -587,7 +594,7 @@ const _tvt1fac1starVs2star = ScenarioScript(
               text: '{away} 선수 탱크와 골리앗으로 추가확장 앞 수비라인 형성하며 확장 진행합니다.',
               owner: LogOwner.away,
               awayResource: -475, // 커맨드 + 터렛
-              altText: '{home} 선수 추가확장을 진행하며 확장 앞에 탱크와 골리앗으로 라인 형성합니다.',
+              altText: '{away} 선수 추가확장을 진행하며 확장 앞에 탱크와 골리앗으로 라인 형성합니다.',
             ),
             ScriptEvent(
               text: '{home} 선수 시즈모드 업그레이드 진행하며 드랍쉽 모아줍니다.',
@@ -779,24 +786,47 @@ const _tvt1fac1starVs2star = ScenarioScript(
           conditionPriorBranchIds: ['mech_battle_continue'],
           events: [
 
+
+
+
             ScriptEvent(
-              text: '{home} 선수 골리앗이 레이스를 정리하면서 탱크 시즈 라인을 전진시킵니다.',
+              text: '{home} 선수 상대방 확장기지를 지상병력 전진과 드랍쉽 병력 투하로 견제 진행합니다!',
               owner: LogOwner.home,
-              awayArmy: -4,
-              favorsStat: 'strategy',
-              altText: '{home} 선수 지상 조합이 완성됩니다. 공중 위협이 사라지네요.',
-            ),
-            ScriptEvent(
-              text: '{away} 선수 레이스 투자 비용 대비 지상 병력이 얇습니다. 탱크 수에서 밀리네요.',
-              owner: LogOwner.away,
-              awayArmy: -4,
+              awayArmy: -12,
+              homeArmy: -4,
+              awayResource: -400,
               favorsStat: 'attack',
+              altText: '{away} 선수 상대방 커버 전 수비병력을 밀어내고 상대방 확장기지 한 곳을 점령합니다!',
             ),
             ScriptEvent(
-              text: '{home} 선수 드랍쉽 견제까지 붙이며 본진까지 밀어붙입니다. 지상 우위로 마무리.',
+              text: '{home} 선수 드랍쉽이 멀리 떨어져있습니다! 최대한 빨리 와서 커버하지만 한 끗 차이로 멀티가 파괴됩니다.',
               owner: LogOwner.home,
+              homeArmy: -12,
+              awayArmy: -4,
+              favorsStat: 'defense',
+              altText: '{home} 선수 드랍쉽이 공격을 가려다가 돌아와서 수비를 진행합니다. 하지만 피해가 이미 큽니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 상대방 확장기지 두 곳을 한 번에 타격 가능한 곳에 드랍쉽에서 내린 병력들이 자리잡습니다!',
+              owner: LogOwner.away,
+              homeArmy: -20,
+              awayArmy: -8,
+              homeResource: -800,
+              favorsStat: 'attack',
+              altText: '{away} 선수 병력을 밀어내기 까다로운 곳에 드랍이 절묘하게 성공합니다!',
+            ),
+            ScriptEvent(
+              text: '{home} 선수 드랍쉽과 지상 병력으로 주요 지점을 재 탈환하려하지만 시즈모드 포격에 지상군이 녹고 드랍쉽도 대부분 잃습니다!',
+              owner: LogOwner.home,
+              homeArmy: -4,
+              favorsStat: 'defense',
+              altText: '{home} 선수 상대방 병력 밀어내려 하다가 병력이 괴멸당합니다!',
+            ),
+            ScriptEvent(
+              text: '{away} 선수 상대방 병력 위치 확인과 절묘한 위치에 드랍의 승리네요.',
+              owner: LogOwner.away,
               decisive: true,
-              altText: '{home} 선수 테테전 승리. 공중 투자를 줄인 선택이 옳았네요.',
+              altText: '{away} 선수 한 발 빠른 병력 움직임의 승리입니다.',
             ),
           ],
         ),

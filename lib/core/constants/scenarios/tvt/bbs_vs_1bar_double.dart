@@ -79,7 +79,7 @@ const _tvtBbsVs1barDouble = ScenarioScript(
               altText: '{away} 선수 센터배럭을 의심했나요! SCV가 센터로 정찰을 갑니다.',
             ),
             ScriptEvent(
-              text: '{away} 선수 앞마당에 커맨드 센터를 건설합니다.',
+              text: '{away} 선수 앞마당에 커맨드센터를 건설합니다.',
               owner: LogOwner.away,
               awayArmy: 1,
               awayResource: -400,
@@ -148,7 +148,7 @@ const _tvtBbsVs1barDouble = ScenarioScript(
               awayArmy: 1,
               awayResource: -300,
               fixedCost: true,
-              altText: '{away} 선수 앞마당에 커맨드 센터 올립니다.',
+              altText: '{away} 선수 앞마당에 커맨드센터 올립니다.',
             ),
             ScriptEvent(
               text: '{away} 선수 SCV가 센터에서 배럭 두 기를 발견합니다! 본진 SCV 이끌고 수비해야죠!',
@@ -226,7 +226,7 @@ const _tvtBbsVs1barDouble = ScenarioScript(
               altText: '{away} 선수 마린 1기로 상대방 정찰 SCV를 몰아내려합니다.',
             ),
             ScriptEvent(
-              text: '{away} 선수 앞마당에 커맨드 센터를 건설합니다.',
+              text: '{away} 선수 앞마당에 커맨드센터를 건설합니다.',
               owner: LogOwner.away,
               awayArmy: 1,
               awayResource: -400,
@@ -291,7 +291,7 @@ const _tvtBbsVs1barDouble = ScenarioScript(
               altText: '{away} 선수 정찰 SCV로 상대 본진을 찾으려고 합니다.',
             ),
             ScriptEvent(
-              text: '{away} 선수 앞마당에 커맨드 센터를 건설합니다.',
+              text: '{away} 선수 앞마당에 커맨드센터를 건설합니다.',
               owner: LogOwner.away,
               awayArmy: 1,
               awayResource: -400,

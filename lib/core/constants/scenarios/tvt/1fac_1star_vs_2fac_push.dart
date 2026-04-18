@@ -78,11 +78,18 @@ const _tvt1fac1starVs2facPush = ScenarioScript(
       recoveryResourcePerLine: 150,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 팩토리 완성, 머신샵 부착하면서 스타포트도 건설합니다.',
+          text: '{home} 선수 팩토리 완성하면서 머신샵 부착합니다.',
           owner: LogOwner.home,
-          homeResource: -350, // 머신샵 100 + 스타포트 250
+          homeResource: -100, // 머신샵
           fixedCost: true,
-          altText: '{home} 선수 머신샵과 스타포트 동시에 올라갑니다.',
+          altText: '{home} 선수 팩토리 완성, 머신샵 바로 붙여줍니다.',
+        ),
+        ScriptEvent(
+          text: '{home} 선수 스타포트도 이어서 건설합니다.',
+          owner: LogOwner.home,
+          homeResource: -250, // 스타포트
+          fixedCost: true,
+          altText: '{home} 선수 스타포트 추가로 올립니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 첫 팩토리 완성, 머신샵 부착. 배럭은 띄워서 정찰용으로 돌립니다.',
@@ -367,7 +374,7 @@ const _tvt1fac1starVs2facPush = ScenarioScript(
               favorsStat: 'attack',
             ),
             ScriptEvent(
-              text: '{away} 선수 뒤늦게 레이스를 견제할 건물을 올리지만 이미 진출 병력이 무너진 뒤입니다.',
+              text: '{away} 선수 뒤늦게 아머리를 올리지만 이미 진출 병력이 무너진 뒤입니다.',
               owner: LogOwner.away,
               awayResource: -150,
               fixedCost: true,
