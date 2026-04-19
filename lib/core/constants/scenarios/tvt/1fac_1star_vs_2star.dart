@@ -786,9 +786,6 @@ const _tvt1fac1starVs2star = ScenarioScript(
           conditionPriorBranchIds: ['mech_battle_continue'],
           events: [
 
-
-
-
             ScriptEvent(
               text: '{home} 선수 상대방 확장기지를 지상병력 전진과 드랍쉽 병력 투하로 견제 진행합니다!',
               owner: LogOwner.home,
