@@ -206,7 +206,11 @@ team_data.dart                 # 팀 초기 데이터
 - `test/calibration_test.dart` - 전 종족전 보정 루프용 JSON 로그 내보내기 (`--name "ZvZ"` 필터링)
 - `test/single_test.dart` - 전 종족전 1경기 로그 확인 (`--name "ZvZ"` 필터링, 빌드 ID 변경하여 사용)
 - `test/season_full_test.dart` - 전 종족전 186경기 시즌 시뮬레이션 (시나리오 매칭 실패/크래시 검증)
-- `test/home_away_bias_test.dart` - 홈/어웨이 편향 검증 (6종족전 × 300경기 × 2방향, ±5%p 이내)
+- `test/home_away_bias_test.dart` - **종족전 전체** 홈/어웨이 편향 검증 (6종족전 × 1000경기 × 2방향, ±5%p 이내, 빌드 랜덤)
+  - 종족전 전체 보정 루프 마지막에 사용 (`--name "TvT"` 필터링)
+- `test/scenario_bias_test.dart` - **특정 빌드 조합** 반전 편향 검증 (1000경기 × 2방향, ±5%p 이내, 빌드 고정)
+  - 개별 시나리오 사전 루프에서 사용 (`--name "1fac_1star_vs_2star"` 필터링)
+  - scenarios 리스트에 검증 대상 추가 후 실행
 
 종족전별 특수 테스트 (test/{matchup}/ 폴더):
 - `test/{pvp,pvt,zvp,zvz}/scenarios_100games_test.dart` - 100경기 배치 + 수동 분기 추적
@@ -230,7 +234,7 @@ team_data.dart                 # 팀 초기 데이터
 > **시나리오 작성/보정 시 참조 파일** (작성 전 반드시 확인):
 > - `lib/core/constants/scenarios/docs/SCENARIO_RULES.md` — 양쪽 동시 비용 반영, 비용 체계, Recovery, 텍스트 규칙
 > - `lib/core/constants/scenarios/docs/build_timings.md` — 빌드별 표준 타이밍 (건물 착공/완성, 첫 유닛, line 매핑). **종족전 공용** — 등재된 빌드는 재조사 금지, 새 빌드 조사 시 즉시 등재
-> - `lib/core/constants/scenarios/{matchup}/test_{matchup}.md` — 해당 종족전의 빌드/시나리오 목록 + 보정 현황
+> - `lib/core/constants/scenarios/docs/calibration_status.md` — 전 종족전 보정 통합 현황 (빌드/시나리오 목록 + Y/X 상태)
 
 ### 시나리오 스크립트 구조
 

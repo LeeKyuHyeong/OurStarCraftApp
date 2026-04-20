@@ -11,7 +11,7 @@ import 'package:mystar/domain/services/match_simulation_service.dart';
 /// 사용법: SCENARIOS 리스트에 검증할 {matchup, homeBuild, awayBuild, races} 추가
 /// 실행: flutter test --name "1fac_1star_vs_2fac_push" test/scenario_bias_test.dart
 void main() {
-  const int gamesPerDirection = 300;
+  const int gamesPerDirection = 1000;
   const double maxBias = 5.0;
 
   Player makePlayer(String id, String name, int raceIndex) {
@@ -46,6 +46,13 @@ void main() {
       'awayRace': 0,
       'homeBuild': 'tvt_1fac_1star',
       'awayBuild': 'tvt_2star',
+    },
+    {
+      'label': '1fac_1star_vs_1bar_double',
+      'homeRace': 0,
+      'awayRace': 0,
+      'homeBuild': 'tvt_1fac_1star',
+      'awayBuild': 'tvt_1bar_double',
     },
   ];
 

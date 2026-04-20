@@ -8,7 +8,7 @@ import 'package:mystar/domain/services/match_simulation_service.dart';
 /// 동일 능력치 선수 → 정방향 N경기 + 역방향 N경기 → 승률 차이 ±5%p 이내
 /// ============================================================
 void main() {
-  const int gamesPerDirection = 300;
+  const int gamesPerDirection = 1000;
   const double maxBias = 5.0; // ±5%p
 
   // 종족별 동일 능력치 선수
