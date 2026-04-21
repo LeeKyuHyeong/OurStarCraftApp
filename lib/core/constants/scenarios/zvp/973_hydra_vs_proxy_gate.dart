@@ -22,7 +22,7 @@ const _zvp973HydraVsProxyGate = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 9드론에 스포닝풀! 빠르게 저글링을 뽑으려 합니다!',
+          altText: '{home} 선수, 9드론에 스포닝풀! 빠르게 저글링을 뽑으려 합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 파일런을 상대 본진 근처에 숨깁니다!',
@@ -39,7 +39,7 @@ const _zvp973HydraVsProxyGate = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 게이트웨이가 저그 앞에서 올라갑니다!',
+          altText: '{away} 선수, 게이트웨이가 저그 앞에서 올라갑니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링을 생산하며 정찰을 보냅니다.',
@@ -79,7 +79,7 @@ const _zvp973HydraVsProxyGate = ScenarioScript(
           awayResource: 0,
           homeArmy: 2,
           awayArmy: -2,
-          altText: '{home}, 저글링이 질럿을 감싸고 공격합니다!',
+          altText: '{home} 선수, 저글링이 질럿을 감싸고 공격합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 히드라덴을 건설합니다! 히드라리스크 타이밍 준비!',
@@ -120,7 +120,7 @@ const _zvp973HydraVsProxyGate = ScenarioScript(
           awayResource: 0,
           homeArmy: 5,
           homeResource: -20,
-          altText: '{home}, 히드라리스크가 쏟아져 나옵니다!',
+          altText: '{home} 선수, 히드라리스크가 쏟아져 나옵니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 본진에서 사이버네틱스 코어를 올리고 있습니다.',
@@ -165,7 +165,7 @@ const _zvp973HydraVsProxyGate = ScenarioScript(
               awayResource: 0,
               homeArmy: 4,
               awayArmy: -3,
-              altText: '{home}, 히드라리스크의 집중 사격! 캐논이 무너집니다!',
+              altText: '{home} 선수, 히드라리스크의 집중 사격! 캐논이 무너집니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 수비 병력이 부족합니다! 전진 게이트웨이에 자원을 너무 썼어요!',
@@ -206,7 +206,7 @@ const _zvp973HydraVsProxyGate = ScenarioScript(
               awayResource: 0,
               awayArmy: 3,
               homeArmy: -3,
-              altText: '{away}, 캐논 화력과 질럿이 히드라를 잡아냅니다!',
+              altText: '{away} 선수, 캐논 화력과 질럿이 히드라를 잡아냅니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 드라군을 합류시키며 반격을 준비합니다!',

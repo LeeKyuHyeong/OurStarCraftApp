@@ -22,7 +22,7 @@ const _pvt2gateOpenVsUpgrade = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 첫 게이트웨이 건설!',
+          altText: '{home} 선수, 첫 게이트웨이 건설!',
         ),
         ScriptEvent(
           text: '{away} 선수 배럭 건설 후 앞마당 커맨드센터를 올립니다!',
@@ -31,7 +31,7 @@ const _pvt2gateOpenVsUpgrade = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -30,
-          altText: '{away}, 빠른 앞마당! 업그레이드를 준비하는 운영형 빌드네요!',
+          altText: '{away} 선수, 빠른 앞마당! 업그레이드를 준비하는 운영형 빌드네요!',
         ),
         ScriptEvent(
           text: '{home} 선수 두 번째 게이트웨이를 올립니다! 질럿을 빠르게 모으겠네요!',
@@ -79,7 +79,7 @@ const _pvt2gateOpenVsUpgrade = ScenarioScript(
           homeResource: 0,
           homeArmy: 1,
           awayResource: -10,
-          altText: '{home}, 질럿 침투! 일꾼을 잡으러 갑니다!',
+          altText: '{home} 선수, 질럿 침투! 일꾼을 잡으러 갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린이 부족합니다! 벙커를 급하게 올립니다!',
@@ -96,7 +96,7 @@ const _pvt2gateOpenVsUpgrade = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{home}, 질럿이 라인을 휘젓습니다!',
+          altText: '{home} 선수, 질럿이 라인을 휘젓습니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 벙커에 마린을 넣어 질럿을 막습니다!',
@@ -129,7 +129,7 @@ const _pvt2gateOpenVsUpgrade = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 사이버네틱스 코어 건설! 드라군으로 전환합니다!',
+          altText: '{home} 선수, 사이버네틱스 코어 건설! 드라군으로 전환합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 1차 공격력 업그레이드 완료! 마린 화력이 달라집니다!',
@@ -154,7 +154,7 @@ const _pvt2gateOpenVsUpgrade = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -10,
-          altText: '{away}, 아카데미가 올라갑니다! 스팀팩이 나오면 무섭습니다!',
+          altText: '{away} 선수, 아카데미가 올라갑니다! 스팀팩이 나오면 무섭습니다!',
         ),
         ScriptEvent(
           text: '업그레이드가 완성되기 시작합니다! 시간이 갈수록 테란이 유리해지죠!',
@@ -182,7 +182,7 @@ const _pvt2gateOpenVsUpgrade = ScenarioScript(
               homeResource: 0,
               awayResource: 0,
               homeArmy: 4,
-              altText: '{home}, 드라군 대군! 지금이 타이밍입니다!',
+              altText: '{home} 선수, 드라군 대군! 지금이 타이밍입니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 아직 2차 업그레이드가 덜 됐습니다! 마린 화력이 부족합니다!',
@@ -231,7 +231,7 @@ const _pvt2gateOpenVsUpgrade = ScenarioScript(
               awayResource: 0,
               awayArmy: 4,
               homeArmy: -3,
-              altText: '{away}, 업그레이드 완료 마린! 화력이 다릅니다!',
+              altText: '{away} 선수, 업그레이드 완료 마린! 화력이 다릅니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 드라군이 녹습니다! 업그레이드 차이가 심합니다!',

@@ -30,7 +30,7 @@ const _pvt5gatePushVsBbs = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 센터 배럭! 올인 빌드입니다!',
+          altText: '{away} 선수, 센터 배럭! 올인 빌드입니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 사이버네틱스 코어를 올립니다! 드라군을 빠르게 준비하네요!',
@@ -39,7 +39,7 @@ const _pvt5gatePushVsBbs = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 사이버네틱스 코어 건설! 테크를 올립니다!',
+          altText: '{home} 선수, 사이버네틱스 코어 건설! 테크를 올립니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 본진에도 배럭을 올립니다! 배럭 두 개! 가스 없이 마린에 올인합니다!',
@@ -79,7 +79,7 @@ const _pvt5gatePushVsBbs = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: 0,
-          altText: '{away}, 벙커 건설 시도! 프로토스 입구를 봉쇄합니다!',
+          altText: '{away} 선수, 벙커 건설 시도! 프로토스 입구를 봉쇄합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 프로브와 질럿으로 벙커 건설을 방해합니다!',
@@ -96,7 +96,7 @@ const _pvt5gatePushVsBbs = ScenarioScript(
           awayResource: 0,
           homeArmy: 2,
           homeResource: -10,
-          altText: '{home}, 드라군 합류! 마린을 쏴냅니다!',
+          altText: '{home} 선수, 드라군 합류! 마린을 쏴냅니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린이 드라군에 녹습니다! 마린 러시가 통하지 않습니다!',
@@ -129,7 +129,7 @@ const _pvt5gatePushVsBbs = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -30,
-          altText: '{home}, 게이트웨이를 늘립니다! 다섯 개까지 올리겠네요!',
+          altText: '{home} 선수, 게이트웨이를 늘립니다! 다섯 개까지 올리겠네요!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린 러시가 실패한 후 팩토리를 짓습니다... 늦었습니다!',
@@ -146,7 +146,7 @@ const _pvt5gatePushVsBbs = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 아둔 건설! 질럿 다리 업그레이드를 준비합니다!',
+          altText: '{home} 선수, 아둔 건설! 질럿 다리 업그레이드를 준비합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 게이트웨이 다섯 개에서 드라군과 질럿이 쏟아집니다!',
@@ -182,7 +182,7 @@ const _pvt5gatePushVsBbs = ScenarioScript(
               awayResource: 0,
               homeArmy: 5,
               awayArmy: -3,
-              altText: '{home}, 엄청난 물량! 드라군 질럿이 밀려갑니다!',
+              altText: '{home} 선수, 엄청난 물량! 드라군 질럿이 밀려갑니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 탱크 1기로 버텨보지만 물량 차이가 너무 큽니다!',
@@ -231,7 +231,7 @@ const _pvt5gatePushVsBbs = ScenarioScript(
               awayResource: 0,
               awayArmy: 2,
               homeResource: -30,
-              altText: '{away}, 초반 마린 공격 피해가 심각합니다! 상대 일꾼이 많이 죽었습니다!',
+              altText: '{away} 선수, 초반 마린 공격 피해가 심각합니다! 상대 일꾼이 많이 죽었습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 게이트웨이를 올려도 자원이 없어 유닛을 뽑지 못합니다!',

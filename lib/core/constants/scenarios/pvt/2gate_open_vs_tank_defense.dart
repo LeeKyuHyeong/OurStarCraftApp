@@ -30,7 +30,7 @@ const _pvt2gateOpenVsTankDefense = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 배럭에 가스! 테크를 준비합니다!',
+          altText: '{away} 선수, 배럭에 가스! 테크를 준비합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 두 번째 게이트웨이 건설! 질럿을 빠르게 뽑겠네요!',
@@ -39,7 +39,7 @@ const _pvt2gateOpenVsTankDefense = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 게이트웨이가 두 개! 질럿 압박을 준비하구요!',
+          altText: '{home} 선수, 게이트웨이가 두 개! 질럿 압박을 준비하구요!',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리 건설! 머신샵을 붙입니다!',
@@ -79,7 +79,7 @@ const _pvt2gateOpenVsTankDefense = ScenarioScript(
           homeResource: 0,
           awayResource: 0,
           homeArmy: 1,
-          altText: '{home}, 질럿 전진! 테란 앞마당을 노립니다!',
+          altText: '{home} 선수, 질럿 전진! 테란 앞마당을 노립니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 벙커를 세웁니다! 마린이 들어갑니다!',
@@ -96,7 +96,7 @@ const _pvt2gateOpenVsTankDefense = ScenarioScript(
           awayResource: 0,
           homeArmy: -2,
           awayArmy: -1,
-          altText: '{home}, 질럿이 벙커에 달라붙지만 화력이 쏟아집니다!',
+          altText: '{home} 선수, 질럿이 벙커에 달라붙지만 화력이 쏟아집니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 시즈 탱크가 나옵니다! 시즈 모드 전환!',
@@ -129,7 +129,7 @@ const _pvt2gateOpenVsTankDefense = ScenarioScript(
           awayResource: 0,
           homeArmy: 2,
           homeResource: -15,
-          altText: '{home}, 드라군이 나옵니다! 질럿만으로는 안 되니까요!',
+          altText: '{home} 선수, 드라군이 나옵니다! 질럿만으로는 안 되니까요!',
         ),
         ScriptEvent(
           text: '{away} 선수 커맨드센터를 올립니다! 탱크로 버티면서 확장!',
@@ -138,7 +138,7 @@ const _pvt2gateOpenVsTankDefense = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -30,
-          altText: '{away}, 앞마당 커맨드센터! 탱크 수비로 안전하게 확장합니다!',
+          altText: '{away} 선수, 앞마당 커맨드센터! 탱크 수비로 안전하게 확장합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 넥서스 건설! 드라군으로 전환하면서 자원도 확보합니다!',
@@ -182,7 +182,7 @@ const _pvt2gateOpenVsTankDefense = ScenarioScript(
               homeResource: 0,
               awayResource: 0,
               homeArmy: 4,
-              altText: '{home}, 드라군이 측면으로 돌아갑니다! 시즈 라인을 피합니다!',
+              altText: '{home} 선수, 드라군이 측면으로 돌아갑니다! 시즈 라인을 피합니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 탱크가 자리를 못 잡습니다! 드라군 기동력에 밀립니다!',
@@ -231,7 +231,7 @@ const _pvt2gateOpenVsTankDefense = ScenarioScript(
               homeResource: 0,
               awayResource: 0,
               awayArmy: 4,
-              altText: '{away}, 탱크 시즈 라인이 철벽입니다!',
+              altText: '{away} 선수, 탱크 시즈 라인이 철벽입니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 드라군이 시즈 포격에 녹습니다! 사정거리 밖에서 맞고 있습니다!',

@@ -30,7 +30,7 @@ const _pvt5gatePushVsUpgrade = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 엔지니어링 베이! 업그레이드 운영을 노립니다!',
+          altText: '{away} 선수, 엔지니어링 베이! 업그레이드 운영을 노립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 사이버네틱스 코어를 건설합니다! 드라군 준비!',
@@ -39,7 +39,7 @@ const _pvt5gatePushVsUpgrade = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 사이버네틱스 코어! 드라군 전환!',
+          altText: '{home} 선수, 사이버네틱스 코어! 드라군 전환!',
         ),
         ScriptEvent(
           text: '{away} 선수 공격력 업그레이드 시작! 앞마당 커맨드센터도 올립니다!',
@@ -87,7 +87,7 @@ const _pvt5gatePushVsUpgrade = ScenarioScript(
           homeResource: 0,
           awayArmy: 2,
           awayResource: -10,
-          altText: '{away}, 1업 완료! 2차 업그레이드까지 올라갑니다!',
+          altText: '{away} 선수, 1업 완료! 2차 업그레이드까지 올라갑니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 게이트웨이 네 개, 다섯 개까지 올립니다!',
@@ -96,7 +96,7 @@ const _pvt5gatePushVsUpgrade = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 게이트웨이 다섯 개 완성! 이제 물량을 모읍니다!',
+          altText: '{home} 선수, 게이트웨이 다섯 개 완성! 이제 물량을 모읍니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 아카데미를 건설합니다! 메딕과 스팀팩 준비!',
@@ -137,7 +137,7 @@ const _pvt5gatePushVsUpgrade = ScenarioScript(
           homeResource: 0,
           awayArmy: 3,
           awayResource: -10,
-          altText: '{away}, 업그레이드 마린 메딕! 화력이 다릅니다!',
+          altText: '{away} 선수, 업그레이드 마린 메딕! 화력이 다릅니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 전군 전진! 업그레이드 완성 전에 밀어야 합니다!',
@@ -181,7 +181,7 @@ const _pvt5gatePushVsUpgrade = ScenarioScript(
               awayResource: 0,
               homeArmy: 3,
               awayArmy: -4,
-              altText: '{home}, 질럿이 메딕을 집중 공격! 마린 치료가 끊깁니다!',
+              altText: '{home} 선수, 질럿이 메딕을 집중 공격! 마린 치료가 끊깁니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 메딕이 녹습니다! 마린 치료 없이 버텨야 합니다!',
@@ -230,7 +230,7 @@ const _pvt5gatePushVsUpgrade = ScenarioScript(
               awayResource: 0,
               awayArmy: 4,
               homeArmy: -4,
-              altText: '{away}, 업그레이드 차이! 마린 화력이 드라군을 녹입니다!',
+              altText: '{away} 선수, 업그레이드 차이! 마린 화력이 드라군을 녹입니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 질럿도 스팀팩 마린에 접근하기 어렵습니다!',

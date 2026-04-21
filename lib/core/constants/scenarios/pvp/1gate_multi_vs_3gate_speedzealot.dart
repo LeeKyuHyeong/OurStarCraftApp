@@ -38,7 +38,7 @@ const _pvp1gateMultiVs3gateSpeedzealot = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -30,
-          altText: '{home}, 빠른 확장! 자원을 먼저 가져갑니다!',
+          altText: '{home} 선수, 빠른 확장! 자원을 먼저 가져갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 아둔 건설! 각속 업그레이드를 노립니다!',
@@ -47,7 +47,7 @@ const _pvp1gateMultiVs3gateSpeedzealot = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 아둔! 스피드질럿을 준비합니다!',
+          altText: '{away} 선수, 아둔! 스피드질럿을 준비합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 세 번째 게이트웨이를 올립니다!',
@@ -56,7 +56,7 @@ const _pvp1gateMultiVs3gateSpeedzealot = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -30,
-          altText: '{away}, 게이트웨이가 벌써 세 개! 질럿 물량이 나오겠네요!',
+          altText: '{away} 선수, 게이트웨이가 벌써 세 개! 질럿 물량이 나오겠네요!',
         ),
         ScriptEvent(
           text: '운영형 멀티 vs 공격형 스피드질럿! 앞마당이 위험합니다!',
@@ -74,7 +74,7 @@ const _pvp1gateMultiVs3gateSpeedzealot = ScenarioScript(
       name: 'speedzealot_attack',
       linearEvents: [
         ScriptEvent(
-          text: '{away}, 각속 업그레이드 완료! 스피드질럿이 앞마당으로!',
+          text: '{away} 선수, 각속 업그레이드 완료! 스피드질럿이 앞마당으로!',
           owner: LogOwner.away,
           homeResource: 0,
           awayResource: 0,
@@ -108,7 +108,7 @@ const _pvp1gateMultiVs3gateSpeedzealot = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 스피드질럿이 앞마당 넥서스를 공격합니다!',
+              text: '{away} 선수, 스피드질럿이 앞마당 넥서스를 공격합니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               awayArmy: 0,
@@ -124,7 +124,7 @@ const _pvp1gateMultiVs3gateSpeedzealot = ScenarioScript(
               homeResource: -10,
             ),
             ScriptEvent(
-              text: '{away}, 추가 질럿 합류! 프로브까지 잡습니다!',
+              text: '{away} 선수, 추가 질럿 합류! 프로브까지 잡습니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               awayResource: 0,
@@ -146,7 +146,7 @@ const _pvp1gateMultiVs3gateSpeedzealot = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 질럿과 프로브 협공으로 스피드질럿을 잡습니다!',
+              text: '{home} 선수, 질럿과 프로브 협공으로 스피드질럿을 잡습니다!',
               owner: LogOwner.home,
               homeResource: 0,
               awayResource: 0,
@@ -161,7 +161,7 @@ const _pvp1gateMultiVs3gateSpeedzealot = ScenarioScript(
               awayArmy: -2,
             ),
             ScriptEvent(
-              text: '{home}, 사이버네틱스 코어 건설! 드라군으로 전환합니다!',
+              text: '{home} 선수, 사이버네틱스 코어 건설! 드라군으로 전환합니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,

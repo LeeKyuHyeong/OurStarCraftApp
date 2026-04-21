@@ -38,7 +38,7 @@ const _pvtDarkSwingVsBioMech = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 아둔 건설! 다크 테크 루트!',
+          altText: '{home} 선수, 아둔 건설! 다크 테크 루트!',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리에 아카데미까지! 밸런스 있는 빌드!',
@@ -47,7 +47,7 @@ const _pvtDarkSwingVsBioMech = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 팩토리에 아카데미! 복합 편성을 준비합니다!',
+          altText: '{away} 선수, 팩토리에 아카데미! 복합 편성을 준비합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 템플러 아카이브가 올라갑니다!',
@@ -79,7 +79,7 @@ const _pvtDarkSwingVsBioMech = ScenarioScript(
           awayResource: 0,
           homeArmy: 3,
           homeResource: -15,
-          altText: '{home}, 다크 출발! 복합 편성 상대로 통할까요?',
+          altText: '{home} 선수, 다크 출발! 복합 편성 상대로 통할까요?',
         ),
         ScriptEvent(
           text: '{away} 선수 컴샛이 가능합니다! 아카데미가 있어요!',
@@ -90,7 +90,7 @@ const _pvtDarkSwingVsBioMech = ScenarioScript(
           awayResource: -10,
         ),
         ScriptEvent(
-          text: '{home}, 다크가 테란 진영에 접근합니다! 우회 경로로!',
+          text: '{home} 선수, 다크가 테란 진영에 접근합니다! 우회 경로로!',
           owner: LogOwner.home,
           homeArmy: 0,
           awayArmy: 0,
@@ -137,10 +137,10 @@ const _pvtDarkSwingVsBioMech = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: 0,
-          altText: '{away}, 컴샛 사용! 다크의 위치를 확인합니다!',
+          altText: '{away} 선수, 컴샛 사용! 다크의 위치를 확인합니다!',
         ),
         ScriptEvent(
-          text: '{home}, 드라군도 모으면서 후속 병력을 준비합니다!',
+          text: '{home} 선수, 드라군도 모으면서 후속 병력을 준비합니다!',
           owner: LogOwner.home,
           awayArmy: 0,
           awayResource: 0,
@@ -174,7 +174,7 @@ const _pvtDarkSwingVsBioMech = ScenarioScript(
               awayArmy: 0,
               homeResource: 0,
               awayResource: 0,
-              altText: '{home}, 다크가 스캔을 피했습니다! 잠입 성공!',
+              altText: '{home} 선수, 다크가 스캔을 피했습니다! 잠입 성공!',
             ),
             ScriptEvent(
               text: '{away} 선수 스캔 에너지가 바닥입니다! 다크가 안 보여요!',
@@ -185,7 +185,7 @@ const _pvtDarkSwingVsBioMech = ScenarioScript(
               awayResource: -25,
             ),
             ScriptEvent(
-              text: '{home}, 다크가 SCV를 줄줄이 베어냅니다!',
+              text: '{home} 선수, 다크가 SCV를 줄줄이 베어냅니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -217,7 +217,7 @@ const _pvtDarkSwingVsBioMech = ScenarioScript(
               homeArmy: 20,
               awayArmy: -15,
               decisive: true,
-              altText: '{home}, 다크 견제 + 드라군 공격! 복합 편성을 무너뜨립니다!',
+              altText: '{home} 선수, 다크 견제 + 드라군 공격! 복합 편성을 무너뜨립니다!',
             ),
           ],
         ),
@@ -233,7 +233,7 @@ const _pvtDarkSwingVsBioMech = ScenarioScript(
               homeResource: 0,
               awayResource: 0,
               homeArmy: -3,
-              altText: '{away}, 디텍 성공! 다크를 격파합니다!',
+              altText: '{away} 선수, 디텍 성공! 다크를 격파합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 다크가 잡혔습니다! 테크 투자가 헛됐어요!',
@@ -244,7 +244,7 @@ const _pvtDarkSwingVsBioMech = ScenarioScript(
               homeResource: -10,
             ),
             ScriptEvent(
-              text: '{away}, 사이언스 베슬이 나옵니다! 이제 완벽한 디텍!',
+              text: '{away} 선수, 사이언스 베슬이 나옵니다! 이제 완벽한 디텍!',
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,
@@ -276,7 +276,7 @@ const _pvtDarkSwingVsBioMech = ScenarioScript(
               awayArmy: 20,
               homeArmy: -15,
               decisive: true,
-              altText: '{away}, 복합 편성 완성! 사이언스 베슬이 다크를 봉인!',
+              altText: '{away} 선수, 복합 편성 완성! 사이언스 베슬이 다크를 봉인!',
             ),
           ],
         ),

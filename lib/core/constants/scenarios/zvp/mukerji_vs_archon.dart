@@ -22,7 +22,7 @@ const _zvpMukerjiVsArchon = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: 10,
-          altText: '{home}, 드론 생산에 집중! 앞마당이 올라갑니다.',
+          altText: '{home} 선수, 드론 생산에 집중! 앞마당이 올라갑니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 게이트웨이 뒤로 아둔을 건설합니다!',
@@ -31,7 +31,7 @@ const _zvpMukerjiVsArchon = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 게이트웨이 뒤에 아둔 건설! 하이 템플러를 준비합니다!',
+          altText: '{away} 선수, 게이트웨이 뒤에 아둔 건설! 하이 템플러를 준비합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링으로 채우면서 레어 업그레이드! 스파이어를 올립니다.',
@@ -40,7 +40,7 @@ const _zvpMukerjiVsArchon = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -10,
-          altText: '{home}, 레어와 스파이어를 올립니다! 뮤탈 체제로 전환합니다!',
+          altText: '{home} 선수, 레어와 스파이어를 올립니다! 뮤탈 체제로 전환합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 템플러 아카이브까지 건설! 아콘과 스톰 체제!',
@@ -72,7 +72,7 @@ const _zvpMukerjiVsArchon = ScenarioScript(
           awayResource: 0,
           homeArmy: 5,
           homeResource: -15,
-          altText: '{home}, 뮤탈리스크 출격! 프로브 사냥에 나섭니다!',
+          altText: '{home} 선수, 뮤탈리스크 출격! 프로브 사냥에 나섭니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 뮤탈리스크가 프로브를 잡습니다! 자원 확보를 방해!',
@@ -89,7 +89,7 @@ const _zvpMukerjiVsArchon = ScenarioScript(
           homeResource: 0,
           awayArmy: 4,
           awayResource: -10,
-          altText: '{away}, 하이 템플러 합체! 아콘이 탄생합니다!',
+          altText: '{away} 선수, 하이 템플러 합체! 아콘이 탄생합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링 업그레이드를 완료합니다! 크래클링 전환!',
@@ -122,7 +122,7 @@ const _zvpMukerjiVsArchon = ScenarioScript(
           homeResource: 0,
           awayArmy: 4,
           awayResource: -10,
-          altText: '{away}, 아콘이 선두에 섭니다! 결전 병력 출발!',
+          altText: '{away} 선수, 아콘이 선두에 섭니다! 결전 병력 출발!',
         ),
         ScriptEvent(
           text: '{home} 선수 크래클링을 대량 생산합니다! 측면 돌파를 노립니다!',
@@ -167,7 +167,7 @@ const _zvpMukerjiVsArchon = ScenarioScript(
               homeResource: 0,
               awayResource: -20,
               homeArmy: 3,
-              altText: '{home}, 크래클링이 아콘을 피해 뒤로 돌아갑니다!',
+              altText: '{home} 선수, 크래클링이 아콘을 피해 뒤로 돌아갑니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 뮤탈리스크가 하이 템플러를 집중 공격합니다!',
@@ -208,7 +208,7 @@ const _zvpMukerjiVsArchon = ScenarioScript(
               homeResource: 0,
               awayResource: 0,
               homeArmy: -6,
-              altText: '{away}, 스톰! 크래클링이 한 번에 녹아내립니다!',
+              altText: '{away} 선수, 스톰! 크래클링이 한 번에 녹아내립니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 아콘이 뮤탈리스크를 스플래시로 잡아냅니다!',

@@ -38,7 +38,7 @@ const _pvp1gateMultiMirror = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -30,
-          altText: '{home}, 빠른 확장! 자원 이점을 가져갑니다!',
+          altText: '{home} 선수, 빠른 확장! 자원 이점을 가져갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수도 넥서스를 올립니다! 양쪽 빠른 확장이네요!',
@@ -47,7 +47,7 @@ const _pvp1gateMultiMirror = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -30,
-          altText: '{away}, 빠른 확장! 미러 운영전!',
+          altText: '{away} 선수, 빠른 확장! 미러 운영전!',
         ),
         ScriptEvent(
           text: '{home} 선수 사이버네틱스 코어 건설!',
@@ -84,7 +84,7 @@ const _pvp1gateMultiMirror = ScenarioScript(
           text: '양측 드라군 생산 시작! 앞마당을 지킵니다!',
           owner: LogOwner.system,
           homeArmy: 3, awayArmy: 3, homeResource: -15, awayResource: -15,
-          altText: '{home}과 {away}, 동시에 드라군 생산 시작!',
+          altText: '{home} 선수과 {away} 선수, 동시에 드라군 생산 시작!',
         ),
         ScriptEvent(
           text: '{home} 선수 게이트웨이 추가! 멀티 자원으로!',
@@ -93,7 +93,7 @@ const _pvp1gateMultiMirror = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 게이트웨이 추가! 멀티의 힘!',
+          altText: '{home} 선수, 게이트웨이 추가! 멀티의 힘!',
         ),
         ScriptEvent(
           text: '{away} 선수도 게이트웨이 추가! 양쪽 비슷한 구성!',
@@ -128,7 +128,7 @@ const _pvp1gateMultiMirror = ScenarioScript(
               awayArmy: 0,
               awayResource: 0,
               homeResource: -20,
-              altText: '{home}, 로보틱스! 셔틀 리버를 노립니다!',
+              altText: '{home} 선수, 로보틱스! 셔틀 리버를 노립니다!',
             ),
             ScriptEvent(
               text: '{away} 선수도 로보틱스! 하지만 한 발 늦습니다!',
@@ -139,7 +139,7 @@ const _pvp1gateMultiMirror = ScenarioScript(
               awayResource: -20,
             ),
             ScriptEvent(
-              text: '{home}, 서포트 베이에 셔틀 리버! 견제 출발!',
+              text: '{home} 선수, 서포트 베이에 셔틀 리버! 견제 출발!',
               owner: LogOwner.home,
               awayArmy: 0,
               awayResource: 0,
@@ -150,7 +150,7 @@ const _pvp1gateMultiMirror = ScenarioScript(
               homeArmy: 0,
               awayArmy: 0,
               homeResource: 0,
-              awayResource: -20,              altText: '{home}, 리버 스캐럽! 프로브가 터집니다!',
+              awayResource: -20,              altText: '{home} 선수, 리버 스캐럽! 프로브가 터집니다!',
             ),
           ],
         ),
@@ -165,7 +165,7 @@ const _pvp1gateMultiMirror = ScenarioScript(
               awayArmy: 0,
               homeResource: 0,
               awayResource: -20,
-              altText: '{away}, 로보틱스! 셔틀 리버를 노립니다!',
+              altText: '{away} 선수, 로보틱스! 셔틀 리버를 노립니다!',
             ),
             ScriptEvent(
               text: '{home} 선수도 로보틱스! 하지만 한 발 늦습니다!',
@@ -176,7 +176,7 @@ const _pvp1gateMultiMirror = ScenarioScript(
               homeResource: -20,
             ),
             ScriptEvent(
-              text: '{away}, 서포트 베이에 셔틀 리버! 견제 출발!',
+              text: '{away} 선수, 서포트 베이에 셔틀 리버! 견제 출발!',
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,
@@ -187,7 +187,7 @@ const _pvp1gateMultiMirror = ScenarioScript(
               homeArmy: 0,
               awayArmy: 0,
               awayResource: 0,
-              homeResource: -20,              altText: '{away}, 리버 스캐럽! 프로브가 터집니다!',
+              homeResource: -20,              altText: '{away} 선수, 리버 스캐럽! 프로브가 터집니다!',
             ),
           ],
         ),
@@ -246,7 +246,7 @@ const _pvp1gateMultiMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 스톰에 리버 화력! 상대 병력이 녹습니다!',
+              text: '{home} 선수, 스톰에 리버 화력! 상대 병력이 녹습니다!',
               owner: LogOwner.home,
               homeResource: 0,
               awayResource: 0,
@@ -268,7 +268,7 @@ const _pvp1gateMultiMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 스톰에 리버 화력! 상대 병력이 녹습니다!',
+              text: '{away} 선수, 스톰에 리버 화력! 상대 병력이 녹습니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,

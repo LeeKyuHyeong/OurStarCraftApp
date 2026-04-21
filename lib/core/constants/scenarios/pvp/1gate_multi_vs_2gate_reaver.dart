@@ -38,7 +38,7 @@ const _pvp1gateMultiVs2gateReaver = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -30,
-          altText: '{home}, 빠른 확장! 자원 이점을 가져갑니다!',
+          altText: '{home} 선수, 빠른 확장! 자원 이점을 가져갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 사이버네틱스 코어 건설! 로보틱스를 준비합니다!',
@@ -63,7 +63,7 @@ const _pvp1gateMultiVs2gateReaver = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 로보틱스! 리버로 견제하겠다는 의도!',
+          altText: '{away} 선수, 로보틱스! 리버로 견제하겠다는 의도!',
         ),
       ],
     ),
@@ -76,7 +76,7 @@ const _pvp1gateMultiVs2gateReaver = ScenarioScript(
           owner: LogOwner.away,
           homeResource: 0,
           awayArmy: 3, homeArmy: 2, awayResource: -15,
-          altText: '{away}, 셔틀 리버 출격! 앞마당 프로브를 노립니다!',
+          altText: '{away} 선수, 셔틀 리버 출격! 앞마당 프로브를 노립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 앞마당에 드라군을 배치합니다!',
@@ -105,7 +105,7 @@ const _pvp1gateMultiVs2gateReaver = ScenarioScript(
           baseProbability: 0.95,
           events: [
             ScriptEvent(
-              text: '{away}, 셔틀이 드라군을 피해 앞마당에 착지! 스캐럽!',
+              text: '{away} 선수, 셔틀이 드라군을 피해 앞마당에 착지! 스캐럽!',
               owner: LogOwner.away,
               homeArmy: 0,
               awayArmy: 0,
@@ -121,7 +121,7 @@ const _pvp1gateMultiVs2gateReaver = ScenarioScript(
               homeResource: -10,
             ),
             ScriptEvent(
-              text: '{away}, 셔틀 태워 본진으로 이동! 추가 견제!',
+              text: '{away} 선수, 셔틀 태워 본진으로 이동! 추가 견제!',
               owner: LogOwner.away,
               homeArmy: 0,
               awayArmy: 0,
@@ -144,7 +144,7 @@ const _pvp1gateMultiVs2gateReaver = ScenarioScript(
           baseProbability: 1.05,
           events: [
             ScriptEvent(
-              text: '{home}, 드라군이 셔틀을 집중 사격! 격추합니다!',
+              text: '{home} 선수, 드라군이 셔틀을 집중 사격! 격추합니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               homeResource: 0,
@@ -160,7 +160,7 @@ const _pvp1gateMultiVs2gateReaver = ScenarioScript(
               awayArmy: -2,
             ),
             ScriptEvent(
-              text: '{home}, 드라군이 리버를 잡습니다! 견제 완전 실패!',
+              text: '{home} 선수, 드라군이 리버를 잡습니다! 견제 완전 실패!',
               owner: LogOwner.home,
               awayArmy: 0,
               homeResource: 0,

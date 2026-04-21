@@ -30,7 +30,7 @@ const _pvtReaverPushVsBioMech = ScenarioScript(
           homeResource: 0,
           awayArmy: 2,
           awayResource: -20,
-          altText: '{away}, 마린과 팩토리를 동시에! 복합 편성을 준비하는군요!',
+          altText: '{away} 선수, 마린과 팩토리를 동시에! 복합 편성을 준비하는군요!',
         ),
         ScriptEvent(
           text: '{home} 선수 로보틱스와 서포트 베이를 빠르게 올립니다!',
@@ -39,7 +39,7 @@ const _pvtReaverPushVsBioMech = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 로보틱스와 서포트 베이 건설 시작! 공성 빌드이군요!',
+          altText: '{home} 선수, 로보틱스와 서포트 베이 건설 시작! 공성 빌드이군요!',
         ),
         ScriptEvent(
           text: '{away} 선수 시즈탱크와 마린을 같이 모읍니다.',
@@ -79,7 +79,7 @@ const _pvtReaverPushVsBioMech = ScenarioScript(
           homeResource: 0,
           awayArmy: 3,
           awayResource: -15,
-          altText: '{away}, 마린이 앞에, 시즈탱크가 뒤에! 전형적인 복합 진형!',
+          altText: '{away} 선수, 마린이 앞에, 시즈탱크가 뒤에! 전형적인 복합 진형!',
         ),
         ScriptEvent(
           text: '{home} 선수 셔틀이 마린 뭉치 뒤편으로 접근합니다!',
@@ -97,7 +97,7 @@ const _pvtReaverPushVsBioMech = ScenarioScript(
           homeResource: 0,
           awayArmy: -2,
           awayResource: -10,
-          altText: '{home}, 리버가 마린 뭉치 옆에서 스캐럽을 쏩니다!',
+          altText: '{home} 선수, 리버가 마린 뭉치 옆에서 스캐럽을 쏩니다!',
         ),
         ScriptEvent(
           text: '마린이 뭉쳐있으면 스캐럽 한 방에 녹습니다! 산개가 중요하죠!',
@@ -129,7 +129,7 @@ const _pvtReaverPushVsBioMech = ScenarioScript(
           awayResource: 0,
           homeArmy: 3,
           homeResource: -15,
-          altText: '{home}, 드라군이 상당히 모였습니다!',
+          altText: '{home} 선수, 드라군이 상당히 모였습니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 시즈탱크를 시즈 모드로 전환합니다!',
@@ -166,7 +166,7 @@ const _pvtReaverPushVsBioMech = ScenarioScript(
               awayResource: 0,
               homeArmy: 2,
               awayArmy: -5,
-              altText: '{home}, 스캐럽 한 방에 마린이 7기 사라집니다!',
+              altText: '{home} 선수, 스캐럽 한 방에 마린이 7기 사라집니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 바이오 병력이 순식간에 증발합니다!',
@@ -207,7 +207,7 @@ const _pvtReaverPushVsBioMech = ScenarioScript(
               awayResource: 0,
               homeArmy: -4,
               awayArmy: 2,
-              altText: '{away}, 골리앗 미사일에 셔틀이 추락합니다!',
+              altText: '{away} 선수, 골리앗 미사일에 셔틀이 추락합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 리버를 잃고 드라군만 남았습니다!',

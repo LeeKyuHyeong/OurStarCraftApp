@@ -37,7 +37,7 @@ const _pvpZealotRushMirror = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 2, homeResource: -10,
-          altText: '{home}, 질럿을 바로 뽑습니다!',
+          altText: '{home} 선수, 질럿을 바로 뽑습니다!',
         ),
         ScriptEvent(
           text: '{away} 선수도 질럿 생산! 양쪽 질럿 러시!',
@@ -45,7 +45,7 @@ const _pvpZealotRushMirror = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 2, awayResource: -10,
-          altText: '{away}, 질럿을 뽑습니다! 양쪽 러시 빌드!',
+          altText: '{away} 선수, 질럿을 뽑습니다! 양쪽 러시 빌드!',
         ),
         ScriptEvent(
           text: '{home} 선수 추가 질럿! 프로브도 함께 전진!',
@@ -77,7 +77,7 @@ const _pvpZealotRushMirror = ScenarioScript(
       name: 'zealot_clash',
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 질럿이 센터에서 부딪힙니다!',
+          text: '{home} 선수, 질럿이 센터에서 부딪힙니다!',
           owner: LogOwner.home,
           awayArmy: 0,
           homeResource: 0,
@@ -85,7 +85,7 @@ const _pvpZealotRushMirror = ScenarioScript(
           homeArmy: 1,          altText: '{home} 선수 질럿 전진! 정면 충돌!',
         ),
         ScriptEvent(
-          text: '{away}, 질럿이 맞받아칩니다! 프로브 지원까지!',
+          text: '{away} 선수, 질럿이 맞받아칩니다! 프로브 지원까지!',
           owner: LogOwner.away,
           homeArmy: 0,
           homeResource: 0,
@@ -112,7 +112,7 @@ const _pvpZealotRushMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 질럿 컨트롤! 상대 질럿을 하나씩 잡아냅니다!',
+              text: '{home} 선수, 질럿 컨트롤! 상대 질럿을 하나씩 잡아냅니다!',
               owner: LogOwner.home,
               homeResource: 0,
               awayResource: 0,
@@ -127,7 +127,7 @@ const _pvpZealotRushMirror = ScenarioScript(
               awayArmy: -1,
             ),
             ScriptEvent(
-              text: '{home}, 남은 질럿으로 상대 진영에 진입!',
+              text: '{home} 선수, 남은 질럿으로 상대 진영에 진입!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -150,7 +150,7 @@ const _pvpZealotRushMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 질럿 컨트롤! 상대 질럿을 잡아냅니다!',
+              text: '{away} 선수, 질럿 컨트롤! 상대 질럿을 잡아냅니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,
@@ -165,7 +165,7 @@ const _pvpZealotRushMirror = ScenarioScript(
               homeArmy: -1,
             ),
             ScriptEvent(
-              text: '{away}, 남은 질럿으로 상대 진영에 진입!',
+              text: '{away} 선수, 남은 질럿으로 상대 진영에 진입!',
               owner: LogOwner.away,
               homeArmy: 0,
               awayArmy: 0,
@@ -195,7 +195,7 @@ const _pvpZealotRushMirror = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 사이버네틱스 코어! 드라군 전환!',
+          altText: '{home} 선수, 사이버네틱스 코어! 드라군 전환!',
         ),
         ScriptEvent(
           text: '{away} 선수도 사이버네틱스 코어! 드라군 전환!',
@@ -238,7 +238,7 @@ const _pvpZealotRushMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 드라군 편대로 전진! 상대보다 한 발 빠릅니다!',
+              text: '{home} 선수, 드라군 편대로 전진! 상대보다 한 발 빠릅니다!',
               owner: LogOwner.home,
               homeResource: 0,
               awayResource: 0,
@@ -260,7 +260,7 @@ const _pvpZealotRushMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 드라군 편대로 전진! 상대보다 한 발 빠릅니다!',
+              text: '{away} 선수, 드라군 편대로 전진! 상대보다 한 발 빠릅니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,

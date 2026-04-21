@@ -30,7 +30,7 @@ const _pvtProxyGateVsUpgrade = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -30,
-          altText: '{away}, 앞마당 확장! 욕심을 부리는군요!',
+          altText: '{away} 선수, 앞마당 확장! 욕심을 부리는군요!',
         ),
         ScriptEvent(
           text: '{home} 선수 상대 근처에 게이트웨이 건설!',
@@ -39,7 +39,7 @@ const _pvtProxyGateVsUpgrade = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 전진 게이트웨이! 테란이 앞마당을 갔는데!',
+          altText: '{home} 선수, 전진 게이트웨이! 테란이 앞마당을 갔는데!',
         ),
         ScriptEvent(
           text: '{away} 선수 엔지니어링 베이를 올립니다! 업그레이드를 노리는 빌드!',
@@ -71,7 +71,7 @@ const _pvtProxyGateVsUpgrade = ScenarioScript(
           awayResource: 0,
           homeArmy: 3,
           homeResource: -10,
-          altText: '{home}, 질럿 러시! 앞마당 확장을 간 테란에게 치명적!',
+          altText: '{home} 선수, 질럿 러시! 앞마당 확장을 간 테란에게 치명적!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린이 1기밖에 없습니다! 확장에 투자해서 병력이 늦어요!',
@@ -82,7 +82,7 @@ const _pvtProxyGateVsUpgrade = ScenarioScript(
           awayArmy: 1,
         ),
         ScriptEvent(
-          text: '{home}, 질럿이 앞마당 SCV를 공격합니다!',
+          text: '{home} 선수, 질럿이 앞마당 SCV를 공격합니다!',
           owner: LogOwner.home,
           homeArmy: 0,
           awayArmy: 0,
@@ -97,7 +97,7 @@ const _pvtProxyGateVsUpgrade = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -10,
-          altText: '{away}, 긴급 벙커 건설! 시간이 촉박합니다!',
+          altText: '{away} 선수, 긴급 벙커 건설! 시간이 촉박합니다!',
         ),
         ScriptEvent(
           text: '앞마당 확장이 전진 질럿에 잡혔습니다! 벙커가 제때 올라올까요?',
@@ -130,10 +130,10 @@ const _pvtProxyGateVsUpgrade = ScenarioScript(
           homeResource: 0,
           awayArmy: 2,
           awayResource: -5,
-          altText: '{away}, 마린이 겨우 나옵니다! 벙커에 투입!',
+          altText: '{away} 선수, 마린이 겨우 나옵니다! 벙커에 투입!',
         ),
         ScriptEvent(
-          text: '{home}, 질럿 추가 합류! 4기가 됩니다!',
+          text: '{home} 선수, 질럿 추가 합류! 4기가 됩니다!',
           owner: LogOwner.home,
           awayArmy: 0,
           awayResource: 0,
@@ -168,7 +168,7 @@ const _pvtProxyGateVsUpgrade = ScenarioScript(
               homeResource: 0,
               awayResource: 0,
               awayArmy: -3,
-              altText: '{home}, 질럿 4기의 화력! 벙커가 무너집니다!',
+              altText: '{home} 선수, 질럿 4기의 화력! 벙커가 무너집니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 마린이 후퇴하지만 질럿에 잡힙니다!',
@@ -179,7 +179,7 @@ const _pvtProxyGateVsUpgrade = ScenarioScript(
               awayArmy: -2,
             ),
             ScriptEvent(
-              text: '{home}, 질럿이 앞마당 커맨드센터를 공격합니다!',
+              text: '{home} 선수, 질럿이 앞마당 커맨드센터를 공격합니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -202,7 +202,7 @@ const _pvtProxyGateVsUpgrade = ScenarioScript(
               homeArmy: 20,
               awayArmy: -15,
               decisive: true,
-              altText: '{home}, 확장을 간 테란에 대한 완벽한 징벌!',
+              altText: '{home} 선수, 확장을 간 테란에 대한 완벽한 징벌!',
             ),
           ],
         ),
@@ -220,7 +220,7 @@ const _pvtProxyGateVsUpgrade = ScenarioScript(
               homeResource: 0,
               awayResource: 0,
               awayArmy: 4,
-              altText: '{away}, 벙커 방어 성공! 상대 병력이 막힙니다!',
+              altText: '{away} 선수, 벙커 방어 성공! 상대 병력이 막힙니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 질럿이 벙커를 깨지 못하고 손실만 납니다!',
@@ -231,7 +231,7 @@ const _pvtProxyGateVsUpgrade = ScenarioScript(
               homeArmy: -4,
             ),
             ScriptEvent(
-              text: '{away}, 1-1 업그레이드 완료! 마린 메딕 편대가 강해집니다!',
+              text: '{away} 선수, 1-1 업그레이드 완료! 마린 메딕 편대가 강해집니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,
@@ -263,7 +263,7 @@ const _pvtProxyGateVsUpgrade = ScenarioScript(
               awayArmy: 20,
               homeArmy: -15,
               decisive: true,
-              altText: '{away}, 확장 자원 + 업그레이드! 전진 질럿을 완벽히 막아냈습니다!',
+              altText: '{away} 선수, 확장 자원 + 업그레이드! 전진 질럿을 완벽히 막아냈습니다!',
             ),
           ],
         ),

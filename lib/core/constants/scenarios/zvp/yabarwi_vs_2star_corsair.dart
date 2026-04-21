@@ -22,7 +22,7 @@ const _zvpYabarwiVs2starCorsair = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: 10,
-          altText: '{home}, 앞마당 해처리 건설! 드론 풀가동!',
+          altText: '{home} 선수, 앞마당 해처리 건설! 드론 풀가동!',
         ),
         ScriptEvent(
           text: '{away} 선수 스타게이트 2개를 올립니다! 커세어 대량 생산 체제!',
@@ -31,7 +31,7 @@ const _zvpYabarwiVs2starCorsair = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 더블 스타게이트! 공중 장악을 노립니다!',
+          altText: '{away} 선수, 더블 스타게이트! 공중 장악을 노립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 히드라덴 건설을 시작합니다.',
@@ -71,7 +71,7 @@ const _zvpYabarwiVs2starCorsair = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -10,
-          altText: '{away}, 오버로드 격추! 저그가 앞을 볼 수 없습니다!',
+          altText: '{away} 선수, 오버로드 격추! 저그가 앞을 볼 수 없습니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 히드라리스크를 생산합니다! 대공 방어 준비!',
@@ -88,7 +88,7 @@ const _zvpYabarwiVs2starCorsair = ScenarioScript(
           homeResource: 0,
           awayResource: 0,
           homeArmy: 2,
-          altText: '{home}, 저글링 기습! 하지만 이것은 페이크일 수 있습니다!',
+          altText: '{home} 선수, 저글링 기습! 하지만 이것은 페이크일 수 있습니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 레어 업그레이드 후 럴커를 준비합니다.',
@@ -121,7 +121,7 @@ const _zvpYabarwiVs2starCorsair = ScenarioScript(
           awayResource: 0,
           homeArmy: 5,
           homeResource: -10,
-          altText: '{home}, 럴커 다수 배치! 어디에 럴커가 있는지 알 수 없습니다!',
+          altText: '{home} 선수, 럴커 다수 배치! 어디에 럴커가 있는지 알 수 없습니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 커세어와 드라군 편대를 구성합니다.',
@@ -165,7 +165,7 @@ const _zvpYabarwiVs2starCorsair = ScenarioScript(
               awayResource: 0,
               homeArmy: 4,
               awayArmy: -5,
-              altText: '{home}, 럴커 돌파! 사이버네틱스 코어의 드라군이 럴커를 잡지 못합니다!',
+              altText: '{home} 선수, 럴커 돌파! 사이버네틱스 코어의 드라군이 럴커를 잡지 못합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 저글링이 뒤에서 프로브를 잡아냅니다!',
@@ -206,7 +206,7 @@ const _zvpYabarwiVs2starCorsair = ScenarioScript(
               awayResource: 0,
               homeResource: -20,
               awayArmy: 3,
-              altText: '{away}, 오버로드 전멸! 저그 보급이 걸립니다!',
+              altText: '{away} 선수, 오버로드 전멸! 저그 보급이 걸립니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 드라군이 럴커 위치를 파악하고 집중 사격합니다!',

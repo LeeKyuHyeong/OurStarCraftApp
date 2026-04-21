@@ -30,7 +30,7 @@ const _pvt5gateArbiterVsTankDefense = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 배럭에서 팩토리까지! 안정적인 오프닝이네요.',
+          altText: '{away} 선수, 배럭에서 팩토리까지! 안정적인 오프닝이네요.',
         ),
         ScriptEvent(
           text: '{home} 선수 사이버네틱스 코어 건설! 앞마당 넥서스도 올립니다.',
@@ -39,7 +39,7 @@ const _pvt5gateArbiterVsTankDefense = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -30,
-          altText: '{home}, 사이버네틱스 코어에 넥서스! 확장을 가져갑니다.',
+          altText: '{home} 선수, 사이버네틱스 코어에 넥서스! 확장을 가져갑니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 머신샵에서 시즈 모드 연구! 앞마당 커맨드센터도 건설합니다.',
@@ -48,7 +48,7 @@ const _pvt5gateArbiterVsTankDefense = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -30,
-          altText: '{away}, 시즈 모드 연구 중! 커맨드센터까지 건설!',
+          altText: '{away} 선수, 시즈 모드 연구 중! 커맨드센터까지 건설!',
         ),
         ScriptEvent(
           text: '양쪽 모두 확장을 가져가면서 안정적인 운영을 합니다.',
@@ -78,7 +78,7 @@ const _pvt5gateArbiterVsTankDefense = ScenarioScript(
           owner: LogOwner.away,
           homeArmy: 0,
           homeResource: 0,
-          awayArmy: 4, awayResource: -20,          altText: '{away}, 탱크 라인 형성! 프로토스 접근이 어렵습니다!',
+          awayArmy: 4, awayResource: -20,          altText: '{away} 선수, 탱크 라인 형성! 프로토스 접근이 어렵습니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 드라군으로 접근하지만 탱크 사거리에 걸립니다!',
@@ -86,7 +86,7 @@ const _pvt5gateArbiterVsTankDefense = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: 0,
-          homeArmy: -2,          altText: '{home}, 드라군이 탱크 포격에 당합니다! 접근이 힘들어요!',
+          homeArmy: -2,          altText: '{home} 선수, 드라군이 탱크 포격에 당합니다! 접근이 힘들어요!',
         ),
         ScriptEvent(
           text: '{home} 선수 아둔 건설! 템플러 아카이브를 준비합니다.',
@@ -102,7 +102,7 @@ const _pvt5gateArbiterVsTankDefense = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 2, awayResource: -15,
-          altText: '{away}, 벙커에 터렛까지! 난공불락이 되어가고 있네요.',
+          altText: '{away} 선수, 벙커에 터렛까지! 난공불락이 되어가고 있네요.',
         ),
         ScriptEvent(
           text: '테란의 방어가 견고합니다. 프로토스가 정면으로 뚫기 어려운 상황.',
@@ -126,7 +126,7 @@ const _pvt5gateArbiterVsTankDefense = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 3, homeResource: -25,
-          altText: '{home}, 게이트웨이 다섯 개에 스타게이트까지! 아비터를 노리는 겁니다!',
+          altText: '{home} 선수, 게이트웨이 다섯 개에 스타게이트까지! 아비터를 노리는 겁니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 아비터 트리뷰널 건설! 최종 테크입니다!',
@@ -135,7 +135,7 @@ const _pvt5gateArbiterVsTankDefense = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 아비터 트리뷰널이 올라갑니다! 리콜이 나오겠군요!',
+          altText: '{home} 선수, 아비터 트리뷰널이 올라갑니다! 리콜이 나오겠군요!',
         ),
         ScriptEvent(
           text: '{away} 선수 탱크를 계속 추가합니다. 사이언스 퍼실리티도 건설!',
@@ -150,7 +150,7 @@ const _pvt5gateArbiterVsTankDefense = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 2, homeResource: -20,
-          altText: '{home}, 하이 템플러에 아비터! 더블 테크가 완성됩니다!',
+          altText: '{home} 선수, 하이 템플러에 아비터! 더블 테크가 완성됩니다!',
         ),
       ],
     ),
@@ -167,7 +167,7 @@ const _pvt5gateArbiterVsTankDefense = ScenarioScript(
               owner: LogOwner.home,
               homeResource: 0,
               awayResource: 0,
-              homeArmy: 3, awayArmy: -4,              altText: '{home}, 리콜! 탱크 뒤쪽에 드라군 질럿이 쏟아집니다!',
+              homeArmy: 3, awayArmy: -4,              altText: '{home} 선수, 리콜! 탱크 뒤쪽에 드라군 질럿이 쏟아집니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 시즈 탱크가 아군 병력까지 포격합니다! 아군 피해!',
@@ -176,10 +176,10 @@ const _pvt5gateArbiterVsTankDefense = ScenarioScript(
               homeResource: 0,
               awayResource: 0,
               awayArmy: -5,
-              altText: '{away}, 탱크 스플래시 데미지! 아군 마린까지 맞습니다!',
+              altText: '{away} 선수, 탱크 스플래시 데미지! 아군 마린까지 맞습니다!',
             ),
             ScriptEvent(
-              text: '{home}, 스톰 투하! 밀집된 테란 병력에 대참사!',
+              text: '{home} 선수, 스톰 투하! 밀집된 테란 병력에 대참사!',
               owner: LogOwner.home,
               homeResource: 0,
               awayResource: 0,
@@ -205,10 +205,10 @@ const _pvt5gateArbiterVsTankDefense = ScenarioScript(
               awayArmy: 0,
               homeResource: 0,
               awayResource: 0,
-              homeArmy: -2,              altText: '{away}, 사이언스 베슬 EMP! 아비터가 무력화됩니다!',
+              homeArmy: -2,              altText: '{away} 선수, 사이언스 베슬 EMP! 아비터가 무력화됩니다!',
             ),
             ScriptEvent(
-              text: '{away}, 탱크 라인이 전진합니다! 시즈 포격으로 프로토스를 밀어냅니다!',
+              text: '{away} 선수, 탱크 라인이 전진합니다! 시즈 포격으로 프로토스를 밀어냅니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,

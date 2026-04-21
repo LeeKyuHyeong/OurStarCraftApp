@@ -22,7 +22,7 @@ const _zvpHiveDefilerVsForgeExpand = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -30,
-          altText: '{home}, 해처리부터 올리는 안정적인 시작입니다.',
+          altText: '{home} 선수, 해처리부터 올리는 안정적인 시작입니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 포지를 먼저 올리고 넥서스 확장을 준비합니다!',
@@ -31,7 +31,7 @@ const _zvpHiveDefilerVsForgeExpand = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 포지를 올리고 앞마당 확장! 국룰 구성을 선택했습니다.',
+          altText: '{away} 선수, 포지를 올리고 앞마당 확장! 국룰 구성을 선택했습니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 스포닝풀을 올리고 드론 생산을 계속합니다.',
@@ -48,7 +48,7 @@ const _zvpHiveDefilerVsForgeExpand = ScenarioScript(
           homeResource: 0,
           awayArmy: 2,
           awayResource: -10,
-          altText: '{away}, 캐논 라인! 앞마당을 단단히 지킵니다.',
+          altText: '{away} 선수, 캐논 라인! 앞마당을 단단히 지킵니다.',
         ),
         ScriptEvent(
           text: '양측 모두 확장을 선택했습니다! 장기전이 예상됩니다.',
@@ -72,7 +72,7 @@ const _zvpHiveDefilerVsForgeExpand = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -25,
-          altText: '{home}, 3해처리 체제! 자원이 풍부해지겠네요.',
+          altText: '{home} 선수, 3해처리 체제! 자원이 풍부해지겠네요.',
         ),
         ScriptEvent(
           text: '{away} 선수 스타게이트에서 커세어를 생산하며 오버로드 사냥을 시작합니다!',
@@ -98,7 +98,7 @@ const _zvpHiveDefilerVsForgeExpand = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 템플러 아카이브가 올라갑니다! 사이오닉 스톰이 곧 나오겠네요.',
+          altText: '{away} 선수, 템플러 아카이브가 올라갑니다! 사이오닉 스톰이 곧 나오겠네요.',
         ),
         ScriptEvent(
           text: '양측 모두 후반 핵심 테크를 올리고 있습니다! 후반 대전이 기대됩니다!',
@@ -122,7 +122,7 @@ const _zvpHiveDefilerVsForgeExpand = ScenarioScript(
           awayResource: 0,
           homeArmy: 3,
           homeResource: -25,
-          altText: '{home}, 디파일러 마운드 완성! 다크 스웜 준비 완료!',
+          altText: '{home} 선수, 디파일러 마운드 완성! 다크 스웜 준비 완료!',
         ),
         ScriptEvent(
           text: '{away} 선수 하이템플러를 생산합니다! 사이오닉 스톰 준비!',
@@ -148,7 +148,7 @@ const _zvpHiveDefilerVsForgeExpand = ScenarioScript(
           awayResource: 0,
           homeArmy: 2,
           homeResource: -20,
-          altText: '{home}, 하이브 테크! 최종 병기를 향해 올라가는군요!',
+          altText: '{home} 선수, 하이브 테크! 최종 병기를 향해 올라가는군요!',
         ),
         ScriptEvent(
           text: '다크 스웜 vs 사이오닉 스톰! ZvP 후반전의 꽃이 피려 합니다!',
@@ -176,7 +176,7 @@ const _zvpHiveDefilerVsForgeExpand = ScenarioScript(
               awayResource: 0,
               homeArmy: 4,
               awayArmy: -2,
-              altText: '{home}, 다크 스웜! 프로토스 원거리 유닛이 무력화됩니다!',
+              altText: '{home} 선수, 다크 스웜! 프로토스 원거리 유닛이 무력화됩니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 울트라리스크가 출격! 저글링과 함께 프로토스 진영을 돌파합니다!',
@@ -217,7 +217,7 @@ const _zvpHiveDefilerVsForgeExpand = ScenarioScript(
               awayResource: 0,
               awayArmy: 2,
               homeArmy: -5,
-              altText: '{away}, 스톰 투하! 저그 병력이 한 방에 녹아버렸습니다!',
+              altText: '{away} 선수, 스톰 투하! 저그 병력이 한 방에 녹아버렸습니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 드라군과 질럿이 다크 스웜 밖에서 포지션을 잡습니다!',

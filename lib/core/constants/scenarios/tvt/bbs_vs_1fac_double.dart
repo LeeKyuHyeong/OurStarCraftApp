@@ -123,7 +123,7 @@ const _tvtBbsVs1facDouble = ScenarioScript(
                 awayArmy: 0,
                 homeResource: 0,
                 awayResource: 0,
-                altText: '{home} 마린이 3기 모이는 사이 {away}는 1기뿐! 컨트롤로 극복할 수 있을까요?',
+                altText: '{home} 선수 마린이 3기 모이는 사이 {away} 선수는 1기뿐! 컨트롤로 극복할 수 있을까요?',
             ),
             ScriptEvent(
               text: '{away} 선수 SCV로 BBS 마린을 감싸 잡아냅니다! 마린이 모이지 못하게 만들죠.',
@@ -205,7 +205,7 @@ const _tvtBbsVs1facDouble = ScenarioScript(
                 awayArmy: 0,
                 homeResource: 0,
                 awayResource: 0,
-                altText: '{home} 마린이 3기 모이는 사이 {away}는 1기뿐! 컨트롤로 극복할 수 있을까요?',
+                altText: '{home} 선수 마린이 3기 모이는 사이 {away} 선수는 1기뿐! 컨트롤로 극복할 수 있을까요?',
             ),
             ScriptEvent(
               text: '{away} 선수 SCV를 끌고 센터로 진출. {home} 선수의 마린을 모이기전에 끊어줄 심산이죠.',
@@ -314,7 +314,7 @@ const _tvtBbsVs1facDouble = ScenarioScript(
               awayArmy: 0,
               homeResource: 0,
               awayResource: 0,
-              altText: '{away} SCV 빨리 나와야죠!',
+              altText: '{away} 선수 SCV 빨리 나와야죠!',
             ),
             ScriptEvent(
               text: '{home} 선수 벙커 완성, 마린 진입! 화력이 쏟아집니다!',

@@ -38,7 +38,7 @@ const _pvpDarkVs4gateDragoon = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 아둔! 다크 올인으로 갑니다!',
+          altText: '{home} 선수, 아둔! 다크 올인으로 갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 사이버네틱스 코어 건설! 드라군 사업!',
@@ -55,7 +55,7 @@ const _pvpDarkVs4gateDragoon = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -45,
-          altText: '{away}, 게이트웨이가 네 개! 드라군 물량이 나옵니다!',
+          altText: '{away} 선수, 게이트웨이가 네 개! 드라군 물량이 나옵니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 템플러 아카이브 건설! 다크 확정!',
@@ -76,7 +76,7 @@ const _pvpDarkVs4gateDragoon = ScenarioScript(
           owner: LogOwner.home,
           awayResource: 0,
           homeArmy: 3, awayArmy: 3, homeResource: -20,
-          altText: '{home}, 다크 출격! 게이트웨이에 자원을 쏟은 상대를 노립니다!',
+          altText: '{home} 선수, 다크 출격! 게이트웨이에 자원을 쏟은 상대를 노립니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 드라군을 빠르게 모으고 있습니다! 옵저버는 없어요!',
@@ -105,7 +105,7 @@ const _pvpDarkVs4gateDragoon = ScenarioScript(
           baseProbability: 0.8,
           events: [
             ScriptEvent(
-              text: '{home}, 다크가 프로브를 학살합니다! 디텍이 없습니다!',
+              text: '{home} 선수, 다크가 프로브를 학살합니다! 디텍이 없습니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -121,7 +121,7 @@ const _pvpDarkVs4gateDragoon = ScenarioScript(
               awayResource: -10,
             ),
             ScriptEvent(
-              text: '{home}, 프로브가 전멸! 게이트웨이가 있어도 자원이 없습니다!',
+              text: '{home} 선수, 프로브가 전멸! 게이트웨이가 있어도 자원이 없습니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -148,7 +148,7 @@ const _pvpDarkVs4gateDragoon = ScenarioScript(
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,
-              awayArmy: 2, awayResource: -10,              altText: '{away}, 포지+캐논! 다크를 포착합니다!',
+              awayArmy: 2, awayResource: -10,              altText: '{away} 선수, 포지+캐논! 다크를 포착합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 다크가 캐논에 잡힙니다! 프로브 피해는 적습니다!',
@@ -159,7 +159,7 @@ const _pvpDarkVs4gateDragoon = ScenarioScript(
               homeArmy: -4,
             ),
             ScriptEvent(
-              text: '{away}, 드라군 물량이 전진합니다! 다크 실패 후 물량 차이!',
+              text: '{away} 선수, 드라군 물량이 전진합니다! 다크 실패 후 물량 차이!',
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,

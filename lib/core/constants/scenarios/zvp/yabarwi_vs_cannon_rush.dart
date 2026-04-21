@@ -30,7 +30,7 @@ const _zvpYabarwiVsCannonRush = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -10,
-          altText: '{away}, 포지 건설! 캐논 러시를 준비하고 있습니다!',
+          altText: '{away} 선수, 포지 건설! 캐논 러시를 준비하고 있습니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 저그 앞마당 옆에 파일런을 세웁니다!',
@@ -47,7 +47,7 @@ const _zvpYabarwiVsCannonRush = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: 0,
-          altText: '{home}, 파일런 발견! 캐논 러시가 예상됩니다!',
+          altText: '{home} 선수, 파일런 발견! 캐논 러시가 예상됩니다!',
           skipChance: 0.2,
         ),
         ScriptEvent(
@@ -72,7 +72,7 @@ const _zvpYabarwiVsCannonRush = ScenarioScript(
           homeResource: 0,
           awayArmy: 3,
           awayResource: -15,
-          altText: '{away}, 캐논 건설 중! 해처리를 위협합니다!',
+          altText: '{away} 선수, 캐논 건설 중! 해처리를 위협합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 드론으로 프로브를 잡으며 캐논 건설을 방해합니다!',
@@ -81,7 +81,7 @@ const _zvpYabarwiVsCannonRush = ScenarioScript(
           awayResource: 0,
           awayArmy: -1,
           homeResource: -10,
-          altText: '{home}, 드론 몰이! 프로브를 쫓아냅니다!',
+          altText: '{home} 선수, 드론 몰이! 프로브를 쫓아냅니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링이 나옵니다! 캐논 주변 프로브를 잡습니다!',
@@ -120,7 +120,7 @@ const _zvpYabarwiVsCannonRush = ScenarioScript(
           owner: LogOwner.away,
           homeArmy: 0,
           homeResource: 0,
-          awayArmy: 3, awayResource: -20,          altText: '{away}, 추가 캐논! 저그 앞마당이 봉쇄될 위기입니다!',
+          awayArmy: 3, awayResource: -20,          altText: '{away} 선수, 추가 캐논! 저그 앞마당이 봉쇄될 위기입니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 히드라리스크와 럴커 편대를 구성합니다!',
@@ -129,7 +129,7 @@ const _zvpYabarwiVsCannonRush = ScenarioScript(
           awayResource: 0,
           homeArmy: 3,
           homeResource: -15,
-          altText: '{home}, 럴커 합류! 캐논을 돌파할 방법을 찾습니다!',
+          altText: '{home} 선수, 럴커 합류! 캐논을 돌파할 방법을 찾습니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링을 여러 방향으로 분산시킵니다!',
@@ -165,7 +165,7 @@ const _zvpYabarwiVsCannonRush = ScenarioScript(
               homeResource: 0,
               homeArmy: 4,
               awayResource: -15,
-              altText: '{home}, 야바위! 어디가 진짜 공격인지 모릅니다!',
+              altText: '{home} 선수, 야바위! 어디가 진짜 공격인지 모릅니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 럴커가 프로토스 앞마당을 뚫습니다!',
@@ -207,7 +207,7 @@ const _zvpYabarwiVsCannonRush = ScenarioScript(
               awayResource: 0,
               awayArmy: 4,
               homeResource: -20,
-              altText: '{away}, 캐논 완성! 해처리 체력이 빠르게 줄어듭니다!',
+              altText: '{away} 선수, 캐논 완성! 해처리 체력이 빠르게 줄어듭니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 저글링이 캐논에 녹아내립니다!',

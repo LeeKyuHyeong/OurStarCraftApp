@@ -22,7 +22,7 @@ const _pvt2gateOpenVsAntiCarrier = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 첫 게이트웨이 건설!',
+          altText: '{home} 선수, 첫 게이트웨이 건설!',
         ),
         ScriptEvent(
           text: '{away} 선수 배럭 건설 후 팩토리를 준비합니다.',
@@ -39,7 +39,7 @@ const _pvt2gateOpenVsAntiCarrier = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 게이트웨이가 두 개! 질럿 압박을 가합니다!',
+          altText: '{home} 선수, 게이트웨이가 두 개! 질럿 압박을 가합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리에서 아머리를 올립니다! 골리앗을 준비하네요!',
@@ -48,7 +48,7 @@ const _pvt2gateOpenVsAntiCarrier = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 아머리 건설! 골리앗 생산을 노립니다!',
+          altText: '{away} 선수, 아머리 건설! 골리앗 생산을 노립니다!',
         ),
         ScriptEvent(
           text: '골리앗은 대공에 강하지만 질럿 상대로도 쓸만합니다! 어떻게 될까요?',
@@ -80,7 +80,7 @@ const _pvt2gateOpenVsAntiCarrier = ScenarioScript(
           homeResource: 0,
           awayResource: 0,
           homeArmy: 1,
-          altText: '{home}, 질럿 돌격! 골리앗 나오기 전에 피해를 줘야 합니다!',
+          altText: '{home} 선수, 질럿 돌격! 골리앗 나오기 전에 피해를 줘야 합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린과 벙커로 방어합니다! 골리앗 생산까지 버텨야 합니다!',
@@ -97,7 +97,7 @@ const _pvt2gateOpenVsAntiCarrier = ScenarioScript(
           homeResource: 0,
           awayResource: 0,
           awayArmy: 2,
-          altText: '{away}, 골리앗 합류! 질럿 상대로도 강합니다!',
+          altText: '{away} 선수, 골리앗 합류! 질럿 상대로도 강합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 질럿으로 일꾼을 잡으려 합니다!',
@@ -130,7 +130,7 @@ const _pvt2gateOpenVsAntiCarrier = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 드라군으로 전환합니다! 질럿만으로는 부족합니다!',
+          altText: '{home} 선수, 드라군으로 전환합니다! 질럿만으로는 부족합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 골리앗을 추가 생산합니다! 아머리 업그레이드도 진행!',
@@ -155,7 +155,7 @@ const _pvt2gateOpenVsAntiCarrier = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -30,
-          altText: '{away}, 확장! 골리앗 물량을 더 뽑겠다는 겁니다!',
+          altText: '{away} 선수, 확장! 골리앗 물량을 더 뽑겠다는 겁니다!',
         ),
         ScriptEvent(
           text: '드라군 vs 골리앗! 사정거리 싸움이 될 겁니다!',
@@ -183,7 +183,7 @@ const _pvt2gateOpenVsAntiCarrier = ScenarioScript(
               awayResource: 0,
               homeArmy: 4,
               awayArmy: -3,
-              altText: '{home}, 드라군 사거리 차이! 골리앗을 먼저 맞힙니다!',
+              altText: '{home} 선수, 드라군 사거리 차이! 골리앗을 먼저 맞힙니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 골리앗이 하나씩 녹습니다! 접근하기도 전에 맞습니다!',
@@ -232,7 +232,7 @@ const _pvt2gateOpenVsAntiCarrier = ScenarioScript(
               awayResource: 0,
               awayArmy: 4,
               homeArmy: -3,
-              altText: '{away}, 골리앗에 탱크까지! 복합 편성이 강력합니다!',
+              altText: '{away} 선수, 골리앗에 탱크까지! 복합 편성이 강력합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 드라군이 탱크 포격에 맞습니다! 한 방이 아픕니다!',

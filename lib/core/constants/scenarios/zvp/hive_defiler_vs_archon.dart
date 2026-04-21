@@ -30,7 +30,7 @@ const _zvpHiveDefilerVsArchon = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 기본 테크 건물을 빠르게 올리는 모습입니다.',
+          altText: '{away} 선수, 기본 테크 건물을 빠르게 올리는 모습입니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 스포닝풀 완성 후 저글링을 소량 생산합니다.',
@@ -47,7 +47,7 @@ const _zvpHiveDefilerVsArchon = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 아둔이 올라갑니다! 하이템플러 길이네요.',
+          altText: '{away} 선수, 아둔이 올라갑니다! 하이템플러 길이네요.',
         ),
         ScriptEvent(
           text: '프로토스가 템플러 테크를 선택했습니다. 아콘이 나오겠네요.',
@@ -79,7 +79,7 @@ const _zvpHiveDefilerVsArchon = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 레어를 올립니다! 하이브까지 가야 합니다!',
+          altText: '{home} 선수, 레어를 올립니다! 하이브까지 가야 합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 하이템플러 2기를 합체! 아콘이 탄생합니다!',
@@ -120,7 +120,7 @@ const _zvpHiveDefilerVsArchon = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -25,
-          altText: '{home}, 하이브가 올라갑니다! 울트라리스크도 기대되네요.',
+          altText: '{home} 선수, 하이브가 올라갑니다! 울트라리스크도 기대되네요.',
         ),
         ScriptEvent(
           text: '{away} 선수 아콘과 질럿을 모아서 전진합니다!',
@@ -165,7 +165,7 @@ const _zvpHiveDefilerVsArchon = ScenarioScript(
               awayResource: 0,
               homeArmy: 4,
               awayArmy: -2,
-              altText: '{home}, 다크 스웜! 아콘이 공격을 못 합니다!',
+              altText: '{home} 선수, 다크 스웜! 아콘이 공격을 못 합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 울트라리스크가 아콘을 향해 돌진합니다!',
@@ -206,7 +206,7 @@ const _zvpHiveDefilerVsArchon = ScenarioScript(
               awayResource: 0,
               awayArmy: 3,
               homeArmy: -4,
-              altText: '{away}, 아콘 한 방에 저글링이 전멸합니다!',
+              altText: '{away} 선수, 아콘 한 방에 저글링이 전멸합니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 질럿이 저그 진영으로 밀고 들어갑니다!',

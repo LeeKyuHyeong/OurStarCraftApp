@@ -30,7 +30,7 @@ const _pvtProxyGateVsTankDefense = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 배럭 가스! 팩토리를 노리는 빌드!',
+          altText: '{away} 선수, 배럭 가스! 팩토리를 노리는 빌드!',
         ),
         ScriptEvent(
           text: '{home} 선수 상대 근처에 게이트웨이를 숨겨서 건설합니다!',
@@ -39,7 +39,7 @@ const _pvtProxyGateVsTankDefense = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 숨겨진 게이트웨이! 발각되지 않았습니다!',
+          altText: '{home} 선수, 숨겨진 게이트웨이! 발각되지 않았습니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리 건설합니다. 머신샵을 붙이고 있습니다!',
@@ -56,7 +56,7 @@ const _pvtProxyGateVsTankDefense = ScenarioScript(
           awayResource: 0,
           homeArmy: 2,
           homeResource: -10,
-          altText: '{home}, 질럿이 나옵니다! 테란이 아직 모르고 있어요!',
+          altText: '{home} 선수, 질럿이 나옵니다! 테란이 아직 모르고 있어요!',
         ),
         ScriptEvent(
           text: '전진 게이트웨이! 테란이 정찰하지 못하면 위험합니다!',
@@ -80,7 +80,7 @@ const _pvtProxyGateVsTankDefense = ScenarioScript(
           homeResource: 0,
           awayResource: 0,
           homeArmy: 1,
-          altText: '{home}, 질럿 러시! 테란 앞마당으로!',
+          altText: '{home} 선수, 질럿 러시! 테란 앞마당으로!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린 2기와 SCV로 방어합니다!',
@@ -91,7 +91,7 @@ const _pvtProxyGateVsTankDefense = ScenarioScript(
           awayResource: -5,
         ),
         ScriptEvent(
-          text: '{home}, 질럿이 마린을 쫓습니다! 마린이 도망가면서 사격!',
+          text: '{home} 선수, 질럿이 마린을 쫓습니다! 마린이 도망가면서 사격!',
           owner: LogOwner.home,
           homeArmy: 0,
           homeResource: 0,
@@ -106,7 +106,7 @@ const _pvtProxyGateVsTankDefense = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -10,
-          altText: '{away}, 벙커 건설 시도! 완성되면 질럿을 막을 수 있습니다!',
+          altText: '{away} 선수, 벙커 건설 시도! 완성되면 질럿을 막을 수 있습니다!',
         ),
         ScriptEvent(
           text: '벙커가 올라오고 있습니다! 질럿이 끊을 수 있을까요?',
@@ -131,7 +131,7 @@ const _pvtProxyGateVsTankDefense = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: 0,
-          altText: '{home}, 질럿이 SCV를 공격! 벙커 건설을 방해합니다!',
+          altText: '{home} 선수, 질럿이 SCV를 공격! 벙커 건설을 방해합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 추가 마린 생산! 벙커에 마린을 넣으려 합니다!',
@@ -142,7 +142,7 @@ const _pvtProxyGateVsTankDefense = ScenarioScript(
           awayResource: -5,
         ),
         ScriptEvent(
-          text: '{home}, 질럿 추가 합류! 3기가 됐습니다!',
+          text: '{home} 선수, 질럿 추가 합류! 3기가 됐습니다!',
           owner: LogOwner.home,
           awayArmy: 0,
           awayResource: 0,
@@ -178,7 +178,7 @@ const _pvtProxyGateVsTankDefense = ScenarioScript(
               homeResource: 0,
               awayResource: 0,
               awayArmy: -2,
-              altText: '{home}, SCV 격파! 벙커 건설 실패!',
+              altText: '{home} 선수, SCV 격파! 벙커 건설 실패!',
             ),
             ScriptEvent(
               text: '{away} 선수 마린만으로는 질럿을 막을 수 없습니다!',
@@ -189,7 +189,7 @@ const _pvtProxyGateVsTankDefense = ScenarioScript(
               awayArmy: -3,
             ),
             ScriptEvent(
-              text: '{home}, 질럿이 SCV를 추가로 잡아내면서 라인을 밀어냅니다!',
+              text: '{home} 선수, 질럿이 SCV를 추가로 잡아내면서 라인을 밀어냅니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -212,7 +212,7 @@ const _pvtProxyGateVsTankDefense = ScenarioScript(
               homeArmy: 20,
               awayArmy: -15,
               decisive: true,
-              altText: '{home}, 전진 게이트웨이 성공! 질럿이 테란을 초토화!',
+              altText: '{home} 선수, 전진 게이트웨이 성공! 질럿이 테란을 초토화!',
             ),
           ],
         ),
@@ -230,7 +230,7 @@ const _pvtProxyGateVsTankDefense = ScenarioScript(
               homeResource: 0,
               awayResource: 0,
               awayArmy: 4,
-              altText: '{away}, 벙커에 마린 투입! 상대 병력이 막힙니다!',
+              altText: '{away} 선수, 벙커에 마린 투입! 상대 병력이 막힙니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 질럿이 벙커를 깨지 못합니다! SCV 수리까지!',
@@ -241,7 +241,7 @@ const _pvtProxyGateVsTankDefense = ScenarioScript(
               homeArmy: -3,
             ),
             ScriptEvent(
-              text: '{away}, 시즈 탱크가 나옵니다! 질럿은 탱크 상대가 안 됩니다!',
+              text: '{away} 선수, 시즈 탱크가 나옵니다! 질럿은 탱크 상대가 안 됩니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,
@@ -273,7 +273,7 @@ const _pvtProxyGateVsTankDefense = ScenarioScript(
               awayArmy: 20,
               homeArmy: -15,
               decisive: true,
-              altText: '{away}, 탱크 시즈 모드! 전진 질럿을 완벽히 막아냈습니다!',
+              altText: '{away} 선수, 탱크 시즈 모드! 전진 질럿을 완벽히 막아냈습니다!',
             ),
           ],
         ),

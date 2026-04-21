@@ -22,7 +22,7 @@ const _zvpHydraLurkerVsDragoonPush = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 앞마당 해처리가 건설됩니다. 안정적인 오프닝이네요.',
+          altText: '{home} 선수, 앞마당 해처리가 건설됩니다. 안정적인 오프닝이네요.',
         ),
         ScriptEvent(
           text: '{away} 선수 게이트웨이와 사이버네틱스 코어를 건설합니다.',
@@ -39,7 +39,7 @@ const _zvpHydraLurkerVsDragoonPush = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 히드라덴을 올립니다! 히드라리스크를 준비하는군요!',
+          altText: '{home} 선수, 히드라덴을 올립니다! 히드라리스크를 준비하는군요!',
         ),
         ScriptEvent(
           text: '{away} 선수 드라군 생산이 시작됩니다. 물량을 모으고 있습니다.',
@@ -71,7 +71,7 @@ const _zvpHydraLurkerVsDragoonPush = ScenarioScript(
           homeResource: 0,
           awayArmy: 4,
           awayResource: -15,
-          altText: '{away}, 드라군이 진격합니다! 물량이 꽤 모였네요!',
+          altText: '{away} 선수, 드라군이 진격합니다! 물량이 꽤 모였네요!',
         ),
         ScriptEvent(
           text: '{home} 선수 히드라리스크로 맞불을 놓습니다! 사거리 교환이에요!',
@@ -88,7 +88,7 @@ const _zvpHydraLurkerVsDragoonPush = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 옵저버터리에서 옵저버 생산! 럴커가 나올 것을 대비합니다!',
+          altText: '{away} 선수, 옵저버터리에서 옵저버 생산! 럴커가 나올 것을 대비합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 레어 업그레이드 시작! 럴커 진화를 준비합니다!',
@@ -121,7 +121,7 @@ const _zvpHydraLurkerVsDragoonPush = ScenarioScript(
           awayResource: 0,
           homeArmy: 4,
           homeResource: -15,
-          altText: '{home}, 럴커가 매몰됩니다! 드라군이 접근하면 큰 피해를 입어요!',
+          altText: '{home} 선수, 럴커가 매몰됩니다! 드라군이 접근하면 큰 피해를 입어요!',
         ),
         ScriptEvent(
           text: '{away} 선수 옵저버를 전방으로 보냅니다! 럴커를 찾아야 합니다!',
@@ -138,7 +138,7 @@ const _zvpHydraLurkerVsDragoonPush = ScenarioScript(
           homeResource: 0,
           awayArmy: 3,
           awayResource: -15,
-          altText: '{away}, 드라군 물량을 더 모읍니다. 옵저버 앞세워 진격할 겁니다.',
+          altText: '{away} 선수, 드라군 물량을 더 모읍니다. 옵저버 앞세워 진격할 겁니다.',
         ),
         ScriptEvent(
           text: '럴커 매몰 vs 옵저버 감지! 이 승부의 핵심입니다!',
@@ -166,7 +166,7 @@ const _zvpHydraLurkerVsDragoonPush = ScenarioScript(
               awayResource: 0,
               homeArmy: 3,
               awayArmy: -5,
-              altText: '{home}, 럴커 매몰에 드라군을 녹여버립니다! 위치 선정이 완벽해요!',
+              altText: '{home} 선수, 럴커 매몰에 드라군을 녹여버립니다! 위치 선정이 완벽해요!',
             ),
             ScriptEvent(
               text: '{away} 선수 옵저버가 히드라리스크에 격추됩니다! 럴커가 안 보여요!',
@@ -207,7 +207,7 @@ const _zvpHydraLurkerVsDragoonPush = ScenarioScript(
               homeResource: 0,
               awayResource: 0,
               awayArmy: 2,
-              altText: '{away}, 옵저버가 럴커를 찾아냈습니다! 이제 보입니다!',
+              altText: '{away} 선수, 옵저버가 럴커를 찾아냈습니다! 이제 보입니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 드라군이 럴커를 집중 사격합니다! 하나씩 정리해요!',

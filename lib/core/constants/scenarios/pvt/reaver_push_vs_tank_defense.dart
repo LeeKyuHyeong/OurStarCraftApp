@@ -22,7 +22,7 @@ const _pvtReaverPushVsTankDefense = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 로보틱스가 빠르게 올라갑니다!',
+          altText: '{home} 선수, 로보틱스가 빠르게 올라갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리에서 시즈탱크 생산을 시작합니다.',
@@ -48,7 +48,7 @@ const _pvtReaverPushVsTankDefense = ScenarioScript(
           homeResource: 0,
           awayArmy: 3,
           awayResource: -15,
-          altText: '{away}, 시즈탱크가 앞마당에 자리를 잡습니다!',
+          altText: '{away} 선수, 시즈탱크가 앞마당에 자리를 잡습니다!',
         ),
         ScriptEvent(
           text: '테란이 수비 진형을 갖추고 있습니다. 프로토스는 셔틀로 우회할 수 있을까요.',
@@ -80,7 +80,7 @@ const _pvtReaverPushVsTankDefense = ScenarioScript(
           homeResource: 0,
           awayResource: -10,
           awayArmy: 1,
-          altText: '{away}, 본진 터렛을 올리기 시작하네요.',
+          altText: '{away} 선수, 본진 터렛을 올리기 시작하네요.',
         ),
         ScriptEvent(
           text: '{home} 선수 셔틀이 시즈 라인을 피해 측면으로 진입합니다!',
@@ -89,7 +89,7 @@ const _pvtReaverPushVsTankDefense = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: 0,
-          altText: '{home}, 셔틀이 측면 클리프에서 리버를 내립니다!',
+          altText: '{home} 선수, 셔틀이 측면 클리프에서 리버를 내립니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 시즈탱크를 추가 생산하며 라인을 넓힙니다.',
@@ -130,7 +130,7 @@ const _pvtReaverPushVsTankDefense = ScenarioScript(
           homeResource: 0,
           awayArmy: -1,
           awayResource: -10,
-          altText: '{away}, SCV가 날아갔습니다! 마린이 뒤늦게 달려옵니다!',
+          altText: '{away} 선수, SCV가 날아갔습니다! 마린이 뒤늦게 달려옵니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 드라군 부대도 앞에서 압박을 시작합니다.',
@@ -166,7 +166,7 @@ const _pvtReaverPushVsTankDefense = ScenarioScript(
               homeResource: 0,
               awayResource: -30,
               homeArmy: 2,
-              altText: '{home}, 스캐럽 연속 명중! 리버가 SCV를 녹여냅니다!',
+              altText: '{home} 선수, 스캐럽 연속 명중! 리버가 SCV를 녹여냅니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 자원이 끊기면서 탱크 추가 생산이 불가능합니다!',
@@ -207,7 +207,7 @@ const _pvtReaverPushVsTankDefense = ScenarioScript(
               awayResource: 0,
               homeArmy: -4,
               awayArmy: 1,
-              altText: '{away}, 터렛 화력에 셔틀이 격추됩니다! 리버도 함께!',
+              altText: '{away} 선수, 터렛 화력에 셔틀이 격추됩니다! 리버도 함께!',
             ),
             ScriptEvent(
               text: '{home} 선수 리버를 잃었습니다! 핵심 전력이 사라졌어요!',

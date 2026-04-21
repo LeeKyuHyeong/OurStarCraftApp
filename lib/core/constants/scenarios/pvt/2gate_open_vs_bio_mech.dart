@@ -30,7 +30,7 @@ const _pvt2gateOpenVsBioMech = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 배럭에 가스! 메카닉 전환을 준비합니다!',
+          altText: '{away} 선수, 배럭에 가스! 메카닉 전환을 준비합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 두 번째 게이트웨이! 질럿을 빠르게 뽑겠다는 겁니다!',
@@ -39,7 +39,7 @@ const _pvt2gateOpenVsBioMech = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 게이트웨이가 두 개! 질럿 생산에 집중합니다!',
+          altText: '{home} 선수, 게이트웨이가 두 개! 질럿 생산에 집중합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리를 올립니다! 바이오닉과 메카닉을 섞을 준비!',
@@ -79,7 +79,7 @@ const _pvt2gateOpenVsBioMech = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: 0,
-          altText: '{home}, 질럿 견제! SCV를 압박합니다!',
+          altText: '{home} 선수, 질럿 견제! SCV를 압박합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린과 벌처로 방어합니다! 복합 편성의 장점이죠!',
@@ -96,7 +96,7 @@ const _pvt2gateOpenVsBioMech = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 사이버네틱스 코어 건설! 드라군 전환 준비!',
+          altText: '{home} 선수, 사이버네틱스 코어 건설! 드라군 전환 준비!',
         ),
         ScriptEvent(
           text: '{away} 선수 아카데미도 올립니다! 마린 메딕을 준비합니다!',
@@ -137,7 +137,7 @@ const _pvt2gateOpenVsBioMech = ScenarioScript(
           homeResource: 0,
           awayArmy: 3,
           awayResource: -20,
-          altText: '{away}, 마린 탱크 골리앗! 복합 편성 완성!',
+          altText: '{away} 선수, 마린 탱크 골리앗! 복합 편성 완성!',
         ),
         ScriptEvent(
           text: '{home} 선수 드라군 물량을 모으고 있습니다!',
@@ -154,7 +154,7 @@ const _pvt2gateOpenVsBioMech = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -30,
-          altText: '{away}, 앞마당 확장! 복합 편성으로 안전하게 운영합니다!',
+          altText: '{away} 선수, 앞마당 확장! 복합 편성으로 안전하게 운영합니다!',
         ),
         ScriptEvent(
           text: '양쪽 확장을 마쳤습니다! 본격적인 교전이 다가옵니다!',
@@ -182,7 +182,7 @@ const _pvt2gateOpenVsBioMech = ScenarioScript(
               awayResource: 0,
               homeArmy: 3,
               awayArmy: -3,
-              altText: '{home}, 드라군 컨트롤! 골리앗을 집중 공격합니다!',
+              altText: '{home} 선수, 드라군 컨트롤! 골리앗을 집중 공격합니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 탱크 포격이 상대 병력에 맞지 않습니다! 분산 컨트롤이 좋습니다!',
@@ -231,7 +231,7 @@ const _pvt2gateOpenVsBioMech = ScenarioScript(
               awayResource: 0,
               awayArmy: 3,
               homeArmy: -4,
-              altText: '{away}, 탱크 포격이 드라군을 직격합니다!',
+              altText: '{away} 선수, 탱크 포격이 드라군을 직격합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 드라군이 크게 줄었습니다! 탱크 포격에 녹았습니다!',

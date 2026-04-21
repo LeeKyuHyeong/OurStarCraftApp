@@ -30,7 +30,7 @@ const _pvt5gateCarrierVsTimingPush = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -25,
-          altText: '{away}, 더블 팩토리! 빠른 타이밍 공격 준비!',
+          altText: '{away} 선수, 더블 팩토리! 빠른 타이밍 공격 준비!',
         ),
         ScriptEvent(
           text: '{home} 선수 넥서스 건설! 확장을 가져갑니다.',
@@ -39,7 +39,7 @@ const _pvt5gateCarrierVsTimingPush = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -30,
-          altText: '{home}, 넥서스가 올라갑니다. 자원 확보가 우선이네요.',
+          altText: '{home} 선수, 넥서스가 올라갑니다. 자원 확보가 우선이네요.',
         ),
         ScriptEvent(
           text: '{away} 선수 벌처와 탱크를 빠르게 모으고 있습니다!',
@@ -47,7 +47,7 @@ const _pvt5gateCarrierVsTimingPush = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 4, awayResource: -20,
-          altText: '{away}, 벌처 탱크 생산! 타이밍 공격을 노립니다!',
+          altText: '{away} 선수, 벌처 탱크 생산! 타이밍 공격을 노립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 게이트웨이 추가! 드라군으로 방어를 준비합니다.',
@@ -77,17 +77,17 @@ const _pvt5gateCarrierVsTimingPush = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayResource: 0,
-          awayArmy: 3,          altText: '{away}, 총공격! 벌처 탱크 편대가 밀려옵니다!',
+          awayArmy: 3,          altText: '{away} 선수, 총공격! 벌처 탱크 편대가 밀려옵니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 드라군으로 탱크 사거리 밖에서 교전합니다!',
           owner: LogOwner.home,
           homeResource: 0,
           awayResource: 0,
-          homeArmy: 3, awayArmy: -2,          altText: '{home}, 드라군 사거리를 활용합니다! 탱크 밖에서 포격!',
+          homeArmy: 3, awayArmy: -2,          altText: '{home} 선수, 드라군 사거리를 활용합니다! 탱크 밖에서 포격!',
         ),
         ScriptEvent(
-          text: '{away}, 시즈 탱크 배치! 프로토스 앞마당을 포격합니다!',
+          text: '{away} 선수, 시즈 탱크 배치! 프로토스 앞마당을 포격합니다!',
           owner: LogOwner.away,
           homeResource: 0,
           awayResource: 0,
@@ -97,7 +97,7 @@ const _pvt5gateCarrierVsTimingPush = ScenarioScript(
           owner: LogOwner.home,
           homeResource: 0,
           awayResource: 0,
-          awayArmy: -2, homeArmy: -1,          altText: '{home}, 질럿이 벌처를 잡습니다! 시간을 벌어야 합니다!',
+          awayArmy: -2, homeArmy: -1,          altText: '{home} 선수, 질럿이 벌처를 잡습니다! 시간을 벌어야 합니다!',
         ),
         ScriptEvent(
           text: '프로토스가 타이밍을 버텨야 캐리어까지 갈 수 있습니다.',
@@ -122,7 +122,7 @@ const _pvt5gateCarrierVsTimingPush = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -30,
-          altText: '{home}, 스타게이트에 플릿 비콘! 캐리어 테크를 급하게 올립니다!',
+          altText: '{home} 선수, 스타게이트에 플릿 비콘! 캐리어 테크를 급하게 올립니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 2차 공격을 위해 병력을 모읍니다.',
@@ -130,7 +130,7 @@ const _pvt5gateCarrierVsTimingPush = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 4, awayResource: -20,
-          altText: '{away}, 병력 재정비! 2차 공격을 준비합니다.',
+          altText: '{away} 선수, 병력 재정비! 2차 공격을 준비합니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 더블 스타게이트에서 주력 함선 생산 시작!',
@@ -138,7 +138,7 @@ const _pvt5gateCarrierVsTimingPush = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 3, homeResource: -30,
-          altText: '{home}, 캐리어 생산 돌입! 인터셉터를 채워야 합니다!',
+          altText: '{home} 선수, 캐리어 생산 돌입! 인터셉터를 채워야 합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 게이트웨이에서 드라군을 계속 보충합니다.',
@@ -164,10 +164,10 @@ const _pvt5gateCarrierVsTimingPush = ScenarioScript(
               awayArmy: 0,
               homeResource: 0,
               awayResource: 0,
-              homeArmy: 5,              altText: '{home}, 캐리어가 드디어 나옵니다! 풀 인터셉터!',
+              homeArmy: 5,              altText: '{home} 선수, 캐리어가 드디어 나옵니다! 풀 인터셉터!',
             ),
             ScriptEvent(
-              text: '{home}, 캐리어가 테란 병력 위를 날아갑니다! 탱크가 공중을 못 치죠!',
+              text: '{home} 선수, 캐리어가 테란 병력 위를 날아갑니다! 탱크가 공중을 못 치죠!',
               owner: LogOwner.home,
               homeResource: 0,
               awayResource: 0,
@@ -202,10 +202,10 @@ const _pvt5gateCarrierVsTimingPush = ScenarioScript(
               homeArmy: 0,
               homeResource: 0,
               awayResource: 0,
-              awayArmy: 5,              altText: '{away}, 지금 밀어야 합니다! 캐리어 전에 끝내야 해요!',
+              awayArmy: 5,              altText: '{away} 선수, 지금 밀어야 합니다! 캐리어 전에 끝내야 해요!',
             ),
             ScriptEvent(
-              text: '{away}, 시즈 탱크가 스타게이트를 직접 포격합니다! 캐리어 생산 중단!',
+              text: '{away} 선수, 시즈 탱크가 스타게이트를 직접 포격합니다! 캐리어 생산 중단!',
               owner: LogOwner.away,
               awayArmy: 0,
               awayResource: 0,
@@ -216,7 +216,7 @@ const _pvt5gateCarrierVsTimingPush = ScenarioScript(
               homeResource: 0,
               awayResource: 0,
               homeArmy: -4, awayArmy: -2,
-              altText: '{home}, 캐리어가 완성되지 못합니다! 인터셉터 부족!',
+              altText: '{home} 선수, 캐리어가 완성되지 못합니다! 인터셉터 부족!',
             ),
             ScriptEvent(
               text: '캐리어 완성 전에 밀어냅니다! 타이밍의 승리!',

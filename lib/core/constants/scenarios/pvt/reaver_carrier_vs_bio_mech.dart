@@ -30,7 +30,7 @@ const _pvtReaverCarrierVsBioMech = ScenarioScript(
           homeResource: 0,
           awayArmy: 1,
           awayResource: -20,
-          altText: '{away}, 배럭과 팩토리를 동시에 가동합니다.',
+          altText: '{away} 선수, 배럭과 팩토리를 동시에 가동합니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 사이버네틱스 코어 건설! 드라군을 준비합니다.',
@@ -39,7 +39,7 @@ const _pvtReaverCarrierVsBioMech = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 사이버네틱스 코어가 올라갑니다. 드라군 생산 임박!',
+          altText: '{home} 선수, 사이버네틱스 코어가 올라갑니다. 드라군 생산 임박!',
         ),
         ScriptEvent(
           text: '{away} 선수 배럭을 추가합니다. 마린과 메딕을 함께 뽑겠다는 거죠.',
@@ -79,7 +79,7 @@ const _pvtReaverCarrierVsBioMech = ScenarioScript(
           awayResource: 0,
           homeArmy: 3,
           homeResource: -20,
-          altText: '{home}, 서포트 베이 완성! 리버 셔틀 조합으로 테란 뒤를 노립니다!',
+          altText: '{home} 선수, 서포트 베이 완성! 리버 셔틀 조합으로 테란 뒤를 노립니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린 메딕 시즈탱크 조합으로 전진합니다!',
@@ -96,7 +96,7 @@ const _pvtReaverCarrierVsBioMech = ScenarioScript(
           homeResource: 0,
           awayArmy: -2,
           awayResource: -15,
-          altText: '{home}, 리버 드랍! 테란 본진 일꾼에 스카랩 직격!',
+          altText: '{home} 선수, 리버 드랍! 테란 본진 일꾼에 스카랩 직격!',
         ),
         ScriptEvent(
           text: '{away} 선수 골리앗을 섞기 시작합니다! 대공 준비에 들어가네요.',
@@ -137,7 +137,7 @@ const _pvtReaverCarrierVsBioMech = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 골리앗 레인지 업! 대공 사정거리가 늘어납니다!',
+          altText: '{away} 선수, 골리앗 레인지 업! 대공 사정거리가 늘어납니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 플릿 비콘까지 건설합니다! 캐리어 생산 준비 완료!',
@@ -146,7 +146,7 @@ const _pvtReaverCarrierVsBioMech = ScenarioScript(
           awayResource: 0,
           homeArmy: 2,
           homeResource: -30,
-          altText: '{home}, 플릿 비콘이 완성됩니다! 캐리어 시대가 열립니다!',
+          altText: '{home} 선수, 플릿 비콘이 완성됩니다! 캐리어 시대가 열립니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린 탱크 골리앗의 삼각 편성이 완성되어 갑니다!',
@@ -183,7 +183,7 @@ const _pvtReaverCarrierVsBioMech = ScenarioScript(
               awayResource: 0,
               homeArmy: 4,
               awayArmy: -3,
-              altText: '{home}, 캐리어 등장! 인터셉터가 바이오닉 병력을 쓸어냅니다!',
+              altText: '{home} 선수, 캐리어 등장! 인터셉터가 바이오닉 병력을 쓸어냅니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 리버가 지상에서 동시 공격! 탱크 라인을 흔듭니다!',
@@ -217,7 +217,7 @@ const _pvtReaverCarrierVsBioMech = ScenarioScript(
               homeArmy: 25,
               awayArmy: -15,
               decisive: true,
-              altText: '{home}, 공중과 지상의 이중 타격! 테란이 무너집니다!',
+              altText: '{home} 선수, 공중과 지상의 이중 타격! 테란이 무너집니다!',
             ),
           ],
         ),
@@ -233,7 +233,7 @@ const _pvtReaverCarrierVsBioMech = ScenarioScript(
               awayResource: 0,
               awayArmy: 3,
               homeArmy: -4,
-              altText: '{away}, 골리앗 집중 사격! 캐리어 실드가 깎여나갑니다!',
+              altText: '{away} 선수, 골리앗 집중 사격! 캐리어 실드가 깎여나갑니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 시즈탱크가 리버 셔틀을 포격합니다! 셔틀이 터집니다!',
@@ -267,7 +267,7 @@ const _pvtReaverCarrierVsBioMech = ScenarioScript(
               awayArmy: 25,
               homeArmy: -15,
               decisive: true,
-              altText: '{away}, 복합 편성의 완승! 프로토스 전력을 완전히 분쇄합니다!',
+              altText: '{away} 선수, 복합 편성의 완승! 프로토스 전력을 완전히 분쇄합니다!',
             ),
           ],
         ),

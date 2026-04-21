@@ -30,7 +30,7 @@ const _zvpHydraLurkerVsForgeExpand = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 포지가 올라갑니다! 캐논으로 앞마당을 지키려는 모습!',
+          altText: '{away} 선수, 포지가 올라갑니다! 캐논으로 앞마당을 지키려는 모습!',
         ),
         ScriptEvent(
           text: '{away} 선수 넥서스 확장! 캐논 2기로 입구를 막습니다!',
@@ -39,7 +39,7 @@ const _zvpHydraLurkerVsForgeExpand = ScenarioScript(
           homeResource: 0,
           awayResource: -35,
           awayArmy: 2,
-          altText: '{away}, 넥서스를 올리며 캐논 라인으로 입구를 봉쇄합니다!',
+          altText: '{away} 선수, 넥서스를 올리며 캐논 라인으로 입구를 봉쇄합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 스포닝풀 완성 후 히드라덴 건설을 서두릅니다.',
@@ -48,7 +48,7 @@ const _zvpHydraLurkerVsForgeExpand = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 스포닝풀 완성 후 히드라덴을 올립니다! 캐논을 상대하려면 히드라가 필요하죠!',
+          altText: '{home} 선수, 스포닝풀 완성 후 히드라덴을 올립니다! 캐논을 상대하려면 히드라가 필요하죠!',
         ),
         ScriptEvent(
           text: '포지 확장의 캐논 라인! 히드라리스크로 뚫을 수 있을까요?',
@@ -72,7 +72,7 @@ const _zvpHydraLurkerVsForgeExpand = ScenarioScript(
           awayResource: 0,
           homeArmy: 4,
           homeResource: -15,
-          altText: '{home}, 히드라리스크가 모이고 있습니다! 캐논 사거리 밖에서 공격 가능해요!',
+          altText: '{home} 선수, 히드라리스크가 모이고 있습니다! 캐논 사거리 밖에서 공격 가능해요!',
         ),
         ScriptEvent(
           text: '{away} 선수 지상군을 보충합니다! 캐논만으론 부족하죠!',
@@ -89,7 +89,7 @@ const _zvpHydraLurkerVsForgeExpand = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 로보틱스와 옵저버터리가 올라갑니다! 옵저버 생산이 급하네요!',
+          altText: '{away} 선수, 로보틱스와 옵저버터리가 올라갑니다! 옵저버 생산이 급하네요!',
         ),
         ScriptEvent(
           text: '{home} 선수 레어 업그레이드 시작! 럴커 진화를 노립니다!',
@@ -122,7 +122,7 @@ const _zvpHydraLurkerVsForgeExpand = ScenarioScript(
           awayResource: 0,
           homeArmy: 4,
           homeResource: -15,
-          altText: '{home}, 럴커가 매몰됩니다! 확장기지 진입로를 차단해요!',
+          altText: '{home} 선수, 럴커가 매몰됩니다! 확장기지 진입로를 차단해요!',
         ),
         ScriptEvent(
           text: '{away} 선수 옵저버를 전방으로 보냅니다! 럴커를 찾아야 합니다!',
@@ -139,7 +139,7 @@ const _zvpHydraLurkerVsForgeExpand = ScenarioScript(
           homeResource: 0,
           awayResource: 0,
           homeArmy: 1,
-          altText: '{home}, 히드라가 옵저버를 노립니다! 격추하면 럴커가 무적이에요!',
+          altText: '{home} 선수, 히드라가 옵저버를 노립니다! 격추하면 럴커가 무적이에요!',
         ),
         ScriptEvent(
           text: '옵저버 생존 여부가 이 경기의 핵심입니다! 럴커를 볼 수 있느냐 없느냐!',
@@ -167,7 +167,7 @@ const _zvpHydraLurkerVsForgeExpand = ScenarioScript(
               homeResource: 0,
               awayResource: 0,
               homeArmy: 2,
-              altText: '{home}, 옵저버 격추! 이제 럴커 위치를 알 수 없습니다!',
+              altText: '{home} 선수, 옵저버 격추! 이제 럴커 위치를 알 수 없습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 럴커 가시가 드라군 부대를 관통합니다!',
@@ -208,7 +208,7 @@ const _zvpHydraLurkerVsForgeExpand = ScenarioScript(
               awayResource: 0,
               awayArmy: 3,
               homeArmy: -4,
-              altText: '{away}, 옵저버가 럴커 위치를 밝힙니다! 드라군이 정리해요!',
+              altText: '{away} 선수, 옵저버가 럴커 위치를 밝힙니다! 드라군이 정리해요!',
             ),
             ScriptEvent(
               text: '{away} 선수 캐논 라인 뒤에서 안전하게 병력을 모읍니다.',

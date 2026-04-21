@@ -30,7 +30,7 @@ const _pvtReaverCarrierVsAntiCarrier = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 배럭과 팩토리를 올리며 안정적으로 시작합니다.',
+          altText: '{away} 선수, 배럭과 팩토리를 올리며 안정적으로 시작합니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 로보틱스와 서포트 베이를 건설합니다! 공성 유닛을 빨리 꺼내겠다는 거죠.',
@@ -39,7 +39,7 @@ const _pvtReaverCarrierVsAntiCarrier = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 로보틱스와 서포트 베이 건설! 로보 셔틀 빌드를 가져갑니다.',
+          altText: '{home} 선수, 로보틱스와 서포트 베이 건설! 로보 셔틀 빌드를 가져갑니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 아머리를 일찍 올립니다! 골리앗 사정거리 업그레이드를 노리네요!',
@@ -79,7 +79,7 @@ const _pvtReaverCarrierVsAntiCarrier = ScenarioScript(
           awayResource: 0,
           homeArmy: 3,
           homeResource: -20,
-          altText: '{home}, 리버 셔틀 출격! 테란 일꾼을 노립니다!',
+          altText: '{home} 선수, 리버 셔틀 출격! 테란 일꾼을 노립니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리에서 골리앗을 생산합니다! 대공에 올인합니다!',
@@ -96,7 +96,7 @@ const _pvtReaverCarrierVsAntiCarrier = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{home}, 리버 스카랩 명중! 일꾼과 건물에 큰 피해!',
+          altText: '{home} 선수, 리버 스카랩 명중! 일꾼과 건물에 큰 피해!',
         ),
         ScriptEvent(
           text: '{away} 선수 골리앗 사정거리 업그레이드가 완료됩니다! 대공 사거리가 늘었습니다!',
@@ -129,7 +129,7 @@ const _pvtReaverCarrierVsAntiCarrier = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -25,
-          altText: '{home}, 스타게이트가 올라갑니다! 과연 캐리어가 통할까요?',
+          altText: '{home} 선수, 스타게이트가 올라갑니다! 과연 캐리어가 통할까요?',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리 3개에서 골리앗을 쏟아냅니다! 대공 특화입니다!',
@@ -154,7 +154,7 @@ const _pvtReaverCarrierVsAntiCarrier = ScenarioScript(
           homeResource: 0,
           awayArmy: 3,
           awayResource: -15,
-          altText: '{away}, 골리앗 물량이 쌓입니다! 골리앗이 쌓이는 대공 화력 앞에 적 함대가 버틸 수 있을까요?',
+          altText: '{away} 선수, 골리앗 물량이 쌓입니다! 골리앗이 쌓이는 대공 화력 앞에 적 함대가 버틸 수 있을까요?',
         ),
         ScriptEvent(
           text: '골리앗 레인지 업! 캐리어에 대한 완벽한 카운터가 준비되었습니다!',
@@ -183,7 +183,7 @@ const _pvtReaverCarrierVsAntiCarrier = ScenarioScript(
               awayResource: 0,
               awayArmy: -4,
               homeArmy: 2,
-              altText: '{home}, 리버가 골리앗 뒤를 급습합니다! 대공 진형이 무너집니다!',
+              altText: '{home} 선수, 리버가 골리앗 뒤를 급습합니다! 대공 진형이 무너집니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 골리앗이 줄어든 틈을 노려 캐리어를 투입합니다!',
@@ -217,7 +217,7 @@ const _pvtReaverCarrierVsAntiCarrier = ScenarioScript(
               homeArmy: 25,
               awayArmy: -15,
               decisive: true,
-              altText: '{home}, 양면 작전 성공! 골리앗 없는 테란을 캐리어가 유린합니다!',
+              altText: '{home} 선수, 양면 작전 성공! 골리앗 없는 테란을 캐리어가 유린합니다!',
             ),
           ],
         ),
@@ -233,7 +233,7 @@ const _pvtReaverCarrierVsAntiCarrier = ScenarioScript(
               awayResource: 0,
               awayArmy: 3,
               homeArmy: -5,
-              altText: '{away}, 골리앗 레인지 업! 골리앗이 대공 사격! 적 함대가 접근하기도 전에 격추당합니다!',
+              altText: '{away} 선수, 골리앗 레인지 업! 골리앗이 대공 사격! 적 함대가 접근하기도 전에 격추당합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 캐리어가 한 기씩 떨어집니다! 인터셉터가 사출되기도 전에!',
@@ -267,7 +267,7 @@ const _pvtReaverCarrierVsAntiCarrier = ScenarioScript(
               awayArmy: 25,
               homeArmy: -15,
               decisive: true,
-              altText: '{away}, 골리앗 대공의 완벽한 승리! 골리앗이 완벽한 승리! 적 함대가 하늘에서 추락합니다!',
+              altText: '{away} 선수, 골리앗 대공의 완벽한 승리! 골리앗이 완벽한 승리! 적 함대가 하늘에서 추락합니다!',
             ),
           ],
         ),

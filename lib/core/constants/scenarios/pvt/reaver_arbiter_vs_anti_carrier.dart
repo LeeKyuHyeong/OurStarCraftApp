@@ -30,7 +30,7 @@ const _pvtReaverArbiterVsAntiCarrier = ScenarioScript(
           homeResource: 0,
           awayArmy: 2,
           awayResource: -15,
-          altText: '{away}, 골리앗이 나옵니다! 공중 유닛을 경계하는군요!',
+          altText: '{away} 선수, 골리앗이 나옵니다! 공중 유닛을 경계하는군요!',
         ),
         ScriptEvent(
           text: '{home} 선수 로보틱스를 건설합니다. 서포트 베이도 바로 올리겠죠.',
@@ -47,7 +47,7 @@ const _pvtReaverArbiterVsAntiCarrier = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 아머리! 골리앗 레인지 업을 노리고 있습니다!',
+          altText: '{away} 선수, 아머리! 골리앗 레인지 업을 노리고 있습니다!',
         ),
         ScriptEvent(
           text: '골리앗 대공 빌드! 아비터가 안전하게 접근할 수 있을까요!',
@@ -79,7 +79,7 @@ const _pvtReaverArbiterVsAntiCarrier = ScenarioScript(
           awayResource: 0,
           awayArmy: 2,
           homeArmy: -1,
-          altText: '{away}, 골리앗 미사일이 셔틀을 쫓아갑니다!',
+          altText: '{away} 선수, 골리앗 미사일이 셔틀을 쫓아갑니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 셔틀을 빠르게 빼고 다른 방향으로 접근합니다!',
@@ -97,7 +97,7 @@ const _pvtReaverArbiterVsAntiCarrier = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 아비터 트리뷰널까지! 풀테크를 올립니다!',
+          altText: '{home} 선수, 아비터 트리뷰널까지! 풀테크를 올립니다!',
         ),
         ScriptEvent(
           text: '골리앗이 많으면 아비터도 위험합니다! 접근 각도가 중요하겠네요!',
@@ -129,7 +129,7 @@ const _pvtReaverArbiterVsAntiCarrier = ScenarioScript(
           homeResource: 0,
           awayArmy: 4,
           awayResource: -15,
-          altText: '{away}, 골리앗이 줄을 지어 전진합니다! 대공 화력이 무시무시!',
+          altText: '{away} 선수, 골리앗이 줄을 지어 전진합니다! 대공 화력이 무시무시!',
         ),
         ScriptEvent(
           text: '{home} 선수 하이 템플러를 합류시킵니다. 스톰이 핵심!',
@@ -166,7 +166,7 @@ const _pvtReaverArbiterVsAntiCarrier = ScenarioScript(
               awayResource: 0,
               awayArmy: -4,
               homeArmy: 2,
-              altText: '{home}, 스테이시스! 골리앗 절반이 꼼짝 못 합니다!',
+              altText: '{home} 선수, 스테이시스! 골리앗 절반이 꼼짝 못 합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 리콜! 드라군이 테란 미네랄 라인에 나타납니다!',
@@ -207,7 +207,7 @@ const _pvtReaverArbiterVsAntiCarrier = ScenarioScript(
               awayResource: 0,
               homeArmy: -4,
               awayArmy: 2,
-              altText: '{away}, 골리앗 미사일에 아비터가 순식간에 격추됩니다!',
+              altText: '{away} 선수, 골리앗 미사일에 아비터가 순식간에 격추됩니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 아비터를 잃었습니다! 리콜이 불가능해요!',

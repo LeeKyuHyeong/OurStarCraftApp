@@ -30,7 +30,7 @@ const _pvtReaverArbiterVsBioMech = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -25,
-          altText: '{away}, 배럭과 팩토리! 복합 병력을 준비하는군요!',
+          altText: '{away} 선수, 배럭과 팩토리! 복합 병력을 준비하는군요!',
         ),
         ScriptEvent(
           text: '{home} 선수 로보틱스와 서포트 베이를 건설합니다. 리버를 노리는군요.',
@@ -39,7 +39,7 @@ const _pvtReaverArbiterVsBioMech = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 로보틱스와 서포트 베이가 올라갑니다!',
+          altText: '{home} 선수, 로보틱스와 서포트 베이가 올라갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린과 시즈탱크를 동시에 생산합니다.',
@@ -79,7 +79,7 @@ const _pvtReaverArbiterVsBioMech = ScenarioScript(
           homeResource: 0,
           awayArmy: 3,
           awayResource: -15,
-          altText: '{away}, 마린 탱크 골리앗! 풀세트 복합 편성!',
+          altText: '{away} 선수, 마린 탱크 골리앗! 풀세트 복합 편성!',
         ),
         ScriptEvent(
           text: '{home} 선수 템플러 아카이브를 건설합니다! 스톰을 노립니다!',
@@ -97,7 +97,7 @@ const _pvtReaverArbiterVsBioMech = ScenarioScript(
           homeResource: 0,
           awayResource: 0,
           awayArmy: -2,
-          altText: '{home}, 리버 스캐럽이 마린을 잡습니다!',
+          altText: '{home} 선수, 리버 스캐럽이 마린을 잡습니다!',
         ),
         ScriptEvent(
           text: '리버 견제가 효과적입니다! 하지만 복합 병력이 점점 모이고 있어요!',
@@ -121,7 +121,7 @@ const _pvtReaverArbiterVsBioMech = ScenarioScript(
           awayResource: 0,
           homeArmy: 4,
           homeResource: -20,
-          altText: '{home}, 아비터와 하이 템플러! 풀테크 완성!',
+          altText: '{home} 선수, 아비터와 하이 템플러! 풀테크 완성!',
         ),
         ScriptEvent(
           text: '{away} 선수 사이언스 베슬을 준비합니다. 아비터 대비!',
@@ -166,7 +166,7 @@ const _pvtReaverArbiterVsBioMech = ScenarioScript(
               awayResource: 0,
               homeArmy: 2,
               awayArmy: -5,
-              altText: '{home}, 스톰 두 방! 바이오 병력이 증발합니다!',
+              altText: '{home} 선수, 스톰 두 방! 바이오 병력이 증발합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 아비터 리콜로 테란 멀티를 공격합니다!',
@@ -207,7 +207,7 @@ const _pvtReaverArbiterVsBioMech = ScenarioScript(
               awayResource: 0,
               homeArmy: -2,
               awayArmy: 2,
-              altText: '{away}, EMP! 하이 템플러가 무력화됩니다!',
+              altText: '{away} 선수, EMP! 하이 템플러가 무력화됩니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 시즈탱크가 드라군을 잡고 마린이 전진합니다!',

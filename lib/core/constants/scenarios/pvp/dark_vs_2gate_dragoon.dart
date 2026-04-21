@@ -38,7 +38,7 @@ const _pvpDarkVs2gateDragoon = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 아둔! 다크를 준비하는 모습!',
+          altText: '{home} 선수, 아둔! 다크를 준비하는 모습!',
         ),
         ScriptEvent(
           text: '{away} 선수 사이버네틱스 코어 건설! 드라군 사업!',
@@ -54,7 +54,7 @@ const _pvpDarkVs2gateDragoon = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 4, awayResource: -15,
-          altText: '{away}, 게이트웨이 추가! 드라군을 빠르게 모읍니다!',
+          altText: '{away} 선수, 게이트웨이 추가! 드라군을 빠르게 모읍니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 템플러 아카이브 건설! 다크 확정!',
@@ -62,7 +62,7 @@ const _pvpDarkVs2gateDragoon = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 2, homeResource: -20,
-          altText: '{home}, 템플러 아카이브! 다크 올인입니다!',
+          altText: '{home} 선수, 템플러 아카이브! 다크 올인입니다!',
         ),
       ],
     ),
@@ -76,7 +76,7 @@ const _pvpDarkVs2gateDragoon = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 3, homeResource: -20,
-          altText: '{home}, 다크 2기 출발! 보이지 않는 칼!',
+          altText: '{home} 선수, 다크 2기 출발! 보이지 않는 칼!',
         ),
         ScriptEvent(
           text: '{away} 선수 드라군을 뽑고 있습니다. 디텍이 있을까요?',
@@ -104,7 +104,7 @@ const _pvpDarkVs2gateDragoon = ScenarioScript(
           baseProbability: 0.55,
           events: [
             ScriptEvent(
-              text: '{home}, 다크가 프로브를 베기 시작합니다! 디텍이 없어요!',
+              text: '{home} 선수, 다크가 프로브를 베기 시작합니다! 디텍이 없어요!',
               owner: LogOwner.home,
               awayArmy: 0,
               homeResource: 0,
@@ -117,10 +117,10 @@ const _pvpDarkVs2gateDragoon = ScenarioScript(
               awayArmy: 0,
               homeResource: 0,
               awayResource: -15,
-              altText: '{away}, 디텍이 없습니다! 다크를 막을 수 없어요!',
+              altText: '{away} 선수, 디텍이 없습니다! 다크를 막을 수 없어요!',
             ),
             ScriptEvent(
-              text: '{home}, 다크가 프로브를 전멸시킵니다!',
+              text: '{home} 선수, 다크가 프로브를 전멸시킵니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -147,10 +147,10 @@ const _pvpDarkVs2gateDragoon = ScenarioScript(
               homeArmy: 0,
               homeResource: 0,
               awayResource: 0,
-              awayArmy: 2,              altText: '{away}, 로보틱스와 옵저버터리! 옵저버가 나옵니다! 다크가 보여요!',
+              awayArmy: 2,              altText: '{away} 선수, 로보틱스와 옵저버터리! 옵저버가 나옵니다! 다크가 보여요!',
             ),
             ScriptEvent(
-              text: '{away}, 드라군이 다크를 집중 사격! 격파!',
+              text: '{away} 선수, 드라군이 다크를 집중 사격! 격파!',
               owner: LogOwner.away,
               awayArmy: 0,
               homeResource: 0,

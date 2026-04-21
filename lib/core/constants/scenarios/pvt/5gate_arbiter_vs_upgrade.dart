@@ -30,7 +30,7 @@ const _pvt5gateArbiterVsUpgrade = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 배럭 팩토리 순서로 올립니다. 기본기에 충실하네요.',
+          altText: '{away} 선수, 배럭 팩토리 순서로 올립니다. 기본기에 충실하네요.',
         ),
         ScriptEvent(
           text: '{home} 선수 사이버네틱스 코어 이후 넥서스 건설!',
@@ -39,7 +39,7 @@ const _pvt5gateArbiterVsUpgrade = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -30,
-          altText: '{home}, 사이버네틱스 코어에 넥서스! 확장을 잡습니다.',
+          altText: '{home} 선수, 사이버네틱스 코어에 넥서스! 확장을 잡습니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 앞마당 커맨드센터! 엔지니어링 베이도 올립니다!',
@@ -48,7 +48,7 @@ const _pvt5gateArbiterVsUpgrade = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -30,
-          altText: '{away}, 커맨드센터에 엔지니어링 베이! 업그레이드 준비!',
+          altText: '{away} 선수, 커맨드센터에 엔지니어링 베이! 업그레이드 준비!',
         ),
         ScriptEvent(
           text: '양측 모두 확장을 가져가면서 후반을 준비합니다.',
@@ -80,7 +80,7 @@ const _pvt5gateArbiterVsUpgrade = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 아머리가 올라갑니다! 공방 업그레이드가 핵심!',
+          altText: '{away} 선수, 아머리가 올라갑니다! 공방 업그레이드가 핵심!',
         ),
         ScriptEvent(
           text: '{home} 선수 드라군 물량을 끌고 중앙을 차지합니다.',
@@ -88,7 +88,7 @@ const _pvt5gateArbiterVsUpgrade = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: 0,
-          homeArmy: 3,          altText: '{home}, 드라군 편대가 맵 중앙으로! 시야를 확보합니다.',
+          homeArmy: 3,          altText: '{home} 선수, 드라군 편대가 맵 중앙으로! 시야를 확보합니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 1-1 업그레이드 완료! 2-2 연구 시작합니다!',
@@ -104,7 +104,7 @@ const _pvt5gateArbiterVsUpgrade = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 아둔에서 템플러 아카이브! 하이 템플러를 준비합니다.',
+          altText: '{home} 선수, 아둔에서 템플러 아카이브! 하이 템플러를 준비합니다.',
         ),
         ScriptEvent(
           text: '양쪽 다 후반 테크에 집중하고 있습니다. 장기전이 예상됩니다.',
@@ -129,7 +129,7 @@ const _pvt5gateArbiterVsUpgrade = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -25,
-          altText: '{home}, 스타게이트와 아비터 트리뷰널! 아비터가 곧 나옵니다!',
+          altText: '{home} 선수, 스타게이트와 아비터 트리뷰널! 아비터가 곧 나옵니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 3-3 업그레이드 연구 시작! 풀업 병력이 완성됩니다!',
@@ -137,7 +137,7 @@ const _pvt5gateArbiterVsUpgrade = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 3, awayResource: -20,
-          altText: '{away}, 3-3 업그레이드! 풀업 마린 메딕이면 화력이 다릅니다!',
+          altText: '{away} 선수, 3-3 업그레이드! 풀업 마린 메딕이면 화력이 다릅니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 하이 템플러와 아비터를 동시에 생산합니다!',
@@ -153,7 +153,7 @@ const _pvt5gateArbiterVsUpgrade = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 사이언스 퍼실리티! EMP로 아비터를 견제할 수 있죠.',
+          altText: '{away} 선수, 사이언스 퍼실리티! EMP로 아비터를 견제할 수 있죠.',
         ),
       ],
     ),
@@ -170,10 +170,10 @@ const _pvt5gateArbiterVsUpgrade = ScenarioScript(
               owner: LogOwner.home,
               awayArmy: 0,
               homeResource: 0,
-              homeArmy: 4, awayResource: -30,              altText: '{home}, 리콜 투하! 테란 확장 기지가 위험합니다!',
+              homeArmy: 4, awayResource: -30,              altText: '{home} 선수, 리콜 투하! 테란 확장 기지가 위험합니다!',
             ),
             ScriptEvent(
-              text: '{home}, 스톰이 연속으로 떨어집니다! 업그레이드 마린도 스톰에는 약하죠!',
+              text: '{home} 선수, 스톰이 연속으로 떨어집니다! 업그레이드 마린도 스톰에는 약하죠!',
               owner: LogOwner.home,
               homeResource: 0,
               awayResource: 0,
@@ -185,7 +185,7 @@ const _pvt5gateArbiterVsUpgrade = ScenarioScript(
               homeResource: 0,
               awayResource: 0,
               awayArmy: -3,
-              altText: '{away}, 병력이 분산되면서 수비가 힘듭니다!',
+              altText: '{away} 선수, 병력이 분산되면서 수비가 힘듭니다!',
             ),
             ScriptEvent(
               text: '스톰과 리콜의 시너지! 업그레이드 병력도 막을 수 없었습니다!',
@@ -208,10 +208,10 @@ const _pvt5gateArbiterVsUpgrade = ScenarioScript(
               homeArmy: 0,
               homeResource: 0,
               awayResource: 0,
-              awayArmy: 5,              altText: '{away}, 풀업 바이오닉! 업그레이드 차이가 체감됩니다!',
+              awayArmy: 5,              altText: '{away} 선수, 풀업 바이오닉! 업그레이드 차이가 체감됩니다!',
             ),
             ScriptEvent(
-              text: '{away}, EMP! 하이 템플러의 에너지를 소진시킵니다!',
+              text: '{away} 선수, EMP! 하이 템플러의 에너지를 소진시킵니다!',
               owner: LogOwner.away,
               awayArmy: 0,
               homeResource: 0,
@@ -219,7 +219,7 @@ const _pvt5gateArbiterVsUpgrade = ScenarioScript(
               homeArmy: -3,              altText: '{away} 선수 EMP가 정확합니다! 스톰을 봉쇄!',
             ),
             ScriptEvent(
-              text: '{away}, 풀업 마린이 드라군을 녹입니다! 업그레이드 차이가 결정적!',
+              text: '{away} 선수, 풀업 마린이 드라군을 녹입니다! 업그레이드 차이가 결정적!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,

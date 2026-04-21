@@ -53,7 +53,7 @@ const _pvp4gateDragoonMirror = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -45, homeArmy: 2,
-          altText: '{home}, 게이트웨이를 빠르게 늘립니다! 벌써 네 개!',
+          altText: '{home} 선수, 게이트웨이를 빠르게 늘립니다! 벌써 네 개!',
         ),
         ScriptEvent(
           text: '{away} 선수도 게이트웨이 네 개! 양쪽 물량 경쟁!',
@@ -61,7 +61,7 @@ const _pvp4gateDragoonMirror = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayResource: -45, awayArmy: 2,
-          altText: '{away}, 게이트웨이 네 개! 양쪽 드라군 물량 싸움이 됩니다!',
+          altText: '{away} 선수, 게이트웨이 네 개! 양쪽 드라군 물량 싸움이 됩니다!',
         ),
         ScriptEvent(
           text: '양쪽 게이트웨이 네 개씩! 드라군 생산 속도 경쟁입니다!',
@@ -79,7 +79,7 @@ const _pvp4gateDragoonMirror = ScenarioScript(
       name: 'dragoon_buildup',
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 드라군 편대가 모입니다! 게이트웨이에서 쏟아져 나옵니다!',
+          text: '{home} 선수, 드라군 편대가 모입니다! 게이트웨이에서 쏟아져 나옵니다!',
           owner: LogOwner.home,
           awayArmy: 0,
           awayResource: 0,
@@ -92,7 +92,7 @@ const _pvp4gateDragoonMirror = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 5, awayResource: -30,
-          altText: '{away}, 드라군이 모입니다! 비슷한 물량!',
+          altText: '{away} 선수, 드라군이 모입니다! 비슷한 물량!',
         ),
         ScriptEvent(
           text: '양측 드라군 편대가 전진합니다! 센터에서 충돌!',
@@ -111,7 +111,7 @@ const _pvp4gateDragoonMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 드라군 컨트롤! 집중 사격으로 상대 드라군을 잡습니다!',
+              text: '{home} 선수, 드라군 컨트롤! 집중 사격으로 상대 드라군을 잡습니다!',
               owner: LogOwner.home,
               homeResource: 0,
               awayResource: 0,
@@ -126,7 +126,7 @@ const _pvp4gateDragoonMirror = ScenarioScript(
               awayArmy: -2,
             ),
             ScriptEvent(
-              text: '{home}, 드라군 편대가 전진! 상대 진영을 위협합니다!',
+              text: '{home} 선수, 드라군 편대가 전진! 상대 진영을 위협합니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               homeResource: 0,
@@ -148,7 +148,7 @@ const _pvp4gateDragoonMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 드라군 컨트롤! 집중 사격으로 상대 드라군을 잡습니다!',
+              text: '{away} 선수, 드라군 컨트롤! 집중 사격으로 상대 드라군을 잡습니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,
@@ -163,7 +163,7 @@ const _pvp4gateDragoonMirror = ScenarioScript(
               homeArmy: -2,
             ),
             ScriptEvent(
-              text: '{away}, 드라군 편대가 전진! 상대 진영을 위협합니다!',
+              text: '{away} 선수, 드라군 편대가 전진! 상대 진영을 위협합니다!',
               owner: LogOwner.away,
               awayArmy: 0,
               homeResource: 0,
@@ -193,7 +193,7 @@ const _pvp4gateDragoonMirror = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 아둔! 스톰을 노립니다!',
+          altText: '{home} 선수, 아둔! 스톰을 노립니다!',
         ),
         ScriptEvent(
           text: '{away} 선수도 아둔! 양쪽 하이 템플러 경쟁!',
@@ -236,7 +236,7 @@ const _pvp4gateDragoonMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 스톰! 밀집한 드라군이 한 번에 녹습니다!',
+              text: '{home} 선수, 스톰! 밀집한 드라군이 한 번에 녹습니다!',
               owner: LogOwner.home,
               homeResource: 0,
               awayResource: 0,
@@ -258,7 +258,7 @@ const _pvp4gateDragoonMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 스톰! 밀집한 드라군이 한 번에 녹습니다!',
+              text: '{away} 선수, 스톰! 밀집한 드라군이 한 번에 녹습니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,

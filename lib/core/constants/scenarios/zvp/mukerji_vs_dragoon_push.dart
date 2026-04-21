@@ -22,7 +22,7 @@ const _zvpMukerjiVsDragoonPush = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: 10,
-          altText: '{home}, 앞마당 해처리 완성! 드론을 돌립니다.',
+          altText: '{home} 선수, 앞마당 해처리 완성! 드론을 돌립니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 사이버네틱스 코어를 올리고 드라군 생산을 준비합니다.',
@@ -31,7 +31,7 @@ const _zvpMukerjiVsDragoonPush = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -10,
-          altText: '{away}, 사이버네틱스 코어 건설! 드라군 체제로 전환!',
+          altText: '{away} 선수, 사이버네틱스 코어 건설! 드라군 체제로 전환!',
         ),
         ScriptEvent(
           text: '{away} 선수 게이트웨이를 추가하며 드라군 물량을 늘려갑니다!',
@@ -72,7 +72,7 @@ const _zvpMukerjiVsDragoonPush = ScenarioScript(
           homeResource: 0,
           awayArmy: 4,
           awayResource: -10,
-          altText: '{away}, 드라군 편대가 출발합니다! 타이밍 푸시!',
+          altText: '{away} 선수, 드라군 편대가 출발합니다! 타이밍 푸시!',
         ),
         ScriptEvent(
           text: '{home} 선수 스파이어 완성! 뮤탈리스크를 급히 생산합니다!',
@@ -89,7 +89,7 @@ const _zvpMukerjiVsDragoonPush = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{home}, 뮤탈리스크가 프로브를 찍습니다! 후방 견제!',
+          altText: '{home} 선수, 뮤탈리스크가 프로브를 찍습니다! 후방 견제!',
         ),
         ScriptEvent(
           text: '{away} 선수 드라군이 앞마당에 도착합니다! 성큰과 저글링이 맞섭니다!',
@@ -122,7 +122,7 @@ const _zvpMukerjiVsDragoonPush = ScenarioScript(
           awayResource: 0,
           homeArmy: 4,
           awayArmy: -2,
-          altText: '{home}, 저글링 서라운드! 드라군이 갇힙니다!',
+          altText: '{home} 선수, 저글링 서라운드! 드라군이 갇힙니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 드라군의 사정거리를 살려 저글링을 녹입니다!',
@@ -166,7 +166,7 @@ const _zvpMukerjiVsDragoonPush = ScenarioScript(
               awayResource: 0,
               homeArmy: 5,
               awayArmy: -5,
-              altText: '{home}, 완벽한 서라운드! 드라군이 포위당합니다!',
+              altText: '{home} 선수, 완벽한 서라운드! 드라군이 포위당합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 뮤탈리스크가 후방 프로브까지 정리합니다!',
@@ -207,7 +207,7 @@ const _zvpMukerjiVsDragoonPush = ScenarioScript(
               awayResource: 0,
               awayArmy: 4,
               homeArmy: -4,
-              altText: '{away}, 드라군이 성큰을 부수고 돌파합니다!',
+              altText: '{away} 선수, 드라군이 성큰을 부수고 돌파합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 저글링이 드라군 사정거리에 녹아내립니다!',

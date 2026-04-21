@@ -22,7 +22,7 @@ const _zvpHiveDefilerVsProxyGate = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -30,
-          altText: '{home}, 앞마당 해처리부터 올리는 모습이네요.',
+          altText: '{home} 선수, 앞마당 해처리부터 올리는 모습이네요.',
         ),
         ScriptEvent(
           text: '{away} 선수 파일런을 상대 본진 근처에 숨겨놓습니다!',
@@ -39,7 +39,7 @@ const _zvpHiveDefilerVsProxyGate = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 앞마당 근처에 게이트웨이가 올라갑니다!',
+          altText: '{away} 선수, 앞마당 근처에 게이트웨이가 올라갑니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 스포닝풀을 올리면서 드론을 계속 뽑고 있습니다.',
@@ -71,7 +71,7 @@ const _zvpHiveDefilerVsProxyGate = ScenarioScript(
           homeResource: 0,
           awayArmy: 4,
           awayResource: -10,
-          altText: '{away}, 질럿이 저그 진영으로 돌진합니다!',
+          altText: '{away} 선수, 질럿이 저그 진영으로 돌진합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링 소량으로 질럿을 막아봅니다!',
@@ -97,7 +97,7 @@ const _zvpHiveDefilerVsProxyGate = ScenarioScript(
           awayResource: 0,
           homeArmy: -1,
           homeResource: -10,
-          altText: '{home}, 드론을 빼서 질럿을 둘러싸고 있습니다!',
+          altText: '{home} 선수, 드론을 빼서 질럿을 둘러싸고 있습니다!',
         ),
         ScriptEvent(
           text: '질럿이 드론을 얼마나 잡느냐가 이 경기의 관건입니다!',
@@ -138,7 +138,7 @@ const _zvpHiveDefilerVsProxyGate = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 레어가 올라갑니다! 빠르게 복구하려는 모습이네요.',
+          altText: '{home} 선수, 레어가 올라갑니다! 빠르게 복구하려는 모습이네요.',
         ),
         ScriptEvent(
           text: '저그가 초반 치즈를 막아냈다면 하이브 테크로 갈 수 있습니다!',
@@ -166,7 +166,7 @@ const _zvpHiveDefilerVsProxyGate = ScenarioScript(
               awayResource: 0,
               homeArmy: 3,
               awayArmy: -4,
-              altText: '{home}, 성큰 화력이 질럿을 녹이고 있습니다!',
+              altText: '{home} 선수, 성큰 화력이 질럿을 녹이고 있습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 하이브를 올리며 디파일러 마운드를 건설하여 디파일러를 준비합니다!',
@@ -207,7 +207,7 @@ const _zvpHiveDefilerVsProxyGate = ScenarioScript(
               awayResource: 0,
               awayArmy: 2,
               homeResource: -30,
-              altText: '{away}, 질럿이 일꾼 라인을 초토화시킵니다!',
+              altText: '{away} 선수, 질럿이 일꾼 라인을 초토화시킵니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 저글링이 부족합니다! 드론 피해가 너무 큽니다!',

@@ -30,7 +30,7 @@ const _pvtReaverCarrierVsUpgrade = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 팩토리까지 올리면서 테크를 탑니다.',
+          altText: '{away} 선수, 팩토리까지 올리면서 테크를 탑니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 사이버네틱스 코어 건설! 드라군 생산을 준비하네요.',
@@ -47,7 +47,7 @@ const _pvtReaverCarrierVsUpgrade = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 엔지니어링 베이! 공방 업그레이드를 노리고 있습니다!',
+          altText: '{away} 선수, 엔지니어링 베이! 공방 업그레이드를 노리고 있습니다!',
         ),
         ScriptEvent(
           text: '테란이 업그레이드에 투자합니다! 후반을 바라보는 빌드네요.',
@@ -79,7 +79,7 @@ const _pvtReaverCarrierVsUpgrade = ScenarioScript(
           awayResource: 0,
           homeArmy: 3,
           homeResource: -20,
-          altText: '{home}, 서포트 베이 완성! 리버 셔틀 조합을 꺼냅니다! 견제에 나서겠죠.',
+          altText: '{home} 선수, 서포트 베이 완성! 리버 셔틀 조합을 꺼냅니다! 견제에 나서겠죠.',
         ),
         ScriptEvent(
           text: '{away} 선수 +1 공격 업그레이드가 완료됩니다! 마린 화력이 올라갑니다!',
@@ -96,7 +96,7 @@ const _pvtReaverCarrierVsUpgrade = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{home}, 리버 셔틀이 테란 확장을 급습합니다!',
+          altText: '{home} 선수, 리버 셔틀이 테란 확장을 급습합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린으로 리버를 잡으려 하지만 셔틀이 빠릅니다!',
@@ -129,7 +129,7 @@ const _pvtReaverCarrierVsUpgrade = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -25,
-          altText: '{home}, 스타게이트를 연달아 건설! 캐리어 시대를 열겠다는 겁니다!',
+          altText: '{home} 선수, 스타게이트를 연달아 건설! 캐리어 시대를 열겠다는 겁니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 +2 공격 업그레이드에 아머리까지! 골리앗 생산도 시작합니다!',
@@ -154,7 +154,7 @@ const _pvtReaverCarrierVsUpgrade = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 사이언스 퍼실리티! EMP를 노리고 있습니다!',
+          altText: '{away} 선수, 사이언스 퍼실리티! EMP를 노리고 있습니다!',
           skipChance: 0.3,
         ),
         ScriptEvent(
@@ -183,7 +183,7 @@ const _pvtReaverCarrierVsUpgrade = ScenarioScript(
               awayResource: 0,
               homeArmy: 5,
               awayArmy: -2,
-              altText: '{home}, 캐리어 편대! 인터셉터 구름이 내려앉습니다!',
+              altText: '{home} 선수, 캐리어 편대! 인터셉터 구름이 내려앉습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 리버까지 지상에서 동시 공격! 양면 압박입니다!',
@@ -217,7 +217,7 @@ const _pvtReaverCarrierVsUpgrade = ScenarioScript(
               homeArmy: 25,
               awayArmy: -15,
               decisive: true,
-              altText: '{home}, 캐리어 물량의 압도! 테란 진영이 무너집니다!',
+              altText: '{home} 선수, 캐리어 물량의 압도! 테란 진영이 무너집니다!',
             ),
           ],
         ),
@@ -233,7 +233,7 @@ const _pvtReaverCarrierVsUpgrade = ScenarioScript(
               awayResource: 0,
               awayArmy: 4,
               homeArmy: -3,
-              altText: '{away}, 업그레이드 완료된 마린! 캐리어 실드를 깎아냅니다!',
+              altText: '{away} 선수, 업그레이드 완료된 마린! 캐리어 실드를 깎아냅니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 사이언스 베슬의 EMP! 캐리어 실드가 사라집니다!',
@@ -267,7 +267,7 @@ const _pvtReaverCarrierVsUpgrade = ScenarioScript(
               awayArmy: 25,
               homeArmy: -15,
               decisive: true,
-              altText: '{away}, 공방 업그레이드의 가치! 프로토스를 압도합니다!',
+              altText: '{away} 선수, 공방 업그레이드의 가치! 프로토스를 압도합니다!',
             ),
           ],
         ),

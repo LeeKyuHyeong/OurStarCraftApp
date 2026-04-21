@@ -22,7 +22,7 @@ const _pvt2gateOpenVsBbs = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 첫 게이트웨이가 올라갑니다!',
+          altText: '{home} 선수, 첫 게이트웨이가 올라갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 센터에 배럭 건설! 공격적인 시작입니다!',
@@ -39,7 +39,7 @@ const _pvt2gateOpenVsBbs = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 게이트웨이가 두 개! 질럿을 모으겠다는 겁니다!',
+          altText: '{home} 선수, 게이트웨이가 두 개! 질럿을 모으겠다는 겁니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 본진에도 배럭을 올립니다! 배럭이 두 개네요! 양쪽 다 공격적입니다!',
@@ -48,7 +48,7 @@ const _pvt2gateOpenVsBbs = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 센터배럭에 본진배럭까지! 마린을 빠르게 모으겠다는 겁니다!',
+          altText: '{away} 선수, 센터배럭에 본진배럭까지! 마린을 빠르게 모으겠다는 겁니다!',
         ),
         ScriptEvent(
           text: '양쪽 모두 초반부터 공격적입니다! 질럿 vs 마린, 정면충돌이 예상됩니다!',
@@ -80,7 +80,7 @@ const _pvt2gateOpenVsBbs = ScenarioScript(
           homeResource: 0,
           awayArmy: 3,
           awayResource: -10,
-          altText: '{away}, 마린과 SCV 전진! 벙커를 노립니다!',
+          altText: '{away} 선수, 마린과 SCV 전진! 벙커를 노립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 질럿이 마린을 만납니다! 센터에서 부딪힙니다!',
@@ -97,7 +97,7 @@ const _pvt2gateOpenVsBbs = ScenarioScript(
           homeResource: 0,
           awayResource: 0,
           homeArmy: 2,
-          altText: '{home}, 질럿이 계속 나옵니다! 게이트웨이 두 개의 힘이죠!',
+          altText: '{home} 선수, 질럿이 계속 나옵니다! 게이트웨이 두 개의 힘이죠!',
         ),
         ScriptEvent(
           text: '{away} 선수 벙커를 올리려 합니다! 마린이 들어가면 상황이 달라지죠!',
@@ -130,7 +130,7 @@ const _pvt2gateOpenVsBbs = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 사이버네틱스 코어가 올라갑니다! 드라군이 나오면 판이 바뀝니다!',
+          altText: '{home} 선수, 사이버네틱스 코어가 올라갑니다! 드라군이 나오면 판이 바뀝니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 가스도 없이 마린만 뽑고 있습니다! 배럭만 올린 대가죠!',
@@ -147,7 +147,7 @@ const _pvt2gateOpenVsBbs = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -30,
-          altText: '{home}, 앞마당 넥서스! 상대를 막아내고 확장까지 가네요!',
+          altText: '{home} 선수, 앞마당 넥서스! 상대를 막아내고 확장까지 가네요!',
         ),
         ScriptEvent(
           text: '{home} 선수 드라군이 나오기 시작합니다! 사정거리의 차이가 느껴지죠!',
@@ -184,7 +184,7 @@ const _pvt2gateOpenVsBbs = ScenarioScript(
               awayResource: 0,
               homeArmy: 3,
               awayArmy: -4,
-              altText: '{home}, 드라군 사격! 상대 병력이 녹습니다!',
+              altText: '{home} 선수, 드라군 사격! 상대 병력이 녹습니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 마린이 줄어듭니다! 벙커 없이는 버틸 수 없습니다!',
@@ -234,7 +234,7 @@ const _pvt2gateOpenVsBbs = ScenarioScript(
               awayResource: 0,
               awayArmy: 2,
               homeArmy: -4,
-              altText: '{away}, 마린 집중사격! 상대 병력이 접근 전에 녹습니다!',
+              altText: '{away} 선수, 마린 집중사격! 상대 병력이 접근 전에 녹습니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 벙커를 완성합니다! 프로토스 진입로를 막습니다!',

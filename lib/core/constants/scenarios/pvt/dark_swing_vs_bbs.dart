@@ -30,7 +30,7 @@ const _pvtDarkSwingVsBbs = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 배럭이 두 개! 마린 올인을 노립니다!',
+          altText: '{away} 선수, 배럭이 두 개! 마린 올인을 노립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 사이버네틱스 코어를 건설합니다!',
@@ -39,7 +39,7 @@ const _pvtDarkSwingVsBbs = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 사이버네틱스 코어! 다크 테크를 준비합니다!',
+          altText: '{home} 선수, 사이버네틱스 코어! 다크 테크를 준비합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린을 모으면서 SCV와 함께 전진합니다!',
@@ -71,7 +71,7 @@ const _pvtDarkSwingVsBbs = ScenarioScript(
           homeResource: 0,
           awayResource: 0,
           awayArmy: 2,
-          altText: '{away}, 마린과 SCV가 돌격합니다! 전진!',
+          altText: '{away} 선수, 마린과 SCV가 돌격합니다! 전진!',
         ),
         ScriptEvent(
           text: '{home} 선수 질럿 1기와 프로브로 막습니다! 아슬아슬!',
@@ -82,7 +82,7 @@ const _pvtDarkSwingVsBbs = ScenarioScript(
           homeArmy: 1,
         ),
         ScriptEvent(
-          text: '{home}, 드라군이 나옵니다! 마린을 상대합니다!',
+          text: '{home} 선수, 드라군이 나옵니다! 마린을 상대합니다!',
           owner: LogOwner.home,
           awayArmy: 0,
           awayResource: 0,
@@ -129,7 +129,7 @@ const _pvtDarkSwingVsBbs = ScenarioScript(
           homeResource: 0,
           awayArmy: 2,
           awayResource: -5,
-          altText: '{away}, 마린 물량으로 밀어냅니다!',
+          altText: '{away} 선수, 마린 물량으로 밀어냅니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 다크 템플러 생산 시작! 역전의 카드!',
@@ -138,7 +138,7 @@ const _pvtDarkSwingVsBbs = ScenarioScript(
           awayResource: 0,
           homeArmy: 3,
           homeResource: -15,
-          altText: '{home}, 다크 템플러가 나옵니다! 테란에 디텍이 있을까요?',
+          altText: '{home} 선수, 다크 템플러가 나옵니다! 테란에 디텍이 있을까요?',
         ),
         ScriptEvent(
           text: '배럭만 두 개라 가스가 없어서 디텍이 없을 확률이 높습니다!',
@@ -166,7 +166,7 @@ const _pvtDarkSwingVsBbs = ScenarioScript(
               awayArmy: 0,
               homeResource: 0,
               awayResource: 0,
-              altText: '{home}, 다크가 본진으로! 테란에 디텍이 없습니다!',
+              altText: '{home} 선수, 다크가 본진으로! 테란에 디텍이 없습니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 스캔이 없습니다! 아카데미도 없어요! 디텍 전무!',
@@ -177,7 +177,7 @@ const _pvtDarkSwingVsBbs = ScenarioScript(
               awayResource: -20,
             ),
             ScriptEvent(
-              text: '{home}, 다크가 SCV를 베기 시작합니다! 막을 수 없어요!',
+              text: '{home} 선수, 다크가 SCV를 베기 시작합니다! 막을 수 없어요!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -209,7 +209,7 @@ const _pvtDarkSwingVsBbs = ScenarioScript(
               homeArmy: 20,
               awayArmy: -15,
               decisive: true,
-              altText: '{home}, 다크 역전! 테란이 디텍 없이 무너집니다!',
+              altText: '{home} 선수, 다크 역전! 테란이 디텍 없이 무너집니다!',
             ),
           ],
         ),
@@ -225,7 +225,7 @@ const _pvtDarkSwingVsBbs = ScenarioScript(
               awayArmy: 0,
               awayResource: 0,
               homeResource: -30,
-              altText: '{away}, 마린 러시! 상대 일꾼이 전멸합니다!',
+              altText: '{away} 선수, 마린 러시! 상대 일꾼이 전멸합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 다크가 나올 시간이 없습니다! 템플러 아카이브가 아직!',
@@ -236,7 +236,7 @@ const _pvtDarkSwingVsBbs = ScenarioScript(
               homeArmy: -3,
             ),
             ScriptEvent(
-              text: '{away}, 마린이 게이트웨이를 공격합니다!',
+              text: '{away} 선수, 마린이 게이트웨이를 공격합니다!',
               owner: LogOwner.away,
               awayArmy: 0,
               homeResource: 0,
@@ -259,7 +259,7 @@ const _pvtDarkSwingVsBbs = ScenarioScript(
               awayArmy: 20,
               homeArmy: -15,
               decisive: true,
-              altText: '{away}, 다크 나오기 전에 끝! 마린 러시 타이밍 완승!',
+              altText: '{away} 선수, 다크 나오기 전에 끝! 마린 러시 타이밍 완승!',
             ),
           ],
         ),

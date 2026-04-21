@@ -963,7 +963,7 @@ const _tvt1fac1starVs2star = ScenarioScript(
               altText: '{home} 선수 병력을 밀어내기 까다로운 곳에 드랍이 절묘하게 성공합니다!',
             ),
             ScriptEvent(
-              text: '{away} 드랍쉽과 지상 병력으로 주요 지점을 재 탈환하려하지만 시즈모드 포격에 지상군이 녹고 드랍쉽도 대부분 잃습니다!',
+              text: '{away} 선수 드랍쉽과 지상 병력으로 주요 지점을 재 탈환하려하지만 시즈모드 포격에 지상군이 녹고 드랍쉽도 대부분 잃습니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,

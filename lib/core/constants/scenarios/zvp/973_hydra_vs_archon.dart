@@ -22,7 +22,7 @@ const _zvp973HydraVsArchon = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 빠른 스포닝풀! 히드라 타이밍을 노립니다.',
+          altText: '{home} 선수, 빠른 스포닝풀! 히드라 타이밍을 노립니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 게이트웨이와 사이버네틱스 코어를 올립니다.',
@@ -47,7 +47,7 @@ const _zvp973HydraVsArchon = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 아둔이 올라갑니다! 하이템플러를 준비합니다.',
+          altText: '{away} 선수, 아둔이 올라갑니다! 하이템플러를 준비합니다.',
         ),
         ScriptEvent(
           text: '히드라 타이밍이 아콘 완성보다 빨라야 합니다! 시간 싸움입니다.',
@@ -79,7 +79,7 @@ const _zvp973HydraVsArchon = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 템플러 아카이브가 올라갑니다! 스톰이 곧 완성!',
+          altText: '{away} 선수, 템플러 아카이브가 올라갑니다! 스톰이 곧 완성!',
         ),
         ScriptEvent(
           text: '{home} 선수 히드라 부대를 모아서 프로토스로 출격합니다!',
@@ -97,7 +97,7 @@ const _zvp973HydraVsArchon = ScenarioScript(
           homeResource: 0,
           awayArmy: 3,
           awayResource: -10,
-          altText: '{away}, 질럿과 드라군이 앞마당을 지키고 있습니다.',
+          altText: '{away} 선수, 질럿과 드라군이 앞마당을 지키고 있습니다.',
         ),
         ScriptEvent(
           text: '스톰이 완성되기 전에 히드라가 도착해야 합니다! 타이밍 경쟁!',
@@ -121,7 +121,7 @@ const _zvp973HydraVsArchon = ScenarioScript(
           homeResource: 0,
           awayResource: 0,
           homeArmy: 2,
-          altText: '{home}, 히드라 대군이 프로토스 앞에 도착했습니다!',
+          altText: '{home} 선수, 히드라 대군이 프로토스 앞에 도착했습니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 하이템플러가 거의 완성됩니다! 조금만 더 버텨야 해요!',
@@ -166,7 +166,7 @@ const _zvp973HydraVsArchon = ScenarioScript(
               awayResource: 0,
               homeArmy: 4,
               awayArmy: -3,
-              altText: '{home}, 히드라 타이밍 성공! 스톰보다 빨랐습니다!',
+              altText: '{home} 선수, 히드라 타이밍 성공! 스톰보다 빨랐습니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 질럿만으로는 히드라 물량을 막을 수 없습니다!',
@@ -207,7 +207,7 @@ const _zvp973HydraVsArchon = ScenarioScript(
               awayResource: 0,
               awayArmy: 2,
               homeArmy: -5,
-              altText: '{away}, 스톰이 터집니다! 히드라가 한 방에 전멸!',
+              altText: '{away} 선수, 스톰이 터집니다! 히드라가 한 방에 전멸!',
             ),
             ScriptEvent(
               text: '{away} 선수 아콘과 질럿이 남은 히드라를 정리합니다!',

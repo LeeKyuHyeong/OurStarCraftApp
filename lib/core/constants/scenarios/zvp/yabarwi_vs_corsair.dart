@@ -30,7 +30,7 @@ const _zvpYabarwiVsCorsair = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 스타게이트 건설! 커세어 체제로 전환!',
+          altText: '{away} 선수, 스타게이트 건설! 커세어 체제로 전환!',
         ),
         ScriptEvent(
           text: '{home} 선수 히드라덴을 올립니다. 럴커 전환을 준비합니다.',
@@ -70,7 +70,7 @@ const _zvpYabarwiVsCorsair = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: 0,
-          altText: '{away}, 커세어 정찰! 저그 테크를 확인합니다!',
+          altText: '{away} 선수, 커세어 정찰! 저그 테크를 확인합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링을 센터로 보내 가짜 공격을 시도합니다!',
@@ -79,7 +79,7 @@ const _zvpYabarwiVsCorsair = ScenarioScript(
           homeResource: 0,
           awayResource: 0,
           homeArmy: 3,
-          altText: '{home}, 저글링 기습! 하지만 본공격은 아닙니다!',
+          altText: '{home} 선수, 저글링 기습! 하지만 본공격은 아닙니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 럴커를 별도 루트로 이동시킵니다. 진짜 공격은 여기!',
@@ -120,7 +120,7 @@ const _zvpYabarwiVsCorsair = ScenarioScript(
           homeResource: 0,
           awayResource: 0,
           homeArmy: 3,
-          altText: '{home}, 저글링 3방향 분산! 어디가 진짜인가!',
+          altText: '{home} 선수, 저글링 3방향 분산! 어디가 진짜인가!',
         ),
         ScriptEvent(
           text: '{away} 선수 커세어가 저글링 이동을 포착합니다!',
@@ -165,7 +165,7 @@ const _zvpYabarwiVsCorsair = ScenarioScript(
               awayResource: 0,
               homeArmy: 4,
               awayArmy: -4,
-              altText: '{home}, 럴커 기습! 방어가 없는 확장기지를 급습합니다!',
+              altText: '{home} 선수, 럴커 기습! 방어가 없는 확장기지를 급습합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 저글링이 동시에 본진 프로브를 잡습니다!',
@@ -206,7 +206,7 @@ const _zvpYabarwiVsCorsair = ScenarioScript(
               homeResource: 0,
               awayResource: 0,
               awayArmy: 3,
-              altText: '{away}, 커세어가 럴커를 발견했습니다! 드라군을 보냅니다!',
+              altText: '{away} 선수, 커세어가 럴커를 발견했습니다! 드라군을 보냅니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 드라군이 럴커를 사정거리 밖에서 처리합니다!',

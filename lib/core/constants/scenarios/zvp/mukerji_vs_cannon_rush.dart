@@ -30,7 +30,7 @@ const _zvpMukerjiVsCannonRush = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -10,
-          altText: '{away}, 포지 건설! 캐논 러시 준비에 들어갑니다!',
+          altText: '{away} 선수, 포지 건설! 캐논 러시 준비에 들어갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 저그 앞마당 근처에 파일런을 세웁니다!',
@@ -39,7 +39,7 @@ const _zvpMukerjiVsCannonRush = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -10,
-          altText: '{away}, 파일런이 저그 진영 앞에 올라갑니다!',
+          altText: '{away} 선수, 파일런이 저그 진영 앞에 올라갑니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 드론이 파일런을 발견합니다! 캐논 러시입니다!',
@@ -72,7 +72,7 @@ const _zvpMukerjiVsCannonRush = ScenarioScript(
           homeResource: 0,
           awayArmy: 3,
           awayResource: -15,
-          altText: '{away}, 캐논이 올라갑니다! 해처리를 노리고 있어요!',
+          altText: '{away} 선수, 캐논이 올라갑니다! 해처리를 노리고 있어요!',
         ),
         ScriptEvent(
           text: '{home} 선수 드론으로 캐논 건설을 방해합니다!',
@@ -81,7 +81,7 @@ const _zvpMukerjiVsCannonRush = ScenarioScript(
           awayResource: 0,
           homeResource: -10,
           awayArmy: -1,
-          altText: '{home}, 드론 몰이! 캐논 건설 중인 프로브를 공격합니다!',
+          altText: '{home} 선수, 드론 몰이! 캐논 건설 중인 프로브를 공격합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링이 나옵니다! 캐논 주변 프로브를 잡습니다!',
@@ -120,7 +120,7 @@ const _zvpMukerjiVsCannonRush = ScenarioScript(
           owner: LogOwner.away,
           homeArmy: 0,
           homeResource: 0,
-          awayArmy: 3, awayResource: -20,          altText: '{away}, 추가 캐논! 포위망이 좁혀옵니다!',
+          awayArmy: 3, awayResource: -20,          altText: '{away} 선수, 추가 캐논! 포위망이 좁혀옵니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 레어 업그레이드를 서두릅니다! 스파이어로 반전을 노립니다!',
@@ -129,7 +129,7 @@ const _zvpMukerjiVsCannonRush = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -10,
-          altText: '{home}, 레어로 전환! 스파이어 건설 준비!',
+          altText: '{home} 선수, 레어로 전환! 스파이어 건설 준비!',
         ),
         ScriptEvent(
           text: '{home} 선수 스파이어 건설 중! 뮤탈리스크가 나오면 다릅니다!',
@@ -165,7 +165,7 @@ const _zvpMukerjiVsCannonRush = ScenarioScript(
               awayArmy: 0,
               homeResource: 0,
               awayResource: -25,
-              altText: '{home}, 뮤탈리스크 프로브 학살! 자원이 끊깁니다!',
+              altText: '{home} 선수, 뮤탈리스크 프로브 학살! 자원이 끊깁니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 저글링이 동시에 앞마당으로 진입합니다!',
@@ -206,7 +206,7 @@ const _zvpMukerjiVsCannonRush = ScenarioScript(
               awayResource: 0,
               awayArmy: 4,
               homeResource: -20,
-              altText: '{away}, 캐논 완성! 해처리가 맞기 시작합니다!',
+              altText: '{away} 선수, 캐논 완성! 해처리가 맞기 시작합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 저글링이 캐논에 녹아내립니다! 병력 손실이 큽니다!',

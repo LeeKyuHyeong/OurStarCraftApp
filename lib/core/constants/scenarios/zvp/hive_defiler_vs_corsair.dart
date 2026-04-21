@@ -30,7 +30,7 @@ const _zvpHiveDefilerVsCorsair = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 스타게이트가 올라갑니다! 커세어를 준비하는 모습이네요.',
+          altText: '{away} 선수, 스타게이트가 올라갑니다! 커세어를 준비하는 모습이네요.',
         ),
         ScriptEvent(
           text: '{home} 선수 스포닝풀을 올리고 레어로 전환합니다.',
@@ -70,7 +70,7 @@ const _zvpHiveDefilerVsCorsair = ScenarioScript(
           awayResource: 0,
           awayArmy: 1,
           homeResource: -10,
-          altText: '{away}, 커세어가 오버로드를 하나씩 잡아갑니다!',
+          altText: '{away} 선수, 커세어가 오버로드를 하나씩 잡아갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 지상군으로 질럿과 드라군을 모으고 있습니다.',
@@ -96,7 +96,7 @@ const _zvpHiveDefilerVsCorsair = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 스파이어가 완성되면 스커지로 커세어를 잡을 수 있습니다.',
+          altText: '{home} 선수, 스파이어가 완성되면 스커지로 커세어를 잡을 수 있습니다.',
         ),
         ScriptEvent(
           text: '커세어의 시야 장악 vs 저그의 히드라 수비! 균형이 팽팽합니다.',
@@ -120,7 +120,7 @@ const _zvpHiveDefilerVsCorsair = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -25,
-          altText: '{home}, 하이브가 올라갑니다! 디파일러가 곧 나옵니다!',
+          altText: '{home} 선수, 하이브가 올라갑니다! 디파일러가 곧 나옵니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 커세어와 함께 지상 병력을 전진시킵니다!',
@@ -165,7 +165,7 @@ const _zvpHiveDefilerVsCorsair = ScenarioScript(
               awayResource: 0,
               homeArmy: 2,
               awayArmy: -3,
-              altText: '{home}, 플레이그! 커세어 편대의 체력이 녹아내립니다!',
+              altText: '{home} 선수, 플레이그! 커세어 편대의 체력이 녹아내립니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 다크 스웜을 깔고 저글링이 돌진합니다!',
@@ -214,7 +214,7 @@ const _zvpHiveDefilerVsCorsair = ScenarioScript(
               awayResource: 0,
               awayArmy: 3,
               homeArmy: -3,
-              altText: '{away}, 사이버네틱스 코어에서 나온 드라군과 게이트웨이의 질럿이 저그 진영으로 밀려옵니다!',
+              altText: '{away} 선수, 사이버네틱스 코어에서 나온 드라군과 게이트웨이의 질럿이 저그 진영으로 밀려옵니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 디파일러가 나오기 전에 앞마당이 무너졌습니다!',

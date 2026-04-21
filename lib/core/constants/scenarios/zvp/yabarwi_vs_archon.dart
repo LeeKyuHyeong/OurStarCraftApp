@@ -22,7 +22,7 @@ const _zvpYabarwiVsArchon = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: 10,
-          altText: '{home}, 앞마당 해처리 건설! 드론 생산 집중!',
+          altText: '{home} 선수, 앞마당 해처리 건설! 드론 생산 집중!',
         ),
         ScriptEvent(
           text: '{away} 선수 게이트웨이 뒤에 아둔을 건설합니다! 하이 템플러 준비!',
@@ -31,7 +31,7 @@ const _zvpYabarwiVsArchon = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 게이트웨이와 아둔 건설! 템플러 아카이브로 이어집니다!',
+          altText: '{away} 선수, 게이트웨이와 아둔 건설! 템플러 아카이브로 이어집니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 히드라덴을 올립니다. 럴커를 만들 준비!',
@@ -71,7 +71,7 @@ const _zvpYabarwiVsArchon = ScenarioScript(
           homeResource: 0,
           awayResource: 0,
           homeArmy: 3,
-          altText: '{home}, 저글링 기습! 하지만 이것은 페이크입니다!',
+          altText: '{home} 선수, 저글링 기습! 하지만 이것은 페이크입니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 하이 템플러를 합체! 아콘이 탄생합니다!',
@@ -80,7 +80,7 @@ const _zvpYabarwiVsArchon = ScenarioScript(
           homeResource: 0,
           awayArmy: 4,
           awayResource: -10,
-          altText: '{away}, 아콘 합체! 스플래시 공격이 준비됩니다!',
+          altText: '{away} 선수, 아콘 합체! 스플래시 공격이 준비됩니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 럴커를 생산합니다! 히드라리스크와 합류!',
@@ -121,7 +121,7 @@ const _zvpYabarwiVsArchon = ScenarioScript(
           homeResource: 0,
           awayArmy: 3,
           awayResource: -10,
-          altText: '{away}, 아콘이 선봉에 섭니다! 결전 병력 출발!',
+          altText: '{away} 선수, 아콘이 선봉에 섭니다! 결전 병력 출발!',
         ),
         ScriptEvent(
           text: '{home} 선수 3방향에서 동시에 저글링과 럴커를 투입합니다!',
@@ -166,7 +166,7 @@ const _zvpYabarwiVsArchon = ScenarioScript(
               awayArmy: 0,
               homeResource: 0,
               awayResource: -20,
-              altText: '{home}, 럴커가 방어선을 뚫고 일꾼을 공격합니다!',
+              altText: '{home} 선수, 럴커가 방어선을 뚫고 일꾼을 공격합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 저글링이 3방향에서 동시 돌격! 스톰이 분산됩니다!',
@@ -207,7 +207,7 @@ const _zvpYabarwiVsArchon = ScenarioScript(
               homeResource: 0,
               awayResource: 0,
               homeArmy: -6,
-              altText: '{away}, 사이오닉 스톰! 저글링이 한 번에 전멸합니다!',
+              altText: '{away} 선수, 사이오닉 스톰! 저글링이 한 번에 전멸합니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 아콘의 스플래시가 럴커까지 잡아냅니다!',

@@ -22,7 +22,7 @@ const _zvp4poolVsCannonRush = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 4드론에 스포닝풀! 극초반 러시입니다!',
+          altText: '{home} 선수, 4드론에 스포닝풀! 극초반 러시입니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 프로브를 보내 저그 앞마당 근처에 포지를 건설합니다!',
@@ -31,7 +31,7 @@ const _zvp4poolVsCannonRush = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -10,
-          altText: '{away}, 전진 포지! 캐논 러쉬를 준비합니다!',
+          altText: '{away} 선수, 전진 포지! 캐논 러쉬를 준비합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링이 부화합니다! 6마리가 나옵니다!',
@@ -47,7 +47,7 @@ const _zvp4poolVsCannonRush = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 캐논이 올라갑니다! 완성되기 전에 저글링이 올까요?',
+          altText: '{away} 선수, 캐논이 올라갑니다! 완성되기 전에 저글링이 올까요?',
         ),
         ScriptEvent(
           text: '저글링과 캐논의 타이밍 싸움! 누가 먼저 완성되느냐!',
@@ -66,7 +66,7 @@ const _zvp4poolVsCannonRush = ScenarioScript(
       recoveryArmyPerLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 저글링이 캐논 완성 전에 도착! 프로브를 공격합니다!',
+          text: '{home} 선수, 저글링이 캐논 완성 전에 도착! 프로브를 공격합니다!',
           owner: LogOwner.home,
           homeArmy: 0,
           awayArmy: 0,
@@ -79,7 +79,7 @@ const _zvp4poolVsCannonRush = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           homeArmy: -1, awayResource: -5,
-          altText: '{away}, 프로브 방벽! 캐논이 곧 완성됩니다!',
+          altText: '{away} 선수, 프로브 방벽! 캐논이 곧 완성됩니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링으로 건설 중인 캐논을 집중 공격합니다!',
@@ -89,7 +89,7 @@ const _zvp4poolVsCannonRush = ScenarioScript(
           awayResource: 0,
           homeArmy: 1,        ),
         ScriptEvent(
-          text: '{away}, 두 번째 캐논까지 건설하려 합니다!',
+          text: '{away} 선수, 두 번째 캐논까지 건설하려 합니다!',
           owner: LogOwner.away,
           homeArmy: 0,
           awayArmy: 0,
@@ -105,7 +105,7 @@ const _zvp4poolVsCannonRush = ScenarioScript(
       recoveryArmyPerLine: 2,
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 추가 저글링을 보내면서 캐논을 부수려 합니다!',
+          text: '{home} 선수, 추가 저글링을 보내면서 캐논을 부수려 합니다!',
           owner: LogOwner.home,
           awayArmy: 0,
           awayResource: 0,
@@ -133,7 +133,7 @@ const _zvp4poolVsCannonRush = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: 0,
-          homeArmy: 2,          altText: '{home}, 발업 저글링! 캐논 사이를 파고듭니다!',
+          homeArmy: 2,          altText: '{home} 선수, 발업 저글링! 캐논 사이를 파고듭니다!',
         ),
       ],
     ),
@@ -146,7 +146,7 @@ const _zvp4poolVsCannonRush = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 저글링이 캐논을 부수고 프로토스 본진으로 진입합니다!',
+              text: '{home} 선수, 저글링이 캐논을 부수고 프로토스 본진으로 진입합니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               homeResource: 0,
@@ -169,7 +169,7 @@ const _zvp4poolVsCannonRush = ScenarioScript(
           conditionStat: 'defense',
           events: [
             ScriptEvent(
-              text: '{away}, 캐논이 완성되면서 저글링을 전부 잡아냅니다!',
+              text: '{away} 선수, 캐논이 완성되면서 저글링을 전부 잡아냅니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,

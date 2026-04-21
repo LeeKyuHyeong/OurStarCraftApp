@@ -22,7 +22,7 @@ const _zvp4poolVsCorsair = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 극초반 스포닝풀! 저글링 러시를 준비합니다!',
+          altText: '{home} 선수, 극초반 스포닝풀! 저글링 러시를 준비합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 게이트웨이와 사이버네틱스 코어를 건설합니다.',
@@ -38,7 +38,7 @@ const _zvp4poolVsCorsair = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 5, homeResource: -10,
-          altText: '{home}, 저글링이 쏟아집니다! 돌격 개시!',
+          altText: '{home} 선수, 저글링이 쏟아집니다! 돌격 개시!',
         ),
         ScriptEvent(
           text: '{away} 선수 스타게이트를 건설하려 했지만, 지상 수비가 먼저입니다!',
@@ -46,7 +46,7 @@ const _zvp4poolVsCorsair = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 2, awayResource: -10,
-          altText: '{away}, 질럿을 먼저 뽑아야 합니다! 커세어는 나중!',
+          altText: '{away} 선수, 질럿을 먼저 뽑아야 합니다! 커세어는 나중!',
         ),
       ],
     ),
@@ -56,7 +56,7 @@ const _zvp4poolVsCorsair = ScenarioScript(
       recoveryArmyPerLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 저글링이 프로토스 앞마당에 도착합니다!',
+          text: '{home} 선수, 저글링이 프로토스 앞마당에 도착합니다!',
           owner: LogOwner.home,
           awayArmy: 0,
           homeResource: 0,
@@ -68,7 +68,7 @@ const _zvp4poolVsCorsair = ScenarioScript(
           owner: LogOwner.away,
           awayArmy: 0,
           homeResource: 0,
-          homeArmy: -1, awayResource: -5,          altText: '{away}, 프로브까지 동원! 시간을 벌어야 합니다!',
+          homeArmy: -1, awayResource: -5,          altText: '{away} 선수, 프로브까지 동원! 시간을 벌어야 합니다!',
         ),
         ScriptEvent(
           text: '스타게이트에 자원을 쓴 만큼 지상 유닛이 부족합니다!',
@@ -87,7 +87,7 @@ const _zvp4poolVsCorsair = ScenarioScript(
           homeResource: 0,
           awayResource: -10,        ),
         ScriptEvent(
-          text: '{away}, 추가 질럿이 나오면서 반격합니다!',
+          text: '{away} 선수, 추가 질럿이 나오면서 반격합니다!',
           owner: LogOwner.away,
           homeResource: 0,
           awayResource: 0,
@@ -106,7 +106,7 @@ const _zvp4poolVsCorsair = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 3, homeResource: -10,
-          altText: '{home}, 저글링 물량! 멈추지 않습니다!',
+          altText: '{home} 선수, 저글링 물량! 멈추지 않습니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 질럿을 모아서 입구를 봉쇄합니다!',
@@ -115,7 +115,7 @@ const _zvp4poolVsCorsair = ScenarioScript(
           awayResource: 0,
           awayArmy: 2, homeArmy: -1,        ),
         ScriptEvent(
-          text: '{home}, 저글링이 입구에서 막히고 있습니다!',
+          text: '{home} 선수, 저글링이 입구에서 막히고 있습니다!',
           owner: LogOwner.home,
           awayArmy: 0,
           homeResource: 0,
@@ -124,7 +124,7 @@ const _zvp4poolVsCorsair = ScenarioScript(
           altText: '{home} 선수 입구 봉쇄에 저글링이 녹고 있습니다!',
         ),
         ScriptEvent(
-          text: '{away}, 스타게이트에서 커세어가 마침내 나옵니다!',
+          text: '{away} 선수, 스타게이트에서 커세어가 마침내 나옵니다!',
           owner: LogOwner.away,
           homeArmy: 0,
           homeResource: 0,
@@ -141,7 +141,7 @@ const _zvp4poolVsCorsair = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 저글링이 수비 틈을 뚫고 넥서스까지 도달합니다!',
+              text: '{home} 선수, 저글링이 수비 틈을 뚫고 넥서스까지 도달합니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               homeResource: 0,
@@ -163,7 +163,7 @@ const _zvp4poolVsCorsair = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 질럿이 저글링을 전부 잡고 커세어로 오버로드를 사냥합니다!',
+              text: '{away} 선수, 질럿이 저글링을 전부 잡고 커세어로 오버로드를 사냥합니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,

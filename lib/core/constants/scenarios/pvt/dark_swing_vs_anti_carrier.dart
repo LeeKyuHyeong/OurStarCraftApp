@@ -38,7 +38,7 @@ const _pvtDarkSwingVsAntiCarrier = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 아둔! 다크 테크를 준비합니다!',
+          altText: '{home} 선수, 아둔! 다크 테크를 준비합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 아머리를 올립니다! 골리앗을 준비하는 빌드!',
@@ -47,7 +47,7 @@ const _pvtDarkSwingVsAntiCarrier = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 아머리! 대공 준비를 하고 있습니다!',
+          altText: '{away} 선수, 아머리! 대공 준비를 하고 있습니다!',
         ),
         ScriptEvent(
           text: '골리앗 중심 편성은 대공에 특화! 하지만 다크에 대한 대비는?',
@@ -79,7 +79,7 @@ const _pvtDarkSwingVsAntiCarrier = ScenarioScript(
           awayResource: 0,
           homeArmy: 3,
           homeResource: -15,
-          altText: '{home}, 다크 출발! 골리앗 편성을 방해하러 갑니다!',
+          altText: '{home} 선수, 다크 출발! 골리앗 편성을 방해하러 갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 골리앗 1기 생산! 아직 물량이 적어요!',
@@ -90,7 +90,7 @@ const _pvtDarkSwingVsAntiCarrier = ScenarioScript(
           awayResource: -10,
         ),
         ScriptEvent(
-          text: '{home}, 다크가 테란 본진에 접근합니다!',
+          text: '{home} 선수, 다크가 테란 본진에 접근합니다!',
           owner: LogOwner.home,
           homeArmy: 0,
           awayArmy: 0,
@@ -140,7 +140,7 @@ const _pvtDarkSwingVsAntiCarrier = ScenarioScript(
           altText: '골리앗에 집중한 테란! 디텍을 놓쳤을 수 있습니다!',
         ),
         ScriptEvent(
-          text: '{home}, 다크가 잠입합니다! 골리앗으로는 안 보여요!',
+          text: '{home} 선수, 다크가 잠입합니다! 골리앗으로는 안 보여요!',
           owner: LogOwner.home,
           homeArmy: 0,
           awayArmy: 0,
@@ -174,7 +174,7 @@ const _pvtDarkSwingVsAntiCarrier = ScenarioScript(
               awayArmy: 0,
               homeResource: 0,
               awayResource: -25,
-              altText: '{home}, 다크 성공! 골리앗에만 집중해서 디텍이 없습니다!',
+              altText: '{home} 선수, 다크 성공! 골리앗에만 집중해서 디텍이 없습니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 골리앗으로 막으려 하지만 다크가 안 보입니다!',
@@ -185,7 +185,7 @@ const _pvtDarkSwingVsAntiCarrier = ScenarioScript(
               awayArmy: -2,
             ),
             ScriptEvent(
-              text: '{home}, 다크가 SCV를 대량 학살합니다!',
+              text: '{home} 선수, 다크가 SCV를 대량 학살합니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -209,7 +209,7 @@ const _pvtDarkSwingVsAntiCarrier = ScenarioScript(
               homeArmy: 20,
               awayArmy: -15,
               decisive: true,
-              altText: '{home}, 다크 템플러의 활약이 테란을 완전히 무너뜨렸습니다!',
+              altText: '{home} 선수, 다크 템플러의 활약이 테란을 완전히 무너뜨렸습니다!',
             ),
           ],
         ),
@@ -225,10 +225,10 @@ const _pvtDarkSwingVsAntiCarrier = ScenarioScript(
               awayArmy: 0,
               homeResource: 0,
               awayResource: 0,
-              altText: '{away}, 컴샛으로 다크를 찾아냅니다!',
+              altText: '{away} 선수, 컴샛으로 다크를 찾아냅니다!',
             ),
             ScriptEvent(
-              text: '{away}, 마린과 골리앗이 다크를 집중 사격! 격파!',
+              text: '{away} 선수, 마린과 골리앗이 다크를 집중 사격! 격파!',
               owner: LogOwner.away,
               awayArmy: 0,
               homeResource: 0,
@@ -250,7 +250,7 @@ const _pvtDarkSwingVsAntiCarrier = ScenarioScript(
               homeResource: 0,
               awayArmy: 6,
               awayResource: -15,
-              altText: '{away}, 골리앗 편대! 공중이든 지상이든 대응 가능!',
+              altText: '{away} 선수, 골리앗 편대! 공중이든 지상이든 대응 가능!',
             ),
             ScriptEvent(
               text: '골리앗의 지상 화력도 무시 못 합니다! 프로토스가 위기!',
@@ -268,7 +268,7 @@ const _pvtDarkSwingVsAntiCarrier = ScenarioScript(
               awayArmy: 20,
               homeArmy: -15,
               decisive: true,
-              altText: '{away}, 골리앗 화력! 다크를 막고 역전합니다!',
+              altText: '{away} 선수, 골리앗 화력! 다크를 막고 역전합니다!',
             ),
           ],
         ),

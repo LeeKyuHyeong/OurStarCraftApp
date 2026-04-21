@@ -38,7 +38,7 @@ const _pvpDarkVsZealotRushSingle = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 아둔! 다크를 준비합니다!',
+          altText: '{home} 선수, 아둔! 다크를 준비합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 센터에 게이트웨이! 질럿 러시입니다!',
@@ -47,7 +47,7 @@ const _pvpDarkVsZealotRushSingle = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 센터에 게이트웨이! 질럿을 쏟아냅니다!',
+          altText: '{away} 선수, 센터에 게이트웨이! 질럿을 쏟아냅니다!',
         ),
         ScriptEvent(
           text: '치즈 vs 치즈! 다크 올인과 질럿 러시의 대결!',
@@ -65,7 +65,7 @@ const _pvpDarkVsZealotRushSingle = ScenarioScript(
       name: 'zealot_rush_arrives',
       linearEvents: [
         ScriptEvent(
-          text: '{away}, 질럿 3기가 상대 진영으로 돌진합니다!',
+          text: '{away} 선수, 질럿 3기가 상대 진영으로 돌진합니다!',
           owner: LogOwner.away,
           homeArmy: 0,
           homeResource: 0,
@@ -79,7 +79,7 @@ const _pvpDarkVsZealotRushSingle = ScenarioScript(
           homeResource: 0,
           awayResource: 0,
           homeArmy: 3,
-          altText: '{home}, 질럿 한 기로 시간을 벌어야 합니다!',
+          altText: '{home} 선수, 질럿 한 기로 시간을 벌어야 합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 템플러 아카이브 건설 중! 다크까지 버틸 수 있을까요?',
@@ -101,7 +101,7 @@ const _pvpDarkVsZealotRushSingle = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 질럿이 게이트웨이를 부수고 들어갑니다!',
+              text: '{away} 선수, 질럿이 게이트웨이를 부수고 들어갑니다!',
               owner: LogOwner.away,
               awayArmy: 0,
               awayResource: 0,
@@ -116,7 +116,7 @@ const _pvpDarkVsZealotRushSingle = ScenarioScript(
               homeResource: -10,
             ),
             ScriptEvent(
-              text: '{away}, 추가 질럿 합류! 템플러 아카이브도 위험합니다!',
+              text: '{away} 선수, 추가 질럿 합류! 템플러 아카이브도 위험합니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               awayResource: 0,
@@ -138,7 +138,7 @@ const _pvpDarkVsZealotRushSingle = ScenarioScript(
           baseProbability: 1.1,
           events: [
             ScriptEvent(
-              text: '{home}, 다크 템플러가 나옵니다! 질럿 러시를 버텨냈습니다!',
+              text: '{home} 선수, 다크 템플러가 나옵니다! 질럿 러시를 버텨냈습니다!',
               owner: LogOwner.home,
               awayArmy: 0,
               homeResource: 0,
@@ -152,10 +152,10 @@ const _pvpDarkVsZealotRushSingle = ScenarioScript(
               homeResource: 0,
               awayResource: 0,
               awayArmy: -3,
-              altText: '{away}, 질럿이 다크에 녹고 있습니다!',
+              altText: '{away} 선수, 질럿이 다크에 녹고 있습니다!',
             ),
             ScriptEvent(
-              text: '{home}, 다크를 상대 본진으로 보냅니다! 역습!',
+              text: '{home} 선수, 다크를 상대 본진으로 보냅니다! 역습!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,

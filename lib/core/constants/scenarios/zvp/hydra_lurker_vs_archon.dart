@@ -22,7 +22,7 @@ const _zvpHydraLurkerVsArchon = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 해처리와 드론 생산에 집중합니다.',
+          altText: '{home} 선수, 해처리와 드론 생산에 집중합니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 게이트웨이 후 사이버네틱스 코어를 건설합니다.',
@@ -47,7 +47,7 @@ const _zvpHydraLurkerVsArchon = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 아둔이 올라갑니다! 템플러 테크를 노리는 건가요?',
+          altText: '{away} 선수, 아둔이 올라갑니다! 템플러 테크를 노리는 건가요?',
         ),
         ScriptEvent(
           text: '아둔에서 템플러 아카이브까지! 하이템플러 테크를 가는 것 같습니다!',
@@ -71,7 +71,7 @@ const _zvpHydraLurkerVsArchon = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -25,
-          altText: '{away}, 템플러 아카이브가 완성됩니다! 하이템플러가 나오겠죠!',
+          altText: '{away} 선수, 템플러 아카이브가 완성됩니다! 하이템플러가 나오겠죠!',
         ),
         ScriptEvent(
           text: '{home} 선수 히드라리스크를 물량으로 모으고 있습니다.',
@@ -128,7 +128,7 @@ const _zvpHydraLurkerVsArchon = ScenarioScript(
           homeResource: 0,
           awayArmy: 3,
           awayResource: -15,
-          altText: '{away}, 아콘이 앞장서고 질럿이 뒤따릅니다! 하이템플러까지 합류!',
+          altText: '{away} 선수, 아콘이 앞장서고 질럿이 뒤따릅니다! 하이템플러까지 합류!',
         ),
         ScriptEvent(
           text: '{away} 선수 하이템플러가 사이오닉 스톰을 준비합니다!',
@@ -165,7 +165,7 @@ const _zvpHydraLurkerVsArchon = ScenarioScript(
               awayResource: 0,
               homeArmy: 3,
               awayArmy: -4,
-              altText: '{home}, 럴커 매몰 위치가 완벽합니다! 질럿이 접근조차 못 해요!',
+              altText: '{home} 선수, 럴커 매몰 위치가 완벽합니다! 질럿이 접근조차 못 해요!',
             ),
             ScriptEvent(
               text: '{home} 선수 히드라리스크가 아콘을 집중 사격합니다! 쉴드가 깎여요!',
@@ -206,7 +206,7 @@ const _zvpHydraLurkerVsArchon = ScenarioScript(
               awayResource: 0,
               awayArmy: 2,
               homeArmy: -5,
-              altText: '{away}, 스톰 한 방에 히드라리스크가 녹아내립니다!',
+              altText: '{away} 선수, 스톰 한 방에 히드라리스크가 녹아내립니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 아콘이 남은 히드라를 범위 공격으로 쓸어버립니다!',

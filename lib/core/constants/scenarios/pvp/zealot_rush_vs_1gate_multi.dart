@@ -38,7 +38,7 @@ const _pvpZealotRushVs1gateMulti = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 센터 게이트! 빠른 질럿을 노립니다!',
+          altText: '{home} 선수, 센터 게이트! 빠른 질럿을 노립니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 게이트웨이 하나 짓고 바로 넥서스를 올립니다!',
@@ -47,7 +47,7 @@ const _pvpZealotRushVs1gateMulti = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -30,
-          altText: '{away}, 빠른 확장! 자원 이점을 노립니다!',
+          altText: '{away} 선수, 빠른 확장! 자원 이점을 노립니다!',
         ),
         ScriptEvent(
           text: '질럿 러시 vs 멀티! 확장을 짓는 상대에게 질럿이 갑니다!',
@@ -65,7 +65,7 @@ const _pvpZealotRushVs1gateMulti = ScenarioScript(
       name: 'zealot_rush',
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 질럿 3기가 앞마당 넥서스를 노립니다!',
+          text: '{home} 선수, 질럿 3기가 앞마당 넥서스를 노립니다!',
           owner: LogOwner.home,
           awayArmy: 0,
           homeResource: 0,
@@ -100,7 +100,7 @@ const _pvpZealotRushVs1gateMulti = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 질럿이 앞마당 넥서스를 공격합니다!',
+              text: '{home} 선수, 질럿이 앞마당 넥서스를 공격합니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -115,7 +115,7 @@ const _pvpZealotRushVs1gateMulti = ScenarioScript(
               awayArmy: -1, awayResource: -10,
             ),
             ScriptEvent(
-              text: '{home}, 추가 질럿이 합류합니다! 넥서스가 무너집니다!',
+              text: '{home} 선수, 추가 질럿이 합류합니다! 넥서스가 무너집니다!',
               owner: LogOwner.home,
               awayArmy: 0,
               homeResource: 0,
@@ -137,7 +137,7 @@ const _pvpZealotRushVs1gateMulti = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 질럿과 프로브 협공으로 적 질럿을 잡아냅니다!',
+              text: '{away} 선수, 질럿과 프로브 협공으로 적 질럿을 잡아냅니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,
@@ -152,7 +152,7 @@ const _pvpZealotRushVs1gateMulti = ScenarioScript(
               homeArmy: -2,
             ),
             ScriptEvent(
-              text: '{away}, 사이버네틱스 코어 건설! 드라군으로 전환합니다!',
+              text: '{away} 선수, 사이버네틱스 코어 건설! 드라군으로 전환합니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               awayArmy: 0,

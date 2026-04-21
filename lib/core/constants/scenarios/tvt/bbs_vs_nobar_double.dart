@@ -309,7 +309,7 @@ const _tvtBbsVsNobarDouble = ScenarioScript(
               awayArmy: 0,
               homeResource: 0,
               awayResource: 0,
-              altText: '{away} SCV 빨리 나와야죠!',
+              altText: '{away} 선수 SCV 빨리 나와야죠!',
             ),
             ScriptEvent(
               text: '{home} 선수 벙커 완성, 마린 진입! 화력이 쏟아집니다!',

@@ -30,7 +30,7 @@ const _pvt5gatePushVsBioMech = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 배럭에 팩토리까지! 복합 편성을 노립니다!',
+          altText: '{away} 선수, 배럭에 팩토리까지! 복합 편성을 노립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 드라군을 생산하면서 게이트웨이를 추가합니다!',
@@ -39,7 +39,7 @@ const _pvt5gatePushVsBioMech = ScenarioScript(
           awayResource: 0,
           homeArmy: 2,
           homeResource: -15,
-          altText: '{home}, 드라군 생산! 게이트웨이를 늘립니다!',
+          altText: '{home} 선수, 드라군 생산! 게이트웨이를 늘립니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 아카데미를 올립니다! 메딕과 스팀팩을 준비합니다!',
@@ -79,7 +79,7 @@ const _pvt5gatePushVsBioMech = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 아둔! 스피드 질럿으로 전환합니다!',
+          altText: '{home} 선수, 아둔! 스피드 질럿으로 전환합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린 메딕에 탱크를 섞습니다! 골리앗도 생산!',
@@ -96,7 +96,7 @@ const _pvt5gatePushVsBioMech = ScenarioScript(
           awayResource: 0,
           homeArmy: 3,
           homeResource: -20,
-          altText: '{home}, 게이트웨이 다섯 개 가동! 병력이 쏟아집니다!',
+          altText: '{home} 선수, 게이트웨이 다섯 개 가동! 병력이 쏟아집니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 벌처로 프로토스 확장을 정찰합니다!',
@@ -137,7 +137,7 @@ const _pvt5gatePushVsBioMech = ScenarioScript(
           homeResource: 0,
           awayArmy: 3,
           awayResource: -15,
-          altText: '{away}, 마린 탱크 골리앗 풀편성! 다양한 유닛이 갖춰졌습니다!',
+          altText: '{away} 선수, 마린 탱크 골리앗 풀편성! 다양한 유닛이 갖춰졌습니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 전군 전진합니다! 물량 타이밍이네요!',
@@ -181,7 +181,7 @@ const _pvt5gatePushVsBioMech = ScenarioScript(
               awayResource: 0,
               homeArmy: 4,
               awayArmy: -4,
-              altText: '{home}, 스피드 질럿! 마린 사이로 파고듭니다!',
+              altText: '{home} 선수, 스피드 질럿! 마린 사이로 파고듭니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 메딕이 녹습니다! 마린 생존력이 급감합니다!',
@@ -230,7 +230,7 @@ const _pvt5gatePushVsBioMech = ScenarioScript(
               awayResource: 0,
               awayArmy: 3,
               homeArmy: -5,
-              altText: '{away}, 탱크가 직격! 상대 병력이 뭉쳐서 피해가 큽니다!',
+              altText: '{away} 선수, 탱크가 직격! 상대 병력이 뭉쳐서 피해가 큽니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 질럿이 마린에 막힙니다! 스팀팩 화력에 밀립니다!',

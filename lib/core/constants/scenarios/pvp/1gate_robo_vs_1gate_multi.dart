@@ -46,7 +46,7 @@ const _pvp1gateRoboVs1gateMulti = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -30,
-          altText: '{away}, 빠른 확장! 자원 이점을 가져갑니다!',
+          altText: '{away} 선수, 빠른 확장! 자원 이점을 가져갑니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 로보틱스 건설! 셔틀 리버를 노립니다!',
@@ -55,7 +55,7 @@ const _pvp1gateRoboVs1gateMulti = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 로보틱스! 셔틀 리버를 노리는 모습입니다!',
+          altText: '{home} 선수, 로보틱스! 셔틀 리버를 노리는 모습입니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 사이버네틱스 코어 건설! 드라군 준비!',
@@ -76,7 +76,7 @@ const _pvp1gateRoboVs1gateMulti = ScenarioScript(
           owner: LogOwner.home,
           awayResource: 0,
           homeArmy: 3, awayArmy: 2, homeResource: -20,
-          altText: '{home}, 셔틀 리버 출격! 확장 기지 프로브를 노립니다!',
+          altText: '{home} 선수, 셔틀 리버 출격! 확장 기지 프로브를 노립니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 드라군을 앞마당에 배치합니다!',
@@ -105,7 +105,7 @@ const _pvp1gateRoboVs1gateMulti = ScenarioScript(
           baseProbability: 0.9,
           events: [
             ScriptEvent(
-              text: '{home}, 리버가 앞마당에 착지! 스캐럽이 프로브를 학살합니다!',
+              text: '{home} 선수, 리버가 앞마당에 착지! 스캐럽이 프로브를 학살합니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -121,7 +121,7 @@ const _pvp1gateRoboVs1gateMulti = ScenarioScript(
               awayResource: -10,
             ),
             ScriptEvent(
-              text: '{home}, 셔틀이 리버를 다시 태워 본진으로! 추가 견제!',
+              text: '{home} 선수, 셔틀이 리버를 다시 태워 본진으로! 추가 견제!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -144,7 +144,7 @@ const _pvp1gateRoboVs1gateMulti = ScenarioScript(
           baseProbability: 1.1,
           events: [
             ScriptEvent(
-              text: '{away}, 드라군이 셔틀을 집중 사격합니다!',
+              text: '{away} 선수, 드라군이 셔틀을 집중 사격합니다!',
               owner: LogOwner.away,
               awayArmy: 0,
               homeResource: 0,
@@ -160,7 +160,7 @@ const _pvp1gateRoboVs1gateMulti = ScenarioScript(
               homeArmy: -3,
             ),
             ScriptEvent(
-              text: '{away}, 드라군이 리버를 잡습니다! 견제 실패!',
+              text: '{away} 선수, 드라군이 리버를 잡습니다! 견제 실패!',
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,

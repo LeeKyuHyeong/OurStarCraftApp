@@ -199,13 +199,13 @@ const _tvt2facPushVs1facDouble = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away} 선수 마인에 {home} 탱크가 걸립니다! 공격 측 병력에 큰 피해!',
+              text: '{away} 선수 마인에 {home} 선수 탱크가 걸립니다! 공격 측 병력에 큰 피해!',
               owner: LogOwner.away,
               awayArmy: 0,
               homeResource: 0,
               awayResource: 0,
               homeArmy: -4, // 탱크 2기 손실 (2sup x2)
-              altText: '{away} 선수 마인 매설 성공! {home} 탱크가 큰 피해를 입습니다!',
+              altText: '{away} 선수 마인 매설 성공! {home} 선수 탱크가 큰 피해를 입습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 병력 손실이 큽니다! 공격적인 투자가 아까운데요!',

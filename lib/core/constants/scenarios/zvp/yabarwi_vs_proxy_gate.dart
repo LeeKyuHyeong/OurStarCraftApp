@@ -30,7 +30,7 @@ const _zvpYabarwiVsProxyGate = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 전진 게이트웨이 건설! 질럿 러시 준비!',
+          altText: '{away} 선수, 전진 게이트웨이 건설! 질럿 러시 준비!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링으로 정찰에 나섭니다. 전진 건물을 찾아야 합니다!',
@@ -71,7 +71,7 @@ const _zvpYabarwiVsProxyGate = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{away}, 질럿이 드론을 베어냅니다! 일꾼 피해!',
+          altText: '{away} 선수, 질럿이 드론을 베어냅니다! 일꾼 피해!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링과 드론으로 질럿을 감싸 안습니다!',
@@ -88,7 +88,7 @@ const _zvpYabarwiVsProxyGate = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -10,
-          altText: '{home}, 히드라덴 건설! 럴커를 만들 준비에 들어갑니다!',
+          altText: '{home} 선수, 히드라덴 건설! 럴커를 만들 준비에 들어갑니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 성큰을 세워 앞마당을 방어합니다.',
@@ -121,7 +121,7 @@ const _zvpYabarwiVsProxyGate = ScenarioScript(
           awayResource: 0,
           homeArmy: 5,
           homeResource: -10,
-          altText: '{home}, 럴커 등장! 지상 병력은 접근이 불가합니다!',
+          altText: '{home} 선수, 럴커 등장! 지상 병력은 접근이 불가합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링을 여러 방향으로 보내 가짜 공격을 펼칩니다!',
@@ -165,7 +165,7 @@ const _zvpYabarwiVsProxyGate = ScenarioScript(
               homeResource: 0,
               homeArmy: 4,
               awayResource: -15,
-              altText: '{home}, 야바위 전술! 어디가 진짜 공격인지 모릅니다!',
+              altText: '{home} 선수, 야바위 전술! 어디가 진짜 공격인지 모릅니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 럴커가 프로토스 앞마당으로 진군합니다!',
@@ -206,7 +206,7 @@ const _zvpYabarwiVsProxyGate = ScenarioScript(
               awayResource: 0,
               awayArmy: 4,
               homeArmy: -4,
-              altText: '{away}, 질럿 물량! 럴커 전에 승부를 봅니다!',
+              altText: '{away} 선수, 질럿 물량! 럴커 전에 승부를 봅니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 드론 피해가 너무 큽니다! 럴커를 뽑을 자원이 부족!',

@@ -22,7 +22,7 @@ const _pvtReaverCarrierVsTimingPush = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 게이트웨이에 이어 가스 채취를 시작합니다.',
+          altText: '{home} 선수, 게이트웨이에 이어 가스 채취를 시작합니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 배럭에 이어 팩토리를 빠르게 올립니다!',
@@ -47,7 +47,7 @@ const _pvtReaverCarrierVsTimingPush = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 아카데미 건설! 바이오닉 타이밍을 노리고 있습니다!',
+          altText: '{away} 선수, 아카데미 건설! 바이오닉 타이밍을 노리고 있습니다!',
         ),
         ScriptEvent(
           text: '테란이 아카데미를 빨리 올렸습니다! 타이밍 공격이 올 수 있겠네요.',
@@ -79,7 +79,7 @@ const _pvtReaverCarrierVsTimingPush = ScenarioScript(
           homeResource: 0,
           awayArmy: 5,
           awayResource: -15,
-          altText: '{away}, 병력을 모아서 밀어붙입니다! 완벽한 타이밍!',
+          altText: '{away} 선수, 병력을 모아서 밀어붙입니다! 완벽한 타이밍!',
         ),
         ScriptEvent(
           text: '{home} 선수 드라군과 질럿으로 방어선을 구축합니다!',
@@ -96,7 +96,7 @@ const _pvtReaverCarrierVsTimingPush = ScenarioScript(
           awayResource: 0,
           homeArmy: -3,
           awayArmy: -1,
-          altText: '{away}, 탱크가 시즈 포격! 상대 병력이 사정거리 밖에서 녹습니다!',
+          altText: '{away} 선수, 탱크가 시즈 포격! 상대 병력이 사정거리 밖에서 녹습니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 로보틱스에서 리버가 나옵니다! 수비에 투입합니다!',
@@ -129,7 +129,7 @@ const _pvtReaverCarrierVsTimingPush = ScenarioScript(
           awayResource: 0,
           awayArmy: -4,
           homeArmy: 2,
-          altText: '{home}, 리버 스카랩 명중! 마린이 한꺼번에 날아갑니다!',
+          altText: '{home} 선수, 리버 스카랩 명중! 마린이 한꺼번에 날아갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 병력이 많이 줄었습니다. 후속 병력을 기다려야 합니다.',
@@ -154,7 +154,7 @@ const _pvtReaverCarrierVsTimingPush = ScenarioScript(
           awayResource: 0,
           homeResource: -25,
           homeArmy: 2,
-          altText: '{home}, 플릿 비콘 건설! 캐리어로 가겠다는 의지입니다!',
+          altText: '{home} 선수, 플릿 비콘 건설! 캐리어로 가겠다는 의지입니다!',
         ),
         ScriptEvent(
           text: '타이밍 어택을 막아냈습니다! 이제 프로토스의 시간이 올 수 있습니다!',
@@ -183,7 +183,7 @@ const _pvtReaverCarrierVsTimingPush = ScenarioScript(
               homeResource: 0,
               awayResource: 0,
               homeArmy: 5,
-              altText: '{home}, 캐리어 편대 출격! 인터셉터가 하늘을 뒤덮습니다!',
+              altText: '{home} 선수, 캐리어 편대 출격! 인터셉터가 하늘을 뒤덮습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 리버도 셔틀로 측면을 공격합니다! 양면 작전!',
@@ -217,7 +217,7 @@ const _pvtReaverCarrierVsTimingPush = ScenarioScript(
               homeArmy: 25,
               awayArmy: -15,
               decisive: true,
-              altText: '{home}, 캐리어가 하늘에서 쏟아집니다! 테란은 답이 없습니다!',
+              altText: '{home} 선수, 캐리어가 하늘에서 쏟아집니다! 테란은 답이 없습니다!',
             ),
           ],
         ),
@@ -233,7 +233,7 @@ const _pvtReaverCarrierVsTimingPush = ScenarioScript(
               awayResource: 0,
               awayArmy: 5,
               homeArmy: -3,
-              altText: '{away}, 추가 병력으로 다시 밀어붙입니다! 프로토스가 회복할 틈을 주지 않습니다!',
+              altText: '{away} 선수, 추가 병력으로 다시 밀어붙입니다! 프로토스가 회복할 틈을 주지 않습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 캐리어가 아직 나오지 않았습니다! 시간이 모자랍니다!',
@@ -267,7 +267,7 @@ const _pvtReaverCarrierVsTimingPush = ScenarioScript(
               awayArmy: 25,
               homeArmy: -15,
               decisive: true,
-              altText: '{away}, 타이밍 어택 완벽 성공! 프로토스를 박살냅니다!',
+              altText: '{away} 선수, 타이밍 어택 완벽 성공! 프로토스를 박살냅니다!',
             ),
           ],
         ),

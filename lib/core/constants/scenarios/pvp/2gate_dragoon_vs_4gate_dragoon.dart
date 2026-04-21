@@ -37,7 +37,7 @@ const _pvp2gateDragoonVs4gateDragoon = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 2, homeResource: -15,
-          altText: '{home}, 게이트웨이 두 개에서 드라군이 나옵니다!',
+          altText: '{home} 선수, 게이트웨이 두 개에서 드라군이 나옵니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 게이트웨이를 계속 증설합니다! 3개째! 4개째!',
@@ -45,7 +45,7 @@ const _pvp2gateDragoonVs4gateDragoon = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 1, awayResource: -30,
-          altText: '{away}, 게이트웨이가 벌써 네 개! 대규모 드라군 물량을 준비합니다!',
+          altText: '{away} 선수, 게이트웨이가 벌써 네 개! 대규모 드라군 물량을 준비합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 앞마당 넥서스 건설! 확장을 가져갑니다!',
@@ -54,7 +54,7 @@ const _pvp2gateDragoonVs4gateDragoon = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -30,
-          altText: '{home}, 게이트웨이 두 개 후 빠른 확장!',
+          altText: '{home} 선수, 게이트웨이 두 개 후 빠른 확장!',
         ),
         ScriptEvent(
           text: '확장 vs 드라군 물량! 타이밍 싸움입니다!',
@@ -77,7 +77,7 @@ const _pvp2gateDragoonVs4gateDragoon = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayResource: 0,
-          awayArmy: 4,          altText: '{away}, 드라군 물량! 상대 앞마당을 노립니다!',
+          awayArmy: 4,          altText: '{away} 선수, 드라군 물량! 상대 앞마당을 노립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 드라군으로 앞마당 수비 준비!',
@@ -125,7 +125,7 @@ const _pvp2gateDragoonVs4gateDragoon = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 로보틱스에서 셔틀+리버를 노립니다!',
+          altText: '{home} 선수, 로보틱스에서 셔틀+리버를 노립니다!',
         ),
         ScriptEvent(
           text: '{away} 선수도 로보틱스 건설! 옵저버를 노립니다!',
@@ -148,7 +148,7 @@ const _pvp2gateDragoonVs4gateDragoon = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayResource: 0,
-          awayArmy: 2,          altText: '{away}, 드라군 물량으로 맵 컨트롤!',
+          awayArmy: 2,          altText: '{away} 선수, 드라군 물량으로 맵 컨트롤!',
         ),
       ],
     ),
@@ -166,7 +166,7 @@ const _pvp2gateDragoonVs4gateDragoon = ScenarioScript(
               awayArmy: 0,
               homeResource: 0,
               awayResource: 0,
-              homeArmy: 4,              altText: '{home}, 확장 자원 차이! 물량이 쌓입니다!',
+              homeArmy: 4,              altText: '{home} 선수, 확장 자원 차이! 물량이 쌓입니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 드라군 물량이 한계에 다다랐습니다!',
@@ -182,7 +182,7 @@ const _pvp2gateDragoonVs4gateDragoon = ScenarioScript(
               homeArmy: 0,
               homeResource: 0,
               awayResource: 0,
-              awayArmy: -4,              altText: '{home}, 리버 스카랩! 드라군이 녹습니다!',
+              awayArmy: -4,              altText: '{home} 선수, 리버 스카랩! 드라군이 녹습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 확장 자원으로 물량 역전! 상대를 꺾습니다!',
@@ -201,7 +201,7 @@ const _pvp2gateDragoonVs4gateDragoon = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 드라군 물량으로 앞마당을 압박합니다!',
+              text: '{away} 선수, 드라군 물량으로 앞마당을 압박합니다!',
               owner: LogOwner.away,
               awayArmy: 0,
               homeResource: 0,

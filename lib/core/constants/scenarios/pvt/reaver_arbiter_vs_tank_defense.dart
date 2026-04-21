@@ -30,7 +30,7 @@ const _pvtReaverArbiterVsTankDefense = ScenarioScript(
           homeResource: 0,
           awayArmy: 2,
           awayResource: -20,
-          altText: '{away}, 시즈탱크 생산! 수비적인 진형을 갖추려 하네요!',
+          altText: '{away} 선수, 시즈탱크 생산! 수비적인 진형을 갖추려 하네요!',
         ),
         ScriptEvent(
           text: '{home} 선수 로보틱스와 서포트 베이를 건설합니다. 공성 유닛을 준비하는군요.',
@@ -39,7 +39,7 @@ const _pvtReaverArbiterVsTankDefense = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 로보틱스와 서포트 베이가 올라갑니다!',
+          altText: '{home} 선수, 로보틱스와 서포트 베이가 올라갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 벙커와 시즈탱크로 앞마당 라인을 구축합니다.',
@@ -79,7 +79,7 @@ const _pvtReaverArbiterVsTankDefense = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{home}, 리버가 스캐럽 명중! SCV를 날려보냅니다!',
+          altText: '{home} 선수, 리버가 스캐럽 명중! SCV를 날려보냅니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 터렛을 올리고 마린을 배치합니다.',
@@ -97,7 +97,7 @@ const _pvtReaverArbiterVsTankDefense = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 아비터 트리뷰널까지 건설합니다! 아비터가 나올 겁니다!',
+          altText: '{home} 선수, 아비터 트리뷰널까지 건설합니다! 아비터가 나올 겁니다!',
         ),
         ScriptEvent(
           text: '리버 견제를 하면서 동시에 아비터를 준비합니다! 완벽한 패키지!',
@@ -129,7 +129,7 @@ const _pvtReaverArbiterVsTankDefense = ScenarioScript(
           homeResource: 0,
           awayArmy: 3,
           awayResource: -15,
-          altText: '{away}, 시즈탱크가 추가됩니다! 정면은 철벽이에요!',
+          altText: '{away} 선수, 시즈탱크가 추가됩니다! 정면은 철벽이에요!',
         ),
         ScriptEvent(
           text: '{home} 선수 드라군 부대를 앞에 두고 아비터를 뒤에서 대기시킵니다.',
@@ -166,7 +166,7 @@ const _pvtReaverArbiterVsTankDefense = ScenarioScript(
               homeResource: 0,
               homeArmy: 5,
               awayResource: -20,
-              altText: '{home}, 리콜! 드라군 대부대가 테란 미네랄 라인에 나타납니다!',
+              altText: '{home} 선수, 리콜! 드라군 대부대가 테란 미네랄 라인에 나타납니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 시즈탱크가 언시즈하고 돌아오지만 늦었습니다!',
@@ -207,7 +207,7 @@ const _pvtReaverArbiterVsTankDefense = ScenarioScript(
               awayResource: 0,
               homeArmy: -3,
               awayArmy: 2,
-              altText: '{away}, EMP에 아비터 에너지가 사라집니다! 리콜 불가!',
+              altText: '{away} 선수, EMP에 아비터 에너지가 사라집니다! 리콜 불가!',
             ),
             ScriptEvent(
               text: '{home} 선수 리콜 없이 정면 돌파를 시도하지만 시즈 라인에 막힙니다!',

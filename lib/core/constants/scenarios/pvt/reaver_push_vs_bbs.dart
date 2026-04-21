@@ -22,7 +22,7 @@ const _pvtReaverPushVsBbs = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 게이트웨이가 올라갑니다.',
+          altText: '{home} 선수, 게이트웨이가 올라갑니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 배럭 두 개를 연달아 건설합니다! 마린을 빠르게 뽑겠다는 거군요!',
@@ -31,7 +31,7 @@ const _pvtReaverPushVsBbs = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 배럭이 두 개! 빠른 마린 생산을 노리는군요!',
+          altText: '{away} 선수, 배럭이 두 개! 빠른 마린 생산을 노리는군요!',
         ),
         ScriptEvent(
           text: '{home} 선수 사이버네틱스 코어 건설을 시작합니다.',
@@ -71,7 +71,7 @@ const _pvtReaverPushVsBbs = ScenarioScript(
           awayResource: 0,
           homeArmy: 2,
           homeResource: -10,
-          altText: '{home}, 질럿이 입구에서 마린을 상대합니다!',
+          altText: '{home} 선수, 질럿이 입구에서 마린을 상대합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린을 집중시켜 질럿을 잡으려 합니다!',
@@ -97,7 +97,7 @@ const _pvtReaverPushVsBbs = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -10,
-          altText: '{home}, 로보틱스가 올라갑니다!',
+          altText: '{home} 선수, 로보틱스가 올라갑니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 서포트 베이까지 건설합니다! 리버를 준비하는 겁니다!',
@@ -106,7 +106,7 @@ const _pvtReaverPushVsBbs = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -10,
-          altText: '{home}, 서포트 베이 건설 완료! 셔틀과 리버가 나올 준비!',
+          altText: '{home} 선수, 서포트 베이 건설 완료! 셔틀과 리버가 나올 준비!',
         ),
         ScriptEvent(
           text: '마린 러시를 버텨낸다면 리버 셔틀이 게임을 뒤집을 수 있습니다!',
@@ -138,7 +138,7 @@ const _pvtReaverPushVsBbs = ScenarioScript(
           homeResource: 0,
           awayArmy: 2,
           awayResource: -10,
-          altText: '{away}, 마린은 늘어나지만 대공 방어가 없어요!',
+          altText: '{away} 선수, 마린은 늘어나지만 대공 방어가 없어요!',
         ),
         ScriptEvent(
           text: '{home} 선수 셔틀이 테란 본진 뒤편으로 진입합니다!',
@@ -175,7 +175,7 @@ const _pvtReaverPushVsBbs = ScenarioScript(
               homeResource: 0,
               homeArmy: 2,
               awayResource: -30,
-              altText: '{home}, 리버가 스캐럽 한 방! SCV 4기를 날려보냅니다!',
+              altText: '{home} 선수, 리버가 스캐럽 한 방! SCV 4기를 날려보냅니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 마린이 셔틀을 쫓지만 속도 차이로 잡지 못합니다!',
@@ -216,7 +216,7 @@ const _pvtReaverPushVsBbs = ScenarioScript(
               homeResource: 0,
               awayArmy: 4,
               awayResource: -15,
-              altText: '{away}, 마린 물량이 엄청납니다!',
+              altText: '{away} 선수, 마린 물량이 엄청납니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 리버가 나오기 전에 밀리고 있습니다!',
