@@ -86,7 +86,7 @@ scenarios/pvt/ (63개)          # PvT 시나리오 (9P × 7T, 1:1 빌드)
 scenarios/pvp/ (36개)          # PvP 시나리오 (8 미러 + 28 크로스, 1:1 빌드)
 scenarios/zvp/ (63개)          # ZvP 시나리오 (9Z × 7P, 1:1 빌드)
 scenarios/zvz/ (21개)          # ZvZ 시나리오 (6 미러 + 15 크로스, 1:1 빌드)
-build_orders.dart              # 빌드오더 + 이벤트 풀 시스템 (아래 별도 설명)
+build_orders.dart              # 빌드오더 + 빌드 선택 시스템 (아래 별도 설명)
 initial_data.dart              # 초기 데이터 (선수/팀 생성)
 map_data.dart                  # 게임 맵 정의 (맵 태그, 종족별 승률)
 team_data.dart                 # 팀 초기 데이터
@@ -94,22 +94,16 @@ team_data.dart                 # 팀 초기 데이터
 
 ### build_orders.dart 구조
 
-시나리오 미매칭 시 사용되는 **폴백 시스템** + 빌드 정의 + 이벤트 풀 (~6,800줄)
+빌드 정의 + 빌드 선택 시스템 (~3,400줄)
 
-**클래스 6개:**
+**클래스 5개:**
 - `BuildStep`: 빌드 단계 이벤트 (line, text, stat, army/resource 변동)
 - `BuildOrder`: 빌드오더 정의 (id, race, vsRace, style, steps)
 - `RaceOpening`: 오프닝 빌드 (line 1~16, aggressionTier 0~3)
 - `RaceTransition`: 트랜지션 빌드 (line 20~, keyStats)
-- `ClashEvent`: 충돌 이벤트 ({attacker}/{defender} 플레이스홀더)
-- `BuildOrderData`: 빌드 저장소 + 이벤트 풀 + 유틸리티 (static 메서드)
+- `BuildOrderData`: 빌드 저장소 + 빌드 선택 유틸리티 (static 메서드)
 
-**이벤트 풀 체계:**
-- 매치업별 mid-late 이벤트 (tvzMidLateEvents 등 9개 풀, 각 16~20개)
-- clash 이벤트 (aggressiveVsAggressive, comebackEvents, microEventsTerran 등)
-- `getMidLateEvent()`: 상황(병력/자원/라인)에 따라 가중치 기반 이벤트 선택
-- `getClashEvents()`: 빌드 스타일 + 종족 조합에 맞는 충돌 이벤트 풀 구성
-- `extractUnitTags()`: 빌드 스텝에서 유닛 키워드 추출 (캐싱 적용)
+> 이벤트 풀 (`ClashEvent`, `getMidLateEvent`, `getClashEvents` 등)은 시나리오 100% 커버로 불필요해져 제거됨.
 
 ## Key Components
 
@@ -247,16 +241,17 @@ ScenarioScript
 └── mapRequirement                   # 맵 조건 필터 (선택)
 ```
 
-- **Phase**: `startLine` 기준으로 활성화, linearEvents(순차) 또는 branches(분기) 중 하나
+- **Phase**: 이전 페이즈 종료 후 순차 활성화, linearEvents(순차) 또는 branches(분기) 중 하나. `startLine`은 Phase 0만 필수(시나리오 진입 게이트)
 - **Branch**: 분기 선택 2단계 — ①빌드 ID 필터링(`conditionHomeBuildIds`/`conditionAwayBuildIds`) → ②능력치 필터링(`conditionStat` + `baseProbability`)
-- **Event**: 텍스트 + 병력/자원 변동 + `favorsStat`(능력치 보정) + `decisive`(즉시 승패)
+- **Event**: 텍스트 + 병력/자원 변동 + `decisive`(즉시 승패)
 
 ### 1:1 빌드 시나리오 구조 (전 종족전)
 
 모든 종족전이 **빌드 vs 빌드 1:1 시나리오**로 완전 분리되어 있다 (총 284개).
 각 시나리오 파일이 하나의 빌드 조합을 전담하며, `homeBuildIds`/`awayBuildIds`에 단일 빌드만 지정한다.
 트랜지션 분기 구조는 더 이상 사용하지 않는다.
-**모든 빌드 조합이 100% 시나리오 커버** → build_orders.dart 폴백 로그 미발동.
+**모든 빌드 조합이 100% 시나리오 커버** → build_orders.dart 이벤트 풀은 제거됨.
+Phase 1+의 startLine도 제거 — 이전 페이즈 종료 후 즉시 다음 페이즈 시작.
 
 ### 내러티브 품질 규칙
 
@@ -333,7 +328,7 @@ ScenarioScript
 | SCV 라인 / 프로브 라인 / 드론 라인 / 일꾼 라인 | SCV를 / 프로브를 / 일꾼을 / 일꾼 초토화 | '라인' 오용 |
 | 착공 | 건설합니다 / 올립니다 / 짓기 시작합니다 | 군사 용어, 해설 톤 아님 |
 | 쓰러지다 / 쓰러집 / 쓰러진 | 무너지다 / 밀리다 / 잡아냅니다 / 처리합니다 | SC 용어 아님 |
-| 경쟁 | 싸움 (예: '뮤탈 타이밍 싸움') | 부자연스러움. 예외: '테크 경쟁' → '테크를 올립니다' |
+| 경쟁 | 싸움 (예: '뮤탈 타이밍 싸움') | 부자연스러움. 예외 없음 — '테크 경쟁'도 금지 → '테크를 올립니다' 등으로 변환 |
 | 미러 (단독 사용) | 동일한 빌드 / 같은 빌드 | 실제 해설에서 '미러' 표현 안 씀 |
 | 플릿 (단독, '플릿 비콘' 제외) | 플릿 비콘 | 유닛/건물 혼동 |
 | 한글+한글 '+' 연결 | 쉼표·공백으로 분리 | 해설 톤 아님 |
@@ -341,10 +336,9 @@ ScenarioScript
 | 커맨드 센터 / 컨트롤 타워 / 미사일 터렛 / 미사일터렛 | 커맨드센터 / 컨트롤타워 / 터렛 | 붙여쓰기 |
 | 스포닝 풀 / 히드라리스크 덴 / 히드라 덴 / 퀸즈 네스트 / 선큰 콜로니 / 선큰 | 스포닝풀 / 히드라덴 / 퀸즈네스트 / 성큰 | 정식 표기 |
 
-### 능력치 반영 (`favorsStat`)
+### 능력치 반영 (`conditionStat`)
 
-이벤트에 `favorsStat: 'attack'` 등을 지정하면 해당 능력치가 높은 선수에게 유리하게 병력/자원 변동 적용:
-- 능력치 차이 0 → 보정 없음 / 차이 800 → 최대 ±30% 보정
+능력치는 `ScriptBranch.conditionStat`으로 **분기 선택 확률**에만 관여한다. 이벤트의 army/resource 수치를 직접 보정하지 않는다.
 
 ### 맵 조건 (`requiresMapTag`)
 
@@ -431,21 +425,23 @@ C. 판단
 | A (줄) | A5 | Owner 불일치 (home 이벤트에 away 주체) | error |
 | A (줄) | A6 | Army 범위 (0~200) | error |
 | A (줄) | A7 | Resource 범위 (0~10000) | error |
+| A (줄) | A8 | 이벤트 필수 필드 (homeArmy/awayArmy/homeResources/awayResources, 0이라도 필수) | error |
 | B (경기) | ~~B10~~ | ~~시스템 해설 비율~~ (제거됨 - 짧은 경기에서 무의미) | -  |
-| B (경기) | B11 | 테크트리 순서 (유닛 → 선행 건물 존재) | error |
+| B (경기) | B11 | 테크트리 순서 (유닛 → 선행 건물 존재). 방어 맥락 예외: 상대 유닛 방어 텍스트는 스킵 | error |
 | B (경기) | B12 | 동일 텍스트 3줄 연속 반복 | error |
 | B (경기) | B17 | 승자 최종 병력 ≥ 패자 (decisive 예외) | error |
 | B (경기) | B19 | 게임 종료 후 패자 행동 금지 | error |
 | B (경기) | B20 | 유닛 타이밍 (고테크 유닛 조기 등장 금지) | error |
 | B (경기) | B21 | 종족 간 유닛 혼입 방지 (다른 종족 유닛 주체 금지) | error |
-| B (경기) | B22 | 한 줄에 건물 3개 이상 건설 금지 (시간상 불가) | error |
+| B (경기) | ~~B22~~ | ~~한 줄에 건물 3개 이상 건설 금지~~ (비활성화 - 시나리오 보정 시 불가피) | -  |
 | B (경기) | B23 | 저그 유닛 테크건물 생산 서술 금지 (라바/해처리에서 생산) | error |
 | B (경기) | B24 | 선행건물 완성 전 후속건물 동시 착공 금지 | error |
 | C (통계) | C13 | 승률 30~70% (미러 45~55%) | error |
 | C (통계) | C14 | 홈/어웨이 반전 ±5%p | error |
 | C (통계) | C15 | 텍스트 다양성 (500경기 50+고유) | warn  |
 | C (통계) | C16 | 분기 활성화율 5% 이상 (시나리오별 그룹 내) | warn  |
-| C (통계) | C17 | decisive 종료 비율 30~70% | warn  |
+| C (통계) | ~~C17~~ | ~~decisive 종료 비율 30~70%~~ (비활성화 - 수동 조절) | -  |
+| D (파일) | D1 | 개별 시나리오에 recoveryResourcePerLine 개별 설정 감지 (통합 관리 위반) | error |
 
 ### 팀 구성 (Agent Teams)
 

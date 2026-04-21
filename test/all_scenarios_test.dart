@@ -264,6 +264,9 @@ void main() {
         int earlyEnd = 0, midEnd = 0, lateEnd = 0;
         List<int> logLengths = [];
         List<int> homeFinalArmy = [], awayFinalArmy = [];
+        List<int> homeFinalRes = [], awayFinalRes = [];
+        int resOver1000Count = 0;
+        int homeMaxRes = 0, awayMaxRes = 0;
         Set<String> uniqueTexts = {};
         final branchCounts = <String, int>{};
         final branchDescMap = <String, String>{}; // ID → 한국어 설명 누적
@@ -283,6 +286,11 @@ void main() {
           logLengths.add(logLen);
           homeFinalArmy.add(state.homeArmy);
           awayFinalArmy.add(state.awayArmy);
+          homeFinalRes.add(state.homeResources);
+          awayFinalRes.add(state.awayResources);
+          if (state.homeResources > homeMaxRes) homeMaxRes = state.homeResources;
+          if (state.awayResources > awayMaxRes) awayMaxRes = state.awayResources;
+          if (state.homeResources > 1000 || state.awayResources > 1000) resOver1000Count++;
           uniqueTexts.add(state.battleLogEntries.map((e) => e.text).join('\n'));
           if (logLen <= 28) earlyEnd++;
           else if (logLen <= 42) midEnd++;
@@ -299,6 +307,9 @@ void main() {
         final avgLogLen = (logLengths.reduce((a, b) => a + b) / totalGames).toStringAsFixed(1);
         final avgHomeArmy = (homeFinalArmy.reduce((a, b) => a + b) / totalGames).toStringAsFixed(1);
         final avgAwayArmy = (awayFinalArmy.reduce((a, b) => a + b) / totalGames).toStringAsFixed(1);
+        final avgHomeRes = (homeFinalRes.reduce((a, b) => a + b) / totalGames).toStringAsFixed(0);
+        final avgAwayRes = (awayFinalRes.reduce((a, b) => a + b) / totalGames).toStringAsFixed(0);
+        final resOver1000Pct = (resOver1000Count / totalGames * 100).toStringAsFixed(1);
 
         final buf = StringBuffer();
         buf.writeln('# ${config.label} ${s.label} 1000경기 통계');
@@ -310,6 +321,9 @@ void main() {
         buf.writeln('| ${config.awayLabel} 승률 | ${(100 - double.parse(homeWinRate)).toStringAsFixed(1)}% (${totalGames - homeWins}승) |');
         buf.writeln('| 평균 로그 길이 | $avgLogLen줄 |');
         buf.writeln('| 평균 최종 병력 | ${config.homeLabel} $avgHomeArmy / ${config.awayLabel} $avgAwayArmy |');
+        buf.writeln('| 평균 최종 자원 | ${config.homeLabel} $avgHomeRes / ${config.awayLabel} $avgAwayRes |');
+        buf.writeln('| 최대 자원 | ${config.homeLabel} $homeMaxRes / ${config.awayLabel} $awayMaxRes |');
+        buf.writeln('| 자원 1000 초과 경기 | $resOver1000Count ($resOver1000Pct%) |');
         buf.writeln('| 고유 로그 수 | ${uniqueTexts.length} / $totalGames |');
         buf.writeln();
         buf.writeln('## 종료 시점 분포');
@@ -337,7 +351,7 @@ void main() {
         final outDir = Directory('test/output/${config.id}');
         if (!outDir.existsSync()) outDir.createSync(recursive: true);
         File('test/output/${config.id}/${s.label}_1000stats.md').writeAsStringSync(buf.toString());
-        print('${config.label} ${s.label}: ${config.homeLabel}승률 $homeWinRate% | 초${(earlyEnd / 10).toStringAsFixed(0)} 중${(midEnd / 10).toStringAsFixed(0)} 후${(lateEnd / 10).toStringAsFixed(0)} | 고유${uniqueTexts.length}');
+        print('${config.label} ${s.label}: ${config.homeLabel}승률 $homeWinRate% | 초${(earlyEnd / 10).toStringAsFixed(0)} 중${(midEnd / 10).toStringAsFixed(0)} 후${(lateEnd / 10).toStringAsFixed(0)} | 고유${uniqueTexts.length} | 자원 avg$avgHomeRes/$avgAwayRes max$homeMaxRes/$awayMaxRes >1000:$resOver1000Count');
       }
 
       for (final s in config.scenarios) {

@@ -353,12 +353,10 @@ class ScriptEvent {
   final int awayArmy;
   final int homeResource;
   final int awayResource;
-  final String? favorsStat;
   final bool decisive;
   final double skipChance;
   final String? altText;
   final String? requiresMapTag; // 'rushShort', 'rushLong', 'airHigh', 'terrainHigh'
-  final bool fixedCost; // true면 favorsStat/winRate 모디파이어 미적용 (건물/유닛 생산용)
   final bool homeExpansion; // true면 홈 확장 (앞마당/추가 확장) → 홈 recovery 증가
   final bool awayExpansion; // true면 어웨이 확장 → 어웨이 recovery 증가
 
@@ -369,12 +367,10 @@ class ScriptEvent {
     this.awayArmy = 0,
     this.homeResource = 0,
     this.awayResource = 0,
-    this.favorsStat,
     this.decisive = false,
     this.skipChance = 0.0,
     this.altText,
     this.requiresMapTag,
-    this.fixedCost = false,
     this.homeExpansion = false,
     this.awayExpansion = false,
   });
@@ -417,7 +413,7 @@ class ScriptBranch {
 /// 경기 단계 (선형 또는 분기)
 class ScriptPhase {
   final String name;
-  final int startLine;
+  final int? startLine;
   final List<ScriptEvent>? linearEvents;
   final List<ScriptBranch>? branches;
   final int recoveryArmyPerLine;
@@ -425,11 +421,11 @@ class ScriptPhase {
 
   const ScriptPhase({
     required this.name,
-    required this.startLine,
+    this.startLine,
     this.linearEvents,
     this.branches,
     this.recoveryArmyPerLine = 0,
-    this.recoveryResourcePerLine = 100,
+    this.recoveryResourcePerLine = 25,
   });
 }
 

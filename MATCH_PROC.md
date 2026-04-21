@@ -125,7 +125,6 @@ LOOP (lineCount < maxLines, !isFinished):
 - `altText` 50% 대체
 - `{home}`/`{away}` 플레이스홀더 치환 (reversed면 자동 스왑)
 - `_transformEnding()` 35% 어미 변환
-- `favorsStat`: 능력치 차이 → 0~30% 병력/자원 보정
 - `decisive`: 즉시 승패 판정 (확률 체크 후)
 
 ---
@@ -144,7 +143,7 @@ LOOP (lineCount < maxLines, !isFinished):
 
 - 공격자 결정 (aggressive 70%, 아니면 power 기반)
 - `BuildOrderData.getClashEvents()`로 이벤트 풀 구성
-- `favorsStat` + `winRate` 보정 적용
+- `winRate` 보정 적용
 - 교전 사이 2라인 회복 (60라인 이후 1라인)
 
 ---

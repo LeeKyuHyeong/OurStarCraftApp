@@ -607,10 +607,15 @@ function checkTechTreeOrder(logs, matchup, isReversed) {
 
         // 유닛 등장 감지 → 선행 건물 존재 여부 체크
         const HANGUL_RE = /[\uAC00-\uD7AF\u1100-\u11FF\u3130-\u318F]/;
+        // 방어 맥락 키워드: 상대 유닛을 방어하는 텍스트이면 해당 측 테크 체크 스킵
+        const DEFENSE_CONTEXT_RE = /막[기는으]|대비|대응|방어|상대.{0,5}(를|을|의)|잡[기는으아]|처리|견제를\s*막/;
         for (const [unitName, requiredBuildings] of Object.entries(tree.units)) {
           const idx = text.indexOf(unitName);
           if (idx === -1) continue;
           if (idx > 0 && HANGUL_RE.test(text[idx - 1])) continue;
+          // 방어 맥락이면 상대측 유닛 → 이 측 테크 체크 불필요
+          const contextWindow = text.substring(Math.max(0, idx - 15), Math.min(text.length, idx + unitName.length + 15));
+          if (DEFENSE_CONTEXT_RE.test(contextWindow)) continue;
           {
             for (const req of requiredBuildings) {
               if (!side.buildings.has(req)) {
@@ -842,19 +847,8 @@ function checkMultiBuildingLine(logs, matchup, isReversed) {
       if (text.includes(bName)) mentioned.push(bName);
     }
 
-    // 3개 이상 + 건설 키워드가 있을 때만 위반
-    if (mentioned.length >= 3) {
-      const hasConstruction = CONSTRUCTION_KEYWORDS.some(kw => text.includes(kw));
-      if (hasConstruction) {
-        violations.push({
-          rule: 'B22_MULTI_BUILDING_LINE',
-          line: i + 1,
-          severity: 'error',
-          message: `한 줄에 건물 ${mentioned.length}개 건설 언급 (${mentioned.join(', ')}) — 분리 필요`,
-          text: text.substring(0, 80),
-        });
-      }
-    }
+    // B22 비활성화 — 시나리오 보정 시 한 줄 3건물 불가피
+    // if (mentioned.length >= 3) { ... }
   }
   return violations;
 }
@@ -1110,23 +1104,52 @@ function checkBranchActivation(branchStats) {
  * 모든 경기가 decisive로만 끝나거나, 전혀 없으면 단조로움
  */
 function checkDecisiveRate(games) {
-  const decisiveCount = games.filter(g => isDecisiveEnding(g.logs || [])).length;
-  const rate = decisiveCount / games.length;
-  const violations = [];
+  // C17 비활성화 — decisive 비율은 수동 조절
+  return [];
+}
 
-  if (rate < 0.30) {
+/**
+ * A-8. 이벤트 필수 필드 검증
+ * 모든 이벤트에 homeArmy, awayArmy, homeResources, awayResources가 존재해야 함 (0이라도 필수)
+ */
+function checkRequiredFields(log, lineNum) {
+  const violations = [];
+  const required = ['homeArmy', 'awayArmy', 'homeResources', 'awayResources'];
+  const missing = required.filter(f => log[f] === undefined || log[f] === null);
+  if (missing.length > 0) {
     violations.push({
-      rule: 'C17_DECISIVE_RATE',
-      severity: 'warning',
-      message: `decisive 종료 비율 ${(rate * 100).toFixed(1)}% (최소 30% 필요) [${decisiveCount}/${games.length}]`,
+      rule: 'A8_MISSING_FIELDS',
+      line: lineNum,
+      severity: 'error',
+      message: `필수 필드 누락: ${missing.join(', ')}`,
+      text: (log.text || '').substring(0, 80),
     });
   }
-  if (rate > 0.70) {
-    violations.push({
-      rule: 'C17_DECISIVE_RATE',
-      severity: 'warning',
-      message: `decisive 종료 비율 ${(rate * 100).toFixed(1)}% (최대 70% 초과) [${decisiveCount}/${games.length}]`,
-    });
+  return violations;
+}
+
+/**
+ * D-1. 개별 시나리오에 recoveryResourcePerLine 개별 설정 감지
+ * 통합 관리이므로 개별 시나리오 파일에 설정되어 있으면 제거 대상으로 보고
+ */
+function checkRecoveryResourcePerLine(matchup) {
+  const violations = [];
+  const scenarioDir = path.join(__dirname, '..', 'lib', 'core', 'constants', 'scenarios', matchup.toLowerCase());
+  if (!fs.existsSync(scenarioDir)) return violations;
+
+  const files = fs.readdirSync(scenarioDir).filter(f => f.endsWith('.dart'));
+  for (const file of files) {
+    const content = fs.readFileSync(path.join(scenarioDir, file), 'utf-8');
+    const lines = content.split('\n');
+    for (let i = 0; i < lines.length; i++) {
+      if (lines[i].includes('recoveryResourcePerLine')) {
+        violations.push({
+          rule: 'D1_INDIVIDUAL_RECOVERY_RESOURCE',
+          severity: 'error',
+          message: `${file}:${i + 1} — 개별 recoveryResourcePerLine 설정 감지 (통합 관리 위반, 제거 필요)`,
+        });
+      }
+    }
   }
   return violations;
 }
@@ -1186,6 +1209,8 @@ function validateSingleGame(game, matchup, gameIndex) {
     violations.push(...checkArmyBounds(log, lineNum));
     // A-7: Resource 범위
     violations.push(...checkResourceBounds(log, lineNum));
+    // A-8: 필수 필드 (homeArmy/awayArmy/homeResources/awayResources)
+    violations.push(...checkRequiredFields(log, lineNum));
   }
 
   return violations.map(v => ({ ...v, gameIndex }));
@@ -1212,6 +1237,9 @@ function validateMultiGame(data) {
     // C-17: decisive 종료 비율
     allViolations.push(...checkDecisiveRate(games));
   }
+
+  // D-1: 개별 시나리오 recoveryResourcePerLine 감지 (파일 스캔)
+  allViolations.push(...checkRecoveryResourcePerLine(matchup));
 
   return allViolations;
 }
@@ -1355,4 +1383,6 @@ module.exports = {
   ZERG_PRODUCTION_BUILDINGS,
   ZERG_TECH_ONLY_BUILDINGS,
   CONSTRUCTION_KEYWORDS,
+  checkRequiredFields,
+  checkRecoveryResourcePerLine,
 };

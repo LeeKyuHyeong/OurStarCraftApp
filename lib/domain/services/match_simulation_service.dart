@@ -472,13 +472,19 @@ class MatchSimulationService {
       winRate = ((baseWinRate + statBonus + actualBuildBonus + levelBonus) / 100).clamp(0.03, 0.97);
     }
 
-    // 빌드 스텝에서 유닛 키워드 추출 (이벤트 필터링용)
-    // 전체 빌드 태그 (midLateEvent 필터링용 - 빌드에 포함된 유닛 기반)
-    final homeUnitTagsFull = homeBuildFinal != null ? BuildOrderData.extractUnitTags(homeBuildFinal) : <String>{};
-    final awayUnitTagsFull = awayBuildFinal != null ? BuildOrderData.extractUnitTags(awayBuildFinal) : <String>{};
-    // 동적 태그 (실행된 스텝까지만 - 클래시 이벤트 필터링용)
-    final homeUnitTags = <String>{};
-    final awayUnitTags = <String>{};
+    // 빌드 스텝에서 유닛 키워드 추출 (ZvZ 스커지 체크용)
+    final homeUnitTagsFull = <String>{};
+    final awayUnitTagsFull = <String>{};
+    if (homeBuildFinal != null) {
+      for (final step in homeBuildFinal.steps) {
+        if (step.text.contains('뮤탈')) homeUnitTagsFull.add('뮤탈');
+      }
+    }
+    if (awayBuildFinal != null) {
+      for (final step in awayBuildFinal.steps) {
+        if (step.text.contains('뮤탈')) awayUnitTagsFull.add('뮤탈');
+      }
+    }
     // per-player 게임 상태 추적
     int homeExpansionCount = 0;    // 홈 확장기지 수
     int awayExpansionCount = 0;    // 어웨이 확장기지 수
@@ -533,11 +539,6 @@ class MatchSimulationService {
     bool expansionReactionUsed = false; // 확장 인터랙션 중복 방지
 
     // 충돌 발생 여부
-    bool clashOccurred = false;
-    int clashStartLine = -1;
-    int clashEventCount = 0; // 클래시 이벤트 발생 횟수 (초반 조기 종료용)
-    LogOwner lastClashOwner = LogOwner.home; // 클래시 교차 표시용
-    int lastClashLine = -10; // 마지막 클래시 이벤트 라인 (빈도 조절용)
 
     // 빌드 매치업 해설 (초반에 1회 삽입)
     final buildMatchupCommentary = _getBuildMatchupCommentary(
@@ -595,7 +596,7 @@ class MatchSimulationService {
 
       // ========== 시나리오 스크립트 실행 (TvZ) ==========
       // 시나리오 첫 phase 이전에는 기존 빌드오더 병합 시스템이 처리 (초반 빌드업 표시)
-      if (scenarioScript != null && lineCount >= scenarioScript.phases.first.startLine) {
+      if (scenarioScript != null && lineCount >= (scenarioScript.phases.first.startLine ?? 1)) {
         final scriptResult = _executeScenarioLine(
           script: scenarioScript,
           phaseIndex: scenarioPhaseIndex,
@@ -610,7 +611,6 @@ class MatchSimulationService {
           lineCount: lineCount,
           map: map,
           usedTexts: usedTexts,
-          winRate: winRate,
           homeBuildType: homeBuildType,
           awayBuildType: awayBuildType,
         );
@@ -727,239 +727,6 @@ class MatchSimulationService {
       final awayStep = _getNextStep(awayBuildFinal, awayIndex, lineCount);
 
       // 시나리오 시작 전에는 클래시 억제 (빌드 스텝이 자연스럽게 진행되도록)
-      final scenarioPending = scenarioScript != null && lineCount < scenarioScript.phases.first.startLine;
-
-      // 충돌 체크
-      if (!clashOccurred && !scenarioPending && (
-          (homeStep?.isClash == true) ||
-          (awayStep?.isClash == true) ||
-          (isZvZAggressiveVsNonAggressive && lineCount >= 10 && _random.nextDouble() < 0.4) ||
-          (isZvZ && lineCount >= 25 && _random.nextDouble() < 0.15) ||
-          (lineCount >= 50 && _random.nextDouble() < 0.1)
-      )) {
-        clashOccurred = true;
-        clashStartLine = lineCount;
-
-        if (isZvZ) {
-          // ZvZ 클래시 시작: 양쪽 병력 균등화 (빌드 스텝 차이 제거)
-          // 승패는 winRate (빌드 상성 + 능력치)로 결정
-          final avgArmy = ((state.homeArmy + state.awayArmy) / 2).round();
-          state = state.copyWith(homeArmy: avgArmy, awayArmy: avgArmy);
-        }
-      }
-
-      // ========== 클래시 구간 ==========
-      if (clashOccurred && lineCount >= clashStartLine) {
-        final clashDuration = lineCount - clashStartLine;
-        final linesSinceLastClash = lineCount - lastClashLine;
-
-        // 클래시 간격: 초반 2라인, duration 60+ 이후 1라인 (가속)
-        // ZvZ는 전용 로직이므로 간격 제한 없음
-        final clashInterval = isZvZ ? 1 : (clashDuration >= 60 ? 1 : 2);
-
-        // ===== 회복/포지셔닝 구간 (클래시 사이) =====
-        if (linesSinceLastClash < clashInterval) {
-          // 매크로 능력치에 따라 회복량 차등 (절반 수준으로 감소)
-          final homeMacro = homeStats.macro;
-          final awayMacro = awayStats.macro;
-          final homeRecoveryResource = 5 + (homeMacro / 400).round(); // 6~7
-          final awayRecoveryResource = 5 + (awayMacro / 400).round();
-          // 소량 병력 보충 (매크로 700+ 시 +1, 아니면 +0)
-          final homeRecoveryArmy = homeMacro >= 700 ? 1 : 0;
-          final awayRecoveryArmy = awayMacro >= 700 ? 1 : 0;
-
-          // 수치만 적용, 텍스트 출력 없음 (로그에 회복 멘트 미표시)
-          state = state.copyWith(
-            homeArmy: (state.homeArmy + homeRecoveryArmy).clamp(0, 200),
-            awayArmy: (state.awayArmy + awayRecoveryArmy).clamp(0, 200),
-            homeResources: (state.homeResources + homeRecoveryResource).clamp(0, 10000),
-            awayResources: (state.awayResources + awayRecoveryResource).clamp(0, 10000),
-          );
-
-          // 회복 구간에서도 승패 체크 (army 0 등)
-          final recoveryResult = _checkWinCondition(state, lineCount);
-          if (recoveryResult != null) {
-            yield* _emitEnding(
-              state: state,
-              homeWinOverride: recoveryResult,
-              winRate: winRate,
-              homePlayer: homePlayer,
-              awayPlayer: awayPlayer,
-              lineCount: lineCount,
-              getIntervalMs: getIntervalMs,
-            );
-            return;
-          }
-
-          continue; // 회복 구간 → 다음 라인으로
-        }
-
-        // ===== 클래시 이벤트 발동 =====
-        lastClashLine = lineCount;
-
-        String text = '';
-        int homeArmyChange = 0;
-        int awayArmyChange = 0;
-        int homeResourceChange = 0;
-        int awayResourceChange = 0;
-        bool decisive = false;
-        bool? homeWinOverride;
-
-        // ZvZ 빌드 상성 이변 (우선 체크)
-        if (isZvZAggressiveVsNonAggressive && lineCount >= 8 && lineCount <= 18) {
-          final homeIsAggressive = homeStyle == BuildStyle.aggressive;
-          final aggressorStats = homeIsAggressive ? homeStats : awayStats;
-          final zvzDefenderStats = homeIsAggressive ? awayStats : homeStats;
-          final aggressor = homeIsAggressive ? homePlayer : awayPlayer;
-          final defenderStyle = homeIsAggressive ? awayStyle : homeStyle;
-          final isAggressorHome = homeIsAggressive;
-
-          final gradeDiff = zvzDefenderStats.total - aggressorStats.total;
-
-          if (gradeDiff > 1000) {
-            final baseChance = defenderStyle == BuildStyle.defensive ? 0.006 : 0.004;
-            if (_random.nextDouble() < baseChance) {
-              decisive = true;
-              homeWinOverride = isAggressorHome;
-              text = '${aggressor.name} 선수, 선제 저글링 공격 성공! 빌드 승리!';
-            }
-          }
-        }
-
-        if (!decisive) {
-          // 클래시 텍스트 중복 방지: 최대 3회 재시도
-          _ClashResult? bestResult;
-          for (int retry = 0; retry < 3; retry++) {
-            final clashResult = _simulateClash(
-              homePlayer: homePlayer,
-              awayPlayer: awayPlayer,
-              homeStats: homeStats,
-              awayStats: awayStats,
-              homeStyle: homeStyle,
-              awayStyle: awayStyle,
-              winRate: winRate,
-              lineCount: lineCount,
-              clashStartLine: clashStartLine,
-              currentState: state,
-              map: map,
-              homeBuildType: homeBuildType,
-              awayBuildType: awayBuildType,
-              combinedUnitTags: homeUnitTags.union(awayUnitTags),
-              homeUnitTags: homeUnitTags,
-              awayUnitTags: awayUnitTags,
-              homeExpansionCount: homeExpansionCount,
-              awayExpansionCount: awayExpansionCount,
-              homeHasHiddenBase: homeHasHiddenBase,
-              awayHasHiddenBase: awayHasHiddenBase,
-              homeBuildings: homeBuildings,
-              awayBuildings: awayBuildings,
-            );
-            // 미사용 텍스트면 바로 채택
-            if ((usedTexts[clashResult.text] ?? 0) == 0 || clashResult.decisive) {
-              bestResult = clashResult;
-              break;
-            }
-            // 더 적게 사용된 후보 기억
-            if (bestResult == null || (usedTexts[clashResult.text] ?? 0) < (usedTexts[bestResult.text] ?? 0)) {
-              bestResult = clashResult;
-            }
-          }
-          final clashResult = bestResult!;
-
-          text = clashResult.text;
-          homeArmyChange = clashResult.homeArmyChange;
-          awayArmyChange = clashResult.awayArmyChange;
-          homeResourceChange = clashResult.homeResourceChange;
-          awayResourceChange = clashResult.awayResourceChange;
-          decisive = clashResult.decisive;
-          homeWinOverride = clashResult.homeWinOverride;
-          if (text.isNotEmpty) {
-            usedTexts[text] = (usedTexts[text] ?? 0) + 1;
-          }
-        }
-
-        // 클래시 텍스트의 주체 선수 결정 (선수 이름 기반 + 교차 표시)
-        LogOwner clashOwner;
-        if (text.isNotEmpty) {
-          final transformedText = _transformEnding(text);
-          final homeNameIdx = transformedText.indexOf(homePlayer.name);
-          final awayNameIdx = transformedText.indexOf(awayPlayer.name);
-          if (homeNameIdx >= 0 && (awayNameIdx < 0 || homeNameIdx < awayNameIdx)) {
-            clashOwner = LogOwner.home;
-          } else if (awayNameIdx >= 0 && (homeNameIdx < 0 || awayNameIdx < homeNameIdx)) {
-            clashOwner = LogOwner.away;
-          } else {
-            // 선수 이름 없는 중립 텍스트 → 이전 owner 반대로 교차
-            clashOwner = lastClashOwner == LogOwner.home ? LogOwner.away : LogOwner.home;
-          }
-          lastClashOwner = clashOwner;
-        } else {
-          clashOwner = LogOwner.clash;
-        }
-
-        // 상태 업데이트
-        state = state.copyWith(
-          homeArmy: (state.homeArmy + homeArmyChange).clamp(0, 200),
-          awayArmy: (state.awayArmy + awayArmyChange).clamp(0, 200),
-          homeResources: (state.homeResources + homeResourceChange).clamp(0, 10000),
-          awayResources: (state.awayResources + awayResourceChange).clamp(0, 10000),
-          battleLogEntries: text.isNotEmpty
-              ? [...state.battleLogEntries, BattleLogEntry(text: _transformEnding(text), owner: clashOwner)]
-              : state.battleLogEntries,
-        );
-
-        if (text.isNotEmpty) clashEventCount++;
-
-        yield state;
-        await Future.delayed(Duration(milliseconds: getIntervalMs()));
-
-        // 결정적 이벤트 → 엔딩
-        if (decisive) {
-          yield* _emitEnding(
-            state: state,
-            homeWinOverride: homeWinOverride,
-            winRate: winRate,
-            homePlayer: homePlayer,
-            awayPlayer: awayPlayer,
-            lineCount: lineCount,
-            getIntervalMs: getIntervalMs,
-            isDecisive: true,
-          );
-          return;
-        }
-
-        // 초반 클래시 조기 종료: clashStartLine <= 20이면 3~4개 이벤트 후 종료
-        // 초반에는 마린/저글링 소수 병력으로 빠르게 결판남
-        if (clashStartLine <= 20 && clashEventCount >= 3 && !isZvZ) {
-          yield* _emitEnding(
-            state: state,
-            homeWinOverride: null,
-            winRate: winRate,
-            homePlayer: homePlayer,
-            awayPlayer: awayPlayer,
-            lineCount: lineCount,
-            getIntervalMs: getIntervalMs,
-          );
-          return;
-        }
-
-        // 승패 체크
-        final result = _checkWinCondition(state, lineCount);
-        if (result != null) {
-          yield* _emitEnding(
-            state: state,
-            homeWinOverride: result,
-            winRate: winRate,
-            homePlayer: homePlayer,
-            awayPlayer: awayPlayer,
-            lineCount: lineCount,
-            getIntervalMs: getIntervalMs,
-          );
-          return;
-        }
-
-        continue; // 클래시 구간에서는 빌드 스텝 건너뜀
-      }
 
       // ========== 일반 빌드 진행 (병합 타임라인) ==========
       final newEntries = <BattleLogEntry>[];
@@ -978,7 +745,6 @@ class MatchSimulationService {
         awayResourceChange += homeStep.enemyResource;
         homeIndex++;
         // 동적 유닛 태그 + 건물/확장 추적
-        BuildOrderData.addUnitTagsFromText(homeStep.text, homeUnitTags);
         BuildOrderData.addBuildingsFromText(homeStep.text, homeBuildings);
         if (BuildOrderData.isExpansionText(homeStep.text)) {
           homeExpansionCount++;
@@ -1031,7 +797,6 @@ class MatchSimulationService {
         homeResourceChange += awayStep.enemyResource;
         awayIndex++;
         // 동적 유닛 태그 + 건물/확장 추적
-        BuildOrderData.addUnitTagsFromText(awayStep.text, awayUnitTags);
         BuildOrderData.addBuildingsFromText(awayStep.text, awayBuildings);
         if (BuildOrderData.isExpansionText(awayStep.text)) {
           awayExpansionCount++;
@@ -1113,65 +878,6 @@ class MatchSimulationService {
             newEntries.add(BattleLogEntry(text: commentary, owner: LogOwner.system));
             lastCommentaryLine = lineCount;
             usedTexts[commentary] = (usedTexts[commentary] ?? 0) + 1;
-          }
-        }
-
-        // 초반(15줄 이전)에서는 midLateEvent 사용 금지 - 아직 병력이 없으므로
-        // 중반 이후에도 70% 확률로만 삽입 (빈 줄 허용)
-        if (newEntries.isEmpty && lineCount >= 15 && _random.nextDouble() < 0.70) {
-          final isHomeTurn = _random.nextBool();
-          final player = isHomeTurn ? homePlayer : awayPlayer;
-          final currentArmy = isHomeTurn ? state.homeArmy : state.awayArmy;
-          final currentResource = isHomeTurn ? state.homeResources : state.awayResources;
-          final raceStr = isHomeTurn ? homeRace : awayRace;
-
-          BuildStep? bestStep;
-          String bestText = '';
-          for (int retry = 0; retry < 5; retry++) {
-            final candidate = BuildOrderData.getMidLateEvent(
-              lineCount: lineCount,
-              currentArmy: currentArmy,
-              currentResource: currentResource,
-              race: raceStr,
-              vsRace: isHomeTurn ? awayRace : homeRace,
-              rushDistance: map.rushDistance,
-              resources: map.resources,
-              terrainComplexity: map.terrainComplexity,
-              random: _random,
-              availableUnits: isHomeTurn ? homeUnitTagsFull : awayUnitTagsFull,
-              opponentUnits: isHomeTurn ? awayUnitTagsFull : homeUnitTagsFull,
-              buildings: isHomeTurn ? homeBuildings : awayBuildings,
-              expansionCount: isHomeTurn ? homeExpansionCount : awayExpansionCount,
-            );
-            final candidateText = _transformEnding(candidate.text.replaceAll('{player}', player.name));
-            // 미사용 텍스트 우선
-            if ((usedTexts[candidateText] ?? 0) == 0) {
-              bestStep = candidate;
-              bestText = candidateText;
-              break;
-            }
-            // 가장 적게 사용된 후보 기억
-            if (bestStep == null || (usedTexts[candidateText] ?? 0) < (usedTexts[bestText] ?? 0)) {
-              bestStep = candidate;
-              bestText = candidateText;
-            }
-          }
-
-          final midLateStep = bestStep!;
-          final text = bestText;
-          usedTexts[text] = (usedTexts[text] ?? 0) + 1;
-          newEntries.add(BattleLogEntry(text: text, owner: isHomeTurn ? LogOwner.home : LogOwner.away));
-
-          if (isHomeTurn) {
-            homeArmyChange += midLateStep.myArmy;
-            homeResourceChange += midLateStep.myResource;
-            awayArmyChange += midLateStep.enemyArmy;
-            awayResourceChange += midLateStep.enemyResource;
-          } else {
-            awayArmyChange += midLateStep.myArmy;
-            awayResourceChange += midLateStep.myResource;
-            homeArmyChange += midLateStep.enemyArmy;
-            homeResourceChange += midLateStep.enemyResource;
           }
         }
       }
@@ -3094,687 +2800,6 @@ class MatchSimulationService {
     return null;
   }
 
-  /// 충돌 시뮬레이션
-  _ClashResult _simulateClash({
-    required Player homePlayer,
-    required Player awayPlayer,
-    required PlayerStats homeStats,
-    required PlayerStats awayStats,
-    required BuildStyle homeStyle,
-    required BuildStyle awayStyle,
-    required double winRate,
-    required int lineCount,
-    required int clashStartLine,
-    required SimulationState currentState,
-    GameMap? map,
-    BuildType? homeBuildType,
-    BuildType? awayBuildType,
-    Set<String>? combinedUnitTags,
-    Set<String>? homeUnitTags,
-    Set<String>? awayUnitTags,
-    int homeExpansionCount = 0,
-    int awayExpansionCount = 0,
-    bool homeHasHiddenBase = false,
-    bool awayHasHiddenBase = false,
-    Set<String>? homeBuildings,
-    Set<String>? awayBuildings,
-  }) {
-    final clashDuration = lineCount - clashStartLine;
-    final isZvZ = homePlayer.race == Race.zerg && awayPlayer.race == Race.zerg;
-
-    // 현재 경기 단계 결정
-    final gamePhase = GamePhase.fromLineCount(lineCount);
-    final homeRaceStr = _getRaceString(homePlayer.race);
-    final awayRaceStr = _getRaceString(awayPlayer.race);
-    final matchup = '${homeRaceStr}v$awayRaceStr';
-
-    // 단계별 가중치 적용된 능력치 계산
-    final homeWeightedTotal = StatWeights.getWeightedTotal(
-      sense: homeStats.sense,
-      control: homeStats.control,
-      attack: homeStats.attack,
-      harass: homeStats.harass,
-      strategy: homeStats.strategy,
-      macro: homeStats.macro,
-      defense: homeStats.defense,
-      scout: homeStats.scout,
-      phase: gamePhase,
-      matchup: matchup,
-    );
-
-    final awayWeightedTotal = StatWeights.getWeightedTotal(
-      sense: awayStats.sense,
-      control: awayStats.control,
-      attack: awayStats.attack,
-      harass: awayStats.harass,
-      strategy: awayStats.strategy,
-      macro: awayStats.macro,
-      defense: awayStats.defense,
-      scout: awayStats.scout,
-      phase: gamePhase,
-      matchup: '${awayRaceStr}v$homeRaceStr',
-    );
-
-    // 우세한 쪽 결정 (가중치 적용된 능력치 + 공격성향)
-    // 매 충돌마다 결정하여 홈/어웨이 편향 방지
-    // 공격형 스타일이라도 매 이벤트마다 반드시 공격자가 되지는 않음
-    // (수비형도 역습/반격/주도권 전환 가능)
-    final homeAttackPower = homeStats.attack + homeStats.harass;
-    final awayAttackPower = awayStats.attack + awayStats.harass;
-    final homeIsAggressiveStyle = homeStyle == BuildStyle.aggressive || homeStyle == BuildStyle.cheese;
-    final awayIsAggressiveStyle = awayStyle == BuildStyle.aggressive || awayStyle == BuildStyle.cheese;
-    final bool isHomeAttacker;
-    if (homeIsAggressiveStyle && !awayIsAggressiveStyle) {
-      // 공격형 vs 비공격형: 70% 확률로 공격자 (30%는 역습/반격)
-      isHomeAttacker = _random.nextDouble() < 0.70;
-    } else if (awayIsAggressiveStyle && !homeIsAggressiveStyle) {
-      isHomeAttacker = _random.nextDouble() >= 0.70; // away가 70% attacker
-    } else {
-      // 같은 스타일이면: 공격력 차이로 결정, 비슷하면 매번 랜덤
-      final powerDiff = homeAttackPower - awayAttackPower;
-      if (powerDiff > 50) {
-        isHomeAttacker = _random.nextDouble() < 0.65; // 약간 유리
-      } else if (powerDiff < -50) {
-        isHomeAttacker = _random.nextDouble() >= 0.65;
-      } else {
-        isHomeAttacker = _random.nextBool(); // 매 충돌마다 랜덤
-      }
-    }
-
-    // 충돌 이벤트 풀 (매치업별 종족 정보 + 맵 특성 + 능력치 전달)
-    final attackerStats = isHomeAttacker ? homeStats : awayStats;
-    final defenderStats = isHomeAttacker ? awayStats : homeStats;
-    final attackerStyle = isHomeAttacker ? homeStyle : awayStyle;
-    final defenderStyle = isHomeAttacker ? awayStyle : homeStyle;
-    final events = BuildOrderData.getClashEvents(
-      attackerStyle,
-      defenderStyle,
-      attackerRace: isHomeAttacker ? homeRaceStr : awayRaceStr,
-      defenderRace: isHomeAttacker ? awayRaceStr : homeRaceStr,
-      rushDistance: map?.rushDistance,
-      resources: map?.resources,
-      terrainComplexity: map?.terrainComplexity,
-      airAccessibility: map?.airAccessibility,
-      centerImportance: map?.centerImportance,
-      hasIsland: map?.hasIsland,
-      attackerAttack: attackerStats.attack,
-      attackerHarass: attackerStats.harass,
-      attackerControl: attackerStats.control,
-      attackerStrategy: attackerStats.strategy,
-      attackerMacro: attackerStats.macro,
-      attackerSense: attackerStats.sense,
-      defenderDefense: defenderStats.defense,
-      defenderStrategy: defenderStats.strategy,
-      defenderMacro: defenderStats.macro,
-      defenderControl: defenderStats.control,
-      defenderSense: defenderStats.sense,
-      attackerBuildType: isHomeAttacker ? homeBuildType : awayBuildType,
-      defenderBuildType: isHomeAttacker ? awayBuildType : homeBuildType,
-      availableUnits: combinedUnitTags,
-      gamePhase: gamePhase,
-      attackerArmySize: isHomeAttacker ? currentState.homeArmy : currentState.awayArmy,
-      defenderArmySize: isHomeAttacker ? currentState.awayArmy : currentState.homeArmy,
-      attackerExpansions: isHomeAttacker ? homeExpansionCount : awayExpansionCount,
-      defenderExpansions: isHomeAttacker ? awayExpansionCount : homeExpansionCount,
-      attackerHasHiddenBase: isHomeAttacker ? homeHasHiddenBase : awayHasHiddenBase,
-      attackerBuildings: isHomeAttacker ? homeBuildings : awayBuildings,
-      defenderBuildings: isHomeAttacker ? awayBuildings : homeBuildings,
-    );
-
-    // 가중치 기반 이벤트 선택
-    final event = _selectWeightedEvent(
-      events: events,
-      attackerStats: attackerStats,
-      defenderStats: defenderStats,
-      gamePhase: gamePhase,
-      matchup: matchup,
-    );
-
-    // 텍스트 변환
-    final attacker = isHomeAttacker ? homePlayer : awayPlayer;
-    final defender = isHomeAttacker ? awayPlayer : homePlayer;
-    var text = event.text
-        .replaceAll('{attacker}', attacker.name)
-        .replaceAll('{defender}', defender.name);
-
-    // 병력/자원 변화 계산
-    int homeArmyChange = isHomeAttacker ? event.attackerArmy : event.defenderArmy;
-    int awayArmyChange = isHomeAttacker ? event.defenderArmy : event.attackerArmy;
-    int homeResourceChange = isHomeAttacker ? event.attackerResource : event.defenderResource;
-    int awayResourceChange = isHomeAttacker ? event.defenderResource : event.attackerResource;
-
-    // 능력치에 따른 보정 (가중치 적용 + 차이가 클수록 더 큰 보정)
-    if (event.favorsStat != null) {
-      // 해당 능력치의 가중치 적용
-      final statWeight = StatWeights.getCombinedWeight(event.favorsStat!, gamePhase, matchup);
-      final homeStat = (_getStatValue(homeStats, event.favorsStat) * statWeight).round();
-      final awayStat = (_getStatValue(awayStats, event.favorsStat) * statWeight).round();
-      final statDiff = (homeStat - awayStat).abs();
-      final modifier = 1.0 + (statDiff / 800).clamp(0.0, 0.3); // 최대 1.3배 (기존 500/0.5 → 800/0.3)
-
-      if (homeStat > awayStat) {
-        homeArmyChange = (homeArmyChange * (2 - modifier)).round();
-        awayArmyChange = (awayArmyChange * modifier).round();
-      } else if (awayStat > homeStat) {
-        homeArmyChange = (homeArmyChange * modifier).round();
-        awayArmyChange = (awayArmyChange * (2 - modifier)).round();
-      }
-    }
-
-    // 경기 단계별 추가 보정 (병력 손실에 반영)
-    final weightedDiff = homeWeightedTotal - awayWeightedTotal;
-    final phaseBonus = (weightedDiff / 1500).clamp(-3.0, 3.0); // 단계별 ±3 보정 (기존 1000/5.0)
-
-    // phaseBonus 적용: 우세한 쪽은 피해 감소, 열세 쪽은 피해 증가
-    if (phaseBonus > 0) {
-      homeArmyChange = (homeArmyChange * (1.0 - phaseBonus / 25)).round(); // 피해 최대 12% 감소 (기존 25%)
-      awayArmyChange = (awayArmyChange * (1.0 + phaseBonus / 25)).round(); // 피해 최대 12% 증가
-    } else if (phaseBonus < 0) {
-      homeArmyChange = (homeArmyChange * (1.0 - phaseBonus / 25)).round();
-      awayArmyChange = (awayArmyChange * (1.0 + phaseBonus / 25)).round();
-    }
-
-    // 종족 상성 보정 (클래시 데미지)
-    // 맵별 종족 상성만 반영 (baseRaceFactor 제거 → 맵 설정으로 통일)
-    if (!isZvZ) {
-      final raceBonus = map?.matchup.getWinRate(homePlayer.race, awayPlayer.race) ?? 50;
-
-      // 맵별 종족 상성 (증폭률 0.20, 극단값 clamp ±0.10)
-      final mapRaceFactor = (raceBonus - 50) / 100 * 0.20;
-      final totalFactor = mapRaceFactor.clamp(-0.10, 0.10);
-
-      if (totalFactor != 0) {
-        homeArmyChange = (homeArmyChange * (1.0 - totalFactor)).round();
-        awayArmyChange = (awayArmyChange * (1.0 + totalFactor)).round();
-      }
-    }
-
-    // 공격형 타이밍 보너스: 클래시 초반(15줄 이내)에서 공격형이 공격자일 때 데미지 강화
-    // 수비형의 경제력이 발동하기 전 타이밍 공격의 위력을 반영
-    if (clashDuration <= 15) {
-      final attackerIsAggressive = isHomeAttacker
-          ? (homeStyle == BuildStyle.aggressive || homeStyle == BuildStyle.cheese)
-          : (awayStyle == BuildStyle.aggressive || awayStyle == BuildStyle.cheese);
-      final defenderIsDefensive = isHomeAttacker
-          ? (awayStyle == BuildStyle.defensive)
-          : (homeStyle == BuildStyle.defensive);
-      if (attackerIsAggressive && defenderIsDefensive) {
-        // 공격형 공격자의 피해 20% 감소, 수비형 수비자의 피해 15% 증가
-        if (isHomeAttacker) {
-          homeArmyChange = (homeArmyChange * 0.80).round();
-          awayArmyChange = (awayArmyChange * 1.15).round();
-        } else {
-          awayArmyChange = (awayArmyChange * 0.80).round();
-          homeArmyChange = (homeArmyChange * 1.15).round();
-        }
-      }
-    }
-
-    // 후반 클래시 데미지 가속: clashDuration이 길어질수록 병력 소모 증가
-    // 실제 스타크래프트처럼 후반 대치가 길어지면 소모전이 격화됨
-    if (clashDuration >= 40 && !isZvZ) {
-      // clashDuration 40~80: 1.2~1.5배, 80+: 1.5배 고정
-      final lateMultiplier = clashDuration >= 80
-          ? 1.5
-          : 1.0 + (clashDuration - 40) * 0.0125; // 40줄에서 1.0→1.5
-      // 음수(피해)인 경우에만 배율 적용 (병력 증가 이벤트는 그대로)
-      if (homeArmyChange < 0) {
-        homeArmyChange = (homeArmyChange * lateMultiplier).round();
-      }
-      if (awayArmyChange < 0) {
-        awayArmyChange = (awayArmyChange * lateMultiplier).round();
-      }
-      if (homeResourceChange < 0) {
-        homeResourceChange = (homeResourceChange * lateMultiplier).round();
-      }
-      if (awayResourceChange < 0) {
-        awayResourceChange = (awayResourceChange * lateMultiplier).round();
-      }
-    }
-
-    // winRate 기반 종합 데미지 보정 (ZvZ 제외 - ZvZ는 전용 winRate 로직 사용)
-    // 등급/레벨/컨디션/맵 등 모든 요소가 반영된 winRate로 전투 피해 차등
-    // winRate 0.5 → 보정 없음, 0.6 → ±6%, 0.7 → ±12%, 0.8 → ±18%
-    if (!isZvZ) {
-      final winRateBias = (winRate - 0.5) * 2.0; // -1.0 ~ +1.0
-      if (winRateBias.abs() > 0.01) {
-        final favoredMod = 1.0 - winRateBias * 0.3;  // 유리측 피해 감소
-        final unfavoredMod = 1.0 + winRateBias * 0.3; // 불리측 피해 증가
-        if (homeArmyChange < 0) {
-          homeArmyChange = (homeArmyChange * favoredMod).round();
-        }
-        if (awayArmyChange < 0) {
-          awayArmyChange = (awayArmyChange * unfavoredMod).round();
-        }
-        if (homeResourceChange < 0) {
-          homeResourceChange = (homeResourceChange * favoredMod).round();
-        }
-        if (awayResourceChange < 0) {
-          awayResourceChange = (awayResourceChange * unfavoredMod).round();
-        }
-      }
-    }
-
-    // ========== 저그전 특별 규칙 (ZvZ) ==========
-    // ZvZ에서는 이벤트 기반 데미지를 완전히 대체하여 ZvZ 전용 데미지만 적용
-    if (isZvZ) {
-      // 이벤트 기반 데미지 완전 리셋 (ZvZ 전용 로직으로 대체)
-      homeArmyChange = 0;
-      awayArmyChange = 0;
-      homeResourceChange = 0;
-      awayResourceChange = 0;
-
-      final homeControl = homeStats.control;
-      final awayControl = awayStats.control;
-      final homeTotal = homeStats.total;
-      final awayTotal = awayStats.total;
-
-      // 초반 저글링 싸움 (clashDuration 0~20)
-      if (clashDuration <= 20) {
-        // 컨트롤 차이 (저글링 컨트롤)
-        final controlDiff = (homeControl - awayControl).toDouble();
-
-        // 공격력 차이 (저글링 물량/공격 타이밍)
-        final attackDiff = (homeStats.attack - awayStats.attack) * 0.2;
-
-        // 수비력이 높으면 저글링 방어 성공 (선링 막기)
-        final homeDefAdv = (homeStats.defense - awayStats.defense) / 300;
-        final awayDefAdv = (awayStats.defense - homeStats.defense) / 300;
-
-        // ZvZ 초반: 능력치 차이만으로 전투 결정 (빌드 상성은 winRate에서 반영)
-        // 동급 선수 간에는 대등한 전투 → 경기 연출 중심
-        // 총합: 컨트롤 + 공격력 - 수비력 보정 (buildAdvantage 없음)
-        final defenseCounter = (awayStats.defense - homeStats.defense) * 0.3;
-        final totalDiff = controlDiff + attackDiff - defenseCounter;
-
-        // 양측 저글링 보유 여부 (수비 빌드는 초반에 저글링 부재 가능)
-        final bothHaveZerglings = homeStyle != BuildStyle.defensive && awayStyle != BuildStyle.defensive;
-
-        // 60% 확률로 전투, 40% 포지셔닝
-        if (_random.nextDouble() < 0.6) {
-          if (totalDiff > 80) {
-            final winTexts = [
-              '${homePlayer.name} 선수, 저글링 컨트롤 압도!',
-              '${homePlayer.name}, 저글링 서라운드 성공! 상대 병력 녹습니다!',
-              '${homePlayer.name} 선수 저글링 포지셔닝이 한 수 위!',
-            ];
-            text = winTexts[_random.nextInt(winTexts.length)];
-            final damage = (2 + (homeTotal - awayTotal) / 3000).clamp(1, 3).round();
-            awayArmyChange -= damage;
-            homeArmyChange -= 1;
-          } else if (totalDiff < -80) {
-            final winTexts = [
-              '${awayPlayer.name} 선수, 저글링 컨트롤 압도!',
-              '${awayPlayer.name}, 저글링 서라운드 성공! 상대 병력 녹습니다!',
-              '${awayPlayer.name} 선수 저글링 포지셔닝이 한 수 위!',
-            ];
-            text = winTexts[_random.nextInt(winTexts.length)];
-            final damage = (2 + (awayTotal - homeTotal) / 3000).clamp(1, 3).round();
-            homeArmyChange -= damage;
-            awayArmyChange -= 1;
-          } else if (bothHaveZerglings) {
-            // 비슷한 경우 - 양쪽 소량 피해 (양측 모두 저글링 보유 시)
-            final evenTexts = [
-              '치열한 저글링 싸움! 서로 물고 물립니다!',
-              '저글링 컨트롤 대결! 양 선수 팽팽합니다!',
-              '양측 저글링이 맞물리며 소모전!',
-              '서로 저글링을 주고받는 치열한 접전!',
-              '저글링 교전! 아슬아슬한 수 싸움!',
-            ];
-            text = evenTexts[_random.nextInt(evenTexts.length)];
-            const baseDamage = 2;
-            homeArmyChange -= (baseDamage - homeDefAdv * 0.3).clamp(1, 3).round();
-            awayArmyChange -= (baseDamage - awayDefAdv * 0.3).clamp(1, 3).round();
-          } else {
-            // 한쪽만 저글링 보유 - 일방적 교전
-            final aggressor = homeStyle != BuildStyle.defensive ? homePlayer : awayPlayer;
-            final defender = homeStyle == BuildStyle.defensive ? homePlayer : awayPlayer;
-            final aggrTexts = [
-              '${aggressor.name} 선수 저글링으로 압박!',
-              '${aggressor.name}, 저글링으로 드론 위협!',
-              '${aggressor.name} 선수 저글링 진입! ${defender.name} 선수 드론으로 막아봅니다!',
-            ];
-            text = aggrTexts[_random.nextInt(aggrTexts.length)];
-            if (homeStyle == BuildStyle.defensive) {
-              homeArmyChange -= 1;
-            } else {
-              awayArmyChange -= 1;
-            }
-          }
-        } else {
-          // 비전투 이벤트 - 소규모 교전으로 양쪽 동일 피해
-          final zlingTexts = <String>[
-            '${homePlayer.name} 선수 언덕에서 유리한 교전!',
-            '${awayPlayer.name} 선수 언덕에서 유리한 교전!',
-            '${homePlayer.name} 선수 국지전 승리!',
-            '${awayPlayer.name} 선수 국지전 승리!',
-            '${homePlayer.name}, 드론 견제로 상대 일꾼 털기!',
-            '${awayPlayer.name}, 드론 견제로 상대 일꾼 털기!',
-            '${homePlayer.name} 선수, 성큰 올리며 방어 태세!',
-            '${awayPlayer.name} 선수, 성큰 올리며 방어 태세!',
-            '${homePlayer.name}, 오버로드로 상대 빌드 정찰!',
-            '${awayPlayer.name}, 오버로드로 상대 빌드 정찰!',
-          ];
-          // 상대 확장 견제는 실제 확장이 있을 때만
-          if (homeExpansionCount > 0 || awayExpansionCount > 0) {
-            if (awayExpansionCount > 0) {
-              zlingTexts.add('${homePlayer.name}, 상대 확장 견제!');
-            }
-            if (homeExpansionCount > 0) {
-              zlingTexts.add('${awayPlayer.name}, 상대 확장 견제!');
-            }
-          }
-          text = zlingTexts[_random.nextInt(zlingTexts.length)];
-          // 소규모 교전: 양쪽 동일 피해
-          final minorDamage = _random.nextInt(2) + 1;
-          homeArmyChange -= minorDamage;
-          awayArmyChange -= minorDamage;
-        }
-      }
-
-      // 중반 과도기 (clashDuration 21~29): 저글링전에서 뮤탈전으로 전환
-      if (clashDuration >= 21 && clashDuration <= 29) {
-        final transitionTexts = [
-          '${homePlayer.name} 선수, 스파이어 건설 시작!',
-          '${awayPlayer.name} 선수, 스파이어 건설 시작!',
-          '양측 모두 뮤탈리스크 전환을 노리고 있습니다!',
-          '${homePlayer.name} 선수, 가스 확보에 집중!',
-          '${awayPlayer.name} 선수, 멀티 해처리 건설!',
-          '뮤탈리스크 등장이 임박합니다!',
-          '${homePlayer.name}, 레어 테크 올리며 뮤탈 준비!',
-          '${awayPlayer.name}, 레어 테크 올리며 뮤탈 준비!',
-          '저글링전이 소강상태... 이제 공중전 준비입니다.',
-          '가스 싸움이 중요해지는 시점이네요!',
-          '${homePlayer.name} 선수, 해처리 추가하며 물량 준비!',
-          '${awayPlayer.name} 선수, 해처리 추가하며 물량 준비!',
-        ];
-        text = transitionTexts[_random.nextInt(transitionTexts.length)];
-        // 전환기: 경제 성장, 소량 피해 (양쪽 대등)
-        homeResourceChange += _random.nextInt(30) + 15;
-        awayResourceChange += _random.nextInt(30) + 15;
-        // 소량 병력 보충
-        homeArmyChange -= _random.nextInt(2);
-        awayArmyChange -= _random.nextInt(2);
-      }
-
-      // 뮤탈전 (clashDuration 30 이후)
-      if (clashDuration >= 30) {
-        // 뮤탈전: 순수 능력치 대결 (빌드 상성은 winRate에서 반영)
-        final effectiveControlDiff = (homeControl - awayControl) +
-                                     (homeTotal - awayTotal) / 7;
-        if (_random.nextDouble() < 0.35) { // 35% 확률로 뮤탈 매직
-          if (effectiveControlDiff > 100) {
-            final winTexts = [
-              '${homePlayer.name} 선수, 뮤탈 매직 작렬!',
-              '${homePlayer.name}, 뮤탈 스택으로 상대 편대 박살!',
-              '${homePlayer.name} 선수 뮤탈 컨트롤이 압도적입니다!',
-            ];
-            text = winTexts[_random.nextInt(winTexts.length)];
-            final damage = (6 + (homeTotal - awayTotal) / 1500).clamp(4, 12).round();
-            awayArmyChange -= damage;
-            homeArmyChange -= 2;
-          } else if (effectiveControlDiff < -100) {
-            final winTexts = [
-              '${awayPlayer.name} 선수, 뮤탈 매직 작렬!',
-              '${awayPlayer.name}, 뮤탈 스택으로 상대 편대 박살!',
-              '${awayPlayer.name} 선수 뮤탈 컨트롤이 압도적입니다!',
-            ];
-            text = winTexts[_random.nextInt(winTexts.length)];
-            final damage = (6 + (awayTotal - homeTotal) / 1500).clamp(4, 12).round();
-            homeArmyChange -= damage;
-            awayArmyChange -= 2;
-          } else {
-            final evenTexts = [
-              '양측 뮤탈리스크 공중전! 팽팽한 접전!',
-              '뮤탈 대 뮤탈! 치열한 공중 싸움!',
-              '뮤탈리스크 편대가 엉키며 혼전!',
-              '뮤탈 스택 대결! 컨트롤로 승부합니다!',
-            ];
-            text = evenTexts[_random.nextInt(evenTexts.length)];
-            final mutalDamage = _random.nextInt(4) + 3;
-            homeArmyChange -= mutalDamage;
-            awayArmyChange -= mutalDamage;
-          }
-        } else {
-          // 뮤탈 견제/일꾼 사냥
-          final isHomeHarass = _random.nextBool();
-          final harasser = isHomeHarass ? homePlayer : awayPlayer;
-          final victim = isHomeHarass ? awayPlayer : homePlayer;
-          final harassTexts = [
-            '${harasser.name} 선수, 뮤탈리스크로 일꾼 사냥!',
-            '${harasser.name} 선수, 오버로드 사냥 성공!',
-            '${harasser.name} 선수, 뮤탈리스크 히트앤런!',
-            '${harasser.name}, 뮤탈로 ${victim.name} 본진 견제!',
-            '${harasser.name} 선수, 스커지로 상대 뮤탈 요격!',
-            '${harasser.name}, 멀티 해처리 드론 사냥!',
-          ];
-          text = harassTexts[_random.nextInt(harassTexts.length)];
-          // 견제: 자원 피해 위주
-          if (isHomeHarass) {
-            awayResourceChange -= _random.nextInt(40) + 10;
-          } else {
-            homeResourceChange -= _random.nextInt(40) + 10;
-          }
-          // 뮤탈 교전 소규모 피해
-          homeArmyChange -= _random.nextInt(2) + 1;
-          awayArmyChange -= _random.nextInt(2) + 1;
-        }
-      }
-
-      // ZvZ 빌드 상성 반영: winRate 기반 데미지 bias
-      // 유리한 쪽이 매 라운드 확률적으로 1 추가 피해를 줌 (누적 효과)
-      // clashInterval=1 + 회복 없음으로 소량 bias도 크게 작용 → 매우 낮은 확률
-      // winRate 55% → 1.3%, 60% → 1.9%, 75% → 3.0%
-      final winBias = winRate - 0.5;
-      if (winBias.abs() > 0.03) {
-        final biasChance = (sqrt(winBias.abs()) * 0.06).clamp(0.0, 0.06);
-        if (_random.nextDouble() < biasChance) {
-          if (winBias > 0) {
-            awayArmyChange -= 1; // 홈 유리 → 어웨이 추가 피해
-          } else {
-            homeArmyChange -= 1; // 어웨이 유리 → 홈 추가 피해
-          }
-        }
-      }
-    }
-
-    // ========== 빠른 승리 (치즈/러쉬) ==========
-    bool decisive = false;
-    bool? homeWinOverride; // 이변 시 승자 강제 지정
-
-    // ZvZ 빌드 상성 이변은 메인 루프에서 우선 처리 (여기서는 생략)
-
-    // 치즈 빌드 성공 윈도우 (다크 계열은 확장)
-    final cheeseBuildType = homeStyle == BuildStyle.cheese ? homeBuildType : awayBuildType;
-    final isDarkCheese = cheeseBuildType == BuildType.pvtDarkSwing ||
-                         cheeseBuildType == BuildType.pvpDarkAllIn;
-    final cheeseWindowMax = isDarkCheese ? 45 : 30;
-
-    // 치즈 빌드 + 윈도우 이내 = 빠른 결정 확률
-    if (!decisive && (homeStyle == BuildStyle.cheese || awayStyle == BuildStyle.cheese) && lineCount <= cheeseWindowMax) {
-      final cheesePlayer = homeStyle == BuildStyle.cheese ? homePlayer : awayPlayer;
-      final cheeseStats = homeStyle == BuildStyle.cheese ? homeStats : awayStats;
-      final cheeseDefenderStats = homeStyle == BuildStyle.cheese ? awayStats : homeStats;
-      final cheeseDefenderStyle = homeStyle == BuildStyle.cheese ? awayStyle : homeStyle;
-
-      // 공격력 vs 수비력 비교
-      final attackPower = cheeseStats.attack + cheeseStats.sense;
-      final defensePower = cheeseDefenderStats.defense + cheeseDefenderStats.scout;
-
-      // 기본 성공률 4% per tick (이전: 15%)
-      double baseRate = 0.04;
-
-      // 수비 스타일에 따른 방어 보정
-      if (cheeseDefenderStyle == BuildStyle.defensive) {
-        baseRate *= 0.3; // DEF: 치즈 70% 감소 (하드카운터)
-      } else if (cheeseDefenderStyle == BuildStyle.balanced) {
-        baseRate *= 0.6; // BAL: 치즈 40% 감소
-      } else if (cheeseDefenderStyle == BuildStyle.aggressive) {
-        baseRate *= 0.5; // AGG: 치즈 50% 감소 (빠른 풀로 저글링 대응)
-      }
-      // CHE: 보정 없음 (취약)
-
-      final statModifier = (attackPower - defensePower) / 1500;
-      // line 20 이후 성공률 선형 감쇠
-      final windowDecay = lineCount <= 20 ? 1.0 :
-          ((cheeseWindowMax - lineCount) / (cheeseWindowMax - 20.0)).clamp(0.1, 1.0);
-      final cheeseSuccessRate = ((baseRate + statModifier) * windowDecay).clamp(0.01, 0.12);
-
-      if (_random.nextDouble() < cheeseSuccessRate) {
-        decisive = true;
-        homeWinOverride = homeStyle == BuildStyle.cheese; // 치즈 성공한 쪽 승리
-        text = '${cheesePlayer.name} 선수, 기습 성공! 상대 본진 초토화!';
-      }
-    }
-
-    // 치즈 실패 페널티 - 올인 후 경제 열세로 병력 감소 가속
-    // 페널티 시작점을 윈도우 종료 후로 이동 (기본 31, 다크 46)
-    if (!decisive && (homeStyle == BuildStyle.cheese || awayStyle == BuildStyle.cheese) && lineCount > cheeseWindowMax) {
-      // ZvZ: clashInterval=1이라 매 라인마다 페널티 적용됨 → 3라인마다 1회 + 25라인 윈도우
-      // 비-ZvZ: clashInterval=2이므로 자연스럽게 2라인마다 1회 (윈도우 제한 없음)
-      final shouldApplyPenalty = !isZvZ ||
-          ((lineCount - cheeseWindowMax) % 3 == 0 && lineCount <= cheeseWindowMax + 25);
-      if (shouldApplyPenalty) {
-        final isHomeCheese = homeStyle == BuildStyle.cheese;
-        // ZvZ: 치즈가 유리한 매치업(vs DEF)에서는 페널티 완화
-        // 치즈가 불리한 매치업(vs AGG)에서는 페널티 강화
-        final int penalty;
-        if (isZvZ) {
-          final cheeseWinRate = isHomeCheese ? winRate : (1.0 - winRate);
-          final penaltyMult = (1.0 - cheeseWinRate).clamp(0.2, 1.0);
-          penalty = ((_random.nextInt(3) + 2) * penaltyMult).round().clamp(1, 4);
-        } else {
-          penalty = _random.nextInt(3) + 2; // 2~4 감소
-        }
-        if (isHomeCheese) {
-          homeArmyChange -= penalty;
-        } else {
-          awayArmyChange -= penalty;
-        }
-      }
-    }
-
-    // 공격형 빌드 + 공격력 높음 + 초반 (35줄 이내)
-    if (!decisive && lineCount <= 35) {
-      final homeIsAggressive = homeStyle == BuildStyle.aggressive && homeStats.attack >= 700;
-      final awayIsAggressive = awayStyle == BuildStyle.aggressive && awayStats.attack >= 700;
-
-      if (homeIsAggressive || awayIsAggressive) {
-        // 양쪽 모두 공격형이면 랜덤으로 aggressor 선택
-        final bool isHomeAggressor;
-        if (homeIsAggressive && awayIsAggressive) {
-          isHomeAggressor = _random.nextBool();
-        } else {
-          isHomeAggressor = homeIsAggressive;
-        }
-        final aggressor = isHomeAggressor ? homePlayer : awayPlayer;
-        final aggressorStats = isHomeAggressor ? homeStats : awayStats;
-        final defenderStats = isHomeAggressor ? awayStats : homeStats;
-
-        // 공격력이 수비력보다 200 이상 높으면 빠른 GG
-        if (aggressorStats.attack > defenderStats.defense + 200) {
-          final rushSuccessRate = 0.12 + (aggressorStats.attack - defenderStats.defense) / 3000;
-          if (_random.nextDouble() < rushSuccessRate.clamp(0.05, 0.25)) {
-            decisive = true;
-            homeWinOverride = isHomeAggressor; // 러시 성공한 쪽 승리
-            text = '${aggressor.name} 선수, 압도적인 공격! 상대 무너집니다!';
-          }
-        }
-      }
-    }
-
-    // ========== 역전 이벤트 (열세에서 한방) ==========
-    final armyRatio = currentState.homeArmy / (currentState.awayArmy + 1);
-    final isHomeUnderdog = armyRatio < 0.5; // 기준 강화: 0.6 → 0.5
-    final isAwayUnderdog = armyRatio > 2.0;  // 기준 강화: 1.67 → 2.0
-
-    if (!decisive && (isHomeUnderdog || isAwayUnderdog)) {
-      final underdog = isHomeUnderdog ? homePlayer : awayPlayer;
-      final underdogStats = isHomeUnderdog ? homeStats : awayStats;
-      final favoredStats = isHomeUnderdog ? awayStats : homeStats;
-
-      // 역전 확률: 전략/센스가 높으면 증가, 컨트롤이 높으면 증가
-      final comebackChance = (
-        (underdogStats.strategy - favoredStats.strategy) / 1000 +
-        (underdogStats.sense - favoredStats.sense) / 1000 +
-        (underdogStats.control - favoredStats.control) / 1500 +
-        0.03  // 기본 3%
-      ).clamp(0.01, 0.12);
-
-      if (_random.nextDouble() < comebackChance) {
-        decisive = true;
-        homeWinOverride = isHomeUnderdog; // underdog가 역전 승리
-        // 역전 텍스트 선택
-        final comebackTexts = [
-          '${underdog.name} 선수, 불리한 상황에서 기적같은 역전!',
-          '${underdog.name} 선수, 읽기 싸움 승리! 카운터 빌드 적중!',
-          '대단합니다! ${underdog.name} 선수, 물량 열세를 뒤집습니다!',
-          '${underdog.name} 선수, 환상적인 한방 드랍으로 역전!',
-          '숨막히는 역전극! ${underdog.name} 선수 승리!',
-        ];
-        text = comebackTexts[_random.nextInt(comebackTexts.length)];
-
-        // 역전 시 병력 변화 (열세였던 쪽 유리)
-        if (isHomeUnderdog) {
-          homeArmyChange = 0;
-          awayArmyChange = -20;
-        } else {
-          homeArmyChange = -20;
-          awayArmyChange = 0;
-        }
-      }
-    }
-
-    // 일반 결정적 이벤트 확률 (후반)
-    // 3단계 독립 체크 → 턴당 복합 확률:
-    //   clashDuration 31~50: 6% (단일 체크)
-    //   clashDuration 51~80: 1-(0.94×0.88) ≈ 17.3% (2개 체크)
-    //   clashDuration 81+:  1-(0.94×0.88×0.80) ≈ 33.8% (3개 체크)
-    // 경기 길어질수록 결정적 이벤트 확률 급상승 → 무한 경기 방지
-    if (!decisive) {
-      bool decisiveWinner() {
-        // 병력 확정 우세 → 병력 기반 승자
-        final armyDiff = currentState.homeArmy - currentState.awayArmy;
-        if (armyDiff > 15) return true;
-        if (armyDiff < -15) return false;
-        // 병력 근소 차이 → winRate + 병력 보정으로 결정
-        final armyBonus = armyDiff / 100; // -0.15 ~ +0.15
-        return _random.nextDouble() < (winRate + armyBonus).clamp(0.05, 0.95);
-      }
-      if (clashDuration > 30 && _random.nextDouble() < 0.06) {
-        decisive = true;
-        homeWinOverride = decisiveWinner();
-      }
-      if (!decisive && clashDuration > 50 && _random.nextDouble() < 0.12) {
-        decisive = true;
-        homeWinOverride = decisiveWinner();
-      }
-      if (!decisive && clashDuration > 80 && _random.nextDouble() < 0.20) {
-        decisive = true;
-        homeWinOverride = decisiveWinner();
-      }
-    }
-
-    // 병력 격차가 매우 크면 결정적 이벤트 (역전 기회 지나면)
-    if (!decisive && (armyRatio > 2.5 || armyRatio < 0.4)) {
-      decisive = true;
-      homeWinOverride = armyRatio > 2.5; // 병력 우세한 쪽이 승리
-      text = armyRatio > 2.5
-          ? '${homePlayer.name} 선수 상대 본진 초토화!'
-          : '${awayPlayer.name} 선수 상대 본진 초토화!';
-    }
-
-    return _ClashResult(
-      text: text,
-      homeArmyChange: homeArmyChange,
-      awayArmyChange: awayArmyChange,
-      homeResourceChange: homeResourceChange,
-      awayResourceChange: awayResourceChange,
-      decisive: decisive,
-      homeWinOverride: homeWinOverride,
-    );
-  }
-
   /// 능력치 값 가져오기
   int _getStatValue(PlayerStats stats, String? statName) {
     if (statName == null) return 500;
@@ -3824,7 +2849,6 @@ class MatchSimulationService {
     required int lineCount,
     required GameMap map,
     required Map<String, int> usedTexts,
-    required double winRate,
     BuildType? homeBuildType,
     BuildType? awayBuildType,
   }) {
@@ -3833,17 +2857,8 @@ class MatchSimulationService {
 
     final phase = script.phases[phaseIndex];
 
-    // 현재 라인이 페이즈 시작 라인보다 작으면 빈 라인 (회복만)
-    if (lineCount < phase.startLine) {
-      return _ScenarioLineResult(
-        nextPhaseIndex: phaseIndex,
-        nextEventIndex: eventIndex,
-        activeEvents: activeEvents,
-        newState: state,
-        entry: null,
-        decisive: false,
-      );
-    }
+    // Phase 0의 startLine은 진입 게이트로 사용 (호출부에서 처리)
+    // Phase 1+는 startLine 없이 이전 페이즈 종료 후 즉시 시작
 
     // 이벤트 리스트 결정 (분기 또는 선형)
     if (activeEvents == null) {
@@ -3951,52 +2966,11 @@ class MatchSimulationService {
     // 방송 어미 변환
     text = _transformEnding(text);
 
-    // 병력/자원 변화 계산 (favorsStat 보정 적용)
+    // 병력/자원 변화 계산
     int homeArmyChange = reversed ? event.awayArmy : event.homeArmy;
     int awayArmyChange = reversed ? event.homeArmy : event.awayArmy;
     int homeResourceChange = reversed ? event.awayResource : event.homeResource;
     int awayResourceChange = reversed ? event.homeResource : event.awayResource;
-
-    // fixedCost 이벤트(건물/유닛 생산)는 모디파이어 건너뛰기
-    if (!event.fixedCost) {
-      // favorsStat 보정 (기존 클래시 로직 재사용)
-      // 능력치 차 200 → 약 +/-12.5% 데미지 modifier (이전 +/-25%에서 약화)
-      // 시나리오 이벤트 한 번에 army가 0으로 급변하는 것을 방지
-      if (event.favorsStat != null) {
-        final homeStat = _getStatValue(homeStats, event.favorsStat);
-        final awayStat = _getStatValue(awayStats, event.favorsStat);
-        final statDiff = (homeStat - awayStat).abs();
-        final modifier = 1.0 + (statDiff / 1600).clamp(0.0, 0.15);
-
-        if (homeStat > awayStat) {
-          // 홈이 유리: 홈 피해 감소, 어웨이 피해 증가
-          if (homeArmyChange < 0) homeArmyChange = (homeArmyChange * (2 - modifier)).round();
-          if (awayArmyChange < 0) awayArmyChange = (awayArmyChange * modifier).round();
-          if (homeResourceChange < 0) homeResourceChange = (homeResourceChange * (2 - modifier)).round();
-          if (awayResourceChange < 0) awayResourceChange = (awayResourceChange * modifier).round();
-        } else if (awayStat > homeStat) {
-          if (awayArmyChange < 0) awayArmyChange = (awayArmyChange * (2 - modifier)).round();
-          if (homeArmyChange < 0) homeArmyChange = (homeArmyChange * modifier).round();
-          if (awayResourceChange < 0) awayResourceChange = (awayResourceChange * (2 - modifier)).round();
-          if (homeResourceChange < 0) homeResourceChange = (homeResourceChange * modifier).round();
-        }
-      }
-
-      // winRate 기반 종합 데미지 보정 (시나리오 이벤트에도 적용)
-      // 피해(음수)에만 적용 → 빌드업(양수)은 영향 없음
-      // reversed일 때는 modifier를 반전 (홈/어웨이 위치가 바뀌므로)
-      final scenarioWinBias = (winRate - 0.5) * 2.0;
-      if (scenarioWinBias.abs() > 0.01) {
-        final sFavoredMod = 1.0 - scenarioWinBias * 0.3;
-        final sUnfavoredMod = 1.0 + scenarioWinBias * 0.3;
-        final homeModifier = reversed ? sUnfavoredMod : sFavoredMod;
-        final awayModifier = reversed ? sFavoredMod : sUnfavoredMod;
-        if (homeArmyChange < 0) homeArmyChange = (homeArmyChange * homeModifier).round();
-        if (awayArmyChange < 0) awayArmyChange = (awayArmyChange * awayModifier).round();
-        if (homeResourceChange < 0) homeResourceChange = (homeResourceChange * homeModifier).round();
-        if (awayResourceChange < 0) awayResourceChange = (awayResourceChange * awayModifier).round();
-      }
-    }
 
     // 상태 업데이트
     final newState = state.copyWith(
@@ -4379,27 +3353,26 @@ class MatchSimulationService {
       int homeResourceChange = 0;
       int awayResourceChange = 0;
 
-      // 중후반 이벤트 풀에서 선택
-      final midLateStep = BuildOrderData.getMidLateEvent(
-        lineCount: lineCount,
-        currentArmy: currentArmy,
-        currentResource: currentResource,
-        race: raceStr,
-        vsRace: isHomeEvent ? awayRace : homeRace,
-      );
-
-      text = midLateStep.text.replaceAll('{player}', player.name);
-
+      // 폴백: 빌드 없이 간단한 이벤트 생성
+      final fallbackTexts = [
+        '${player.name} 선수 병력 보충 중!',
+        '${player.name}, 유닛 생산 계속!',
+        '${player.name} 선수 맵 컨트롤!',
+        '${player.name}, 자원 수급 안정!',
+      ];
+      text = fallbackTexts[_random.nextInt(fallbackTexts.length)];
+      final armyDelta = _random.nextInt(5) + 1;
+      final resourceDelta = _random.nextInt(10) + 5;
       if (isHomeEvent) {
-        homeArmyChange = midLateStep.myArmy;
-        homeResourceChange = midLateStep.myResource;
-        awayArmyChange = midLateStep.enemyArmy;
-        awayResourceChange = midLateStep.enemyResource;
+        homeArmyChange = armyDelta;
+        homeResourceChange = resourceDelta;
+        awayArmyChange = -armyDelta;
+        awayResourceChange = -resourceDelta;
       } else {
-        awayArmyChange = midLateStep.myArmy;
-        awayResourceChange = midLateStep.myResource;
-        homeArmyChange = midLateStep.enemyArmy;
-        homeResourceChange = midLateStep.enemyResource;
+        awayArmyChange = armyDelta;
+        awayResourceChange = resourceDelta;
+        homeArmyChange = -armyDelta;
+        homeResourceChange = -resourceDelta;
       }
 
       // winRate 기반 종합 데미지 보정 (폴백 시뮬레이션)
@@ -4500,94 +3473,6 @@ class MatchSimulationService {
       yield state;
     }
   }
-
-  /// 가중치 기반 이벤트 선택
-  /// favorsStat이 있는 이벤트는 해당 능력치가 높을수록 발생 확률 증가
-  ClashEvent _selectWeightedEvent({
-    required List<ClashEvent> events,
-    required PlayerStats attackerStats,
-    required PlayerStats defenderStats,
-    required GamePhase gamePhase,
-    required String matchup,
-  }) {
-    if (events.isEmpty) {
-      throw StateError('Events list cannot be empty');
-    }
-
-    final weightedEvents = <MapEntry<ClashEvent, double>>[];
-
-    for (final event in events) {
-      double weight = 1.0;
-
-      // favorsStat 기반 가중치 (해당 능력치 높으면 발생 확률 증가)
-      if (event.favorsStat != null) {
-        // 이벤트가 수비자 유리인지 확인 (공격자 피해가 더 크면 수비자 유리)
-        final isDefenderFavored = event.attackerArmy < event.defenderArmy;
-        final relevantStats = isDefenderFavored ? defenderStats : attackerStats;
-        final stat = _getStatValue(relevantStats, event.favorsStat);
-        // 능력치 600 기준, 높을수록 가중치 증가 (최대 1.5배)
-        if (stat > 600) {
-          weight *= 1.0 + (stat - 600) / 800; // 800에서 1.5배
-        } else if (stat < 500) {
-          weight *= 0.7 + (stat / 1000); // 낮으면 감소
-        }
-
-        // 경기 단계별 가중치 추가 적용
-        final phaseWeight = StatWeights.getCombinedWeight(event.favorsStat!, gamePhase, matchup);
-        weight *= (0.5 + phaseWeight / 2); // 단계별 가중치 영향 (0.5 ~ 1.0)
-      }
-
-      weightedEvents.add(MapEntry(event, weight.clamp(0.3, 2.0)));
-    }
-
-    // 과다선택 방지: 개별 이벤트가 전체의 4.5%를 넘지 않도록 캡핑
-    final totalWeight = weightedEvents.fold<double>(0, (sum, e) => sum + e.value);
-    final maxWeight = totalWeight * 0.045;
-    for (int i = 0; i < weightedEvents.length; i++) {
-      if (weightedEvents[i].value > maxWeight) {
-        weightedEvents[i] = MapEntry(weightedEvents[i].key, maxWeight);
-      }
-    }
-
-    // 가중치 기반 랜덤 선택
-    return _weightedRandomSelect(weightedEvents);
-  }
-
-  /// 가중치 기반 랜덤 선택
-  ClashEvent _weightedRandomSelect(List<MapEntry<ClashEvent, double>> weightedEvents) {
-    final totalWeight = weightedEvents.fold<double>(0, (sum, e) => sum + e.value);
-    var randomValue = _random.nextDouble() * totalWeight;
-
-    for (final entry in weightedEvents) {
-      randomValue -= entry.value;
-      if (randomValue <= 0) {
-        return entry.key;
-      }
-    }
-
-    // 폴백 (마지막 이벤트 반환)
-    return weightedEvents.last.key;
-  }
-}
-
-class _ClashResult {
-  final String text;
-  final int homeArmyChange;
-  final int awayArmyChange;
-  final int homeResourceChange;
-  final int awayResourceChange;
-  final bool decisive;
-  final bool? homeWinOverride; // 이변 시 승자 강제 지정 (null이면 winRate 사용)
-
-  const _ClashResult({
-    required this.text,
-    required this.homeArmyChange,
-    required this.awayArmyChange,
-    required this.homeResourceChange,
-    required this.awayResourceChange,
-    required this.decisive,
-    this.homeWinOverride,
-  });
 }
 
 /// 시나리오 스크립트 실행 결과

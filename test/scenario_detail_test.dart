@@ -29,8 +29,8 @@ const _pvpAway = 'pvp_1gate_robo';
 const _zvpHome = 'zvp_trans_5hatch_hydra';
 const _zvpAway = 'pvz_cannon_rush';
 
-const _zvzHome = 'zvz_9pool_speed';
-const _zvzAway = 'zvz_9pool_speed';
+const _zvzHome = 'zvz_9overpool';
+const _zvzAway = 'zvz_9overpool';
 
 // ── 경기 수 ──
 const _gameCount = 10;

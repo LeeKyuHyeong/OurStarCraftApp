@@ -105,17 +105,6 @@ void main(List<String> args) {
   // 빌드간 텍스트 공유 분석
   final buildTextSets = <String, Set<String>>{}; // build name -> text set
 
-  // 클래시 이벤트
-  final allClashTexts = <String, Set<String>>{}; // phase -> unique texts
-  final clashPoolSizes = <String, List<int>>{}; // phase -> sizes
-  for (final phase in GamePhase.values) {
-    allClashTexts[phase.name] = {};
-    clashPoolSizes[phase.name] = [];
-  }
-
-  // 중후반 이벤트 분석
-  final midLateTextCounts = <String, int>{}; // text -> count
-  const midLateSamples = 200; // 경기당 대략적 이벤트 수
 
   // ── 50경기 시뮬레이션 ──
   for (int i = 0; i < numSims; i++) {
@@ -180,51 +169,6 @@ void main(List<String> args) {
           (awayBuildTypeCounts[awayBuildType.koreanName] ?? 0) + 1;
     }
 
-    // 클래시 이벤트 풀 분석 (각 페이즈별)
-    for (final phase in GamePhase.values) {
-      final events = BuildOrderData.getClashEvents(
-        homeStyle,
-        awayStyle,
-        attackerRace: homeRace,
-        defenderRace: awayRace,
-        attackerBuildType: homeBuildType,
-        defenderBuildType: awayBuildType,
-        attackerAttack: homeStats['attack'],
-        attackerHarass: homeStats['harass'],
-        attackerControl: homeStats['control'],
-        attackerStrategy: homeStats['strategy'],
-        attackerMacro: homeStats['macro'],
-        attackerSense: homeStats['sense'],
-        defenderDefense: awayStats['defense'],
-        defenderStrategy: awayStats['strategy'],
-        defenderMacro: awayStats['macro'],
-        defenderControl: awayStats['control'],
-        defenderSense: awayStats['sense'],
-        gamePhase: phase,
-      );
-
-      for (final event in events) {
-        allClashTexts[phase.name]!.add(event.text);
-      }
-      clashPoolSizes[phase.name]!.add(events.length);
-    }
-
-    // 중후반 이벤트 샘플링 (종족별)
-    for (int j = 0; j < midLateSamples ~/ numSims; j++) {
-      for (final race in [homeRace, awayRace]) {
-        for (final lineCount in [30, 60, 100, 150]) {
-          final event = BuildOrderData.getMidLateEvent(
-            lineCount: lineCount,
-            currentArmy: 80 + _rng.nextInt(60),
-            currentResource: 80 + _rng.nextInt(200),
-            race: race,
-            random: _rng,
-          );
-          midLateTextCounts[event.text] =
-              (midLateTextCounts[event.text] ?? 0) + 1;
-        }
-      }
-    }
   }
 
   // ══════════════════════════════════════════
@@ -323,43 +267,6 @@ void main(List<String> args) {
   );
   print('  전체 빌드오더 고유 텍스트 합계: ${allBuildTextsUnion.length}개');
 
-  // ── 클래시 이벤트 분석 ──
-  print('');
-  print('[클래시 이벤트 풀 분석]');
-  for (final phase in GamePhase.values) {
-    final uniqueCount = allClashTexts[phase.name]!.length;
-    final poolSizes = clashPoolSizes[phase.name]!;
-    final avgPool = poolSizes.isNotEmpty
-        ? poolSizes.reduce((a, b) => a + b) / poolSizes.length
-        : 0;
-    final minPool =
-        poolSizes.isNotEmpty ? poolSizes.reduce((a, b) => a < b ? a : b) : 0;
-    final maxPool =
-        poolSizes.isNotEmpty ? poolSizes.reduce((a, b) => a > b ? a : b) : 0;
-    print('  ${phase.koreanName}:');
-    print('    고유 이벤트 텍스트: ${uniqueCount}개');
-    print('    풀 크기: 평균 ${avgPool.toStringAsFixed(1)} / 최소 $minPool / 최대 $maxPool');
-  }
-  final allPhasesClash = <String>{};
-  for (final texts in allClashTexts.values) {
-    allPhasesClash.addAll(texts);
-  }
-  print('  전 단계 합산 고유 이벤트: ${allPhasesClash.length}개');
-
-  // ── 중후반 이벤트 분석 ──
-  print('');
-  print('[중후반(MidLate) 이벤트 분석]');
-  print('  전체 고유 텍스트: ${midLateTextCounts.length}개');
-  final sortedMidLate = midLateTextCounts.entries.toList()
-    ..sort((a, b) => b.value.compareTo(a.value));
-  print('  가장 빈번한 상위 5개:');
-  for (int i = 0; i < 5 && i < sortedMidLate.length; i++) {
-    final e = sortedMidLate[i];
-    final truncated =
-        e.key.length > 40 ? '${e.key.substring(0, 40)}...' : e.key;
-    print('    ${e.value}회: $truncated');
-  }
-
   // ── 종합 중복도 ──
   print('');
   print('[종합 중복도 요약]');
@@ -369,14 +276,7 @@ void main(List<String> args) {
       ' (${(usedBuildCount / maxBuildCount * 100).toStringAsFixed(0)}%)');
   print('  빌드오더 가능한 조합: ${homeBuildCounts.length} × ${awayBuildCounts.length}'
       ' = ${homeBuildCounts.length * awayBuildCounts.length}가지');
-
-  // 텍스트 다양성 지수 (빌드스텝 + 클래시 + 중후반)
-  final totalUniqueTexts =
-      combinedTexts.length + allPhasesClash.length + midLateTextCounts.length;
-  print('  전체 고유 텍스트 풀: $totalUniqueTexts개');
-  print('    - 빌드 스텝: ${combinedTexts.length}개');
-  print('    - 클래시 이벤트: ${allPhasesClash.length}개');
-  print('    - 중후반 이벤트: ${midLateTextCounts.length}개');
+  print('  전체 고유 텍스트 풀: ${combinedTexts.length}개 (빌드 스텝)');
 }
 
 void _printSorted(Map<String, int> counts, int total) {

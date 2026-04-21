@@ -5,9 +5,9 @@
 /// 병력 = 서플라이 (일꾼 제외, 군사 유닛만)
 ///
 /// 시나리오 이벤트 작성 규칙:
-///   - 건물/유닛 생산: fixedCost: true, homeResource: -{합산비용}
+///   - 건물/유닛 생산: homeResource: -{합산비용}
 ///   - 유닛 생산 시: homeArmy: +{서플라이} 추가
-///   - 전투 피해: fixedCost: false (기본값), awayArmy: -{서플라이}
+///   - 전투 피해: awayArmy: -{서플라이}
 ///   - 서플라이디팟/파일런/오버로드: recovery에 포함, 별도 이벤트 불필요
 library;
 
