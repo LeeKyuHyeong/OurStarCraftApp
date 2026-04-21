@@ -8,9 +8,9 @@ const _zvz4PoolMirror = ScenarioScript(
   matchup: 'ZvZ',
   homeBuildIds: ['zvz_4pool'],
   awayBuildIds: ['zvz_4pool'],
-  description: '4풀 미러 극초반 저글링 대결',
+  description: '4드론 미러 극초반 저글링 대결',
   phases: [
-    // Phase 0: 오프닝 (lines 1-10)
+    // Phase 0: 오프닝
     ScriptPhase(
       name: 'opening',
       startLine: 1,
@@ -85,27 +85,26 @@ const _zvz4PoolMirror = ScenarioScript(
           awayArmy: 0,
           homeResource: -50,
           awayResource: -50,
-          skipChance: 0.3,
+          altText: '초반 움직임에 따라 허무하게 끝날 수도 있는 상황입니다! 지켜보시죠.',
         ),
       ],
     ),
-    // Phase 1: 저글링 교전 - 센터 vs 엇갈림 분기 (lines 9-30)
+    // Phase 1: 저글링 교전 - 센터 vs 엇갈림 분기
     ScriptPhase(
-      name: 'ling_battle',
+      name: 'first_phase',
       branches: [
         // ── 분기 A: 센터 교전 → 홈 컨트롤 승리 ──
         ScriptBranch(
           id: 'center_home_wins',
-          baseProbability: 1.0,
-          conditionStat: 'control',
+          conditionStat: 'control+attack',
           events: [
             ScriptEvent(
               text: '{home}, 저글링이 센터에서 마주칩니다! 수가 같습니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
-              homeResource: 0,
-              awayResource: 0,
+              homeResource: -50,
+              awayResource: -50,
               altText: '{home} 선수 저글링 교전! 컨트롤이 전부입니다!',
             ),
             ScriptEvent(
@@ -131,7 +130,9 @@ const _zvz4PoolMirror = ScenarioScript(
               owner: LogOwner.home,
               homeResource: 0,
               awayResource: 0,
-              awayArmy: -4, homeArmy: -2,              altText: '{home} 선수 저글링 컨트롤! 효율적인 교환!',
+              awayArmy: -4,
+              homeArmy: -2,
+              altText: '{home} 선수 저글링 컨트롤! 효율적인 교환!',
             ),
             ScriptEvent(
               text: '{away} 선수 저글링이 녹습니다! 드론으로 막아야 합니다!',
@@ -147,7 +148,8 @@ const _zvz4PoolMirror = ScenarioScript(
               homeArmy: 0,
               awayArmy: 0,
               homeResource: 0,
-              awayResource: -15,              altText: '{home} 선수 저글링 돌파! 드론을 공격합니다!',
+              awayResource: -15,
+              altText: '{home} 선수 저글링 돌파! 드론을 공격합니다!',
             ),
             ScriptEvent(
               text: '저글링 컨트롤 차이가 승부를 갈랐습니다! 저글링 싸움 승리를 거둡니다!',
@@ -163,8 +165,7 @@ const _zvz4PoolMirror = ScenarioScript(
         // ── 분기 B: 센터 교전 → 어웨이 컨트롤 승리 ──
         ScriptBranch(
           id: 'center_away_wins',
-          baseProbability: 1.0,
-          conditionStat: 'control',
+          conditionStat: 'control+attack',
           homeStatMustBeHigher: false,
           events: [
             ScriptEvent(
@@ -199,7 +200,9 @@ const _zvz4PoolMirror = ScenarioScript(
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,
-              homeArmy: -4, awayArmy: -2,              altText: '{away} 선수 저글링 컨트롤! 효율적인 교환!',
+              homeArmy: -4,
+              awayArmy: -2,
+              altText: '{away} 선수 저글링 컨트롤! 효율적인 교환!',
             ),
             ScriptEvent(
               text: '{home} 선수 저글링이 녹습니다! 드론으로 막아야 합니다!',
@@ -215,7 +218,8 @@ const _zvz4PoolMirror = ScenarioScript(
               homeArmy: 0,
               awayArmy: 0,
               awayResource: 0,
-              homeResource: -15,              altText: '{away} 선수 저글링 돌파! 드론을 공격합니다!',
+              homeResource: -15,
+              altText: '{away} 선수 저글링 돌파! 드론을 공격합니다!',
             ),
             ScriptEvent(
               text: '저글링 컨트롤 차이가 승부를 갈랐습니다! 저글링 싸움 승리를 거둡니다!',
@@ -231,8 +235,7 @@ const _zvz4PoolMirror = ScenarioScript(
         // ── 분기 C: 엇갈림 → 홈 멀티태스킹 승리 ──
         ScriptBranch(
           id: 'cross_home_wins',
-          baseProbability: 0.6,
-          conditionStat: 'control',
+          conditionStat: 'control+sense',
           events: [
             ScriptEvent(
               text: '저글링이 엇갈립니다! 서로의 본진으로 직행!',
@@ -249,7 +252,8 @@ const _zvz4PoolMirror = ScenarioScript(
               homeArmy: 0,
               awayArmy: 0,
               awayResource: 0,
-              homeResource: -10,              altText: '{away} 저글링이 본진 침투! 드론이 위험합니다!',
+              homeResource: -10,
+              altText: '{away} 저글링이 본진 침투! 드론이 위험합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 드론 뭉치기! 저글링을 감싸면서 추가 저글링도 합류!',
@@ -257,7 +261,8 @@ const _zvz4PoolMirror = ScenarioScript(
               homeArmy: 0,
               homeResource: 0,
               awayResource: 0,
-              awayArmy: -3,              altText: '{home}, 드론으로 저글링을 잡습니다! 추가 저글링까지!',
+              awayArmy: -3,
+              altText: '{home}, 드론으로 저글링을 잡습니다! 추가 저글링까지!',
             ),
             ScriptEvent(
               text: '{home} 선수 저글링이 상대 본진 드론을 물어뜯습니다!',
@@ -265,7 +270,8 @@ const _zvz4PoolMirror = ScenarioScript(
               homeArmy: 0,
               awayArmy: 0,
               homeResource: 0,
-              awayResource: -15,              altText: '{home} 저글링이 상대 본진에서 드론을 사냥합니다!',
+              awayResource: -15,
+              altText: '{home} 저글링이 상대 본진에서 드론을 사냥합니다!',
             ),
             ScriptEvent(
               text: '양쪽 본진에서 동시에 싸움! 멀티태스킹 승부!',
@@ -281,7 +287,9 @@ const _zvz4PoolMirror = ScenarioScript(
               owner: LogOwner.home,
               awayArmy: 0,
               homeResource: 0,
-              homeArmy: 2, awayResource: -10,              altText: '{home}, 양쪽 전선을 동시에 관리합니다! 컨트롤의 차이!',
+              homeArmy: 2,
+              awayResource: -10,
+              altText: '{home}, 양쪽 전선을 동시에 관리합니다! 컨트롤의 차이!',
             ),
             ScriptEvent(
               text: '멀티태스킹 차이가 승부를 갈랐습니다! 저글링 싸움 승리를 거둡니다!',
@@ -297,8 +305,7 @@ const _zvz4PoolMirror = ScenarioScript(
         // ── 분기 D: 엇갈림 → 어웨이 멀티태스킹 승리 ──
         ScriptBranch(
           id: 'cross_away_wins',
-          baseProbability: 0.6,
-          conditionStat: 'control',
+          conditionStat: 'control+sense',
           homeStatMustBeHigher: false,
           events: [
             ScriptEvent(
@@ -316,7 +323,8 @@ const _zvz4PoolMirror = ScenarioScript(
               homeArmy: 0,
               awayArmy: 0,
               homeResource: 0,
-              awayResource: -10,              altText: '{home} 저글링이 본진 침투! 드론이 위험합니다!',
+              awayResource: -10,
+              altText: '{home} 저글링이 본진 침투! 드론이 위험합니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 드론 뭉치기! 저글링을 감싸면서 추가 저글링도 합류!',
@@ -324,7 +332,8 @@ const _zvz4PoolMirror = ScenarioScript(
               awayArmy: 0,
               homeResource: 0,
               awayResource: 0,
-              homeArmy: -3,              altText: '{away}, 드론으로 저글링을 잡습니다! 추가 저글링까지!',
+              homeArmy: -3,
+              altText: '{away}, 드론으로 저글링을 잡습니다! 추가 저글링까지!',
             ),
             ScriptEvent(
               text: '{away} 선수 저글링이 상대 본진 드론을 물어뜯습니다!',
@@ -332,7 +341,8 @@ const _zvz4PoolMirror = ScenarioScript(
               homeArmy: 0,
               awayArmy: 0,
               awayResource: 0,
-              homeResource: -15,              altText: '{away} 저글링이 상대 본진에서 드론을 사냥합니다!',
+              homeResource: -15,
+              altText: '{away} 저글링이 상대 본진에서 드론을 사냥합니다!',
             ),
             ScriptEvent(
               text: '양쪽 본진에서 동시에 싸움! 멀티태스킹 승부!',
@@ -348,7 +358,9 @@ const _zvz4PoolMirror = ScenarioScript(
               owner: LogOwner.away,
               homeArmy: 0,
               awayResource: 0,
-              awayArmy: 2, homeResource: -10,              altText: '{away}, 양쪽 전선을 동시에 관리합니다! 컨트롤의 차이!',
+              awayArmy: 2,
+              homeResource: -10,
+              altText: '{away}, 양쪽 전선을 동시에 관리합니다! 컨트롤의 차이!',
             ),
             ScriptEvent(
               text: '멀티태스킹 차이가 승부를 갈랐습니다! 저글링 싸움 승리를 거둡니다!',

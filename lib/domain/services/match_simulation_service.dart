@@ -9,7 +9,6 @@ enum LogOwner {
   system,  // 시스템 메시지 (경기 시작, 종료 등)
   home,    // 홈 선수 이벤트
   away,    // 어웨이 선수 이벤트
-  clash,   // 충돌/전투 이벤트
 }
 
 /// 전투 로그 엔트리
@@ -40,6 +39,9 @@ class SimulationState {
   final bool isFinished;
   final bool? homeWin;
 
+  /// 종료 원인: 'decisive' / 'army' / 'maxLines' / null(미종료)
+  final String? endReason;
+
   const SimulationState({
     this.homeArmy = 0,        // 초기 병력 (서플라이, 군사 유닛 없음)
     this.awayArmy = 0,        // 초기 병력
@@ -52,6 +54,7 @@ class SimulationState {
     this.branchDescriptions = const {},
     this.isFinished = false,
     this.homeWin,
+    this.endReason,
   });
 
   // 하위 호환성을 위한 getter
@@ -69,6 +72,7 @@ class SimulationState {
     Map<String, String>? branchDescriptions,
     bool? isFinished,
     bool? homeWin,
+    String? endReason,
   }) {
     return SimulationState(
       homeArmy: homeArmy ?? this.homeArmy,
@@ -82,6 +86,7 @@ class SimulationState {
       branchDescriptions: branchDescriptions ?? this.branchDescriptions,
       isFinished: isFinished ?? this.isFinished,
       homeWin: homeWin ?? this.homeWin,
+      endReason: endReason ?? this.endReason,
     );
   }
 
@@ -660,7 +665,7 @@ class MatchSimulationService {
                 } else if (scriptResult.entry!.owner == LogOwner.away) {
                   decisiveWinner = false;
                 } else {
-                  // system/clash: 병력 우세 + winRate 종합
+                  // system: 병력 우세 + winRate 종합
                   final armyDiff = state.homeArmy - state.awayArmy;
                   final totalArmy = state.homeArmy + state.awayArmy;
                   final sysArmyBonus = totalArmy > 10
@@ -698,6 +703,7 @@ class MatchSimulationService {
                 awayPlayer: awayPlayer,
                 lineCount: lineCount,
                 getIntervalMs: getIntervalMs,
+                isArmyCheck: true,
               );
               return;
             }
@@ -936,6 +942,7 @@ class MatchSimulationService {
           awayPlayer: awayPlayer,
           lineCount: lineCount,
           getIntervalMs: getIntervalMs,
+          isArmyCheck: true,
         );
         return;
       }
@@ -977,6 +984,7 @@ class MatchSimulationService {
     required int Function() getIntervalMs,
     bool isLongGame = false,
     bool isDecisive = false,
+    bool isArmyCheck = false,
   }) async* {
     final isHomeWinner = homeWinOverride ?? (_random.nextDouble() < winRate);
     final winner = isHomeWinner ? homePlayer : awayPlayer;
@@ -1034,6 +1042,7 @@ class MatchSimulationService {
     await Future.delayed(Duration(milliseconds: getIntervalMs()));
 
     // 3. 승리 선언 (최종)
+    final endReason = isDecisive ? 'decisive' : isLongGame ? 'maxLines' : isArmyCheck ? 'army' : 'army';
     final finalState = state.copyWith(
       isFinished: true,
       homeWin: isHomeWinner,
@@ -1041,6 +1050,7 @@ class MatchSimulationService {
       awayArmy: awayA(1.0),
       homeResources: homeR(1.0),
       awayResources: awayR(1.0),
+      endReason: endReason,
       battleLogEntries: [...state.battleLogEntries,
         BattleLogEntry(text: '${winner.name} 선수 승리!', owner: LogOwner.system)],
     );

@@ -287,8 +287,6 @@ class _MatchSimulationScreenState extends ConsumerState<MatchSimulationScreen> {
       case LogOwner.away:
         // 어웨이 = 플레이어팀이면 녹색, 아니면 빨간색
         return isPlayerHome ? const Color(0xFFE57373) : const Color(0xFF4CAF50);
-      case LogOwner.clash:
-        return Colors.amber; // 충돌/전투는 노란색
     }
   }
 

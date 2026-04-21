@@ -65,7 +65,7 @@
 | 필드 | 타입 | 기본값 | 설명 |
 |------|------|--------|------|
 | `text` | String | *필수* | 로그에 표시되는 해설 텍스트. `{home}`, `{away}` 플레이스홀더 사용 가능 (역방향 매칭 시 자동 스왑) |
-| `owner` | LogOwner | *필수* | 이벤트 주체. `home` / `away` / `system` / `clash` |
+| `owner` | LogOwner | *필수* | 이벤트 주체. `home` / `away` / `system` |
 | `homeArmy` | int | 0 | 홈 병력 변동 (양수=증가, 음수=감소). 범위: 0~200 |
 | `awayArmy` | int | 0 | 어웨이 병력 변동. 범위: 0~200 |
 | `homeResource` | int | 0 | 홈 자원 변동. 범위: 0~10000 |

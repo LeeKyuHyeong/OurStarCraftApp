@@ -259,17 +259,17 @@ void main() {
       }
 
       Future<void> run1000Stats(_Scenario s) async {
-        int homeWins = 0;
         const totalGames = 1000;
+
+        // 정방향 (homeBuild=홈, awayBuild=어웨이)
+        int fwdHomeWins = 0;
         int earlyEnd = 0, midEnd = 0, lateEnd = 0;
-        List<int> logLengths = [];
-        List<int> homeFinalArmy = [], awayFinalArmy = [];
-        List<int> homeFinalRes = [], awayFinalRes = [];
+        int endDecisive = 0, endArmy = 0, endMaxLines = 0;
         int resOver1000Count = 0;
         int homeMaxRes = 0, awayMaxRes = 0;
         Set<String> uniqueTexts = {};
         final branchCounts = <String, int>{};
-        final branchDescMap = <String, String>{}; // ID → 한국어 설명 누적
+        final branchDescMap = <String, String>{};
 
         for (int i = 0; i < totalGames; i++) {
           final service = MatchSimulationService();
@@ -281,13 +281,8 @@ void main() {
           SimulationState? state;
           await for (final st in stream) { state = st; }
           if (state == null) continue;
-          if (state.homeWin == true) homeWins++;
+          if (state.homeWin == true) fwdHomeWins++;
           final logLen = state.battleLogEntries.length;
-          logLengths.add(logLen);
-          homeFinalArmy.add(state.homeArmy);
-          awayFinalArmy.add(state.awayArmy);
-          homeFinalRes.add(state.homeResources);
-          awayFinalRes.add(state.awayResources);
           if (state.homeResources > homeMaxRes) homeMaxRes = state.homeResources;
           if (state.awayResources > awayMaxRes) awayMaxRes = state.awayResources;
           if (state.homeResources > 1000 || state.awayResources > 1000) resOver1000Count++;
@@ -295,6 +290,11 @@ void main() {
           if (logLen <= 28) earlyEnd++;
           else if (logLen <= 42) midEnd++;
           else lateEnd++;
+          switch (state.endReason) {
+            case 'decisive': endDecisive++; break;
+            case 'army': endArmy++; break;
+            case 'maxLines': endMaxLines++; break;
+          }
           for (final bid in state.selectedBranchIds) {
             branchCounts[bid] = (branchCounts[bid] ?? 0) + 1;
           }
@@ -303,12 +303,23 @@ void main() {
           });
         }
 
-        final homeWinRate = (homeWins / totalGames * 100).toStringAsFixed(1);
-        final avgLogLen = (logLengths.reduce((a, b) => a + b) / totalGames).toStringAsFixed(1);
-        final avgHomeArmy = (homeFinalArmy.reduce((a, b) => a + b) / totalGames).toStringAsFixed(1);
-        final avgAwayArmy = (awayFinalArmy.reduce((a, b) => a + b) / totalGames).toStringAsFixed(1);
-        final avgHomeRes = (homeFinalRes.reduce((a, b) => a + b) / totalGames).toStringAsFixed(0);
-        final avgAwayRes = (awayFinalRes.reduce((a, b) => a + b) / totalGames).toStringAsFixed(0);
+        // 역방향 (빌드 스왑: awayBuild=홈, homeBuild=어웨이)
+        int revHomeWins = 0;
+        for (int i = 0; i < totalGames; i++) {
+          final service = MatchSimulationService();
+          final stream = service.simulateMatchWithLog(
+            homePlayer: config.awayPlayer, awayPlayer: config.homePlayer,
+            map: config.map, getIntervalMs: () => 0,
+            forcedHomeBuildId: s.awayBuild, forcedAwayBuildId: s.homeBuild,
+          );
+          SimulationState? state;
+          await for (final st in stream) { state = st; }
+          if (state?.homeWin == true) revHomeWins++;
+        }
+
+        final fwdHomeRate = fwdHomeWins / totalGames * 100;
+        final revP1Rate = (totalGames - revHomeWins) / totalGames * 100;
+        final bias = (fwdHomeRate - revP1Rate).abs();
         final resOver1000Pct = (resOver1000Count / totalGames * 100).toStringAsFixed(1);
 
         final buf = StringBuffer();
@@ -317,14 +328,21 @@ void main() {
         buf.writeln('| 항목 | 값 |');
         buf.writeln('|------|-----|');
         buf.writeln('| 총 경기 | $totalGames |');
-        buf.writeln('| ${config.homeLabel} 승률 | $homeWinRate% ($homeWins승) |');
-        buf.writeln('| ${config.awayLabel} 승률 | ${(100 - double.parse(homeWinRate)).toStringAsFixed(1)}% (${totalGames - homeWins}승) |');
-        buf.writeln('| 평균 로그 길이 | $avgLogLen줄 |');
-        buf.writeln('| 평균 최종 병력 | ${config.homeLabel} $avgHomeArmy / ${config.awayLabel} $avgAwayArmy |');
-        buf.writeln('| 평균 최종 자원 | ${config.homeLabel} $avgHomeRes / ${config.awayLabel} $avgAwayRes |');
+        buf.writeln('| ${config.homeLabel} 승률 (정방향) | ${fwdHomeRate.toStringAsFixed(1)}% ($fwdHomeWins승) |');
+        buf.writeln('| ${config.awayLabel} 승률 (정방향) | ${(100 - fwdHomeRate).toStringAsFixed(1)}% (${totalGames - fwdHomeWins}승) |');
+        buf.writeln('| 역방향 P1 승률 | ${revP1Rate.toStringAsFixed(1)}% |');
+        buf.writeln('| 반전 편향 | ${bias.toStringAsFixed(1)}%p |');
         buf.writeln('| 최대 자원 | ${config.homeLabel} $homeMaxRes / ${config.awayLabel} $awayMaxRes |');
         buf.writeln('| 자원 1000 초과 경기 | $resOver1000Count ($resOver1000Pct%) |');
         buf.writeln('| 고유 로그 수 | ${uniqueTexts.length} / $totalGames |');
+        buf.writeln();
+        buf.writeln('## 종료 원인 분포');
+        buf.writeln();
+        buf.writeln('| 종료 원인 | 경기 수 | 비율 |');
+        buf.writeln('|-----------|---------|------|');
+        buf.writeln('| decisive (시나리오) | $endDecisive | ${(endDecisive / totalGames * 100).toStringAsFixed(1)}% |');
+        buf.writeln('| army (병력 판정) | $endArmy | ${(endArmy / totalGames * 100).toStringAsFixed(1)}% |');
+        buf.writeln('| maxLines (200줄) | $endMaxLines | ${(endMaxLines / totalGames * 100).toStringAsFixed(1)}% |');
         buf.writeln();
         buf.writeln('## 종료 시점 분포');
         buf.writeln();
@@ -351,7 +369,7 @@ void main() {
         final outDir = Directory('test/output/${config.id}');
         if (!outDir.existsSync()) outDir.createSync(recursive: true);
         File('test/output/${config.id}/${s.label}_1000stats.md').writeAsStringSync(buf.toString());
-        print('${config.label} ${s.label}: ${config.homeLabel}승률 $homeWinRate% | 초${(earlyEnd / 10).toStringAsFixed(0)} 중${(midEnd / 10).toStringAsFixed(0)} 후${(lateEnd / 10).toStringAsFixed(0)} | 고유${uniqueTexts.length} | 자원 avg$avgHomeRes/$avgAwayRes max$homeMaxRes/$awayMaxRes >1000:$resOver1000Count');
+        print('${config.label} ${s.label}: 승률${fwdHomeRate.toStringAsFixed(1)}% 반전${bias.toStringAsFixed(1)}%p | decisive${(endDecisive / 10).toStringAsFixed(0)} army${(endArmy / 10).toStringAsFixed(0)} max${(endMaxLines / 10).toStringAsFixed(0)} | 고유${uniqueTexts.length} | >1000:$resOver1000Count');
       }
 
       for (final s in config.scenarios) {
