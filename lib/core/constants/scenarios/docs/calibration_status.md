@@ -44,7 +44,7 @@
 | `linearEvents` | List\<ScriptEvent\>? | null | 순차 이벤트 (오프닝, 전개). `branches`와 상호 배타 |
 | `branches` | List\<ScriptBranch\>? | null | 분기 이벤트 (교전, 결전). `linearEvents`와 상호 배타 |
 | `recoveryArmyPerLine` | int | 0 | 매 라인마다 양측 병력 회복량 |
-| `recoveryResourcePerLine` | int | 25 | 매 라인마다 양측 자원 회복량 (확장 보너스 +75/확장) |
+| `recoveryResourcePerLine` | int | 50 | 매 라인마다 양측 자원 회복량 (확장 보너스 +100/확장) |
 
 ### ScriptBranch (분기)
 

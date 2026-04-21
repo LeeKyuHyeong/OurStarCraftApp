@@ -425,7 +425,7 @@ class ScriptPhase {
     this.linearEvents,
     this.branches,
     this.recoveryArmyPerLine = 0,
-    this.recoveryResourcePerLine = 25,
+    this.recoveryResourcePerLine = 50,
   });
 }
 
