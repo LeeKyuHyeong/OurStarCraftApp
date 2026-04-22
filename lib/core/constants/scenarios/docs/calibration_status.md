@@ -178,7 +178,7 @@ ScriptBranch(
 | # | 파일명 | Home | Away | 보정 |
 |---|--------|------|------|:----:|
 | 1 | 4pool_mirror | zvz_4pool | zvz_4pool | Y |
-| 2 | 9pool_speed_mirror | zvz_9pool_speed | zvz_9pool_speed | O |
+| 2 | 9pool_speed_mirror | zvz_9pool_speed | zvz_9pool_speed | Y |
 | 3 | 9pool_lair_mirror | zvz_9pool_lair | zvz_9pool_lair | O |
 | 4 | 9overpool_mirror | zvz_9overpool | zvz_9overpool | O |
 | 5 | 12pool_mirror | zvz_12pool | zvz_12pool | O |

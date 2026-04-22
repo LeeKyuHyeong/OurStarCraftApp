@@ -742,7 +742,7 @@ class MatchSimulationService {
 
       // 홈 빌드 스텝
       if (homeStep != null) {
-        final text = _transformEnding(homeStep.text.replaceAll('{player}', homePlayer.name));
+        final text = homeStep.text.replaceAll('{player}', homePlayer.name);
         newEntries.add(BattleLogEntry(text: text, owner: LogOwner.home));
         homeArmyChange += homeStep.myArmy;
         homeResourceChange += homeStep.myResource;
@@ -794,7 +794,7 @@ class MatchSimulationService {
 
       // 어웨이 빌드 스텝
       if (awayStep != null) {
-        final text = _transformEnding(awayStep.text.replaceAll('{player}', awayPlayer.name));
+        final text = awayStep.text.replaceAll('{player}', awayPlayer.name);
         newEntries.add(BattleLogEntry(text: text, owner: LogOwner.away));
         awayArmyChange += awayStep.myArmy;
         awayResourceChange += awayStep.myResource;
@@ -2726,76 +2726,6 @@ class MatchSimulationService {
   // ==================== 어미 변환 시스템 ====================
 
   /// 빌드 스텝 텍스트 어미를 방송 해설 톤으로 변환 (30-40% 확률)
-  String _transformEnding(String text) {
-    if (_random.nextDouble() > 0.35) return text; // 65% 확률로 원본 유지
-
-    // "~합니다." → 다양한 어미
-    if (text.endsWith('합니다.')) {
-      final endings = ['하구요.', '하죠.', '하네요.', '합니다.'];
-      final ending = endings[_random.nextInt(endings.length)];
-      return '${text.substring(0, text.length - 4)}$ending';
-    }
-    if (text.endsWith('합니다!')) {
-      final endings = ['하죠!!', '하는데요!', '합니다!', '하네요!'];
-      final ending = endings[_random.nextInt(endings.length)];
-      return '${text.substring(0, text.length - 4)}$ending';
-    }
-    // "~입니다." → 다양한 어미
-    if (text.endsWith('입니다.')) {
-      final endings = ['이구요.', '이죠.', '이네요.', '입니다.'];
-      final ending = endings[_random.nextInt(endings.length)];
-      return '${text.substring(0, text.length - 4)}$ending';
-    }
-    // "~했습니다." → 다양한 어미
-    if (text.endsWith('했습니다.')) {
-      final endings = ['했구요.', '했죠.', '했네요.', '했습니다.'];
-      final ending = endings[_random.nextInt(endings.length)];
-      return '${text.substring(0, text.length - 5)}$ending';
-    }
-    if (text.endsWith('했습니다!')) {
-      final endings = ['했죠!!', '했는데요!', '했습니다!', '했네요!'];
-      final ending = endings[_random.nextInt(endings.length)];
-      return '${text.substring(0, text.length - 5)}$ending';
-    }
-    // "~됩니다." → 다양한 어미
-    if (text.endsWith('됩니다.')) {
-      final endings = ['되구요.', '되죠.', '되네요.', '됩니다.'];
-      final ending = endings[_random.nextInt(endings.length)];
-      return '${text.substring(0, text.length - 4)}$ending';
-    }
-    // "~습니다." → 다양한 어미 (일반)
-    if (text.endsWith('습니다.')) {
-      final endings = ['구요.', '죠.', '네요.'];
-      final ending = endings[_random.nextInt(endings.length)];
-      return '${text.substring(0, text.length - 4)}$ending';
-    }
-    if (text.endsWith('습니다!')) {
-      final endings = ['죠!!', '는데요!', '네요!'];
-      final ending = endings[_random.nextInt(endings.length)];
-      // 습니다! → 4글자 제거 후 어미 붙임
-      return '${text.substring(0, text.length - 4)}$ending';
-    }
-    // "~건설!" → "~건설하구요."
-    if (text.endsWith('건설!')) {
-      final endings = ['건설하구요.', '건설!', '건설합니다.'];
-      final ending = endings[_random.nextInt(endings.length)];
-      return '${text.substring(0, text.length - 3)}$ending';
-    }
-    // "~생산!" → "~생산하구요."
-    if (text.endsWith('생산!')) {
-      final endings = ['생산하구요.', '생산!', '생산합니다.'];
-      final ending = endings[_random.nextInt(endings.length)];
-      return '${text.substring(0, text.length - 3)}$ending';
-    }
-    // "~시작!" → "~시작하구요."
-    if (text.endsWith('시작!')) {
-      final endings = ['시작하구요.', '시작!', '시작합니다.'];
-      final ending = endings[_random.nextInt(endings.length)];
-      return '${text.substring(0, text.length - 3)}$ending';
-    }
-
-    return text;
-  }
 
   /// 현재 라인에 맞는 다음 스텝 가져오기
   BuildStep? _getNextStep(BuildOrder build, int currentIndex, int lineCount) {
@@ -2972,8 +2902,7 @@ class MatchSimulationService {
       reversed: reversed,
     );
 
-    // 방송 어미 변환
-    text = _transformEnding(text);
+    // 텍스트 어미는 시나리오 원본 유지 (수동 보정됨)
 
     // 병력/자원 변화 계산
     int homeArmyChange = reversed ? event.awayArmy : event.homeArmy;
