@@ -30,7 +30,7 @@ const _pvt5gatePushVsTimingPush = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 배럭 팩토리! 빠른 타이밍 푸시를 노립니다!',
+          altText: '{away} 선수, 배럭 팩토리! 빠른 타이밍 푸시를 노립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 드라군을 생산하면서 게이트웨이를 추가합니다!',
@@ -39,7 +39,7 @@ const _pvt5gatePushVsTimingPush = ScenarioScript(
           awayResource: 0,
           homeArmy: 2,
           homeResource: -15,
-          altText: '{home}, 드라군 생산! 게이트웨이를 늘려갑니다!',
+          altText: '{home} 선수, 드라군 생산! 게이트웨이를 늘려갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 머신샵에서 시즈 모드 연구! 타이밍 푸시 준비!',
@@ -79,7 +79,7 @@ const _pvt5gatePushVsTimingPush = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 아둔 올립니다! 질럿 다리!',
+          altText: '{home} 선수, 아둔 올립니다! 질럿 다리!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린과 탱크를 모읍니다! 푸시 타이밍이 다가옵니다!',
@@ -104,7 +104,7 @@ const _pvt5gatePushVsTimingPush = ScenarioScript(
           homeResource: 0,
           awayResource: 0,
           awayArmy: 2,
-          altText: '{away}, 마린 탱크 전진! 프로토스 앞마당을 노립니다!',
+          altText: '{away} 선수, 마린 탱크 전진! 프로토스 앞마당을 노립니다!',
         ),
         ScriptEvent(
           text: '테란 타이밍과 프로토스 게이트웨이 물량! 시간 싸움이 치열합니다!',
@@ -129,7 +129,7 @@ const _pvt5gatePushVsTimingPush = ScenarioScript(
           awayResource: 0,
           homeArmy: 5,
           homeResource: -20,
-          altText: '{home}, 게이트웨이 다섯 개 가동! 병력이 폭발적으로 늘어납니다!',
+          altText: '{home} 선수, 게이트웨이 다섯 개 가동! 병력이 폭발적으로 늘어납니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 시즈 모드로 전환! 포격 준비 완료!',
@@ -154,7 +154,7 @@ const _pvt5gatePushVsTimingPush = ScenarioScript(
           homeResource: 0,
           awayArmy: 2,
           awayResource: -10,
-          altText: '{away}, 마린 메딕 탱크! 정면 전투 편성 완료!',
+          altText: '{away} 선수, 마린 메딕 탱크! 정면 전투 편성 완료!',
         ),
         ScriptEvent(
           text: '양쪽 타이밍이 겹칩니다! 정면 충돌이 불가피합니다!',
@@ -182,7 +182,7 @@ const _pvt5gatePushVsTimingPush = ScenarioScript(
               awayResource: 0,
               homeArmy: 3,
               awayArmy: -4,
-              altText: '{home}, 질럿이 탱크에 달라붙습니다! 시즈 모드 해제 불가!',
+              altText: '{home} 선수, 질럿이 탱크에 달라붙습니다! 시즈 모드 해제 불가!',
             ),
             ScriptEvent(
               text: '{away} 선수 마린이 질럿을 쏘지만 드라군이 마린을 잡습니다!',
@@ -231,7 +231,7 @@ const _pvt5gatePushVsTimingPush = ScenarioScript(
               awayResource: 0,
               awayArmy: 3,
               homeArmy: -5,
-              altText: '{away}, 탱크가 포격합니다! 상대 병력이 뭉쳐 있다가 녹습니다!',
+              altText: '{away} 선수, 탱크가 포격합니다! 상대 병력이 뭉쳐 있다가 녹습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 질럿이 마린에 막힙니다! 스팀팩 마린 화력!',

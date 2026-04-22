@@ -30,7 +30,7 @@ const _zvp973HydraVsDragoonPush = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 게이트웨이와 사이버네틱스 코어! 드라군을 준비합니다.',
+          altText: '{away} 선수, 게이트웨이와 사이버네틱스 코어! 드라군을 준비합니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 히드라덴을 건설합니다! 히드라 타이밍을 노리는군요!',
@@ -39,7 +39,7 @@ const _zvp973HydraVsDragoonPush = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 히드라덴이 올라갑니다! 히드라 타이밍을 노리는군요.',
+          altText: '{home} 선수, 히드라덴이 올라갑니다! 히드라 타이밍을 노리는군요.',
         ),
         ScriptEvent(
           text: '{away} 선수 드라군 생산을 시작합니다! 물량을 모으고 있어요.',
@@ -71,7 +71,7 @@ const _zvp973HydraVsDragoonPush = ScenarioScript(
           awayResource: 0,
           homeArmy: 5,
           homeResource: -20,
-          altText: '{home}, 히드라리스크가 물밀 듯이 나옵니다!',
+          altText: '{home} 선수, 히드라리스크가 물밀 듯이 나옵니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 드라군 6기를 모아서 전진합니다!',
@@ -97,7 +97,7 @@ const _zvp973HydraVsDragoonPush = ScenarioScript(
           homeResource: 0,
           awayResource: 0,
           awayArmy: 1,
-          altText: '{away}, 드라군 부대가 전진합니다! 교전이 임박했어요!',
+          altText: '{away} 선수, 드라군 부대가 전진합니다! 교전이 임박했어요!',
         ),
         ScriptEvent(
           text: '히드라와 드라군이 곧 정면으로 부딪힙니다! 물량 싸움!',
@@ -121,7 +121,7 @@ const _zvp973HydraVsDragoonPush = ScenarioScript(
           awayResource: 0,
           homeArmy: 2,
           homeResource: -10,
-          altText: '{home}, 성큰 라인 뒤에 히드라를 배치합니다!',
+          altText: '{home} 선수, 성큰 라인 뒤에 히드라를 배치합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 추가 게이트웨이에서 드라군을 보충합니다.',
@@ -166,7 +166,7 @@ const _zvp973HydraVsDragoonPush = ScenarioScript(
               awayResource: 0,
               homeArmy: 3,
               awayArmy: -2,
-              altText: '{home}, 저글링 서라운드! 드라군이 흩어집니다!',
+              altText: '{home} 선수, 저글링 서라운드! 드라군이 흩어집니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 히드라리스크가 집중 사격! 드라군이 녹아냅니다!',
@@ -207,7 +207,7 @@ const _zvp973HydraVsDragoonPush = ScenarioScript(
               awayResource: 0,
               awayArmy: 3,
               homeArmy: -4,
-              altText: '{away}, 드라군 화력이 히드라를 순식간에 잡아냅니다!',
+              altText: '{away} 선수, 드라군 화력이 히드라를 순식간에 잡아냅니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 드라군이 앞마당 해처리를 공격합니다!',

@@ -22,7 +22,7 @@ const _zvpHiveDefilerVsDragoonPush = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -30,
-          altText: '{home}, 해처리부터 올리는 안정적인 오프닝입니다.',
+          altText: '{home} 선수, 해처리부터 올리는 안정적인 오프닝입니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 게이트웨이에서 질럿을 뽑고 사이버네틱스 코어를 올립니다.',
@@ -47,7 +47,7 @@ const _zvpHiveDefilerVsDragoonPush = ScenarioScript(
           homeResource: 0,
           awayArmy: 2,
           awayResource: -10,
-          altText: '{away}, 드라군이 나오기 시작합니다!',
+          altText: '{away} 선수, 드라군이 나오기 시작합니다!',
         ),
         ScriptEvent(
           text: '프로토스가 드라군 물량을 모으고 있습니다. 중반 푸시가 예상되는군요.',
@@ -71,7 +71,7 @@ const _zvpHiveDefilerVsDragoonPush = ScenarioScript(
           homeResource: 0,
           awayArmy: 4,
           awayResource: -15,
-          altText: '{away}, 드라군 부대가 저그 앞마당을 향해 이동합니다!',
+          altText: '{away} 선수, 드라군 부대가 저그 앞마당을 향해 이동합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 히드라리스크를 생산하며 수비를 준비합니다!',
@@ -97,7 +97,7 @@ const _zvpHiveDefilerVsDragoonPush = ScenarioScript(
           awayResource: 0,
           homeArmy: 2,
           homeResource: -10,
-          altText: '{home}, 성큰 화력이 드라군을 잡아주고 있습니다!',
+          altText: '{home} 선수, 성큰 화력이 드라군을 잡아주고 있습니다!',
         ),
         ScriptEvent(
           text: '드라군 푸시를 막아내느냐가 이 경기의 분수령입니다!',
@@ -121,7 +121,7 @@ const _zvpHiveDefilerVsDragoonPush = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 레어가 완성되면 하이브로 바로 갈 수 있습니다!',
+          altText: '{home} 선수, 레어가 완성되면 하이브로 바로 갈 수 있습니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 추가 게이트웨이를 올리며 드라군을 보충합니다.',
@@ -166,7 +166,7 @@ const _zvpHiveDefilerVsDragoonPush = ScenarioScript(
               awayResource: 0,
               homeArmy: 4,
               awayArmy: -2,
-              altText: '{home}, 다크 스웜! 드라군의 사격이 완전히 차단됩니다!',
+              altText: '{home} 선수, 다크 스웜! 드라군의 사격이 완전히 차단됩니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 드라군이 다크 스웜 안에서 무력화됩니다!',
@@ -207,7 +207,7 @@ const _zvpHiveDefilerVsDragoonPush = ScenarioScript(
               awayResource: 0,
               awayArmy: 4,
               homeArmy: -3,
-              altText: '{away}, 드라군의 집중 사격! 성큰이 무너지고 있습니다!',
+              altText: '{away} 선수, 드라군의 집중 사격! 성큰이 무너지고 있습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 하이브가 완성되기 전에 앞마당이 밀렸습니다!',

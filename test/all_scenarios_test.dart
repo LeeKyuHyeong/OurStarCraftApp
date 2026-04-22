@@ -267,6 +267,7 @@ void main() {
         int endDecisive = 0, endArmy = 0, endMaxLines = 0;
         int resOver1000Count = 0;
         int homeMaxRes = 0, awayMaxRes = 0;
+        int homePeakRes = 0, awayPeakRes = 0;
         Set<String> uniqueTexts = {};
         final branchCounts = <String, int>{};
         final branchDescMap = <String, String>{};
@@ -279,10 +280,17 @@ void main() {
             forcedHomeBuildId: s.homeBuild, forcedAwayBuildId: s.awayBuild,
           );
           SimulationState? state;
-          await for (final st in stream) { state = st; }
+          int gamePeakHome = 0, gamePeakAway = 0;
+          await for (final st in stream) {
+            state = st;
+            if (st.homeResources > gamePeakHome) gamePeakHome = st.homeResources;
+            if (st.awayResources > gamePeakAway) gamePeakAway = st.awayResources;
+          }
           if (state == null) continue;
           if (state.homeWin == true) fwdHomeWins++;
           final logLen = state.battleLogEntries.length;
+          if (gamePeakHome > homePeakRes) homePeakRes = gamePeakHome;
+          if (gamePeakAway > awayPeakRes) awayPeakRes = gamePeakAway;
           if (state.homeResources > homeMaxRes) homeMaxRes = state.homeResources;
           if (state.awayResources > awayMaxRes) awayMaxRes = state.awayResources;
           if (state.homeResources > 1000 || state.awayResources > 1000) resOver1000Count++;
@@ -332,7 +340,8 @@ void main() {
         buf.writeln('| ${config.awayLabel} 승률 (정방향) | ${(100 - fwdHomeRate).toStringAsFixed(1)}% (${totalGames - fwdHomeWins}승) |');
         buf.writeln('| 역방향 P1 승률 | ${revP1Rate.toStringAsFixed(1)}% |');
         buf.writeln('| 반전 편향 | ${bias.toStringAsFixed(1)}%p |');
-        buf.writeln('| 최대 자원 | ${config.homeLabel} $homeMaxRes / ${config.awayLabel} $awayMaxRes |');
+        buf.writeln('| 최대 자원 (경기 중) | ${config.homeLabel} $homePeakRes / ${config.awayLabel} $awayPeakRes |');
+        buf.writeln('| 최대 자원 (종료 시) | ${config.homeLabel} $homeMaxRes / ${config.awayLabel} $awayMaxRes |');
         buf.writeln('| 자원 1000 초과 경기 | $resOver1000Count ($resOver1000Pct%) |');
         buf.writeln('| 고유 로그 수 | ${uniqueTexts.length} / $totalGames |');
         buf.writeln();

@@ -22,7 +22,7 @@ const _zvp4poolVsProxyGate = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 스포닝풀 건설 시작! 극초반부터 공격적입니다!',
+          altText: '{home} 선수, 스포닝풀 건설 시작! 극초반부터 공격적입니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 프로브를 보내 전진 파일런과 게이트웨이를 건설합니다!',
@@ -31,7 +31,7 @@ const _zvp4poolVsProxyGate = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -10,
-          altText: '{away}, 전진 파일런과 게이트웨이! 앞에서 질럿을 뽑으려 합니다!',
+          altText: '{away} 선수, 전진 파일런과 게이트웨이! 앞에서 질럿을 뽑으려 합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링 6마리가 부화합니다! 즉시 출발!',
@@ -46,7 +46,7 @@ const _zvp4poolVsProxyGate = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 4, awayResource: -15,
-          altText: '{away}, 전진 게이트웨이에서 질럿 완성! 저그 본진을 향합니다!',
+          altText: '{away} 선수, 전진 게이트웨이에서 질럿 완성! 저그 본진을 향합니다!',
         ),
         ScriptEvent(
           text: '양쪽 모두 올인입니다! 누가 먼저 도착하느냐가 관건이죠!',
@@ -65,7 +65,7 @@ const _zvp4poolVsProxyGate = ScenarioScript(
       recoveryArmyPerLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 저글링이 프로토스 본진에 도착! 프로브를 노립니다!',
+          text: '{home} 선수, 저글링이 프로토스 본진에 도착! 프로브를 노립니다!',
           owner: LogOwner.home,
           homeArmy: 0,
           awayArmy: 0,
@@ -73,7 +73,7 @@ const _zvp4poolVsProxyGate = ScenarioScript(
           awayResource: -10,          altText: '{home} 선수 저글링 진입! 일꾼을 공격합니다!',
         ),
         ScriptEvent(
-          text: '{away}, 질럿이 저그 본진에 도착합니다! 드론을 공격!',
+          text: '{away} 선수, 질럿이 저그 본진에 도착합니다! 드론을 공격!',
           owner: LogOwner.away,
           homeArmy: 0,
           awayArmy: 0,
@@ -95,7 +95,7 @@ const _zvp4poolVsProxyGate = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           homeArmy: 2, awayResource: -10,
-          altText: '{home}, 저글링이 추가 투입됩니다! 일꾼이 녹고 있어요!',
+          altText: '{home} 선수, 저글링이 추가 투입됩니다! 일꾼이 녹고 있어요!',
         ),
         ScriptEvent(
           text: '{away} 선수 질럿이 드론을 하나씩 잡아냅니다!',
@@ -112,7 +112,7 @@ const _zvp4poolVsProxyGate = ScenarioScript(
       recoveryArmyPerLine: 2,
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 저글링이 프로토스 프로브를 거의 다 잡았습니다!',
+          text: '{home} 선수, 저글링이 프로토스 프로브를 거의 다 잡았습니다!',
           owner: LogOwner.home,
           homeArmy: 0,
           awayArmy: 0,
@@ -141,7 +141,7 @@ const _zvp4poolVsProxyGate = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 3, homeResource: -10,
-          altText: '{home}, 저글링 보충! 수적 우위를 노립니다!',
+          altText: '{home} 선수, 저글링 보충! 수적 우위를 노립니다!',
         ),
       ],
     ),
@@ -154,7 +154,7 @@ const _zvp4poolVsProxyGate = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 저글링이 넥서스를 파괴합니다! 프로토스 건물이 남지 않았습니다!',
+              text: '{home} 선수, 저글링이 넥서스를 파괴합니다! 프로토스 건물이 남지 않았습니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               homeResource: 0,
@@ -176,7 +176,7 @@ const _zvp4poolVsProxyGate = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 질럿이 해처리를 부수고 스포닝풀까지 공격합니다!',
+              text: '{away} 선수, 질럿이 해처리를 부수고 스포닝풀까지 공격합니다!',
               owner: LogOwner.away,
               awayArmy: 0,
               awayResource: 0,

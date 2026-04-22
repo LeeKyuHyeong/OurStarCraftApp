@@ -30,7 +30,7 @@ const _pvtDarkSwingVsTimingPush = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 빠른 팩토리! 타이밍 공격을 준비합니다!',
+          altText: '{away} 선수, 빠른 팩토리! 타이밍 공격을 준비합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 사이버네틱스 코어에 이어 아둔을 올립니다!',
@@ -39,7 +39,7 @@ const _pvtDarkSwingVsTimingPush = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 아둔 건설! 다크를 노리고 있습니다!',
+          altText: '{home} 선수, 아둔 건설! 다크를 노리고 있습니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 머신샵에서 시즈 모드 연구! 탱크를 모읍니다!',
@@ -71,7 +71,7 @@ const _pvtDarkSwingVsTimingPush = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 템플러 아카이브! 다크가 곧 나옵니다!',
+          altText: '{home} 선수, 템플러 아카이브! 다크가 곧 나옵니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린 탱크를 모으면서 전진 준비합니다!',
@@ -88,7 +88,7 @@ const _pvtDarkSwingVsTimingPush = ScenarioScript(
           awayResource: 0,
           homeArmy: 3,
           homeResource: -15,
-          altText: '{home}, 다크 2기 출발! 타이밍 푸시를 지연시켜야 합니다!',
+          altText: '{home} 선수, 다크 2기 출발! 타이밍 푸시를 지연시켜야 합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 아카데미를 올립니다! 컴샛을 준비해요!',
@@ -121,7 +121,7 @@ const _pvtDarkSwingVsTimingPush = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: 0,
-          altText: '{home}, 다크가 잠입! 타이밍 푸시를 방해합니다!',
+          altText: '{home} 선수, 다크가 잠입! 타이밍 푸시를 방해합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 탱크 3기, 마린 8기로 전진합니다!',
@@ -132,7 +132,7 @@ const _pvtDarkSwingVsTimingPush = ScenarioScript(
           awayArmy: 3,
         ),
         ScriptEvent(
-          text: '{home}, 드라군도 모으면서 방어 라인을 구축합니다!',
+          text: '{home} 선수, 드라군도 모으면서 방어 라인을 구축합니다!',
           owner: LogOwner.home,
           awayArmy: 0,
           awayResource: 0,
@@ -165,7 +165,7 @@ const _pvtDarkSwingVsTimingPush = ScenarioScript(
               awayArmy: 0,
               homeResource: 0,
               awayResource: -25,
-              altText: '{home}, 다크 성공! 다크가 SCV를 잡아냅니다!',
+              altText: '{home} 선수, 다크 성공! 다크가 SCV를 잡아냅니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 타이밍 푸시를 포기하고 본진으로 돌아갑니다!',
@@ -176,7 +176,7 @@ const _pvtDarkSwingVsTimingPush = ScenarioScript(
               awayArmy: -3,
             ),
             ScriptEvent(
-              text: '{home}, 다크가 일꾼을 정리하면서 드라군으로 탱크를 노립니다!',
+              text: '{home} 선수, 다크가 일꾼을 정리하면서 드라군으로 탱크를 노립니다!',
               owner: LogOwner.home,
               homeResource: 0,
               awayResource: 0,
@@ -200,7 +200,7 @@ const _pvtDarkSwingVsTimingPush = ScenarioScript(
               homeArmy: 20,
               awayArmy: -15,
               decisive: true,
-              altText: '{home}, 다크 견제가 완벽! 타이밍 푸시를 무력화!',
+              altText: '{home} 선수, 다크 견제가 완벽! 타이밍 푸시를 무력화!',
             ),
           ],
         ),
@@ -216,10 +216,10 @@ const _pvtDarkSwingVsTimingPush = ScenarioScript(
               awayArmy: 0,
               homeResource: 0,
               awayResource: 0,
-              altText: '{away}, 스캔으로 다크를 찾아냅니다! 마린이 잡아요!',
+              altText: '{away} 선수, 스캔으로 다크를 찾아냅니다! 마린이 잡아요!',
             ),
             ScriptEvent(
-              text: '{away}, 마린이 다크를 처리하고 바로 전진합니다!',
+              text: '{away} 선수, 마린이 다크를 처리하고 바로 전진합니다!',
               owner: LogOwner.away,
               awayArmy: 0,
               homeResource: 0,
@@ -233,7 +233,7 @@ const _pvtDarkSwingVsTimingPush = ScenarioScript(
               homeResource: 0,
               awayResource: 0,
               awayArmy: 5,
-              altText: '{away}, 탱크가 시즈 포격! 상대 병력이 접근할 수 없습니다!',
+              altText: '{away} 선수, 탱크가 시즈 포격! 상대 병력이 접근할 수 없습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 드라군이 탱크 화력에 녹아내립니다!',
@@ -259,7 +259,7 @@ const _pvtDarkSwingVsTimingPush = ScenarioScript(
               awayArmy: 20,
               homeArmy: -15,
               decisive: true,
-              altText: '{away}, 타이밍 공격 완수! 프로토스를 밀어냅니다!',
+              altText: '{away} 선수, 타이밍 공격 완수! 프로토스를 밀어냅니다!',
             ),
           ],
         ),

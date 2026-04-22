@@ -30,7 +30,7 @@ const _pvtReaverPushVsAntiCarrier = ScenarioScript(
           homeResource: 0,
           awayArmy: 2,
           awayResource: -15,
-          altText: '{away}, 골리앗이 나옵니다! 대공 빌드를 선택했군요!',
+          altText: '{away} 선수, 골리앗이 나옵니다! 대공 빌드를 선택했군요!',
         ),
         ScriptEvent(
           text: '{home} 선수 드라군을 앞에 배치하고 정찰합니다.',
@@ -48,7 +48,7 @@ const _pvtReaverPushVsAntiCarrier = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 아머리가 올라갑니다! 골리앗 사거리 업을 노리네요!',
+          altText: '{away} 선수, 아머리가 올라갑니다! 골리앗 사거리 업을 노리네요!',
         ),
         ScriptEvent(
           text: '골리앗 대공 빌드입니다! 셔틀 접근이 쉽지 않겠군요!',
@@ -80,7 +80,7 @@ const _pvtReaverPushVsAntiCarrier = ScenarioScript(
           homeResource: 0,
           awayArmy: 3,
           awayResource: -15,
-          altText: '{away}, 골리앗이 여기저기! 셔틀이 갈 곳이 없어요!',
+          altText: '{away} 선수, 골리앗이 여기저기! 셔틀이 갈 곳이 없어요!',
         ),
         ScriptEvent(
           text: '{home} 선수 셔틀을 빠르게 빼고 지상으로 리버를 운용합니다!',
@@ -89,7 +89,7 @@ const _pvtReaverPushVsAntiCarrier = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: 0,
-          altText: '{home}, 셔틀을 포기하고 리버를 지상에서 밀어넣습니다!',
+          altText: '{home} 선수, 셔틀을 포기하고 리버를 지상에서 밀어넣습니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 드라군이 리버를 호위하면서 전진합니다.',
@@ -130,7 +130,7 @@ const _pvtReaverPushVsAntiCarrier = ScenarioScript(
           awayResource: 0,
           awayArmy: 2,
           homeArmy: -1,
-          altText: '{away}, 골리앗이 상대와 사거리 싸움이 시작됩니다!',
+          altText: '{away} 선수, 골리앗이 상대와 사거리 싸움이 시작됩니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 드라군이 리버를 보호하면서 밀어냅니다.',
@@ -167,7 +167,7 @@ const _pvtReaverPushVsAntiCarrier = ScenarioScript(
               awayResource: 0,
               homeArmy: 3,
               awayArmy: -4,
-              altText: '{home}, 스캐럽 한 방에 골리앗이 2기 날아갑니다!',
+              altText: '{home} 선수, 스캐럽 한 방에 골리앗이 2기 날아갑니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 골리앗이 빠르게 줄어듭니다!',
@@ -208,7 +208,7 @@ const _pvtReaverPushVsAntiCarrier = ScenarioScript(
               awayResource: 0,
               awayArmy: 3,
               homeArmy: -3,
-              altText: '{away}, 골리앗 사거리 업이 빛을 발합니다!',
+              altText: '{away} 선수, 골리앗 사거리 업이 빛을 발합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 리버가 파괴됩니다! 드라군만 남았습니다!',

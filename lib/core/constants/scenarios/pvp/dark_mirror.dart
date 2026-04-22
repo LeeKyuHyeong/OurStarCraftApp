@@ -37,7 +37,7 @@ const _pvpDarkMirror = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 3, homeResource: -20,
-          altText: '{home}, 아둔! 다크 빌드입니다!',
+          altText: '{home} 선수, 아둔! 다크 빌드입니다!',
         ),
         ScriptEvent(
           text: '{away} 선수도 아둔! 양쪽 다 다크를 노리는 상황입니다!',
@@ -45,7 +45,7 @@ const _pvpDarkMirror = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 3, awayResource: -20,
-          altText: '{away}, 아둔! 양쪽 다 다크를 노리네요!',
+          altText: '{away} 선수, 아둔! 양쪽 다 다크를 노리네요!',
         ),
         ScriptEvent(
           text: '양측 다크 올인! 서로 상대 다크를 모르는 상황!',
@@ -68,7 +68,7 @@ const _pvpDarkMirror = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 3, homeResource: -20,
-          altText: '{home}, 다크 출발! 보이지 않는 칼!',
+          altText: '{home} 선수, 다크 출발! 보이지 않는 칼!',
         ),
         ScriptEvent(
           text: '{away} 선수도 다크 2기! 교차 투입!',
@@ -76,7 +76,7 @@ const _pvpDarkMirror = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 3, awayResource: -20,
-          altText: '{away}, 다크 출발! 서로 다크를 보냅니다!',
+          altText: '{away} 선수, 다크 출발! 서로 다크를 보냅니다!',
         ),
         ScriptEvent(
           text: '양쪽 다크가 교차합니다! 디텍은 누구에게도 없습니다!',
@@ -98,7 +98,7 @@ const _pvpDarkMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 다크가 프로브에 도착! 학살!',
+              text: '{home} 선수, 다크가 프로브에 도착! 학살!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -106,7 +106,7 @@ const _pvpDarkMirror = ScenarioScript(
               awayResource: -25,              altText: '{home} 선수 다크 성공! 프로브가 몰살!',
             ),
             ScriptEvent(
-              text: '{away}, 다크가 상대 프로브도 베고 있습니다!',
+              text: '{away} 선수, 다크가 상대 프로브도 베고 있습니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               awayArmy: 0,
@@ -136,7 +136,7 @@ const _pvpDarkMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 다크가 프로브를 베기 시작합니다! 큰 피해!',
+              text: '{away} 선수, 다크가 프로브를 베기 시작합니다! 큰 피해!',
               owner: LogOwner.away,
               homeArmy: 0,
               awayArmy: 0,
@@ -144,7 +144,7 @@ const _pvpDarkMirror = ScenarioScript(
               homeResource: -25,              altText: '{away} 선수 다크 대성공! 프로브가 녹습니다!',
             ),
             ScriptEvent(
-              text: '{home}, 다크가 프로브를 잡고는 있지만 피해가 적습니다!',
+              text: '{home} 선수, 다크가 프로브를 잡고는 있지만 피해가 적습니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -215,16 +215,16 @@ const _pvpDarkMirror = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 로보틱스를 올립니다! 테크를 전환하는 모습!',
+          altText: '{home} 선수, 로보틱스를 올립니다! 테크를 전환하는 모습!',
         ),
         ScriptEvent(
-          text: '{home} 서포트 베이에 옵저버터리까지! 리버를 준비합니다!',
+          text: '{home} 선수 서포트 베이에 옵저버터리까지! 리버를 준비합니다!',
           owner: LogOwner.home,
           homeArmy: 0,
           awayArmy: 0,
           awayResource: 0,
           homeResource: -10,
-          altText: '{home}, 옵저버터리와 서포트 베이 건설! 리버를 노리고 있습니다!',
+          altText: '{home} 선수, 옵저버터리와 서포트 베이 건설! 리버를 노리고 있습니다!',
         ),
         ScriptEvent(
           text: '{away} 선수도 로보틱스 건설! 테크 경쟁입니다!',
@@ -235,7 +235,7 @@ const _pvpDarkMirror = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '{away} 옵저버터리에 서포트 베이까지! 셔틀 리버 경쟁!',
+          text: '{away} 선수 옵저버터리에 서포트 베이까지! 셔틀 리버 경쟁!',
           owner: LogOwner.away,
           homeArmy: 0,
           awayArmy: 0,
@@ -243,7 +243,7 @@ const _pvpDarkMirror = ScenarioScript(
           awayResource: -10,
         ),
         ScriptEvent(
-          text: '{home}, 드라군을 모아 전진합니다!',
+          text: '{home} 선수, 드라군을 모아 전진합니다!',
           owner: LogOwner.home,
           awayArmy: 0,
           awayResource: 0,
@@ -251,7 +251,7 @@ const _pvpDarkMirror = ScenarioScript(
           altText: '{home} 선수 드라군 편대 전진!',
         ),
         ScriptEvent(
-          text: '{away}, 드라군으로 맞대응! 병력을 모읍니다!',
+          text: '{away} 선수, 드라군으로 맞대응! 병력을 모읍니다!',
           owner: LogOwner.away,
           homeArmy: 0,
           homeResource: 0,
@@ -269,14 +269,14 @@ const _pvpDarkMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 프로브를 먼저 복구! 자원이 돌아옵니다!',
+              text: '{home} 선수, 프로브를 먼저 복구! 자원이 돌아옵니다!',
               owner: LogOwner.home,
               awayArmy: 0,
               awayResource: 0,
               homeArmy: 2, homeResource: 10,              altText: '{home} 선수 일꾼 복구가 빠릅니다!',
             ),
             ScriptEvent(
-              text: '{home}, 셔틀 리버 출격! 남은 프로브를 노립니다!',
+              text: '{home} 선수, 셔틀 리버 출격! 남은 프로브를 노립니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -298,14 +298,14 @@ const _pvpDarkMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 프로브를 먼저 복구! 자원이 돌아옵니다!',
+              text: '{away} 선수, 프로브를 먼저 복구! 자원이 돌아옵니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,
               awayArmy: 2, awayResource: 10,              altText: '{away} 선수 일꾼 복구가 빠릅니다!',
             ),
             ScriptEvent(
-              text: '{away}, 셔틀 리버 출격! 남은 프로브를 노립니다!',
+              text: '{away} 선수, 셔틀 리버 출격! 남은 프로브를 노립니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               awayArmy: 0,

@@ -22,7 +22,7 @@ const _zvp5droneVsDragoonPush = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 드론 5마리 후 스포닝풀! 저글링 러시를 준비합니다!',
+          altText: '{home} 선수, 드론 5마리 후 스포닝풀! 저글링 러시를 준비합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 게이트웨이 두 기를 건설합니다!',
@@ -31,7 +31,7 @@ const _zvp5droneVsDragoonPush = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 투게이트! 질럿을 빠르게 뽑으려 합니다!',
+          altText: '{away} 선수, 투게이트! 질럿을 빠르게 뽑으려 합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링이 부화! 발업 연구도 시작합니다!',
@@ -46,7 +46,7 @@ const _zvp5droneVsDragoonPush = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 3, awayResource: -15,
-          altText: '{away}, 질럿 연속 생산! 수비와 역공을 동시에 준비!',
+          altText: '{away} 선수, 질럿 연속 생산! 수비와 역공을 동시에 준비!',
         ),
         ScriptEvent(
           text: '질럿이 빠르게 나오고 있습니다! 저글링이 뚫을 수 있을까요?',
@@ -65,7 +65,7 @@ const _zvp5droneVsDragoonPush = ScenarioScript(
       recoveryArmyPerLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 발업 저글링이 프로토스 입구에 도착합니다!',
+          text: '{home} 선수, 발업 저글링이 프로토스 입구에 도착합니다!',
           owner: LogOwner.home,
           awayArmy: 0,
           homeResource: 0,
@@ -78,7 +78,7 @@ const _zvp5droneVsDragoonPush = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: 0,
-          homeArmy: -2,          altText: '{away}, 질럿 벽! 저글링이 들어갈 틈이 없습니다!',
+          homeArmy: -2,          altText: '{away} 선수, 질럿 벽! 저글링이 들어갈 틈이 없습니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 질럿 옆을 우회해서 프로브를 노립니다!',
@@ -86,10 +86,10 @@ const _zvp5droneVsDragoonPush = ScenarioScript(
           homeArmy: 0,
           awayArmy: 0,
           homeResource: 0,
-          awayResource: -5,          altText: '{home}, 저글링이 질럿 사이를 비집고 들어갑니다!',
+          awayResource: -5,          altText: '{home} 선수, 저글링이 질럿 사이를 비집고 들어갑니다!',
         ),
         ScriptEvent(
-          text: '{away}, 사이버네틱스 코어 완성! 드라군 생산을 시작합니다!',
+          text: '{away} 선수, 사이버네틱스 코어 완성! 드라군 생산을 시작합니다!',
           owner: LogOwner.away,
           homeArmy: 0,
           homeResource: 0,
@@ -117,7 +117,7 @@ const _zvp5droneVsDragoonPush = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 2, homeResource: -10,
-          altText: '{home}, 저글링 추가! 돌파구를 찾으려 합니다!',
+          altText: '{home} 선수, 저글링 추가! 돌파구를 찾으려 합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 드라군이 원거리에서 저글링을 정리합니다!',
@@ -126,14 +126,14 @@ const _zvp5droneVsDragoonPush = ScenarioScript(
           awayResource: 0,
           homeArmy: -3, awayArmy: 1,        ),
         ScriptEvent(
-          text: '{home}, 마지막 저글링까지 투입합니다!',
+          text: '{home} 선수, 마지막 저글링까지 투입합니다!',
           owner: LogOwner.home,
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 1, homeResource: -5,          altText: '{home} 선수 마지막 웨이브! 모든 것을 걸었습니다!',
         ),
         ScriptEvent(
-          text: '{away}, 드라군과 질럿을 모아서 역공을 준비합니다!',
+          text: '{away} 선수, 드라군과 질럿을 모아서 역공을 준비합니다!',
           owner: LogOwner.away,
           homeArmy: 0,
           homeResource: 0,
@@ -150,7 +150,7 @@ const _zvp5droneVsDragoonPush = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 발업 저글링이 드라군 뒤를 잡고 프로브를 전멸시킵니다!',
+              text: '{home} 선수, 발업 저글링이 드라군 뒤를 잡고 프로브를 전멸시킵니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               homeResource: 0,
@@ -172,7 +172,7 @@ const _zvp5droneVsDragoonPush = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 드라군과 질럿이 저글링을 전멸시키고 저그 본진으로 진격합니다!',
+              text: '{away} 선수, 드라군과 질럿이 저글링을 전멸시키고 저그 본진으로 진격합니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,

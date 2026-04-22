@@ -30,7 +30,7 @@ const _pvpDragoonVsNogate = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -30,
-          altText: '{away}, 넥서스 퍼스트! 확장을 가져가겠다는 배짱!',
+          altText: '{away} 선수, 넥서스 퍼스트! 확장을 가져가겠다는 배짱!',
         ),
         ScriptEvent(
           text: '{home} 선수 사이버네틱스 코어 건설!',
@@ -46,7 +46,7 @@ const _pvpDragoonVsNogate = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 2, homeResource: -10,
-          altText: '{home}, 질럿이 나옵니다! 노겟 넥서스를 괴롭히러 갑니다!',
+          altText: '{home} 선수, 질럿이 나옵니다! 노겟 넥서스를 괴롭히러 갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 겨우 게이트웨이를 건설합니다. 질럿이 올 텐데요!',
@@ -70,7 +70,7 @@ const _pvpDragoonVsNogate = ScenarioScript(
       name: 'zealot_harass',
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 질럿이 상대 앞마당에 도착합니다! 프로브를 노립니다!',
+          text: '{home} 선수, 질럿이 상대 앞마당에 도착합니다! 프로브를 노립니다!',
           owner: LogOwner.home,
           awayArmy: 0,
           homeResource: 0,
@@ -104,7 +104,7 @@ const _pvpDragoonVsNogate = ScenarioScript(
           baseProbability: 0.9,
           events: [
             ScriptEvent(
-              text: '{home}, 질럿이 프로브 3기를 잡습니다! 일꾼 타격!',
+              text: '{home} 선수, 질럿이 프로브 3기를 잡습니다! 일꾼 타격!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -120,7 +120,7 @@ const _pvpDragoonVsNogate = ScenarioScript(
               awayResource: -5,
             ),
             ScriptEvent(
-              text: '{home}, 드라군까지 도착! 노겟 넥서스를 흔듭니다!',
+              text: '{home} 선수, 드라군까지 도착! 노겟 넥서스를 흔듭니다!',
               owner: LogOwner.home,
               awayArmy: 0,
               homeResource: 0,
@@ -142,7 +142,7 @@ const _pvpDragoonVsNogate = ScenarioScript(
           baseProbability: 1.1,
           events: [
             ScriptEvent(
-              text: '{away}, 프로브와 질럿의 협공으로 적 질럿을 잡아냅니다!',
+              text: '{away} 선수, 프로브와 질럿의 협공으로 적 질럿을 잡아냅니다!',
               owner: LogOwner.away,
               awayArmy: 0,
               homeResource: 0,
@@ -158,7 +158,7 @@ const _pvpDragoonVsNogate = ScenarioScript(
               homeArmy: -1,
             ),
             ScriptEvent(
-              text: '{away}, 게이트가 빠르게 늘어납니다! 넥서스의 자원이 빛을 발합니다!',
+              text: '{away} 선수, 게이트가 빠르게 늘어납니다! 넥서스의 자원이 빛을 발합니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,
@@ -198,14 +198,14 @@ const _pvpDragoonVsNogate = ScenarioScript(
           awayResource: -25,
         ),
         ScriptEvent(
-          text: '{home}, 셔틀 리버 출격! 프로브를 노립니다!',
+          text: '{home} 선수, 셔틀 리버 출격! 프로브를 노립니다!',
           owner: LogOwner.home,
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 2, homeResource: -25,          altText: '{home} 선수 셔틀 리버! PvP의 꽃!',
         ),
         ScriptEvent(
-          text: '{away}, 드라군이 셔틀을 노립니다! 격추 시도!',
+          text: '{away} 선수, 드라군이 셔틀을 노립니다! 격추 시도!',
           owner: LogOwner.away,
           homeResource: 0,
           awayResource: 0,
@@ -259,7 +259,7 @@ const _pvpDragoonVsNogate = ScenarioScript(
           baseProbability: 1.05,
           events: [
             ScriptEvent(
-              text: '{home}, 스톰! 상대 드라군이 녹습니다!',
+              text: '{home} 선수, 스톰! 상대 드라군이 녹습니다!',
               owner: LogOwner.home,
               homeResource: 0,
               awayResource: 0,
@@ -281,7 +281,7 @@ const _pvpDragoonVsNogate = ScenarioScript(
           baseProbability: 0.95,
           events: [
             ScriptEvent(
-              text: '{away}, 셔틀에 하이 템플러를 태워서 본진 견제!',
+              text: '{away} 선수, 셔틀에 하이 템플러를 태워서 본진 견제!',
               owner: LogOwner.away,
               awayArmy: 0,
               awayResource: 0,

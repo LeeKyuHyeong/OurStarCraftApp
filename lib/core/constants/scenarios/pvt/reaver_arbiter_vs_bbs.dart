@@ -30,7 +30,7 @@ const _pvtReaverArbiterVsBbs = ScenarioScript(
           homeResource: 0,
           awayResource: -20,
           awayArmy: 2,
-          altText: '{away}, 배럭이 두 개! 마린을 빠르게 모으겠다는 의지!',
+          altText: '{away} 선수, 배럭이 두 개! 마린을 빠르게 모으겠다는 의지!',
         ),
         ScriptEvent(
           text: '{home} 선수 질럿을 생산해서 입구를 막습니다.',
@@ -39,7 +39,7 @@ const _pvtReaverArbiterVsBbs = ScenarioScript(
           awayResource: 0,
           homeArmy: 2,
           homeResource: -10,
-          altText: '{home}, 질럿으로 입구를 막으려 합니다!',
+          altText: '{home} 선수, 질럿으로 입구를 막으려 합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린 6기가 프로토스 본진을 향해 출발합니다!',
@@ -71,7 +71,7 @@ const _pvtReaverArbiterVsBbs = ScenarioScript(
           awayResource: 0,
           homeArmy: 1,
           awayArmy: -2,
-          altText: '{home}, 프로브까지 동원해서 막습니다!',
+          altText: '{home} 선수, 프로브까지 동원해서 막습니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 추가 마린으로 두 번째 공격을 시도합니다!',
@@ -97,7 +97,7 @@ const _pvtReaverArbiterVsBbs = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 마린 러시를 막으면서 로보틱스와 서포트 베이를 건설합니다!',
+          altText: '{home} 선수, 마린 러시를 막으면서 로보틱스와 서포트 베이를 건설합니다!',
         ),
         ScriptEvent(
           text: '마린 러시를 버텼다면 테크 차이가 게임을 결정할 겁니다!',
@@ -129,7 +129,7 @@ const _pvtReaverArbiterVsBbs = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 템플러 아카이브가 올라갑니다! 아비터까지 가려는 건가요!',
+          altText: '{home} 선수, 템플러 아카이브가 올라갑니다! 아비터까지 가려는 건가요!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린 러시 이후 확장을 시도하지만 테크가 뒤처져 있습니다.',
@@ -174,7 +174,7 @@ const _pvtReaverArbiterVsBbs = ScenarioScript(
               awayArmy: 0,
               homeResource: 0,
               awayResource: -25,
-              altText: '{home}, 스캐럽이 SCV를 잡아냅니다! 자원 차이가 벌어지네요!',
+              altText: '{home} 선수, 스캐럽이 SCV를 잡아냅니다! 자원 차이가 벌어지네요!',
             ),
             ScriptEvent(
               text: '{home} 선수 아비터 리콜! 테란 본진에 병력이 떨어집니다!',
@@ -207,7 +207,7 @@ const _pvtReaverArbiterVsBbs = ScenarioScript(
               awayResource: 0,
               homeResource: -25,
               awayArmy: 3,
-              altText: '{away}, 마린 공격이 프로브에 큰 피해를 입혔습니다!',
+              altText: '{away} 선수, 마린 공격이 프로브에 큰 피해를 입혔습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 테크를 올리고 싶지만 자원이 부족합니다!',

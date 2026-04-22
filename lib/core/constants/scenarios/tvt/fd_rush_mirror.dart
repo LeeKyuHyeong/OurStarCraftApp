@@ -364,7 +364,7 @@ const _tvtFdRushMirror = ScenarioScript(
               altText: '{away} 선수 탱크까지 합류! {home} 선수 병력을 완전히 쓸어버립니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 {home} 앞마당까지 진격합니다! 앞마당 커맨드센터가 취소됩니다!',
+              text: '{away} 선수 {home} 선수 앞마당까지 진격합니다! 앞마당 커맨드센터가 취소됩니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               awayArmy: 0,

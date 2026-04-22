@@ -46,7 +46,7 @@ const _pvp1gateRoboVs2gateReaver = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -30,
-          altText: '{away}, 게이트웨이가 두 개! 공격적으로 나오겠네요!',
+          altText: '{away} 선수, 게이트웨이가 두 개! 공격적으로 나오겠네요!',
         ),
         ScriptEvent(
           text: '{home} 선수 게이트웨이 후 로보틱스를 올립니다!',
@@ -54,7 +54,7 @@ const _pvp1gateRoboVs2gateReaver = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20, homeArmy: 2,
-          altText: '{home}, 로보틱스! 안정적인 테크!',
+          altText: '{home} 선수, 로보틱스! 안정적인 테크!',
         ),
         ScriptEvent(
           text: '{away} 선수 로보틱스! 서포트 베이! 빠른 리버!',
@@ -62,7 +62,7 @@ const _pvp1gateRoboVs2gateReaver = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayResource: -25, awayArmy: 2,
-          altText: '{away}, 로보틱스에 서포트 베이! 리버를 빠르게!',
+          altText: '{away} 선수, 로보틱스에 서포트 베이! 리버를 빠르게!',
         ),
         ScriptEvent(
           text: '{home} 선수 서포트 베이 건설! 리버 준비!',
@@ -88,7 +88,7 @@ const _pvp1gateRoboVs2gateReaver = ScenarioScript(
       name: 'shuttle_reaver_deploy',
       linearEvents: [
         ScriptEvent(
-          text: '{away}, 셔틀 리버 출격! 드라군 호위까지!',
+          text: '{away} 선수, 셔틀 리버 출격! 드라군 호위까지!',
           owner: LogOwner.away,
           homeArmy: 0,
           homeResource: 0,
@@ -99,7 +99,7 @@ const _pvp1gateRoboVs2gateReaver = ScenarioScript(
           owner: LogOwner.home,
           awayArmy: 0,
           awayResource: 0,
-          homeArmy: 3, homeResource: -25,          altText: '{home}, 셔틀 리버 출발! 양쪽 리버 대결!',
+          homeArmy: 3, homeResource: -25,          altText: '{home} 선수, 셔틀 리버 출발! 양쪽 리버 대결!',
         ),
         ScriptEvent(
           text: '리버 대결! 게이트웨이 두 개 쪽이 드라군이 더 많습니다!',
@@ -121,7 +121,7 @@ const _pvp1gateRoboVs2gateReaver = ScenarioScript(
           baseProbability: 0.95,
           events: [
             ScriptEvent(
-              text: '{home}, 리버 컨트롤! 프로브를 정확하게 타격합니다!',
+              text: '{home} 선수, 리버 컨트롤! 프로브를 정확하게 타격합니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -136,7 +136,7 @@ const _pvp1gateRoboVs2gateReaver = ScenarioScript(
               awayResource: 0,
               homeResource: -15,            ),
             ScriptEvent(
-              text: '{home}, 드라군으로 상대 셔틀을 격추합니다!',
+              text: '{home} 선수, 드라군으로 상대 셔틀을 격추합니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               homeResource: 0,
@@ -158,7 +158,7 @@ const _pvp1gateRoboVs2gateReaver = ScenarioScript(
           baseProbability: 1.05,
           events: [
             ScriptEvent(
-              text: '{away}, 리버에 드라군 호위! 게이트웨이 두 개의 힘!',
+              text: '{away} 선수, 리버에 드라군 호위! 게이트웨이 두 개의 힘!',
               owner: LogOwner.away,
               awayArmy: 0,
               awayResource: 0,
@@ -172,7 +172,7 @@ const _pvp1gateRoboVs2gateReaver = ScenarioScript(
               awayResource: 0,
               homeArmy: -2,            ),
             ScriptEvent(
-              text: '{away}, 드라군 물량으로 전진합니다! 게이트가 두 개라 빠릅니다!',
+              text: '{away} 선수, 드라군 물량으로 전진합니다! 게이트가 두 개라 빠릅니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,
@@ -243,7 +243,7 @@ const _pvp1gateRoboVs2gateReaver = ScenarioScript(
           baseProbability: 0.95,
           events: [
             ScriptEvent(
-              text: '{home}, 스톰! 리버 스캐럽까지! 이중 화력!',
+              text: '{home} 선수, 스톰! 리버 스캐럽까지! 이중 화력!',
               owner: LogOwner.home,
               homeResource: 0,
               awayResource: 0,
@@ -265,7 +265,7 @@ const _pvp1gateRoboVs2gateReaver = ScenarioScript(
           baseProbability: 1.05,
           events: [
             ScriptEvent(
-              text: '{away}, 스톰에 리버까지! 두꺼운 병력의 화력!',
+              text: '{away} 선수, 스톰에 리버까지! 두꺼운 병력의 화력!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,

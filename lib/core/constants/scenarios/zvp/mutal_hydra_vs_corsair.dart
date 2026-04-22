@@ -38,7 +38,7 @@ const _zvpMutalHydraVsCorsair = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -30,
-          altText: '{home}, 앞마당 해처리! 자원을 챙깁니다.',
+          altText: '{home} 선수, 앞마당 해처리! 자원을 챙깁니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 사이버네틱스 코어에서 스타게이트를 올립니다!',
@@ -47,7 +47,7 @@ const _zvpMutalHydraVsCorsair = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -25,
-          altText: '{away}, 스타게이트! 커세어를 준비합니다!',
+          altText: '{away} 선수, 스타게이트! 커세어를 준비합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 스포닝풀과 가스를 넣으면서 레어를 향합니다.',
@@ -70,7 +70,7 @@ const _zvpMutalHydraVsCorsair = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 3, awayResource: -20,
-          altText: '{away}, 커세어 출격! 오버로드를 노립니다!',
+          altText: '{away} 선수, 커세어 출격! 오버로드를 노립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 스파이어 완성! 뮤탈리스크를 생산합니다!',
@@ -78,10 +78,10 @@ const _zvpMutalHydraVsCorsair = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 3, homeResource: -25,
-          altText: '{home}, 뮤탈리스크 출격! 커세어와 맞붙습니다!',
+          altText: '{home} 선수, 뮤탈리스크 출격! 커세어와 맞붙습니다!',
         ),
         ScriptEvent(
-          text: '{home}, 뮤탈이 커세어를 피해 프로브를 견제합니다!',
+          text: '{home} 선수, 뮤탈이 커세어를 피해 프로브를 견제합니다!',
           owner: LogOwner.home,
           homeArmy: 0,
           awayArmy: 0,
@@ -89,7 +89,7 @@ const _zvpMutalHydraVsCorsair = ScenarioScript(
           awayResource: -10,          altText: '{home} 선수 뮤탈 우회! 프로브를 물어뜯습니다!',
         ),
         ScriptEvent(
-          text: '{away}, 커세어가 오버로드를 격추합니다!',
+          text: '{away} 선수, 커세어가 오버로드를 격추합니다!',
           owner: LogOwner.away,
           awayArmy: 0,
           awayResource: 0,
@@ -116,7 +116,7 @@ const _zvpMutalHydraVsCorsair = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 4, homeResource: -20,
-          altText: '{home}, 히드라덴! 뮤탈 히드라 조합!',
+          altText: '{home} 선수, 히드라덴! 뮤탈 히드라 조합!',
         ),
         ScriptEvent(
           text: '{away} 선수 아둔에서 템플러 아카이브를 올립니다! 스톰 준비!',
@@ -125,7 +125,7 @@ const _zvpMutalHydraVsCorsair = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -25,
-          altText: '{away}, 템플러 아카이브! 하이 템플러를 노립니다!',
+          altText: '{away} 선수, 템플러 아카이브! 하이 템플러를 노립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 뮤탈로 계속 프로브를 견제합니다! 자원 차이를 만듭니다!',
@@ -133,7 +133,7 @@ const _zvpMutalHydraVsCorsair = ScenarioScript(
           homeArmy: 0,
           awayArmy: 0,
           homeResource: 0,
-          awayResource: -10,          altText: '{home}, 뮤탈 견제 지속! 일꾼이 줄어듭니다!',
+          awayResource: -10,          altText: '{home} 선수, 뮤탈 견제 지속! 일꾼이 줄어듭니다!',
         ),
         ScriptEvent(
           text: '뮤탈의 견제력이냐 커세어의 시야 장악이냐!',
@@ -160,10 +160,10 @@ const _zvpMutalHydraVsCorsair = ScenarioScript(
               homeArmy: 0,
               homeResource: 0,
               awayResource: 0,
-              awayArmy: -3,              altText: '{home}, 뮤탈이 하이 템플러를 사냥! 스톰을 봉인!',
+              awayArmy: -3,              altText: '{home} 선수, 뮤탈이 하이 템플러를 사냥! 스톰을 봉인!',
             ),
             ScriptEvent(
-              text: '{home}, 히드라 편대가 프로토스 앞마당을 공격합니다!',
+              text: '{home} 선수, 히드라 편대가 프로토스 앞마당을 공격합니다!',
               owner: LogOwner.home,
               homeResource: 0,
               awayResource: 0,
@@ -197,10 +197,10 @@ const _zvpMutalHydraVsCorsair = ScenarioScript(
               awayArmy: 0,
               homeResource: 0,
               awayResource: 0,
-              homeArmy: -5,              altText: '{away}, 스톰이 저그 병력을 녹여버립니다!',
+              homeArmy: -5,              altText: '{away} 선수, 스톰이 저그 병력을 녹여버립니다!',
             ),
             ScriptEvent(
-              text: '{away}, 커세어가 뮤탈을 쫓아내고 드라군이 전진합니다!',
+              text: '{away} 선수, 커세어가 뮤탈을 쫓아내고 드라군이 전진합니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,

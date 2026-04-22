@@ -30,7 +30,7 @@ const _pvt5gateCarrierVsBbs = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 배럭이 두 개! 초반 러시를 노리는군요!',
+          altText: '{away} 선수, 배럭이 두 개! 초반 러시를 노리는군요!',
         ),
         ScriptEvent(
           text: '{home} 선수 사이버네틱스 코어를 올리고 있습니다.',
@@ -46,7 +46,7 @@ const _pvt5gateCarrierVsBbs = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 5, awayResource: -10,
-          altText: '{away}, 마린과 SCV 총출동! 배럭 두 개의 물량이 쏟아집니다!',
+          altText: '{away} 선수, 마린과 SCV 총출동! 배럭 두 개의 물량이 쏟아집니다!',
         ),
         ScriptEvent(
           text: '배럭 두 개에서 마린이 쏟아집니다! 프로토스 입구가 위험합니다!',
@@ -62,7 +62,7 @@ const _pvt5gateCarrierVsBbs = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 3, homeResource: -10,
-          altText: '{home}, 필사적인 수비! 질럿과 프로브 동원!',
+          altText: '{home} 선수, 필사적인 수비! 질럿과 프로브 동원!',
         ),
       ],
     ),
@@ -76,7 +76,7 @@ const _pvt5gateCarrierVsBbs = ScenarioScript(
           owner: LogOwner.home,
           homeResource: 0,
           awayResource: 0,
-          homeArmy: 3, awayArmy: -4,          altText: '{home}, 드라군 등장! 마린을 압도합니다!',
+          homeArmy: 3, awayArmy: -4,          altText: '{home} 선수, 드라군 등장! 마린을 압도합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 러시가 실패합니다. 뒤늦게 팩토리를 올리고 있어요.',
@@ -93,7 +93,7 @@ const _pvt5gateCarrierVsBbs = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -30,
-          altText: '{home}, 수비 성공! 넥서스와 게이트웨이 추가!',
+          altText: '{home} 선수, 수비 성공! 넥서스와 게이트웨이 추가!',
         ),
         ScriptEvent(
           text: '{home} 선수 스타게이트 건설! 공중 테크를 가져갑니다!',
@@ -102,7 +102,7 @@ const _pvt5gateCarrierVsBbs = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 스타게이트가 올라갑니다! 캐리어를 노리는 건가요?',
+          altText: '{home} 선수, 스타게이트가 올라갑니다! 캐리어를 노리는 건가요?',
         ),
         ScriptEvent(
           text: '초반 러시 실패 후 테란이 큰 불리를 안고 있습니다.',
@@ -127,7 +127,7 @@ const _pvt5gateCarrierVsBbs = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -25,
-          altText: '{home}, 더블 스타게이트에 플릿 비콘! 캐리어 체제!',
+          altText: '{home} 선수, 더블 스타게이트에 플릿 비콘! 캐리어 체제!',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리에서 골리앗을 뽑으려 하지만 늦었습니다.',
@@ -135,7 +135,7 @@ const _pvt5gateCarrierVsBbs = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 3, awayResource: -20,
-          altText: '{away}, 뒤늦게 골리앗 생산! 대공 준비가 되긴 할까요?',
+          altText: '{away} 선수, 뒤늦게 골리앗 생산! 대공 준비가 되긴 할까요?',
         ),
         ScriptEvent(
           text: '{home} 선수 캐리어 생산 시작! 인터셉터를 채웁니다!',
@@ -143,7 +143,7 @@ const _pvt5gateCarrierVsBbs = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 4, homeResource: -30,
-          altText: '{home}, 캐리어가 나옵니다! 인터셉터 충전 중!',
+          altText: '{home} 선수, 캐리어가 나옵니다! 인터셉터 충전 중!',
         ),
         ScriptEvent(
           text: '{home} 선수 게이트웨이 5개에서 드라군도 계속 나옵니다.',
@@ -167,7 +167,7 @@ const _pvt5gateCarrierVsBbs = ScenarioScript(
               owner: LogOwner.home,
               homeResource: 0,
               awayResource: 0,
-              homeArmy: 5, awayArmy: -5,              altText: '{home}, 캐리어 3기! 인터셉터 비가 쏟아져 내립니다!',
+              homeArmy: 5, awayArmy: -5,              altText: '{home} 선수, 캐리어 3기! 인터셉터 비가 쏟아져 내립니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 골리앗 수가 부족합니다! 캐리어를 막을 수 없어요!',
@@ -176,10 +176,10 @@ const _pvt5gateCarrierVsBbs = ScenarioScript(
               homeResource: 0,
               awayResource: 0,
               awayArmy: -4,
-              altText: '{away}, 골리앗이 너무 적습니다! 초반 올인의 후유증이네요!',
+              altText: '{away} 선수, 골리앗이 너무 적습니다! 초반 올인의 후유증이네요!',
             ),
             ScriptEvent(
-              text: '{home}, 캐리어와 드라군 총공격! 테란을 밀어냅니다!',
+              text: '{home} 선수, 캐리어와 드라군 총공격! 테란을 밀어냅니다!',
               owner: LogOwner.home,
               homeResource: 0,
               awayResource: 0,
@@ -205,10 +205,10 @@ const _pvt5gateCarrierVsBbs = ScenarioScript(
               homeArmy: 0,
               homeResource: 0,
               awayResource: 0,
-              awayArmy: 4,              altText: '{away}, 캐리어 전에 승부! 남은 병력으로 총공격!',
+              awayArmy: 4,              altText: '{away} 선수, 캐리어 전에 승부! 남은 병력으로 총공격!',
             ),
             ScriptEvent(
-              text: '{away}, 시즈 탱크 포격! 프로토스 방어선을 뚫습니다!',
+              text: '{away} 선수, 시즈 탱크 포격! 프로토스 방어선을 뚫습니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,

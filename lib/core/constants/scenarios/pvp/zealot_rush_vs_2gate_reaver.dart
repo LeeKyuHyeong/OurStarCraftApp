@@ -38,7 +38,7 @@ const _pvpZealotRushVs2gateReaver = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 센터에 게이트웨이! 올인 준비!',
+          altText: '{home} 선수, 센터에 게이트웨이! 올인 준비!',
         ),
         ScriptEvent(
           text: '{away} 선수 게이트웨이 추가! 사이버네틱스 코어!',
@@ -47,7 +47,7 @@ const _pvpZealotRushVs2gateReaver = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -30,
-          altText: '{away}, 게이트웨이가 두 개! 리버를 빠르게 올립니다!',
+          altText: '{away} 선수, 게이트웨이가 두 개! 리버를 빠르게 올립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 질럿 생산 시작!',
@@ -69,7 +69,7 @@ const _pvpZealotRushVs2gateReaver = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 1, homeResource: -10,
-          altText: '{home}, 질럿이 계속 나옵니다!',
+          altText: '{home} 선수, 질럿이 계속 나옵니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 드라군 생산! 리버까지 버텨야!',
@@ -85,7 +85,7 @@ const _pvpZealotRushVs2gateReaver = ScenarioScript(
       name: 'zealot_rush',
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 질럿이 돌진합니다! 리버 전에 끝내야!',
+          text: '{home} 선수, 질럿이 돌진합니다! 리버 전에 끝내야!',
           owner: LogOwner.home,
           awayArmy: 0,
           homeResource: 0,
@@ -98,7 +98,7 @@ const _pvpZealotRushVs2gateReaver = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 1, awayResource: -10,
-          altText: '{away}, 수비! 리버가 곧 나옵니다!',
+          altText: '{away} 선수, 수비! 리버가 곧 나옵니다!',
         ),
         ScriptEvent(
           text: '질럿 러시 vs 리버! 리버가 나오면 끝입니다!',
@@ -120,7 +120,7 @@ const _pvpZealotRushVs2gateReaver = ScenarioScript(
           baseProbability: 0.85,
           events: [
             ScriptEvent(
-              text: '{home}, 질럿이 프로브를 사냥합니다!',
+              text: '{home} 선수, 질럿이 프로브를 사냥합니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               homeResource: 0,
@@ -135,7 +135,7 @@ const _pvpZealotRushVs2gateReaver = ScenarioScript(
               awayResource: -10,
             ),
             ScriptEvent(
-              text: '{home}, 질럿이 로보틱스까지 위협합니다!',
+              text: '{home} 선수, 질럿이 로보틱스까지 위협합니다!',
               owner: LogOwner.home,
               awayArmy: 0,
               homeResource: 0,
@@ -156,7 +156,7 @@ const _pvpZealotRushVs2gateReaver = ScenarioScript(
           baseProbability: 1.15,
           events: [
             ScriptEvent(
-              text: '{away}, 드라군으로 질럿을 잡습니다! 리버가 나옵니다!',
+              text: '{away} 선수, 드라군으로 질럿을 잡습니다! 리버가 나옵니다!',
               owner: LogOwner.away,
               awayArmy: 0,
               homeResource: 0,
@@ -164,7 +164,7 @@ const _pvpZealotRushVs2gateReaver = ScenarioScript(
               homeArmy: -2,              altText: '{away} 선수 수비 성공! 리버 합류!',
             ),
             ScriptEvent(
-              text: '{away}, 리버 스캐럽! 질럿이 한 번에 터집니다!',
+              text: '{away} 선수, 리버 스캐럽! 질럿이 한 번에 터집니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,

@@ -22,7 +22,7 @@ const _zvp4poolVsForgeExpand = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 4드론에 스포닝풀! 역대급으로 빠릅니다!',
+          altText: '{home} 선수, 4드론에 스포닝풀! 역대급으로 빠릅니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 포지를 먼저 건설하고 앞마당 넥서스를 준비합니다.',
@@ -31,7 +31,7 @@ const _zvp4poolVsForgeExpand = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 포지를 먼저 올리고 앞마당 확장! 캐논으로 수비하려 합니다!',
+          altText: '{away} 선수, 포지를 먼저 올리고 앞마당 확장! 캐논으로 수비하려 합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링 6마리 부화! 프로토스 앞마당으로!',
@@ -47,7 +47,7 @@ const _zvp4poolVsForgeExpand = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 캐논 건설을 서두릅니다! 입구를 막아야 해요!',
+          altText: '{away} 선수, 캐논 건설을 서두릅니다! 입구를 막아야 해요!',
         ),
         ScriptEvent(
           text: '극초반 저글링 러시 vs 캐논 수비! ZvP 클래식 대결입니다!',
@@ -66,7 +66,7 @@ const _zvp4poolVsForgeExpand = ScenarioScript(
       recoveryArmyPerLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 저글링이 프로토스 앞마당에 도착합니다! 캐논이 미완성!',
+          text: '{home} 선수, 저글링이 프로토스 앞마당에 도착합니다! 캐논이 미완성!',
           owner: LogOwner.home,
           awayArmy: 0,
           homeResource: 0,
@@ -78,7 +78,7 @@ const _zvp4poolVsForgeExpand = ScenarioScript(
           owner: LogOwner.away,
           awayArmy: 0,
           homeResource: 0,
-          homeArmy: -1, awayResource: -5,          altText: '{away}, 프로브 방벽! 캐논 완성까지 버텨야 합니다!',
+          homeArmy: -1, awayResource: -5,          altText: '{away} 선수, 프로브 방벽! 캐논 완성까지 버텨야 합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 프로브를 우선 공격합니다! 일꾼이 줄어듭니다!',
@@ -88,7 +88,7 @@ const _zvp4poolVsForgeExpand = ScenarioScript(
           homeResource: 0,
           awayResource: -10,        ),
         ScriptEvent(
-          text: '{away}, 캐논이 간신히 완성됩니다! 저글링을 잡기 시작!',
+          text: '{away} 선수, 캐논이 간신히 완성됩니다! 저글링을 잡기 시작!',
           owner: LogOwner.away,
           homeResource: 0,
           awayResource: 0,
@@ -115,7 +115,7 @@ const _zvp4poolVsForgeExpand = ScenarioScript(
           owner: LogOwner.home,
           awayArmy: 0,
           awayResource: 0,
-          homeArmy: 3, homeResource: -10,          altText: '{home}, 저글링 웨이브! 캐논을 부수려 합니다!',
+          homeArmy: 3, homeResource: -10,          altText: '{home} 선수, 저글링 웨이브! 캐논을 부수려 합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 두 번째 캐논을 건설합니다!',
@@ -123,17 +123,17 @@ const _zvp4poolVsForgeExpand = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayResource: -10, awayArmy: 1,
-          altText: '{away}, 추가 캐논! 방어선을 강화합니다!',
+          altText: '{away} 선수, 추가 캐논! 방어선을 강화합니다!',
         ),
         ScriptEvent(
-          text: '{home}, 발업 연구 완료! 저글링이 빨라졌습니다!',
+          text: '{home} 선수, 발업 연구 완료! 저글링이 빨라졌습니다!',
           owner: LogOwner.home,
           awayArmy: 0,
           homeResource: 0,
           awayResource: 0,
           homeArmy: 1,        ),
         ScriptEvent(
-          text: '{away}, 게이트웨이에서 질럿까지 생산하기 시작합니다!',
+          text: '{away} 선수, 게이트웨이에서 질럿까지 생산하기 시작합니다!',
           owner: LogOwner.away,
           homeArmy: 0,
           homeResource: 0,
@@ -150,7 +150,7 @@ const _zvp4poolVsForgeExpand = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 저글링이 캐논을 부수고 넥서스까지 공격합니다!',
+              text: '{home} 선수, 저글링이 캐논을 부수고 넥서스까지 공격합니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               homeResource: 0,
@@ -172,7 +172,7 @@ const _zvp4poolVsForgeExpand = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 캐논과 질럿이 저글링을 전부 잡아냅니다!',
+              text: '{away} 선수, 캐논과 질럿이 저글링을 전부 잡아냅니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,

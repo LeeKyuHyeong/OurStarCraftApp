@@ -30,7 +30,7 @@ const _pvt5gateArbiterVsAntiCarrier = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -25,
-          altText: '{away}, 팩토리에 아머리까지! 골리앗을 노리는 빌드!',
+          altText: '{away} 선수, 팩토리에 아머리까지! 골리앗을 노리는 빌드!',
         ),
         ScriptEvent(
           text: '{home} 선수 사이버네틱스 코어 이후 넥서스 건설!',
@@ -39,7 +39,7 @@ const _pvt5gateArbiterVsAntiCarrier = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -30,
-          altText: '{home}, 넥서스를 올립니다! 확장을 가져가고요.',
+          altText: '{home} 선수, 넥서스를 올립니다! 확장을 가져가고요.',
         ),
         ScriptEvent(
           text: '{away} 선수 골리앗 생산 시작! 대공에 특화된 편성입니다.',
@@ -47,7 +47,7 @@ const _pvt5gateArbiterVsAntiCarrier = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 3, awayResource: -15,
-          altText: '{away}, 골리앗이 나옵니다! 공중 유닛을 잡겠다는 의지!',
+          altText: '{away} 선수, 골리앗이 나옵니다! 공중 유닛을 잡겠다는 의지!',
         ),
         ScriptEvent(
           text: '{home} 선수 게이트웨이 추가하면서 드라군을 뽑습니다.',
@@ -77,7 +77,7 @@ const _pvt5gateArbiterVsAntiCarrier = ScenarioScript(
           owner: LogOwner.away,
           homeArmy: 0,
           homeResource: 0,
-          awayArmy: 4, awayResource: -20,          altText: '{away}, 골리앗 물량! 사거리 업그레이드까지 올립니다!',
+          awayArmy: 4, awayResource: -20,          altText: '{away} 선수, 골리앗 물량! 사거리 업그레이드까지 올립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 아둔 건설! 템플러 아카이브로 스톰을 준비합니다.',
@@ -86,7 +86,7 @@ const _pvt5gateArbiterVsAntiCarrier = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 아둔에서 템플러 아카이브! 하이 템플러가 필요하죠.',
+          altText: '{home} 선수, 아둔에서 템플러 아카이브! 하이 템플러가 필요하죠.',
         ),
         ScriptEvent(
           text: '{home} 선수 스타게이트에 아비터 트리뷰널 건설!',
@@ -102,7 +102,7 @@ const _pvt5gateArbiterVsAntiCarrier = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayResource: 0,
-          awayArmy: 3,          altText: '{away}, 탱크 골리앗 편대가 이동합니다!',
+          awayArmy: 3,          altText: '{away} 선수, 탱크 골리앗 편대가 이동합니다!',
         ),
         ScriptEvent(
           text: '골리앗 대공 편성에 아비터가 살아남을 수 있을까요?',
@@ -133,7 +133,7 @@ const _pvt5gateArbiterVsAntiCarrier = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 2, homeResource: -20,
-          altText: '{home}, 아비터 등장! 스테이시스로 골리앗을 묶어야 합니다!',
+          altText: '{home} 선수, 아비터 등장! 스테이시스로 골리앗을 묶어야 합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 골리앗 사거리 업그레이드 완료! 아비터가 접근하기 힘들어졌습니다.',
@@ -141,7 +141,7 @@ const _pvt5gateArbiterVsAntiCarrier = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 3, awayResource: -15,
-          altText: '{away}, 골리앗 사거리가 길어졌습니다! 공중 유닛 접근 불가!',
+          altText: '{away} 선수, 골리앗 사거리가 길어졌습니다! 공중 유닛 접근 불가!',
         ),
         ScriptEvent(
           text: '{home} 선수 하이 템플러도 합류! 스톰과 리콜 이중 전술!',
@@ -166,17 +166,17 @@ const _pvt5gateArbiterVsAntiCarrier = ScenarioScript(
               homeArmy: 0,
               homeResource: 0,
               awayResource: 0,
-              awayArmy: -4,              altText: '{home}, 스테이시스 필드! 아비터가 스테이시스! 상대 병력을 멈춥니다!',
+              awayArmy: -4,              altText: '{home} 선수, 스테이시스 필드! 아비터가 스테이시스! 상대 병력을 멈춥니다!',
             ),
             ScriptEvent(
-              text: '{home}, 얼어붙지 않은 병력에 스톰! 그리고 드라군 돌격!',
+              text: '{home} 선수, 얼어붙지 않은 병력에 스톰! 그리고 드라군 돌격!',
               owner: LogOwner.home,
               homeResource: 0,
               awayResource: 0,
               awayArmy: -6, homeArmy: -2,              altText: '{home} 선수 스톰에 드라군 총공격! 남은 병력을 정리합니다!',
             ),
             ScriptEvent(
-              text: '{home}, 리콜로 테란 본진까지 급습! 일꾼을 노립니다!',
+              text: '{home} 선수, 리콜로 테란 본진까지 급습! 일꾼을 노립니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -203,10 +203,10 @@ const _pvt5gateArbiterVsAntiCarrier = ScenarioScript(
               awayArmy: 0,
               homeResource: 0,
               awayResource: 0,
-              homeArmy: -3,              altText: '{away}, 골리앗 대공! 아비터가 접근도 못합니다!',
+              homeArmy: -3,              altText: '{away} 선수, 골리앗 대공! 아비터가 접근도 못합니다!',
             ),
             ScriptEvent(
-              text: '{away}, 아비터 격추! 리콜도 스테이시스도 쓰지 못합니다!',
+              text: '{away} 선수, 아비터 격추! 리콜도 스테이시스도 쓰지 못합니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,
@@ -214,7 +214,7 @@ const _pvt5gateArbiterVsAntiCarrier = ScenarioScript(
               altText: '{away} 선수 아비터를 잡았습니다! 핵심 유닛 손실!',
             ),
             ScriptEvent(
-              text: '{away}, 탱크 골리앗 총공격! 프로토스 전선을 밀어냅니다!',
+              text: '{away} 선수, 탱크 골리앗 총공격! 프로토스 전선을 밀어냅니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,

@@ -38,7 +38,7 @@ const _pvpDarkVs1gateMulti = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 아둔! 다크 올인 빌드!',
+          altText: '{home} 선수, 아둔! 다크 올인 빌드!',
         ),
         ScriptEvent(
           text: '{away} 선수 게이트웨이 하나 짓고 바로 넥서스를 올립니다!',
@@ -47,7 +47,7 @@ const _pvpDarkVs1gateMulti = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -30,
-          altText: '{away}, 빠른 확장! 멀티를 먼저 가져갑니다!',
+          altText: '{away} 선수, 빠른 확장! 멀티를 먼저 가져갑니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 템플러 아카이브 건설! 다크 확정!',
@@ -56,7 +56,7 @@ const _pvpDarkVs1gateMulti = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 템플러 아카이브! 멀티 상대로 다크 올인!',
+          altText: '{home} 선수, 템플러 아카이브! 멀티 상대로 다크 올인!',
         ),
         ScriptEvent(
           text: '멀티 상대로 다크! 디텍이 없으면 양쪽 기지 모두 위험합니다!',
@@ -78,7 +78,7 @@ const _pvpDarkVs1gateMulti = ScenarioScript(
           owner: LogOwner.home,
           awayResource: 0,
           homeArmy: 3, awayArmy: 2, homeResource: -20,
-          altText: '{home}, 다크 출격! 확장 기지 프로브를 노립니다!',
+          altText: '{home} 선수, 다크 출격! 확장 기지 프로브를 노립니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 앞마당에 프로브가 많습니다! 디텍이 있을까요?',
@@ -107,7 +107,7 @@ const _pvpDarkVs1gateMulti = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 다크가 앞마당 프로브를 베기 시작합니다! 디텍이 없어요!',
+              text: '{home} 선수, 다크가 앞마당 프로브를 베기 시작합니다! 디텍이 없어요!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -123,7 +123,7 @@ const _pvpDarkVs1gateMulti = ScenarioScript(
               awayResource: -10,
             ),
             ScriptEvent(
-              text: '{home}, 본진 프로브까지 노립니다! 다크 컨트롤!',
+              text: '{home} 선수, 본진 프로브까지 노립니다! 다크 컨트롤!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -151,7 +151,7 @@ const _pvpDarkVs1gateMulti = ScenarioScript(
               homeArmy: 0,
               homeResource: 0,
               awayResource: 0,
-              awayArmy: 2,              altText: '{away}, 캐논으로 다크를 포착! 수비 성공!',
+              awayArmy: 2,              altText: '{away} 선수, 캐논으로 다크를 포착! 수비 성공!',
             ),
             ScriptEvent(
               text: '{home} 선수 다크가 캐논에 잡힙니다! 올인 실패!',
@@ -162,7 +162,7 @@ const _pvpDarkVs1gateMulti = ScenarioScript(
               homeArmy: -4,
             ),
             ScriptEvent(
-              text: '{away}, 프로브 피해 최소화! 멀티 자원이 살아있습니다!',
+              text: '{away} 선수, 프로브 피해 최소화! 멀티 자원이 살아있습니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               awayArmy: 0,

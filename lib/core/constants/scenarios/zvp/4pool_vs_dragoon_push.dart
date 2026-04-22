@@ -22,7 +22,7 @@ const _zvp4poolVsDragoonPush = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 드론 4마리에서 스포닝풀 건설! 올인입니다!',
+          altText: '{home} 선수, 드론 4마리에서 스포닝풀 건설! 올인입니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 게이트웨이를 건설하고 질럿 생산을 준비합니다.',
@@ -31,7 +31,7 @@ const _zvp4poolVsDragoonPush = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 게이트웨이 건설 시작! 질럿을 빠르게 뽑으려 합니다!',
+          altText: '{away} 선수, 게이트웨이 건설 시작! 질럿을 빠르게 뽑으려 합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링 6마리가 부화합니다!',
@@ -46,7 +46,7 @@ const _zvp4poolVsDragoonPush = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 3, awayResource: -10,
-          altText: '{away}, 첫 질럿 완성! 입구 방어 위치를 잡습니다!',
+          altText: '{away} 선수, 첫 질럿 완성! 입구 방어 위치를 잡습니다!',
         ),
         ScriptEvent(
           text: '질럿이 있는 상태에서 저글링이 들어갈 수 있을까요?',
@@ -65,7 +65,7 @@ const _zvp4poolVsDragoonPush = ScenarioScript(
       recoveryArmyPerLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 저글링이 프로토스 입구에 도착! 질럿과 맞닥뜨립니다!',
+          text: '{home} 선수, 저글링이 프로토스 입구에 도착! 질럿과 맞닥뜨립니다!',
           owner: LogOwner.home,
           homeResource: 0,
           awayResource: 0,
@@ -77,7 +77,7 @@ const _zvp4poolVsDragoonPush = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: 0,
-          homeArmy: -2,          altText: '{away}, 질럿이 입구를 틀어막습니다! 저글링이 힘들어요!',
+          homeArmy: -2,          altText: '{away} 선수, 질럿이 입구를 틀어막습니다! 저글링이 힘들어요!',
         ),
         ScriptEvent(
           text: '{home} 선수 프로브를 노리려 하지만 질럿 뒤로 갈 수가 없습니다!',
@@ -88,7 +88,7 @@ const _zvp4poolVsDragoonPush = ScenarioScript(
           homeArmy: -1,
         ),
         ScriptEvent(
-          text: '{away}, 사이버네틱스 코어에서 드라군 생산을 시작합니다!',
+          text: '{away} 선수, 사이버네틱스 코어에서 드라군 생산을 시작합니다!',
           owner: LogOwner.away,
           homeArmy: 0,
           homeResource: 0,
@@ -117,7 +117,7 @@ const _zvp4poolVsDragoonPush = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 2, homeResource: -10,
-          altText: '{home}, 저글링 추가! 하지만 돌파가 어렵습니다!',
+          altText: '{home} 선수, 저글링 추가! 하지만 돌파가 어렵습니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 드라군이 원거리에서 저글링을 잡아냅니다!',
@@ -126,7 +126,7 @@ const _zvp4poolVsDragoonPush = ScenarioScript(
           awayResource: 0,
           homeArmy: -3, awayArmy: 1,        ),
         ScriptEvent(
-          text: '{home}, 발업을 연구하면서 마지막 돌파를 시도합니다!',
+          text: '{home} 선수, 발업을 연구하면서 마지막 돌파를 시도합니다!',
           owner: LogOwner.home,
           awayArmy: 0,
           homeResource: 0,
@@ -134,7 +134,7 @@ const _zvp4poolVsDragoonPush = ScenarioScript(
           homeArmy: 1,          altText: '{home} 선수 발업 저글링! 마지막 기회입니다!',
         ),
         ScriptEvent(
-          text: '{away}, 게이트웨이 추가 건설! 역공을 준비합니다!',
+          text: '{away} 선수, 게이트웨이 추가 건설! 역공을 준비합니다!',
           owner: LogOwner.away,
           homeArmy: 0,
           awayArmy: 0,
@@ -152,7 +152,7 @@ const _zvp4poolVsDragoonPush = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 발업 저글링이 틈을 뚫고 프로브를 잡습니다!',
+              text: '{home} 선수, 발업 저글링이 틈을 뚫고 프로브를 잡습니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               homeResource: 0,
@@ -174,7 +174,7 @@ const _zvp4poolVsDragoonPush = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 드라군이 저글링을 전멸시키고 역공을 시작합니다!',
+              text: '{away} 선수, 드라군이 저글링을 전멸시키고 역공을 시작합니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,

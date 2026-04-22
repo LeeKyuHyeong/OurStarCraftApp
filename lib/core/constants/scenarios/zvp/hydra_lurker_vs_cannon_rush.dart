@@ -30,7 +30,7 @@ const _zvpHydraLurkerVsCannonRush = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 포지가 올라갑니다! 일반적인 타이밍은 아닙니다!',
+          altText: '{away} 선수, 포지가 올라갑니다! 일반적인 타이밍은 아닙니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 프로브를 저그 앞마당으로 보냅니다!',
@@ -47,7 +47,7 @@ const _zvpHydraLurkerVsCannonRush = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 스포닝풀이 올라가면서 오버로드를 보냅니다.',
+          altText: '{home} 선수, 스포닝풀이 올라가면서 오버로드를 보냅니다.',
         ),
         ScriptEvent(
           text: '프로토스 프로브가 저그 진영을 향합니다! 캐논 러시를 노리는 걸까요?',
@@ -71,7 +71,7 @@ const _zvpHydraLurkerVsCannonRush = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -10,
-          altText: '{away}, 파일런이 저그 앞마당 구석에 세워집니다!',
+          altText: '{away} 선수, 파일런이 저그 앞마당 구석에 세워집니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 캐논 건설 시작! 해처리를 노립니다!',
@@ -88,7 +88,7 @@ const _zvpHydraLurkerVsCannonRush = ScenarioScript(
           awayResource: 0,
           homeResource: -10,
           awayArmy: -1,
-          altText: '{home}, 드론이 프로브를 쫓아갑니다! 캐논을 막아야 해요!',
+          altText: '{home} 선수, 드론이 프로브를 쫓아갑니다! 캐논을 막아야 해요!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링 생산! 프로브를 잡으러 갑니다!',
@@ -120,7 +120,7 @@ const _zvpHydraLurkerVsCannonRush = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 3, awayResource: -20,
-          altText: '{away}, 캐논이 더 세워집니다! 포위망이 좁혀옵니다!',
+          altText: '{away} 선수, 캐논이 더 세워집니다! 포위망이 좁혀옵니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 히드라덴 건설! 캐논 정리를 위해 히드라리스크를 뽑습니다!',
@@ -129,7 +129,7 @@ const _zvpHydraLurkerVsCannonRush = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 히드라덴이 올라갑니다! 캐논에 대한 해답이죠!',
+          altText: '{home} 선수, 히드라덴이 올라갑니다! 캐논에 대한 해답이죠!',
         ),
         ScriptEvent(
           text: '{home} 선수 히드라리스크 생산 시작! 캐논보다 사거리가 깁니다!',
@@ -165,7 +165,7 @@ const _zvpHydraLurkerVsCannonRush = ScenarioScript(
               awayResource: 0,
               homeArmy: 3,
               awayArmy: -4,
-              altText: '{home}, 히드라리스크 사거리로 캐논을 안전하게 처리합니다!',
+              altText: '{home} 선수, 히드라리스크 사거리로 캐논을 안전하게 처리합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 럴커 진화! 매몰로 프로토스 진격로를 차단합니다!',
@@ -206,7 +206,7 @@ const _zvpHydraLurkerVsCannonRush = ScenarioScript(
               awayResource: 0,
               awayArmy: 2,
               homeResource: -25,
-              altText: '{away}, 캐논이 완성됐습니다! 해처리를 타격하기 시작합니다!',
+              altText: '{away} 선수, 캐논이 완성됐습니다! 해처리를 타격하기 시작합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 드론을 뺄 수밖에 없습니다! 일꾼 피해가 심각해요!',

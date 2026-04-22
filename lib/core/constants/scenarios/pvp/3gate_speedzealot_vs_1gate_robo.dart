@@ -38,7 +38,7 @@ const _pvp3gateSpeedzealotVs1gateRobo = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -30,
-          altText: '{home}, 사이버네틱스 코어에 아둔! 스피드 질럿!',
+          altText: '{home} 선수, 사이버네틱스 코어에 아둔! 스피드 질럿!',
         ),
         ScriptEvent(
           text: '{away} 선수 사이버네틱스 코어! 로보틱스 건설!',
@@ -47,7 +47,7 @@ const _pvp3gateSpeedzealotVs1gateRobo = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -30,
-          altText: '{away}, 로보틱스! 리버를 노립니다!',
+          altText: '{away} 선수, 로보틱스! 리버를 노립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 세 번째 게이트웨이를 올립니다!',
@@ -71,7 +71,7 @@ const _pvp3gateSpeedzealotVs1gateRobo = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 다리 업그레이드! 스피드 질럿을 만듭니다!',
+          altText: '{home} 선수, 다리 업그레이드! 스피드 질럿을 만듭니다!',
         ),
         ScriptEvent(
           text: '스피드질럿 물량 vs 로보틱스 테크! 속도 vs 테크의 대결!',
@@ -89,7 +89,7 @@ const _pvp3gateSpeedzealotVs1gateRobo = ScenarioScript(
       name: 'speedzealot_pressure',
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 스피드 질럿이 전진합니다! 빠릅니다!',
+          text: '{home} 선수, 스피드 질럿이 전진합니다! 빠릅니다!',
           owner: LogOwner.home,
           awayResource: 0,
           homeArmy: 5, awayArmy: 2, homeResource: -25,          altText: '{home} 선수 스피드 질럿! 빠른 속도로 돌진!',
@@ -100,7 +100,7 @@ const _pvp3gateSpeedzealotVs1gateRobo = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 1, awayResource: -15,
-          altText: '{away}, 수비! 리버까지 버텨야 합니다!',
+          altText: '{away} 선수, 수비! 리버까지 버텨야 합니다!',
         ),
         ScriptEvent(
           text: '스피드 질럿 물량 vs 로보 테크! 시간 싸움!',
@@ -121,7 +121,7 @@ const _pvp3gateSpeedzealotVs1gateRobo = ScenarioScript(
           baseProbability: 0.7,
           events: [
             ScriptEvent(
-              text: '{home}, 스피드 질럿이 프로브를 사냥합니다! 빠른 속도!',
+              text: '{home} 선수, 스피드 질럿이 프로브를 사냥합니다! 빠른 속도!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -137,7 +137,7 @@ const _pvp3gateSpeedzealotVs1gateRobo = ScenarioScript(
               awayArmy: -1,
             ),
             ScriptEvent(
-              text: '{home}, 추가 질럿이 합류합니다! 물량이 밀려옵니다!',
+              text: '{home} 선수, 추가 질럿이 합류합니다! 물량이 밀려옵니다!',
               owner: LogOwner.home,
               awayArmy: 0,
               homeResource: 0,
@@ -158,7 +158,7 @@ const _pvp3gateSpeedzealotVs1gateRobo = ScenarioScript(
           baseProbability: 1.3,
           events: [
             ScriptEvent(
-              text: '{away}, 드라군으로 질럿을 잡습니다! 리버가 합류!',
+              text: '{away} 선수, 드라군으로 질럿을 잡습니다! 리버가 합류!',
               owner: LogOwner.away,
               awayArmy: 0,
               homeResource: 0,
@@ -166,7 +166,7 @@ const _pvp3gateSpeedzealotVs1gateRobo = ScenarioScript(
               homeArmy: -3,              altText: '{away} 선수 수비 성공! 리버가 나왔습니다!',
             ),
             ScriptEvent(
-              text: '{away}, 리버 스캐럽! 밀집한 질럿이 터집니다!',
+              text: '{away} 선수, 리버 스캐럽! 밀집한 질럿이 터집니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,
@@ -244,7 +244,7 @@ const _pvp3gateSpeedzealotVs1gateRobo = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 스톰에 스피드 질럿 돌진! 상대 병력을 녹입니다!',
+              text: '{home} 선수, 스톰에 스피드 질럿 돌진! 상대 병력을 녹입니다!',
               owner: LogOwner.home,
               homeResource: 0,
               awayResource: 0,
@@ -266,7 +266,7 @@ const _pvp3gateSpeedzealotVs1gateRobo = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 스톰에 리버 화력! 상대 병력이 녹습니다!',
+              text: '{away} 선수, 스톰에 리버 화력! 상대 병력이 녹습니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,

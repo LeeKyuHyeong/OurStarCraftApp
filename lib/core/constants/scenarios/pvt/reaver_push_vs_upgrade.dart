@@ -30,7 +30,7 @@ const _pvtReaverPushVsUpgrade = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 엔지니어링 베이가 올라갑니다! 공방 업그레이드를 노리는군요!',
+          altText: '{away} 선수, 엔지니어링 베이가 올라갑니다! 공방 업그레이드를 노리는군요!',
         ),
         ScriptEvent(
           text: '{home} 선수 드라군 생산을 시작하면서 정찰을 보냅니다.',
@@ -48,7 +48,7 @@ const _pvtReaverPushVsUpgrade = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 아머리까지! 후반 병력 질에 투자하는 겁니다!',
+          altText: '{away} 선수, 아머리까지! 후반 병력 질에 투자하는 겁니다!',
         ),
         ScriptEvent(
           text: '테란이 업그레이드에 투자하고 있습니다. 프로토스가 그 시간을 줄까요.',
@@ -72,7 +72,7 @@ const _pvtReaverPushVsUpgrade = ScenarioScript(
           awayResource: 0,
           homeArmy: 4,
           homeResource: -20,
-          altText: '{home}, 리버 셔틀이 이륙합니다!',
+          altText: '{home} 선수, 리버 셔틀이 이륙합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 1-1 업그레이드를 시작합니다! 시간이 필요합니다!',
@@ -89,7 +89,7 @@ const _pvtReaverPushVsUpgrade = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: 0,
-          altText: '{home}, 셔틀이 멀티 미네랄 라인으로 향합니다!',
+          altText: '{home} 선수, 셔틀이 멀티 미네랄 라인으로 향합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 터렛을 건설하지만 셔틀이 빨라서 따라잡기 힘듭니다!',
@@ -130,7 +130,7 @@ const _pvtReaverPushVsUpgrade = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -10,
-          altText: '{away}, SCV 손실이 커서 자원이 부족해지고 있어요.',
+          altText: '{away} 선수, SCV 손실이 커서 자원이 부족해지고 있어요.',
         ),
         ScriptEvent(
           text: '{home} 선수 드라군을 추가 생산하면서 정면 압박도 준비합니다.',
@@ -166,7 +166,7 @@ const _pvtReaverPushVsUpgrade = ScenarioScript(
               homeResource: 0,
               awayResource: -30,
               homeArmy: 2,
-              altText: '{home}, 스캐럽 한 방 한 방이 치명적입니다!',
+              altText: '{home} 선수, 스캐럽 한 방 한 방이 치명적입니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 업그레이드는 완료했지만 병력을 뽑을 자원이 없습니다!',
@@ -207,7 +207,7 @@ const _pvtReaverPushVsUpgrade = ScenarioScript(
               homeResource: 0,
               awayArmy: 5,
               awayResource: -15,
-              altText: '{away}, 업그레이드 완료! 마린 한 기 한 기가 강해졌습니다!',
+              altText: '{away} 선수, 업그레이드 완료! 마린 한 기 한 기가 강해졌습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 드라군이 업그레이드된 마린에게 밀립니다!',

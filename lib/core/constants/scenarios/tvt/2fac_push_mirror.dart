@@ -1003,14 +1003,14 @@ const _tvt2facPushMirror = ScenarioScript(
           altText: '{home} 선수 벌처 시야 확보 후 시즈 포격! 상대 탱크를 깎습니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 탱크를 전진시켜 사거리를 잡습니다. 포격! {home} 탱크가 터집니다!',
+          text: '{away} 선수 탱크를 전진시켜 사거리를 잡습니다. 포격! {home} 선수 탱크가 터집니다!',
           owner: LogOwner.away,
           awayArmy: 0,
           homeResource: 0,
           awayResource: 0,
           homeArmy: -2,
           skipChance: 0.4,
-          altText: '{away} 선수 사거리 끝에서 포격! {home} 탱크를 잡습니다!',
+          altText: '{away} 선수 사거리 끝에서 포격! {home} 선수 탱크를 잡습니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 벌처로 측면을 돌아 상대 탱크 뒤를 찌릅니다!',
@@ -1262,7 +1262,7 @@ const _tvt2facPushMirror = ScenarioScript(
           altText: '{home} 선수 거리재기! 사거리 끝에서 상대 골리앗을 깎습니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수 탱크 재배치 후 포격! {home} 탱크를 잡습니다!',
+          text: '{away} 선수 탱크 재배치 후 포격! {home} 선수 탱크를 잡습니다!',
           owner: LogOwner.away,
           awayArmy: 0,
           homeResource: 0,
@@ -1670,7 +1670,7 @@ const _tvt2facPushMirror = ScenarioScript(
               altText: '드랍 없이 정면 승부. 탱크 라인 싸움입니다.',
             ),
             ScriptEvent(
-              text: '{home} 선수 탱크 한 칸 전진! 시즈 포격! {away} 탱크가 맞습니다!',
+              text: '{home} 선수 탱크 한 칸 전진! 시즈 포격! {away} 선수 탱크가 맞습니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               homeResource: 0,
@@ -1680,14 +1680,14 @@ const _tvt2facPushMirror = ScenarioScript(
               altText: '{home} 선수 거리재기! 상대 탱크를 한 대 깎습니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 탱크 재배치 후 맞포격! {home} 골리앗이 터집니다!',
+              text: '{away} 선수 탱크 재배치 후 맞포격! {home} 선수 골리앗이 터집니다!',
               owner: LogOwner.away,
               awayArmy: 0,
               homeResource: 0,
               awayResource: 0,
               homeArmy: -2,
               skipChance: 0.4,
-              altText: '{away} 선수 맞포격! {home} 병력을 깎습니다!',
+              altText: '{away} 선수 맞포격! {home} 선수 병력을 깎습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 탱크, 골리앗 라인을 전진시킵니다!',
@@ -2004,14 +2004,14 @@ const _tvt2facPushMirror = ScenarioScript(
           altText: '{home} 선수 결전 직전 거리재기! 시즈 포격으로 상대 병력을 깎습니다!',
         ),
         ScriptEvent(
-          text: '{away} 선수도 탱크 위치를 조정합니다. 포격! {home} 탱크가 터집니다!',
+          text: '{away} 선수도 탱크 위치를 조정합니다. 포격! {home} 선수 탱크가 터집니다!',
           owner: LogOwner.away,
           awayArmy: 0,
           homeResource: 0,
           awayResource: 0,
           homeArmy: -2,
           skipChance: 0.5,
-          altText: '{away} 선수 맞포격! 사거리 끝에서 {home} 탱크를 잡습니다!',
+          altText: '{away} 선수 맞포격! 사거리 끝에서 {home} 선수 탱크를 잡습니다!',
         ),
         // 결전 전 대규모 교전
         ScriptEvent(

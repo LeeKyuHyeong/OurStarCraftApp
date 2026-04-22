@@ -22,7 +22,7 @@ const _pvtReaverCarrierVsBbs = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 첫 게이트웨이가 올라갑니다.',
+          altText: '{home} 선수, 첫 게이트웨이가 올라갑니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 센터에 배럭을 건설합니다! 공격적인 위치입니다!',
@@ -39,7 +39,7 @@ const _pvtReaverCarrierVsBbs = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 사이버네틱스 코어가 올라가면서 드라군 생산을 준비합니다.',
+          altText: '{home} 선수, 사이버네틱스 코어가 올라가면서 드라군 생산을 준비합니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 본진에도 배럭을 건설합니다! 배럭이 두 개네요!',
@@ -48,7 +48,7 @@ const _pvtReaverCarrierVsBbs = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 두 번째 배럭! 마린을 빠르게 모으려는 거군요!',
+          altText: '{away} 선수, 두 번째 배럭! 마린을 빠르게 모으려는 거군요!',
         ),
         ScriptEvent(
           text: '테란이 배럭 두 개로 마린을 빠르게 모읍니다! 프로토스는 초반 수비가 매우 중요하겠네요.',
@@ -80,7 +80,7 @@ const _pvtReaverCarrierVsBbs = ScenarioScript(
           homeResource: 0,
           awayArmy: 4,
           awayResource: -10,
-          altText: '{away}, 마린 물량을 모아서 돌진합니다! SCV도 함께!',
+          altText: '{away} 선수, 마린 물량을 모아서 돌진합니다! SCV도 함께!',
         ),
         ScriptEvent(
           text: '{home} 선수 드라군으로 입구를 막습니다! 프로브도 동원하네요!',
@@ -97,7 +97,7 @@ const _pvtReaverCarrierVsBbs = ScenarioScript(
           awayResource: 0,
           homeArmy: -2,
           awayArmy: -1,
-          altText: '{away}, 마린 집중 사격! 드라군 체력이 빠르게 줍니다!',
+          altText: '{away} 선수, 마린 집중 사격! 드라군 체력이 빠르게 줍니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 추가 드라군이 나옵니다! 게이트웨이에서 계속 생산 중!',
@@ -130,7 +130,7 @@ const _pvtReaverCarrierVsBbs = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 로보틱스와 서포트 베이가 올라갑니다! 리버 생산을 향한 첫걸음!',
+          altText: '{home} 선수, 로보틱스와 서포트 베이가 올라갑니다! 리버 생산을 향한 첫걸음!',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리를 올립니다. 뒤늦게 테크를 전환하네요.',
@@ -147,7 +147,7 @@ const _pvtReaverCarrierVsBbs = ScenarioScript(
           awayResource: 0,
           homeArmy: 4,
           homeResource: -20,
-          altText: '{home}, 리버 셔틀 완성! 테란 일꾼을 노립니다!',
+          altText: '{home} 선수, 리버 셔틀 완성! 테란 일꾼을 노립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 스타게이트까지 건설합니다! 캐리어 전환을 노리는군요!',
@@ -184,7 +184,7 @@ const _pvtReaverCarrierVsBbs = ScenarioScript(
               homeResource: 0,
               homeArmy: 2,
               awayResource: -30,
-              altText: '{home}, 리버 스카랩! 테란 일꾼에 직격탄입니다!',
+              altText: '{home} 선수, 리버 스카랩! 테란 일꾼에 직격탄입니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 플릿 비콘 완성! 캐리어 생산에 들어갑니다!',
@@ -218,7 +218,7 @@ const _pvtReaverCarrierVsBbs = ScenarioScript(
               homeArmy: 25,
               awayArmy: -15,
               decisive: true,
-              altText: '{home}, 캐리어 함대 완성! 테란 기지를 초토화합니다!',
+              altText: '{home} 선수, 캐리어 함대 완성! 테란 기지를 초토화합니다!',
             ),
           ],
         ),
@@ -234,7 +234,7 @@ const _pvtReaverCarrierVsBbs = ScenarioScript(
               awayArmy: 3,
               homeArmy: -3,
               homeResource: -20,
-              altText: '{away}, 마린 공세가 계속됩니다! 프로토스 일꾼이 줄고 있어요!',
+              altText: '{away} 선수, 마린 공세가 계속됩니다! 프로토스 일꾼이 줄고 있어요!',
             ),
             ScriptEvent(
               text: '{home} 선수 로보틱스를 올렸지만 자원이 부족합니다!',
@@ -268,7 +268,7 @@ const _pvtReaverCarrierVsBbs = ScenarioScript(
               awayArmy: 25,
               homeArmy: -15,
               decisive: true,
-              altText: '{away}, 마린 러시 완벽한 성공! 프로토스를 초반에 끝냅니다!',
+              altText: '{away} 선수, 마린 러시 완벽한 성공! 프로토스를 초반에 끝냅니다!',
             ),
           ],
         ),

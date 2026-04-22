@@ -38,7 +38,7 @@ const _pvp2gateReaverMirror = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 게이트웨이가 두 개! 드라군을 빠르게 모읍니다!',
+          altText: '{home} 선수, 게이트웨이가 두 개! 드라군을 빠르게 모읍니다!',
         ),
         ScriptEvent(
           text: '{away} 선수도 두 번째 게이트웨이! 양쪽 같은 구성!',
@@ -47,7 +47,7 @@ const _pvp2gateReaverMirror = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 게이트웨이 두 개! 양쪽 같네요!',
+          altText: '{away} 선수, 게이트웨이 두 개! 양쪽 같네요!',
         ),
         ScriptEvent(
           text: '{home} 선수 사이버네틱스 코어! 로보틱스 건설!',
@@ -70,7 +70,7 @@ const _pvp2gateReaverMirror = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -10,
-          altText: '{home}, 서포트 베이! 빠른 리버!',
+          altText: '{home} 선수, 서포트 베이! 빠른 리버!',
         ),
         ScriptEvent(
           text: '{away} 선수도 서포트 베이! 양쪽 리버 경쟁!',
@@ -87,7 +87,7 @@ const _pvp2gateReaverMirror = ScenarioScript(
       name: 'reaver_deploy',
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 셔틀에 리버를 태웁니다! 드라군 호위와 함께!',
+          text: '{home} 선수, 셔틀에 리버를 태웁니다! 드라군 호위와 함께!',
           owner: LogOwner.home,
           awayArmy: 0,
           awayResource: 0,
@@ -98,7 +98,7 @@ const _pvp2gateReaverMirror = ScenarioScript(
           owner: LogOwner.away,
           homeArmy: 0,
           homeResource: 0,
-          awayArmy: 3, awayResource: -25,          altText: '{away}, 셔틀 리버! 양쪽 다 공격적입니다!',
+          awayArmy: 3, awayResource: -25,          altText: '{away} 선수, 셔틀 리버! 양쪽 다 공격적입니다!',
         ),
         ScriptEvent(
           text: '양쪽 셔틀 리버! 누가 먼저 치명타를 입힐까요?',
@@ -120,7 +120,7 @@ const _pvp2gateReaverMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 리버 스캐럽! 상대 드라군 2기가 한 번에!',
+              text: '{home} 선수, 리버 스캐럽! 상대 드라군 2기가 한 번에!',
               owner: LogOwner.home,
               homeArmy: 0,
               homeResource: 0,
@@ -135,7 +135,7 @@ const _pvp2gateReaverMirror = ScenarioScript(
               awayResource: 0,
               homeArmy: -2,            ),
             ScriptEvent(
-              text: '{home}, 셔틀 컨트롤! 내렸다 태웠다! 완벽합니다!',
+              text: '{home} 선수, 셔틀 컨트롤! 내렸다 태웠다! 완벽합니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               homeResource: 0,
@@ -158,7 +158,7 @@ const _pvp2gateReaverMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 리버 스캐럽! 상대 드라군 2기가 한 번에!',
+              text: '{away} 선수, 리버 스캐럽! 상대 드라군 2기가 한 번에!',
               owner: LogOwner.away,
               awayArmy: 0,
               homeResource: 0,
@@ -173,7 +173,7 @@ const _pvp2gateReaverMirror = ScenarioScript(
               awayResource: 0,
               awayArmy: -2,            ),
             ScriptEvent(
-              text: '{away}, 셔틀 컨트롤! 내렸다 태웠다! 완벽합니다!',
+              text: '{away} 선수, 셔틀 컨트롤! 내렸다 태웠다! 완벽합니다!',
               owner: LogOwner.away,
               awayArmy: 0,
               homeResource: 0,
@@ -246,7 +246,7 @@ const _pvp2gateReaverMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 스톰에 리버 스캐럽! 이중 화력!',
+              text: '{home} 선수, 스톰에 리버 스캐럽! 이중 화력!',
               owner: LogOwner.home,
               homeResource: 0,
               awayResource: 0,
@@ -268,7 +268,7 @@ const _pvp2gateReaverMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 스톰에 리버 스캐럽! 이중 화력!',
+              text: '{away} 선수, 스톰에 리버 스캐럽! 이중 화력!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,

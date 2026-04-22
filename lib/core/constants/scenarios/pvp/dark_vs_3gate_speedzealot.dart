@@ -38,7 +38,7 @@ const _pvpDarkVs3gateSpeedzealot = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 아둔! 다크 올인 빌드입니다!',
+          altText: '{home} 선수, 아둔! 다크 올인 빌드입니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 아둔 건설! 스피드 질럿을 준비합니다!',
@@ -47,7 +47,7 @@ const _pvpDarkVs3gateSpeedzealot = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 아둔! 질럿 각속 업그레이드를 노립니다!',
+          altText: '{away} 선수, 아둔! 질럿 각속 업그레이드를 노립니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 세 번째 게이트웨이를 올립니다!',
@@ -56,7 +56,7 @@ const _pvpDarkVs3gateSpeedzealot = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -30,
-          altText: '{away}, 게이트웨이가 벌써 세 개! 질럿 물량이 나옵니다!',
+          altText: '{away} 선수, 게이트웨이가 벌써 세 개! 질럿 물량이 나옵니다!',
         ),
         ScriptEvent(
           text: '양쪽 다 아둔을 갔지만 목적이 다릅니다! 다크 vs 스피드질럿!',
@@ -74,7 +74,7 @@ const _pvpDarkVs3gateSpeedzealot = ScenarioScript(
       name: 'race_to_tech',
       linearEvents: [
         ScriptEvent(
-          text: '{away}, 각속 업그레이드 완료! 스피드질럿이 쏟아집니다!',
+          text: '{away} 선수, 각속 업그레이드 완료! 스피드질럿이 쏟아집니다!',
           owner: LogOwner.away,
           homeResource: 0,
           awayArmy: 5, homeArmy: 2, awayResource: -15,          altText: '{away} 선수 스피드질럿! 빠른 질럿이 돌진합니다!',
@@ -106,7 +106,7 @@ const _pvpDarkVs3gateSpeedzealot = ScenarioScript(
           baseProbability: 1.05,
           events: [
             ScriptEvent(
-              text: '{away}, 스피드질럿이 본진을 돌파합니다! 너무 빠릅니다!',
+              text: '{away} 선수, 스피드질럿이 본진을 돌파합니다! 너무 빠릅니다!',
               owner: LogOwner.away,
               awayArmy: 0,
               awayResource: 0,
@@ -121,7 +121,7 @@ const _pvpDarkVs3gateSpeedzealot = ScenarioScript(
               homeResource: -15,
             ),
             ScriptEvent(
-              text: '{away}, 추가 스피드질럿 합류! 건물이 무너집니다!',
+              text: '{away} 선수, 추가 스피드질럿 합류! 건물이 무너집니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               awayResource: 0,
@@ -143,7 +143,7 @@ const _pvpDarkVs3gateSpeedzealot = ScenarioScript(
           baseProbability: 0.95,
           events: [
             ScriptEvent(
-              text: '{home}, 다크 템플러가 나옵니다! 스피드질럿을 막아냅니다!',
+              text: '{home} 선수, 다크 템플러가 나옵니다! 스피드질럿을 막아냅니다!',
               owner: LogOwner.home,
               awayArmy: 0,
               homeResource: 0,
@@ -159,7 +159,7 @@ const _pvpDarkVs3gateSpeedzealot = ScenarioScript(
               awayArmy: -4,
             ),
             ScriptEvent(
-              text: '{home}, 다크를 상대 본진으로 투입합니다! 프로브 사냥!',
+              text: '{home} 선수, 다크를 상대 본진으로 투입합니다! 프로브 사냥!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,

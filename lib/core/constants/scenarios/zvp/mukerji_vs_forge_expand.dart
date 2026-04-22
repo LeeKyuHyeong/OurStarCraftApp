@@ -22,7 +22,7 @@ const _zvpMukerjiVsForgeExpand = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: 10,
-          altText: '{home}, 앞마당 해처리 건설! 자원 확보 우선!',
+          altText: '{home} 선수, 앞마당 해처리 건설! 자원 확보 우선!',
         ),
         ScriptEvent(
           text: '{away} 선수 포지를 올리고 앞마당 넥서스를 건설합니다!',
@@ -31,7 +31,7 @@ const _zvpMukerjiVsForgeExpand = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 포지 확장! 캐논으로 앞마당을 지키겠다는 전략!',
+          altText: '{away} 선수, 포지 확장! 캐논으로 앞마당을 지키겠다는 전략!',
         ),
         ScriptEvent(
           text: '{away} 선수 앞마당에 캐논 2기를 세웁니다. 저글링 방어!',
@@ -72,7 +72,7 @@ const _zvpMukerjiVsForgeExpand = ScenarioScript(
           awayResource: 0,
           homeArmy: 5,
           homeResource: -15,
-          altText: '{home}, 뮤탈리스크 생산 시작! 견제전에 돌입합니다!',
+          altText: '{home} 선수, 뮤탈리스크 생산 시작! 견제전에 돌입합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 뮤탈리스크가 프로토스 본진 프로브를 찍습니다!',
@@ -81,7 +81,7 @@ const _zvpMukerjiVsForgeExpand = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{home}, 뮤탈리스크가 본진을 기습합니다! 일꾼 피해가 큽니다!',
+          altText: '{home} 선수, 뮤탈리스크가 본진을 기습합니다! 일꾼 피해가 큽니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 캐논을 본진에도 추가 건설합니다.',
@@ -122,7 +122,7 @@ const _zvpMukerjiVsForgeExpand = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: 15,
-          altText: '{home}, 3해처리 체제! 물량전 준비!',
+          altText: '{home} 선수, 3해처리 체제! 물량전 준비!',
         ),
         ScriptEvent(
           text: '{away} 선수 사이버네틱스 코어에서 나온 드라군과 질럿 병력을 모아 센터로 이동합니다.',
@@ -166,7 +166,7 @@ const _zvpMukerjiVsForgeExpand = ScenarioScript(
               awayArmy: 0,
               homeResource: 0,
               awayResource: -20,
-              altText: '{home}, 캐논을 피해 프로브를 잡습니다! 절묘한 각도!',
+              altText: '{home} 선수, 캐논을 피해 프로브를 잡습니다! 절묘한 각도!',
             ),
             ScriptEvent(
               text: '{home} 선수 저글링이 앞마당 캐논을 우회해 넥서스를 공격합니다!',
@@ -207,7 +207,7 @@ const _zvpMukerjiVsForgeExpand = ScenarioScript(
               awayResource: 0,
               homeArmy: -3,
               awayArmy: 2,
-              altText: '{away}, 캐논 배치가 완벽합니다! 뮤탈리스크가 들어올 틈이 없어요!',
+              altText: '{away} 선수, 캐논 배치가 완벽합니다! 뮤탈리스크가 들어올 틈이 없어요!',
             ),
             ScriptEvent(
               text: '{away} 선수 드라군과 게이트웨이의 질럿이 저그 앞마당으로 진격합니다!',

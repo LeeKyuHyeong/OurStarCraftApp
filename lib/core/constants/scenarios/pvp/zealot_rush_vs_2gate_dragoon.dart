@@ -38,7 +38,7 @@ const _pvpZealotRushVs2gateDragoon = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 센터에 게이트웨이! 질럿 러시 준비!',
+          altText: '{home} 선수, 센터에 게이트웨이! 질럿 러시 준비!',
         ),
         ScriptEvent(
           text: '{away} 선수 사이버네틱스 코어 건설! 드라군을 준비합니다!',
@@ -62,7 +62,7 @@ const _pvpZealotRushVs2gateDragoon = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 3, homeResource: -10,
-          altText: '{home}, 질럿이 나옵니다! 상대 테크 전에 끝내야 해요!',
+          altText: '{home} 선수, 질럿이 나옵니다! 상대 테크 전에 끝내야 해요!',
         ),
       ],
     ),
@@ -71,7 +71,7 @@ const _pvpZealotRushVs2gateDragoon = ScenarioScript(
       name: 'zealot_rush',
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 질럿 3기가 상대 진영으로 돌진합니다!',
+          text: '{home} 선수, 질럿 3기가 상대 진영으로 돌진합니다!',
           owner: LogOwner.home,
           awayArmy: 0,
           homeResource: 0,
@@ -105,7 +105,7 @@ const _pvpZealotRushVs2gateDragoon = ScenarioScript(
           baseProbability: 0.85,
           events: [
             ScriptEvent(
-              text: '{home}, 질럿이 프로브를 잡습니다! 수적 우위!',
+              text: '{home} 선수, 질럿이 프로브를 잡습니다! 수적 우위!',
               owner: LogOwner.home,
               homeArmy: 0,
               homeResource: 0,
@@ -120,7 +120,7 @@ const _pvpZealotRushVs2gateDragoon = ScenarioScript(
               awayResource: -10,
             ),
             ScriptEvent(
-              text: '{home}, 추가 질럿까지 합류! 본진을 초토화합니다!',
+              text: '{home} 선수, 추가 질럿까지 합류! 본진을 초토화합니다!',
               owner: LogOwner.home,
               awayArmy: 0,
               homeResource: 0,
@@ -141,7 +141,7 @@ const _pvpZealotRushVs2gateDragoon = ScenarioScript(
           baseProbability: 1.15,
           events: [
             ScriptEvent(
-              text: '{away}, 질럿과 프로브로 시간을 벌었습니다! 드라군 등장!',
+              text: '{away} 선수, 질럿과 프로브로 시간을 벌었습니다! 드라군 등장!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,
@@ -156,7 +156,7 @@ const _pvpZealotRushVs2gateDragoon = ScenarioScript(
               homeArmy: -3,
             ),
             ScriptEvent(
-              text: '{away}, 게이트웨이 두 개에서 드라군이 쏟아집니다! 반격 개시!',
+              text: '{away} 선수, 게이트웨이 두 개에서 드라군이 쏟아집니다! 반격 개시!',
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,

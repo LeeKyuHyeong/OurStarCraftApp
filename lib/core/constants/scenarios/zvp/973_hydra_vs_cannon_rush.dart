@@ -30,7 +30,7 @@ const _zvp973HydraVsCannonRush = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 포지부터 올립니다! 수상한 움직임입니다.',
+          altText: '{away} 선수, 포지부터 올립니다! 수상한 움직임입니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 프로브가 저그 진영으로 이동합니다!',
@@ -47,7 +47,7 @@ const _zvp973HydraVsCannonRush = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 히드라덴이 올라갑니다! 히드라를 빨리 뽑아야 합니다!',
+          altText: '{home} 선수, 히드라덴이 올라갑니다! 히드라를 빨리 뽑아야 합니다!',
         ),
         ScriptEvent(
           text: '프로토스가 캐논 러시를 준비합니다! 저그의 히드라가 빨리 나와야 합니다!',
@@ -71,7 +71,7 @@ const _zvp973HydraVsCannonRush = ScenarioScript(
           homeResource: 0,
           awayArmy: 3,
           awayResource: -15,
-          altText: '{away}, 캐논이 저그 앞마당 근처에 올라갑니다!',
+          altText: '{away} 선수, 캐논이 저그 앞마당 근처에 올라갑니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 드론으로 캐논 건설을 방해합니다!',
@@ -97,7 +97,7 @@ const _zvp973HydraVsCannonRush = ScenarioScript(
           awayResource: 0,
           homeArmy: 3,
           awayArmy: -1,
-          altText: '{home}, 히드라가 나왔습니다! 캐논보다 사거리가 깁니다!',
+          altText: '{home} 선수, 히드라가 나왔습니다! 캐논보다 사거리가 깁니다!',
         ),
         ScriptEvent(
           text: '히드라의 긴 사거리! 캐논 밖에서 안전하게 공격할 수 있습니다!',
@@ -119,7 +119,7 @@ const _zvp973HydraVsCannonRush = ScenarioScript(
           owner: LogOwner.away,
           homeArmy: 0,
           homeResource: 0,
-          awayArmy: 3, awayResource: -20,          altText: '{away}, 추가 캐논! 히드라가 나오기 전에 끝내야 합니다!',
+          awayArmy: 3, awayResource: -20,          altText: '{away} 선수, 추가 캐논! 히드라가 나오기 전에 끝내야 합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 히드라리스크가 나오기 시작합니다! 사거리 우위를 노립니다!',
@@ -155,7 +155,7 @@ const _zvp973HydraVsCannonRush = ScenarioScript(
               awayResource: 0,
               homeArmy: 4,
               awayArmy: -4,
-              altText: '{home}, 히드라 사거리로 캐논을 하나씩 녹입니다!',
+              altText: '{home} 선수, 히드라 사거리로 캐논을 하나씩 녹입니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 히드라가 프로토스 본진으로 진격합니다!',
@@ -196,7 +196,7 @@ const _zvp973HydraVsCannonRush = ScenarioScript(
               awayResource: 0,
               awayArmy: 3,
               homeResource: -30,
-              altText: '{away}, 캐논이 해처리를 때리고 있습니다!',
+              altText: '{away} 선수, 캐논이 해처리를 때리고 있습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 해처리가 무너집니다! 히드라 생산 기지가 사라졌어요!',

@@ -22,7 +22,7 @@ const _zvpMukerjiVsProxyGate = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: 10,
-          altText: '{home}, 드론 생산 우선! 일꾼부터 늘려갑니다.',
+          altText: '{home} 선수, 드론 생산 우선! 일꾼부터 늘려갑니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 프로브를 센터 쪽으로 보냅니다! 게이트웨이가 앞에 올라갑니다!',
@@ -31,7 +31,7 @@ const _zvpMukerjiVsProxyGate = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 전진 게이트웨이! 아주 공격적인 위치구요!',
+          altText: '{away} 선수, 전진 게이트웨이! 아주 공격적인 위치구요!',
         ),
         ScriptEvent(
           text: '{home} 선수 오버로드가 프로토스 본진을 정찰합니다.',
@@ -72,7 +72,7 @@ const _zvpMukerjiVsProxyGate = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{away}, 질럿 2기가 저그 일꾼을 공격합니다!',
+          altText: '{away} 선수, 질럿 2기가 저그 일꾼을 공격합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링으로 질럿을 감싸 안습니다!',
@@ -81,7 +81,7 @@ const _zvpMukerjiVsProxyGate = ScenarioScript(
           awayResource: 0,
           homeArmy: 3,
           awayArmy: -2,
-          altText: '{home}, 저글링 서라운드! 질럿을 잡아냅니다!',
+          altText: '{home} 선수, 저글링 서라운드! 질럿을 잡아냅니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 스포닝풀 완성 후 성큰 건설을 시작합니다.',
@@ -122,7 +122,7 @@ const _zvpMukerjiVsProxyGate = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 스파이어 건설! 뮤탈리스크 준비에 들어갑니다!',
+          altText: '{home} 선수, 스파이어 건설! 뮤탈리스크 준비에 들어갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 본진에서 게이트웨이를 추가로 건설합니다.',
@@ -139,7 +139,7 @@ const _zvpMukerjiVsProxyGate = ScenarioScript(
           awayResource: 0,
           homeArmy: 5,
           homeResource: -15,
-          altText: '{home}, 뮤탈리스크가 하늘을 가릅니다! 역습 시작!',
+          altText: '{home} 선수, 뮤탈리스크가 하늘을 가릅니다! 역습 시작!',
         ),
         ScriptEvent(
           text: '초반 질럿 러시를 막아낸 저그! 뮤탈리스크로 반격에 나섭니다!',
@@ -167,7 +167,7 @@ const _zvpMukerjiVsProxyGate = ScenarioScript(
               awayArmy: 0,
               homeResource: 0,
               awayResource: -25,
-              altText: '{home}, 뮤탈리스크가 프로브를 사냥합니다! 일꾼이 녹아내려요!',
+              altText: '{home} 선수, 뮤탈리스크가 프로브를 사냥합니다! 일꾼이 녹아내려요!',
             ),
             ScriptEvent(
               text: '{away} 선수 대공 유닛이 없습니다! 전진 건물에 자원을 다 썼어요!',
@@ -208,7 +208,7 @@ const _zvpMukerjiVsProxyGate = ScenarioScript(
               awayResource: 0,
               awayArmy: 3,
               homeArmy: -4,
-              altText: '{away}, 질럿이 쏟아져 들어옵니다! 성큰이 부서집니다!',
+              altText: '{away} 선수, 질럿이 쏟아져 들어옵니다! 성큰이 부서집니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 뮤탈리스크가 나왔지만 지상 병력이 부족합니다!',

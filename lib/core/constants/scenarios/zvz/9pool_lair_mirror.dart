@@ -23,7 +23,7 @@ const _zvz9poolLairMirror = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 9드론에 스포닝풀과 가스! 빠른 테크를 노리는 빌드!',
+          altText: '{home} 선수, 9드론에 스포닝풀과 가스! 빠른 테크를 노리는 빌드!',
         ),
         ScriptEvent(
           text: '{away} 선수도 9드론에 스포닝풀과 가스까지! 레어를 노리는데요~',
@@ -32,10 +32,10 @@ const _zvz9poolLairMirror = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 똑같이 9드론에 스포닝풀과 가스! 양쪽 다 선 레어 선택!',
+          altText: '{away} 선수, 똑같이 9드론에 스포닝풀과 가스! 양쪽 다 선 레어 선택!',
         ),
         ScriptEvent(
-          text: '{home}, 가스 100이 모이자마자 레어 진화! 발업보다 테크를 우선합니다!',
+          text: '{home} 선수, 가스 100이 모이자마자 레어 진화! 발업보다 테크를 우선합니다!',
           owner: LogOwner.home,
           homeArmy: 0,
           awayArmy: 0,
@@ -50,10 +50,10 @@ const _zvz9poolLairMirror = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 선 레어 선택! 레어를 선택합니다!',
+          altText: '{away} 선수, 선 레어 선택! 레어를 선택합니다!',
         ),
         ScriptEvent(
-          text: '{home}, 저글링 6기 생산하면서 가스 100이 모이자마자 발업도 눌러줍니다!',
+          text: '{home} 선수, 저글링 6기 생산하면서 가스 100이 모이자마자 발업도 눌러줍니다!',
           owner: LogOwner.home,
           awayArmy: 0,
           awayResource: 0,
@@ -61,7 +61,7 @@ const _zvz9poolLairMirror = ScenarioScript(
           altText: '{home} 선수 저글링 생산! 가스 100이 모이자마자 발업도 시작합니다!',
         ),
         ScriptEvent(
-          text: '{away}, 저글링 6기! 발업도 같이 돌립니다! 레어가 올라가는 동안 견제!',
+          text: '{away} 선수, 저글링 6기! 발업도 같이 돌립니다! 레어가 올라가는 동안 견제!',
           owner: LogOwner.away,
           homeArmy: 0,
           homeResource: 0,
@@ -91,7 +91,7 @@ const _zvz9poolLairMirror = ScenarioScript(
           conditionStat: 'harass',
           events: [
             ScriptEvent(
-              text: '{home}, 발업 저글링이 상대 미네랄 라인에 침투! 드론을 물어뜯습니다!',
+              text: '{home} 선수, 발업 저글링이 상대 미네랄 라인에 침투! 드론을 물어뜯습니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -99,7 +99,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               awayResource: -10,              altText: '{home} 선수 발업 저글링 견제! 빠른 속도로 드론을 잡습니다!',
             ),
             ScriptEvent(
-              text: '{away}, 발업 저글링으로 수비해보지만 드론 피해가 있습니다!',
+              text: '{away} 선수, 발업 저글링으로 수비해보지만 드론 피해가 있습니다!',
               owner: LogOwner.away,
               awayArmy: 0,
               homeResource: 0,
@@ -123,7 +123,7 @@ const _zvz9poolLairMirror = ScenarioScript(
           homeStatMustBeHigher: false,
           events: [
             ScriptEvent(
-              text: '{away}, 발업 저글링이 상대 미네랄 라인에 침투! 드론을 물어뜯습니다!',
+              text: '{away} 선수, 발업 저글링이 상대 미네랄 라인에 침투! 드론을 물어뜯습니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               awayArmy: 0,
@@ -131,7 +131,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               homeResource: -10,              altText: '{away} 선수 발업 저글링 견제! 빠른 속도로 드론을 잡습니다!',
             ),
             ScriptEvent(
-              text: '{home}, 발업 저글링으로 수비해보지만 드론 피해가 있습니다!',
+              text: '{home} 선수, 발업 저글링으로 수비해보지만 드론 피해가 있습니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayResource: 0,
@@ -186,7 +186,7 @@ const _zvz9poolLairMirror = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -10,
-          altText: '{home}, 레어 완성! 다음 단계로 넘어갑니다!',
+          altText: '{home} 선수, 레어 완성! 다음 단계로 넘어갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수도 레어 완성! 테크가 비슷합니다!',
@@ -195,7 +195,7 @@ const _zvz9poolLairMirror = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -10,
-          altText: '{away}, 레어 완성! 테크 타이밍이 같습니다!',
+          altText: '{away} 선수, 레어 완성! 테크 타이밍이 같습니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 스파이어를 바로 올립니다!',
@@ -204,7 +204,7 @@ const _zvz9poolLairMirror = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -10,
-          altText: '{home}, 스파이어 건설! 공중 유닛까지 얼마 안 남았습니다!',
+          altText: '{home} 선수, 스파이어 건설! 공중 유닛까지 얼마 안 남았습니다!',
         ),
         ScriptEvent(
           text: '{away} 선수도 스파이어 건설!',
@@ -213,7 +213,7 @@ const _zvz9poolLairMirror = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -10,
-          altText: '{away}, 스파이어! 타이밍이 비슷합니다!',
+          altText: '{away} 선수, 스파이어! 타이밍이 비슷합니다!',
         ),
         ScriptEvent(
           text: '오버로드로 상대 빌드가 다 보이죠! 양쪽 저글링으로 눈치를 봅니다!',
@@ -261,7 +261,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               altText: '뮤탈 수가 엇비슷합니다! 여기서부터 긴 싸움입니다!',
             ),
             ScriptEvent(
-              text: '{home}, 뮤탈로 상대 미네랄 라인 급습! 드론 2기를 잡습니다!',
+              text: '{home} 선수, 뮤탈로 상대 미네랄 라인 급습! 드론 2기를 잡습니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -269,7 +269,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               awayResource: -8,              altText: '{home} 선수 뮤탈 견제! 드론을 물어뜯습니다!',
             ),
             ScriptEvent(
-              text: '{away}, 스커지로 대응! 뮤탈 1기를 잡습니다!',
+              text: '{away} 선수, 스커지로 대응! 뮤탈 1기를 잡습니다!',
               owner: LogOwner.away,
               awayArmy: 0,
               homeResource: 0,
@@ -283,10 +283,10 @@ const _zvz9poolLairMirror = ScenarioScript(
               homeArmy: 0,
               awayArmy: 0,
               awayResource: 0,
-              homeResource: -5,              altText: '{away}, 뮤탈 역습! 드론을 끊으면서 자원 차이를 줄입니다!',
+              homeResource: -5,              altText: '{away} 선수, 뮤탈 역습! 드론을 끊으면서 자원 차이를 줄입니다!',
             ),
             ScriptEvent(
-              text: '{home}, 추가 뮤탈 합류! 스커지를 피하면서 또 미네랄 라인으로!',
+              text: '{home} 선수, 추가 뮤탈 합류! 스커지를 피하면서 또 미네랄 라인으로!',
               owner: LogOwner.home,
               awayArmy: 0,
               homeResource: 0,
@@ -302,7 +302,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               altText: '{home} 선수 견제 효율이 앞섭니다! 드론 수 차이!',
             ),
             ScriptEvent(
-              text: '{away}, 드론이 부족해 뮤탈 추가 생산이 늦어집니다!',
+              text: '{away} 선수, 드론이 부족해 뮤탈 추가 생산이 늦어집니다!',
               owner: LogOwner.away,
               awayArmy: 0,
               homeResource: 0,
@@ -350,7 +350,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               altText: '뮤탈 수가 엇비슷합니다! 여기서부터 긴 싸움입니다!',
             ),
             ScriptEvent(
-              text: '{away}, 뮤탈로 상대 미네랄 라인 급습! 드론 2기를 잡습니다!',
+              text: '{away} 선수, 뮤탈로 상대 미네랄 라인 급습! 드론 2기를 잡습니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               awayArmy: 0,
@@ -358,7 +358,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               homeResource: -8,              altText: '{away} 선수 뮤탈 견제! 드론을 물어뜯습니다!',
             ),
             ScriptEvent(
-              text: '{home}, 스커지로 대응! 뮤탈 1기를 잡습니다!',
+              text: '{home} 선수, 스커지로 대응! 뮤탈 1기를 잡습니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               homeResource: 0,
@@ -372,10 +372,10 @@ const _zvz9poolLairMirror = ScenarioScript(
               homeArmy: 0,
               awayArmy: 0,
               homeResource: 0,
-              awayResource: -5,              altText: '{home}, 뮤탈 역습! 드론을 끊으면서 자원 차이를 줄입니다!',
+              awayResource: -5,              altText: '{home} 선수, 뮤탈 역습! 드론을 끊으면서 자원 차이를 줄입니다!',
             ),
             ScriptEvent(
-              text: '{away}, 추가 뮤탈 합류! 스커지를 피하면서 또 미네랄 라인으로!',
+              text: '{away} 선수, 추가 뮤탈 합류! 스커지를 피하면서 또 미네랄 라인으로!',
               owner: LogOwner.away,
               homeArmy: 0,
               awayResource: 0,
@@ -391,7 +391,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               altText: '{away} 선수 견제 효율이 앞섭니다! 드론 수 차이!',
             ),
             ScriptEvent(
-              text: '{home}, 드론이 부족해 뮤탈 추가 생산이 늦어집니다!',
+              text: '{home} 선수, 드론이 부족해 뮤탈 추가 생산이 늦어집니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayResource: 0,
@@ -428,7 +428,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               altText: '뮤탈 싸움! 스커지 운용이 승부를 가릅니다!',
             ),
             ScriptEvent(
-              text: '{home}, 스커지 2기가 상대 뮤탈 뭉치에 정확히 꽂힙니다! 뮤탈 2기 격추!',
+              text: '{home} 선수, 스커지 2기가 상대 뮤탈 뭉치에 정확히 꽂힙니다! 뮤탈 2기 격추!',
               owner: LogOwner.home,
               homeArmy: 0,
               homeResource: 0,
@@ -445,7 +445,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               altText: '스커지 한방! 이 차이를 뒤집기 어렵습니다!',
             ),
             ScriptEvent(
-              text: '{home}, 남은 뮤탈로 드론을 자유롭게 견제합니다!',
+              text: '{home} 선수, 남은 뮤탈로 드론을 자유롭게 견제합니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -483,7 +483,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               altText: '뮤탈 싸움! 스커지 운용이 승부를 가릅니다!',
             ),
             ScriptEvent(
-              text: '{away}, 스커지 2기가 상대 뮤탈 뭉치에 정확히 꽂힙니다! 뮤탈 2기 격추!',
+              text: '{away} 선수, 스커지 2기가 상대 뮤탈 뭉치에 정확히 꽂힙니다! 뮤탈 2기 격추!',
               owner: LogOwner.away,
               awayArmy: 0,
               homeResource: 0,
@@ -500,7 +500,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               altText: '스커지 한방! 이 차이를 뒤집기 어렵습니다!',
             ),
             ScriptEvent(
-              text: '{away}, 남은 뮤탈로 드론을 자유롭게 견제합니다!',
+              text: '{away} 선수, 남은 뮤탈로 드론을 자유롭게 견제합니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               awayArmy: 0,
@@ -529,7 +529,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               homeArmy: 4, awayArmy: 3, homeResource: -15, awayResource: -15,
             ),
             ScriptEvent(
-              text: '{home}, 초반 드론 피해가 적었던 덕분에 뮤탈 추가 생산이 빠릅니다!',
+              text: '{home} 선수, 초반 드론 피해가 적었던 덕분에 뮤탈 추가 생산이 빠릅니다!',
               owner: LogOwner.home,
               awayArmy: 0,
               homeResource: 0,
@@ -537,14 +537,14 @@ const _zvz9poolLairMirror = ScenarioScript(
               homeArmy: 2,              altText: '{home} 선수, 상대보다 드론 피해가 적었습니다! 뮤탈을 더 빨리 뽑습니다!',
             ),
             ScriptEvent(
-              text: '{away}, 뮤탈 수가 밀리기 시작합니다! 스커지로 버팁니다!',
+              text: '{away} 선수, 뮤탈 수가 밀리기 시작합니다! 스커지로 버팁니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,
               homeArmy: -1, awayArmy: 1,
             ),
             ScriptEvent(
-              text: '{home}, 뮤탈 수 차이로 드론 견제가 일방적입니다!',
+              text: '{home} 선수, 뮤탈 수 차이로 드론 견제가 일방적입니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -574,7 +574,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               homeArmy: 3, awayArmy: 4, homeResource: -15, awayResource: -15,
             ),
             ScriptEvent(
-              text: '{away}, 초반 드론 피해가 적었던 덕분에 뮤탈 추가 생산이 빠릅니다!',
+              text: '{away} 선수, 초반 드론 피해가 적었던 덕분에 뮤탈 추가 생산이 빠릅니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,
@@ -582,14 +582,14 @@ const _zvz9poolLairMirror = ScenarioScript(
               awayArmy: 2,              altText: '{away} 선수, 상대보다 드론 피해가 적었습니다! 뮤탈을 더 빨리 뽑습니다!',
             ),
             ScriptEvent(
-              text: '{home}, 뮤탈 수가 밀리기 시작합니다! 스커지로 버팁니다!',
+              text: '{home} 선수, 뮤탈 수가 밀리기 시작합니다! 스커지로 버팁니다!',
               owner: LogOwner.home,
               homeResource: 0,
               awayResource: 0,
               awayArmy: -1, homeArmy: 1,
             ),
             ScriptEvent(
-              text: '{away}, 뮤탈 수 차이로 드론 견제가 일방적입니다!',
+              text: '{away} 선수, 뮤탈 수 차이로 드론 견제가 일방적입니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               awayArmy: 0,
@@ -618,7 +618,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               homeArmy: 4, awayArmy: 4, homeResource: -15, awayResource: -15,
             ),
             ScriptEvent(
-              text: '{home}, 뮤탈로 상대 본진 드론을 견제하면서 동시에 발업 저글링을 앞마당으로 보냅니다!',
+              text: '{home} 선수, 뮤탈로 상대 본진 드론을 견제하면서 동시에 발업 저글링을 앞마당으로 보냅니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -626,7 +626,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               awayResource: -8,              altText: '{home} 선수 2정면 공격! 뮤탈은 본진, 저글링은 앞마당!',
             ),
             ScriptEvent(
-              text: '{away}, 뮤탈과 저글링이 동시에! 어디를 먼저 막아야 할지!',
+              text: '{away} 선수, 뮤탈과 저글링이 동시에! 어디를 먼저 막아야 할지!',
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,
@@ -634,7 +634,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               awayArmy: -2,              altText: '{away} 선수 양쪽을 동시에 대응해야 합니다!',
             ),
             ScriptEvent(
-              text: '{home}, 상대가 뮤탈을 막는 사이 저글링이 드론을 물어뜯습니다!',
+              text: '{home} 선수, 상대가 뮤탈을 막는 사이 저글링이 드론을 물어뜯습니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -673,7 +673,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               homeArmy: 4, awayArmy: 4, homeResource: -15, awayResource: -15,
             ),
             ScriptEvent(
-              text: '{away}, 뮤탈로 상대 본진 드론을 견제하면서 동시에 발업 저글링을 앞마당으로 보냅니다!',
+              text: '{away} 선수, 뮤탈로 상대 본진 드론을 견제하면서 동시에 발업 저글링을 앞마당으로 보냅니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               awayArmy: 0,
@@ -681,7 +681,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               homeResource: -8,              altText: '{away} 선수 2정면 공격! 뮤탈은 본진, 저글링은 앞마당!',
             ),
             ScriptEvent(
-              text: '{home}, 뮤탈과 저글링이 동시에! 어디를 먼저 막아야 할지!',
+              text: '{home} 선수, 뮤탈과 저글링이 동시에! 어디를 먼저 막아야 할지!',
               owner: LogOwner.home,
               awayArmy: 0,
               homeResource: 0,
@@ -689,7 +689,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               homeArmy: -2,              altText: '{home} 선수 양쪽을 동시에 대응해야 합니다!',
             ),
             ScriptEvent(
-              text: '{away}, 상대가 뮤탈을 막는 사이 저글링이 드론을 물어뜯습니다!',
+              text: '{away} 선수, 상대가 뮤탈을 막는 사이 저글링이 드론을 물어뜯습니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               awayArmy: 0,
@@ -727,7 +727,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               homeArmy: 4, awayArmy: 4, homeResource: -15, awayResource: -15,
             ),
             ScriptEvent(
-              text: '{home}, 뮤탈 견제가 비등하자 앞마당 해처리를 올립니다!',
+              text: '{home} 선수, 뮤탈 견제가 비등하자 앞마당 해처리를 올립니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -742,7 +742,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               awayArmy: 0,
               homeResource: 0,
               awayResource: -25,
-              altText: '{away}, 앞마당! 상대만 확장하게 둘 수 없습니다!',
+              altText: '{away} 선수, 앞마당! 상대만 확장하게 둘 수 없습니다!',
             ),
             ScriptEvent(
               text: '양쪽 앞마당! 라바 회전이 2배! 뮤탈 물량전입니다!',
@@ -751,7 +751,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               altText: '장기전 돌입! 드론 관리와 라바 운용이 승부를 가릅니다!',
             ),
             ScriptEvent(
-              text: '{home}, 라바 운용이 앞섭니다! 뮤탈 스커지 비율을 잘 조절합니다!',
+              text: '{home} 선수, 라바 운용이 앞섭니다! 뮤탈 스커지 비율을 잘 조절합니다!',
               owner: LogOwner.home,
               homeResource: 0,
               awayResource: 0,
@@ -780,7 +780,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               homeArmy: 4, awayArmy: 4, homeResource: -15, awayResource: -15,
             ),
             ScriptEvent(
-              text: '{away}, 뮤탈 견제가 비등하자 앞마당 해처리를 올립니다!',
+              text: '{away} 선수, 뮤탈 견제가 비등하자 앞마당 해처리를 올립니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               awayArmy: 0,
@@ -795,7 +795,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               awayArmy: 0,
               awayResource: 0,
               homeResource: -25,
-              altText: '{home}, 앞마당! 상대만 확장하게 둘 수 없습니다!',
+              altText: '{home} 선수, 앞마당! 상대만 확장하게 둘 수 없습니다!',
             ),
             ScriptEvent(
               text: '양쪽 앞마당! 라바 회전이 2배! 뮤탈 물량전입니다!',
@@ -804,7 +804,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               altText: '장기전 돌입! 드론 관리와 라바 운용이 승부를 가릅니다!',
             ),
             ScriptEvent(
-              text: '{away}, 라바 운용이 앞섭니다! 뮤탈 스커지 비율을 잘 조절합니다!',
+              text: '{away} 선수, 라바 운용이 앞섭니다! 뮤탈 스커지 비율을 잘 조절합니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,
@@ -832,7 +832,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               homeArmy: 4, awayArmy: 4, homeResource: -15, awayResource: -15,
             ),
             ScriptEvent(
-              text: '{home}, 뮤탈로 견제하면서 앞마당 해처리를 슬쩍 올립니다!',
+              text: '{home} 선수, 뮤탈로 견제하면서 앞마당 해처리를 슬쩍 올립니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -840,7 +840,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               homeResource: -25,              altText: '{home} 선수 앞마당 확장! 상대는 아직 본진 1해처리!',
             ),
             ScriptEvent(
-              text: '{away}, 앞마당을 올린 걸 늦게 발견! 뮤탈로 해처리를 노리지만!',
+              text: '{away} 선수, 앞마당을 올린 걸 늦게 발견! 뮤탈로 해처리를 노리지만!',
               owner: LogOwner.away,
               homeArmy: 0,
               awayArmy: 0,
@@ -849,7 +849,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               altText: '{away} 선수 해처리를 끊으려 하지만 성큰이 막습니다!',
             ),
             ScriptEvent(
-              text: '{home}, 앞마당이 살아남습니다! 라바 회전이 2배!',
+              text: '{home} 선수, 앞마당이 살아남습니다! 라바 회전이 2배!',
               owner: LogOwner.home,
               awayArmy: 0,
               awayResource: 0,
@@ -879,7 +879,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               homeArmy: 4, awayArmy: 4, homeResource: -15, awayResource: -15,
             ),
             ScriptEvent(
-              text: '{away}, 뮤탈로 견제하면서 앞마당 해처리를 슬쩍 올립니다!',
+              text: '{away} 선수, 뮤탈로 견제하면서 앞마당 해처리를 슬쩍 올립니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               awayArmy: 0,
@@ -887,7 +887,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               awayResource: -25,              altText: '{away} 선수 앞마당 확장! 상대는 아직 본진 1해처리!',
             ),
             ScriptEvent(
-              text: '{home}, 앞마당을 올린 걸 늦게 발견! 뮤탈로 해처리를 노리지만!',
+              text: '{home} 선수, 앞마당을 올린 걸 늦게 발견! 뮤탈로 해처리를 노리지만!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -896,7 +896,7 @@ const _zvz9poolLairMirror = ScenarioScript(
               altText: '{home} 선수 해처리를 끊으려 하지만 성큰이 막습니다!',
             ),
             ScriptEvent(
-              text: '{away}, 앞마당이 살아남습니다! 라바 회전이 2배!',
+              text: '{away} 선수, 앞마당이 살아남습니다! 라바 회전이 2배!',
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,

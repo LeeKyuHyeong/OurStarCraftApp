@@ -22,7 +22,7 @@ const _zvpYabarwiVsForgeExpand = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: 10,
-          altText: '{home}, 앞마당 해처리 완성! 자원 확보 우선!',
+          altText: '{home} 선수, 앞마당 해처리 완성! 자원 확보 우선!',
         ),
         ScriptEvent(
           text: '{away} 선수 포지를 올리고 앞마당 넥서스를 건설합니다.',
@@ -31,7 +31,7 @@ const _zvpYabarwiVsForgeExpand = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 포지 확장! 캐논으로 방어를 갖추겠다는 전략!',
+          altText: '{away} 선수, 포지 확장! 캐논으로 방어를 갖추겠다는 전략!',
         ),
         ScriptEvent(
           text: '{away} 선수 앞마당에 캐논 2기를 세웁니다.',
@@ -72,7 +72,7 @@ const _zvpYabarwiVsForgeExpand = ScenarioScript(
           homeResource: 0,
           awayResource: 0,
           homeArmy: 3,
-          altText: '{home}, 저글링 기습! 하지만 캐논 라인 앞에서 멈춥니다!',
+          altText: '{home} 선수, 저글링 기습! 하지만 캐논 라인 앞에서 멈춥니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 캐논이 저글링을 잡아냅니다. 방어선이 단단합니다.',
@@ -89,7 +89,7 @@ const _zvpYabarwiVsForgeExpand = ScenarioScript(
           awayResource: 0,
           homeArmy: 4,
           homeResource: -15,
-          altText: '{home}, 럴커 완성! 캐논을 우회할 수 있을까!',
+          altText: '{home} 선수, 럴커 완성! 캐논을 우회할 수 있을까!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링을 본진 쪽으로도 한 부대 보냅니다!',
@@ -122,7 +122,7 @@ const _zvpYabarwiVsForgeExpand = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: 15,
-          altText: '{home}, 3해처리 체제! 물량으로 밀어붙일 준비!',
+          altText: '{home} 선수, 3해처리 체제! 물량으로 밀어붙일 준비!',
         ),
         ScriptEvent(
           text: '{away} 선수 사이버네틱스 코어에서 나온 드라군과 게이트웨이에서 질럿을 생산하며 센터로 이동합니다.',
@@ -166,7 +166,7 @@ const _zvpYabarwiVsForgeExpand = ScenarioScript(
               awayResource: 0,
               homeArmy: 4,
               awayArmy: -4,
-              altText: '{home}, 럴커가 캐논을 우회하여 일꾼을 위협합니다!',
+              altText: '{home} 선수, 럴커가 캐논을 우회하여 일꾼을 위협합니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 저글링이 반대편에서 넥서스를 때립니다!',
@@ -207,7 +207,7 @@ const _zvpYabarwiVsForgeExpand = ScenarioScript(
               awayResource: 0,
               homeArmy: -4,
               awayArmy: 3,
-              altText: '{away}, 캐논 배치가 완벽합니다! 럴커가 접근하질 못해요!',
+              altText: '{away} 선수, 캐논 배치가 완벽합니다! 럴커가 접근하질 못해요!',
             ),
             ScriptEvent(
               text: '{away} 선수 드라군과 질럿이 저글링을 막아내며 반격합니다!',

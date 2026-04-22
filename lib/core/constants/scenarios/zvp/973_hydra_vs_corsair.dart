@@ -22,7 +22,7 @@ const _zvp973HydraVsCorsair = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -25,
-          altText: '{home}, 빠른 스포닝풀에 앞마당까지! 히드라를 노리는군요.',
+          altText: '{home} 선수, 빠른 스포닝풀에 앞마당까지! 히드라를 노리는군요.',
         ),
         ScriptEvent(
           text: '{away} 선수 게이트웨이와 사이버네틱스 코어를 올리고 스타게이트를 건설합니다! 커세어를 준비합니다.',
@@ -31,7 +31,7 @@ const _zvp973HydraVsCorsair = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 게이트웨이 뒤로 스타게이트가 올라갑니다! 커세어를 준비하는군요!',
+          altText: '{away} 선수, 게이트웨이 뒤로 스타게이트가 올라갑니다! 커세어를 준비하는군요!',
         ),
         ScriptEvent(
           text: '{home} 선수 히드라덴을 건설하며 히드라 타이밍을 노립니다.',
@@ -48,7 +48,7 @@ const _zvp973HydraVsCorsair = ScenarioScript(
           homeResource: 0,
           awayArmy: 2,
           awayResource: -15,
-          altText: '{away}, 커세어와 함께 드라군을 생산합니다.',
+          altText: '{away} 선수, 커세어와 함께 드라군을 생산합니다.',
         ),
         ScriptEvent(
           text: '커세어와 지상군이 모이기 전에 히드라가 들어갈 수 있을까요?',
@@ -72,7 +72,7 @@ const _zvp973HydraVsCorsair = ScenarioScript(
           awayResource: 0,
           homeArmy: 5,
           homeResource: -20,
-          altText: '{home}, 히드라가 쏟아집니다! 프로토스를 향해 출격!',
+          altText: '{home} 선수, 히드라가 쏟아집니다! 프로토스를 향해 출격!',
         ),
         ScriptEvent(
           text: '{away} 선수 커세어로 오버로드 사냥을 시작합니다!',
@@ -98,7 +98,7 @@ const _zvp973HydraVsCorsair = ScenarioScript(
           homeResource: 0,
           awayArmy: 3,
           awayResource: -15,
-          altText: '{away}, 질럿과 드라군이 앞마당 앞에 진을 칩니다!',
+          altText: '{away} 선수, 질럿과 드라군이 앞마당 앞에 진을 칩니다!',
         ),
         ScriptEvent(
           text: '히드라 타이밍! 커세어와 지상군이 완성되기 전에 끝낼 수 있을까요?',
@@ -130,7 +130,7 @@ const _zvp973HydraVsCorsair = ScenarioScript(
           homeResource: 0,
           awayArmy: 2,
           awayResource: -10,
-          altText: '{away}, 커세어가 돌아와서 지상군과 합동 작전!',
+          altText: '{away} 선수, 커세어가 돌아와서 지상군과 합동 작전!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링을 측면에서 투입해 프로토스를 압박합니다.',
@@ -167,7 +167,7 @@ const _zvp973HydraVsCorsair = ScenarioScript(
               awayResource: 0,
               homeArmy: 4,
               awayArmy: -4,
-              altText: '{home}, 히드라 화력이 프로토스 수비를 뚫었습니다!',
+              altText: '{home} 선수, 히드라 화력이 프로토스 수비를 뚫었습니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 커세어만으로는 히드라 지상 공격을 막을 수 없습니다!',
@@ -208,7 +208,7 @@ const _zvp973HydraVsCorsair = ScenarioScript(
               awayResource: 0,
               awayArmy: 3,
               homeArmy: -4,
-              altText: '{away}, 드라군 집중 사격! 히드라가 무너집니다!',
+              altText: '{away} 선수, 드라군 집중 사격! 히드라가 무너집니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 커세어가 오버로드를 전부 격추합니다!',

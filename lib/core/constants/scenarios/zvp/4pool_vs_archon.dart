@@ -22,7 +22,7 @@ const _zvp4poolVsArchon = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 드론 4마리에서 스포닝풀! 극초반 러시!',
+          altText: '{home} 선수, 드론 4마리에서 스포닝풀! 극초반 러시!',
         ),
         ScriptEvent(
           text: '{away} 선수 게이트웨이와 사이버네틱스 코어를 올립니다.',
@@ -31,7 +31,7 @@ const _zvp4poolVsArchon = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 건물을 올리기 시작합니다. 템플러 아카이브를 향한 테크 구성이군요!',
+          altText: '{away} 선수, 건물을 올리기 시작합니다. 템플러 아카이브를 향한 테크 구성이군요!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링 6마리가 나옵니다! 출발!',
@@ -46,7 +46,7 @@ const _zvp4poolVsArchon = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 2, awayResource: -10,
-          altText: '{away}, 질럿 생산! 하이템플러는 아직 한참 남았죠!',
+          altText: '{away} 선수, 질럿 생산! 하이템플러는 아직 한참 남았죠!',
         ),
         ScriptEvent(
           text: '아콘이 나오기 전에 끝내야 합니다! 시간 싸움!',
@@ -65,7 +65,7 @@ const _zvp4poolVsArchon = ScenarioScript(
       recoveryArmyPerLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 저글링이 프로토스 입구에 도착! 질럿과 교전!',
+          text: '{home} 선수, 저글링이 프로토스 입구에 도착! 질럿과 교전!',
           owner: LogOwner.home,
           homeResource: 0,
           awayResource: 0,
@@ -83,10 +83,10 @@ const _zvp4poolVsArchon = ScenarioScript(
           homeArmy: 0,
           awayArmy: 0,
           homeResource: 0,
-          awayResource: -10,          altText: '{home}, 프로브 사냥! 일꾼이 줄어듭니다!',
+          awayResource: -10,          altText: '{home} 선수, 프로브 사냥! 일꾼이 줄어듭니다!',
         ),
         ScriptEvent(
-          text: '{away}, 추가 질럿으로 저글링을 압박합니다!',
+          text: '{away} 선수, 추가 질럿으로 저글링을 압박합니다!',
           owner: LogOwner.away,
           homeResource: 0,
           awayResource: 0,
@@ -105,7 +105,7 @@ const _zvp4poolVsArchon = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 3, homeResource: -10,
-          altText: '{home}, 저글링 추가 투입! 아콘 전에 끝내야 합니다!',
+          altText: '{home} 선수, 저글링 추가 투입! 아콘 전에 끝내야 합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 아둔까지 건설하면서 하이템플러를 준비합니다!',
@@ -116,7 +116,7 @@ const _zvp4poolVsArchon = ScenarioScript(
           awayResource: -15,
         ),
         ScriptEvent(
-          text: '{away}, 템플러 아카이브가 올라가고 있습니다!',
+          text: '{away} 선수, 템플러 아카이브가 올라가고 있습니다!',
           owner: LogOwner.away,
           homeArmy: 0,
           awayArmy: 0,
@@ -144,7 +144,7 @@ const _zvp4poolVsArchon = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 저글링이 하이템플러 완성 전에 돌파합니다! 프로브 전멸!',
+              text: '{home} 선수, 저글링이 하이템플러 완성 전에 돌파합니다! 프로브 전멸!',
               owner: LogOwner.home,
               homeArmy: 0,
               homeResource: 0,
@@ -166,7 +166,7 @@ const _zvp4poolVsArchon = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 질럿으로 저글링을 막고 하이템플러가 합류합니다!',
+              text: '{away} 선수, 질럿으로 저글링을 막고 하이템플러가 합류합니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,

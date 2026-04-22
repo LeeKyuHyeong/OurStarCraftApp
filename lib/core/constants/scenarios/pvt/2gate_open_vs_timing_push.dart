@@ -30,7 +30,7 @@ const _pvt2gateOpenVsTimingPush = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 배럭 건설 후 빠르게 가스!',
+          altText: '{away} 선수, 배럭 건설 후 빠르게 가스!',
         ),
         ScriptEvent(
           text: '{home} 선수 두 번째 게이트웨이를 올립니다! 질럿 물량으로 가겠네요!',
@@ -39,7 +39,7 @@ const _pvt2gateOpenVsTimingPush = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 게이트웨이가 두 개! 공격적입니다!',
+          altText: '{home} 선수, 게이트웨이가 두 개! 공격적입니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리 건설! 머신샵을 붙이고 시즈 모드를 연구합니다!',
@@ -79,7 +79,7 @@ const _pvt2gateOpenVsTimingPush = ScenarioScript(
           homeResource: 0,
           awayResource: 0,
           homeArmy: 1,
-          altText: '{home}, 질럿 포크! 일꾼을 노립니다!',
+          altText: '{home} 선수, 질럿 포크! 일꾼을 노립니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린과 벌처로 질럿을 방어합니다!',
@@ -96,7 +96,7 @@ const _pvt2gateOpenVsTimingPush = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 사이버네틱스 코어 건설! 드라군이 필요합니다!',
+          altText: '{home} 선수, 사이버네틱스 코어 건설! 드라군이 필요합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 시즈 탱크와 마린을 모아 전진 준비합니다!',
@@ -137,7 +137,7 @@ const _pvt2gateOpenVsTimingPush = ScenarioScript(
           homeResource: 0,
           awayArmy: 2,
           awayResource: -10,
-          altText: '{away}, 마린 탱크 푸시! 프로토스 앞마당을 노립니다!',
+          altText: '{away} 선수, 마린 탱크 푸시! 프로토스 앞마당을 노립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 넥서스를 올리고 있습니다! 타이밍이 빠듯합니다!',
@@ -181,7 +181,7 @@ const _pvt2gateOpenVsTimingPush = ScenarioScript(
               awayResource: 0,
               homeArmy: 3,
               awayArmy: -3,
-              altText: '{home}, 드라군 사정거리! 탱크를 하나씩 잡아냅니다!',
+              altText: '{home} 선수, 드라군 사정거리! 탱크를 하나씩 잡아냅니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 탱크 포격이 빗나갑니다! 드라군 컨트롤이 좋습니다!',
@@ -230,7 +230,7 @@ const _pvt2gateOpenVsTimingPush = ScenarioScript(
               awayResource: 0,
               awayArmy: 2,
               homeArmy: -4,
-              altText: '{away}, 탱크가 포격합니다! 상대 병력이 한 방에 녹습니다!',
+              altText: '{away} 선수, 탱크가 포격합니다! 상대 병력이 한 방에 녹습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 드라군이 부족합니다! 아직 물량이 모이지 않았습니다!',

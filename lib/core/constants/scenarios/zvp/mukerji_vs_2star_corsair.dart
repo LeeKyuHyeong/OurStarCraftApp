@@ -22,7 +22,7 @@ const _zvpMukerjiVs2starCorsair = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: 10,
-          altText: '{home}, 드론 풀가동! 앞마당 해처리도 건설 중입니다.',
+          altText: '{home} 선수, 드론 풀가동! 앞마당 해처리도 건설 중입니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 스타게이트 2개를 연달아 올립니다!',
@@ -31,7 +31,7 @@ const _zvpMukerjiVs2starCorsair = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 더블 스타게이트! 커세어를 대량 생산할 준비!',
+          altText: '{away} 선수, 더블 스타게이트! 커세어를 대량 생산할 준비!',
         ),
         ScriptEvent(
           text: '{home} 선수 레어 업그레이드를 시작합니다. 스파이어가 목표!',
@@ -71,7 +71,7 @@ const _zvpMukerjiVs2starCorsair = ScenarioScript(
           awayResource: 0,
           homeResource: -10,
           awayArmy: 2,
-          altText: '{away}, 오버로드 사냥! 저그 시야가 줄어듭니다!',
+          altText: '{away} 선수, 오버로드 사냥! 저그 시야가 줄어듭니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 스파이어 완성! 뮤탈리스크를 뽑기 시작합니다!',
@@ -88,7 +88,7 @@ const _zvpMukerjiVs2starCorsair = ScenarioScript(
           awayResource: 0,
           homeArmy: 2,
           homeResource: -5,
-          altText: '{home}, 스커지 생산! 커세어를 잡기 위한 준비!',
+          altText: '{home} 선수, 스커지 생산! 커세어를 잡기 위한 준비!',
         ),
         ScriptEvent(
           text: '{away} 선수 커세어 편대가 뮤탈리스크를 추격합니다!',
@@ -121,7 +121,7 @@ const _zvpMukerjiVs2starCorsair = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{home}, 뮤탈리스크가 프로브를 찍고 빠집니다!',
+          altText: '{home} 선수, 뮤탈리스크가 프로브를 찍고 빠집니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 커세어를 모아 뮤탈리스크를 쫓아냅니다!',
@@ -165,7 +165,7 @@ const _zvpMukerjiVs2starCorsair = ScenarioScript(
               awayResource: 0,
               awayArmy: -5,
               homeArmy: -1,
-              altText: '{home}, 스커지 돌진! 커세어가 한 번에 3기 폭발!',
+              altText: '{home} 선수, 스커지 돌진! 커세어가 한 번에 3기 폭발!',
             ),
             ScriptEvent(
               text: '{home} 선수 뮤탈리스크가 자유롭게 프로토스 본진을 유린합니다!',
@@ -206,7 +206,7 @@ const _zvpMukerjiVs2starCorsair = ScenarioScript(
               awayResource: 0,
               awayArmy: 3,
               homeArmy: -5,
-              altText: '{away}, 커세어 뉴트론 플레어! 뮤탈리스크가 녹아내립니다!',
+              altText: '{away} 선수, 커세어 뉴트론 플레어! 뮤탈리스크가 녹아내립니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 지상 병력도 합류! 사이버네틱스 코어의 드라군이 저글링을 막아냅니다!',

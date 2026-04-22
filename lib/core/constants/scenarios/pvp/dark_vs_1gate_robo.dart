@@ -38,7 +38,7 @@ const _pvpDarkVs1gateRobo = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 아둔으로 갑니다! 다크를 노리는 빌드!',
+          altText: '{home} 선수, 아둔으로 갑니다! 다크를 노리는 빌드!',
         ),
         ScriptEvent(
           text: '{away} 선수 사이버네틱스 코어 건설! 로보틱스를 준비합니다!',
@@ -55,7 +55,7 @@ const _pvpDarkVs1gateRobo = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 로보틱스! 옵저버가 나오면 다크를 잡을 수 있어요!',
+          altText: '{away} 선수, 로보틱스! 옵저버가 나오면 다크를 잡을 수 있어요!',
         ),
         ScriptEvent(
           text: '{home} 선수 템플러 아카이브 건설! 다크 확정!',
@@ -76,7 +76,7 @@ const _pvpDarkVs1gateRobo = ScenarioScript(
           owner: LogOwner.home,
           awayResource: 0,
           homeArmy: 3, awayArmy: 2, homeResource: -20,
-          altText: '{home}, 다크 출격! 로보틱스가 있으면 위험합니다!',
+          altText: '{home} 선수, 다크 출격! 로보틱스가 있으면 위험합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 로보틱스에서 옵저버를 생산 중입니다!',
@@ -105,7 +105,7 @@ const _pvpDarkVs1gateRobo = ScenarioScript(
           baseProbability: 0.7,
           events: [
             ScriptEvent(
-              text: '{home}, 다크가 먼저 도착합니다! 옵저버가 아직입니다!',
+              text: '{home} 선수, 다크가 먼저 도착합니다! 옵저버가 아직입니다!',
               owner: LogOwner.home,
               awayArmy: 0,
               homeResource: 0,
@@ -120,7 +120,7 @@ const _pvpDarkVs1gateRobo = ScenarioScript(
               awayResource: -15,
             ),
             ScriptEvent(
-              text: '{home}, 프로브를 학살합니다! 옵저버가 나와도 이미 늦었어요!',
+              text: '{home} 선수, 프로브를 학살합니다! 옵저버가 나와도 이미 늦었어요!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -148,10 +148,10 @@ const _pvpDarkVs1gateRobo = ScenarioScript(
               homeArmy: 0,
               homeResource: 0,
               awayResource: 0,
-              awayArmy: 2,              altText: '{away}, 옵저버! 다크를 완벽하게 포착합니다!',
+              awayArmy: 2,              altText: '{away} 선수, 옵저버! 다크를 완벽하게 포착합니다!',
             ),
             ScriptEvent(
-              text: '{away}, 드라군이 다크를 집중 사격! 한 기 격파!',
+              text: '{away} 선수, 드라군이 다크를 집중 사격! 한 기 격파!',
               owner: LogOwner.away,
               awayArmy: 0,
               homeResource: 0,
@@ -165,7 +165,7 @@ const _pvpDarkVs1gateRobo = ScenarioScript(
               homeResource: -15, homeArmy: -2,
             ),
             ScriptEvent(
-              text: '{away}, 셔틀 리버까지 준비합니다! 다크 올인 완전 실패!',
+              text: '{away} 선수, 셔틀 리버까지 준비합니다! 다크 올인 완전 실패!',
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,

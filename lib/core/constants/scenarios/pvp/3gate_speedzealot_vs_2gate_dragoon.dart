@@ -38,7 +38,7 @@ const _pvp3gateSpeedzealotVs2gateDragoon = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 아둔! 질럿 각속 업그레이드를 노리네요!',
+          altText: '{home} 선수, 아둔! 질럿 각속 업그레이드를 노리네요!',
         ),
         ScriptEvent(
           text: '{away} 선수 사이버네틱스 코어 건설! 드라군 준비!',
@@ -55,7 +55,7 @@ const _pvp3gateSpeedzealotVs2gateDragoon = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -30,
-          altText: '{home}, 게이트웨이가 벌써 세 개! 질럿 물량이 나오겠네요!',
+          altText: '{home} 선수, 게이트웨이가 벌써 세 개! 질럿 물량이 나오겠네요!',
         ),
         ScriptEvent(
           text: '{away} 선수 두 번째 게이트웨이! 드라군을 모읍니다!',
@@ -72,7 +72,7 @@ const _pvp3gateSpeedzealotVs2gateDragoon = ScenarioScript(
       name: 'speedzealot_push',
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 각속 업그레이드 완료! 스피드질럿이 돌진합니다!',
+          text: '{home} 선수, 각속 업그레이드 완료! 스피드질럿이 돌진합니다!',
           owner: LogOwner.home,
           homeResource: 0,
           awayResource: 0,
@@ -105,7 +105,7 @@ const _pvp3gateSpeedzealotVs2gateDragoon = ScenarioScript(
           baseProbability: 0.95,
           events: [
             ScriptEvent(
-              text: '{home}, 스피드질럿이 드라군에 달라붙습니다! 수가 너무 많아요!',
+              text: '{home} 선수, 스피드질럿이 드라군에 달라붙습니다! 수가 너무 많아요!',
               owner: LogOwner.home,
               homeArmy: 0,
               homeResource: 0,
@@ -121,7 +121,7 @@ const _pvp3gateSpeedzealotVs2gateDragoon = ScenarioScript(
               awayArmy: -2,
             ),
             ScriptEvent(
-              text: '{home}, 본진으로 돌진합니다! 프로브까지 노립니다!',
+              text: '{home} 선수, 본진으로 돌진합니다! 프로브까지 노립니다!',
               owner: LogOwner.home,
               awayArmy: 0,
               homeResource: 0,
@@ -143,7 +143,7 @@ const _pvp3gateSpeedzealotVs2gateDragoon = ScenarioScript(
           baseProbability: 1.05,
           events: [
             ScriptEvent(
-              text: '{away}, 드라군이 거리를 유지하며 질럿을 잡아냅니다!',
+              text: '{away} 선수, 드라군이 거리를 유지하며 질럿을 잡아냅니다!',
               owner: LogOwner.away,
               awayArmy: 0,
               homeResource: 0,
@@ -159,7 +159,7 @@ const _pvp3gateSpeedzealotVs2gateDragoon = ScenarioScript(
               homeArmy: -3,
             ),
             ScriptEvent(
-              text: '{away}, 사이버네틱스 코어에서 드라군 사거리 업그레이드! 격차가 벌어집니다!',
+              text: '{away} 선수, 사이버네틱스 코어에서 드라군 사거리 업그레이드! 격차가 벌어집니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,

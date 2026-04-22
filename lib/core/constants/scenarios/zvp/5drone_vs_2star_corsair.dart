@@ -22,7 +22,7 @@ const _zvp5droneVs2starCorsair = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 드론 5마리 후 스포닝풀! 올인을 준비합니다!',
+          altText: '{home} 선수, 드론 5마리 후 스포닝풀! 올인을 준비합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 스타게이트 두 기를 건설합니다! 커세어 대량 생산!',
@@ -31,7 +31,7 @@ const _zvp5droneVs2starCorsair = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -25,
-          altText: '{away}, 스타게이트가 두 개! 커세어를 빠르게 모으려 합니다!',
+          altText: '{away} 선수, 스타게이트가 두 개! 커세어를 빠르게 모으려 합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링과 발업이 동시에 나옵니다!',
@@ -46,7 +46,7 @@ const _zvp5droneVs2starCorsair = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 2, awayResource: -10,
-          altText: '{away}, 질럿 생산! 스타게이트에 자원을 많이 쓴 상태!',
+          altText: '{away} 선수, 질럿 생산! 스타게이트에 자원을 많이 쓴 상태!',
         ),
         ScriptEvent(
           text: '스타게이트 두 기에 투자했으니 지상이 약할 수밖에 없죠!',
@@ -65,7 +65,7 @@ const _zvp5droneVs2starCorsair = ScenarioScript(
       recoveryArmyPerLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 발업 저글링이 프로토스 본진에 도착합니다!',
+          text: '{home} 선수, 발업 저글링이 프로토스 본진에 도착합니다!',
           owner: LogOwner.home,
           awayArmy: 0,
           homeResource: 0,
@@ -78,17 +78,17 @@ const _zvp5droneVs2starCorsair = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: 0,
-          homeArmy: -1,          altText: '{away}, 질럿으로 버텨야 합니다! 커세어는 도움이 안 되죠!',
+          homeArmy: -1,          altText: '{away} 선수, 질럿으로 버텨야 합니다! 커세어는 도움이 안 되죠!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링이 질럿을 에워싸고 공격합니다!',
           owner: LogOwner.home,
           homeResource: 0,
           awayResource: 0,
-          awayArmy: -1, homeArmy: -1,          altText: '{home}, 서라운드! 질럿을 포위합니다!',
+          awayArmy: -1, homeArmy: -1,          altText: '{home} 선수, 서라운드! 질럿을 포위합니다!',
         ),
         ScriptEvent(
-          text: '{away}, 프로브까지 동원해서 저글링을 막으려 합니다!',
+          text: '{away} 선수, 프로브까지 동원해서 저글링을 막으려 합니다!',
           owner: LogOwner.away,
           awayArmy: 0,
           homeResource: 0,
@@ -116,7 +116,7 @@ const _zvp5droneVs2starCorsair = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 3, homeResource: -10,
-          altText: '{home}, 저글링 물량 투입! 돌파를 시도합니다!',
+          altText: '{home} 선수, 저글링 물량 투입! 돌파를 시도합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 커세어가 나오지만 지상에서는 무력합니다!',
@@ -126,14 +126,14 @@ const _zvp5droneVs2starCorsair = ScenarioScript(
           awayArmy: 1, awayResource: -10,
         ),
         ScriptEvent(
-          text: '{away}, 추가 질럿을 생산하면서 입구를 지킵니다!',
+          text: '{away} 선수, 추가 질럿을 생산하면서 입구를 지킵니다!',
           owner: LogOwner.away,
           homeResource: 0,
           awayResource: 0,
           awayArmy: 2, homeArmy: -2,          altText: '{away} 선수 질럿 추가! 입구 방어에 집중합니다!',
         ),
         ScriptEvent(
-          text: '{home}, 발업 저글링이 질럿 옆을 파고듭니다!',
+          text: '{home} 선수, 발업 저글링이 질럿 옆을 파고듭니다!',
           owner: LogOwner.home,
           homeArmy: 0,
           awayArmy: 0,
@@ -152,7 +152,7 @@ const _zvp5droneVs2starCorsair = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 저글링이 질럿을 뚫고 프로브를 전멸시킵니다!',
+              text: '{home} 선수, 저글링이 질럿을 뚫고 프로브를 전멸시킵니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               homeResource: 0,
@@ -175,7 +175,7 @@ const _zvp5droneVs2starCorsair = ScenarioScript(
           conditionStat: 'defense',
           events: [
             ScriptEvent(
-              text: '{away}, 질럿이 저글링을 전부 잡고 커세어로 오버로드를 사냥합니다!',
+              text: '{away} 선수, 질럿이 저글링을 전부 잡고 커세어로 오버로드를 사냥합니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,

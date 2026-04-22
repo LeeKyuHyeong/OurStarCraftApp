@@ -38,7 +38,7 @@ const _pvpZealotRushVs3gateSpeedzealot = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 센터 게이트! 질럿을 빠르게 보냅니다!',
+          altText: '{home} 선수, 센터 게이트! 질럿을 빠르게 보냅니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 아둔 건설! 스피드질럿을 준비합니다!',
@@ -47,7 +47,7 @@ const _pvpZealotRushVs3gateSpeedzealot = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 아둔! 각속 업그레이드를 노립니다!',
+          altText: '{away} 선수, 아둔! 각속 업그레이드를 노립니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 세 번째 게이트웨이를 올립니다!',
@@ -73,7 +73,7 @@ const _pvpZealotRushVs3gateSpeedzealot = ScenarioScript(
       name: 'zealot_rush',
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 질럿 3기가 돌진합니다! 각속 전에 끝내야 합니다!',
+          text: '{home} 선수, 질럿 3기가 돌진합니다! 각속 전에 끝내야 합니다!',
           owner: LogOwner.home,
           awayArmy: 0,
           homeResource: 0,
@@ -108,7 +108,7 @@ const _pvpZealotRushVs3gateSpeedzealot = ScenarioScript(
           baseProbability: 0.9,
           events: [
             ScriptEvent(
-              text: '{home}, 질럿이 상대 질럿을 밀어냅니다! 수적 우위!',
+              text: '{home} 선수, 질럿이 상대 질럿을 밀어냅니다! 수적 우위!',
               owner: LogOwner.home,
               homeArmy: 0,
               homeResource: 0,
@@ -124,7 +124,7 @@ const _pvpZealotRushVs3gateSpeedzealot = ScenarioScript(
               awayResource: -10,
             ),
             ScriptEvent(
-              text: '{home}, 프로브까지 잡습니다! 러시 성공!',
+              text: '{home} 선수, 프로브까지 잡습니다! 러시 성공!',
               owner: LogOwner.home,
               awayArmy: 0,
               homeResource: 0,
@@ -146,7 +146,7 @@ const _pvpZealotRushVs3gateSpeedzealot = ScenarioScript(
           baseProbability: 1.1,
           events: [
             ScriptEvent(
-              text: '{away}, 각속 완료! 스피드질럿이 쏟아집니다!',
+              text: '{away} 선수, 각속 완료! 스피드질럿이 쏟아집니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,
@@ -162,7 +162,7 @@ const _pvpZealotRushVs3gateSpeedzealot = ScenarioScript(
               homeArmy: -3,
             ),
             ScriptEvent(
-              text: '{away}, 게이트웨이 세 개에서 스피드질럿이 끊임없이 나옵니다!',
+              text: '{away} 선수, 게이트웨이 세 개에서 스피드질럿이 끊임없이 나옵니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,

@@ -38,7 +38,7 @@ const _pvtReaverPushVsTimingPush = ScenarioScript(
           awayResource: 0,
           homeArmy: 2,
           homeResource: -10,
-          altText: '{home}, 드라군 생산! 초반 방어 병력을 확보합니다.',
+          altText: '{home} 선수, 드라군 생산! 초반 방어 병력을 확보합니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 팩토리에서 벌처를 뽑으면서 타이밍을 준비합니다.',
@@ -55,7 +55,7 @@ const _pvtReaverPushVsTimingPush = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 로보틱스와 서포트 베이가 올라갑니다! 빠른 셔틀 빌드!',
+          altText: '{home} 선수, 로보틱스와 서포트 베이가 올라갑니다! 빠른 셔틀 빌드!',
         ),
         ScriptEvent(
           text: '{away} 선수 아카데미 건설 후 마린 메딕 생산을 시작합니다.',
@@ -95,7 +95,7 @@ const _pvtReaverPushVsTimingPush = ScenarioScript(
           homeResource: 0,
           awayArmy: 4,
           awayResource: -15,
-          altText: '{away}, 마린 메딕 부대가 프로토스를 향해 출발합니다!',
+          altText: '{away} 선수, 마린 메딕 부대가 프로토스를 향해 출발합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 리버 스캐럽이 테란 앞마당에서 SCV를 잡습니다!',
@@ -136,7 +136,7 @@ const _pvtReaverPushVsTimingPush = ScenarioScript(
           homeResource: 0,
           awayResource: 0,
           awayArmy: 3,
-          altText: '{away}, 마린 메딕이 프로토스 진영에 모습을 드러냅니다!',
+          altText: '{away} 선수, 마린 메딕이 프로토스 진영에 모습을 드러냅니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 드라군으로 입구를 막으면서 리버를 회수합니다.',
@@ -181,7 +181,7 @@ const _pvtReaverPushVsTimingPush = ScenarioScript(
               awayResource: 0,
               homeArmy: 2,
               awayArmy: -4,
-              altText: '{home}, 스캐럽이 마린 집단에 떨어집니다! 엄청난 피해!',
+              altText: '{home} 선수, 스캐럽이 마린 집단에 떨어집니다! 엄청난 피해!',
             ),
             ScriptEvent(
               text: '{away} 선수 메딕이 힐을 하지만 화력이 부족합니다!',
@@ -222,7 +222,7 @@ const _pvtReaverPushVsTimingPush = ScenarioScript(
               awayResource: 0,
               awayArmy: 3,
               homeArmy: -3,
-              altText: '{away}, 마린 화력이 드라군을 녹입니다!',
+              altText: '{away} 선수, 마린 화력이 드라군을 녹입니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 리버 스캐럽이 빗나갑니다! 치명적인 실수!',

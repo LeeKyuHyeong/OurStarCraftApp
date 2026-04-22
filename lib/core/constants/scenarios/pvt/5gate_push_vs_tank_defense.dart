@@ -22,7 +22,7 @@ const _pvt5gatePushVsTankDefense = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 게이트웨이에 사이버네틱스 코어! 드라군 준비!',
+          altText: '{home} 선수, 게이트웨이에 사이버네틱스 코어! 드라군 준비!',
         ),
         ScriptEvent(
           text: '{away} 선수 배럭과 팩토리를 건설합니다.',
@@ -47,7 +47,7 @@ const _pvt5gatePushVsTankDefense = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 시즈 모드 연구! 탱크가 자리 잡으면 뚫기 어렵습니다!',
+          altText: '{away} 선수, 시즈 모드 연구! 탱크가 자리 잡으면 뚫기 어렵습니다!',
         ),
         ScriptEvent(
           text: '프로토스 게이트웨이 물량 vs 테란 탱크 수비! 고전적인 대결 구도입니다!',
@@ -79,7 +79,7 @@ const _pvt5gatePushVsTankDefense = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 아둔 건설! 스피드 질럿을 준비합니다!',
+          altText: '{home} 선수, 아둔 건설! 스피드 질럿을 준비합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 시즈 탱크가 앞마당에 자리 잡습니다!',
@@ -96,7 +96,7 @@ const _pvt5gatePushVsTankDefense = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 게이트웨이 다섯 개 완성! 병력 생산 속도가 빨라집니다!',
+          altText: '{home} 선수, 게이트웨이 다섯 개 완성! 병력 생산 속도가 빨라집니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 벙커를 세우고 터렛도 올립니다! 수비가 단단합니다!',
@@ -153,7 +153,7 @@ const _pvt5gatePushVsTankDefense = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -30,
-          altText: '{away}, 확장! 탱크 수비를 믿고 자원을 확보합니다!',
+          altText: '{away} 선수, 확장! 탱크 수비를 믿고 자원을 확보합니다!',
         ),
         ScriptEvent(
           text: '게이트웨이 물량이 모였습니다! 돌파할 수 있을지 지켜봅시다!',
@@ -181,7 +181,7 @@ const _pvt5gatePushVsTankDefense = ScenarioScript(
               awayResource: 0,
               homeArmy: 3,
               awayArmy: -4,
-              altText: '{home}, 스피드 질럿 우회! 탱크 시즈 라인 측면을 찌릅니다!',
+              altText: '{home} 선수, 스피드 질럿 우회! 탱크 시즈 라인 측면을 찌릅니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 탱크가 아군을 맞힙니다! 시즈 모드의 약점이죠!',
@@ -230,7 +230,7 @@ const _pvt5gatePushVsTankDefense = ScenarioScript(
               awayResource: 0,
               awayArmy: 3,
               homeArmy: -5,
-              altText: '{away}, 탱크가 포격합니다! 상대 병력이 몰려 있다가 한 방에 녹습니다!',
+              altText: '{away} 선수, 탱크가 포격합니다! 상대 병력이 몰려 있다가 한 방에 녹습니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 질럿이 탱크에 접근하지만 마린이 막습니다!',

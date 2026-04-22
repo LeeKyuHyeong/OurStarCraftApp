@@ -30,7 +30,7 @@ const _pvtReaverArbiterVsUpgrade = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 엔지니어링 베이! 공방 업그레이드를 노립니다!',
+          altText: '{away} 선수, 엔지니어링 베이! 공방 업그레이드를 노립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 로보틱스와 서포트 베이를 건설하고 넥서스를 확장합니다.',
@@ -39,7 +39,7 @@ const _pvtReaverArbiterVsUpgrade = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -25,
-          altText: '{home}, 로보틱스, 서포트 베이와 넥서스 확장을 동시에! 매크로 빌드!',
+          altText: '{home} 선수, 로보틱스, 서포트 베이와 넥서스 확장을 동시에! 매크로 빌드!',
         ),
         ScriptEvent(
           text: '{away} 선수 아머리를 올리면서 1-1 업그레이드를 시작합니다.',
@@ -88,7 +88,7 @@ const _pvtReaverArbiterVsUpgrade = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 템플러 아카이브가 올라갑니다! 사이오닉 스톰!',
+          altText: '{home} 선수, 템플러 아카이브가 올라갑니다! 사이오닉 스톰!',
         ),
         ScriptEvent(
           text: '{away} 선수 2-2 업그레이드를 시작합니다! 병력 질이 올라가겠네요!',
@@ -97,7 +97,7 @@ const _pvtReaverArbiterVsUpgrade = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 2-2 업그레이드 진행 중! 마린이 점점 강해집니다!',
+          altText: '{away} 선수, 2-2 업그레이드 진행 중! 마린이 점점 강해집니다!',
         ),
         ScriptEvent(
           text: '테크 대 업그레이드! 어느 쪽 투자가 더 빛을 발할까요!',
@@ -129,7 +129,7 @@ const _pvtReaverArbiterVsUpgrade = ScenarioScript(
           homeResource: 0,
           awayArmy: 5,
           awayResource: -20,
-          altText: '{away}, 3-3 업그레이드 마린! 한 기 한 기가 무섭습니다!',
+          altText: '{away} 선수, 3-3 업그레이드 마린! 한 기 한 기가 무섭습니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 하이 템플러도 합류합니다! 스톰 에너지 충전 중!',
@@ -166,7 +166,7 @@ const _pvtReaverArbiterVsUpgrade = ScenarioScript(
               awayResource: 0,
               homeArmy: 2,
               awayArmy: -5,
-              altText: '{home}, 스톰 한 방에 상대 병력이 녹아내립니다!',
+              altText: '{home} 선수, 스톰 한 방에 상대 병력이 녹아내립니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 아비터 리콜로 테란 확장 기지를 공격합니다!',
@@ -207,7 +207,7 @@ const _pvtReaverArbiterVsUpgrade = ScenarioScript(
               awayResource: 0,
               awayArmy: 4,
               homeArmy: -2,
-              altText: '{away}, 마린이 깔끔하게 산개합니다! 스톰 피해가 적어요!',
+              altText: '{away} 선수, 마린이 깔끔하게 산개합니다! 스톰 피해가 적어요!',
             ),
             ScriptEvent(
               text: '{away} 선수 사이언스 베슬 EMP로 아비터 에너지를 제거합니다!',

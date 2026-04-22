@@ -38,7 +38,7 @@ const _pvp4gateVsMulti = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 사이버네틱스 코어 건설!',
+          altText: '{home} 선수, 사이버네틱스 코어 건설!',
         ),
         ScriptEvent(
           text: '{away} 선수 넥서스를 빠르게 건설합니다! 원겟 멀티!',
@@ -47,7 +47,7 @@ const _pvp4gateVsMulti = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -30,
-          altText: '{away}, 빠른 확장! 자원 이점을 가져가겠다는 의도!',
+          altText: '{away} 선수, 빠른 확장! 자원 이점을 가져가겠다는 의도!',
         ),
         ScriptEvent(
           text: '{away} 선수 사이버네틱스 코어 건설! 드라군 준비!',
@@ -62,7 +62,7 @@ const _pvp4gateVsMulti = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 4, homeResource: -30,
-          altText: '{home}, 게이트웨이 추가! 드라군을 빠르게 모읍니다!',
+          altText: '{home} 선수, 게이트웨이 추가! 드라군을 빠르게 모읍니다!',
         ),
       ],
     ),
@@ -71,7 +71,7 @@ const _pvp4gateVsMulti = ScenarioScript(
       name: 'dragoon_pressure',
       linearEvents: [
         ScriptEvent(
-          text: '{home}, 드라군 편대가 전진합니다! 멀티를 노립니다!',
+          text: '{home} 선수, 드라군 편대가 전진합니다! 멀티를 노립니다!',
           owner: LogOwner.home,
           awayArmy: 0,
           awayResource: 0,
@@ -83,7 +83,7 @@ const _pvp4gateVsMulti = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 6, awayResource: -15,
-          altText: '{away}, 드라군 수가 부족합니다! 시간을 벌어야 해요!',
+          altText: '{away} 선수, 드라군 수가 부족합니다! 시간을 벌어야 해요!',
         ),
         ScriptEvent(
           text: '드라군 물량 vs 확장! 시간이 핵심입니다!',
@@ -106,7 +106,7 @@ const _pvp4gateVsMulti = ScenarioScript(
           baseProbability: 0.15,
           events: [
             ScriptEvent(
-              text: '{home}, 드라군 물량으로 상대 앞마당을 밀어냅니다!',
+              text: '{home} 선수, 드라군 물량으로 상대 앞마당을 밀어냅니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               homeResource: 0,
@@ -121,7 +121,7 @@ const _pvp4gateVsMulti = ScenarioScript(
               awayArmy: -1,
             ),
             ScriptEvent(
-              text: '{home}, 앞마당 넥서스를 공격합니다! 확장을 무너뜨립니다!',
+              text: '{home} 선수, 앞마당 넥서스를 공격합니다! 확장을 무너뜨립니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -144,7 +144,7 @@ const _pvp4gateVsMulti = ScenarioScript(
           baseProbability: 1.85,
           events: [
             ScriptEvent(
-              text: '{away}, 드라군과 질럿으로 앞마당을 지켜냅니다!',
+              text: '{away} 선수, 드라군과 질럿으로 앞마당을 지켜냅니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,
@@ -160,7 +160,7 @@ const _pvp4gateVsMulti = ScenarioScript(
               decisive: true,
             ),
             ScriptEvent(
-              text: '{away}, 게이트웨이가 추가로 돌아갑니다! 멀티 자원이 빛을 발합니다!',
+              text: '{away} 선수, 게이트웨이가 추가로 돌아갑니다! 멀티 자원이 빛을 발합니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,
@@ -198,7 +198,7 @@ const _pvp4gateVsMulti = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 5, awayResource: -15,
-          altText: '{away}, 멀티의 자원이 빛을 발합니다! 병력 보충이 빠릅니다!',
+          altText: '{away} 선수, 멀티의 자원이 빛을 발합니다! 병력 보충이 빠릅니다!',
         ),
         ScriptEvent(
           text: '{home} 선수도 병력을 모읍니다! 아직 포기할 수 없습니다!',
@@ -206,10 +206,10 @@ const _pvp4gateVsMulti = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 3, homeResource: -20,
-          altText: '{home}, 게이트웨이에서 드라군이 나옵니다!',
+          altText: '{home} 선수, 게이트웨이에서 드라군이 나옵니다!',
         ),
         ScriptEvent(
-          text: '{away}, 드라군 편대가 전진합니다! 멀티의 힘!',
+          text: '{away} 선수, 드라군 편대가 전진합니다! 멀티의 힘!',
           owner: LogOwner.away,
           homeArmy: 0,
           homeResource: 0,

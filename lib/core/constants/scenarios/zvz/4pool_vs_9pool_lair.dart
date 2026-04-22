@@ -26,7 +26,7 @@ const _zvz4PoolVs9poolLair = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 4드론에 스포닝풀을 올립니다! 극초반 올인이네요!',
+          altText: '{home} 선수, 4드론에 스포닝풀을 올립니다! 극초반 올인이네요!',
         ),
         ScriptEvent(
           text: '{away} 선수 9드론에 스포닝풀과 익스트랙터를 동시에 건설합니다!',
@@ -35,7 +35,7 @@ const _zvz4PoolVs9poolLair = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 9드론에 스포닝풀과 가스를 동시에! 빠른 테크를 노리나봅니다!',
+          altText: '{away} 선수, 9드론에 스포닝풀과 가스를 동시에! 빠른 테크를 노리나봅니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링이 빠르게 나옵니다! 상대로 출발!',
@@ -43,7 +43,7 @@ const _zvz4PoolVs9poolLair = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 6, homeResource: -15,
-          altText: '{home}, 저글링이 달려갑니다!',
+          altText: '{home} 선수, 저글링이 달려갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 저글링 6기 생산! 가스 100이 모이면 바로 레어 진화 예정!',
@@ -51,7 +51,7 @@ const _zvz4PoolVs9poolLair = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 6, awayResource: -10,
-          altText: '{away}, 저글링이 나왔습니다! 레어 진화를 준비합니다!',
+          altText: '{away} 선수, 저글링이 나왔습니다! 레어 진화를 준비합니다!',
         ),
         ScriptEvent(
           text: '상대도 저글링이 먼저 나와있습니다! 스포닝풀 타이밍이 같아서 저글링이 이미 있네요!',
@@ -76,7 +76,7 @@ const _zvz4PoolVs9poolLair = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: 0,
-          altText: '{home}, 저글링 도착! 상대도 저글링이 있습니다!',
+          altText: '{home} 선수, 저글링 도착! 상대도 저글링이 있습니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 저글링으로 수비합니다! 가스 드론을 미네랄로 돌려서 추가 생산 준비!',
@@ -85,7 +85,7 @@ const _zvz4PoolVs9poolLair = ScenarioScript(
           homeResource: 0,
           awayResource: 0,
           awayArmy: 1,
-          altText: '{away}, 빠른 스포닝풀을 확인하고 가스 드론을 미네랄로 전환! 저글링 보충에 집중!',
+          altText: '{away} 선수, 빠른 스포닝풀을 확인하고 가스 드론을 미네랄로 전환! 저글링 보충에 집중!',
         ),
         ScriptEvent(
           text: '저글링 6기 대 6기! 드론 수가 9기라 수비하는 쪽이 유리합니다!',
@@ -113,7 +113,7 @@ const _zvz4PoolVs9poolLair = ScenarioScript(
               text: '{home} 선수 저글링이 교전하면서 드론도 물어뜯습니다!',
               owner: LogOwner.home,
               homeResource: 0,
-              awayResource: -15, awayArmy: -3, homeArmy: -3,              altText: '{home}, 저글링 서라운드! 수비 저글링을 잡으면서 드론까지!',
+              awayResource: -15, awayArmy: -3, homeArmy: -3,              altText: '{home} 선수, 저글링 서라운드! 수비 저글링을 잡으면서 드론까지!',
             ),
             ScriptEvent(
               text: '{away} 선수 가스 드론을 옮기지만 이미 드론이 많이 빠졌습니다!',
@@ -121,14 +121,14 @@ const _zvz4PoolVs9poolLair = ScenarioScript(
               homeArmy: 0,
               homeResource: 0,
               awayArmy: 1, awayResource: -10,
-              altText: '{away}, 뒤늦게 가스 드론을 미네랄로 옮기지만 드론 손실이 큽니다!',
+              altText: '{away} 선수, 뒤늦게 가스 드론을 미네랄로 옮기지만 드론 손실이 큽니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 추가 저글링 투입! 드론 수를 더 벌려놓습니다!',
               owner: LogOwner.home,
               awayArmy: 0,
               homeResource: 0,
-              homeArmy: 2, awayResource: -10,              altText: '{home}, 초반 러시의 끈질긴 압박! 드론 차이를 좁혔습니다!',
+              homeArmy: 2, awayResource: -10,              altText: '{home} 선수, 초반 러시의 끈질긴 압박! 드론 차이를 좁혔습니다!',
             ),
             ScriptEvent(
               text: '초반 저글링이 드론을 충분히 잡았습니다! 레어 진화가 무의미해졌습니다!',
@@ -154,7 +154,7 @@ const _zvz4PoolVs9poolLair = ScenarioScript(
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,
-              homeArmy: -3, awayArmy: -2,              altText: '{away}, 저글링과 드론으로 협공! 상대 저글링을 잡아냅니다!',
+              homeArmy: -3, awayArmy: -2,              altText: '{away} 선수, 저글링과 드론으로 협공! 상대 저글링을 잡아냅니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 저글링이 녹습니다! 드론이 4기뿐이라 보충이 안 됩니다!',
@@ -163,14 +163,14 @@ const _zvz4PoolVs9poolLair = ScenarioScript(
               homeResource: 0,
               awayResource: 0,
               homeArmy: -2,
-              altText: '{home}, 초반 저글링이 밀립니다! 라바가 부족합니다!',
+              altText: '{home} 선수, 초반 저글링이 밀립니다! 라바가 부족합니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 수비 성공! 레어 진화도 계속 진행 중입니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,
-              awayArmy: 3, awayResource: -10,              altText: '{away}, 초반 러시를 완벽하게 막았습니다! 레어 진화가 곧 완료됩니다!',
+              awayArmy: 3, awayResource: -10,              altText: '{away} 선수, 초반 러시를 완벽하게 막았습니다! 레어 진화가 곧 완료됩니다!',
             ),
             ScriptEvent(
               text: '초반 러시가 막혔습니다! 레어 진화까지 챙기면서 수비했습니다!',

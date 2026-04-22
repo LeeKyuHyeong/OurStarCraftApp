@@ -22,7 +22,7 @@ const _zvpHydraLurkerVs2starCorsair = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 앞마당 해처리를 올리면서 일꾼을 늘립니다.',
+          altText: '{home} 선수, 앞마당 해처리를 올리면서 일꾼을 늘립니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 사이버네틱스 코어 후 스타게이트를 건설합니다!',
@@ -39,7 +39,7 @@ const _zvpHydraLurkerVs2starCorsair = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 스타게이트가 2개! 커세어를 빠르게 쏟아낼 준비를 합니다!',
+          altText: '{away} 선수, 스타게이트가 2개! 커세어를 빠르게 쏟아낼 준비를 합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 스포닝풀 건설 후 히드라덴으로 전환합니다.',
@@ -71,7 +71,7 @@ const _zvpHydraLurkerVs2starCorsair = ScenarioScript(
           homeResource: 0,
           awayArmy: 3,
           awayResource: -15,
-          altText: '{away}, 커세어가 저그 진영 상공에 도착합니다!',
+          altText: '{away} 선수, 커세어가 저그 진영 상공에 도착합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 오버로드를 사냥합니다! 시야가 사라져요!',
@@ -88,7 +88,7 @@ const _zvpHydraLurkerVs2starCorsair = ScenarioScript(
           awayResource: 0,
           homeArmy: 3,
           homeResource: -15,
-          altText: '{home}, 히드라리스크를 급하게 뽑습니다! 커세어를 막아야 해요!',
+          altText: '{home} 선수, 히드라리스크를 급하게 뽑습니다! 커세어를 막아야 해요!',
         ),
         ScriptEvent(
           text: '{home} 선수 성큰으로 지상 방어를 보강합니다.',
@@ -129,7 +129,7 @@ const _zvpHydraLurkerVs2starCorsair = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 레어에서 럴커 진화가 진행됩니다!',
+          altText: '{home} 선수, 레어에서 럴커 진화가 진행됩니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 커세어를 더 모으면서 지상 병력도 준비합니다.',
@@ -165,7 +165,7 @@ const _zvpHydraLurkerVs2starCorsair = ScenarioScript(
               awayResource: 0,
               homeArmy: 5,
               awayArmy: -3,
-              altText: '{home}, 럴커가 매몰됩니다! 가시가 지상을 지배하네요!',
+              altText: '{home} 선수, 럴커가 매몰됩니다! 가시가 지상을 지배하네요!',
             ),
             ScriptEvent(
               text: '{home} 선수 히드라리스크가 남은 커세어도 정리합니다!',
@@ -206,7 +206,7 @@ const _zvpHydraLurkerVs2starCorsair = ScenarioScript(
               awayArmy: 2,
               homeArmy: -3,
               homeResource: -20,
-              altText: '{away}, 오버로드가 전부 잡혔습니다! 보급이 막힙니다!',
+              altText: '{away} 선수, 오버로드가 전부 잡혔습니다! 보급이 막힙니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 지상 병력이 합류합니다! 드라군이 히드라를 밀어냅니다!',

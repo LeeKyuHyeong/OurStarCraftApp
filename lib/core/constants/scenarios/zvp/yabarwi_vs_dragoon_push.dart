@@ -22,7 +22,7 @@ const _zvpYabarwiVsDragoonPush = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: 10,
-          altText: '{home}, 앞마당 확장! 자원 확보 우선!',
+          altText: '{home} 선수, 앞마당 확장! 자원 확보 우선!',
         ),
         ScriptEvent(
           text: '{away} 선수 사이버네틱스 코어 완성! 드라군 생산을 시작합니다!',
@@ -31,7 +31,7 @@ const _zvpYabarwiVsDragoonPush = ScenarioScript(
           homeResource: 0,
           awayResource: -10,
           awayArmy: 2,
-          altText: '{away}, 사이버네틱스 코어 완성! 드라군 체제 전환!',
+          altText: '{away} 선수, 사이버네틱스 코어 완성! 드라군 체제 전환!',
         ),
         ScriptEvent(
           text: '{home} 선수 스포닝풀에서 저글링 발업을 연구합니다.',
@@ -72,7 +72,7 @@ const _zvpYabarwiVsDragoonPush = ScenarioScript(
           homeResource: 0,
           awayResource: 0,
           awayArmy: 3,
-          altText: '{away}, 드라군 편대 출발! 정면 돌파를 노립니다!',
+          altText: '{away} 선수, 드라군 편대 출발! 정면 돌파를 노립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 저글링을 센터와 프로토스 본진 두 방향으로 보냅니다!',
@@ -81,7 +81,7 @@ const _zvpYabarwiVsDragoonPush = ScenarioScript(
           homeResource: 0,
           awayResource: 0,
           homeArmy: 3,
-          altText: '{home}, 저글링 분산! 가짜 공격을 섞습니다!',
+          altText: '{home} 선수, 저글링 분산! 가짜 공격을 섞습니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 드라군 일부를 본진 방어로 돌립니다!',
@@ -122,7 +122,7 @@ const _zvpYabarwiVsDragoonPush = ScenarioScript(
           homeResource: 0,
           awayResource: 0,
           homeArmy: 3,
-          altText: '{home}, 럴커 매복! 드라군이 접근하면 큰 피해를 입습니다!',
+          altText: '{home} 선수, 럴커 매복! 드라군이 접근하면 큰 피해를 입습니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 드라군이 저그 앞마당에 도착합니다!',
@@ -166,7 +166,7 @@ const _zvpYabarwiVsDragoonPush = ScenarioScript(
               awayResource: 0,
               homeArmy: 4,
               awayArmy: -5,
-              altText: '{home}, 럴커의 스파인 공격! 드라군을 녹여버립니다!',
+              altText: '{home} 선수, 럴커의 스파인 공격! 드라군을 녹여버립니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 저글링이 프로토스 넥서스를 때립니다!',
@@ -207,7 +207,7 @@ const _zvpYabarwiVsDragoonPush = ScenarioScript(
               awayResource: 0,
               awayArmy: 4,
               homeArmy: -5,
-              altText: '{away}, 드라군 마이크로! 럴커 사정거리를 벗어나 사격합니다!',
+              altText: '{away} 선수, 드라군 마이크로! 럴커 사정거리를 벗어나 사격합니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 드라군이 앞마당 해처리를 파괴합니다!',

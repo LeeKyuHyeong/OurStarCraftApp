@@ -38,7 +38,7 @@ const _pvp2gateReaverVs3gateSpeedzealot = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -30,
-          altText: '{home}, 게이트웨이가 두 개! 리버를 준비합니다!',
+          altText: '{home} 선수, 게이트웨이가 두 개! 리버를 준비합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 사이버네틱스 코어! 아둔!',
@@ -47,7 +47,7 @@ const _pvp2gateReaverVs3gateSpeedzealot = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -30,
-          altText: '{away}, 아둔! 스피드 질럿을 노립니다!',
+          altText: '{away} 선수, 아둔! 스피드 질럿을 노립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 로보틱스! 서포트 베이!',
@@ -70,7 +70,7 @@ const _pvp2gateReaverVs3gateSpeedzealot = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 3, homeResource: -25,
-          altText: '{home}, 셔틀 리버! 화력을 준비합니다!',
+          altText: '{home} 선수, 셔틀 리버! 화력을 준비합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 다리 업그레이드! 스피드 질럿!',
@@ -79,7 +79,7 @@ const _pvp2gateReaverVs3gateSpeedzealot = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 다리 업그레이드! 질럿이 빨라집니다!',
+          altText: '{away} 선수, 다리 업그레이드! 질럿이 빨라집니다!',
         ),
       ],
     ),
@@ -88,14 +88,14 @@ const _pvp2gateReaverVs3gateSpeedzealot = ScenarioScript(
       name: 'speedzealot_vs_reaver',
       linearEvents: [
         ScriptEvent(
-          text: '{away}, 스피드 질럿이 쏟아집니다! 게이트웨이 세 개의 물량!',
+          text: '{away} 선수, 스피드 질럿이 쏟아집니다! 게이트웨이 세 개의 물량!',
           owner: LogOwner.away,
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 5, awayResource: -25,          altText: '{away} 선수 스피드 질럿! 빠른 속도로 돌진!',
         ),
         ScriptEvent(
-          text: '{home}, 셔틀 리버에 드라군 호위! 질럿을 막아야!',
+          text: '{home} 선수, 셔틀 리버에 드라군 호위! 질럿을 막아야!',
           owner: LogOwner.home,
           awayArmy: 0,
           homeResource: 0,
@@ -122,7 +122,7 @@ const _pvp2gateReaverVs3gateSpeedzealot = ScenarioScript(
           baseProbability: 1.3,
           events: [
             ScriptEvent(
-              text: '{home}, 리버 스캐럽! 밀집한 질럿에 직격!',
+              text: '{home} 선수, 리버 스캐럽! 밀집한 질럿에 직격!',
               owner: LogOwner.home,
               homeArmy: 0,
               homeResource: 0,
@@ -138,7 +138,7 @@ const _pvp2gateReaverVs3gateSpeedzealot = ScenarioScript(
               awayArmy: -2,
             ),
             ScriptEvent(
-              text: '{home}, 드라군과 리버로 밀어냅니다!',
+              text: '{home} 선수, 드라군과 리버로 밀어냅니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               homeResource: 0,
@@ -160,7 +160,7 @@ const _pvp2gateReaverVs3gateSpeedzealot = ScenarioScript(
           baseProbability: 0.7,
           events: [
             ScriptEvent(
-              text: '{away}, 스피드 질럿이 셔틀을 우회! 프로브를 노립니다!',
+              text: '{away} 선수, 스피드 질럿이 셔틀을 우회! 프로브를 노립니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               awayArmy: 0,
@@ -175,7 +175,7 @@ const _pvp2gateReaverVs3gateSpeedzealot = ScenarioScript(
               awayResource: 0,
               awayArmy: -2,            ),
             ScriptEvent(
-              text: '{away}, 추가 질럿이 합류! 리버를 둘러쌉니다!',
+              text: '{away} 선수, 추가 질럿이 합류! 리버를 둘러쌉니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,
@@ -246,7 +246,7 @@ const _pvp2gateReaverVs3gateSpeedzealot = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 스톰에 리버 화력! 상대 병력이 녹습니다!',
+              text: '{home} 선수, 스톰에 리버 화력! 상대 병력이 녹습니다!',
               owner: LogOwner.home,
               homeResource: 0,
               awayResource: 0,
@@ -268,7 +268,7 @@ const _pvp2gateReaverVs3gateSpeedzealot = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 스톰에 스피드 질럿 돌진! 상대를 녹입니다!',
+              text: '{away} 선수, 스톰에 스피드 질럿 돌진! 상대를 녹입니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,

@@ -38,7 +38,7 @@ const _pvpDarkVs2gateReaver = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 아둔! 다크 올인 준비!',
+          altText: '{home} 선수, 아둔! 다크 올인 준비!',
         ),
         ScriptEvent(
           text: '{away} 선수 사이버네틱스 코어 건설! 로보틱스를 준비합니다!',
@@ -55,7 +55,7 @@ const _pvpDarkVs2gateReaver = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 로보틱스! 옵저버와 리버를 모두 쓸 수 있습니다!',
+          altText: '{away} 선수, 로보틱스! 옵저버와 리버를 모두 쓸 수 있습니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 템플러 아카이브 건설! 다크 확정!',
@@ -76,7 +76,7 @@ const _pvpDarkVs2gateReaver = ScenarioScript(
           owner: LogOwner.home,
           awayResource: 0,
           homeArmy: 3, awayArmy: 2, homeResource: -20,
-          altText: '{home}, 다크 출격! 로보틱스가 있으면 옵저버가 위험!',
+          altText: '{home} 선수, 다크 출격! 로보틱스가 있으면 옵저버가 위험!',
         ),
         ScriptEvent(
           text: '{away} 선수 로보틱스에서 옵저버를 생산합니다! 리버도 준비!',
@@ -105,7 +105,7 @@ const _pvpDarkVs2gateReaver = ScenarioScript(
           baseProbability: 0.7,
           events: [
             ScriptEvent(
-              text: '{home}, 다크가 먼저 도착합니다! 옵저버보다 빨랐어요!',
+              text: '{home} 선수, 다크가 먼저 도착합니다! 옵저버보다 빨랐어요!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -121,7 +121,7 @@ const _pvpDarkVs2gateReaver = ScenarioScript(
               awayResource: -10,
             ),
             ScriptEvent(
-              text: '{home}, 프로브를 잡고 후퇴합니다! 다크 피해가 컸습니다!',
+              text: '{home} 선수, 프로브를 잡고 후퇴합니다! 다크 피해가 컸습니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -149,10 +149,10 @@ const _pvpDarkVs2gateReaver = ScenarioScript(
               homeArmy: 0,
               homeResource: 0,
               awayResource: 0,
-              awayArmy: 2,              altText: '{away}, 옵저버! 다크가 보입니다!',
+              awayArmy: 2,              altText: '{away} 선수, 옵저버! 다크가 보입니다!',
             ),
             ScriptEvent(
-              text: '{away}, 드라군이 다크를 집중 사격! 격파!',
+              text: '{away} 선수, 드라군이 다크를 집중 사격! 격파!',
               owner: LogOwner.away,
               awayArmy: 0,
               homeResource: 0,
@@ -164,10 +164,10 @@ const _pvpDarkVs2gateReaver = ScenarioScript(
               homeArmy: 0,
               homeResource: 0,
               awayArmy: 3, awayResource: -15,
-              altText: '{away}, 셔틀 리버 출격! 다크 실패 후 역습!',
+              altText: '{away} 선수, 셔틀 리버 출격! 다크 실패 후 역습!',
             ),
             ScriptEvent(
-              text: '{away}, 리버가 상대 프로브를 공격합니다! 스캐럽 명중!',
+              text: '{away} 선수, 리버가 상대 프로브를 공격합니다! 스캐럽 명중!',
               owner: LogOwner.away,
               homeArmy: 0,
               awayArmy: 0,

@@ -54,7 +54,7 @@ const _pvpDragoonNexusMirror = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 사이버네틱스 코어가 올라갑니다!',
+          altText: '{home} 선수, 사이버네틱스 코어가 올라갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 사이버네틱스 코어 건설합니다.',
@@ -70,7 +70,7 @@ const _pvpDragoonNexusMirror = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 3, homeResource: -15,
-          altText: '{home}, 드라군이 나옵니다! 사업 시작!',
+          altText: '{home} 선수, 드라군이 나옵니다! 사업 시작!',
         ),
         ScriptEvent(
           text: '{away} 선수도 드라군 생산! 사업 연구!',
@@ -92,7 +92,7 @@ const _pvpDragoonNexusMirror = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: 0,
-          altText: '{home}, 질럿 정찰! 상대 빌드를 확인하러 갑니다!',
+          altText: '{home} 선수, 질럿 정찰! 상대 빌드를 확인하러 갑니다!',
         ),
         ScriptEvent(
           text: '{away} 선수도 질럿으로 정찰!',
@@ -110,7 +110,7 @@ const _pvpDragoonNexusMirror = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -30,
-          altText: '{home}, 앞마당 확장! 드라군으로 커버하면서!',
+          altText: '{home} 선수, 앞마당 확장! 드라군으로 커버하면서!',
         ),
         ScriptEvent(
           text: '{away} 선수도 앞마당 넥서스!',
@@ -146,7 +146,7 @@ const _pvpDragoonNexusMirror = ScenarioScript(
               homeArmy: 0,
               awayArmy: 0,
               awayResource: 0,
-              homeResource: -25,              altText: '{home}, 로보틱스에 서포트 베이! 리버를 노리는 건가요?',
+              homeResource: -25,              altText: '{home} 선수, 로보틱스에 서포트 베이! 리버를 노리는 건가요?',
             ),
             ScriptEvent(
               text: '{away} 선수 아둔 건설! 질럿 발업을 준비합니다!',
@@ -155,10 +155,10 @@ const _pvpDragoonNexusMirror = ScenarioScript(
               awayArmy: 0,
               homeResource: 0,
               awayResource: -20,
-              altText: '{away}, 아둔! 하이 템플러를 준비하는 건가요?',
+              altText: '{away} 선수, 아둔! 하이 템플러를 준비하는 건가요?',
             ),
             ScriptEvent(
-              text: '{home}, 옵저버터리도 완성! 옵저버를 먼저 뽑을까 리버를 먼저 뽑을까?',
+              text: '{home} 선수, 옵저버터리도 완성! 옵저버를 먼저 뽑을까 리버를 먼저 뽑을까?',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -171,10 +171,10 @@ const _pvpDragoonNexusMirror = ScenarioScript(
               owner: LogOwner.home,
               awayArmy: 0,
               awayResource: 0,
-              homeArmy: 1, homeResource: -15,              altText: '{home}, 리버 먼저! 견제를 노립니다!',
+              homeArmy: 1, homeResource: -15,              altText: '{home} 선수, 리버 먼저! 견제를 노립니다!',
             ),
             ScriptEvent(
-              text: '{away}, 그런데 다크 템플러가 잠입합니다! 디텍이 없습니다!',
+              text: '{away} 선수, 그런데 다크 템플러가 잠입합니다! 디텍이 없습니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,
@@ -210,7 +210,7 @@ const _pvpDragoonNexusMirror = ScenarioScript(
               awayResource: -25,
             ),
             ScriptEvent(
-              text: '{home}, 셔틀에 리버를 태웁니다! 견제 출발!',
+              text: '{home} 선수, 셔틀에 리버를 태웁니다! 견제 출발!',
               owner: LogOwner.home,
               awayArmy: 0,
               awayResource: 0,
@@ -244,7 +244,7 @@ const _pvpDragoonNexusMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 셔틀이 상대 프로브에 리버를 내립니다! 스캐럽!',
+              text: '{home} 선수, 셔틀이 상대 프로브에 리버를 내립니다! 스캐럽!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -260,7 +260,7 @@ const _pvpDragoonNexusMirror = ScenarioScript(
               awayResource: -10,
             ),
             ScriptEvent(
-              text: '{home}, 셔틀이 리버를 태우고 안전하게 빠집니다!',
+              text: '{home} 선수, 셔틀이 리버를 태우고 안전하게 빠집니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -285,7 +285,7 @@ const _pvpDragoonNexusMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 드라군이 상대 수송선을 집중 사격합니다! 격추!',
+              text: '{away} 선수, 드라군이 상대 수송선을 집중 사격합니다! 격추!',
               owner: LogOwner.away,
               awayArmy: 0,
               homeResource: 0,
@@ -299,10 +299,10 @@ const _pvpDragoonNexusMirror = ScenarioScript(
               homeResource: 0,
               awayResource: 0,
               homeArmy: -2,
-              altText: '{home}, 셔틀 폭사! 리버도 잃을 위기!',
+              altText: '{home} 선수, 셔틀 폭사! 리버도 잃을 위기!',
             ),
             ScriptEvent(
-              text: '{away}, 고립된 유닛을 잡아냅니다! 드라군 화력!',
+              text: '{away} 선수, 고립된 유닛을 잡아냅니다! 드라군 화력!',
               owner: LogOwner.away,
               awayArmy: 0,
               homeResource: 0,
@@ -331,7 +331,7 @@ const _pvpDragoonNexusMirror = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 4, homeResource: -25,
-          altText: '{home}, 하이 템플러가 나왔습니다!',
+          altText: '{home} 선수, 하이 템플러가 나왔습니다!',
         ),
         ScriptEvent(
           text: '{away} 선수도 하이 템플러! 스톰 연구 완료!',
@@ -359,14 +359,14 @@ const _pvpDragoonNexusMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{home}, 스톰! 상대 드라군 편대에 떨어집니다!',
+              text: '{home} 선수, 스톰! 상대 드라군 편대에 떨어집니다!',
               owner: LogOwner.home,
               homeResource: 0,
               awayResource: 0,
               awayArmy: -8, homeArmy: -3,              altText: '{home} 선수 스톰 투하! 드라군이 녹아내립니다!',
             ),
             ScriptEvent(
-              text: '{away}, 맞스톰! 하지만 타이밍이 늦었습니다!',
+              text: '{away} 선수, 맞스톰! 하지만 타이밍이 늦었습니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,
@@ -389,14 +389,14 @@ const _pvpDragoonNexusMirror = ScenarioScript(
           baseProbability: 1.0,
           events: [
             ScriptEvent(
-              text: '{away}, 스톰! 상대 드라군 편대에 떨어집니다!',
+              text: '{away} 선수, 스톰! 상대 드라군 편대에 떨어집니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,
               homeArmy: -8, awayArmy: -3,              altText: '{away} 선수 스톰 투하! 드라군이 녹아내립니다!',
             ),
             ScriptEvent(
-              text: '{home}, 맞스톰! 하지만 타이밍이 늦었습니다!',
+              text: '{home} 선수, 맞스톰! 하지만 타이밍이 늦었습니다!',
               owner: LogOwner.home,
               homeResource: 0,
               awayResource: 0,

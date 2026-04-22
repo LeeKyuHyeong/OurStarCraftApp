@@ -30,7 +30,7 @@ const _pvtReaverArbiterVsTimingPush = ScenarioScript(
           homeResource: 0,
           awayResource: -20,
           awayArmy: 1,
-          altText: '{away}, 타이밍 공격을 준비하고 있습니다!',
+          altText: '{away} 선수, 타이밍 공격을 준비하고 있습니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 로보틱스와 서포트 베이를 건설합니다! 리버를 준비하네요!',
@@ -71,7 +71,7 @@ const _pvtReaverArbiterVsTimingPush = ScenarioScript(
           awayResource: 0,
           homeArmy: 4,
           homeResource: -20,
-          altText: '{home}, 셔틀 리버 출격! 타이밍을 흔들어야 합니다!',
+          altText: '{home} 선수, 셔틀 리버 출격! 타이밍을 흔들어야 합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린 메딕 시즈탱크 병력이 출발 직전입니다!',
@@ -88,7 +88,7 @@ const _pvtReaverArbiterVsTimingPush = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{home}, 스캐럽 명중! 자원 라인에 큰 피해!',
+          altText: '{home} 선수, 스캐럽 명중! 자원 라인에 큰 피해!',
         ),
         ScriptEvent(
           text: '{away} 선수 병력 일부를 돌려서 리버를 잡으려 합니다!',
@@ -121,7 +121,7 @@ const _pvtReaverArbiterVsTimingPush = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 아비터 트리뷰널이 올라갑니다! 아비터가 곧!',
+          altText: '{home} 선수, 아비터 트리뷰널이 올라갑니다! 아비터가 곧!',
         ),
         ScriptEvent(
           text: '{away} 선수 타이밍 병력이 프로토스 앞마당에 도착합니다!',
@@ -174,7 +174,7 @@ const _pvtReaverArbiterVsTimingPush = ScenarioScript(
               homeResource: 0,
               homeArmy: 4,
               awayResource: -25,
-              altText: '{home}, 리콜 성공! 테란 본진이 뚫립니다!',
+              altText: '{home} 선수, 리콜 성공! 테란 본진이 뚫립니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 앞에서 공격 중이라 본진이 비어있습니다!',
@@ -207,7 +207,7 @@ const _pvtReaverArbiterVsTimingPush = ScenarioScript(
               awayResource: 0,
               awayArmy: 4,
               homeArmy: -3,
-              altText: '{away}, 시즈탱크 포격에 넥서스가 흔들립니다!',
+              altText: '{away} 선수, 시즈탱크 포격에 넥서스가 흔들립니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 아비터가 나오기 전에 밀립니다!',

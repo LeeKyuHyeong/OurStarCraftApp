@@ -91,14 +91,13 @@ class SimulationState {
   }
 
   /// 확장 보너스를 포함한 실제 recovery 계산
-  /// 프로 선수 자원관리: 자원 400 이상이면 recovery 감쇠 (돈을 안 남김)
+  /// 프로 선수 자원관리: 자원 1000 이상이면 recovery 감쇠 (장기전 스톡파일 허용)
   static int effectiveRecovery(int baseRecovery, int expansions, int currentResources) {
-    // 확장 보너스: 멀티 기지당 +75 (일꾼 추가 채광)
-    int recovery = baseRecovery + (expansions * 75);
-    // 프로 자원관리 감쇠: 400 이상부터 감소, 1000에서 ~64% 감쇠
-    // → 자원이 500~1000 사이에서 자연 유지됨
-    if (currentResources > 400) {
-      final decay = ((currentResources - 400) / 800).clamp(0.0, 0.75);
+    // 확장 보너스: 멀티 기지당 +100 (일꾼 추가 채광)
+    int recovery = baseRecovery + (expansions * 100);
+    // 자원 감쇠: 1000 이상부터 감소, 1800 이상은 25% recovery 유지 (ASL 장기전 6000+ 스톡파일 가능)
+    if (currentResources > 1000) {
+      final decay = ((currentResources - 1000) / 800).clamp(0.0, 0.75);
       recovery = (recovery * (1.0 - decay)).round();
     }
     return recovery;

@@ -38,7 +38,7 @@ const _pvp2gateReaverVs4gateDragoon = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -30,
-          altText: '{home}, 게이트웨이가 두 개! 리버를 빠르게 준비합니다!',
+          altText: '{home} 선수, 게이트웨이가 두 개! 리버를 빠르게 준비합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 사이버네틱스 코어! 게이트웨이를 추가합니다!',
@@ -61,7 +61,7 @@ const _pvp2gateReaverVs4gateDragoon = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayResource: -45, awayArmy: 3,
-          altText: '{away}, 게이트웨이 네 개! 드라군을 쏟아냅니다!',
+          altText: '{away} 선수, 게이트웨이 네 개! 드라군을 쏟아냅니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 셔틀 리버 생산!',
@@ -69,7 +69,7 @@ const _pvp2gateReaverVs4gateDragoon = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 3, homeResource: -25,
-          altText: '{home}, 셔틀 리버! 드라군 호위와 함께!',
+          altText: '{home} 선수, 셔틀 리버! 드라군 호위와 함께!',
         ),
         ScriptEvent(
           text: '{away} 선수 드라군이 게이트웨이 네 개에서 밀려옵니다!',
@@ -85,7 +85,7 @@ const _pvp2gateReaverVs4gateDragoon = ScenarioScript(
       name: 'battle_setup',
       linearEvents: [
         ScriptEvent(
-          text: '{away}, 드라군 대편대가 전진! 물량 타이밍!',
+          text: '{away} 선수, 드라군 대편대가 전진! 물량 타이밍!',
           owner: LogOwner.away,
           homeArmy: 0,
           homeResource: 0,
@@ -93,7 +93,7 @@ const _pvp2gateReaverVs4gateDragoon = ScenarioScript(
           awayArmy: 3,          altText: '{away} 선수 드라군 전진! 엄청난 물량!',
         ),
         ScriptEvent(
-          text: '{home}, 셔틀 리버에 드라군 호위! 맞받아칩니다!',
+          text: '{home} 선수, 셔틀 리버에 드라군 호위! 맞받아칩니다!',
           owner: LogOwner.home,
           awayArmy: 0,
           homeResource: 0,
@@ -120,7 +120,7 @@ const _pvp2gateReaverVs4gateDragoon = ScenarioScript(
           baseProbability: 1.15,
           events: [
             ScriptEvent(
-              text: '{away}, 드라군 물량이 셔틀을 집중 사격! 격추!',
+              text: '{away} 선수, 드라군 물량이 셔틀을 집중 사격! 격추!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,
@@ -135,7 +135,7 @@ const _pvp2gateReaverVs4gateDragoon = ScenarioScript(
               homeArmy: -3,
             ),
             ScriptEvent(
-              text: '{away}, 남은 드라군 물량으로 밀어냅니다!',
+              text: '{away} 선수, 남은 드라군 물량으로 밀어냅니다!',
               owner: LogOwner.away,
               awayArmy: 0,
               homeResource: 0,
@@ -157,7 +157,7 @@ const _pvp2gateReaverVs4gateDragoon = ScenarioScript(
           baseProbability: 0.85,
           events: [
             ScriptEvent(
-              text: '{home}, 리버 스캐럽! 밀집한 드라군에 직격!',
+              text: '{home} 선수, 리버 스캐럽! 밀집한 드라군에 직격!',
               owner: LogOwner.home,
               homeArmy: 0,
               homeResource: 0,
@@ -173,7 +173,7 @@ const _pvp2gateReaverVs4gateDragoon = ScenarioScript(
               awayArmy: -3,
             ),
             ScriptEvent(
-              text: '{home}, 드라군 호위와 리버 컨트롤! 반격!',
+              text: '{home} 선수, 드라군 호위와 리버 컨트롤! 반격!',
               owner: LogOwner.home,
               homeArmy: 0,
               homeResource: 0,
@@ -245,7 +245,7 @@ const _pvp2gateReaverVs4gateDragoon = ScenarioScript(
           baseProbability: 0.9,
           events: [
             ScriptEvent(
-              text: '{home}, 스톰과 리버 화력! 드라군을 녹입니다!',
+              text: '{home} 선수, 스톰과 리버 화력! 드라군을 녹입니다!',
               owner: LogOwner.home,
               homeResource: 0,
               awayResource: 0,
@@ -266,7 +266,7 @@ const _pvp2gateReaverVs4gateDragoon = ScenarioScript(
           baseProbability: 1.1,
           events: [
             ScriptEvent(
-              text: '{away}, 스톰! 드라군 물량과 함께! 밀어냅니다!',
+              text: '{away} 선수, 스톰! 드라군 물량과 함께! 밀어냅니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,

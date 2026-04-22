@@ -30,7 +30,7 @@ const _pvtProxyGateVsBbs = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -5,
-          altText: '{away}, SCV 정찰 출발!',
+          altText: '{away} 선수, SCV 정찰 출발!',
         ),
         ScriptEvent(
           text: '{home} 선수 상대 본진 근처에 게이트웨이 건설!',
@@ -39,7 +39,7 @@ const _pvtProxyGateVsBbs = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home}, 전진 게이트웨이! 아주 공격적입니다!',
+          altText: '{home} 선수, 전진 게이트웨이! 아주 공격적입니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 본진에 배럭을 두 개 올립니다! 마린을 빠르게 뽑겠다는 거죠!',
@@ -48,7 +48,7 @@ const _pvtProxyGateVsBbs = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -20,
-          altText: '{away}, 배럭이 두 개! 마린 올인을 준비합니다!',
+          altText: '{away} 선수, 배럭이 두 개! 마린 올인을 준비합니다!',
         ),
         ScriptEvent(
           text: '양쪽 모두 공격적인 빌드! 누가 먼저 도착하느냐가 승부처!',
@@ -80,7 +80,7 @@ const _pvtProxyGateVsBbs = ScenarioScript(
           homeResource: 0,
           awayResource: 0,
           homeArmy: 1,
-          altText: '{home}, 질럿 투입! 상대 병력 나오기 전에 피해를 줘야 합니다!',
+          altText: '{home} 선수, 질럿 투입! 상대 병력 나오기 전에 피해를 줘야 합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린 3기 생산! SCV와 함께 프로토스 본진으로!',
@@ -91,7 +91,7 @@ const _pvtProxyGateVsBbs = ScenarioScript(
           awayResource: -10,
         ),
         ScriptEvent(
-          text: '{home}, 질럿이 SCV를 잡기 시작합니다! 일꾼 피해!',
+          text: '{home} 선수, 질럿이 SCV를 잡기 시작합니다! 일꾼 피해!',
           owner: LogOwner.home,
           homeArmy: 0,
           awayArmy: 0,
@@ -100,7 +100,7 @@ const _pvtProxyGateVsBbs = ScenarioScript(
           altText: '{home} 선수 질럿이 SCV를 하나둘 베어냅니다!',
         ),
         ScriptEvent(
-          text: '{away}, 마린이 프로토스 본진에 도착! 프로브를 노립니다!',
+          text: '{away} 선수, 마린이 프로토스 본진에 도착! 프로브를 노립니다!',
           owner: LogOwner.away,
           homeArmy: 0,
           awayArmy: 0,
@@ -130,7 +130,7 @@ const _pvtProxyGateVsBbs = ScenarioScript(
           awayResource: 0,
           homeArmy: 3,
           homeResource: -10,
-          altText: '{home}, 질럿이 계속 나옵니다! 전진 게이트웨이의 위력!',
+          altText: '{home} 선수, 질럿이 계속 나옵니다! 전진 게이트웨이의 위력!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린이 프로브를 잡아냅니다! 프로토스 일꾼이 줄고 있어요!',
@@ -141,7 +141,7 @@ const _pvtProxyGateVsBbs = ScenarioScript(
           awayArmy: 2,
         ),
         ScriptEvent(
-          text: '{home}, 질럿이 배럭을 공격합니다! 마린 생산을 끊으려 합니다!',
+          text: '{home} 선수, 질럿이 배럭을 공격합니다! 마린 생산을 끊으려 합니다!',
           owner: LogOwner.home,
           homeArmy: 0,
           homeResource: 0,
@@ -177,7 +177,7 @@ const _pvtProxyGateVsBbs = ScenarioScript(
               awayArmy: 0,
               homeResource: 0,
               awayResource: -30,
-              altText: '{home}, 질럿 컨트롤! 질럿이 SCV를 전멸시킵니다!',
+              altText: '{home} 선수, 질럿 컨트롤! 질럿이 SCV를 전멸시킵니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 마린이 돌아오지만 일꾼이 이미 없습니다!',
@@ -188,7 +188,7 @@ const _pvtProxyGateVsBbs = ScenarioScript(
               awayArmy: -3,
             ),
             ScriptEvent(
-              text: '{home}, 질럿이 배럭까지 부수고 있습니다!',
+              text: '{home} 선수, 질럿이 배럭까지 부수고 있습니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               homeResource: 0,
@@ -211,7 +211,7 @@ const _pvtProxyGateVsBbs = ScenarioScript(
               homeArmy: 20,
               awayArmy: -15,
               decisive: true,
-              altText: '{home}, 질럿 러시 대성공! 테란이',
+              altText: '{home} 선수, 질럿 러시 대성공! 테란이',
             ),
           ],
         ),
@@ -229,7 +229,7 @@ const _pvtProxyGateVsBbs = ScenarioScript(
               awayArmy: 0,
               awayResource: 0,
               homeResource: -30,
-              altText: '{away}, 마린이 프로브를 쓸어냅니다!',
+              altText: '{away} 선수, 마린이 프로브를 쓸어냅니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 본진에 병력이 없습니다! 질럿은 전부 테란 진영!',
@@ -240,7 +240,7 @@ const _pvtProxyGateVsBbs = ScenarioScript(
               homeArmy: -3,
             ),
             ScriptEvent(
-              text: '{away}, SCV 수리로 마린을 지키면서 질럿을 막아냅니다!',
+              text: '{away} 선수, SCV 수리로 마린을 지키면서 질럿을 막아냅니다!',
               owner: LogOwner.away,
               awayArmy: 0,
               homeResource: 0,
@@ -264,7 +264,7 @@ const _pvtProxyGateVsBbs = ScenarioScript(
               awayArmy: 20,
               homeArmy: -15,
               decisive: true,
-              altText: '{away}, 넥서스가 무너집니다! 마린 러시 완승!',
+              altText: '{away} 선수, 넥서스가 무너집니다! 마린 러시 완승!',
             ),
           ],
         ),

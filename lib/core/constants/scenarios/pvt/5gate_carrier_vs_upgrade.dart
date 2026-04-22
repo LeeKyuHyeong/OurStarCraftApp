@@ -30,7 +30,7 @@ const _pvt5gateCarrierVsUpgrade = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -30,
-          altText: '{away}, 팩토리에 앞마당까지! 안정적인 확장!',
+          altText: '{away} 선수, 팩토리에 앞마당까지! 안정적인 확장!',
         ),
         ScriptEvent(
           text: '{home} 선수 사이버네틱스 코어 이후 넥서스!',
@@ -39,7 +39,7 @@ const _pvt5gateCarrierVsUpgrade = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -30,
-          altText: '{home}, 넥서스 건설! 양쪽 모두 확장을 가져갑니다.',
+          altText: '{home} 선수, 넥서스 건설! 양쪽 모두 확장을 가져갑니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 엔지니어링 베이 건설! 업그레이드를 시작합니다!',
@@ -48,7 +48,7 @@ const _pvt5gateCarrierVsUpgrade = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 엔지니어링 베이! 공방 업그레이드를 올리겠네요!',
+          altText: '{away} 선수, 엔지니어링 베이! 공방 업그레이드를 올리겠네요!',
         ),
         ScriptEvent(
           text: '{home} 선수 게이트웨이를 늘리면서 드라군을 생산합니다.',
@@ -79,7 +79,7 @@ const _pvt5gateCarrierVsUpgrade = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 2, awayResource: -20,
-          altText: '{away}, 아머리에서 공방 업그레이드! 풀업을 노립니다!',
+          altText: '{away} 선수, 아머리에서 공방 업그레이드! 풀업을 노립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 스타게이트 건설! 공중 테크를 택합니다.',
@@ -88,7 +88,7 @@ const _pvt5gateCarrierVsUpgrade = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home}, 스타게이트가 올라갑니다! 캐리어 루트!',
+          altText: '{home} 선수, 스타게이트가 올라갑니다! 캐리어 루트!',
         ),
         ScriptEvent(
           text: '{away} 선수 마린 메딕 편대가 견제를 시도합니다. 드랍십으로 기습!',
@@ -96,7 +96,7 @@ const _pvt5gateCarrierVsUpgrade = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayResource: 0,
-          awayArmy: 2,          altText: '{away}, 드랍십 기습! 프로토스 일꾼을 노립니다!',
+          awayArmy: 2,          altText: '{away} 선수, 드랍십 기습! 프로토스 일꾼을 노립니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 드라군으로 드랍십을 막아냅니다.',
@@ -111,7 +111,7 @@ const _pvt5gateCarrierVsUpgrade = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -25,
-          altText: '{home}, 플릿 비콘! 캐리어 생산을 향해 달립니다!',
+          altText: '{home} 선수, 플릿 비콘! 캐리어 생산을 향해 달립니다!',
         ),
       ],
     ),
@@ -126,7 +126,7 @@ const _pvt5gateCarrierVsUpgrade = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeArmy: 4, homeResource: -30,
-          altText: '{home}, 캐리어가 나옵니다! 인터셉터를 채우는 중!',
+          altText: '{home} 선수, 캐리어가 나옵니다! 인터셉터를 채우는 중!',
         ),
         ScriptEvent(
           text: '{away} 선수 2-2 업그레이드 완료! 3-3 연구 시작!',
@@ -134,7 +134,7 @@ const _pvt5gateCarrierVsUpgrade = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 3, awayResource: -20,
-          altText: '{away}, 2-2 완료! 풀업까지 얼마 남지 않았습니다!',
+          altText: '{away} 선수, 2-2 완료! 풀업까지 얼마 남지 않았습니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 골리앗 생산도 추가합니다! 대공 준비!',
@@ -142,7 +142,7 @@ const _pvt5gateCarrierVsUpgrade = ScenarioScript(
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 3, awayResource: -15,
-          altText: '{away}, 골리앗! 캐리어 대비를 서둡니다!',
+          altText: '{away} 선수, 골리앗! 캐리어 대비를 서둡니다!',
         ),
         ScriptEvent(
           text: '캐리어 vs 풀업 바이오닉, 어느 쪽이 강할까요?',
@@ -168,7 +168,7 @@ const _pvt5gateCarrierVsUpgrade = ScenarioScript(
               owner: LogOwner.home,
               homeResource: 0,
               awayResource: 0,
-              homeArmy: 5, awayArmy: -6,              altText: '{home}, 캐리어 편대 출격! 인터셉터 폭풍!',
+              homeArmy: 5, awayArmy: -6,              altText: '{home} 선수, 캐리어 편대 출격! 인터셉터 폭풍!',
             ),
             ScriptEvent(
               text: '{away} 선수 풀업 마린이 캐리어를 쏘지만 인터셉터가 벽입니다!',
@@ -176,10 +176,10 @@ const _pvt5gateCarrierVsUpgrade = ScenarioScript(
               homeResource: 0,
               awayResource: 0,
               awayArmy: -4, homeArmy: -1,
-              altText: '{away}, 마린이 쏘지만 인터셉터에 가로막힙니다!',
+              altText: '{away} 선수, 마린이 쏘지만 인터셉터에 가로막힙니다!',
             ),
             ScriptEvent(
-              text: '{home}, 캐리어가 테란 확장기지를 파괴합니다! 자원이 끊깁니다!',
+              text: '{home} 선수, 캐리어가 테란 확장기지를 파괴합니다! 자원이 끊깁니다!',
               owner: LogOwner.home,
               homeArmy: 0,
               awayArmy: 0,
@@ -205,10 +205,10 @@ const _pvt5gateCarrierVsUpgrade = ScenarioScript(
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,
-              homeArmy: -4, awayArmy: 2,              altText: '{away}, 풀업 병력의 대공! 골리앗이 집중 사격! 적 함대가 녹습니다!',
+              homeArmy: -4, awayArmy: 2,              altText: '{away} 선수, 풀업 병력의 대공! 골리앗이 집중 사격! 적 함대가 녹습니다!',
             ),
             ScriptEvent(
-              text: '{away}, 캐리어 1기 격추! 골리앗 사거리 업그레이드가 빛납니다!',
+              text: '{away} 선수, 캐리어 1기 격추! 골리앗 사거리 업그레이드가 빛납니다!',
               owner: LogOwner.away,
               awayArmy: 0,
               homeResource: 0,
@@ -217,7 +217,7 @@ const _pvt5gateCarrierVsUpgrade = ScenarioScript(
               altText: '{away} 선수 캐리어를 잡았습니다! 인터셉터도 소멸!',
             ),
             ScriptEvent(
-              text: '{away}, 풀업 마린 메딕 총공격! 프로토스 지상 병력을 밀어냅니다!',
+              text: '{away} 선수, 풀업 마린 메딕 총공격! 프로토스 지상 병력을 밀어냅니다!',
               owner: LogOwner.away,
               homeResource: 0,
               awayResource: 0,

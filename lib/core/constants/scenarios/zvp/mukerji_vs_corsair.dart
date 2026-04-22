@@ -30,7 +30,7 @@ const _zvpMukerjiVsCorsair = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{away}, 스타게이트 건설! 커세어 체제로 전환합니다!',
+          altText: '{away} 선수, 스타게이트 건설! 커세어 체제로 전환합니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 레어 업그레이드를 시작합니다.',
@@ -71,7 +71,7 @@ const _zvpMukerjiVsCorsair = ScenarioScript(
           awayArmy: 0,
           awayResource: 0,
           homeResource: -10,
-          altText: '{away}, 오버로드 격추! 저그의 눈이 사라집니다!',
+          altText: '{away} 선수, 오버로드 격추! 저그의 눈이 사라집니다!',
         ),
         ScriptEvent(
           text: '{home} 선수 스파이어 완성! 뮤탈리스크 생산을 시작합니다!',
@@ -88,7 +88,7 @@ const _zvpMukerjiVsCorsair = ScenarioScript(
           homeResource: 0,
           awayResource: 0,
           homeArmy: 2,
-          altText: '{home}, 저글링 런바이! 프로토스 뒤를 노립니다!',
+          altText: '{home} 선수, 저글링 런바이! 프로토스 뒤를 노립니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 게이트웨이에서 드라군을 추가 생산합니다.',
@@ -121,7 +121,7 @@ const _zvpMukerjiVsCorsair = ScenarioScript(
           awayArmy: 0,
           homeResource: 0,
           awayResource: -15,
-          altText: '{home}, 뮤탈리스크가 기습합니다! 일꾼 피해가 심각합니다!',
+          altText: '{home} 선수, 뮤탈리스크가 기습합니다! 일꾼 피해가 심각합니다!',
         ),
         ScriptEvent(
           text: '{away} 선수 커세어가 뮤탈리스크를 추격합니다!',
@@ -165,7 +165,7 @@ const _zvpMukerjiVsCorsair = ScenarioScript(
               awayResource: 0,
               homeArmy: 5,
               awayArmy: -4,
-              altText: '{home}, 다방면 공격! 프로토스 진영이 혼란에 빠집니다!',
+              altText: '{home} 선수, 다방면 공격! 프로토스 진영이 혼란에 빠집니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 커세어가 뮤탈리스크를 쫓지만 저글링이 넥서스를 때립니다!',
@@ -206,7 +206,7 @@ const _zvpMukerjiVsCorsair = ScenarioScript(
               awayResource: 0,
               awayArmy: 3,
               homeArmy: -5,
-              altText: '{away}, 커세어 집중 공격! 뮤탈리스크가 전멸합니다!',
+              altText: '{away} 선수, 커세어 집중 공격! 뮤탈리스크가 전멸합니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 사이버네틱스 코어의 드라군이 저글링을 막아내며 반격합니다!',
