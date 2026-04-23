@@ -287,6 +287,60 @@ Phase 4: 결전                  - decisive 분기 (home_wins / away_wins)
 - **교전/결전**: `branches` (분기)
 - 분기는 `conditionStat`(능력치 조건) + `baseProbability`(확률)로 선택
 
+### 분기 선택 메커니즘
+
+- **복합 능력치**: `conditionStat`에 `'+'`로 2개 이상 지정 가능 (예: `'attack+control'`). 내부적으로 split 후 평균값 사용.
+- **decisive 분기에서 baseProbability는 무시된다**: `decisive: true` 이벤트가 있는 분기는 `_armyBiasedBranchSelect`로 선택되며, **누적 병력 비율 + conditionStat 능력치 차이**로 가중치 결정 (0.4~0.6 캡, 최대 60/40). `baseProbability`는 decisive가 없는 분기(fallback/다음 페이즈 이동)에만 유효.
+- **낮은 확률 분기**: decisive 분기는 baseProbability로 확률을 낮출 수 없으므로, 별도 페이즈로 분리하여 도달 자체를 어렵게 만든다. (예: 디바우러 공중전 → 이전 페이즈에서 대부분 decisive로 종료되어야 도달률이 낮아짐)
+
+### 시나리오 파일 주석 규칙
+
+시나리오 파일 상단에 페이즈/분기 방향을 주석으로 정의한다. 이 주석이 설계 문서 역할.
+
+```
+// 오프닝 : 빌드 설명
+//
+// phase1 (페이즈 이름)
+//   분기A : 설명 > home 승          (conditionStat)
+//   분기B : 설명 > away 승          (conditionStat)
+//   분기C : 설명 > 다음 페이즈
+//     - home쪽 약간의 드론 피해 (skipChance)
+//     - away쪽 약간의 드론 피해 (skipChance)
+```
+
+표기법:
+- `> home 승` / `> away 승`: decisive 분기
+- `> 다음 페이즈`: fallback (non-decisive)
+- `(attack+control)`: conditionStat
+- `(낮은 확률)`: 별도 페이즈로 분리하여 도달률을 낮춤
+- `(skipChance)`: 분기 내 이벤트에 skipChance 0.5 적용 (등장/미등장 변동)
+- `[선행: 분기ID]`: conditionPriorBranchIds — 이전 Phase에서 해당 분기를 거친 경기에서만 후보에 포함
+  - 복수: `[선행: ling_even, muta_even]` → 둘 다 거쳐야 후보 (AND 조건)
+  - 미표기 → 조건 없음 (기존 동작)
+
+### ScriptEvent 필드 순서 (표준)
+
+모든 ScriptEvent는 아래 순서를 따른다:
+
+```dart
+ScriptEvent(
+  owner: LogOwner.home,          // 1. 소유자
+  text: '...',                   // 2. 텍스트
+  altText: '...',                // 3. 대체 텍스트 (필수)
+  homeArmy: 0,                   // 4. 홈 병력
+  homeResource: -150,            // 5. 홈 자원
+  awayArmy: 0,                   // 6. 어웨이 병력
+  awayResource: 0,               // 7. 어웨이 자원
+  skipChance: 0.3,               // 8. 스킵 확률 (선택)
+  decisive: true,                // 9. 즉시 승패 (선택)
+  homeExpansion: true,           // 10. 홈 확장 (선택)
+  awayExpansion: true,           // 11. 어웨이 확장 (선택)
+)
+```
+
+- altText는 **모든 이벤트에 필수** (텍스트 다양성 확보)
+- skipChance, decisive, homeExpansion, awayExpansion은 해당 시에만 기재
+
 ---
 
 ## 6. 텍스트 규칙
@@ -300,6 +354,7 @@ Phase 4: 결전                  - decisive 분기 (home_wins / away_wins)
 
 - 50% 확률로 대체 텍스트 사용
 - 텍스트 다양성 확보용
+- **모든 이벤트에 필수** — 누락 시 파일 작업 때 추가
 
 ### skipChance
 

@@ -434,7 +434,7 @@ const _zvz9overpoolVs12pool = ScenarioScript(
               awayArmy: 0,
               homeResource: 0,
               awayResource: -250,
-              altText: '{away} 선수, 레어 진화! 드론 이점으로 가스 수입이 좋습니다.',
+              altText: '{away} 선수, 레어 진화! 드론 이점으로 가스 수급이 좋습니다.',
             ),
             ScriptEvent(
               text: '{home} 선수도 레어 진화를 시작합니다. 테크 타이밍에서 밀릴 수 없습니다.',

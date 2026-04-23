@@ -214,23 +214,7 @@ void main() {
           });
         }
 
-        // 역방향 (빌드 스왑: awayBuild=홈, homeBuild=어웨이)
-        int revHomeWins = 0;
-        for (int i = 0; i < totalGames; i++) {
-          final service = MatchSimulationService();
-          final stream = service.simulateMatchWithLog(
-            homePlayer: config.awayPlayer, awayPlayer: config.homePlayer,
-            map: config.map, getIntervalMs: () => 0,
-            forcedHomeBuildId: s.awayBuild, forcedAwayBuildId: s.homeBuild,
-          );
-          SimulationState? state;
-          await for (final st in stream) { state = st; }
-          if (state?.homeWin == true) revHomeWins++;
-        }
-
         final fwdHomeRate = fwdHomeWins / totalGames * 100;
-        final revP1Rate = (totalGames - revHomeWins) / totalGames * 100;
-        final bias = (fwdHomeRate - revP1Rate).abs();
         final resOver1000Pct = (resOver1000Count / totalGames * 100).toStringAsFixed(1);
 
         final buf = StringBuffer();
@@ -239,10 +223,8 @@ void main() {
         buf.writeln('| 항목 | 값 |');
         buf.writeln('|------|-----|');
         buf.writeln('| 총 경기 | $totalGames |');
-        buf.writeln('| ${config.homeLabel} 승률 (정방향) | ${fwdHomeRate.toStringAsFixed(1)}% ($fwdHomeWins승) |');
-        buf.writeln('| ${config.awayLabel} 승률 (정방향) | ${(100 - fwdHomeRate).toStringAsFixed(1)}% (${totalGames - fwdHomeWins}승) |');
-        buf.writeln('| 역방향 P1 승률 | ${revP1Rate.toStringAsFixed(1)}% |');
-        buf.writeln('| 반전 편향 | ${bias.toStringAsFixed(1)}%p |');
+        buf.writeln('| ${config.homeLabel} 승률 | ${fwdHomeRate.toStringAsFixed(1)}% ($fwdHomeWins승) |');
+        buf.writeln('| ${config.awayLabel} 승률 | ${(100 - fwdHomeRate).toStringAsFixed(1)}% (${totalGames - fwdHomeWins}승) |');
         buf.writeln('| 최대 자원 (경기 중) | ${config.homeLabel} $homePeakRes / ${config.awayLabel} $awayPeakRes |');
         buf.writeln('| 최대 자원 (종료 시) | ${config.homeLabel} $homeMaxRes / ${config.awayLabel} $awayMaxRes |');
         buf.writeln('| 자원 1000 초과 경기 | $resOver1000Count ($resOver1000Pct%) |');
@@ -279,7 +261,7 @@ void main() {
         }
 
         writeTestOutput('test/output/${config.id}', '${s.label}_1000stats.md', buf.toString());
-        print('${config.label} ${s.label}: 승률${fwdHomeRate.toStringAsFixed(1)}% 반전${bias.toStringAsFixed(1)}%p | decisive${(endDecisive / 10).toStringAsFixed(0)} army${(endArmy / 10).toStringAsFixed(0)} max${(endMaxLines / 10).toStringAsFixed(0)} | 고유${uniqueTexts.length} | >1000:$resOver1000Count');
+        print('${config.label} ${s.label}: 승률${fwdHomeRate.toStringAsFixed(1)}% | decisive${(endDecisive / 10).toStringAsFixed(0)} army${(endArmy / 10).toStringAsFixed(0)} max${(endMaxLines / 10).toStringAsFixed(0)} | 고유${uniqueTexts.length} | >1000:$resOver1000Count');
       }
 
       for (final s in config.scenarios) {

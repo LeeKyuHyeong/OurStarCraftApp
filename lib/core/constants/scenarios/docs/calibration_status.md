@@ -10,13 +10,13 @@
 
 | 종족전 | 시나리오 | 보정 루프 | Y | O | X/ㅁ | 진행률 |
 |--------|:-------:|:---------:|:-:|:-:|:---:|:-----:|
-| ZvZ | 21 | 재검증 | 0 | 6 | 15 | 0% |
+| ZvZ | 21 | 재검증 | 1 | 5 | 15 | 5% |
 | TvT | 36 | 재검증 | 0 | 8 | 28 | 0% |
 | TvZ | 56 | 재검증 | 0 | 0 | 56 | 0% |
 | PvT | 54 | FAIL | 0 | 0 | 54 | 0% |
 | PvP | 36 | 재검증 | 0 | 0 | 36 | 0% |
 | ZvP | 63 | 재검증 | 0 | 0 | 63 | 0% |
-| **합계** | **266** | | **0** | **14** | **252** | **0%** |
+| **합계** | **266** | | **1** | **13** | **252** | **0%** |
 
 ---
 
@@ -180,7 +180,7 @@
 | 1 | 4pool_mirror | zvz_4pool | zvz_4pool | Y |
 | 2 | 9pool_speed_mirror | zvz_9pool_speed | zvz_9pool_speed | Y |
 | 3 | 9pool_lair_mirror | zvz_9pool_lair | zvz_9pool_lair | Y |
-| 4 | 9overpool_mirror | zvz_9overpool | zvz_9overpool | O |
+| 4 | 9overpool_mirror | zvz_9overpool | zvz_9overpool | Y |
 | 5 | 12pool_mirror | zvz_12pool | zvz_12pool | O |
 | 6 | 12hatch_mirror | zvz_12hatch | zvz_12hatch | O |
 
