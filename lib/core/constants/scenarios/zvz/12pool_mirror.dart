@@ -21,7 +21,7 @@ const _zvz12poolMirror = ScenarioScript(
           homeArmy: 0,
           awayArmy: 0,
           awayResource: 0,
-          homeResource: -5,
+          homeResource: -300,
         ),
         ScriptEvent(
           text: '{away} 선수 드론 생산합니다.',
@@ -29,7 +29,7 @@ const _zvz12poolMirror = ScenarioScript(
           homeArmy: 0,
           awayArmy: 0,
           homeResource: 0,
-          awayResource: -5,
+          awayResource: -300,
         ),
         ScriptEvent(
           text: '{home} 선수 12드론에 스포닝풀 건설!',
@@ -37,7 +37,7 @@ const _zvz12poolMirror = ScenarioScript(
           homeArmy: 0,
           awayArmy: 0,
           awayResource: 0,
-          homeResource: -15,
+          homeResource: -200,
           altText: '{home} 선수, 스포닝풀! 스탠다드한 오프닝입니다!',
         ),
         ScriptEvent(
@@ -46,7 +46,7 @@ const _zvz12poolMirror = ScenarioScript(
           homeArmy: 0,
           awayArmy: 0,
           homeResource: 0,
-          awayResource: -15,
+          awayResource: -200,
           altText: '{away} 선수도 스포닝풀! 스탠다드한 오프닝이네요!',
         ),
         ScriptEvent(
@@ -55,7 +55,7 @@ const _zvz12poolMirror = ScenarioScript(
           homeArmy: 0,
           awayArmy: 0,
           awayResource: 0,
-          homeResource: -5,
+          homeResource: -50,
           altText: '{home} 선수, 가스를 올립니다! 발업을 위한 준비!',
         ),
         ScriptEvent(
@@ -64,7 +64,7 @@ const _zvz12poolMirror = ScenarioScript(
           homeArmy: 0,
           awayArmy: 0,
           homeResource: 0,
-          awayResource: -5,
+          awayResource: -50,
           altText: '{away} 선수도 가스! 발업 준비에 들어갑니다!',
         ),
         ScriptEvent(
@@ -72,14 +72,14 @@ const _zvz12poolMirror = ScenarioScript(
           owner: LogOwner.home,
           awayArmy: 0,
           awayResource: 0,
-          homeArmy: 4, homeResource: -10,
+          homeArmy: 2, homeResource: -300,
         ),
         ScriptEvent(
           text: '{away} 선수도 저글링과 발업! 앞마당 타이밍을 노립니다!',
           owner: LogOwner.away,
           homeArmy: 0,
           homeResource: 0,
-          awayArmy: 4, awayResource: -10,
+          awayArmy: 2, awayResource: -300,
         ),
         ScriptEvent(
           text: '앞마당 타이밍이 승부의 관건입니다!',
@@ -107,7 +107,7 @@ const _zvz12poolMirror = ScenarioScript(
               owner: LogOwner.home,
               awayArmy: 0,
               awayResource: 0,
-              homeArmy: 2, homeResource: -25,
+              homeArmy: 2, homeResource: -300,
               altText: '{home} 선수, 앞마당! 저글링을 앞에 세워두고 확장합니다!',
             ),
             ScriptEvent(
@@ -115,7 +115,7 @@ const _zvz12poolMirror = ScenarioScript(
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,
-              awayArmy: 2, awayResource: -25,
+              awayArmy: 2, awayResource: -300,
               altText: '{away} 선수, 앞마당 건설! 서로 확장하는 모습입니다!',
             ),
             ScriptEvent(
@@ -132,7 +132,7 @@ const _zvz12poolMirror = ScenarioScript(
               owner: LogOwner.home,
               awayArmy: 0,
               awayResource: 0,
-              homeArmy: 2, homeResource: -15,
+              homeArmy: 2, homeResource: -125,
               skipChance: 0.3,
             ),
             ScriptEvent(
@@ -140,7 +140,7 @@ const _zvz12poolMirror = ScenarioScript(
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,
-              awayArmy: 2, awayResource: -15,
+              awayArmy: 2, awayResource: -125,
               skipChance: 0.3,
             ),
           ],
@@ -156,7 +156,7 @@ const _zvz12poolMirror = ScenarioScript(
               owner: LogOwner.home,
               awayArmy: 0,
               awayResource: 0,
-              homeArmy: 2, homeResource: -25,
+              homeArmy: 2, homeResource: -300,
               altText: '{home} 선수, 빠른 앞마당! 라바 이점을 노립니다!',
             ),
             ScriptEvent(
@@ -164,7 +164,7 @@ const _zvz12poolMirror = ScenarioScript(
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,
-              awayArmy: 4, awayResource: -10,            ),
+              awayArmy: 4, awayResource: -200,            ),
             ScriptEvent(
               text: '{home} 선수 성큰 완성 전! 드론과 저글링으로 필사적으로 막습니다!',
               owner: LogOwner.home,
@@ -195,7 +195,7 @@ const _zvz12poolMirror = ScenarioScript(
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,
-              awayArmy: 2, awayResource: -25,
+              awayArmy: 2, awayResource: -300,
               altText: '{away} 선수, 빠른 앞마당! 라바 이점을 노립니다!',
             ),
             ScriptEvent(
@@ -203,7 +203,7 @@ const _zvz12poolMirror = ScenarioScript(
               owner: LogOwner.home,
               awayArmy: 0,
               awayResource: 0,
-              homeArmy: 4, homeResource: -10,            ),
+              homeArmy: 4, homeResource: -200,            ),
             ScriptEvent(
               text: '{away} 선수 성큰 완성 전! 드론과 저글링으로 필사적으로 막습니다!',
               owner: LogOwner.away,
@@ -233,7 +233,7 @@ const _zvz12poolMirror = ScenarioScript(
               owner: LogOwner.home,
               awayArmy: 0,
               awayResource: 0,
-              homeArmy: 6, homeResource: -15,
+              homeArmy: 6, homeResource: -300,
               altText: '{home} 선수, 확장 포기! 저글링 물량으로 승부하겠다는 판단!',
             ),
             ScriptEvent(
@@ -242,13 +242,13 @@ const _zvz12poolMirror = ScenarioScript(
               homeArmy: 0,
               awayArmy: 0,
               homeResource: 0,
-              awayResource: -25,
+              awayResource: -300,
             ),
             ScriptEvent(
               text: '{home} 선수 발업 저글링 물량 투입! 앞마당 드론을 초토화시킵니다!',
               owner: LogOwner.home,
               homeResource: 0,
-              awayArmy: -5, awayResource: -20, homeArmy: -3,            ),
+              awayArmy: -5, awayResource: -200, homeArmy: -3,            ),
             ScriptEvent(
               text: '앞마당이 무너집니다! {home} 선수 저글링 올인 성공!',
               owner: LogOwner.home,
@@ -272,7 +272,7 @@ const _zvz12poolMirror = ScenarioScript(
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,
-              awayArmy: 6, awayResource: -15,
+              awayArmy: 6, awayResource: -300,
               altText: '{away} 선수, 확장 포기! 저글링 물량으로 승부하겠다는 판단!',
             ),
             ScriptEvent(
@@ -281,13 +281,13 @@ const _zvz12poolMirror = ScenarioScript(
               homeArmy: 0,
               awayArmy: 0,
               awayResource: 0,
-              homeResource: -25,
+              homeResource: -300,
             ),
             ScriptEvent(
               text: '{away} 선수 발업 저글링 물량 투입! 앞마당 드론을 초토화시킵니다!',
               owner: LogOwner.away,
               awayResource: 0,
-              homeArmy: -5, homeResource: -20, awayArmy: -3,            ),
+              homeArmy: -5, homeResource: -200, awayArmy: -3,            ),
             ScriptEvent(
               text: '앞마당이 무너집니다! {away} 선수 저글링 올인 성공!',
               owner: LogOwner.away,
@@ -317,7 +317,7 @@ const _zvz12poolMirror = ScenarioScript(
               owner: LogOwner.home,
               homeArmy: 0,
               homeResource: 0,
-              awayResource: -10, awayArmy: -2,              altText: '{home} 선수, 저글링으로 상대 앞마당 드론을 노립니다!',
+              awayResource: -100, awayArmy: -2,              altText: '{home} 선수, 저글링으로 상대 앞마당 드론을 노립니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 성큰이 아직 완성되지 않았습니다! 드론으로 막습니다!',
@@ -333,7 +333,7 @@ const _zvz12poolMirror = ScenarioScript(
               homeArmy: 0,
               awayArmy: 0,
               homeResource: 0,
-              awayResource: -5,              altText: '{home} 선수 깔끔한 견제! 드론 피해를 주고 빠집니다!',
+              awayResource: -100,              altText: '{home} 선수 깔끔한 견제! 드론 피해를 주고 빠집니다!',
             ),
             ScriptEvent(
               text: '소소한 견제 성공! 이 작은 차이가 중요합니다!',
@@ -358,7 +358,7 @@ const _zvz12poolMirror = ScenarioScript(
               owner: LogOwner.away,
               awayArmy: 0,
               awayResource: 0,
-              homeResource: -10, homeArmy: -2,              altText: '{away} 선수, 저글링으로 상대 앞마당 드론을 노립니다!',
+              homeResource: -100, homeArmy: -2,              altText: '{away} 선수, 저글링으로 상대 앞마당 드론을 노립니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 성큰이 아직 완성되지 않았습니다! 드론으로 막습니다!',
@@ -374,7 +374,7 @@ const _zvz12poolMirror = ScenarioScript(
               homeArmy: 0,
               awayArmy: 0,
               awayResource: 0,
-              homeResource: -5,              altText: '{away} 선수 깔끔한 견제! 드론 피해를 주고 빠집니다!',
+              homeResource: -100,              altText: '{away} 선수 깔끔한 견제! 드론 피해를 주고 빠집니다!',
             ),
             ScriptEvent(
               text: '소소한 견제 성공! 이 작은 차이가 중요합니다!',
@@ -403,13 +403,13 @@ const _zvz12poolMirror = ScenarioScript(
             ScriptEvent(
               text: '양쪽 저글링이 맞붙습니다! 서로 비슷한 피해를 주고받습니다!',
               owner: LogOwner.system,
-              homeArmy: -2, awayArmy: -2, homeResource: -5, awayResource: -5,
+              homeArmy: -2, awayArmy: -2, homeResource: -50, awayResource: -50,
               altText: '저글링 소모전! 큰 이득 없이 서로 소비합니다!',
             ),
             ScriptEvent(
               text: '양쪽 다 저글링을 보충하면서 테크로 넘어갑니다!',
               owner: LogOwner.system,
-              homeArmy: 2, awayArmy: 2, homeResource: -10, awayResource: -10,
+              homeArmy: 2, awayArmy: 2, homeResource: -100, awayResource: -100,
               altText: '소모전 끝! 이제 테크 싸움입니다!',
             ),
           ],
@@ -427,7 +427,7 @@ const _zvz12poolMirror = ScenarioScript(
           homeArmy: 0,
           awayArmy: 0,
           awayResource: 0,
-          homeResource: -15,
+          homeResource: -250,
           altText: '{home} 선수, 해처리를 레어로 진화시킵니다!',
         ),
         ScriptEvent(
@@ -436,7 +436,7 @@ const _zvz12poolMirror = ScenarioScript(
           homeArmy: 0,
           awayArmy: 0,
           homeResource: 0,
-          awayResource: -15,
+          awayResource: -250,
           altText: '{away} 선수도 레어! 테크 싸움이 시작됩니다!',
         ),
         ScriptEvent(
@@ -453,7 +453,7 @@ const _zvz12poolMirror = ScenarioScript(
           owner: LogOwner.home,
           awayArmy: 0,
           awayResource: 0,
-          homeArmy: 2, homeResource: -15,
+          homeArmy: 2, homeResource: -125,
           skipChance: 0.3,
         ),
         ScriptEvent(
@@ -462,7 +462,7 @@ const _zvz12poolMirror = ScenarioScript(
           homeArmy: 0,
           awayArmy: 0,
           awayResource: 0,
-          homeResource: -5,
+          homeResource: 0,
           altText: '{home} 선수, 레어 완성! 테크가 올라갑니다!',
         ),
         ScriptEvent(
@@ -471,7 +471,7 @@ const _zvz12poolMirror = ScenarioScript(
           homeArmy: 0,
           awayArmy: 0,
           awayResource: 0,
-          homeResource: -10,
+          homeResource: -300,
         ),
         ScriptEvent(
           text: '{away} 선수도 스파이어 건설! 누가 먼저 공중 유닛을 뽑을까요?',
@@ -479,7 +479,7 @@ const _zvz12poolMirror = ScenarioScript(
           homeArmy: 0,
           awayArmy: 0,
           homeResource: 0,
-          awayResource: -15,
+          awayResource: -300,
           altText: '{away} 선수, 스파이어! 양쪽 공중전이 본격화됩니다!',
         ),
       ],
@@ -499,14 +499,14 @@ const _zvz12poolMirror = ScenarioScript(
               owner: LogOwner.home,
               awayArmy: 0,
               awayResource: 0,
-              homeArmy: 5, homeResource: -20,
+              homeArmy: 5, homeResource: -500,
             ),
             ScriptEvent(
               text: '{away} 선수도 뮤탈 편대 완성! 스커지도 섞습니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,
-              awayArmy: 5, awayResource: -20,
+              awayArmy: 5, awayResource: -500,
             ),
             ScriptEvent(
               text: '{home} 선수, 뮤탈 집중 사격! 상대 뮤탈을 노립니다!',
@@ -521,7 +521,7 @@ const _zvz12poolMirror = ScenarioScript(
               homeArmy: 0,
               awayArmy: 0,
               homeResource: 0,
-              awayResource: -10,            ),
+              awayResource: -100,            ),
           ],
         ),
         // 분기 B: 어웨이 뮤탈 컨트롤 우위 (공격형)
@@ -536,14 +536,14 @@ const _zvz12poolMirror = ScenarioScript(
               owner: LogOwner.home,
               awayArmy: 0,
               awayResource: 0,
-              homeArmy: 5, homeResource: -20,
+              homeArmy: 5, homeResource: -500,
             ),
             ScriptEvent(
               text: '{away} 선수도 뮤탈 편대 완성! 스커지도 섞습니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,
-              awayArmy: 5, awayResource: -20,
+              awayArmy: 5, awayResource: -500,
             ),
             ScriptEvent(
               text: '{away} 선수, 스커지로 뮤탈을 격추합니다! 동반 추락!',
@@ -558,7 +558,7 @@ const _zvz12poolMirror = ScenarioScript(
               homeArmy: 0,
               awayArmy: 0,
               awayResource: 0,
-              homeResource: -10,            ),
+              homeResource: -100,            ),
           ],
         ),
         // 분기 C: 홈 스포어 수비형 (에볼루션 챔버 + 스포어)
@@ -572,14 +572,14 @@ const _zvz12poolMirror = ScenarioScript(
               owner: LogOwner.home,
               awayArmy: 0,
               awayResource: 0,
-              homeArmy: 5, homeResource: -25,
+              homeArmy: 5, homeResource: -675,
             ),
             ScriptEvent(
               text: '{away} 선수도 뮤탈 편대 완성! 스커지도 섞습니다!',
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,
-              awayArmy: 5, awayResource: -20,
+              awayArmy: 5, awayResource: -500,
             ),
             ScriptEvent(
               text: '{home} 선수, 스포어가 상대 뮤탈을 견제합니다! 안정적인 수비!',
@@ -595,7 +595,7 @@ const _zvz12poolMirror = ScenarioScript(
               homeArmy: 0,
               awayArmy: 0,
               homeResource: 0,
-              awayResource: -10,            ),
+              awayResource: -100,            ),
           ],
         ),
         // 분기 D: 어웨이 스포어 수비형 (에볼루션 챔버 + 스포어)
@@ -610,14 +610,14 @@ const _zvz12poolMirror = ScenarioScript(
               owner: LogOwner.home,
               awayArmy: 0,
               awayResource: 0,
-              homeArmy: 5, homeResource: -20,
+              homeArmy: 5, homeResource: -500,
             ),
             ScriptEvent(
               text: '{away} 선수도 뮤탈 편대 완성! 에볼루션 챔버에 스포어까지! 수비적인 선택!',
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,
-              awayArmy: 5, awayResource: -25,
+              awayArmy: 5, awayResource: -675,
             ),
             ScriptEvent(
               text: '{away} 선수, 스포어가 상대 뮤탈을 견제합니다! 안정적인 수비!',
@@ -633,7 +633,7 @@ const _zvz12poolMirror = ScenarioScript(
               homeArmy: 0,
               awayArmy: 0,
               awayResource: 0,
-              homeResource: -10,            ),
+              homeResource: -100,            ),
           ],
         ),
       ],
@@ -660,7 +660,7 @@ const _zvz12poolMirror = ScenarioScript(
               text: '{home} 선수, 뮤탈로 상대 드론을 견제합니다! 효율적인 교환!',
               owner: LogOwner.home,
               homeResource: 0,
-              homeArmy: 5, awayArmy: -5, awayResource: -15,              altText: '{home} 선수 드론 견제! 자원 차이를 벌립니다!',
+              homeArmy: 5, awayArmy: -5, awayResource: -150,              altText: '{home} 선수 드론 견제! 자원 차이를 벌립니다!',
             ),
             ScriptEvent(
               text: '{home} 선수, 뮤탈 수 차이로 제공권 장악!',
@@ -698,7 +698,7 @@ const _zvz12poolMirror = ScenarioScript(
               text: '{away} 선수, 뮤탈로 상대 드론을 견제합니다! 효율적인 교환!',
               owner: LogOwner.away,
               awayResource: 0,
-              awayArmy: 5, homeArmy: -5, homeResource: -15,              altText: '{away} 선수 드론 견제! 자원 차이를 벌립니다!',
+              awayArmy: 5, homeArmy: -5, homeResource: -150,              altText: '{away} 선수 드론 견제! 자원 차이를 벌립니다!',
             ),
             ScriptEvent(
               text: '{away} 선수, 뮤탈 수 차이로 제공권 장악!',
@@ -753,7 +753,7 @@ const _zvz12poolMirror = ScenarioScript(
               homeArmy: 0,
               awayArmy: 0,
               homeResource: 0,
-              awayResource: -20,              decisive: true,
+              awayResource: -200,              decisive: true,
             ),
           ],
         ),
@@ -794,7 +794,7 @@ const _zvz12poolMirror = ScenarioScript(
               homeArmy: 0,
               awayArmy: 0,
               awayResource: 0,
-              homeResource: -20,              decisive: true,
+              homeResource: -200,              decisive: true,
             ),
           ],
         ),
@@ -817,7 +817,7 @@ const _zvz12poolMirror = ScenarioScript(
               owner: LogOwner.home,
               awayArmy: 0,
               awayResource: 0,
-              homeArmy: 8, homeResource: -15,            ),
+              homeArmy: 8, homeResource: -400,            ),
             ScriptEvent(
               text: '{home} 선수 저글링 서라운드! 상대 본진까지 밀고 들어갑니다!',
               owner: LogOwner.home,
@@ -855,7 +855,7 @@ const _zvz12poolMirror = ScenarioScript(
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,
-              awayArmy: 8, awayResource: -15,            ),
+              awayArmy: 8, awayResource: -400,            ),
             ScriptEvent(
               text: '{away} 선수 저글링 서라운드! 상대 본진까지 밀고 들어갑니다!',
               owner: LogOwner.away,
@@ -891,7 +891,7 @@ const _zvz12poolMirror = ScenarioScript(
               owner: LogOwner.home,
               awayArmy: 0,
               awayResource: 0,
-              homeArmy: 4, homeResource: -15,              altText: '{home} 선수, 라바 차이! 뮤탈 추가 생산이 빠릅니다!',
+              homeArmy: 4, homeResource: -400,              altText: '{home} 선수, 라바 차이! 뮤탈 추가 생산이 빠릅니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 드론 수가 점점 밀립니다! 뮤탈 보충이 느려지고 있습니다!',
@@ -931,7 +931,7 @@ const _zvz12poolMirror = ScenarioScript(
               owner: LogOwner.away,
               homeArmy: 0,
               homeResource: 0,
-              awayArmy: 4, awayResource: -15,              altText: '{away} 선수, 라바 차이! 뮤탈 추가 생산이 빠릅니다!',
+              awayArmy: 4, awayResource: -400,              altText: '{away} 선수, 라바 차이! 뮤탈 추가 생산이 빠릅니다!',
             ),
             ScriptEvent(
               text: '{home} 선수 드론 수가 점점 밀립니다! 뮤탈 보충이 느려지고 있습니다!',
