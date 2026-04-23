@@ -52,7 +52,7 @@
 ---
 ## Game 2 | 홈(이재동) 승 | 병력: 9 vs 3
 
-**분기 체인**: home_ling_allin → home_ling_crush
+**분기 체인**: `home_ling_allin → home_ling_crush
 
 ```
  1. [해설] 마이프로리그, 경기 시작했습니다!

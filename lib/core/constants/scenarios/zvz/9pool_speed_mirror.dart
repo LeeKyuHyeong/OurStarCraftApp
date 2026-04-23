@@ -448,13 +448,13 @@ const _zvz9poolSpeedMirror = ScenarioScript(
               altText: '{away} 선수도 레어 진화합니다.',
             ),
             ScriptEvent(
-              text: '두 선수 저글링 숫자가 조금만 차이나도 밀릴 수 있다는 압박감에 함부로 확장이나 드론을 뽑지 못하고 저글링을 계속 추가해줍니다.',
+              text: '두 선수 저글링 숫자가 차이가 부담되어 함부로 확장이나 드론을 뽑지 못하고 저글링을 계속 추가해줍니다.',
               owner: LogOwner.system,
               homeArmy: 2,
               awayArmy: 2,
               homeResource: -100,
               awayResource: -100,
-              altText: '과감한 확장 때나 라바를 드론으로 썼을 때에 상대방의 공격이 이루어질 수 있기 때문에 두 선수 모두 계속해서 저글링을 추가합니다.',
+              altText: '확장이나 드론 생산 시 상대방의 공격이 이루어질 수 있기 때문에 두 선수 모두 계속해서 저글링을 추가합니다.',
             ),
             ScriptEvent(
               text: '{home} 선수 레어 완성되며 스파이어 건설합니다.',

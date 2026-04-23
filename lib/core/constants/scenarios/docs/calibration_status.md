@@ -128,32 +128,32 @@
 
 ```dart
 // 공격력 높은 쪽이 교전 승리 분기로 갈 확률 증가
-ScriptBranch(
-  id: 'engage_win',
-  conditionStat: 'attack',
-  homeStatMustBeHigher: true,   // 홈 attack 높으면 이 분기 우세
-  baseProbability: 1.0,
-  events: [/* 홈 교전 승리 이벤트 */],
-),
-ScriptBranch(
-  id: 'engage_lose',
-  conditionStat: 'attack',
-  homeStatMustBeHigher: false,  // 어웨이 attack 높으면 이 분기 우세
-  baseProbability: 1.0,
-  events: [/* 어웨이 교전 승리 이벤트 */],
-),
+// ScriptBranch(
+//   id: 'engage_win',
+//   conditionStat: 'attack',
+//   homeStatMustBeHigher: true,   // 홈 attack 높으면 이 분기 우세
+//   baseProbability: 1.0,
+//   events: [/* 홈 교전 승리 이벤트 */],
+// ),
+// ScriptBranch(
+//   id: 'engage_lose',
+//   conditionStat: 'attack',
+//   homeStatMustBeHigher: false,  // 어웨이 attack 높으면 이 분기 우세
+//   baseProbability: 1.0,
+//   events: [/* 어웨이 교전 승리 이벤트 */],
+// ),
 ```
 
 ### conditionPriorBranchIds 사용 예시
 
 ```dart
 // Phase 2에서 'early_aggression' 분기가 선택된 경우에만 후보에 포함
-ScriptBranch(
-  id: 'followup_attack',
-  conditionPriorBranchIds: ['early_aggression'],
-  baseProbability: 1.0,
-  events: [/* 후속 공격 이벤트 */],
-),
+// ScriptBranch(
+//   id: 'followup_attack',
+//   conditionPriorBranchIds: ['early_aggression'],
+//   baseProbability: 1.0,
+//   events: [/* 후속 공격 이벤트 */],
+// ),
 ```
 
 ---
@@ -319,16 +319,3 @@ ScriptBranch(
 > 자원 관련 재검증 필요 (2026-04-21 초기화)
 
 ---
-
-## build_orders.dart 이벤트 풀 제거 계획
-
-현재 시나리오 스크립트에 빈 라인이 있으면 `build_orders.dart`의 `getMidLateEvent()`가 호출되어 중후반 이벤트를 채운다.
-전 종족전 시나리오 보정이 완료되어 **모든 라인이 시나리오로 커버**되면, `build_orders.dart` 내부의 이벤트 풀(mid-late, clash 등)은 호출되지 않는 죽은 코드가 된다.
-
-**전체 보정 완료 후 제거 대상:**
-- `BuildOrderData`의 mid-late 이벤트 풀 (tvtMidLateEvents, tvzMidLateEvents 등 9개)
-- clash 이벤트 풀 (aggressiveVsAggressive, comebackEvents, microEvents 등)
-- `getMidLateEvent()`, `getClashEvents()` 메서드
-- `match_simulation_service.dart`의 빈 라인 채우기 로직 (`homeStep == null && awayStep == null` 분기)
-
-**제거 조건:** 전 종족전 266개 시나리오 진행률 100% + 보정 루프 전체 PASS
