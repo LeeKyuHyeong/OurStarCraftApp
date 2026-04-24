@@ -16,13 +16,13 @@ const _zvp973HydraVsCorsair = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 9드론에 스포닝풀! 앞마당까지 확보합니다.',
+          text: '{home} 선수 드론을 9개까지 뽑습니다.',
           owner: LogOwner.home,
           homeArmy: 0,
           awayArmy: 0,
           awayResource: 0,
           homeResource: -25,
-          altText: '{home} 선수, 빠른 스포닝풀에 앞마당까지! 히드라를 노리는군요.',
+          altText: '{home} 선수, 9드론까지 생산합니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 게이트웨이와 사이버네틱스 코어를 올리고 스타게이트를 건설합니다! 커세어를 준비합니다.',

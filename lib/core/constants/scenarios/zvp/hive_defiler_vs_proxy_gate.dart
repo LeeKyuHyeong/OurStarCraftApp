@@ -16,13 +16,13 @@ const _zvpHiveDefilerVsProxyGate = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 해처리를 올리며 드론 생산에 집중합니다.',
+          text: '{home} 선수 드론을 9개까지 뽑습니다.',
           owner: LogOwner.home,
           homeArmy: 0,
           awayArmy: 0,
           awayResource: 0,
           homeResource: -30,
-          altText: '{home} 선수, 앞마당 해처리부터 올리는 모습이네요.',
+          altText: '{home} 선수, 9드론까지 생산합니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 파일런을 상대 본진 근처에 숨겨놓습니다!',

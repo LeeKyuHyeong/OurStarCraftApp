@@ -16,13 +16,13 @@ const _zvpYabarwiVs2starCorsair = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 앞마당 해처리를 올리며 자원 확보에 나섭니다.',
+          text: '{home} 선수 드론을 9개까지 뽑습니다.',
           owner: LogOwner.home,
           homeArmy: 0,
           awayArmy: 0,
           awayResource: 0,
           homeResource: 10,
-          altText: '{home} 선수, 앞마당 해처리 건설! 드론 풀가동!',
+          altText: '{home} 선수, 9드론까지 생산합니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 스타게이트 2개를 올립니다! 커세어 대량 생산 체제!',

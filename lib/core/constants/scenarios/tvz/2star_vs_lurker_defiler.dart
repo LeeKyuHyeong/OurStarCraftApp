@@ -50,13 +50,13 @@ const _tvz2starVsLurkerDefiler = ScenarioScript(
           altText: '{home} 선수 스타포트를 두 개나 올립니다! 공중 유닛 운영이네요.',
         ),
         ScriptEvent(
-          text: '{away} 선수 해처리에서 드론을 생산합니다.',
+          text: '{away} 선수 드론을 9개까지 뽑습니다.',
           owner: LogOwner.away,
           homeArmy: 0,
           awayArmy: 0,
           homeResource: 0,
           awayResource: 0,
-          altText: '{away} 선수 드론 생산, 자원 확보에 집중합니다.',
+          altText: '{away} 선수, 9드론까지 생산합니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 스포닝풀 건설을 시작합니다.',

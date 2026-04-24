@@ -16,13 +16,13 @@ const _zvp973HydraVsProxyGate = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 9드론에 스포닝풀을 올립니다! 빠른 스포닝풀이군요!',
+          text: '{home} 선수 드론을 9개까지 뽑습니다.',
           owner: LogOwner.home,
           homeArmy: 0,
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home} 선수, 9드론에 스포닝풀! 빠르게 저글링을 뽑으려 합니다!',
+          altText: '{home} 선수, 9드론까지 생산합니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 파일런을 상대 본진 근처에 숨깁니다!',

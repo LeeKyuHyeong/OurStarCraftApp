@@ -16,13 +16,13 @@ const _zvpHydraLurkerVsProxyGate = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 해처리에서 드론을 생산하며 안정적으로 시작합니다.',
+          text: '{home} 선수 드론을 9개까지 뽑습니다.',
           owner: LogOwner.home,
           homeArmy: 0,
           awayArmy: 0,
           awayResource: 0,
           homeResource: 10,
-          altText: '{home} 선수, 드론 생산에 집중합니다. 일꾼부터 챙기네요.',
+          altText: '{home} 선수, 9드론까지 생산합니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 파일런을 저그 앞마당 근처에 숨겨서 건설합니다!',

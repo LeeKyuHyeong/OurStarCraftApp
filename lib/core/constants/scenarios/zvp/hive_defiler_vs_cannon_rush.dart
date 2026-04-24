@@ -16,12 +16,13 @@ const _zvpHiveDefilerVsCannonRush = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 해처리를 올리며 일꾼을 늘려갑니다.',
+          text: '{home} 선수 드론을 9개까지 뽑습니다.',
           owner: LogOwner.home,
           homeArmy: 0,
           awayArmy: 0,
           awayResource: 0,
           homeResource: -30,
+          altText: '{home} 선수, 9드론까지 생산합니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 포지를 먼저 올립니다! 캐논 러시 준비인가요?',

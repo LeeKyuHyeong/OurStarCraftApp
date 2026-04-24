@@ -16,13 +16,13 @@ const _zvp973HydraVsForgeExpand = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 9드론에 스포닝풀을 올립니다! 공격적인 오프닝!',
+          text: '{home} 선수 드론을 9개까지 뽑습니다.',
           owner: LogOwner.home,
           homeArmy: 0,
           awayArmy: 0,
           awayResource: 0,
           homeResource: -15,
-          altText: '{home} 선수, 빠르게 스포닝풀을 올립니다! 공격적이군요!',
+          altText: '{home} 선수, 9드론까지 생산합니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 포지를 올리고 앞마당 넥서스를 건설합니다.',

@@ -44,8 +44,8 @@ const _zvz9overpoolMirror = ScenarioScript(
       linearEvents: [
         ScriptEvent(
           owner: LogOwner.home,
-          text: '{home} 선수 드론을 모읍니다.',
-          altText: '{home} 선수, 드론 생산에 집중합니다.',
+          text: '{home} 선수 드론을 9개까지 뽑습니다.',
+          altText: '{home} 선수, 9드론까지 생산합니다.',
           homeArmy: 0,
           homeResource: 200,
           awayArmy: 0,
@@ -53,8 +53,8 @@ const _zvz9overpoolMirror = ScenarioScript(
         ),
         ScriptEvent(
           owner: LogOwner.away,
-          text: '{away} 선수 드론 생산합니다.',
-          altText: '{away} 선수도 드론을 모읍니다.',
+          text: '{away} 선수도 드론 9개까지 찍습니다.',
+          altText: '{away} 선수, 9드론까지 생산합니다.',
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 0,
@@ -132,6 +132,7 @@ const _zvz9overpoolMirror = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'home_expand',
+          description: '(phase1) 분기A - 홈 앞마당 확장',
           baseProbability: 0.5,
           conditionStat: 'macro+defense',
           events: [
@@ -176,6 +177,7 @@ const _zvz9overpoolMirror = ScenarioScript(
         ),
         ScriptBranch(
           id: 'away_expand',
+          description: '(phase1) 분기B - 어웨이 앞마당 확장',
           baseProbability: 0.5,
           conditionStat: 'macro+defense',
           homeStatMustBeHigher: false,
@@ -230,6 +232,7 @@ const _zvz9overpoolMirror = ScenarioScript(
         // 분기 A: away 저글링 승 → home 앞마당 파괴 > away 승
         ScriptBranch(
           id: 'ling_away_win',
+          description: '(phase2) 분기A - 저글링 어웨이 승',
           conditionStat: 'attack',
           homeStatMustBeHigher: false,
           baseProbability: 0.5,
@@ -315,6 +318,7 @@ const _zvz9overpoolMirror = ScenarioScript(
         // 분기 B: home 앞마당 수비 성공 → 레어 + 스파이어
         ScriptBranch(
           id: 'ling_defend_home',
+          description: '(phase2) 분기B - 홈 앞마당 수비',
           conditionStat: 'defense+sense',
           baseProbability: 0.5,
           conditionPriorBranchIds: ['home_expand'],
@@ -409,6 +413,7 @@ const _zvz9overpoolMirror = ScenarioScript(
         // 분기 C: away 앞마당 수비 성공 → 레어 + 스파이어
         ScriptBranch(
           id: 'ling_defend_away',
+          description: '(phase2) 분기C - 어웨이 앞마당 수비',
           conditionStat: 'defense+sense',
           homeStatMustBeHigher: false,
           baseProbability: 0.5,
@@ -504,6 +509,7 @@ const _zvz9overpoolMirror = ScenarioScript(
         // 분기 D: home 저글링 승 → away 앞마당 파괴 > home 승
         ScriptBranch(
           id: 'ling_home_win',
+          description: '(phase2) 분기D - 저글링 홈 승',
           conditionStat: 'attack',
           baseProbability: 0.5,
           conditionPriorBranchIds: ['away_expand'],
@@ -595,6 +601,7 @@ const _zvz9overpoolMirror = ScenarioScript(
         // 분기 A: home 스포어 수비형 뮤탈 승리 > home 승
         ScriptBranch(
           id: 'muta_home_spore_win',
+          description: '(phase3) 분기A - 스포어 수비형 홈 승',
           conditionStat: 'defense+control',
           baseProbability: 0.5,
           conditionPriorBranchIds: ['ling_defend_home'],
@@ -671,6 +678,7 @@ const _zvz9overpoolMirror = ScenarioScript(
         // 분기 B: away 공격형 뮤탈+저글링 승리 > away 승
         ScriptBranch(
           id: 'muta_away_attack_win',
+          description: '(phase3) 분기B - 공격형 어웨이 승',
           conditionStat: 'attack+control',
           homeStatMustBeHigher: false,
           baseProbability: 0.5,
@@ -746,6 +754,7 @@ const _zvz9overpoolMirror = ScenarioScript(
         // 분기 C: away 스포어 수비형 뮤탈 승리 > away 승
         ScriptBranch(
           id: 'muta_away_spore_win',
+          description: '(phase3) 분기C - 스포어 수비형 어웨이 승',
           conditionStat: 'defense+control',
           homeStatMustBeHigher: false,
           baseProbability: 0.5,
@@ -823,6 +832,7 @@ const _zvz9overpoolMirror = ScenarioScript(
         // 분기 D: home 공격형 뮤탈+저글링 승리 > home 승
         ScriptBranch(
           id: 'muta_home_attack_win',
+          description: '(phase3) 분기D - 공격형 홈 승',
           conditionStat: 'attack+control',
           baseProbability: 0.5,
           conditionPriorBranchIds: ['ling_defend_away'],

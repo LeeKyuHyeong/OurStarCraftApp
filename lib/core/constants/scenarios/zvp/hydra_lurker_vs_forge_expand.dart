@@ -16,12 +16,13 @@ const _zvpHydraLurkerVsForgeExpand = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 해처리에서 드론을 뽑으며 앞마당을 올립니다.',
+          text: '{home} 선수 드론을 9개까지 뽑습니다.',
           owner: LogOwner.home,
           homeArmy: 0,
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
+          altText: '{home} 선수, 9드론까지 생산합니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 포지 먼저 건설합니다! 캐논으로 방어하며 확장하려는 모습!',

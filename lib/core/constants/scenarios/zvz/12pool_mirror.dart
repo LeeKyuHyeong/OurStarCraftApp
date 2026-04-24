@@ -45,8 +45,8 @@ const _zvz12poolMirror = ScenarioScript(
       linearEvents: [
         ScriptEvent(
           owner: LogOwner.home,
-          text: '{home} 선수 드론을 넉넉하게 모읍니다.',
-          altText: '{home} 선수, 드론 생산에 여유있게 집중합니다.',
+          text: '{home} 선수 드론을 9개까지 뽑습니다.',
+          altText: '{home} 선수, 9드론까지 생산합니다.',
           homeArmy: 0,
           homeResource: 200,
           awayArmy: 0,
@@ -54,8 +54,8 @@ const _zvz12poolMirror = ScenarioScript(
         ),
         ScriptEvent(
           owner: LogOwner.away,
-          text: '{away} 선수도 드론을 충분히 모읍니다.',
-          altText: '{away} 선수, 일꾼 수를 넉넉히 확보합니다.',
+          text: '{away} 선수도 드론 9개까지 찍습니다.',
+          altText: '{away} 선수, 9드론까지 생산합니다.',
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 0,
@@ -72,8 +72,8 @@ const _zvz12poolMirror = ScenarioScript(
         ),
         ScriptEvent(
           owner: LogOwner.home,
-          text: '{home} 선수 12드론에 스포닝풀! 가스도 바로 올립니다!',
-          altText: '{home} 선수, 드론을 충분히 모은 후 스포닝풀과 가스를 건설합니다!',
+          text: '{home} 선수 드론을 3기 더 뽑아 12드론! 스포닝풀과 가스를 동시에 올립니다!',
+          altText: '{home} 선수, 드론 3기를 추가해서 12드론에 스포닝풀! 가스도 바로 올립니다!',
           homeArmy: 0,
           homeResource: -150,
           awayArmy: 0,
@@ -90,8 +90,8 @@ const _zvz12poolMirror = ScenarioScript(
         ),
         ScriptEvent(
           owner: LogOwner.away,
-          text: '{away} 선수도 12드론에 스포닝풀과 가스!',
-          altText: '{away} 선수도 스포닝풀! 가스까지 동시에 올립니다!',
+          text: '{away} 선수도 드론 3기를 추가해 12드론에 스포닝풀과 가스!',
+          altText: '{away} 선수도 드론 3기 추가 후 스포닝풀! 가스까지 동시에!',
           homeArmy: 0,
           homeResource: 0,
           awayArmy: 0,
@@ -133,6 +133,7 @@ const _zvz12poolMirror = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'home_expand',
+          description: '(phase1) 분기A - 홈 앞마당 확장',
           baseProbability: 0.5,
           conditionStat: 'macro+defense',
           events: [
@@ -177,6 +178,7 @@ const _zvz12poolMirror = ScenarioScript(
         ),
         ScriptBranch(
           id: 'away_expand',
+          description: '(phase1) 분기B - 어웨이 앞마당 확장',
           baseProbability: 0.5,
           conditionStat: 'macro+defense',
           homeStatMustBeHigher: false,
@@ -230,6 +232,7 @@ const _zvz12poolMirror = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'ling_away_win',
+          description: '(phase2) 분기A - 저글링 어웨이 승',
           conditionStat: 'attack',
           homeStatMustBeHigher: false,
           baseProbability: 0.5,
@@ -314,6 +317,7 @@ const _zvz12poolMirror = ScenarioScript(
 
         ScriptBranch(
           id: 'ling_defend_home',
+          description: '(phase2) 분기B - 홈 앞마당 수비',
           conditionStat: 'defense+sense',
           baseProbability: 0.5,
           conditionPriorBranchIds: ['home_expand'],
@@ -407,6 +411,7 @@ const _zvz12poolMirror = ScenarioScript(
 
         ScriptBranch(
           id: 'ling_defend_away',
+          description: '(phase2) 분기C - 어웨이 앞마당 수비',
           conditionStat: 'defense+sense',
           homeStatMustBeHigher: false,
           baseProbability: 0.5,
@@ -501,6 +506,7 @@ const _zvz12poolMirror = ScenarioScript(
 
         ScriptBranch(
           id: 'ling_home_win',
+          description: '(phase2) 분기D - 저글링 홈 승',
           conditionStat: 'attack',
           baseProbability: 0.5,
           conditionPriorBranchIds: ['away_expand'],
@@ -591,6 +597,7 @@ const _zvz12poolMirror = ScenarioScript(
       branches: [
         ScriptBranch(
           id: 'muta_home_spore_win',
+          description: '(phase3) 분기A - 스포어 수비형 홈 승',
           conditionStat: 'defense+control',
           baseProbability: 0.5,
           conditionPriorBranchIds: ['ling_defend_home'],
@@ -666,6 +673,7 @@ const _zvz12poolMirror = ScenarioScript(
 
         ScriptBranch(
           id: 'muta_away_attack_win',
+          description: '(phase3) 분기B - 공격형 어웨이 승',
           conditionStat: 'attack+control',
           homeStatMustBeHigher: false,
           baseProbability: 0.5,
@@ -740,6 +748,7 @@ const _zvz12poolMirror = ScenarioScript(
 
         ScriptBranch(
           id: 'muta_away_spore_win',
+          description: '(phase3) 분기C - 스포어 수비형 어웨이 승',
           conditionStat: 'defense+control',
           homeStatMustBeHigher: false,
           baseProbability: 0.5,
@@ -816,6 +825,7 @@ const _zvz12poolMirror = ScenarioScript(
 
         ScriptBranch(
           id: 'muta_home_attack_win',
+          description: '(phase3) 분기D - 공격형 홈 승',
           conditionStat: 'attack+control',
           baseProbability: 0.5,
           conditionPriorBranchIds: ['ling_defend_away'],

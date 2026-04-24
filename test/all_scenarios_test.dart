@@ -168,7 +168,6 @@ void main() {
         int fwdHomeWins = 0;
         int earlyEnd = 0, midEnd = 0, lateEnd = 0;
         int endDecisive = 0, endArmy = 0, endMaxLines = 0;
-        int resOver1000Count = 0;
         int homeMaxRes = 0, awayMaxRes = 0;
         int homePeakRes = 0, awayPeakRes = 0;
         Set<String> uniqueTexts = {};
@@ -196,7 +195,6 @@ void main() {
           if (gamePeakAway > awayPeakRes) awayPeakRes = gamePeakAway;
           if (state.homeResources > homeMaxRes) homeMaxRes = state.homeResources;
           if (state.awayResources > awayMaxRes) awayMaxRes = state.awayResources;
-          if (state.homeResources > 1000 || state.awayResources > 1000) resOver1000Count++;
           uniqueTexts.add(state.battleLogEntries.map((e) => e.text).join('\n'));
           if (logLen <= 28) earlyEnd++;
           else if (logLen <= 42) midEnd++;
@@ -215,7 +213,6 @@ void main() {
         }
 
         final fwdHomeRate = fwdHomeWins / totalGames * 100;
-        final resOver1000Pct = (resOver1000Count / totalGames * 100).toStringAsFixed(1);
 
         final buf = StringBuffer();
         buf.writeln('# ${config.label} ${s.label} 1000경기 통계');
@@ -226,8 +223,6 @@ void main() {
         buf.writeln('| ${config.homeLabel} 승률 | ${fwdHomeRate.toStringAsFixed(1)}% ($fwdHomeWins승) |');
         buf.writeln('| ${config.awayLabel} 승률 | ${(100 - fwdHomeRate).toStringAsFixed(1)}% (${totalGames - fwdHomeWins}승) |');
         buf.writeln('| 최대 자원 (경기 중) | ${config.homeLabel} $homePeakRes / ${config.awayLabel} $awayPeakRes |');
-        buf.writeln('| 최대 자원 (종료 시) | ${config.homeLabel} $homeMaxRes / ${config.awayLabel} $awayMaxRes |');
-        buf.writeln('| 자원 1000 초과 경기 | $resOver1000Count ($resOver1000Pct%) |');
         buf.writeln('| 고유 로그 수 | ${uniqueTexts.length} / $totalGames |');
         buf.writeln();
         buf.writeln('## 종료 원인 분포');
@@ -252,16 +247,20 @@ void main() {
           buf.writeln();
           buf.writeln('| 분기 ID | 분기 설명 | 발동 | 비율 |');
           buf.writeln('|---------|----------|------|------|');
-          final sorted = branchCounts.entries.toList()
-            ..sort((a, b) => b.value.compareTo(a.value));
-          for (final e in sorted) {
+          final sortedBranches = branchCounts.entries.toList()
+            ..sort((a, b) {
+              final descA = branchDescMap[a.key] ?? '';
+              final descB = branchDescMap[b.key] ?? '';
+              return descA.compareTo(descB);
+            });
+          for (final e in sortedBranches) {
             final desc = branchDescMap[e.key] ?? '';
             buf.writeln('| ${e.key} | $desc | ${e.value} | ${(e.value / totalGames * 100).toStringAsFixed(1)}% |');
           }
         }
 
         writeTestOutput('test/output/${config.id}', '${s.label}_1000stats.md', buf.toString());
-        print('${config.label} ${s.label}: 승률${fwdHomeRate.toStringAsFixed(1)}% | decisive${(endDecisive / 10).toStringAsFixed(0)} army${(endArmy / 10).toStringAsFixed(0)} max${(endMaxLines / 10).toStringAsFixed(0)} | 고유${uniqueTexts.length} | >1000:$resOver1000Count');
+        print('${config.label} ${s.label}: 승률${fwdHomeRate.toStringAsFixed(1)}% | decisive${(endDecisive / 10).toStringAsFixed(0)} army${(endArmy / 10).toStringAsFixed(0)} max${(endMaxLines / 10).toStringAsFixed(0)} | 고유${uniqueTexts.length}');
       }
 
       for (final s in config.scenarios) {

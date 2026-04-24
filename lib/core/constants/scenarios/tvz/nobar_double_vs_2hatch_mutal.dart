@@ -24,13 +24,13 @@ const _tvzNobarDoubleVs2hatchMutal = ScenarioScript(
           altText: '{home} 선수 앞마당에 커맨드센터 퍼스트!',
         ),
         ScriptEvent(
-          text: '{away} 선수 해처리에서 드론을 생산합니다.',
+          text: '{away} 선수 드론을 9개까지 뽑습니다.',
           owner: LogOwner.away,
           homeArmy: 0,
           awayArmy: 0,
           homeResource: 0,
           awayResource: 0,
-          altText: '{away} 선수 드론 생산, 자원 확보에 집중합니다.',
+          altText: '{away} 선수, 9드론까지 생산합니다.',
         ),
         ScriptEvent(
           text: '{home} 선수 배럭 건설을 시작합니다.',

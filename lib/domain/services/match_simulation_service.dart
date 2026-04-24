@@ -3084,10 +3084,11 @@ class MatchSimulationService {
       if (awayBranch != null) return awayBranch;
     }
 
-    // 가중치 적용:
-    //   1) 병력 비율 댐핑 → 0.5 기준
-    //   2) conditionStat 기반 가중 → 능력치 차 200+에서 +/-0.1 saturate
-    // 최종 0.4~0.6 캡 → ZvZ 같은 변수 많은 매치업에서도 분기 선택은 60/40 이내
+    // 가중치 적용 (50:50 블렌딩):
+    //   baseProbability 50% + (병력 댐핑 + 능력치 보정) 50%
+    //   → 시나리오 작성자가 baseProbability로 승률 제어 가능하면서도
+    //     선수 능력치/경기 흐름이 결전에 반영됨
+    // 최종 0.4~0.6 캡 → 60/40 max
     const armyDampening = 0.2;
     final adjustedWeights = <double>[];
     for (final branch in branches) {
@@ -3110,8 +3111,9 @@ class MatchSimulationService {
           }
         }
 
-        // 최종 0.4 ~ 0.6 캡 → 60/40 max
-        adjustedWeights.add((dampedRatio + statBias).clamp(0.4, 0.6));
+        final armyStatWeight = dampedRatio + statBias;
+        // baseProbability 50% + 병력/능력치 50% 블렌딩, 0.4~0.6 캡
+        adjustedWeights.add((branch.baseProbability * 0.5 + armyStatWeight * 0.5).clamp(0.4, 0.6));
       } else {
         adjustedWeights.add(branch.baseProbability);
       }

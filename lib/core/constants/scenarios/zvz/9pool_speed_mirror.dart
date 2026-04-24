@@ -164,6 +164,8 @@ const _zvz9poolSpeedMirror = ScenarioScript(
         // ── 분기 A: 센터 저글링 싸움 → 홈 컨트롤 승리 (decisive) ──
         ScriptBranch(
           id: 'center_home_wins',
+          description: '(phase2) 분기A - 센터 저글링 홈 승',
+          baseProbability: 0.2,
           conditionStat: 'control+attack',
           events: [
             ScriptEvent(
@@ -220,6 +222,8 @@ const _zvz9poolSpeedMirror = ScenarioScript(
         // ── 분기 B: 센터 저글링 싸움 → 어웨이 컨트롤 승리 (decisive) ──
         ScriptBranch(
           id: 'center_away_wins',
+          description: '(phase2) 분기B - 센터 저글링 어웨이 승',
+          baseProbability: 0.2,
           conditionStat: 'control+attack',
           homeStatMustBeHigher: false,
           events: [
@@ -277,6 +281,8 @@ const _zvz9poolSpeedMirror = ScenarioScript(
         // ── 분기 C: 엇갈림 → 홈 멀티태스킹 승리 (decisive) ──
         ScriptBranch(
           id: 'cross_home_wins',
+          description: '(phase2) 분기C - 엇갈림 홈 승',
+          baseProbability: 0.2,
           conditionStat: 'control+defense',
           events: [
             ScriptEvent(
@@ -347,6 +353,8 @@ const _zvz9poolSpeedMirror = ScenarioScript(
         // ── 분기 D: 엇갈림 → 어웨이 멀티태스킹 승리 (decisive) ──
         ScriptBranch(
           id: 'cross_away_wins',
+          description: '(phase2) 분기D - 엇갈림 어웨이 승',
+          baseProbability: 0.2,
           conditionStat: 'control+defense',
           homeStatMustBeHigher: false,
           events: [
@@ -418,7 +426,8 @@ const _zvz9poolSpeedMirror = ScenarioScript(
         // ── 분기 E: 양쪽 눈치 싸움 → 레어 전환 (non-decisive → Phase 3) ──
         ScriptBranch(
           id: 'both_transition',
-          baseProbability: 0.5,
+          description: '(phase2) 분기E - 양쪽 레어 전환',
+          baseProbability: 2.0,
           events: [
             ScriptEvent(
               text: '양쪽 다 큰 싸움은 피하며 소수의 저글링으로 계속 상대방을 확인합니다.',
@@ -480,7 +489,8 @@ const _zvz9poolSpeedMirror = ScenarioScript(
         // 레어 150원 = 저글링 6기 차이를 노리는 타이밍 공격
         ScriptBranch(
           id: 'home_ling_allin',
-          baseProbability: 0.3,
+          description: '(phase2) 분기F - 홈 저글링 올인',
+          baseProbability: 0.2,
           conditionStat: 'attack',
           events: [
             ScriptEvent(
@@ -515,7 +525,8 @@ const _zvz9poolSpeedMirror = ScenarioScript(
         // ── 분기 G: 어웨이 저글링 올인 vs 홈 레어 (non-decisive → Phase 3) ──
         ScriptBranch(
           id: 'away_ling_allin',
-          baseProbability: 0.3,
+          description: '(phase2) 분기G - 어웨이 저글링 올인',
+          baseProbability: 0.2,
           conditionStat: 'attack',
           homeStatMustBeHigher: false,
           events: [
@@ -558,6 +569,7 @@ const _zvz9poolSpeedMirror = ScenarioScript(
         // ── 양쪽 레어 → 뮤탈전 여러 라운드 → 홈 승리 ──
         ScriptBranch(
           id: 'both_muta_home_wins',
+          description: '(phase3) 분기A - 뮤탈전 홈 승',
           conditionPriorBranchIds: ['both_transition'],
           conditionStat: 'control+sense',
           events: [
@@ -638,6 +650,7 @@ const _zvz9poolSpeedMirror = ScenarioScript(
         // ── 양쪽 레어 → 뮤탈전 여러 라운드 → 어웨이 승리 ──
         ScriptBranch(
           id: 'both_muta_away_wins',
+          description: '(phase3) 분기B - 뮤탈전 어웨이 승',
           conditionPriorBranchIds: ['both_transition'],
           conditionStat: 'control+sense',
           homeStatMustBeHigher: false,
@@ -765,6 +778,7 @@ const _zvz9poolSpeedMirror = ScenarioScript(
         // ── 홈 올인 성공: 저글링 물량으로 레어 건설 중인 어웨이 붕괴 ──
         ScriptBranch(
           id: 'home_ling_crush',
+          description: '(phase3) 분기C - 홈 올인 성공',
           conditionPriorBranchIds: ['home_ling_allin'],
           conditionStat: 'control+sense',
           events: [
@@ -801,6 +815,7 @@ const _zvz9poolSpeedMirror = ScenarioScript(
         // ── 홈 올인 실패: 어웨이가 수비 → 빠른 뮤탈 → 스커지 저격 ──
         ScriptBranch(
           id: 'home_allin_fails',
+          description: '(phase3) 분기D - 홈 올인 실패',
           conditionPriorBranchIds: ['home_ling_allin'],
           conditionStat: 'defense+sense',
           homeStatMustBeHigher: false,
@@ -866,6 +881,7 @@ const _zvz9poolSpeedMirror = ScenarioScript(
         // ── 어웨이 올인 성공: 저글링 물량으로 레어 건설 중인 홈 붕괴 ──
         ScriptBranch(
           id: 'away_ling_crush',
+          description: '(phase3) 분기E - 어웨이 올인 성공',
           conditionPriorBranchIds: ['away_ling_allin'],
           conditionStat: 'control+sense',
           homeStatMustBeHigher: false,
@@ -903,6 +919,7 @@ const _zvz9poolSpeedMirror = ScenarioScript(
         // ── 어웨이 올인 실패: 홈이 수비 → 빠른 뮤탈 → 스커지 저격 ──
         ScriptBranch(
           id: 'away_allin_fails',
+          description: '(phase3) 분기F - 어웨이 올인 실패',
           conditionPriorBranchIds: ['away_ling_allin'],
           conditionStat: 'defense+sense',
           events: [

@@ -146,6 +146,7 @@ const _zvz9poolLairMirror = ScenarioScript(
         // 분기A: home 저글링 싸움 압도 → home 승
         ScriptBranch(
           id: 'home_ling_win',
+          description: '(phase1) 분기A - 저글링 홈 승',
           baseProbability: 0.6,
           conditionStat: 'attack+control',
           events: [
@@ -191,6 +192,7 @@ const _zvz9poolLairMirror = ScenarioScript(
         // 분기B: away 저글링 싸움 압도 → away 승
         ScriptBranch(
           id: 'away_ling_win',
+          description: '(phase1) 분기B - 저글링 어웨이 승',
           baseProbability: 0.6,
           conditionStat: 'attack+control',
           homeStatMustBeHigher: false,
@@ -237,6 +239,7 @@ const _zvz9poolLairMirror = ScenarioScript(
         // 분기C: 비등 → 다음 페이즈
         ScriptBranch(
           id: 'ling_even',
+          description: '(phase1) 분기C - 저글링 비등',
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -342,6 +345,7 @@ const _zvz9poolLairMirror = ScenarioScript(
         // 분기A: home 뮤탈 압도 → home 승
         ScriptBranch(
           id: 'muta_home_win',
+          description: '(phase3) 분기A - 뮤탈 홈 승',
           baseProbability: 0.7,
           conditionStat: 'sense+control',
           events: [
@@ -406,6 +410,7 @@ const _zvz9poolLairMirror = ScenarioScript(
         // 분기B: away 뮤탈 압도 → away 승
         ScriptBranch(
           id: 'muta_away_win',
+          description: '(phase3) 분기B - 뮤탈 어웨이 승',
           baseProbability: 0.7,
           conditionStat: 'sense+control',
           homeStatMustBeHigher: false,
@@ -471,6 +476,7 @@ const _zvz9poolLairMirror = ScenarioScript(
         // 분기C: 비등 → 앞마당 시도 → 다음 페이즈
         ScriptBranch(
           id: 'muta_even',
+          description: '(phase3) 분기C - 뮤탈 비등',
           baseProbability: 1.0,
           events: [
             ScriptEvent(
@@ -532,6 +538,7 @@ const _zvz9poolLairMirror = ScenarioScript(
         // 분기A: home 뮤탈 업그레이드 우위 → home 승
         ScriptBranch(
           id: 'upgrade_home_win',
+          description: '(phase4) 분기A - 업그레이드 홈 승',
           baseProbability: 0.7,
           conditionStat: 'control',
           events: [
@@ -587,6 +594,7 @@ const _zvz9poolLairMirror = ScenarioScript(
         // 분기B: away 뮤탈 업그레이드 우위 → away 승
         ScriptBranch(
           id: 'upgrade_away_win',
+          description: '(phase4) 분기B - 업그레이드 어웨이 승',
           baseProbability: 0.7,
           conditionStat: 'control',
           homeStatMustBeHigher: false,
@@ -643,6 +651,7 @@ const _zvz9poolLairMirror = ScenarioScript(
         // 분기C: away 업그레이드 앞서지만 home 스커지+본진 방어 역전 → home 승
         ScriptBranch(
           id: 'scourge_reversal_home',
+          description: '(phase4) 분기C - 스커지 역전 홈 승',
           baseProbability: 0.5,
           conditionStat: 'strategy+sense',
           events: [
@@ -698,6 +707,7 @@ const _zvz9poolLairMirror = ScenarioScript(
         // 분기D: home 업그레이드 앞서지만 away 스커지+본진 방어 역전 → away 승
         ScriptBranch(
           id: 'scourge_reversal_away',
+          description: '(phase4) 분기D - 스커지 역전 어웨이 승',
           baseProbability: 0.5,
           conditionStat: 'strategy+sense',
           homeStatMustBeHigher: false,
@@ -754,6 +764,7 @@ const _zvz9poolLairMirror = ScenarioScript(
         // 분기E: 비등 → 추가 확장 → 다음 페이즈
         ScriptBranch(
           id: 'mid_even',
+          description: '(phase4) 분기E - 중반 비등',
           baseProbability: 0.5,
           events: [
             ScriptEvent(
@@ -806,6 +817,7 @@ const _zvz9poolLairMirror = ScenarioScript(
         // 분기A: home 디바우러 → home 승
         ScriptBranch(
           id: 'devourer_home_win',
+          description: '(phase5) 분기A - 디바우러 홈 승',
           baseProbability: 0.6,
           conditionStat: 'macro',
           events: [
@@ -860,6 +872,7 @@ const _zvz9poolLairMirror = ScenarioScript(
         // 분기B: away 디바우러 → away 승
         ScriptBranch(
           id: 'devourer_away_win',
+          description: '(phase5) 분기B - 디바우러 어웨이 승',
           baseProbability: 0.6,
           conditionStat: 'macro',
           homeStatMustBeHigher: false,

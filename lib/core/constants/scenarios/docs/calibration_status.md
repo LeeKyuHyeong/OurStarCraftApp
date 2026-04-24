@@ -181,8 +181,8 @@
 | 2 | 9pool_speed_mirror | zvz_9pool_speed | zvz_9pool_speed | Y |
 | 3 | 9pool_lair_mirror | zvz_9pool_lair | zvz_9pool_lair | Y |
 | 4 | 9overpool_mirror | zvz_9overpool | zvz_9overpool | Y |
-| 5 | 12pool_mirror | zvz_12pool | zvz_12pool | O |
-| 6 | 12hatch_mirror | zvz_12hatch | zvz_12hatch | O |
+| 5 | 12pool_mirror | zvz_12pool | zvz_12pool | Y |
+| 6 | 12hatch_mirror | zvz_12hatch | zvz_12hatch | Y |
 
 ### 크로스 (15개)
 

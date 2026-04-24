@@ -115,6 +115,7 @@ const _zvz4PoolMirror = ScenarioScript(
         // ── 분기 A: 센터 교전 → 홈 컨트롤 승리 ──
         ScriptBranch(
           id: 'center_home_wins',
+          description: '(phase1) 분기A - 센터 교전 홈 승',
           conditionStat: 'control+attack',
           events: [
             ScriptEvent(
@@ -166,6 +167,7 @@ const _zvz4PoolMirror = ScenarioScript(
         // ── 분기 B: 센터 교전 → 어웨이 컨트롤 승리 ──
         ScriptBranch(
           id: 'center_away_wins',
+          description: '(phase1) 분기B - 센터 교전 어웨이 승',
           conditionStat: 'control+attack',
           homeStatMustBeHigher: false,
           events: [
@@ -218,6 +220,7 @@ const _zvz4PoolMirror = ScenarioScript(
         // ── 분기 C: 엇갈림 → 홈 멀티태스킹 승리 ──
         ScriptBranch(
           id: 'cross_home_wins',
+          description: '(phase1) 분기C - 엇갈림 홈 승',
           conditionStat: 'control+defense',
           events: [
             ScriptEvent(
@@ -279,6 +282,7 @@ const _zvz4PoolMirror = ScenarioScript(
         // ── 분기 D: 엇갈림 → 어웨이 멀티태스킹 승리 ──
         ScriptBranch(
           id: 'cross_away_wins',
+          description: '(phase1) 분기D - 엇갈림 어웨이 승',
           conditionStat: 'control+defense',
           homeStatMustBeHigher: false,
           events: [

@@ -16,13 +16,13 @@ const _zvpHydraLurkerVsDragoonPush = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 해처리 앞마당을 빠르게 올립니다.',
+          text: '{home} 선수 드론을 9개까지 뽑습니다.',
           owner: LogOwner.home,
           homeArmy: 0,
           awayArmy: 0,
           awayResource: 0,
           homeResource: -20,
-          altText: '{home} 선수, 앞마당 해처리가 건설됩니다. 안정적인 오프닝이네요.',
+          altText: '{home} 선수, 9드론까지 생산합니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 게이트웨이와 사이버네틱스 코어를 건설합니다.',

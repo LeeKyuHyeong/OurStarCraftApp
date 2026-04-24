@@ -16,12 +16,13 @@ const _zvpYabarwiVsCannonRush = ScenarioScript(
       startLine: 1,
       linearEvents: [
         ScriptEvent(
-          text: '{home} 선수 해처리에서 드론을 뽑으며 자원을 모읍니다.',
+          text: '{home} 선수 드론을 9개까지 뽑습니다.',
           owner: LogOwner.home,
           homeArmy: 0,
           awayArmy: 0,
           awayResource: 0,
           homeResource: 10,
+          altText: '{home} 선수, 9드론까지 생산합니다.',
         ),
         ScriptEvent(
           text: '{away} 선수 포지를 올리고 프로브를 저그 진영으로 보냅니다!',
