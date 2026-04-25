@@ -187,22 +187,22 @@
 ### 크로스 (15개)
 
 | # | 파일명 | Home | Away | 보정 |
-|---|--------|------|------|:----:|
-| 7 | 4pool_vs_9pool_speed | zvz_4pool | zvz_9pool_speed | X |
-| 8 | 4pool_vs_9pool_lair | zvz_4pool | zvz_9pool_lair | X |
-| 9 | 4pool_vs_9overpool | zvz_4pool | zvz_9overpool | X |
-| 10 | 4pool_vs_12pool | zvz_4pool | zvz_12pool | X |
-| 11 | 4pool_vs_12hatch | zvz_4pool | zvz_12hatch | X |
-| 12 | 9pool_speed_vs_9pool_lair | zvz_9pool_speed | zvz_9pool_lair | X |
-| 13 | 9pool_speed_vs_9overpool | zvz_9pool_speed | zvz_9overpool | X |
-| 14 | 9pool_speed_vs_12pool | zvz_9pool_speed | zvz_12pool | X |
-| 15 | 9pool_speed_vs_12hatch | zvz_9pool_speed | zvz_12hatch | X |
-| 16 | 9pool_lair_vs_9overpool | zvz_9pool_lair | zvz_9overpool | X |
-| 17 | 9pool_lair_vs_12pool | zvz_9pool_lair | zvz_12pool | X |
-| 18 | 9pool_lair_vs_12hatch | zvz_9pool_lair | zvz_12hatch | X |
-| 19 | 9overpool_vs_12pool | zvz_9overpool | zvz_12pool | X |
-| 20 | 9overpool_vs_12hatch | zvz_9overpool | zvz_12hatch | X |
-| 21 | 12hatch_vs_12pool | zvz_12hatch | zvz_12pool | X |
+|---|--------|------|------|:--:|
+| 7 | 4pool_vs_9pool_speed | zvz_4pool | zvz_9pool_speed | Y |
+| 8 | 4pool_vs_9pool_lair | zvz_4pool | zvz_9pool_lair | X  |
+| 9 | 4pool_vs_9overpool | zvz_4pool | zvz_9overpool | X  |
+| 10 | 4pool_vs_12pool | zvz_4pool | zvz_12pool | X  |
+| 11 | 4pool_vs_12hatch | zvz_4pool | zvz_12hatch | X  |
+| 12 | 9pool_speed_vs_9pool_lair | zvz_9pool_speed | zvz_9pool_lair | X  |
+| 13 | 9pool_speed_vs_9overpool | zvz_9pool_speed | zvz_9overpool | X  |
+| 14 | 9pool_speed_vs_12pool | zvz_9pool_speed | zvz_12pool | X  |
+| 15 | 9pool_speed_vs_12hatch | zvz_9pool_speed | zvz_12hatch | X  |
+| 16 | 9pool_lair_vs_9overpool | zvz_9pool_lair | zvz_9overpool | X  |
+| 17 | 9pool_lair_vs_12pool | zvz_9pool_lair | zvz_12pool | X  |
+| 18 | 9pool_lair_vs_12hatch | zvz_9pool_lair | zvz_12hatch | X  |
+| 19 | 9overpool_vs_12pool | zvz_9overpool | zvz_12pool | X  |
+| 20 | 9overpool_vs_12hatch | zvz_9overpool | zvz_12hatch | X  |
+| 21 | 12hatch_vs_12pool | zvz_12hatch | zvz_12pool | X  |
 
 ---
 
