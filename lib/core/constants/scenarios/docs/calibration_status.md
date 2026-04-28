@@ -10,13 +10,13 @@
 
 | 종족전 | 시나리오 | 보정 루프 | Y | O | X/ㅁ | 진행률 |
 |--------|:-------:|:---------:|:-:|:-:|:---:|:-----:|
-| ZvZ | 21 | 재검증 | 1 | 5 | 15 | 5% |
+| ZvZ | 21 | 재검증 | 4 | 5 | 12 | 19% |
 | TvT | 36 | 재검증 | 0 | 8 | 28 | 0% |
 | TvZ | 56 | 재검증 | 0 | 0 | 56 | 0% |
 | PvT | 54 | FAIL | 0 | 0 | 54 | 0% |
 | PvP | 36 | 재검증 | 0 | 0 | 36 | 0% |
 | ZvP | 63 | 재검증 | 0 | 0 | 63 | 0% |
-| **합계** | **266** | | **1** | **13** | **252** | **0%** |
+| **합계** | **266** | | **4** | **13** | **249** | **2%** |
 
 ---
 
@@ -189,9 +189,9 @@
 | # | 파일명 | Home | Away | 보정 |
 |---|--------|------|------|:--:|
 | 7 | 4pool_vs_9pool_speed | zvz_4pool | zvz_9pool_speed | Y |
-| 8 | 4pool_vs_9pool_lair | zvz_4pool | zvz_9pool_lair | X  |
-| 9 | 4pool_vs_9overpool | zvz_4pool | zvz_9overpool | X  |
-| 10 | 4pool_vs_12pool | zvz_4pool | zvz_12pool | X  |
+| 8 | 4pool_vs_9pool_lair | zvz_4pool | zvz_9pool_lair | Y  |
+| 9 | 4pool_vs_9overpool | zvz_4pool | zvz_9overpool | Y  |
+| 10 | 4pool_vs_12pool | zvz_4pool | zvz_12pool | Y  |
 | 11 | 4pool_vs_12hatch | zvz_4pool | zvz_12hatch | X  |
 | 12 | 9pool_speed_vs_9pool_lair | zvz_9pool_speed | zvz_9pool_lair | X  |
 | 13 | 9pool_speed_vs_9overpool | zvz_9pool_speed | zvz_9overpool | X  |
