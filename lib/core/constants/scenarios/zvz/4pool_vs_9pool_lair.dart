@@ -259,7 +259,7 @@ const _zvz4PoolVs9poolLair = ScenarioScript(
             ScriptEvent(
               owner: LogOwner.away,
               text: '{away} 선수가 큰 피해 없이 막아내며 {home} 선수 전의를 상실합니다!',
-              altText: '{away} 선수의 뮤탈이 나오면 {home} 선수는 막을 방법이 없습니다!',
+              altText: '{away} 선수가 스파이어까지 올리면 {home} 선수는 막을 방법이 없습니다!',
               homeArmy: 0,
               homeResource: 0,
               awayArmy: 0,

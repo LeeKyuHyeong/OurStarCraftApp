@@ -391,7 +391,7 @@ const _zvz9poolSpeedMirror = ScenarioScript(
               homeResource: -150,
               awayResource: -50,
               homeArmy: -3,
-              altText: '{away} 드론을 뭉쳐서 히드라처럼 사용하며 피해를 최소화 합니다! 저글링도 추가 생산되며 수비합니다!',
+              altText: '{away} 선수 드론을 뭉쳐서 저글링을 잡아냅니다! 추가 저글링도 생산되며 수비합니다!',
             ),
             ScriptEvent(
               text: '{away} 선수 뛰어난 화면전환으로 본인 드론은 다 살리고 상대방 드론은 끝까지 쫓아가서 죽입니다, 상대방의 추가 저글링도 각개격파 당합니다!',
@@ -500,7 +500,7 @@ const _zvz9poolSpeedMirror = ScenarioScript(
               awayArmy: 0,
               homeResource: -50,
               awayResource: -250,
-              altText: '{away} 선수 저글링을 빼고 레어 선택, 뮤탈 싸움을 이어가겠다는 거죠.',
+              altText: '{away} 선수 저글링을 빼고 레어 선택, 공중전을 이어가겠다는 거죠.',
             ),
             ScriptEvent(
               text: '{home} 선수 레어는 조금 미루고 저글링을 추가적으로 더 뽑는데요!',
@@ -574,13 +574,13 @@ const _zvz9poolSpeedMirror = ScenarioScript(
           conditionStat: 'control+sense',
           events: [
             ScriptEvent(
-              text: '뮤탈 싸움 직전인데요, 오버로드를 잘 숨기는 것도 실력입니다.',
+              text: '양쪽 스파이어가 완성됩니다! 오버로드를 잘 숨기는 것도 실력입니다.',
               owner: LogOwner.system,
               homeResource: -100,
               awayResource: -100,
               homeArmy: 0,
               awayArmy: 0,
-              altText: '곧 뮤탈이 뜨면서 싸움이 시작될텐데 오버로드 한 두기 끊기는 건 영향이 클 수 있으니 잘 숨겨놔야합니다.',
+              altText: '양쪽 스파이어 완성! 오버로드 한 두기 끊기는 건 영향이 클 수 있으니 잘 숨겨놔야합니다.',
             ),
             ScriptEvent(
               text: '{home} 선수, 굉장히 안전하게 본진에 성큰을 박고 스커지를 먼저 뽑아줍니다.',
@@ -656,7 +656,7 @@ const _zvz9poolSpeedMirror = ScenarioScript(
           homeStatMustBeHigher: false,
           events: [
             ScriptEvent(
-              text: '오버로드를 상대방 진영에서 빼주면서 서로 뮤탈 싸움을 준비합니다.',
+              text: '양쪽 스파이어가 올라갑니다! 오버로드를 상대방 진영에서 빼줍니다.',
               owner: LogOwner.system,
               homeResource: -100,
               awayResource: -100,
@@ -808,7 +808,7 @@ const _zvz9poolSpeedMirror = ScenarioScript(
               homeResource: 0,
               awayResource: 0,
               decisive: true,
-              altText: '{away} 선수 자칫하면 테크에서 밀릴 수 있던 과감한 선택이 승기를 가져옵니다!',
+              altText: '{home} 선수 자칫하면 테크에서 밀릴 수 있던 과감한 선택이 승기를 가져옵니다!',
             ),
           ],
         ),
@@ -948,7 +948,7 @@ const _zvz9poolSpeedMirror = ScenarioScript(
               awayArmy: 1,
               awayResource: -50,
               homeResource: -300,
-              altText: '{away} 선수 레어 완성 되자마자 스파이어 건설하며 수비 이어갑니다. 막기만 하면 유리하죠!',
+              altText: '{home} 선수 레어 완성 되자마자 스파이어 건설하며 수비 이어갑니다. 막기만 하면 유리하죠!',
             ),
             ScriptEvent(
               text: '{home} 선수 뮤탈을 기다리며 수비적으로 본진에 성큰까지 올리며 저글링에 대한 수비력을 더더욱 높입니다!',
@@ -966,7 +966,7 @@ const _zvz9poolSpeedMirror = ScenarioScript(
               awayArmy: -6,
               homeResource: -50,
               awayResource: -250,
-              altText: '{away} 선수 이미 뮤탈은 늦었다는 판단, 저글링 올인을 선택하지만 본진에서 수비하고 있는 {home} 선수에게 쉽게 막힙니다!',
+              altText: '{away} 선수 이미 테크 차이를 극복할 수 없다는 판단, 저글링 올인을 선택하지만 본진에서 수비하고 있는 {home} 선수에게 쉽게 막힙니다!',
             ),
             ScriptEvent(
               text: '수비 성공한 순간부터 {home} 선수는 너무 여유롭죠, 뮤탈 뽑아서 상대방 진영으로 이동합니다!',

@@ -273,8 +273,8 @@ const _zvz9poolLairMirror = ScenarioScript(
             ),
             ScriptEvent(
               owner: LogOwner.system,
-              text: '결정적인 차이가 안 납니다! 뮤탈전으로 넘어갑니다!',
-              altText: '저글링 교전은 비등! 승부는 뮤탈전에서 갈립니다!',
+              text: '결정적인 차이가 안 납니다! 이제 스파이어를 올려야죠!',
+              altText: '저글링 교전은 비등! 승부는 공중전에서 갈립니다!',
               homeArmy: 0,
               homeResource: -50,
               awayArmy: 0,
@@ -352,7 +352,7 @@ const _zvz9poolLairMirror = ScenarioScript(
             ScriptEvent(
               owner: LogOwner.home,
               text: '{home} 선수 스파이어 완성! 뮤탈리스크가 나옵니다!',
-              altText: '{home} 선수, 스파이어에서 뮤탈이 쏟아집니다!',
+              altText: '{home} 선수, 스파이어 완성과 동시에 뮤탈을 뽑아냅니다!',
               homeArmy: 4,
               homeResource: -400,
               awayArmy: 0,
@@ -418,7 +418,7 @@ const _zvz9poolLairMirror = ScenarioScript(
             ScriptEvent(
               owner: LogOwner.away,
               text: '{away} 선수 스파이어 완성! 뮤탈리스크가 나옵니다!',
-              altText: '{away} 선수, 스파이어에서 뮤탈이 쏟아집니다!',
+              altText: '{away} 선수, 스파이어 완성과 동시에 뮤탈을 뽑아냅니다!',
               homeArmy: 0,
               homeResource: 0,
               awayArmy: 4,
@@ -799,7 +799,7 @@ const _zvz9poolLairMirror = ScenarioScript(
             ScriptEvent(
               owner: LogOwner.system,
               text: '서로 피해를 조금씩 주면서도 결판은 안 납니다! 초장기전으로!',
-              altText: '양쪽 확장까지 완료! 디바우러 테크가 나올 수도 있습니다!',
+              altText: '양쪽 확장까지 완료! 초장기전 냄새가 납니다!',
               homeArmy: 0,
               homeResource: 200,
               awayArmy: 0,
@@ -842,7 +842,7 @@ const _zvz9poolLairMirror = ScenarioScript(
             ScriptEvent(
               owner: LogOwner.home,
               text: '{home} 선수, 그레이터 스파이어 완성! 뮤탈리스크가 디바우러로 변태합니다!',
-              altText: '{home} 선수, 디바우러가 나옵니다! 공중전의 끝판왕!',
+              altText: '{home} 선수, 그레이터 스파이어에서 디바우러가 나옵니다! 공중전의 끝판왕!',
               homeArmy: 3,
               homeResource: -450,
               awayArmy: 0,
@@ -898,7 +898,7 @@ const _zvz9poolLairMirror = ScenarioScript(
             ScriptEvent(
               owner: LogOwner.away,
               text: '{away} 선수, 그레이터 스파이어 완성! 뮤탈리스크가 디바우러로 변태합니다!',
-              altText: '{away} 선수, 디바우러가 나옵니다! 공중전의 끝판왕!',
+              altText: '{away} 선수, 그레이터 스파이어에서 디바우러가 나옵니다! 공중전의 끝판왕!',
               homeArmy: 0,
               homeResource: 0,
               awayArmy: 3,

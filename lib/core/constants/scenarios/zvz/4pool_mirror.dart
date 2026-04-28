@@ -305,7 +305,7 @@ const _zvz4PoolMirror = ScenarioScript(
               altText: '{home} 선수 저글링이 {away} 선수의 본진에 침투했습니다! 상대방 드론을 노립니다!',
             ),
             ScriptEvent(
-              text: '{away} 선수 드론을 뭉치며 거의 히드라 처럼 저글링 수비를 합니다. 추가 저글링도 나오며 수비를 돕는데요!',
+              text: '{away} 선수 드론을 뭉치며 드론을 뭉쳐서 저글링 수비를 합니다. 추가 저글링도 나오며 수비를 돕는데요!',
               owner: LogOwner.away,
               awayArmy: 1,
               homeResource: -150,
