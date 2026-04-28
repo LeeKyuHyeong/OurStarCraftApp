@@ -48,5 +48,3 @@ windows/flutter/generated_*
 
 # 보정 루프 산출물 (3games/1000stats 통계 파일은 git 추적, 아래만 제외)
 test/output/*/log.json
-test/output/*/log_result.md
-test/output/*/result.md
